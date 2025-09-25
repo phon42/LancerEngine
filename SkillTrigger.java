@@ -27,12 +27,20 @@ public class SkillTrigger {
     public int getValue() {
         return value;
     }
+    /**
+     * Sets this.name to the provided value.
+     * @param name a String which cannot be null.
+     */
     public void setName(String name) {
         if (name == null) {
             throw new IllegalArgumentException("New name value is null");
         }
         this.name = name;
     }
+    /**
+     * Sets this.value to the provided value.
+     * @param value an int which must be -1, 2, 4, or 6.
+     */
     public void setValue(int value) {
         if (value < -1) {
             throw new IllegalArgumentException("New value is < -1");
@@ -41,11 +49,18 @@ public class SkillTrigger {
             throw new IllegalArgumentException("New value is > 6");
         }
         if (value == 0 || value == 1 || value == 3 || value == 5) {
-            throw new IllegalArgumentException("New value is an invalid value");
+            throw new IllegalArgumentException("New value is an invalid"
+                + " value");
         }
         this.value = value;
     }
 
+    /**
+     * Compares this SkillTrigger object and obj. If they are the same class,
+     *     returns true.
+     * @param obj an Object to be compared to.
+     * @return a boolean representing whether the two Objects are the same.
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -56,6 +71,13 @@ public class SkillTrigger {
         }
         return true;
     }
+    /**
+     * Compares this SkillTrigger object and skillTrigger. If they have the same
+     *     property values, returns true.
+     * @param skillTrigger a SkillTrigger to be compared to.
+     * @return a boolean representing whether the two SkillTriggers are the
+     *     same.
+     */
     public boolean equals(SkillTrigger skillTrigger) {
         if (skillTrigger == null) {
             return false;
@@ -68,5 +90,21 @@ public class SkillTrigger {
         }
         
         return true;
+    }
+    /**
+     * Tests whether this SkillTrigger object's properties have any placeholder
+     *     values.
+     * @return a boolean representing whether this SkillTrigger object has any
+     *     placeholder values.
+     */
+    public boolean hasPlaceholders() {
+        if (getName().equals("")) {
+            return true;
+        }
+        if (getValue() == -1) {
+            return true;
+        }
+
+        return false;
     }
 }
