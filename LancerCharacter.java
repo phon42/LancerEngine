@@ -1,5 +1,6 @@
 /**
- * Contains the data of a single Lancer character, including the pilot and their mech
+ * Contains the data of a single Lancer character, including the pilot and their
+ *     mech
  * Stores a Pilot object and a Mech object
  */
 public class LancerCharacter {
@@ -29,8 +30,10 @@ public class LancerCharacter {
 
     /**
      * Performs the "Generate Statblock" function from COMP/CON, printing out
-     *     details of a pilot and their mech depending on what output is demanded
-     * @param outputType a String controlling which details to include in the printout
+     *     details of a pilot and their mech depending on what output is
+     *     demanded
+     * @param outputType a String controlling which details to include in the
+     *     printout
      * @return a String of the mech/pilot's statblock
      */
     public String generateStatblock(String outputType) {
@@ -51,7 +54,7 @@ public class LancerCharacter {
         int[] mechSkills = getPilot().getMechSkills();
 
         outputType = outputType.toLowerCase();
-        if (outputType == "mech build") {
+        if (outputType.equals("mech build")) {
             if (! hasMech) {
                 outputString += ">> NO MECH SELECTED <<";
                 return outputString;
@@ -64,9 +67,9 @@ public class LancerCharacter {
             outputString += getMech().outputWeapons("mech build");
             outputString += "[ SYSTEMS ]\n";
             outputString += getMech().outputSystems("mech build");
-            } else if (outputType == "pilot") {
+            } else if (outputType.equals("pilot")) {
                 outputString += pilot.generateOutput(outputType);
-            } else if (outputType == "full") {
+            } else if (outputType.equals("full")) {
                 outputString += pilot.generateOutput(outputType);
             if (! hasMech) {
                 outputString += ">> NO MECH SELECTED <<";
@@ -132,7 +135,7 @@ public class LancerCharacter {
         myCharacter.setPilot(myPilot);
         myCharacter.setMech(myMech);
 
-        // System.out.println(myCharacter.generateStatblock("pilot"));
+        // System.out.print(myCharacter.generateStatblock("pilot"));
         Testers.runTests();
     }
 }
