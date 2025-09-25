@@ -27,25 +27,87 @@ public class License {
     public int getLicenseLevel() {
         return licenseLevel;
     }
+    /**
+     * Sets this.frame to the value provided.
+     * @param frame a String which cannot be null.
+     */
+    public void setFrame(String frame) {
+        if (frame == null) {
+            throw new IllegalArgumentException("New value for frame is"
+                + " null");
+        }
+        this.frame = frame;
+    }
+    /**
+     * Sets this.licenseLevel to the value provided.
+     * @param licenseLevel an int which must be between -1 and 3 (inclusive)
+     *     and cannot be null.
+     */
     public void setLicenseLevel(int licenseLevel) {
         if (licenseLevel < -1) {
             throw new IllegalArgumentException("New value for license level "
-                + "was < -1");
+                + "is < -1");
         }
         if (licenseLevel == 0) {
             throw new IllegalArgumentException("New value for license level "
-                + "was 0");
+                + "is 0");
         }
         if (licenseLevel > 3) {
             throw new IllegalArgumentException("New value for license level "
-                + "was > 3");
+                + "is > 3");
         }
         this.licenseLevel = licenseLevel;
     }
-    public void setFrame(String frame) {
-        if (frame == null) {
-            throw new IllegalArgumentException("New value for frame was null");
+
+    /**
+     * Compares this License object and obj. If they are the same class, returns
+     *     true.
+     * @param obj an Object to be compared to.
+     * @return a boolean representing whether the two Objects are the same.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
         }
-        this.frame = frame;
+        if (obj.getClass() != getClass()) {
+            return false;
+        }
+        return true;
+    }
+    /**
+     * Compares this License object and license. If they have the same property
+     *     values, returns true.
+     * @param license a License to be compared to.
+     * @return a boolean representing whether the two Licenses are the same.
+     */
+    public boolean equals(License license) {
+        if (license == null) {
+            return false;
+        }
+        if (! license.getFrame().equals(getFrame())) {
+            return false;
+        }
+        if (license.getLicenseLevel() != getLicenseLevel()) {
+            return false;
+        }
+        
+        return true;
+    }
+    /**
+     * Checks whether this License object has any properties set to placeholder
+     *     values.
+     * @return a boolean representing whether this License object has any
+     *     properties set to placeholder values.
+     */
+    public boolean hasPlaceholders() {
+        if (getFrame().equals("")) {
+            return true;
+        }
+        if (getLicenseLevel() == -1) {
+            return true;
+        }
+
+        return false;
     }
 }
