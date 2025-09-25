@@ -102,11 +102,12 @@ public class Mech {
     }
     public void setCurrentHP(int currentHP) {
         if (currentHP < 0) {
-            throw new IllegalArgumentException("Error: currentHP value provided: "
-                + currentHP + " is less than 0");
+            throw new IllegalArgumentException("Error: currentHP value"
+                + " provided: " + currentHP + " is less than 0");
         } else if (currentHP > getMaxHP()) {
-            throw new IllegalArgumentException("Error: currentHP value provided: "
-                + currentHP + " is greater than maxHP value " + getMaxHP());
+            throw new IllegalArgumentException("Error: currentHP value"
+                + " provided: " + currentHP + " is greater than maxHP value "
+                + getMaxHP());
         } else {
             this.currentHP = currentHP;
         }
@@ -210,7 +211,8 @@ public class Mech {
 
     public void calculateAttributes(int[] mechSkills) throws Exception {
         // TODO: fill out
-        // Calculate this mech's attributes based off of the frame template provided
+        // Calculate this mech's attributes based off of the frame template
+        //     provided
         if (frame == null) {
             throw new Exception("calculateAttributes() was called while"
                 + " frame was set to null");
@@ -239,12 +241,12 @@ public class Mech {
         String outputString = "";
 
         outputType = outputType.toLowerCase();
-        if (outputType == "mech build") {
+        if (outputType.equals("mech build")) {
             outputString += "  STRUCTURE:4 HP:19 ARMOR:0\n";
             outputString += "  STRESS:4 HEATCAP:6 REPAIR:7\n";
             outputString += "  TECH ATK:+6 LIMITED:+1\n";
             outputString += "  SPD:6 EVA:10 EDEF:13 SENSE:20 SAVE:15\n";
-        } else if (outputType == "full") {
+        } else if (outputType.equals("full")) {
             outputString += " SIZE:1\n";
             outputString += "  STRUCTURE:2/4 HP:19/19 ARMOR:0\n";
             outputString += "  STRESS:3/4 HEAT:0/6 REPAIR:7/7\n";
@@ -264,7 +266,8 @@ public class Mech {
             return outputString;
         }
         outputType = outputType.toLowerCase();
-        if (outputType == "mech build" || outputType == "full") {
+        if (outputType.equals("mech build")
+            || outputType.equals("full")) {
             for (int i = 0; i < mounts.length; i++) {
                 outputString += "  ";
                 outputString += mounts[i].outputWeapon();
@@ -281,9 +284,10 @@ public class Mech {
             return outputString;
         }
         outputType = outputType.toLowerCase();
-        if (outputType == "mech build") {
+        if (outputType.equals("mech build")) {
             // output something like:
-            //     "  Pattern-A Smoke Charges x4, Seismic Ripper, High-Stress Mag Clamps, ATHENA-Class NHP"
+            //     "  Pattern-A Smoke Charges x4, Seismic Ripper,"
+            //     " High-Stress Mag Clamps, ATHENA-Class NHP"
             for (int i = 0; i < systems.length; i++) {
                 if (i == 0) {
                     outputString += "  ";
@@ -293,7 +297,7 @@ public class Mech {
                     outputString += ", ";
                 }
             }
-        } else if (outputType == "full") {
+        } else if (outputType.equals("full")) {
             // output something along the lines of:
             //       "  Ammo Case II, Pattern-A Smoke Charges,\n"
             //     + "  Seismic Ripper, High-Stress Mag Clamps"
@@ -317,13 +321,14 @@ public class Mech {
         String outputString = "";
 
         outputType = outputType.toLowerCase();
-        if (outputType == "full") {
+        if (outputType.equals("full")) {
             // output something like "Pattern-A Smoke Charges"
             outputString += system.outputSystem(outputType);
         }
-        if (outputType == "mech build" && system.isLimited()) {
+        if (outputType.equals("mech build") && system.isLimited()) {
             // add something like " x4"
-            outputString += " x" + (system.getLimitedCharges() + limitedSystemsBonus);
+            outputString += " x" + (system.getLimitedCharges()
+                + limitedSystemsBonus);
         }
 
         return outputString;
