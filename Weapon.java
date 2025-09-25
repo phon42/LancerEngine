@@ -9,6 +9,9 @@ public class Weapon {
         return weaponName;
     }
     public void setWeaponName(String weaponName) {
+        if (weaponName == null) {
+            throw new IllegalArgumentException("New weapon name is null");
+        }
         this.weaponName = weaponName;
     }
 }
