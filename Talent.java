@@ -27,12 +27,20 @@ public class Talent {
     public int getLevel() {
         return level;
     }
+    /**
+     * Sets this.name to the provided value.
+     * @param name a String which cannot be null.
+     */
     public void setName(String name) {
         if (name == null) {
             throw new IllegalArgumentException("New value for name is null");
         }
         this.name = name;
     }
+    /**
+     * Sets this.level to the provided value.
+     * @param level an int which must be -1, 1, 2, or 3.
+     */
     public void setLevel(int level) {
         if (level < -1) {
             throw new IllegalArgumentException("New level is < -1");
@@ -46,6 +54,12 @@ public class Talent {
         this.level = level;
     }
     
+    /**
+     * Compares this Talent object and obj. If they are the same class, returns
+     *     true.
+     * @param obj an Object to be compared to.
+     * @return a boolean representing whether the two Objects are the same.
+     */
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -56,6 +70,12 @@ public class Talent {
         }
         return true;
     }
+    /**
+     * Compares this Talent object and talent. If they have the same property
+     *     values, returns true.
+     * @param talent a Talent to be compared to.
+     * @return a boolean representing whether the two Talents are the same.
+     */
     public boolean equals(Talent talent) {
         if (talent == null) {
             return false;
@@ -67,5 +87,21 @@ public class Talent {
             return false;
         }
         return true;
+    }
+    /**
+     * Checks whether this Talent object has any properties set to placeholder
+     *     values.
+     * @return a boolean representing whether this Talent object has any
+     *     properties set to placeholder values.
+     */
+    public boolean hasPlaceholders() {
+        if (getName().equals("")) {
+            return true;
+        }
+        if (getLevel() == -1) {
+            return true;
+        }
+        
+        return false;
     }
 }
