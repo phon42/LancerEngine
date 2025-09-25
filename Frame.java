@@ -120,12 +120,19 @@ public class Frame {
         return manufacturer;
     }
     public void setManufacturer(String manufacturer) {
+        if (manufacturer == null) {
+            throw new IllegalArgumentException("New manufacturer value is"
+                + " null");
+        }
         this.manufacturer = manufacturer;
     }
     public String getFrameName() {
         return frameName;
     }
     public void setFrameName(String frameName) {
+        if (frameName == null) {
+            throw new IllegalArgumentException("New frame name is null");
+        }
         this.frameName = frameName;
     }
     public String[] getRole() {
@@ -136,13 +143,17 @@ public class Frame {
 
         for (String roleString : role) {
             isValidRole = false;
+            if (roleString == null) {
+                throw new IllegalArgumentException("New role array contains"
+                    + " a role value of null");
+            }
             for (String roleMatch : allowedRoles) {
                 if (roleString.equals(roleMatch)) {
                     isValidRole = true;
                 }
             }
             if (! isValidRole) {
-                throw new IllegalArgumentException("New role set contained an "
+                throw new IllegalArgumentException("New role set contains an "
                     + "illegal role value: \"" + roleString + "\"");
             }
         }
@@ -152,6 +163,10 @@ public class Frame {
         return frameDescription;
     }
     public void setFrameDescription(String frameDescription) {
+        if (frameDescription == null) {
+            throw new IllegalArgumentException("New frame description is"
+                + " null");
+        }
         this.frameDescription = frameDescription;
     }
     public int getSize() {
@@ -159,16 +174,16 @@ public class Frame {
     }
     public void setSize(int size) {
         if (size < -1) {
-            throw new IllegalArgumentException("New frame size was < -1");
+            throw new IllegalArgumentException("New frame size is < -1");
         }
         if (size == 0) {
-            throw new IllegalArgumentException("New frame size was 0");
+            throw new IllegalArgumentException("New frame size is 0");
         }
         if (size > 8) {
-            throw new IllegalArgumentException("New frame size was > 8");
+            throw new IllegalArgumentException("New frame size is > 8");
         }
         if (size == 3 || size == 5 || size == 7) {
-            throw new IllegalArgumentException("New frame size was an invalid "
+            throw new IllegalArgumentException("New frame size is an invalid "
                 + "value: " + size);
         }
         this.size = size;
@@ -178,10 +193,11 @@ public class Frame {
     }
     public void setStructure(int structure) {
         if (structure < -1) {
-            throw new IllegalArgumentException("New structure value was < -1");
+            throw new IllegalArgumentException(
+                "New structure value is < -1");
         }
         if (structure == 0) {
-            throw new IllegalArgumentException("New structure value was 0");
+            throw new IllegalArgumentException("New structure value is 0");
         }
         this.structure = structure;
     }
@@ -190,10 +206,10 @@ public class Frame {
     }
     public void setHP(int HP) {
         if (HP < -1) {
-            throw new IllegalArgumentException("New HP value was < -1");
+            throw new IllegalArgumentException("New HP value is < -1");
         }
         if (HP == 0) {
-            throw new IllegalArgumentException("New HP value was 0");
+            throw new IllegalArgumentException("New HP value is 0");
         }
         this.HP = HP;
     }
@@ -202,7 +218,7 @@ public class Frame {
     }
     public void setArmor(int armor) {
         if (armor < -1) {
-            throw new IllegalArgumentException("New armor value was < -1");
+            throw new IllegalArgumentException("New armor value is < -1");
         }
         this.armor = armor;
     }
@@ -211,10 +227,10 @@ public class Frame {
     }
     public void setStress(int stress) {
         if (stress < -1) {
-            throw new IllegalArgumentException("New stress value was < -1");
+            throw new IllegalArgumentException("New stress value is < -1");
         }
         if (stress == 0) {
-            throw new IllegalArgumentException("New stress value was 0");
+            throw new IllegalArgumentException("New stress value is 0");
         }
         this.stress = stress;
     }
@@ -223,11 +239,12 @@ public class Frame {
     }
     public void setHeatCapacity(int heatCapacity) {
         if (heatCapacity < -1) {
-            throw new IllegalArgumentException("New heat capacity value was < "
+            throw new IllegalArgumentException("New heat capacity value is < "
                 + "-1");
         }
         if (heatCapacity == 0) {
-            throw new IllegalArgumentException("New heat capacity value was 0");
+            throw new IllegalArgumentException(
+                "New heat capacity value is 0");
         }
         this.heatCapacity = heatCapacity;
     }
@@ -236,7 +253,7 @@ public class Frame {
     }
     public void setEvasion(int evasion) {
         if (evasion < -1) {
-            throw new IllegalArgumentException("New evasion value was < -1");
+            throw new IllegalArgumentException("New evasion value is < -1");
         }
         this.evasion = evasion;
     }
@@ -245,7 +262,7 @@ public class Frame {
     }
     public void setSpeed(int speed) {
         if (speed < -1) {
-            throw new IllegalArgumentException("New speed value was < -1");
+            throw new IllegalArgumentException("New speed value is < -1");
         }
         this.speed = speed;
     }
@@ -254,7 +271,8 @@ public class Frame {
     }
     public void setEDefense(int eDefense) {
         if (eDefense < -1) {
-            throw new IllegalArgumentException("New e-defense value was < -1");
+            throw new IllegalArgumentException(
+                "New e-defense value is < -1");
         }
         this.eDefense = eDefense;
     }
@@ -269,10 +287,10 @@ public class Frame {
     }
     public void setSensors(int sensors) {
         if (sensors < -1) {
-            throw new IllegalArgumentException("New sensors value was < -1");
+            throw new IllegalArgumentException("New sensors value is < -1");
         }
         if (sensors == 0) {
-            throw new IllegalArgumentException("New sensors value was 0");
+            throw new IllegalArgumentException("New sensors value is 0");
         }
         this.sensors = sensors;
     }
@@ -281,7 +299,7 @@ public class Frame {
     }
     public void setRepairCapacity(int repairCapacity) {
         if (repairCapacity < -1) {
-            throw new IllegalArgumentException("New repair capacity value was "
+            throw new IllegalArgumentException("New repair capacity value is "
                 + "< -1");
         }
         this.repairCapacity = repairCapacity;
@@ -291,7 +309,7 @@ public class Frame {
     }
     public void setSaveTarget(int saveTarget) {
         if (saveTarget < -1) {
-            throw new IllegalArgumentException("New save target value was < "
+            throw new IllegalArgumentException("New save target value is < "
                 + "-1");
         }
         this.saveTarget = saveTarget;
@@ -301,7 +319,7 @@ public class Frame {
     }
     public void setSystemPoints(int systemPoints) {
         if (systemPoints < -1) {
-            throw new IllegalArgumentException("New system points value was < "
+            throw new IllegalArgumentException("New system points value is < "
                 + "-1");
         }
         this.systemPoints = systemPoints;
@@ -310,13 +328,13 @@ public class Frame {
         return traits;
     }
     public void setTraits(String[] traits) {
-        if (traits != null && traits.length == 0) {
-            throw new IllegalArgumentException("New traits value was an empty"
-                + " array");
+        if (traits == null) {
+            throw new IllegalArgumentException("New traits value is null");
         }
+        // TODO: does this throw an error if traits.length is 0?
         for (String trait : traits) {
             if (trait == null || trait.equals("")) {
-                throw new IllegalArgumentException("New traits value contained"
+                throw new IllegalArgumentException("New traits value contains"
                     + " a value of \"\" or null");
             }
         }
@@ -326,7 +344,15 @@ public class Frame {
         return mounts;
     }
     public void setMounts(Mount[] mounts) {
-        // TODO: expand to cover all cases
+        if (mounts == null) {
+            throw new IllegalArgumentException("New mounts value is null");
+        }
+        for (Mount mount : mounts) {
+            if (mount == null) {
+                throw new IllegalArgumentException("New mounts list contains"
+                    + " a value of null");
+            }
+        }
         this.mounts = mounts;
     }
 }
