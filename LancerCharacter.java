@@ -10,26 +10,26 @@ public class LancerCharacter {
     private Mech mech;
     
     public LancerCharacter() {
-        this.pilot = new Pilot();
-        this.mech = new Mech();
+        setPilot(new Pilot());
+        setMech(new Mech());
     }
     
     public Pilot getPilot() {
         return this.pilot;
     }
-    public void setPilot(Pilot newPilot) {
-        this.pilot = newPilot;
+    public void setPilot(Pilot pilot) {
+        this.pilot = pilot;
     }
     public Mech getMech() {
         return this.mech;
     }
-    public void setMech(Mech newMech) {
-        this.mech = newMech;
+    public void setMech(Mech mech) {
+        this.mech = mech;
     }
 
     /**
-     * Performs the "Generate Statblock" function from COMP/CON,
-     *     printing out details of a pilot and their mech depending on what output is demanded
+     * Performs the "Generate Statblock" function from COMP/CON, printing out
+     *     details of a pilot and their mech depending on what output is demanded
      * @param outputType a String controlling which details to include in the printout
      * @return a String of the mech/pilot's statblock
      */
@@ -56,7 +56,8 @@ public class LancerCharacter {
                 outputString += ">> NO MECH SELECTED <<";
                 return outputString;
             }
-            outputString += "-- " + manufacturer + " " + frameName + " @ LL" + licenseLevel + " --\n";
+            outputString += "-- " + manufacturer + " " + frameName + " @ LL"
+                + licenseLevel + " --\n";
             outputString += pilot.generateOutput(outputType);
             outputString += getMech().outputStats("mech build");
             outputString += "[ WEAPONS ]\n";
@@ -74,7 +75,9 @@ public class LancerCharacter {
             outputString += "[ MECH ]\n";
             outputString += "  « " + frameName + " »\n";
             outputString += "  " + manufacturer + " " + frameName + "\n";
-            outputString += "  H:" + mechSkills[0] + " A:" + mechSkills[1] + " S:" + mechSkills[2] + " E:" + mechSkills[3] + getMech().outputStats("full");
+            outputString += "  H:" + mechSkills[0] + " A:" + mechSkills[1]
+                + " S:" + mechSkills[2] + " E:" + mechSkills[3]
+                + getMech().outputStats("full");
             outputString += "[ WEAPONS ]\n";
             outputString += getMech().outputWeapons("full");
             outputString += "[ SYSTEMS ]\n";
@@ -104,7 +107,7 @@ public class LancerCharacter {
             new SkillTrigger("Survive", 2)
         });
         myPilot.setSkillTriggers(newSkillTriggers);
-        myPilot.setGearLoadout(new Loadout());
+        myPilot.setLoadout(new Loadout());
         myPilot.setLicenseLevel(9);
         myPilot.setLicenseList(new License[] {
             new License("SSC Swallowtail", 3),
