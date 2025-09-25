@@ -32,7 +32,8 @@ public class MechSystem {
     }
     public void setSystemName(String systemName) {
         if (systemName == null) {
-            throw new IllegalArgumentException("New value for system name was null");
+            throw new IllegalArgumentException("New value for system name is"
+                + " null");
         }
         this.systemName = systemName;
     }
@@ -41,7 +42,8 @@ public class MechSystem {
     }
     public void setLimitedCharges(int limitedCharges) {
         if (limitedCharges < 0) {
-            throw new IllegalArgumentException("New limited charges value is < 0");
+            throw new IllegalArgumentException("New limited charges value is"
+                + " < 0");
         }
         this.limitedCharges = limitedCharges;
     }
@@ -56,7 +58,8 @@ public class MechSystem {
     public String outputSystem(String outputType) {
         String outputString = "";
 
-        if (outputType == "mech build" || outputType == "full") {
+        if (outputType.equals("mech build")
+            || outputType.equals("full")) {
             outputString += systemName;
         }
 
