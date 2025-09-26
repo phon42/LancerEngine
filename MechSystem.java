@@ -17,7 +17,7 @@ public class MechSystem {
     private int limitedCharges;
 
     public MechSystem() {
-        setName("");
+        this.name = "";
         setLimitedCharges(0);
     }
     public MechSystem(String name) {
@@ -42,6 +42,9 @@ public class MechSystem {
         if (name == null) {
             throw new IllegalArgumentException("New value for name is"
                 + " null");
+        }
+        if (name.equals("")) {
+            throw new IllegalArgumentException("New name is \"\"");
         }
         this.name = name;
     }
@@ -77,5 +80,18 @@ public class MechSystem {
         }
 
         return outputString;
+    }
+    public boolean isPlaceholder() {
+        if (! getName().equals("")) {
+            return false;
+        }
+        if (isLimited()) {
+            return false;
+        }
+        if (getLimitedCharges() != 0) {
+            return false;
+        }
+
+        return true;
     }
 }

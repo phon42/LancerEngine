@@ -327,14 +327,14 @@ public class Mech {
         // Calculate this mech's attributes based off of the frame template
         //     provided
         if (frame == null) {
-            throw new IllegalArgumentException("calculateAttributes() was called while"
-                + " frame was set to null");
+            throw new IllegalArgumentException("calculateAttributes() was"
+                + " called while frame was set to null");
         }
         // Hull
-        System.out.println(frame.getName());
         setMaxHP(frame.getHP() + (mechSkills[0] * 2));
         setCurrentHP(maxHP);
         setMaxRepairCapacity(frame.getRepairCapacity() + (mechSkills[0] / 2));
+        setCurrentRepairCapacity(getMaxRepairCapacity());
 
         // Agility
         setEvasion(frame.getEvasion() + mechSkills[1]);
@@ -349,7 +349,8 @@ public class Mech {
         setMaxHeatCapacity(frame.getHeatCapacity() + mechSkills[3]);
         setCurrentHeatCapacity(0);
         setLimitedSystemsBonus(mechSkills[3] / 2);
-
+        
+        setSize(frame.getSize());
         setArmor(frame.getArmor());
         setSensors(frame.getSensors());
         setSaveTarget(frame.getSaveTarget());
@@ -528,7 +529,137 @@ public class Mech {
         return Integer.toString(getSize() / 2);
     }
     public boolean hasPlaceholders() {
-        // TODO: fill out
+        if (getName().equals("")) {
+            return true;
+        }
+        if (getFrame().isPlaceholder()) {
+            return true;
+        }
+        if (getMounts().length == 0) {
+            return true;
+        }
+        if (getSize() == -1) {
+            return true;
+        }
+        if (getCurrentHP() == -1) {
+            return true;
+        }
+        if (getMaxHP() == -1) {
+            return true;
+        }
+        if (getArmor() == -1) {
+            return true;
+        }
+        if (getCurrentHeatCapacity() == -1) {
+            return true;
+        }
+        if (getMaxHeatCapacity() == -1) {
+            return true;
+        }
+        if (getEvasion() == -1) {
+            return true;
+        }
+        if (getSpeed() == -1) {
+            return true;
+        }
+        if (getEDefense() == -1) {
+            return true;
+        }
+        if (getSensors() == -1) {
+            return true;
+        }
+        if (getCurrentRepairCapacity() == -1) {
+            return true;
+        }
+        if (getMaxRepairCapacity() == -1) {
+            return true;
+        }
+        if (getSaveTarget() == -1) {
+            return true;
+        }
+        if (getSystemPoints() == -1) {
+            return true;
+        }
+        if (getLimitedSystemsBonus() == -1) {
+            return true;
+        }
+
         return false;
+    }
+    public boolean isPlaceholder() {
+        if (! getName().equals("")) {
+            return false;
+        }
+        if (! getFrame().isPlaceholder()) {
+            return false;
+        }
+        if (! getOperatorNotes().equals("")) {
+            return false;
+        }
+        if (getMounts().length != 0) {
+            return false;
+        }
+        if (getSystems().length != 0) {
+            return false;
+        }
+        if (getSize() != -1) {
+            return false;
+        }
+        if (getCurrentStructure() != 4) {
+            return false;
+        }
+        if (getMaxStructure() != 4) {
+            return false;
+        }
+        if (getCurrentHP() != -1) {
+            return false;
+        }
+        if (getArmor() != -1) {
+            return false;
+        }
+        if (getCurrentStress() != 4) {
+            return false;
+        }
+        if (getMaxStress() != 4) {
+            return false;
+        }
+        if (getCurrentHeatCapacity() != -1) {
+            return false;
+        }
+        if (getMaxHeatCapacity() != -1) {
+            return false;
+        }
+        if (getEvasion() != -1) {
+            return false;
+        }
+        if (getSpeed() != -1) {
+            return false;
+        }
+        if (getEDefense() != -1) {
+            return false;
+        }
+        if (getTechAttack() != -1) {
+            return false;
+        }
+        if (getSensors() != -1) {
+            return false;
+        }
+        if (getCurrentRepairCapacity() != -1) {
+            return false;
+        }
+        if (getMaxRepairCapacity() != -1) {
+            return false;
+        }
+        if (getSaveTarget() != -1) {
+            return false;
+        }
+        if (getSystemPoints() != -1) {
+            return false;
+        }
+        if (getLimitedSystemsBonus() != -1) {
+            return false;
+        }
+
+        return true;
     }
 }

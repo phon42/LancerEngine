@@ -47,16 +47,46 @@ public class FrameDatabase {
             new String[] {"Initiative", "Replaceable Parts"}, new Mount[] {
                 new Mount("main", new Weapon()),
                 new Mount("flex", new Weapon()),
-                new Mount("heavy", new Weapon())})
+                new Mount("heavy", new Weapon())}),
+        new Frame("SSC", "Swallowtail (Ranger Variant)",
+            new String[] {"Support"}, "This variant can be"
+            + " taken at rank II of the SWALLOWTAIL license instead of the base"
+            + " FRAME, or gained as EXOTIC GEAR by aiding Dthall Ordo during"
+            + " the campaign.\n\nThis Swallowtail variant is common among HUC"
+            + " ranger forces. It was adopted and reverse-engineered from the"
+            + " material remains of early, abandoned SSC survey expeditions."
+            + " With no ability to print-replicate the mech, the rangers"
+            + " painstakingly manufactured and assembled each unit to high"
+            + " specifications. Unlike the sleek luxury of other SSC frames,"
+            + " this Swallowtail is a rugged affair. Each one has a suite of"
+            + " marks left by its previous owners – livery, battle paint,"
+            + " custom gear, camouflage, and weathering. They have been"
+            + " repaired and maintained for two generations and each one is"
+            + " precious to the United Cities.", 2, 4, 10,
+            0, 4, 6, 8, 4,
+            8, 0, 10, 5,
+            10, 6, new String[] {"Scout Battlefield",
+            "Invigorating Scanners", "Weathering"}, new Mount[] {
+                new Mount("flex", new Weapon()),
+                new Mount("main", new Weapon())})
     };
 
-    public static Frame getFrame(String frameName) {
+    public static Frame getFrame(String searchName) {
+        String manufacturer;
+        String frameName;
+        String originalSearch = new String(searchName);
+        
+        searchName = searchName.toLowerCase();
         for (int i = 0; i < frameList.length; i++) {
-            if (frameList[i].getName().equals(frameName)) {
+            manufacturer = frameList[i].getManufacturer().toLowerCase();
+            frameName = frameList[i].getName().toLowerCase();
+            if (frameName.equals(searchName)) {
+                return frameList[i];
+            } else if ((manufacturer + " " + frameName).equals(searchName)) {
                 return frameList[i];
             }
         }
         throw new IllegalArgumentException("No frame found for frame name: "
-            + frameName);
+            + originalSearch);
     }
 }

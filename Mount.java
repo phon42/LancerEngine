@@ -31,7 +31,7 @@ public class Mount {
     private String coreBonus;
 
     public Mount() {
-        setMountType("main");
+        this.mountType = "";
         setWeapon(new Weapon());
         setModification("");
         setCoreBonus("");
@@ -152,5 +152,27 @@ public class Mount {
         }
 
         return outputString;
+    }
+    public boolean isPlaceholder() {
+        if (! getMountType().equals("")) {
+            return false;
+        }
+        if (! getWeapon().isPlaceholder()) {
+            return false;
+        }
+        if (hasModification()) {
+            return false;
+        }
+        if (! getModification().equals("")) {
+            return false;
+        }
+        if (hasCoreBonus()) {
+            return false;
+        }
+        if (! getCoreBonus().equals("")) {
+            return false;
+        }
+        
+        return true;
     }
 }

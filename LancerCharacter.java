@@ -1,17 +1,43 @@
 /**
  * Contains the data of a single Lancer character, including the pilot and their
- *     mech
- * Stores a Pilot object and a Mech object
+ *     mech.
+ * Stores a Pilot object and a Mech object.
  */
 public class LancerCharacter {
-    // pilot
+    /**
+     * Holds a Pilot object. Cannot be a placeholder or have placeholders in
+     *     the following fields:
+     *     - Pilot Name
+     *     - Pilot Callsign
+     */
     private Pilot pilot;
     
-    // mech
+    /**
+     * Holds a Mech object. Can be a placeholder, but must either be a
+     *     placeholder or not have placeholders in the following fields:
+     *     - Mech/Chassis Name
+     *     - Frame
+     *     - Mounts
+     *     - Size
+     *     - Current HP
+     *     - Max HP
+     *     - Armor
+     *     - Current Heat Capacity
+     *     - Max Heat Capacity
+     *     - Evasion
+     *     - Speed
+     *     - E-Defense
+     *     - Sensors
+     *     - Current Repair Capacity
+     *     - Max Repair Capacity
+     *     - Save Target
+     *     - System Points
+     *     - Limited Systems Bonus
+     */
     private Mech mech;
     
-    public LancerCharacter() {
-        setPilot(new Pilot());
+    public LancerCharacter(String pilotName, String pilotCallsign) {
+        setPilot(new Pilot(pilotName, pilotCallsign));
         setMech(new Mech());
     }
     
@@ -32,14 +58,17 @@ public class LancerCharacter {
         return this.mech;
     }
     public void setMech(Mech mech) {
-        if (mech.hasPlaceholders()) {
-            throw new IllegalArgumentException("New mech value has"
-                + " placeholders");
+        if (mech == null) {
+            throw new IllegalArgumentException("New mech is null");
+        }
+        if (! mech.isPlaceholder()) {
+            if (mech.hasPlaceholders()) {
+                throw new IllegalArgumentException("New mech value has"
+                    + " placeholders");
+            }
+            mech.calculateAttributes(getPilot().getMechSkills());
         }
         this.mech = mech;
-        if (! getMech().getFrame().isPlaceholder()) {
-            getMech().calculateAttributes(getPilot().getMechSkills());
-        }
     }
 
     /**
@@ -92,14 +121,13 @@ public class LancerCharacter {
     }
 
     public static void main(String[] args) {
-        LancerCharacter myCharacter = new LancerCharacter();
-        Pilot myPilot = new Pilot();
-        Mech myMech = new Mech();
-        Frame myFrame = new Frame();
+        LancerCharacter myCharacter = new LancerCharacter(
+            "Coral Nolan", "Apocalypse");
+        Pilot myPilot = myCharacter.getPilot();
+        Mech myMech = myCharacter.getMech();
+        Frame myFrame;
         Loadout myLoadout = new Loadout();
 
-        myPilot.setName("Coral Nolan");
-        myPilot.setCallsign("Apocalypse");
         myPilot.setPlayer("Luna");
         myPilot.setBackground("e");
         myPilot.setBiography("e");
@@ -141,16 +169,24 @@ public class LancerCharacter {
             "Flexsuit", "Personal Drone"});
         myPilot.setLoadout(myLoadout);
 
-        myFrame = FrameDatabase.getFrame("Everest");
+        myFrame = FrameDatabase.getFrame("Swallowtail (Ranger Variant)");
         myMech.setFrame(myFrame);
         myMech.setName("Wraith");
         // TODO: add a way for mountType to be omitted and automatically filled
         //     in by the correct mount type as long as the index is valid
+        // TODO: make this possible again
+        /*
         myMech.setMount(0, new Mount("Integrated Weapon",
             new Weapon("Nexus (Light)")));
         myMech.setMount(1, new Mount("Flex",
             new Weapon("Slag Cannon")));
         myMech.setMount(2, new Mount("Main",
+            new Weapon("Vulture DMR"), "",
+            "Overpower Caliber"));
+        */
+        myMech.setMount(0, new Mount("Flex",
+            new Weapon("Slag Cannon")));
+        myMech.setMount(1, new Mount("Main",
             new Weapon("Vulture DMR"), "",
             "Overpower Caliber"));
         myMech.setSystems(new MechSystem[] {

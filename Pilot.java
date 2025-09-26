@@ -53,31 +53,31 @@ public class Pilot {
     // ---Narrative Profile---------
     // stats
     /**
-     * Must be between -1 (placeholder) and 6 (inclusive).
+     * Must be between 0 and 6 (inclusive).
      */
     private int grit;
     /**
-     * Must be between -1 (placeholder) and maxHP (inclusive).
+     * Must be between 1 and maxHP (inclusive).
      */
     private int currentHP;
     /**
-     * Must be >= -1 (which is a placeholder). Cannot be 0.
+     * Must be >= 1.
      */
     private int maxHP;
     /**
-     * Must be >= -1 (which is a placeholder).
+     * Must be >= 0.
      */
     private int armor;
     /**
-     * Must be >= -1 (which is a placeholder).
+     * Must be >= 0.
      */
     private int evasion;
     /**
-     * Must be >= -1 (which is a placeholder).
+     * Must be >= 0.
      */
     private int speed;
     /**
-     * Must be >= -1 (which is a placeholder).
+     * Must be >= 0.
      */
     private int eDefense;
     
@@ -112,8 +112,8 @@ public class Pilot {
 
     public Pilot() {
         // ---Dossier-------------------
-        setName("");
-        setCallsign("");
+        this.name = "";
+        this.callsign = "";
         setPlayer("");
         setStatus("Active");
         setBackground("");
@@ -124,6 +124,8 @@ public class Pilot {
         // ---Narrative Profile---------
         // setMaxHP() swapped with setCurrentHP() because the function may throw
         //     an exception otherwise
+        // unnecessary because licenseLevel is set later
+        // setGrit(0);
         setMaxHP(8);
         setCurrentHP(8);
         setArmor(0);
@@ -141,6 +143,10 @@ public class Pilot {
         setMechSkills(new int[] {0, 0, 0, 0});
         setCoreBonuses(new String[0]);
         setTalents(new Talent[0]);
+    }
+    public Pilot(String pilotName, String callsign) {
+        setName(pilotName);
+        setCallsign(callsign);
     }
 
     // ---Dossier-------------------
@@ -217,18 +223,26 @@ public class Pilot {
     }
     // ---Dossier-------------------
     public void setName(String name) {
-        // accept a String only, do NOT accept null
+        // accept a non-"" String only, do NOT accept null
         if (name == null) {
-            throw new IllegalArgumentException("Invalid value provided for "
+            throw new IllegalArgumentException("Invalid value provided for"
                 + "pilot name: null");
+        }
+        if (name.equals("")) {
+            throw new IllegalArgumentException("Invalid value provided for"
+                + " pilot name: \"\"");
         }
         this.name = name;
     }
     public void setCallsign(String callsign) {
         // accept a String only, do NOT accept null
         if (callsign == null) {
-            throw new IllegalArgumentException("Invalid value provided for "
-                + "pilot callsign: null");
+            throw new IllegalArgumentException("Invalid value provided for"
+                + " pilot callsign: null");
+        }
+        if (callsign.equals("")) {
+            throw new IllegalArgumentException("Invalid value provided for"
+                + " pilot callsign: \"\"");
         }
         this.callsign = callsign;
     }
@@ -295,8 +309,8 @@ public class Pilot {
     }
     // ---Narrative Profile---------
     private void setGrit(int grit) {
-        if (grit < -1) {
-            throw new IllegalArgumentException("New grit value is < -1");
+        if (grit < 0) {
+            throw new IllegalArgumentException("New grit value is < 0");
         }
         if (grit > 6) {
             throw new IllegalArgumentException("New grit value is > 6");
@@ -398,9 +412,9 @@ public class Pilot {
     }
     // ---Tactical Profile---------
     public void setLicenseLevel(int licenseLevel) {
-        if (licenseLevel < -1) {
+        if (licenseLevel < 0) {
             throw new IllegalArgumentException("New license level value is"
-                + " < -1");
+                + " < 0");
         }
         if (licenseLevel > 12) {
             throw new IllegalArgumentException("New license level value"
@@ -734,52 +748,11 @@ public class Pilot {
         return outputString;
     }
     public boolean hasPlaceholders() {
-        if (getGrit() == -1) {
+        if (getName().equals("")) {
             return true;
         }
-        if (getCurrentHP() == -1) {
+        if (getCallsign().equals("")) {
             return true;
-        }
-        if (getMaxHP() == -1) {
-            return true;
-        }
-        if (getArmor() == -1) {
-            return true;
-        }
-        if (getEvasion() == -1) {
-            return true;
-        }
-        if (getSpeed() == -1) {
-            return true;
-        }
-        if (getEDefense() == -1) {
-            return true;
-        }
-        if (getSkillTriggers().hasPlaceholders()) {
-            return true;
-        }
-        if (getLicenseLevel() == -1) {
-            return true;
-        }
-        for (License license : getLicenseList()) {
-            if (license.hasPlaceholders()) {
-                return true;
-            }
-        }
-        for (String equipment : getSpecialEquipment()) {
-            if (equipment.equals("")) {
-                return true;
-            }
-        }
-        for (String coreBonus : getCoreBonuses()) {
-            if (coreBonus.equals("")) {
-                return true;
-            }
-        }
-        for (Talent talent : getTalents()) {
-            if (talent.hasPlaceholders()) {
-                return true;
-            }
         }
 
         return false;
