@@ -51,7 +51,6 @@ public class LancerCharacter {
             frameName = getMech().getFrame().getFrameName();
             manufacturer = getMech().getFrame().getManufacturer();
         }
-        int[] mechSkills = getPilot().getMechSkills();
 
         outputType = outputType.toLowerCase();
         if (outputType.equals("mech build")) {
@@ -61,30 +60,18 @@ public class LancerCharacter {
             }
             outputString += "-- " + manufacturer + " " + frameName + " @ LL"
                 + licenseLevel + " --\n";
-            outputString += pilot.generateOutput(outputType);
-            outputString += getMech().outputStats("mech build");
-            outputString += "[ WEAPONS ]\n";
-            outputString += getMech().outputWeapons("mech build");
-            outputString += "[ SYSTEMS ]\n";
-            outputString += getMech().outputSystems("mech build");
+            outputString += getPilot().generateOutput(outputType);
+            outputString += getMech().generateOutput(outputType);
             } else if (outputType.equals("pilot")) {
-                outputString += pilot.generateOutput(outputType);
+                outputString += getPilot().generateOutput(outputType);
             } else if (outputType.equals("full")) {
-                outputString += pilot.generateOutput(outputType);
-            if (! hasMech) {
-                outputString += ">> NO MECH SELECTED <<";
-                return outputString;
-            }
-            outputString += "[ MECH ]\n";
-            outputString += "  « " + frameName + " »\n";
-            outputString += "  " + manufacturer + " " + frameName + "\n";
-            outputString += "  H:" + mechSkills[0] + " A:" + mechSkills[1]
-                + " S:" + mechSkills[2] + " E:" + mechSkills[3]
-                + getMech().outputStats("full");
-            outputString += "[ WEAPONS ]\n";
-            outputString += getMech().outputWeapons("full");
-            outputString += "[ SYSTEMS ]\n";
-            outputString += getMech().outputSystems("full");
+                outputString += getPilot().generateOutput(outputType);
+                if (! hasMech) {
+                    outputString += ">> NO MECH SELECTED <<";
+                    return outputString;
+                }
+                outputString += getMech().generateOutput(outputType,
+                    getPilot().getMechSkills());
         }
 
         return outputString;
@@ -135,7 +122,7 @@ public class LancerCharacter {
         myCharacter.setPilot(myPilot);
         myCharacter.setMech(myMech);
 
-        // System.out.print(myCharacter.generateStatblock("pilot"));
-        TestFunctions.runTests();
+        System.out.print(myCharacter.generateStatblock("full"));
+        // TestFunctions.runTests();
     }
 }

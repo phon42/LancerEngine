@@ -4,6 +4,10 @@
  *     systems, among other statistics.
  */
 public class Mech {
+    // name of this mech (NOT its frame name, the name given to that specific
+    //     chassis)
+    private String name;
+    
     // frame that this mech is (i.e. Swallowtail)
     private Frame frame;
     
@@ -61,44 +65,98 @@ public class Mech {
         setMaxStress(4);
     }
 
+    public String getName() {
+        return name;
+    }
     public Frame getFrame() {
         return frame;
-    }
-    public void setFrame(Frame frame) {
-        this.frame = frame;
     }
     public Mount[] getMounts() {
         return mounts;
     }
-    public void setMounts(Mount[] mounts) {
-        this.mounts = mounts;
-    }
     public MechSystem[] getSystems() {
         return systems;
-    }
-    public void setSystems(MechSystem[] systems) {
-        this.systems = systems;
     }
     public int getSize() {
         return size;
     }
-    public void setSize(int size) {
-        this.size = size;
-    }
     public int getCurrentStructure() {
         return currentStructure;
-    }
-    public void setCurrentStructure(int currentStructure) {
-        this.currentStructure = currentStructure;
     }
     public int getMaxStructure() {
         return maxStructure;
     }
-    public void setMaxStructure(int maxStructure) {
-        this.maxStructure = maxStructure;
-    }
     public int getCurrentHP() {
         return currentHP;
+    }
+    public int getMaxHP() {
+        return maxHP;
+    }
+    public int getArmor() {
+        return armor;
+    }
+    public int getCurrentStress() {
+        return currentStress;
+    }
+    public int getMaxStress() {
+        return maxStress;
+    }
+    public int getCurrentHeatCapacity() {
+        return currentHeatCapacity;
+    }
+    public int getMaxHeatCapacity() {
+        return maxHeatCapacity;
+    }
+    public int getEvasion() {
+        return evasion;
+    }
+    public int getSpeed() {
+        return speed;
+    }
+    public int getEDefense() {
+        return eDefense;
+    }
+    public int getTechAttack() {
+        return techAttack;
+    }
+    public int getSensors() {
+        return sensors;
+    }
+    public int getCurrentRepairCapacity() {
+        return currentRepairCapacity;
+    }
+    public int getMaxRepairCapacity() {
+        return maxRepairCapacity;
+    }
+    public int getSaveTarget() {
+        return saveTarget;
+    }
+    public int getSystemPoints() {
+        return systemPoints;
+    }
+    public int getLimitedSystemsBonus() {
+        return limitedSystemsBonus;
+    }
+    public void setFrame(Frame frame) {
+        this.frame = frame;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public void setMounts(Mount[] mounts) {
+        this.mounts = mounts;
+    }
+    public void setSystems(MechSystem[] systems) {
+        this.systems = systems;
+    }
+    public void setSize(int size) {
+        this.size = size;
+    }
+    public void setCurrentStructure(int currentStructure) {
+        this.currentStructure = currentStructure;
+    }
+    public void setMaxStructure(int maxStructure) {
+        this.maxStructure = maxStructure;
     }
     public void setCurrentHP(int currentHP) {
         if (currentHP < 0) {
@@ -112,146 +170,164 @@ public class Mech {
             this.currentHP = currentHP;
         }
     }
-    public int getMaxHP() {
-        return maxHP;
-    }
     public void setMaxHP(int maxHP) {
         this.maxHP = maxHP;
-    }
-    public int getArmor() {
-        return armor;
     }
     public void setArmor(int armor) {
         this.armor = armor;
     }
-    public int getCurrentStress() {
-        return currentStress;
-    }
     public void setCurrentStress(int currentStress) {
         this.currentStress = currentStress;
-    }
-    public int getMaxStress() {
-        return maxStress;
     }
     public void setMaxStress(int maxStress) {
         this.maxStress = maxStress;
     }
-    public int getCurrentHeatCapacity() {
-        return currentHeatCapacity;
-    }
     public void setCurrentHeatCapacity(int currentHeatCapacity) {
         this.currentHeatCapacity = currentHeatCapacity;
-    }
-    public int getMaxHeatCapacity() {
-        return maxHeatCapacity;
     }
     public void setMaxHeatCapacity(int maxHeatCapacity) {
         this.maxHeatCapacity = maxHeatCapacity;
     }
-    public int getEvasion() {
-        return evasion;
-    }
     public void setEvasion(int evasion) {
         this.evasion = evasion;
-    }
-    public int getSpeed() {
-        return speed;
     }
     public void setSpeed(int speed) {
         this.speed = speed;
     }
-    public int getEDefense() {
-        return eDefense;
-    }
     public void setEDefense(int eDefense) {
         this.eDefense = eDefense;
-    }
-    public int getTechAttack() {
-        return techAttack;
     }
     public void setTechAttack(int techAttack) {
         this.techAttack = techAttack;
     }
-    public int getSensors() {
-        return sensors;
-    }
     public void setSensors(int sensors) {
         this.sensors = sensors;
-    }
-    public int getCurrentRepairCapacity() {
-        return currentRepairCapacity;
     }
     public void setCurrentRepairCapacity(int currentRepairCapacity) {
         this.currentRepairCapacity = currentRepairCapacity;
     }
-    public int getMaxRepairCapacity() {
-        return maxRepairCapacity;
-    }
     public void setMaxRepairCapacity(int maxRepairCapacity) {
         this.maxRepairCapacity = maxRepairCapacity;
-    }
-    public int getSaveTarget() {
-        return saveTarget;
     }
     public void setSaveTarget(int saveTarget) {
         this.saveTarget = saveTarget;
     }
-    public int getSystemPoints() {
-        return systemPoints;
-    }
     public void setSystemPoints(int systemPoints) {
         this.systemPoints = systemPoints;
-    }
-    public int getLimitedSystemsBonus() {
-        return limitedSystemsBonus;
     }
     public void setLimitedSystemsBonus(int limitedSystemsBonus) {
         this.limitedSystemsBonus = limitedSystemsBonus;
     }
 
-    public void calculateAttributes(int[] mechSkills) throws Exception {
+    public void calculateAttributes(int[] mechSkills) {
         // TODO: fill out
         // Calculate this mech's attributes based off of the frame template
         //     provided
         if (frame == null) {
-            throw new Exception("calculateAttributes() was called while"
+            throw new IllegalArgumentException("calculateAttributes() was called while"
                 + " frame was set to null");
         }
         // Hull
-        maxHP = frame.getHP() + (mechSkills[0] * 2);
-        currentHP = maxHP;
-        maxRepairCapacity = frame.getRepairCapacity() + (mechSkills[0] / 2);
+        setMaxHP(frame.getHP() + (mechSkills[0] * 2));
+        setCurrentHP(maxHP);
+        setMaxRepairCapacity(frame.getRepairCapacity() + (mechSkills[0] / 2));
 
         // Agility
-        evasion = frame.getEvasion() + mechSkills[1];
-        speed = frame.getSpeed() + (mechSkills[1] / 2);
+        setEvasion(frame.getEvasion() + mechSkills[1]);
+        setSpeed(frame.getSpeed() + (mechSkills[1] / 2));
 
         // Systems
-        eDefense = frame.getEDefense() + mechSkills[2];
-        techAttack = frame.getTechAttack() + mechSkills[2];
-        systemPoints = frame.getSystemPoints() + (mechSkills[2] / 2);
+        setEDefense(frame.getEDefense() + mechSkills[2]);
+        setTechAttack(frame.getTechAttack() + mechSkills[2]);
+        setSystemPoints(frame.getSystemPoints() + (mechSkills[2] / 2));
 
         // Engineering
-        maxHeatCapacity = frame.getHeatCapacity() + mechSkills[3];
-        currentHeatCapacity = 0;
-        limitedSystemsBonus = mechSkills[3] / 2;
+        setMaxHeatCapacity(frame.getHeatCapacity() + mechSkills[3]);
+        setCurrentHeatCapacity(0);
+        setLimitedSystemsBonus(mechSkills[3] / 2);
+    }
+    public String generateOutput(String outputType) {
+        String outputString = "";
+
+        if (outputType.equals("mech build")) {
+            outputString += outputStats("mech build");
+            outputString += "[ WEAPONS ]\n";
+            outputString += outputWeapons("mech build");
+            outputString += "[ SYSTEMS ]\n";
+            outputString += outputSystems("mech build");
+        } else if (outputType.equals("full")) {
+            throw new IllegalArgumentException("Called"
+                + " Mech.generateOutput(\"full\") but mech skills value was not"
+                + " provided.");
+        }
+
+        return outputString;
+    }
+    public String generateOutput(String outputType, int[] mechSkills) {
+        String outputString = "";
+
+        if (outputType.equals("mech build")) {
+            return generateOutput(outputType);
+        } else if (outputType.equals("full")) {
+            outputString += "[ MECH ]\n";
+            outputString += "  « " + getName() + " »\n";
+            outputString += "  " + getFrame().getManufacturer() + " "
+                + getFrame().getFrameName() + "\n";
+            outputString += "  H:" + mechSkills[0] + " A:" + mechSkills[1]
+                + " S:" + mechSkills[2] + " E:" + mechSkills[3]
+                + outputStats("full");
+            outputString += "[ WEAPONS ]\n";
+            outputString += outputWeapons("full");
+            outputString += "[ SYSTEMS ]\n";
+            outputString += outputSystems("full");
+        }
+
+        return outputString;
     }
     public String outputStats(String outputType) {
-        // TODO: fill out
         String outputString = "";
 
         outputType = outputType.toLowerCase();
         if (outputType.equals("mech build")) {
-            outputString += "  STRUCTURE:4 HP:19 ARMOR:0\n";
-            outputString += "  STRESS:4 HEATCAP:6 REPAIR:7\n";
-            outputString += "  TECH ATK:+6 LIMITED:+1\n";
-            outputString += "  SPD:6 EVA:10 EDEF:13 SENSE:20 SAVE:15\n";
+            outputString += "  STRUCTURE:" + getMaxStructure() + " HP:"
+                + getMaxHP() + " ARMOR:" + getArmor() + "\n";
+            outputString += "  STRESS:" + getMaxStress() + " HEATCAP:"
+                + getMaxHeatCapacity() + " REPAIR:" + getMaxRepairCapacity()
+                + "\n";
+            outputString += "  TECH ATK:+" + getTechAttack() + " LIMITED:+"
+                + getLimitedSystemsBonus() + "\n";
+            outputString += "  SPD:" + getSpeed() + " EVA:" + getEvasion()
+                + " EDEF:" + getEDefense() + " SENSE:" + getSensors() + " SAVE:"
+                + getSaveTarget() + "\n";
         } else if (outputType.equals("full")) {
-            outputString += " SIZE:1\n";
-            outputString += "  STRUCTURE:2/4 HP:19/19 ARMOR:0\n";
-            outputString += "  STRESS:3/4 HEAT:0/6 REPAIR:7/7\n";
-            outputString += "  ATK BONUS:5 TECH ATK:6 LTD BONUS:1\n";
-            outputString += "  SPD:6 EVA:10 EDEF:13 SENS:20 SAVE:15\n";
+            throw new IllegalArgumentException("Called"
+                + " Mech.outputStats(\"full\") but grit value was not"
+                + " provided");
+        }
+
+        return outputString;
+    }
+    public String outputStats(String outputType, int grit) {
+        String outputString = "";
+
+        outputType = outputType.toLowerCase();
+        if (outputType.equals("mech build")) {
+            return outputStats(outputType);
+        } else if (outputType.equals("full")) {
+            outputString += " SIZE:" + outputSize() + "\n";
+            outputString += "  STRUCTURE:" + getCurrentStructure() + "/"
+                + getMaxStructure() + " HP:" + getCurrentHP() + "/" + getMaxHP()
+                + " ARMOR:" + getArmor() + "\n";
+            outputString += "  STRESS:" + getCurrentStress() + "/"
+                + getMaxStress() + " HEAT:" + getCurrentHeatCapacity() + "/"
+                + getMaxHeatCapacity() + " REPAIR:" + getCurrentRepairCapacity()
+                + "/" + getMaxRepairCapacity() + "\n";
+            outputString += "  ATK BONUS:" + grit + " TECH ATK:"
+                + getTechAttack() + " LTD BONUS:" + getLimitedSystemsBonus()
+                + "\n";
+            outputString += "  SPD:" + getSpeed() + " EVA:" + getEvasion()
+                + " EDEF:" + getEDefense() + " SENS:" + getSensors() + " SAVE:"
+                + getSaveTarget() + "\n";
         }
 
         return outputString;
@@ -332,5 +408,11 @@ public class Mech {
         }
 
         return outputString;
+    }
+    public String outputSize() {
+        if (getSize() == 1) {
+            return "1/2";
+        }
+        return Integer.toString(getSize() / 2);
     }
 }
