@@ -136,6 +136,6 @@ public class LancerCharacter {
         myCharacter.setMech(myMech);
 
         // System.out.print(myCharacter.generateStatblock("pilot"));
-        Testers.runTests();
+        TestFunctions.runTests();
     }
 }
