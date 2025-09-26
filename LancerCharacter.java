@@ -19,13 +19,27 @@ public class LancerCharacter {
         return this.pilot;
     }
     public void setPilot(Pilot pilot) {
+        if (pilot == null) {
+            throw new IllegalArgumentException("New pilot value is null");
+        }
+        if (pilot.hasPlaceholders()) {
+            throw new IllegalArgumentException("New pilot value has"
+                + " placeholders");
+        }
         this.pilot = pilot;
     }
     public Mech getMech() {
         return this.mech;
     }
     public void setMech(Mech mech) {
+        if (mech.hasPlaceholders()) {
+            throw new IllegalArgumentException("New mech value has"
+                + " placeholders");
+        }
         this.mech = mech;
+        if (! getMech().getFrame().isPlaceholder()) {
+            getMech().calculateAttributes(getPilot().getMechSkills());
+        }
     }
 
     /**
@@ -48,7 +62,7 @@ public class LancerCharacter {
         String frameName = "";
         int licenseLevel = getPilot().getLicenseLevel();
         if (hasMech) {
-            frameName = getMech().getFrame().getFrameName();
+            frameName = getMech().getFrame().getName();
             manufacturer = getMech().getFrame().getManufacturer();
         }
 
@@ -71,7 +85,7 @@ public class LancerCharacter {
                     return outputString;
                 }
                 outputString += getMech().generateOutput(outputType,
-                    getPilot().getMechSkills());
+                    getPilot().getMechSkills(), getPilot().getGrit());
         }
 
         return outputString;
@@ -81,6 +95,8 @@ public class LancerCharacter {
         LancerCharacter myCharacter = new LancerCharacter();
         Pilot myPilot = new Pilot();
         Mech myMech = new Mech();
+        Frame myFrame = new Frame();
+        Loadout myLoadout = new Loadout();
 
         myPilot.setName("Coral Nolan");
         myPilot.setCallsign("Apocalypse");
@@ -118,11 +134,38 @@ public class LancerCharacter {
             new Talent("Walking Armory", 2),
             new Talent("Leader", 2)
         });
-        
+        myLoadout.setPilotArmor("Mobility Hardsuit");
+        myLoadout.setPilotWeapons(new String[] {"Heavy Signature",
+            "Archaic Melee"});
+        myLoadout.setPilotGear(new String[] {"Wilderness Survival Kit",
+            "Flexsuit", "Personal Drone"});
+        myPilot.setLoadout(myLoadout);
+
+        myFrame = FrameDatabase.getFrame("Everest");
+        myMech.setFrame(myFrame);
+        myMech.setName("Wraith");
+        // TODO: add a way for mountType to be omitted and automatically filled
+        //     in by the correct mount type as long as the index is valid
+        myMech.setMount(0, new Mount("Integrated Weapon",
+            new Weapon("Nexus (Light)")));
+        myMech.setMount(1, new Mount("Flex",
+            new Weapon("Slag Cannon")));
+        myMech.setMount(2, new Mount("Main",
+            new Weapon("Vulture DMR"), "",
+            "Overpower Caliber"));
+        myMech.setSystems(new MechSystem[] {
+            new MechSystem("Pattern-A Smoke Charges", 3),
+            new MechSystem("Seismic Ripper"),
+            new MechSystem("High-Stress Mag Clamps"),
+            new MechSystem("ATHENA-Class NHP"),
+            new MechSystem("Markerlight"),
+            new MechSystem("IMMOLATE"),
+            new MechSystem("Wandering Nightmare")
+        });
         myCharacter.setPilot(myPilot);
         myCharacter.setMech(myMech);
 
-        System.out.print(myCharacter.generateStatblock("full"));
+        System.out.print(myCharacter.generateStatblock("mech build"));
         // TestFunctions.runTests();
     }
 }

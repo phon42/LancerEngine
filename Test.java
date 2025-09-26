@@ -75,19 +75,6 @@ public class Test {
 
         return newTestArray;
     }
-    private static int[] append(int[] intArray, int newElement) {
-        int[] newIntArray = new int[intArray.length + 1];
-
-        for (int i = 0; i < newIntArray.length; i++) {
-            if (i < intArray.length) {
-                newIntArray[i] = intArray[i];
-                continue;
-            }
-            newIntArray[i] = newElement;
-        }
-        
-        return newIntArray;
-    }
     public String output() {
         return output(0);
     }
@@ -115,8 +102,8 @@ public class Test {
 
         TestFunctions.maxWidth = Math.max(TestFunctions.maxWidth,
             indent.length() + this.name.length());
-        TestFunctions.lineWidths = append(TestFunctions.lineWidths,
-            indent.length() + this.name.length());
+        TestFunctions.lineWidths = HelperFunctions.append(
+            TestFunctions.lineWidths, indent.length() + this.name.length());
         output = indent + "- " + this.name + ": %spaces%" + result;
         for (Test test : this.tests) {
             output += "\n" + test.output(level + 1);

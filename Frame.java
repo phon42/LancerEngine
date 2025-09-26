@@ -7,11 +7,12 @@ public class Frame {
     // frame manufacturer (i.e. GMS), case-sensitive
     private String manufacturer;
     // frame name (i.e. Everest), case-sensitive
-    private String frameName;
+    private String name;
     // role (i.e. striker)
     /**
-     * Must be one of the following values: "artillery", "balanced",
-     *     "controller", "striker", "support".
+     * Is set to "" at construction but must be one of the following values
+     *     otherwise: "artillery", "balanced", "controller", "striker",
+     *     "support".
      * Is case-insensitive and stored in all lowercase.
      */
     private String[] role;
@@ -35,65 +36,65 @@ public class Frame {
 
     // health and structure
     /**
-     * Must be a minimum of -1 (placeholder). Cannot be 0.
+     * Is set to -1 at construction but must be a minimum of 1 otherwise.
      */
     private int structure;
     /**
-     * Must be a minimum of -1 (placeholder). Cannot be 0.
+     * Must be a minimum of 1.
      */
     private int HP;
     /**
-     * Must be a minimum of -1 (placeholder).
+     * Is set to -1 at construction but must be a minimum of 0 otherwise.
      */
     private int armor;
 
     // heat and stress
     /**
-     * Must be a minimum of -1 (placeholder). Cannot be 0.
+     * Is set to 4 at construction. Must be a minimum of 1.
      */
     private int stress;
     /**
-     * Must be a minimum of -1 (placeholder). Cannot be 0.
+     * Is set to -1 at construction but must be a minimum of 1 otherwise.
      */
     private int heatCapacity;
 
     // evasion and speed
     /**
-     * Must be a minimum of -1 (placeholder).
+     * Is set to -1 at construction but must be a minimum of 0 otherwise.
      */
     private int evasion;
     /**
-     * Must be a minimum of -1 (placeholder).
+     * Is set to -1 at construction but must be a minimum of 0 otherwise.
      */
     private int speed;
 
     // e-defense and tech attack
     /**
-     * Must be a minimum of -1 (placeholder).
+     * Is set to -1 at construction but must be a minimum of 0 otherwise.
      */
     private int eDefense;
     /**
-     * Can be any integer.
+     * Set to -1 at construction. Can be any integer.
      */
     private int techAttack;
 
     // sensors and repair capacity
     /**
-     * Must be a minimum of -1 (placeholder). Cannot be 0.
+     * Is set to -1 at construction but must be a minimum of 0 otherwise.
      */
     private int sensors;
     /**
-     * Must be a minimum of -1 (placeholder).
+     * Is set to -1 at construction but must be a minimum of 0 otherwise.
      */
     private int repairCapacity;
 
     // save target and system points
     /**
-     * Must be a minimum of -1 (placeholder).
+     * Is set to -1 at construction but must be a minimum of 0 otherwise.
      */
     private int saveTarget;
     /**
-     * Must be a minimum of -1 (placeholder).
+     * Is set to -1 at construction but must be a minimum of 0 otherwise.
      */
     private int systemPoints;
 
@@ -110,10 +111,65 @@ public class Frame {
     // core system active
 
     public Frame() {
+        this.manufacturer = "";
+        this.name = "";
+        this.role = new String[] {""};
+        this.frameDescription = "";
+        this.size = -1;
+
         // this can be changed but 90% of frames (100% of player frames) have
         //     4 structure, 4 stress
-        setStructure(4);
-        setStress(4);
+        this.structure = 4;
+        this.stress = 4;
+
+        this.HP = -1;
+        this.armor = -1;
+        this.heatCapacity = -1;
+        this.evasion = -1;
+        this.speed = -1;
+        this.eDefense = -1;
+        this.techAttack = -1;
+        this.sensors = -1;
+        this.repairCapacity = -1;
+        this.saveTarget = -1;
+        this.systemPoints = -1;
+        this.traits = new String[] {};
+        this.mounts = new Mount[] {};
+    }
+    public Frame(String manufacturer, String name, String[] role,
+        String frameDescription, int size, int hp,
+        int armor, int heatCapacity, int evasion, int speed, int eDefense,
+        int techAttack, int sensors, int repairCapacity, int saveTarget,
+        int systemPoints, String[] traits, Mount[] mounts) {
+        this(manufacturer, name, role, frameDescription, size, 4, hp,
+            armor, 4, heatCapacity, evasion, speed, eDefense, techAttack,
+            sensors, repairCapacity, saveTarget, systemPoints, traits, mounts);
+    }
+    public Frame(String manufacturer, String name, String[] role,
+        String frameDescription, int size, int structure, int hp,
+        int armor, int stress, int heatCapacity, int evasion, int speed,
+        int eDefense, int techAttack, int sensors, int repairCapacity,
+        int saveTarget, int systemPoints, String[] traits, Mount[] mounts) {
+        setManufacturer(manufacturer);
+        setName(name);
+        setRole(role);
+        setFrameDescription(frameDescription);
+        setSize(size);
+        setStructure(structure);
+        setHP(hp);
+        setArmor(armor);
+        setStress(stress);
+        setHeatCapacity(heatCapacity);
+        setEvasion(evasion);
+        setSpeed(speed);
+        setEDefense(eDefense);
+        setTechAttack(techAttack);
+        setSensors(sensors);
+        setRepairCapacity(repairCapacity);
+        setSaveTarget(saveTarget);
+        setSystemPoints(systemPoints);
+        setTraits(traits);
+        setMounts(mounts);
     }
 
     public String getManufacturer() {
@@ -126,22 +182,28 @@ public class Frame {
         }
         this.manufacturer = manufacturer;
     }
-    public String getFrameName() {
-        return frameName;
+    public String getName() {
+        return name;
     }
-    public void setFrameName(String frameName) {
-        if (frameName == null) {
+    public void setName(String name) {
+        if (name == null) {
             throw new IllegalArgumentException("New frame name is null");
         }
-        this.frameName = frameName;
+        if (name.equals("")) {
+            throw new IllegalArgumentException("New frame name is \"\"");
+        }
+        this.name = name;
     }
     public String[] getRole() {
         return role;
     }
     public void setRole(String[] role) {
         boolean isValidRole = false;
+        String roleString;
 
-        for (String roleString : role) {
+        for (int i = 0; i < role.length; i++) {
+            role[i] = role[i].toLowerCase();
+            roleString = role[i];
             isValidRole = false;
             if (roleString == null) {
                 throw new IllegalArgumentException("New role array contains"
@@ -167,17 +229,18 @@ public class Frame {
             throw new IllegalArgumentException("New frame description is"
                 + " null");
         }
+        if (frameDescription.equals("")) {
+            throw new IllegalArgumentException("New frame description is"
+                + " \"\"");
+        }
         this.frameDescription = frameDescription;
     }
     public int getSize() {
         return size;
     }
     public void setSize(int size) {
-        if (size < -1) {
-            throw new IllegalArgumentException("New frame size is < -1");
-        }
-        if (size == 0) {
-            throw new IllegalArgumentException("New frame size is 0");
+        if (size < 1) {
+            throw new IllegalArgumentException("New frame size is < 1");
         }
         if (size > 8) {
             throw new IllegalArgumentException("New frame size is > 8");
@@ -192,12 +255,9 @@ public class Frame {
         return structure;
     }
     public void setStructure(int structure) {
-        if (structure < -1) {
+        if (structure < 1) {
             throw new IllegalArgumentException(
-                "New structure value is < -1");
-        }
-        if (structure == 0) {
-            throw new IllegalArgumentException("New structure value is 0");
+                "New structure value is < 1");
         }
         this.structure = structure;
     }
@@ -205,11 +265,8 @@ public class Frame {
         return HP;
     }
     public void setHP(int HP) {
-        if (HP < -1) {
-            throw new IllegalArgumentException("New HP value is < -1");
-        }
-        if (HP == 0) {
-            throw new IllegalArgumentException("New HP value is 0");
+        if (HP < 1) {
+            throw new IllegalArgumentException("New HP value is < 1");
         }
         this.HP = HP;
     }
@@ -217,8 +274,8 @@ public class Frame {
         return armor;
     }
     public void setArmor(int armor) {
-        if (armor < -1) {
-            throw new IllegalArgumentException("New armor value is < -1");
+        if (armor < 0) {
+            throw new IllegalArgumentException("New armor value is < 0");
         }
         this.armor = armor;
     }
@@ -226,11 +283,8 @@ public class Frame {
         return stress;
     }
     public void setStress(int stress) {
-        if (stress < -1) {
+        if (stress < 1) {
             throw new IllegalArgumentException("New stress value is < -1");
-        }
-        if (stress == 0) {
-            throw new IllegalArgumentException("New stress value is 0");
         }
         this.stress = stress;
     }
@@ -238,13 +292,9 @@ public class Frame {
         return heatCapacity;
     }
     public void setHeatCapacity(int heatCapacity) {
-        if (heatCapacity < -1) {
+        if (heatCapacity < 1) {
             throw new IllegalArgumentException("New heat capacity value is < "
-                + "-1");
-        }
-        if (heatCapacity == 0) {
-            throw new IllegalArgumentException(
-                "New heat capacity value is 0");
+                + "1");
         }
         this.heatCapacity = heatCapacity;
     }
@@ -252,8 +302,8 @@ public class Frame {
         return evasion;
     }
     public void setEvasion(int evasion) {
-        if (evasion < -1) {
-            throw new IllegalArgumentException("New evasion value is < -1");
+        if (evasion < 0) {
+            throw new IllegalArgumentException("New evasion value is < 0");
         }
         this.evasion = evasion;
     }
@@ -261,8 +311,8 @@ public class Frame {
         return speed;
     }
     public void setSpeed(int speed) {
-        if (speed < -1) {
-            throw new IllegalArgumentException("New speed value is < -1");
+        if (speed < 0) {
+            throw new IllegalArgumentException("New speed value is < 0");
         }
         this.speed = speed;
     }
@@ -270,9 +320,9 @@ public class Frame {
         return eDefense;
     }
     public void setEDefense(int eDefense) {
-        if (eDefense < -1) {
+        if (eDefense < 0) {
             throw new IllegalArgumentException(
-                "New e-defense value is < -1");
+                "New e-defense value is < 0");
         }
         this.eDefense = eDefense;
     }
@@ -286,11 +336,8 @@ public class Frame {
         return sensors;
     }
     public void setSensors(int sensors) {
-        if (sensors < -1) {
-            throw new IllegalArgumentException("New sensors value is < -1");
-        }
-        if (sensors == 0) {
-            throw new IllegalArgumentException("New sensors value is 0");
+        if (sensors < 0) {
+            throw new IllegalArgumentException("New sensors value is < 0");
         }
         this.sensors = sensors;
     }
@@ -298,9 +345,9 @@ public class Frame {
         return repairCapacity;
     }
     public void setRepairCapacity(int repairCapacity) {
-        if (repairCapacity < -1) {
+        if (repairCapacity < 0) {
             throw new IllegalArgumentException("New repair capacity value is "
-                + "< -1");
+                + "< 0");
         }
         this.repairCapacity = repairCapacity;
     }
@@ -308,9 +355,9 @@ public class Frame {
         return saveTarget;
     }
     public void setSaveTarget(int saveTarget) {
-        if (saveTarget < -1) {
+        if (saveTarget < 0) {
             throw new IllegalArgumentException("New save target value is < "
-                + "-1");
+                + "0");
         }
         this.saveTarget = saveTarget;
     }
@@ -318,9 +365,9 @@ public class Frame {
         return systemPoints;
     }
     public void setSystemPoints(int systemPoints) {
-        if (systemPoints < -1) {
+        if (systemPoints < 0) {
             throw new IllegalArgumentException("New system points value is < "
-                + "-1");
+                + "0");
         }
         this.systemPoints = systemPoints;
     }
@@ -331,7 +378,6 @@ public class Frame {
         if (traits == null) {
             throw new IllegalArgumentException("New traits value is null");
         }
-        // TODO: does this throw an error if traits.length is 0?
         for (String trait : traits) {
             if (trait == null || trait.equals("")) {
                 throw new IllegalArgumentException("New traits value contains"
@@ -354,5 +400,123 @@ public class Frame {
             }
         }
         this.mounts = mounts;
+    }
+
+    public boolean hasPlaceholders() {
+        if (getManufacturer().equals("")) {
+            return true;
+        }
+        if (getRole().getClass() == String[].class && getRole().length == 1
+            && getRole()[0].equals("")) {
+            return true;
+        }
+        if (getFrameDescription().equals("")) {
+            return true;
+        }
+        if (getSize() == -1) {
+            return true;
+        }
+
+        if (getHP() == -1) {
+            return true;
+        }
+        if (getArmor() == -1) {
+            return true;
+        }
+        if (getHeatCapacity() == -1) {
+            return true;
+        }
+        if (getEvasion() == -1) {
+            return true;
+        }
+        if (getSpeed() == -1) {
+            return true;
+        }
+        if (getEDefense() == -1) {
+            return true;
+        }
+        if (getSensors() == -1) {
+            return true;
+        }
+        if (getRepairCapacity() == -1) {
+            return true;
+        }
+        if (getSaveTarget() == -1) {
+            return true;
+        }
+        if (getSystemPoints() == -1) {
+            return true;
+        }
+
+        return false;
+    }
+    public boolean isPlaceholder() {
+        if (! getManufacturer().equals("")) {
+            return false;
+        }
+        if (! getName().equals("")) {
+            return false;
+        }
+        if (getRole().getClass() != String[].class || getRole().length != 1
+            || ! getRole()[0].equals("")) {
+            return false;
+        }
+        if (! getFrameDescription().equals("")) {
+            return false;
+        }
+        if (getSize() != -1) {
+            return false;
+        }
+
+        if (getStructure() != 4) {
+            return false;
+        }
+        if (getStress() != 4) {
+            return false;
+        }
+
+        if (getHP() != -1) {
+            return false;
+        }
+        if (getArmor() != -1) {
+            return false;
+        }
+        if (getHeatCapacity() != -1) {
+            return false;
+        }
+        if (getEvasion() != -1) {
+            return false;
+        }
+        if (getSpeed() != -1) {
+            return false;
+        }
+        if (getEDefense() != -1) {
+            return false;
+        }
+        if (getTechAttack() != -1) {
+            return false;
+        }
+        if (getSensors() != -1) {
+            return false;
+        }
+        if (getRepairCapacity() != -1) {
+            return false;
+        }
+        if (getSaveTarget() != -1) {
+            return false;
+        }
+        if (getSystemPoints() != -1) {
+            return false;
+        }
+        if (getTraits().getClass() != String[].class
+            || getTraits().length != 0) {
+            return false;
+        }
+        if (getMounts().getClass() != Mount[].class
+            || getMounts().length != 0) {
+            return false;
+        }
+
+        return true;
     }
 }

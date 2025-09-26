@@ -3,15 +3,41 @@
  */
 public class Weapon {
     // TODO: fill out
-    private String weaponName;
+    // The weapon's name
+    private String name;
 
-    public String getWeaponName() {
-        return weaponName;
+    public Weapon() {
+        this.name = "";
     }
-    public void setWeaponName(String weaponName) {
-        if (weaponName == null) {
-            throw new IllegalArgumentException("New weapon name is null");
+    public Weapon(String name) {
+        setName(name);
+    }
+
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        if (name == null) {
+            throw new IllegalArgumentException("New name is null");
         }
-        this.weaponName = weaponName;
+        if (name.equals("")) {
+            throw new IllegalArgumentException("New name is \"\"");
+        }
+        this.name = name;
+    }
+
+    public boolean hasPlaceholders() {
+        if (getName().equals("")) {
+            return true;
+        }
+
+        return false;
+    }
+    public boolean isPlaceholder() {
+        if (! getName().equals("")) {
+            return false;
+        }
+
+        return true;
     }
 }

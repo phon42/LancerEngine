@@ -5,9 +5,10 @@
 public class MechSystem {
     // TODO: fill out
     /**
+     * The system name.
      * Can be any String, though "" is a placeholder. Cannot be null.
      */
-    private String systemName;
+    private String name;
 
     private boolean limited;
     /**
@@ -16,13 +17,20 @@ public class MechSystem {
     private int limitedCharges;
 
     public MechSystem() {
-        setSystemName("");
-        setLimited(false);
+        setName("");
         setLimitedCharges(0);
     }
+    public MechSystem(String name) {
+        this();
+        setName(name);
+    }
+    public MechSystem(String name, int limitedCharges) {
+        setName(name);
+        setLimitedCharges(limitedCharges);
+    }
     
-    public String getSystemName() {
-        return systemName;
+    public String getName() {
+        return name;
     }
     public boolean isLimited() {
         return limited;
@@ -30,20 +38,25 @@ public class MechSystem {
     public int getLimitedCharges() {
         return limitedCharges;
     }
-    public void setSystemName(String systemName) {
-        if (systemName == null) {
-            throw new IllegalArgumentException("New value for system name is"
+    public void setName(String name) {
+        if (name == null) {
+            throw new IllegalArgumentException("New value for name is"
                 + " null");
         }
-        this.systemName = systemName;
+        this.name = name;
     }
-    public void setLimited(boolean limited) {
+    private void setLimited(boolean limited) {
         this.limited = limited;
     }
     public void setLimitedCharges(int limitedCharges) {
         if (limitedCharges < 0) {
             throw new IllegalArgumentException("New limited charges value is"
                 + " < 0");
+        }
+        if (limitedCharges == 0) {
+            setLimited(false);
+        } else {
+            setLimited(true);
         }
         this.limitedCharges = limitedCharges;
     }
@@ -60,7 +73,7 @@ public class MechSystem {
 
         if (outputType.equals("mech build")
             || outputType.equals("full")) {
-            outputString += systemName;
+            outputString += name;
         }
 
         return outputString;

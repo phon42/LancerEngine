@@ -10,6 +10,9 @@ public class Mech {
     
     // frame that this mech is (i.e. Swallowtail)
     private Frame frame;
+
+    // the operator notes attached to this mech
+    private String operatorNotes;
     
     // mounts/weapons
     private Mount[] mounts;
@@ -21,7 +24,7 @@ public class Mech {
     /**
      * Represents the size of the mech.
      * Size is stored as 2 * its value (Size 1/2 would be stored as int 1).
-     * Allowed values for size: -1 (placeholder), 1, 2, 4, 6, 8.
+     * Allowed values for size: 1, 2, 4, 6, 8.
      */
     private int size;
 
@@ -59,10 +62,31 @@ public class Mech {
     private int limitedSystemsBonus;
 
     public Mech() {
-        setCurrentStructure(4);
-        setMaxStructure(4);
-        setCurrentStress(4);
-        setMaxStress(4);
+        this.name = "";
+        this.frame = new Frame();
+        this.operatorNotes = "";
+        this.mounts = new Mount[] {};
+        this.systems = new MechSystem[] {};
+        this.size = -1;
+        this.currentStructure = 4;
+        this.maxStructure = 4;
+        this.currentHP = -1;
+        this.maxHP = -1;
+        this.armor = -1;
+        this.currentStress = 4;
+        this.maxStress = 4;
+        this.currentHeatCapacity = -1;
+        this.maxHeatCapacity = -1;
+        this.evasion = -1;
+        this.speed = -1;
+        this.eDefense = -1;
+        this.techAttack = -1;
+        this.sensors = -1;
+        this.currentRepairCapacity = -1;
+        this.maxRepairCapacity = -1;
+        this.saveTarget = -1;
+        this.systemPoints = -1;
+        this.limitedSystemsBonus = -1;
     }
 
     public String getName() {
@@ -70,6 +94,9 @@ public class Mech {
     }
     public Frame getFrame() {
         return frame;
+    }
+    public String getOperatorNotes() {
+        return operatorNotes;
     }
     public Mount[] getMounts() {
         return mounts;
@@ -137,90 +164,166 @@ public class Mech {
     public int getLimitedSystemsBonus() {
         return limitedSystemsBonus;
     }
-    public void setFrame(Frame frame) {
-        this.frame = frame;
-    }
     public void setName(String name) {
+        if (name == null) {
+            throw new IllegalArgumentException("New name is null");
+        }
         this.name = name;
     }
-    public void setMounts(Mount[] mounts) {
+    public void setFrame(Frame frame) {
+        if (frame == null) {
+            throw new IllegalArgumentException("New frame is null");
+        }
+        this.frame = frame;
+        calculateAttributes(new int[] {0, 0, 0, 0});
+        setMounts(frame.getMounts());
+    }
+    public void setOperatorNotes(String operatorNotes) {
+        if (operatorNotes == null) {
+            throw new IllegalArgumentException("New operator notes are null");
+        }
+        this.operatorNotes = operatorNotes;
+    }
+    public void setMount(int mountIndex, Mount mount) {
+        this.mounts[mountIndex] = mount;
+    }
+    private void setMounts(Mount[] mounts) {
         this.mounts = mounts;
     }
     public void setSystems(MechSystem[] systems) {
         this.systems = systems;
     }
     public void setSize(int size) {
+        if (size < 1) {
+            throw new IllegalArgumentException("New size is < 1");
+        }
         this.size = size;
     }
     public void setCurrentStructure(int currentStructure) {
+        if (currentStructure < 1) {
+            throw new IllegalArgumentException("New current structure is"
+                + " < 1");
+        }
         this.currentStructure = currentStructure;
     }
     public void setMaxStructure(int maxStructure) {
+        if (maxStructure < 1) {
+            throw new IllegalArgumentException("New max structure is < 1");
+        }
         this.maxStructure = maxStructure;
     }
     public void setCurrentHP(int currentHP) {
-        if (currentHP < 0) {
+        if (currentHP < 1) {
             throw new IllegalArgumentException("Error: currentHP value"
-                + " provided: " + currentHP + " is less than 0");
+                + " provided: " + currentHP + " is < 1");
         } else if (currentHP > getMaxHP()) {
             throw new IllegalArgumentException("Error: currentHP value"
-                + " provided: " + currentHP + " is greater than maxHP value "
+                + " provided: " + currentHP + " is > maxHP value "
                 + getMaxHP());
         } else {
             this.currentHP = currentHP;
         }
     }
     public void setMaxHP(int maxHP) {
+        if (maxHP < 1) {
+            throw new IllegalArgumentException("New max HP is < 1");
+        }
         this.maxHP = maxHP;
     }
     public void setArmor(int armor) {
+        if (armor < 0) {
+            throw new IllegalArgumentException("New armor is < 0");
+        }
         this.armor = armor;
     }
     public void setCurrentStress(int currentStress) {
+        if (currentStress < 1) {
+            throw new IllegalArgumentException("New current stress is < 1");
+        }
         this.currentStress = currentStress;
     }
     public void setMaxStress(int maxStress) {
+        if (maxStress < 1) {
+            throw new IllegalArgumentException("New max stress is < 1");
+        }
         this.maxStress = maxStress;
     }
     public void setCurrentHeatCapacity(int currentHeatCapacity) {
+        if (currentHeatCapacity < 0) {
+            throw new IllegalArgumentException("New current heat capacity is"
+                + " < 0");
+        }
         this.currentHeatCapacity = currentHeatCapacity;
     }
     public void setMaxHeatCapacity(int maxHeatCapacity) {
+        if (maxHeatCapacity < 1) {
+            throw new IllegalArgumentException("New max heat capacity is"
+                + " < 1");
+        }
         this.maxHeatCapacity = maxHeatCapacity;
     }
     public void setEvasion(int evasion) {
+        if (evasion < 0) {
+            throw new IllegalArgumentException("New evasion is < 0");
+        }
         this.evasion = evasion;
     }
     public void setSpeed(int speed) {
+        if (speed < 0) {
+            throw new IllegalArgumentException("New speed is < 0");
+        }
         this.speed = speed;
     }
     public void setEDefense(int eDefense) {
+        if (eDefense < 0) {
+            throw new IllegalArgumentException("New e-defense is < 0");
+        }
         this.eDefense = eDefense;
     }
     public void setTechAttack(int techAttack) {
         this.techAttack = techAttack;
     }
     public void setSensors(int sensors) {
+        if (sensors < 0) {
+            throw new IllegalArgumentException("New sensors is < 0");
+        }
         this.sensors = sensors;
     }
     public void setCurrentRepairCapacity(int currentRepairCapacity) {
+        if (currentRepairCapacity < 0) {
+            throw new IllegalArgumentException("New current repair capacity"
+                + " is < 0");
+        }
         this.currentRepairCapacity = currentRepairCapacity;
     }
     public void setMaxRepairCapacity(int maxRepairCapacity) {
+        if (maxRepairCapacity < 0) {
+            throw new IllegalArgumentException("New max repair capacity is"
+                + " < 0");
+        }
         this.maxRepairCapacity = maxRepairCapacity;
     }
     public void setSaveTarget(int saveTarget) {
+        if (saveTarget < 0) {
+            throw new IllegalArgumentException("New save target is < 0");
+        }
         this.saveTarget = saveTarget;
     }
     public void setSystemPoints(int systemPoints) {
+        if (systemPoints < 0) {
+            throw new IllegalArgumentException("New system points are < 0");
+        }
         this.systemPoints = systemPoints;
     }
     public void setLimitedSystemsBonus(int limitedSystemsBonus) {
+        if (limitedSystemsBonus < 0) {
+            throw new IllegalArgumentException("New limited systems bonus is"
+                + " < 0");
+        }
         this.limitedSystemsBonus = limitedSystemsBonus;
     }
 
     public void calculateAttributes(int[] mechSkills) {
-        // TODO: fill out
         // Calculate this mech's attributes based off of the frame template
         //     provided
         if (frame == null) {
@@ -228,6 +331,7 @@ public class Mech {
                 + " frame was set to null");
         }
         // Hull
+        System.out.println(frame.getName());
         setMaxHP(frame.getHP() + (mechSkills[0] * 2));
         setCurrentHP(maxHP);
         setMaxRepairCapacity(frame.getRepairCapacity() + (mechSkills[0] / 2));
@@ -245,6 +349,10 @@ public class Mech {
         setMaxHeatCapacity(frame.getHeatCapacity() + mechSkills[3]);
         setCurrentHeatCapacity(0);
         setLimitedSystemsBonus(mechSkills[3] / 2);
+
+        setArmor(frame.getArmor());
+        setSensors(frame.getSensors());
+        setSaveTarget(frame.getSaveTarget());
     }
     public String generateOutput(String outputType) {
         String outputString = "";
@@ -255,6 +363,7 @@ public class Mech {
             outputString += outputWeapons("mech build");
             outputString += "[ SYSTEMS ]\n";
             outputString += outputSystems("mech build");
+            outputString += "\n";
         } else if (outputType.equals("full")) {
             throw new IllegalArgumentException("Called"
                 + " Mech.generateOutput(\"full\") but mech skills value was not"
@@ -263,7 +372,7 @@ public class Mech {
 
         return outputString;
     }
-    public String generateOutput(String outputType, int[] mechSkills) {
+    public String generateOutput(String outputType, int[] mechSkills, int grit) {
         String outputString = "";
 
         if (outputType.equals("mech build")) {
@@ -272,10 +381,10 @@ public class Mech {
             outputString += "[ MECH ]\n";
             outputString += "  « " + getName() + " »\n";
             outputString += "  " + getFrame().getManufacturer() + " "
-                + getFrame().getFrameName() + "\n";
+                + getFrame().getName() + "\n";
             outputString += "  H:" + mechSkills[0] + " A:" + mechSkills[1]
                 + " S:" + mechSkills[2] + " E:" + mechSkills[3]
-                + outputStats("full");
+                + outputStats("full", grit);
             outputString += "[ WEAPONS ]\n";
             outputString += outputWeapons("full");
             outputString += "[ SYSTEMS ]\n";
@@ -339,6 +448,7 @@ public class Mech {
         String outputString = "";
 
         if (mounts == null || mounts.length == 0) {
+            outputString += "  N/A\n";
             return outputString;
         }
         outputType = outputType.toLowerCase();
@@ -357,6 +467,7 @@ public class Mech {
         String outputString = "";
 
         if (systems == null || systems.length == 0) {
+            outputString += "  N/A\n";
             return outputString;
         }
         outputType = outputType.toLowerCase();
@@ -397,14 +508,15 @@ public class Mech {
         String outputString = "";
 
         outputType = outputType.toLowerCase();
-        if (outputType.equals("full")) {
+        if (outputType.equals("full")
+            || outputType.equals("mech build")) {
             // output something like "Pattern-A Smoke Charges"
             outputString += system.outputSystem(outputType);
         }
         if (outputType.equals("mech build") && system.isLimited()) {
             // add something like " x4"
             outputString += " x" + (system.getLimitedCharges()
-                + limitedSystemsBonus);
+                + getLimitedSystemsBonus());
         }
 
         return outputString;
@@ -414,5 +526,9 @@ public class Mech {
             return "1/2";
         }
         return Integer.toString(getSize() / 2);
+    }
+    public boolean hasPlaceholders() {
+        // TODO: fill out
+        return false;
     }
 }

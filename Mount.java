@@ -36,6 +36,24 @@ public class Mount {
         setModification("");
         setCoreBonus("");
     }
+    public Mount(String mountType, Weapon weapon) {
+        this();
+        setMountType(mountType);
+        setWeapon(weapon);
+    }
+    public Mount(String mountType, Weapon weapon, String modification) {
+        this();
+        setMountType(mountType);
+        setWeapon(weapon);
+        setModification(modification);
+    }
+    public Mount(String mountType, Weapon weapon, String modification,
+        String coreBonus) {
+        setMountType(mountType);
+        setWeapon(weapon);
+        setModification(modification);
+        setCoreBonus(coreBonus);
+    }
 
     public String getMountType() {
         return mountType;
@@ -118,11 +136,14 @@ public class Mount {
         String outputString = "";
 
         outputString += mountType.toUpperCase();
-        if (mountType != "integrated weapon") {
+        if (! mountType.equals("integrated weapon")) {
             outputString += " MOUNT";
         }
-        outputString += ": ";
-        outputString += weapon.getWeaponName();
+        outputString += ":";
+        if (! weapon.isPlaceholder()) {
+            outputString += " ";
+            outputString += weapon.getName();
+        }
         if (hasModification) {
             outputString += " (" + modification + ")";
         }

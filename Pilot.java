@@ -147,6 +147,75 @@ public class Pilot {
     public String getName() {
         return name;
     }
+    public String getCallsign() {
+        return callsign;
+    }
+    public String getPlayer() {
+        return player;
+    }
+    public String getStatus() {
+        return status;
+    }
+    public String getBackground() {
+        return background;
+    }
+    public String getBiography() {
+        return biography;
+    }
+    public String getPlayerNotes() {
+        return playerNotes;
+    }
+    public String getAppearance() {
+        return appearance;
+    }
+    // ---Narrative Profile---------
+    public int getGrit() {
+        return grit;
+    }
+    public int getCurrentHP() {
+        return currentHP;
+    }
+    public int getMaxHP() {
+        return maxHP;
+    }
+    public int getArmor() {
+        return armor;
+    }
+    public int getEvasion() {
+        return evasion;
+    }
+    public int getSpeed() {
+        return speed;
+    }
+    public int getEDefense() {
+        return eDefense;
+    }
+    public String[] getReserves() {
+        return reserves;
+    }
+    public Loadout getLoadout() {
+        return loadout;
+    }
+    // ---Tactical Profile---------
+    public int getLicenseLevel() {
+        return licenseLevel;
+    }
+    public License[] getLicenseList() {
+        return licenseList;
+    }
+    public String[] getSpecialEquipment() {
+        return specialEquipment;
+    }
+    public int[] getMechSkills() {
+        return mechSkills;
+    }
+    public String[] getCoreBonuses() {
+        return coreBonuses;
+    }
+    public Talent[] getTalents() {
+        return talents;
+    }
+    // ---Dossier-------------------
     public void setName(String name) {
         // accept a String only, do NOT accept null
         if (name == null) {
@@ -154,9 +223,6 @@ public class Pilot {
                 + "pilot name: null");
         }
         this.name = name;
-    }
-    public String getCallsign() {
-        return callsign;
     }
     public void setCallsign(String callsign) {
         // accept a String only, do NOT accept null
@@ -166,9 +232,6 @@ public class Pilot {
         }
         this.callsign = callsign;
     }
-    public String getPlayer() {
-        return player;
-    }
     public void setPlayer(String player) {
         // accept a String only, do NOT accept null
         if (player == null) {
@@ -176,9 +239,6 @@ public class Pilot {
                 + "player name: null");
         }
         this.player = player;
-    }
-    public String getStatus() {
-        return status;
     }
     public void setStatus(String status) {
         boolean isValidStatus = false;
@@ -201,9 +261,6 @@ public class Pilot {
                 + "pilot status: " + status);
         }
     }
-    public String getBackground() {
-        return background;
-    }
     public void setBackground(String background) {
         // accept a String only, do NOT accept null
         if (background == null) {
@@ -211,9 +268,6 @@ public class Pilot {
                 + "pilot background: null");
         }
         this.background = background;
-    }
-    public String getBiography() {
-        return biography;
     }
     public void setBiography(String biography) {
         // accept a String only, do NOT accept null
@@ -223,9 +277,6 @@ public class Pilot {
         }
         this.biography = biography;
     }
-    public String getAppearance() {
-        return appearance;
-    }
     public void setAppearance(String appearance) {
         // accept a String only, do NOT accept null
         if (appearance == null) {
@@ -233,9 +284,6 @@ public class Pilot {
                 + "pilot appearance: null");
         }
         this.appearance = appearance;
-    }
-    public String getPlayerNotes() {
-        return playerNotes;
     }
     public void setPlayerNotes(String playerNotes) {
         // accept a String only, do NOT accept null
@@ -245,11 +293,7 @@ public class Pilot {
         }
         this.playerNotes = playerNotes;
     }
-
     // ---Narrative Profile---------
-    public int getGrit() {
-        return grit;
-    }
     private void setGrit(int grit) {
         if (grit < -1) {
             throw new IllegalArgumentException("New grit value is < -1");
@@ -258,9 +302,6 @@ public class Pilot {
             throw new IllegalArgumentException("New grit value is > 6");
         }
         this.grit = grit;
-    }
-    public int getCurrentHP() {
-        return currentHP;
     }
     public void setCurrentHP(int currentHP) {
         if (currentHP < -1) {
@@ -271,9 +312,6 @@ public class Pilot {
                 + " provided: " + currentHP + " is > maxHP value " + maxHP);
         }
         this.currentHP = currentHP;
-    }
-    public int getMaxHP() {
-        return maxHP;
     }
     public void setMaxHP(int maxHP) {
         if (maxHP < -1) {
@@ -287,17 +325,14 @@ public class Pilot {
         }
         this.maxHP = maxHP;
     }
-    public int getArmor() {
-        return armor;
-    }
     public void setArmor(int armor) {
         if (armor < -1) {
             throw new IllegalArgumentException("New armor value is < -1");
         }
         this.armor = armor;
     }
-    public int getEvasion() {
-        return evasion;
+    public SkillTriggersList getSkillTriggers() {
+        return skillTriggers;
     }
     public void setEvasion(int evasion) {
         if (evasion < -1) {
@@ -305,26 +340,17 @@ public class Pilot {
         }
         this.evasion = evasion;
     }
-    public int getSpeed() {
-        return speed;
-    }
     public void setSpeed(int speed) {
         if (speed < -1) {
             throw new IllegalArgumentException("New speed value is < -1");
         }
         this.speed = speed;
     }
-    public int getEDefense() {
-        return eDefense;
-    }
     public void setEDefense(int eDefense) {
         if (eDefense < -1) {
             throw new IllegalArgumentException("New e-defense value is < -1");
         }
         this.eDefense = eDefense;
-    }
-    public SkillTriggersList getSkillTriggers() {
-        return skillTriggers;
     }
     public void setSkillTriggers(SkillTriggersList skillTriggers) {
         // accept a value of a blank SkillTriggersList or a valid object, but no
@@ -342,9 +368,6 @@ public class Pilot {
                 + " is invalid");
         }
         this.skillTriggers = skillTriggers;
-    }
-    public String[] getReserves() {
-        return reserves;
     }
     public void setReserves(String[] reserves) {
         // accept a value of a blank array or a valid array, but no in betweens
@@ -365,9 +388,6 @@ public class Pilot {
         }
         this.reserves = reserves;
     }
-    public Loadout getLoadout() {
-        return loadout;
-    }
     public void setLoadout(Loadout loadout) {
         // accept a value of a blank Loadout or a Loadout object, but no in
         //     betweens
@@ -376,11 +396,7 @@ public class Pilot {
         }
         this.loadout = loadout;
     }
-
     // ---Tactical Profile---------
-    public int getLicenseLevel() {
-        return licenseLevel;
-    }
     public void setLicenseLevel(int licenseLevel) {
         if (licenseLevel < -1) {
             throw new IllegalArgumentException("New license level value is"
@@ -397,9 +413,6 @@ public class Pilot {
             this.licenseLevel = licenseLevel;
             setGrit((licenseLevel + 1) / 2);
         }
-    }
-    public License[] getLicenseList() {
-        return licenseList;
     }
     public void setLicenseList(License[] licenseList) {
         // accept a value of a blank array or an array of valid (without
@@ -422,9 +435,6 @@ public class Pilot {
         }
         this.licenseList = licenseList;
     }
-    public String[] getSpecialEquipment() {
-        return specialEquipment;
-    }
     public void setSpecialEquipment(String[] specialEquipment) {
         // accept a value of a blank array or an array of valid Strings (not
         //     null or a placeholder value), but no in betweens
@@ -443,9 +453,6 @@ public class Pilot {
             }
         }
         this.specialEquipment = specialEquipment;
-    }
-    public int[] getMechSkills() {
-        return mechSkills;
     }
     public void setMechSkills(int[] mechSkills) {
         // accept a value of a blank array or a length 4 array of valid ints
@@ -470,9 +477,6 @@ public class Pilot {
         }
         this.mechSkills = mechSkills;
     }
-    public String[] getCoreBonuses() {
-        return coreBonuses;
-    }
     public void setCoreBonuses(String[] coreBonuses) {
         // accept a value of a blank array or an array of valid Strings (not
         //     null or a placeholder value), but no in betweens
@@ -491,9 +495,6 @@ public class Pilot {
             }
         }
         this.coreBonuses = coreBonuses;
-    }
-    public Talent[] getTalents() {
-        return talents;
     }
     public void setTalents(Talent[] talents) {
         // accept a value of a blank Talent array or an array of valid Talents
@@ -516,6 +517,7 @@ public class Pilot {
         }
         this.talents = talents;
     }
+
     /**
      * Generates the pilot portion of the COMP/CON character output function.
      * @param outputType a String which can be one of the following:
@@ -525,6 +527,12 @@ public class Pilot {
      */
     public String generateOutput(String outputType) {
         String outputString = "";
+        int[] mechSkills = getMechSkills();
+        String name = getName();
+        String callsign = getCallsign();
+        int licenseLevel = getLicenseLevel();
+        SkillTriggersList skillTriggers = getSkillTriggers();
+        Loadout loadout = getLoadout();
 
         if (outputType.equals("mech build")) {
             outputString += "[ LICENSES ]\n";
@@ -583,6 +591,7 @@ public class Pilot {
      */
     public String outputLicenses(String outputType) {
         String outputString = "";
+        License[] licenseList = getLicenseList();
 
         if (licenseList.length == 0) {
             outputString += "  N/A\n";
@@ -632,6 +641,7 @@ public class Pilot {
      */
     public String outputTalents(String outputType) {
         String outputString = "";
+        Talent[] talents = getTalents();
 
         if (talents.length == 0) {
             outputString += "  N/A\n";
@@ -680,6 +690,7 @@ public class Pilot {
      */
     public String outputCoreBonuses(String outputType) {
         String outputString = "";
+        String[] coreBonuses = getCoreBonuses();
 
         if (coreBonuses.length == 0) {
             outputString += "  N/A\n";
@@ -721,5 +732,56 @@ public class Pilot {
         }
 
         return outputString;
+    }
+    public boolean hasPlaceholders() {
+        if (getGrit() == -1) {
+            return true;
+        }
+        if (getCurrentHP() == -1) {
+            return true;
+        }
+        if (getMaxHP() == -1) {
+            return true;
+        }
+        if (getArmor() == -1) {
+            return true;
+        }
+        if (getEvasion() == -1) {
+            return true;
+        }
+        if (getSpeed() == -1) {
+            return true;
+        }
+        if (getEDefense() == -1) {
+            return true;
+        }
+        if (getSkillTriggers().hasPlaceholders()) {
+            return true;
+        }
+        if (getLicenseLevel() == -1) {
+            return true;
+        }
+        for (License license : getLicenseList()) {
+            if (license.hasPlaceholders()) {
+                return true;
+            }
+        }
+        for (String equipment : getSpecialEquipment()) {
+            if (equipment.equals("")) {
+                return true;
+            }
+        }
+        for (String coreBonus : getCoreBonuses()) {
+            if (coreBonus.equals("")) {
+                return true;
+            }
+        }
+        for (Talent talent : getTalents()) {
+            if (talent.hasPlaceholders()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
