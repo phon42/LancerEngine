@@ -16,4 +16,17 @@ public class HelperFunctions {
         
         return newIntArray;
     }
+    public static String[] append(String[] stringArray, String newElement) {
+        String[] newStringArray = new String[stringArray.length + 1];
+
+        for (int i = 0; i < newStringArray.length; i++) {
+            if (i < stringArray.length) {
+                newStringArray[i] = stringArray[i];
+                continue;
+            }
+            newStringArray[i] = newElement;
+        }
+        
+        return newStringArray;
+    }
 }

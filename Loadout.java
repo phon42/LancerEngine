@@ -21,6 +21,18 @@ public class Loadout {
         setPilotWeapons(new String[] {"", ""});
         setPilotGear(new String[] {"", "", ""});
     }
+    // TODO: remove if unused
+    public Loadout(String pilotArmor) {
+        this();
+        setPilotArmor(pilotArmor);
+    }
+    // TODO: remove if unused
+    public Loadout(String pilotArmor, String[] pilotWeapons) {
+        this();
+        setPilotArmor(pilotArmor);
+        setPilotWeapons(pilotWeapons);
+    }
+    // TODO: remove if unused
     public Loadout(String pilotArmor, String[] pilotWeapons,
         String[] pilotGear) {
         setPilotArmor(pilotArmor);
@@ -144,10 +156,62 @@ public class Loadout {
      * @return a String representing an output of the items within this Loadout.
      */
     public String generateOutput() {
-        // TODO: fill out
         String outputString = "";
-        
-        outputString += "  N/A\n";
+        String[] outputArray;
+        String[] newOutputArray;
+        boolean test1;
+        boolean test2;
+        boolean test3;
+
+        test1 = (getPilotArmor().equals(""));
+        test2 = (getPilotWeapons()[0].equals("")
+            && getPilotWeapons()[1].equals(""));
+        test3 = (getPilotGear()[0].equals("")
+            && getPilotGear()[1].equals("")
+            && getPilotGear()[2].equals(""));
+        if (test1 && test2 && test3) {
+            outputString += "  N/A\n";
+            return outputString;
+        }
+        if (! test1) {
+            outputString += getPilotArmor() + ",";
+        }
+        if (! test2) {
+            for (int i = 0; i < 2; i++) {
+                if (! getPilotWeapons()[i].equals("")) {
+                    outputString += getPilotWeapons()[i] + ",";
+                }
+            }
+        }
+        if (! test3) {
+            for (int i = 0; i < 3; i++) {
+                if (! getPilotGear()[i].equals("")) {
+                    outputString += getPilotGear()[i] + ",";
+                }
+            }
+        }
+        outputArray = outputString.split(",");
+        newOutputArray = new String[0];
+        for (int i = 0; i < outputArray.length; i++) {
+            if (! outputArray[i].equals("")) {
+                newOutputArray = HelperFunctions.append(newOutputArray,
+                    outputArray[i]);
+            }
+        }
+        outputString = "";
+        for (int i = 0; i < newOutputArray.length; i += 2) {
+            outputString += "  ";
+            for (int j = i; j < Math.min(i + 2, newOutputArray.length); j++) {
+                outputString += newOutputArray[j];
+                if (j + 1 < Math.min(i + 2, newOutputArray.length)) {
+                    outputString += ", ";
+                }
+            }
+            if (i + 2 < newOutputArray.length) {
+                outputString += ",";
+            }
+            outputString += "\n";
+        }
 
         return outputString;
     }
