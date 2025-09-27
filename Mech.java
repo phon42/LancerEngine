@@ -374,7 +374,6 @@ public class Mech {
             outputString += outputWeapons("mech build");
             outputString += "[ SYSTEMS ]\n";
             outputString += outputSystems("mech build");
-            outputString += "\n";
         } else if (outputType.equals("full")) {
             throw new IllegalArgumentException("Called"
                 + " Mech.generateOutput(\"full\") but mech skills value was not"
@@ -502,7 +501,7 @@ public class Mech {
         if (outputType.equals("mech build")) {
             // output something like:
             //     "  Pattern-A Smoke Charges x4, Seismic Ripper,"
-            //     " High-Stress Mag Clamps, ATHENA-Class NHP"
+            //     " High-Stress Mag Clamps, ATHENA-Class NHP\n"
             for (int i = 0; i < systems.length; i++) {
                 if (i == 0) {
                     outputString += "  ";
@@ -512,10 +511,11 @@ public class Mech {
                     outputString += ", ";
                 }
             }
+            outputString += "\n";
         } else if (outputType.equals("full")) {
             // output something along the lines of:
             //       "  Ammo Case II, Pattern-A Smoke Charges,\n"
-            //     + "  Seismic Ripper, High-Stress Mag Clamps"
+            //     + "  Seismic Ripper, High-Stress Mag Clamps\n"
             for (int i = 0; i < systems.length; i += 2) {
                 outputString += "  ";
                 for (int ii = i; ii < Math.min(systems.length, i + 2); ii++) {
@@ -525,8 +525,9 @@ public class Mech {
                     }
                 }
                 if (i + 2 < systems.length) {
-                    outputString += ",\n";
+                    outputString += ",";
                 }
+                outputString += "\n";
             }
         }
 
