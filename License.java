@@ -1,6 +1,7 @@
 /**
  * Represents a single license. Stores the frame to which the license is held,
  *     and the level of the license.
+ * Requires a frameName and a licenseLevel to be instantiated.
  */
 public class License {
     /**

@@ -2,7 +2,15 @@ enum FrameEnum {
     EVEREST,
     SWALLOWTAIL_RANGER
 }
+/**
+ * Contains a set array of Frames to be used by Mech(String, String) and
+ *     Mech(String, FrameEnum). Cannot be instantiated. All its methods are
+ *     static.
+ */
 public class FrameDatabase {
+    /**
+     * A Frame[] containing every Frame for the user.
+     */
     private static final Frame[] frameList = new Frame[] {
         new Frame("GMS", "Everest", "everest",
             FrameEnum.EVEREST, new String[] {"Balanced"}, "Most humans don’t"
@@ -77,9 +85,17 @@ public class FrameDatabase {
                 new Mount("main", new Weapon())})
     };
 
-    // Prevent users from instantiating this class
+    // Prevent user from instantiating this class
     private FrameDatabase() {}
 
+    /**
+     * Searches for and returns a Frame matching the given search ID
+     * @param searchID a String representing the frame ID of the Frame the user
+     *     wants
+     * @return a Frame representing the Frame the user wants
+     * @throws IllegalArgumentException when no Frame is found matching the
+     *     given search ID
+     */
     public static Frame getFrame(String searchID) {
         String frameID;
         String originalSearch = new String(searchID);
@@ -94,6 +110,14 @@ public class FrameDatabase {
         throw new IllegalArgumentException("No frame found for frame ID: "
             + originalSearch);
     }
+    /**
+     * Searches for and returns a Frame matching the given search enum
+     * @param searchEnum a FrameEnum representing the FrameEnum of the Frame the
+     *     user wants
+     * @return a Frame representing the Frame the user wants
+     * @throws IllegalArgumentException when no Frame is found matching the
+     *     given search enum
+     */
     public static Frame getFrame(FrameEnum searchEnum) {
         FrameEnum frameEnum;
         

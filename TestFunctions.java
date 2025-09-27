@@ -1,5 +1,6 @@
 /**
  * Tests every class and every function under every class. Yes, I'm serious.
+ * Cannot be instantiated. All its methods are static.
  */
 public class TestFunctions {
     public static int maxWidth = 0;
@@ -7,7 +8,7 @@ public class TestFunctions {
     public static int numPassed = 0;
     public static int numTests = 0;
 
-    // Prevent users from instantiating this class
+    // Prevent user from instantiating this class
     private TestFunctions() {}
     
     /**
@@ -328,7 +329,6 @@ public class TestFunctions {
         boolean test2 = false;
         boolean test3 = false;
         boolean test4 = false;
-        boolean test5 = false;
 
         // normal case
         pilot.setLicenseLevel(0);

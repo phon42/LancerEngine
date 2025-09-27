@@ -16,9 +16,14 @@ public class Mount {
      */
     private String mountType;
     /**
-     * Can be any Weapon, though new Weapon() is a placeholder. Cannot be null.
+     * The mount's weapon (if it has one). Can be any Weapon, though
+     *     new Weapon() is a placeholder. Cannot be null.
      */
     private Weapon weapon;
+    /**
+     * Whether the mount has any modifications. Controlled automatically by
+     *     Mount.setModification().
+     */
     private boolean hasModification;
     /**
      * Can be any String. Cannot be null.
@@ -108,6 +113,11 @@ public class Mount {
         if (weapon == null) {
             throw new IllegalArgumentException("New weapon is null");
         }
+        if (! weapon.isPlaceholder() && weapon.hasPlaceholders()) {
+            throw new IllegalArgumentException("New weapon value is not a"
+                + " placeholder but has some properties set to placeholder"
+                + " values");
+        }
         this.weapon = weapon;
     }
     // Setters for hasModification and hasCoreBonus removed purposefully
@@ -140,7 +150,8 @@ public class Mount {
      * Outputs a short snippet of text in the style of:
      *     "MAIN MOUNT: Assault Rifle (BOUNDER-Class Comp/Con)"
      *     " // Overpower Caliber"
-     * @return a String representing the mount and any weapons mounted on it
+     * @return a String representing the mount and any weapons mounted on it, as
+     *     well as any modifications or core bonuses.
      */
     public String outputWeapon() {
         String outputString = "";

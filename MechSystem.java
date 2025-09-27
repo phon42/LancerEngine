@@ -5,14 +5,19 @@
 public class MechSystem {
     // TODO: fill out
     /**
-     * The system name.
-     * Can be any String, though "" is a placeholder. Cannot be null.
+     * The mech system name.
+     * Can be any non-"" String. Cannot be null. Set to "" on construction.
      */
     private String name;
 
+    /**
+     * Whether the mech system has the "Limited" tag or not. Controlled
+     *     automatically by MechSystem.setLimitedCharges().
+     */
     private boolean limited;
     /**
-     * Must be > -1.
+     * The number of charges the mech system has, if it has the "Limited" tag.
+     *     If not, set to 0. Must be > -1.
      */
     private int limitedCharges;
 
@@ -57,9 +62,9 @@ public class MechSystem {
                 + " < 0");
         }
         if (limitedCharges == 0) {
-            setLimited(false);
+            this.limited = false;
         } else {
-            setLimited(true);
+            this.limited = true;
         }
         this.limitedCharges = limitedCharges;
     }

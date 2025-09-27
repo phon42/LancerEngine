@@ -15,6 +15,8 @@ public class Frame {
     /**
      * The frame's name (i.e. "everest"). Case-insensitive and stored in
      *     lowercase. Cannot be null or "". Set to "" on construction.
+     * Use Frame.getName() to get the raw value and Frame.outputName() to obtain
+     *     it properly formatted.
      */
     private String name;
     /**
@@ -34,11 +36,11 @@ public class Frame {
      * Is set to "" at construction but must be one of the following values
      *     otherwise: "artillery", "balanced", "controller", "striker",
      *     "support".
-     * Is case-insensitive and stored in all lowercase.
+     * Is case-insensitive and stored in all lowercase. Cannot be null.
      */
     private String[] role;
     /**
-     * A list of allowed values for the elements of the role property
+     * An array of allowed values for the elements of the role property.
      */
     final String[] allowedRoles = new String[] {
         "artillery", "balanced", "controller", "striker", "support"
@@ -46,7 +48,7 @@ public class Frame {
     /**
      * The description at the top of a frame's page on COMP/CON (i.e. "Most
      *     humans don’t...").
-     * Is case-sensitive.
+     * Is case-sensitive. Cannot be null.
      */
     private String frameDescription;
 
@@ -285,6 +287,9 @@ public class Frame {
         boolean isValidRole = false;
         String roleString;
 
+        if (role == null) {
+            throw new IllegalArgumentException("New role value is null");
+        }
         for (int i = 0; i < role.length; i++) {
             role[i] = role[i].toLowerCase();
             roleString = role[i];
@@ -466,7 +471,8 @@ public class Frame {
             if (trait == null) {
                 throw new IllegalArgumentException("New traits value contains"
                     + " a null element");
-            } if (trait.equals("")) {
+            }
+            if (trait.equals("")) {
                 throw new IllegalArgumentException("New traits value contains"
                     + " an \"\" element");
             }

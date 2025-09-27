@@ -8,12 +8,12 @@ public class Pilot {
     // name and callsign
     /**
      * Can be any String other than "". Cannot be null. Set to "" on
-     *     initialization.
+     *     construction.
      */
     private String name;
     /**
      * Can be any String other than "". Cannot be null. Set to "" on
-     *     initialization.
+     *     construction.
      */
     private String callsign;
 

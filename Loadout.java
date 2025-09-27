@@ -72,7 +72,7 @@ public class Loadout {
         }
         if (pilotWeapons.length != 2) {
             throw new IllegalArgumentException("New pilot weapon value is"
-                + " of invalid length");
+                + " of invalid length: " + pilotWeapons.length);
         }
         for (String weapon : pilotWeapons) {
             if (weapon == null) {
@@ -94,7 +94,7 @@ public class Loadout {
         }
         if (pilotGear.length != 3) {
             throw new IllegalArgumentException("New pilot gear value is"
-                + " of invalid length");
+                + " of invalid length: " + pilotGear.length);
         }
         for (String gear : pilotGear) {
             if (gear == null) {

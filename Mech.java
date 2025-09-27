@@ -7,17 +7,31 @@
  *     skills, weapons, systems, and other modifications are added.
  */
 public class Mech {
-    // name of this mech (NOT its frame name, the name given to that specific
-    //     chassis)
+    /**
+     * The name of this mech (NOT its frame name, the name given to this
+     *     specific chassis). Can be any non-"" String. Cannot be null. Set to
+     *     "" on construction from Mech().
+     */
     private String name;
     
-    // frame that this mech is (i.e. Swallowtail)
+    /**
+     * The frame that this mech is patterned after (i.e. Swallowtail) as a Frame
+     *     object. Cannot be a placeholder Frame. Set to a placeholder Frame on
+     *     construction from Mech().
+     */
     private Frame frame;
 
-    // the operator notes attached to this mech
+    /**
+     * The operator notes attached to this mech. Can be any String. Cannot be
+     *     null.
+     */
     private String operatorNotes;
     
     // mounts/weapons
+    /**
+     * The mech's weapon mounts. Can be any Mount[] that does not contain null.
+     *     Cannot be null.
+     */
     private Mount[] mounts;
 
     // systems
@@ -64,6 +78,9 @@ public class Mech {
     // limited systems bonus
     private int limitedSystemsBonus;
 
+    /**
+     * Creates a placeholder Mech.
+     */
     public Mech() {
         this.name = "";
         this.frame = new Frame();
@@ -91,11 +108,23 @@ public class Mech {
         this.systemPoints = -1;
         this.limitedSystemsBonus = -1;
     }
+    /**
+     * Creates a non-placeholder Mech from a mech name and a frameID.
+     * @param name a String representing the mech name of the new Mech.
+     * @param frameID a String representing the frameID of the Frame to use to
+     *     create the new Mech.
+     */
     public Mech(String name, String frameID) {
         this();
         setName(name);
         setFrame(FrameDatabase.getFrame(frameID));
     }
+    /**
+     * Creates a non-placeholder Mech from a mech name and a FrameEnum.
+     * @param name a String representing the mech name of the new Mech.
+     * @param frameEnum a FrameEnum representing the FrameEnum of the Frame to
+     *     use to create the new Mech.
+     */
     public Mech(String name, FrameEnum frameEnum) {
         this();
         setName(name);
@@ -181,6 +210,9 @@ public class Mech {
         if (name == null) {
             throw new IllegalArgumentException("New name is null");
         }
+        if (name.equals("")) {
+            throw new IllegalArgumentException("New name is \"\"");
+        }
         this.name = name;
     }
     public void setFrame(Frame frame) {
@@ -196,6 +228,18 @@ public class Mech {
             throw new IllegalArgumentException("New operator notes are null");
         }
         this.operatorNotes = operatorNotes;
+    }
+    private void setMounts(Mount[] mounts) {
+        if (mounts == null) {
+            throw new IllegalArgumentException("New mounts value is null");
+        }
+        for (Mount mount : mounts) {
+            if (mount == null) {
+                throw new IllegalArgumentException("New mounts value contains"
+                    + " a null element");
+            }
+        }
+        this.mounts = mounts;
     }
     public void setMount(int mountIndex, Mount mount) {
         if (mountIndex < 0) {
@@ -213,9 +257,6 @@ public class Mech {
             mount = new Mount(mountType, mount.getWeapon());
         }
         this.mounts[mountIndex] = mount;
-    }
-    private void setMounts(Mount[] mounts) {
-        this.mounts = mounts;
     }
     public void setSystems(MechSystem[] systems) {
         this.systems = systems;
