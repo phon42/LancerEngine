@@ -380,12 +380,20 @@ public class Mech {
             return generateOutput(outputType);
         } else if (outputType.equals("full")) {
             outputString += "[ MECH ]\n";
-            outputString += "  « " + getName() + " »\n";
-            outputString += "  " + getFrame().getManufacturer() + " "
-                + getFrame().getName() + "\n";
-            outputString += "  H:" + mechSkills[0] + " A:" + mechSkills[1]
-                + " S:" + mechSkills[2] + " E:" + mechSkills[3]
-                + outputStats("full", grit);
+            if (isPlaceholder()) {
+                outputString += "  « N/A »\n";
+                outputString += "  N/A N/A\n";
+                outputString += "  H:" + mechSkills[0] + " A:" + mechSkills[1]
+                    + " S:" + mechSkills[2] + " E:" + mechSkills[3]
+                    + outputStats("full", grit);
+            } else {
+                outputString += "  « " + getName() + " »\n";
+                outputString += "  " + getFrame().getManufacturer() + " "
+                    + getFrame().getName() + "\n";
+                outputString += "  H:" + mechSkills[0] + " A:" + mechSkills[1]
+                    + " S:" + mechSkills[2] + " E:" + mechSkills[3]
+                    + outputStats("full", grit);
+            }
             outputString += "[ WEAPONS ]\n";
             outputString += outputWeapons("full");
             outputString += "[ SYSTEMS ]\n";
@@ -404,8 +412,17 @@ public class Mech {
             outputString += "  STRESS:" + getMaxStress() + " HEATCAP:"
                 + getMaxHeatCapacity() + " REPAIR:" + getMaxRepairCapacity()
                 + "\n";
-            outputString += "  TECH ATK:+" + getTechAttack() + " LIMITED:+"
-                + getLimitedSystemsBonus() + "\n";
+            if (getTechAttack() >= 0) {
+                outputString += "  TECH ATK:+" + getTechAttack();
+            } else {
+                outputString += "  TECH ATK:" + getTechAttack();
+            }
+            if (getLimitedSystemsBonus() >= 0) {
+                outputString += " LIMITED:+" + getLimitedSystemsBonus();
+            } else {
+                outputString += " LIMITED:" + getLimitedSystemsBonus();
+            }
+            outputString += "\n";
             outputString += "  SPD:" + getSpeed() + " EVA:" + getEvasion()
                 + " EDEF:" + getEDefense() + " SENSE:" + getSensors() + " SAVE:"
                 + getSaveTarget() + "\n";
@@ -526,7 +543,10 @@ public class Mech {
         if (getSize() == 1) {
             return "1/2";
         }
-        return Integer.toString(getSize() / 2);
+        if (getSize() > 1) {
+            return Integer.toString(getSize() / 2);
+        }
+        return Integer.toString(getSize());
     }
     public boolean hasPlaceholders() {
         if (getName().equals("")) {

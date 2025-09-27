@@ -574,7 +574,7 @@ public class Pilot {
             outputString += outputTalents(outputType);
             outputString += "[ STATS ]\n";
             outputString += "  HULL:" + mechSkills[0] + " AGI:" + mechSkills[1]
-                + " SYS:" + mechSkills[2] + " ENGI:" + mechSkills[3];
+                + " SYS:" + mechSkills[2] + " ENGI:" + mechSkills[3] + "\n";
         } else if (outputType.equals("pilot")) {
             outputString += "» " + name + " // " + callsign.toUpperCase()
                 + " «\n";

@@ -92,8 +92,13 @@ public class LancerCharacter {
         String frameName = "";
         int licenseLevel = getPilot().getLicenseLevel();
         if (hasMech) {
-            frameName = getMech().getFrame().getName();
-            manufacturer = getMech().getFrame().getManufacturer();
+            if (getMech().isPlaceholder()) {
+                manufacturer = "N/A";
+                frameName = "N/A";
+            } else {
+                manufacturer = getMech().getFrame().getManufacturer();
+                frameName = getMech().getFrame().getName();
+            }
         }
 
         outputType = outputType.toLowerCase();
@@ -102,20 +107,30 @@ public class LancerCharacter {
                 outputString += ">> NO MECH SELECTED <<";
                 return outputString;
             }
+            if (getMech().isPlaceholder()) {
+                System.out.println(" [ WARNING ]"
+                    + " LancerCharacter.generateStats() has been called even"
+                    + " though the object's mech value is a placeholder Mech");
+            }
             outputString += "-- " + manufacturer + " " + frameName + " @ LL"
                 + licenseLevel + " --\n";
             outputString += getPilot().generateOutput(outputType);
             outputString += getMech().generateOutput(outputType);
-            } else if (outputType.equals("pilot")) {
-                outputString += getPilot().generateOutput(outputType);
-            } else if (outputType.equals("full")) {
-                outputString += getPilot().generateOutput(outputType);
-                if (! hasMech) {
-                    outputString += ">> NO MECH SELECTED <<";
-                    return outputString;
-                }
-                outputString += getMech().generateOutput(outputType,
-                    getPilot().getMechSkills(), getPilot().getGrit());
+        } else if (outputType.equals("pilot")) {
+            outputString += getPilot().generateOutput(outputType);
+        } else if (outputType.equals("full")) {
+            if (getMech().isPlaceholder()) {
+                System.out.println(" [ WARNING ]"
+                    + " LancerCharacter.generateStats() has been called even"
+                    + " though the object's mech value is a placeholder Mech");
+            }
+            outputString += getPilot().generateOutput(outputType);
+            if (! hasMech) {
+                outputString += ">> NO MECH SELECTED <<";
+                return outputString;
+            }
+            outputString += getMech().generateOutput(outputType,
+                getPilot().getMechSkills(), getPilot().getGrit());
         }
 
         return outputString;
