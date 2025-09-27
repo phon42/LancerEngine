@@ -45,6 +45,11 @@ public class LancerCharacter {
         setMech(mech);
     }
     // TODO: remove if unused
+    public LancerCharacter(Pilot pilot) {
+        setPilot(pilot);
+        setMech(new Mech());
+    }
+    // TODO: remove if unused
     public LancerCharacter(Pilot pilot, Mech mech) {
         setPilot(pilot);
         setMech(mech);
@@ -73,7 +78,7 @@ public class LancerCharacter {
         if (! mech.isPlaceholder()) {
             if (mech.hasPlaceholders()) {
                 throw new IllegalArgumentException("New mech value is not a"
-                    + " placeholder but has its properties set to placeholder"
+                    + " placeholder but has some properties set to placeholder"
                     + " values");
             }
             mech.calculateAttributes(getPilot().getMechSkills());
@@ -145,6 +150,8 @@ public class LancerCharacter {
         return outputString;
     }
 
+    // if you don't know what this is from looking at the method name
+    // you should not be reading this code right now
     public static void main(String[] args) {
         LancerCharacter myCharacter = new LancerCharacter(
             "Coral Nolan", "Apocalypse");
