@@ -86,7 +86,7 @@ public class FrameDatabase {
         
         searchID = searchID.toLowerCase();
         for (int i = 0; i < frameList.length; i++) {
-            frameID = frameList[i].getID().toLowerCase();
+            frameID = frameList[i].getID();
             if (frameID.equals(searchID)) {
                 return frameList[i];
             }

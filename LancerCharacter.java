@@ -106,7 +106,7 @@ public class LancerCharacter {
                 frameName = "N/A";
             } else {
                 manufacturer = getMech().getFrame().getManufacturer();
-                frameName = getMech().getFrame().getName();
+                frameName = getMech().getFrame().outputName();
             }
         }
 

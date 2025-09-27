@@ -2,108 +2,149 @@
  * Represents a frame (a pattern or statblock that can be copied to form mechs).
  *     Stores information about the frame such as its manufacturer, frame name,
  *     role, and stats.
+ * A Frame object is needed to create a non-placeholder Mech object. Its stats,
+ *     traits, and mounts serve as the base on top of which mech skills,
+ *     weapons, systems, and other modifications are added.
  */
 public class Frame {
-    // frame manufacturer (i.e. GMS), case-sensitive
-    private String manufacturer;
-    // frame name (i.e. Everest), case-sensitive
-    private String name;
-    private String ID;
-    private FrameEnum frameEnum;
-    // role (i.e. striker)
     /**
+     * The frame's manufacturer (i.e. "GMS"). Case-insensitive and stored in
+     *     uppercase. Cannot be null or "". Set to "" on construction.
+     */
+    private String manufacturer;
+    /**
+     * The frame's name (i.e. "everest"). Case-insensitive and stored in
+     *     lowercase. Cannot be null or "". Set to "" on construction.
+     */
+    private String name;
+    /**
+     * The frame's ID (i.e. "swallowtail_ranger"). Used for identifying it in
+     *     FrameDatabase.getFrame(String). Case-insensitive and stored in
+     *     lowercase. Cannot be null or "". Set to "" on construction.
+     */
+    private String ID;
+    /**
+     * The frame's frameEnum, used for identifying it in
+     *     FrameDatabase.getFrame(FrameEnum). Cannot be null. Set to null on
+     *     construction.
+     */
+    private FrameEnum frameEnum;
+    /**
+     * The frame's role (i.e. "striker").
      * Is set to "" at construction but must be one of the following values
      *     otherwise: "artillery", "balanced", "controller", "striker",
      *     "support".
      * Is case-insensitive and stored in all lowercase.
      */
     private String[] role;
-    // the list of allowed values for the role variable
+    /**
+     * A list of allowed values for the elements of the role property
+     */
     final String[] allowedRoles = new String[] {
         "artillery", "balanced", "controller", "striker", "support"
     };
-    // desc at the top of the page (i.e. "Most humans don’t...")
     /**
+     * The description at the top of a frame's page on COMP/CON (i.e. "Most
+     *     humans don’t...").
      * Is case-sensitive.
      */
     private String frameDescription;
 
     // frame attributes - size, structure, HP, etc.
     /**
-     * Represents the size of the mech.
-     * Size is stored as 2 * its value (Size 1/2 would be stored as int 1).
-     * Allowed values for size: -1 (placeholder), 1, 2, 4, 6, 8.
+     * The frame's size.
+     * Size is stored as 2 * its value (i.e. Size 1/2 would be stored as int 1).
+     * Allowed values for size: 1, 2, 4, 6, 8. Set to -1 on construction.
      */
     private int size;
 
     // health and structure
     /**
+     * The frame's max structure value.
      * Is set to -1 at construction but must be a minimum of 1 otherwise.
      */
     private int structure;
     /**
+     * The frame's max HP value.
      * Must be a minimum of 1.
      */
     private int HP;
     /**
+     * The frame's armor value.
      * Is set to -1 at construction but must be a minimum of 0 otherwise.
      */
     private int armor;
 
     // heat and stress
     /**
+     * The frame's max stress value.
      * Is set to 4 at construction. Must be a minimum of 1.
      */
     private int stress;
     /**
+     * The frame's max heat capacity.
      * Is set to -1 at construction but must be a minimum of 1 otherwise.
      */
     private int heatCapacity;
 
     // evasion and speed
     /**
+     * The frame's evasion value.
      * Is set to -1 at construction but must be a minimum of 0 otherwise.
      */
     private int evasion;
     /**
+     * The frame's evasion value.
      * Is set to -1 at construction but must be a minimum of 0 otherwise.
      */
     private int speed;
 
     // e-defense and tech attack
     /**
+     * The frame's evasion value.
      * Is set to -1 at construction but must be a minimum of 0 otherwise.
      */
     private int eDefense;
     /**
+     * The frame's evasion value.
      * Set to -1 at construction. Can be any integer.
      */
     private int techAttack;
 
     // sensors and repair capacity
     /**
+     * The frame's evasion value.
      * Is set to -1 at construction but must be a minimum of 0 otherwise.
      */
     private int sensors;
     /**
+     * The frame's evasion value.
      * Is set to -1 at construction but must be a minimum of 0 otherwise.
      */
     private int repairCapacity;
 
     // save target and system points
     /**
+     * The frame's evasion value.
      * Is set to -1 at construction but must be a minimum of 0 otherwise.
      */
     private int saveTarget;
     /**
+     * The frame's evasion value.
      * Is set to -1 at construction but must be a minimum of 0 otherwise.
      */
     private int systemPoints;
 
-    // frame traits
+    /**
+     * An array of the frame's traits. Cannot be null or contain null elements
+     *     or elements that are "".
+     */
     private String[] traits;
 
-    // weapon mounts
+    /**
+     * An array of the frame's weapon mounts. Cannot be null or contain null
+     *     elements.
+     */
     private Mount[] mounts;
 
     // TODO: fill out
@@ -188,10 +229,22 @@ public class Frame {
             throw new IllegalArgumentException("New manufacturer value is"
                 + " null");
         }
+        if (manufacturer.equals("")) {
+            throw new IllegalArgumentException("New manufacturer value is"
+                + " \"\"");
+        }
+        manufacturer = manufacturer.toUpperCase();
         this.manufacturer = manufacturer;
     }
     public String getName() {
         return name;
+    }
+    public String outputName() {
+        if (name.length() > 1) {
+            return name.substring(0, 1).toUpperCase()
+                + name.substring(1);
+        }
+        return name.toUpperCase();
     }
     public void setName(String name) {
         if (name == null) {
@@ -200,6 +253,7 @@ public class Frame {
         if (name.equals("")) {
             throw new IllegalArgumentException("New frame name is \"\"");
         }
+        name = name.toLowerCase();
         this.name = name;
     }
     public String getID() {
@@ -212,6 +266,7 @@ public class Frame {
         if (ID.equals("")) {
             throw new IllegalArgumentException("New frame ID is \"\"");
         }
+        ID = ID.toLowerCase();
         this.ID = ID;
     }
     public FrameEnum getFrameEnum() {
@@ -408,9 +463,12 @@ public class Frame {
             throw new IllegalArgumentException("New traits value is null");
         }
         for (String trait : traits) {
-            if (trait == null || trait.equals("")) {
+            if (trait == null) {
                 throw new IllegalArgumentException("New traits value contains"
-                    + " a value of \"\" or null");
+                    + " a null element");
+            } if (trait.equals("")) {
+                throw new IllegalArgumentException("New traits value contains"
+                    + " an \"\" element");
             }
         }
         this.traits = traits;
@@ -424,8 +482,8 @@ public class Frame {
         }
         for (Mount mount : mounts) {
             if (mount == null) {
-                throw new IllegalArgumentException("New mounts list contains"
-                    + " a value of null");
+                throw new IllegalArgumentException("New mounts array contains"
+                    + " a null element");
             }
         }
         this.mounts = mounts;

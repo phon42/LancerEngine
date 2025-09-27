@@ -1,7 +1,10 @@
 /**
  * Represents a single mech. Contains information about that mech's origin frame
- *     (the stat block after which it is patterned), its mounts, and its
- *     systems, among other statistics.
+ *     (the stat block after which it is patterned), its stats, its mounts, and
+ *     its systems, among other statistics.
+ * A Frame object is required to create a non-placeholder Mech object. The Frame
+ *     object's stats, traits, and mounts serve as the base on top of which mech
+ *     skills, weapons, systems, and other modifications are added.
  */
 public class Mech {
     // name of this mech (NOT its frame name, the name given to that specific
@@ -410,9 +413,10 @@ public class Mech {
                     + " S:" + mechSkills[2] + " E:" + mechSkills[3]
                     + outputStats("full", grit);
             } else {
+                String manufacturer = getFrame().getManufacturer();
                 outputString += "  « " + getName() + " »\n";
-                outputString += "  " + getFrame().getManufacturer() + " "
-                    + getFrame().getName() + "\n";
+                outputString += "  " + manufacturer + " "
+                    + getFrame().outputName() + "\n";
                 outputString += "  H:" + mechSkills[0] + " A:" + mechSkills[1]
                     + " S:" + mechSkills[2] + " E:" + mechSkills[3]
                     + outputStats("full", grit);
