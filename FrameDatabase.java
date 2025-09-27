@@ -71,6 +71,9 @@ public class FrameDatabase {
                 new Mount("main", new Weapon())})
     };
 
+    // Prevent users from instantiating this class
+    private FrameDatabase() {}
+
     public static Frame getFrame(String searchName) {
         String manufacturer;
         String frameName;

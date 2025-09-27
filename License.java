@@ -4,59 +4,55 @@
  */
 public class License {
     /**
-     * Can be any String, though "" is a placeholder. Cannot be null.
+     * The frame name.
+     * Can be any String except "". Cannot be null.
      */
-    private String frame;
+    private String name;
     /**
-     * Must be between -1 (placeholder) and 3 (inclusive). Cannot be 0.
+     * The license level.
+     * Must be between 1 and 3 (inclusive).
      */
-    private int licenseLevel;
+    private int level;
 
-    public License() {
-        setFrame("");
-        setLicenseLevel(-1);
-    }
-    public License(String frame, int licenseLevel) {
-        setFrame(frame);
-        setLicenseLevel(licenseLevel);
+    public License(String frameName, int licenseLevel) {
+        setName(frameName);
+        setLevel(licenseLevel);
     }
 
-    public String getFrame() {
-        return frame;
+    public String getName() {
+        return name;
     }
-    public int getLicenseLevel() {
-        return licenseLevel;
-    }
-    /**
-     * Sets this.frame to the value provided.
-     * @param frame a String which cannot be null.
-     */
-    public void setFrame(String frame) {
-        if (frame == null) {
-            throw new IllegalArgumentException("New value for frame is"
-                + " null");
-        }
-        this.frame = frame;
+    public int getLevel() {
+        return level;
     }
     /**
-     * Sets this.licenseLevel to the value provided.
-     * @param licenseLevel an int which must be between -1 and 3 (inclusive)
-     *     and cannot be null.
+     * Sets this.name to the value provided.
+     * @param name a String which cannot be null or "".
      */
-    public void setLicenseLevel(int licenseLevel) {
-        if (licenseLevel < -1) {
-            throw new IllegalArgumentException("New value for license level "
-                + "is < -1");
+    public void setName(String name) {
+        if (name == null) {
+            throw new IllegalArgumentException("New frame name is null");
         }
-        if (licenseLevel == 0) {
-            throw new IllegalArgumentException("New value for license level "
-                + "is 0");
+        if (name.equals("")) {
+            throw new IllegalArgumentException("New frame name is \"\"");
         }
-        if (licenseLevel > 3) {
+        this.name = name;
+    }
+    /**
+     * Sets this.level to the value provided.
+     * @param level an int which must be between 1 and 3 (inclusive) and cannot
+     *     be null.
+     */
+    public void setLevel(int level) {
+        if (level < 1) {
+            throw new IllegalArgumentException("New value for license level "
+                + "is < 1");
+        }
+        if (level > 3) {
             throw new IllegalArgumentException("New value for license level "
                 + "is > 3");
         }
-        this.licenseLevel = licenseLevel;
+        this.level = level;
     }
 
     /**
@@ -85,29 +81,13 @@ public class License {
         if (license == null) {
             return false;
         }
-        if (! license.getFrame().equals(getFrame())) {
+        if (! license.getName().equals(getName())) {
             return false;
         }
-        if (license.getLicenseLevel() != getLicenseLevel()) {
+        if (license.getLevel() != getLevel()) {
             return false;
         }
         
         return true;
-    }
-    /**
-     * Checks whether this License object has any properties set to placeholder
-     *     values.
-     * @return a boolean representing whether this License object has any
-     *     properties set to placeholder values.
-     */
-    public boolean hasPlaceholders() {
-        if (getFrame().equals("")) {
-            return true;
-        }
-        if (getLicenseLevel() == -1) {
-            return true;
-        }
-
-        return false;
     }
 }

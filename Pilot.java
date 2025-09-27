@@ -7,21 +7,23 @@ public class Pilot {
     // ---Dossier-------------------
     // name and callsign
     /**
-     * Can be any String, though "" is a placeholder. Cannot be null.
+     * Can be any String other than "". Cannot be null. Set to "" on
+     *     initialization.
      */
     private String name;
     /**
-     * Can be any String, though "" is a placeholder. Cannot be null.
+     * Can be any String other than "". Cannot be null. Set to "" on
+     *     initialization.
      */
     private String callsign;
 
     // (optional) details
     /**
-     * Can be any String, though "" is a placeholder. Cannot be null.
+     * Can be any String. Cannot be null.
      */
     private String player;
     /**
-     * Can be one of the following:
+     * Must be one of the following:
      *     "active", "inactive", "retired", "missing in action",
      *     "killed in action", "unknown"
      * Case-insensitive and stored in lowercase. Cannot be null.
@@ -32,21 +34,21 @@ public class Pilot {
         "killed in action", "unknown"
     };
     /**
-     * Can be any String, though "" is a placeholder. Cannot be null.
+     * Can be any String. Cannot be null.
      */
     private String background;
 
     // further optional details
     /**
-     * Can be any String, though "" is a placeholder. Cannot be null.
+     * Can be any String. Cannot be null.
      */
     private String biography;
     /**
-     * Can be any String, though "" is a placeholder. Cannot be null.
+     * Can be any String. Cannot be null.
      */
     private String appearance;
     /**
-     * Can be any String, though "" is a placeholder. Cannot be null.
+     * Can be any String. Cannot be null.
      */
     private String playerNotes;
 
@@ -82,32 +84,61 @@ public class Pilot {
     private int eDefense;
     
     // Skill triggers
+    /**
+     * Can be any SkillTriggersList. Cannot be null.
+     */
     private SkillTriggersList skillTriggers;
 
     // Reserves and bonuses
+    /**
+     * Can be any String[]. Cannot be null or contain null elements or
+     *     placeholders.
+    */
     private String[] reserves;
 
     // Gear Loadout
+    /**
+     * Can be any Loadout. Cannot be null.
+    */
     private Loadout loadout;
 
     // ---Tactical Profile---------
     // licenses
     /**
-     * Must be between -1 (placeholder) and 12 (inclusive).
+     * Must be between 0 and 12 (inclusive).
      */
     private int licenseLevel;
+    /**
+     * Can be any License[] that does not contain null or elements with
+     *     placeholders. Cannot be null.
+     */
     private License[] licenseList;
 
     // Special equipment
+    /**
+     * Can be any String[]. Cannot be null or contain null elements.
+     */
     private String[] specialEquipment;
 
     // Mech skills
+    /**
+     * Must be an int[] of length 4. Each element must be between 0 and 6
+     *     (inclusive).
+     */
     private int[] mechSkills;
 
     // Core bonuses
+    /**
+     * Can be any String[] that does not contain null elements or placeholders.
+     *     Cannot be null.
+     */
     private String[] coreBonuses;
 
     // Talents
+    /**
+     * Can be any Talent[] that does not contain null elements or elements with
+     *     placeholders. Cannot be null.
+     */
     private Talent[] talents;
 
     public Pilot() {
@@ -122,10 +153,9 @@ public class Pilot {
         setPlayerNotes("");
 
         // ---Narrative Profile---------
+        // setGrit() is unnecessary because licenseLevel is set later
         // setMaxHP() swapped with setCurrentHP() because the function may throw
         //     an exception otherwise
-        // unnecessary because licenseLevel is set later
-        // setGrit(0);
         setMaxHP(8);
         setCurrentHP(8);
         setArmor(0);
@@ -140,11 +170,12 @@ public class Pilot {
         setLicenseLevel(0);
         setLicenseList(new License[0]);
         setSpecialEquipment(new String[0]);
-        setMechSkills(new int[] {0, 0, 0, 0});
+        setMechSkills(new int[4]);
         setCoreBonuses(new String[0]);
         setTalents(new Talent[0]);
     }
     public Pilot(String pilotName, String callsign) {
+        this();
         setName(pilotName);
         setCallsign(callsign);
     }
@@ -196,6 +227,9 @@ public class Pilot {
     public int getEDefense() {
         return eDefense;
     }
+    public SkillTriggersList getSkillTriggers() {
+        return skillTriggers;
+    }
     public String[] getReserves() {
         return reserves;
     }
@@ -235,7 +269,7 @@ public class Pilot {
         this.name = name;
     }
     public void setCallsign(String callsign) {
-        // accept a String only, do NOT accept null
+        // accept a non-"" String only, do NOT accept null
         if (callsign == null) {
             throw new IllegalArgumentException("Invalid value provided for"
                 + " pilot callsign: null");
@@ -255,6 +289,7 @@ public class Pilot {
         this.player = player;
     }
     public void setStatus(String status) {
+        // accept a valid status only, do NOT accept null
         boolean isValidStatus = false;
 
         if (status == null) {
@@ -262,8 +297,8 @@ public class Pilot {
                 + "pilot status: null");
         }
         status = status.toLowerCase();
-        for (String s : Pilot.allowedStatuses) {
-            if (status.equals(s)) {
+        for (String allowedStatus : Pilot.allowedStatuses) {
+            if (status.equals(allowedStatus)) {
                 isValidStatus = true;
                 break;
             }
@@ -318,21 +353,19 @@ public class Pilot {
         this.grit = grit;
     }
     public void setCurrentHP(int currentHP) {
-        if (currentHP < -1) {
+        if (currentHP < 1) {
             throw new IllegalArgumentException("Error: currentHP value"
-                + " provided: " + currentHP + " is < -1");
-        } else if (currentHP > maxHP) {
+                + " provided: " + currentHP + " is < 1");
+        }
+        if (currentHP > maxHP) {
             throw new IllegalArgumentException("Error: currentHP value"
                 + " provided: " + currentHP + " is > maxHP value " + maxHP);
         }
         this.currentHP = currentHP;
     }
     public void setMaxHP(int maxHP) {
-        if (maxHP < -1) {
-            throw new IllegalArgumentException("New maxHP value is < -1");
-        }
-        if (maxHP == 0) {
-            throw new IllegalArgumentException("New maxHP value is 0");
+        if (maxHP < 1) {
+            throw new IllegalArgumentException("New maxHP value is < 1");
         }
         if (getCurrentHP() > maxHP) {
             System.out.println("WARNING: currentHP is more than maxHP");
@@ -340,55 +373,45 @@ public class Pilot {
         this.maxHP = maxHP;
     }
     public void setArmor(int armor) {
-        if (armor < -1) {
-            throw new IllegalArgumentException("New armor value is < -1");
+        if (armor < 0) {
+            throw new IllegalArgumentException("New armor value is < 0");
         }
         this.armor = armor;
     }
-    public SkillTriggersList getSkillTriggers() {
-        return skillTriggers;
-    }
     public void setEvasion(int evasion) {
-        if (evasion < -1) {
-            throw new IllegalArgumentException("New evasion value is < -1");
+        if (evasion < 0) {
+            throw new IllegalArgumentException("New evasion value is < 0");
         }
         this.evasion = evasion;
     }
     public void setSpeed(int speed) {
-        if (speed < -1) {
-            throw new IllegalArgumentException("New speed value is < -1");
+        if (speed < 0) {
+            throw new IllegalArgumentException("New speed value is < 0");
         }
         this.speed = speed;
     }
     public void setEDefense(int eDefense) {
-        if (eDefense < -1) {
-            throw new IllegalArgumentException("New e-defense value is < -1");
+        if (eDefense < 0) {
+            throw new IllegalArgumentException("New e-defense value is < 0");
         }
         this.eDefense = eDefense;
     }
     public void setSkillTriggers(SkillTriggersList skillTriggers) {
-        // accept a value of a blank SkillTriggersList or a valid object, but no
-        //     in betweens
+        // accept any SkillTriggersList, do NOT accept null
         if (skillTriggers == null) {
             throw new IllegalArgumentException("New skill triggers list value"
                 + " is null");
         }
-        if (skillTriggers.getSkillTriggers() == null) {
-            throw new IllegalArgumentException("New skill triggers list's"
-                + "skill triggers list is null");
-        }
-        if (skillTriggers.hasPlaceholders()) {
-            throw new IllegalArgumentException("New skill triggers list value"
-                + " is invalid");
-        }
         this.skillTriggers = skillTriggers;
     }
     public void setReserves(String[] reserves) {
-        // accept a value of a blank array or a valid array, but no in betweens
+        // accept any String[] that doesn't include null elements or "", do NOT
+        //     accept null
         if (reserves == null) {
             throw new IllegalArgumentException("New reserves value is"
                 + " invalid");
-        } else if (reserves.length != 0) {
+        }
+        if (reserves.length != 0) {
             for (String reserve : reserves) {
                 if (reserve == null) {
                     throw new IllegalArgumentException("New reserves value"
@@ -403,8 +426,7 @@ public class Pilot {
         this.reserves = reserves;
     }
     public void setLoadout(Loadout loadout) {
-        // accept a value of a blank Loadout or a Loadout object, but no in
-        //     betweens
+        // accept any Loadout, do NOT accept null
         if (loadout == null) {
             throw new IllegalArgumentException("New loadout value is null");
         }
@@ -421,29 +443,25 @@ public class Pilot {
                 + " is > 12");
         }
         if (licenseLevel == -1) {
-            this.licenseLevel = licenseLevel;
             setGrit(licenseLevel);
         } else {
-            this.licenseLevel = licenseLevel;
             setGrit((licenseLevel + 1) / 2);
         }
+        this.licenseLevel = licenseLevel;
     }
     public void setLicenseList(License[] licenseList) {
         // accept a value of a blank array or an array of valid (without
-        //     placeholder values) Licenses, but no in betweens
+        //     placeholder values) Licenses, but no in betweens, do NOT accept
+        //     null
         if (licenseList == null) {
             throw new IllegalArgumentException("New license list value is"
                 + " null");
-        } else if (licenseList.length != 0) {
+        }
+        if (licenseList.length != 0) {
             for (License license : licenseList) {
                 if (license == null) {
                     throw new IllegalArgumentException("New license list"
                         + " value includes a null element");
-                }
-                if (license.hasPlaceholders()) {
-                    throw new IllegalArgumentException("New license list"
-                        + " value includes an element with a placeholder"
-                        + " value");
                 }
             }
         }
@@ -451,16 +469,19 @@ public class Pilot {
     }
     public void setSpecialEquipment(String[] specialEquipment) {
         // accept a value of a blank array or an array of valid Strings (not
-        //     null or a placeholder value), but no in betweens
+        //     null or a placeholder value), but no in betweens, do NOT accept
+        //     null
         if (specialEquipment == null) {
             throw new IllegalArgumentException("New special equipment value"
                 + " is null");
-        } else if (specialEquipment.length != 0) {
+        }
+        if (specialEquipment.length != 0) {
             for (String equipment : specialEquipment) {
                 if (equipment == null) {
                     throw new IllegalArgumentException("New special equipment"
                         + " value includes an element with a value of null");
-                } else if (equipment.equals("")) {
+                }
+                if (equipment.equals("")) {
                     throw new IllegalArgumentException("New special equipment"
                         + " value includes an element with a value of \"\"");
                 }
@@ -469,40 +490,42 @@ public class Pilot {
         this.specialEquipment = specialEquipment;
     }
     public void setMechSkills(int[] mechSkills) {
-        // accept a value of a blank array or a length 4 array of valid ints
-        //     (between 0 and 6, inclusive), but no in betweens
+        // accept a length 4 array of valid ints (between 0 and 6, inclusive),
+        //     do NOT accept null
         if (mechSkills == null) {
             throw new IllegalArgumentException("New mech skills value is"
                 + " null");
-        } else if (mechSkills.length != 4) {
+        }
+        if (mechSkills.length != 4) {
             throw new IllegalArgumentException("New mech skills value is"
-                + " invalid");
-        } else {
-            for (int mechSkill : mechSkills) {
-                if (mechSkill < 0) {
-                    throw new IllegalArgumentException("New mech skills value"
-                        + " includes an invalid element");
-                }
-                if (mechSkill > 6) {
-                    throw new IllegalArgumentException("New mech skills value"
-                        + " includes an invalid element");
-                }
+                + " of invalid length");
+        }
+        for (int mechSkill : mechSkills) {
+            if (mechSkill < 0) {
+                throw new IllegalArgumentException("New mech skills value"
+                    + " includes an invalid element");
+            }
+            if (mechSkill > 6) {
+                throw new IllegalArgumentException("New mech skills value"
+                    + " includes an invalid element");
             }
         }
         this.mechSkills = mechSkills;
     }
     public void setCoreBonuses(String[] coreBonuses) {
-        // accept a value of a blank array or an array of valid Strings (not
-        //     null or a placeholder value), but no in betweens
+        // accept any array of Strings that does not include null elements or
+        //     placeholders, do NOT accept null
         if (coreBonuses == null) {
             throw new IllegalArgumentException("New core bonuses value is"
                 + " invalid");
-        } else if (coreBonuses.length != 0) {
+        }
+        if (coreBonuses.length != 0) {
             for (String coreBonus : coreBonuses) {
                 if (coreBonus == null) {
                     throw new IllegalArgumentException("New core bonuses"
                         + " value includes an element with a value of null");
-                } else if (coreBonus.equals("")) {
+                }
+                if (coreBonus.equals("")) {
                     throw new IllegalArgumentException("New core bonuses"
                         + " value includes an element with a value of \"\"");
                 }
@@ -511,9 +534,7 @@ public class Pilot {
         this.coreBonuses = coreBonuses;
     }
     public void setTalents(Talent[] talents) {
-        // accept a value of a blank Talent array or an array of valid Talents
-        //     (not null and don't contain any placeholder values), but no in
-        //     betweens
+        // accept any array of Talents, do NOT accept null
         if (talents == null) {
             throw new IllegalArgumentException("New talents value is"
                 + " invalid");
@@ -522,10 +543,6 @@ public class Pilot {
                 if (talent == null) {
                     throw new IllegalArgumentException("New talents value"
                         + " includes a null element");
-                }
-                if (talent.hasPlaceholders()) {
-                    throw new IllegalArgumentException("New talents value"
-                        + " includes an element with a placeholder value");
                 }
             }
         }
@@ -619,8 +636,8 @@ public class Pilot {
                 if (i != 0) {
                     outputString += ", ";
                 }
-                outputString += licenseList[i].getFrame() + " "
-                    + licenseList[i].getLicenseLevel();
+                outputString += licenseList[i].getName() + " "
+                    + licenseList[i].getLevel();
             }
             outputString += "\n";
         } else if (outputType.equals("pilot")
@@ -630,8 +647,8 @@ public class Pilot {
             for (int i = 0; i < licenseList.length; i += 2) {
                 outputString += "  ";
                 for (int j = i; j < Math.min(i + 2, licenseList.length); j++) {
-                    outputString += licenseList[j].getFrame() + " "
-                        + licenseList[j].getLicenseLevel();
+                    outputString += licenseList[j].getName() + " "
+                        + licenseList[j].getLevel();
                     if (j == i && i + 1 < licenseList.length) {
                         outputString += ", ";
                     }

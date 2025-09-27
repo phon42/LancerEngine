@@ -21,12 +21,12 @@ public class Mount {
     private Weapon weapon;
     private boolean hasModification;
     /**
-     * Can be any String, though "" is a placeholder. Cannot be null.
+     * Can be any String. Cannot be null.
      */
     private String modification;
     private boolean hasCoreBonus;
     /**
-     * Can be any String, though "" is a placeholder. Cannot be null.
+     * Can be any String. Cannot be null.
      */
     private String coreBonus;
 

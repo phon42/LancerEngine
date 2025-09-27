@@ -113,7 +113,7 @@ public class Frame {
     public Frame() {
         this.manufacturer = "";
         this.name = "";
-        this.role = new String[] {""};
+        this.role = new String[0];
         this.frameDescription = "";
         this.size = -1;
 
@@ -133,8 +133,8 @@ public class Frame {
         this.repairCapacity = -1;
         this.saveTarget = -1;
         this.systemPoints = -1;
-        this.traits = new String[] {};
-        this.mounts = new Mount[] {};
+        this.traits = new String[0];
+        this.mounts = new Mount[0];
     }
     public Frame(String manufacturer, String name, String[] role,
         String frameDescription, int size, int hp,

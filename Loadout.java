@@ -3,8 +3,17 @@
  *     pilot has chosen.
  */
 public class Loadout {
+    /**
+     * Can be any String. Cannot be null.
+     */
     private String pilotArmor;
+    /**
+     * Must be a String[] of length 2. Cannot be null or contain null elements.
+     */
     private String[] pilotWeapons;
+    /**
+     * Must be a String[] of length 3. Cannot be null or contain null elements.
+     */
     private String[] pilotGear;
 
     public Loadout() {

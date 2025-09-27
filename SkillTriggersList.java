@@ -2,15 +2,22 @@
  * Stores a set of the skill triggers a pilot has.
  */
 public class SkillTriggersList {
+    /**
+     * Can be any SkillTrigger[]. Cannot be null or contain null elements.
+     */
     private SkillTrigger[] skillTriggers;
+
+    public SkillTriggersList() {
+        setSkillTriggers(new SkillTrigger[0]);
+    }
 
     public SkillTrigger[] getSkillTriggers() {
         return skillTriggers;
     }
     /**
      * Sets this.skillTriggers to the provided value.
-     * @param skillTriggers a SkillTrigger[] which cannot be null or contain an
-     *     element which is null.
+     * @param skillTriggers a SkillTrigger[] which cannot be null or contain
+     *     null elements.
      */
     public void setSkillTriggers(SkillTrigger[] skillTriggers) {
         if (skillTriggers == null) {
@@ -26,10 +33,6 @@ public class SkillTriggersList {
             }
         }
         this.skillTriggers = skillTriggers;
-    }
-
-    public SkillTriggersList() {
-        setSkillTriggers(new SkillTrigger[0]);
     }
 
     /**
@@ -106,26 +109,5 @@ public class SkillTriggersList {
         }
 
         return outputString;
-    }
-    /**
-     * Tests whether this SkillTriggersList object's properties have any
-     *     placeholder values.
-     *     The SkillTriggersList doesn't have any placeholder values if the
-     *     object's SkillTriggers array does not contain any SkillTriggers with
-     *     name and value properties set to placeholder values.
-     * @return a boolean representing whether this SkillTriggersList object
-     *     has placeholders.
-     */
-    public boolean hasPlaceholders() {
-        if (skillTriggers.length == 0) {
-            return false;
-        }
-        for (SkillTrigger skillTrigger : skillTriggers) {
-            if (skillTrigger.hasPlaceholders()) {
-                return true;
-            }
-        }
-
-        return false;
     }
 }

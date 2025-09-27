@@ -4,6 +4,9 @@
 public class Weapon {
     // TODO: fill out
     // The weapon's name
+    /**
+     * The weapon's name. Can be any String, though "" is a placeholder.
+     */
     private String name;
 
     public Weapon() {

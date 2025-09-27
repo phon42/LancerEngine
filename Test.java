@@ -10,7 +10,7 @@ public class Test {
     public TestStatus result;
 
     public Test(String name, boolean result) {
-        this(name, result, new Test[] {});
+        this(name, result, new Test[0]);
     }
     public Test(String name, Test[] tests) {
         this(name, true, tests);

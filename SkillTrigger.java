@@ -4,18 +4,14 @@
  */
 public class SkillTrigger {
     /**
-     * Can be any String (though "" is a placeholder). Cannot be null.
+     * Can be any String except "". Cannot be null.
      */
     private String name;
     /**
-     * Must be between -1 and 6 (inclusive). Cannot be 0, 1, 3, or 5.
+     * Must be between 2 and 6 (inclusive). Cannot be 3 or 5.
      */
     private int value;
 
-    public SkillTrigger() {
-        setName("");
-        setValue(-1);
-    }
     public SkillTrigger(String name, int value) {
         setName(name);
         setValue(value);
@@ -29,26 +25,29 @@ public class SkillTrigger {
     }
     /**
      * Sets this.name to the provided value.
-     * @param name a String which cannot be null.
+     * @param name a String which cannot be null or "".
      */
     public void setName(String name) {
         if (name == null) {
             throw new IllegalArgumentException("New name value is null");
         }
+        if (name.equals("")) {
+            throw new IllegalArgumentException("New name value is \"\"");
+        }
         this.name = name;
     }
     /**
      * Sets this.value to the provided value.
-     * @param value an int which must be -1, 2, 4, or 6.
+     * @param value an int which must be 2, 4, or 6.
      */
     public void setValue(int value) {
-        if (value < -1) {
-            throw new IllegalArgumentException("New value is < -1");
+        if (value < 2) {
+            throw new IllegalArgumentException("New value is < 2");
         }
         if (value > 6) {
             throw new IllegalArgumentException("New value is > 6");
         }
-        if (value == 0 || value == 1 || value == 3 || value == 5) {
+        if (value == 3 || value == 5) {
             throw new IllegalArgumentException("New value is an invalid"
                 + " value");
         }
@@ -90,21 +89,5 @@ public class SkillTrigger {
         }
         
         return true;
-    }
-    /**
-     * Tests whether this SkillTrigger object's properties have any placeholder
-     *     values.
-     * @return a boolean representing whether this SkillTrigger object has any
-     *     placeholder values.
-     */
-    public boolean hasPlaceholders() {
-        if (getName().equals("")) {
-            return true;
-        }
-        if (getValue() == -1) {
-            return true;
-        }
-
-        return false;
     }
 }

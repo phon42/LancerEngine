@@ -65,8 +65,8 @@ public class Mech {
         this.name = "";
         this.frame = new Frame();
         this.operatorNotes = "";
-        this.mounts = new Mount[] {};
-        this.systems = new MechSystem[] {};
+        this.mounts = new Mount[0];
+        this.systems = new MechSystem[0];
         this.size = -1;
         this.currentStructure = 4;
         this.maxStructure = 4;
@@ -175,7 +175,7 @@ public class Mech {
             throw new IllegalArgumentException("New frame is null");
         }
         this.frame = frame;
-        calculateAttributes(new int[] {0, 0, 0, 0});
+        calculateAttributes(new int[4]);
         setMounts(frame.getMounts());
     }
     public void setOperatorNotes(String operatorNotes) {

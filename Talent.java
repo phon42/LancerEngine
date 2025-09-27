@@ -4,18 +4,14 @@
  */
 public class Talent {
     /**
-     * Can be any String (though "" is a placeholder). Cannot be null.
+     * Can be any String except "". Cannot be null.
      */
     public String name;
     /**
-     * Must be between -1 (placeholder) and 3 (inclusive). Cannot be 0.
+     * Must be between 1 and 3 (inclusive).
      */
     public int level;
 
-    public Talent() {
-        setName("");
-        setLevel(-1);
-    }
     public Talent(String name, int level) {
         setName(name);
         setLevel(level);
@@ -29,27 +25,27 @@ public class Talent {
     }
     /**
      * Sets this.name to the provided value.
-     * @param name a String which cannot be null.
+     * @param name a String which cannot be null or "".
      */
     public void setName(String name) {
         if (name == null) {
             throw new IllegalArgumentException("New value for name is null");
         }
+        if (name.equals("")) {
+            throw new IllegalArgumentException("New value for name is \"\"");
+        }
         this.name = name;
     }
     /**
      * Sets this.level to the provided value.
-     * @param level an int which must be -1, 1, 2, or 3.
+     * @param level an int which must be 1, 2, or 3.
      */
     public void setLevel(int level) {
-        if (level < -1) {
-            throw new IllegalArgumentException("New level is < -1");
+        if (level < 1) {
+            throw new IllegalArgumentException("New level is < 1");
         }
         if (level > 3) {
             throw new IllegalArgumentException("New level is > 3");
-        }
-        if (level == 0) {
-            throw new IllegalArgumentException("New level is 0");
         }
         this.level = level;
     }
@@ -87,21 +83,5 @@ public class Talent {
             return false;
         }
         return true;
-    }
-    /**
-     * Checks whether this Talent object has any properties set to placeholder
-     *     values.
-     * @return a boolean representing whether this Talent object has any
-     *     properties set to placeholder values.
-     */
-    public boolean hasPlaceholders() {
-        if (getName().equals("")) {
-            return true;
-        }
-        if (getLevel() == -1) {
-            return true;
-        }
-        
-        return false;
     }
 }
