@@ -88,6 +88,11 @@ public class Mount {
     public String getCoreBonus() {
         return coreBonus;
     }
+    /**
+     * Sets this.mountType to the value provided.
+     * @param mountType a String that cannot be null or be anything outside of
+     *     this.allowedMountTypes.
+     */
     public void setMountType(String mountType) {
         boolean isValidType = false;
         String exceptionMessage = "Given mount type is not one of the allowed"
@@ -109,6 +114,11 @@ public class Mount {
         }
         this.mountType = mountType;
     }
+    /**
+     * Sets this.weapon to the value provided.
+     * @param weapon a Weapon that cannot be null and must EITHER be a
+     *     placeholder or not have any placeholders.
+     */
     public void setWeapon(Weapon weapon) {
         if (weapon == null) {
             throw new IllegalArgumentException("New weapon is null");

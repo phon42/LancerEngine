@@ -316,6 +316,11 @@ public class Frame {
     public String[] getRole() {
         return role;
     }
+    /**
+     * Sets this.role to the value provided.
+     * @param role a String[] which cannot be null or contain any invalid
+     *     values, as defined by this.allowedRoles.
+     */
     public void setRole(String[] role) {
         boolean isValidRole = false;
         String roleString;
@@ -360,6 +365,10 @@ public class Frame {
     public int getSize() {
         return size;
     }
+    /**
+     * Sets this.size to the value provided.
+     * @param size an int which must be 1, 2, 4, 6, or 8.
+     */
     public void setSize(int size) {
         if (size < 1) {
             throw new IllegalArgumentException("New frame size is < 1");

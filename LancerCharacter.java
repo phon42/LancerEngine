@@ -60,6 +60,10 @@ public class LancerCharacter {
     public Pilot getPilot() {
         return this.pilot;
     }
+    /**
+     * Sets this.pilot to the value provided.
+     * @param pilot a Pilot that cannot be null or have placeholders.
+     */
     public void setPilot(Pilot pilot) {
         if (pilot == null) {
             throw new IllegalArgumentException("New pilot value is null");
@@ -73,6 +77,11 @@ public class LancerCharacter {
     public Mech getMech() {
         return this.mech;
     }
+    /**
+     * Sets this.mech to the value provided.
+     * @param mech a Mech that cannot be null and must EITHER be a placeholder
+     *     or not have any placeholders.
+     */
     public void setMech(Mech mech) {
         if (mech == null) {
             throw new IllegalArgumentException("New mech is null");
