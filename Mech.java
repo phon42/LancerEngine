@@ -535,9 +535,6 @@ public class Mech {
         if (getFrame().isPlaceholder()) {
             return true;
         }
-        if (getMounts().length == 0) {
-            return true;
-        }
         if (getSize() == -1) {
             return true;
         }
