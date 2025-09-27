@@ -150,7 +150,7 @@ public class LancerCharacter {
             "Coral Nolan", "Apocalypse");
         Pilot myPilot = myCharacter.getPilot();
         Mech myMech = myCharacter.getMech();
-        Loadout myLoadout = new Loadout();
+        Loadout myLoadout;
 
         myPilot.setPlayer("Luna");
         myPilot.setBackground("e");
@@ -186,14 +186,13 @@ public class LancerCharacter {
             new Talent("Walking Armory", 2),
             new Talent("Leader", 2)
         });
-        myLoadout.setPilotArmor("Mobility Hardsuit");
-        myLoadout.setPilotWeapons(new String[] {"Heavy Signature",
-            "Archaic Melee"});
-        myLoadout.setPilotGear(new String[] {"Wilderness Survival Kit",
-            "Flexsuit", "Personal Drone"});
+        myLoadout = new Loadout("Mobility Hardsuit",
+            new String[] {"Heavy Signature", "Archaic Melee"},
+            new String[] {"Wilderness Survival Kit", "Flexsuit",
+            "Personal Drone"});
         myPilot.setLoadout(myLoadout);
         myMech = new Mech("Wraith", "swallowtail_ranger");
-        // TODO: add Integrated Weapon
+        // TODO: add Integrated Weapon and the Engineer talent
         /*
         myMech.setMount(0, new Mount("Integrated Weapon",
             new Weapon("Nexus (Light)")));

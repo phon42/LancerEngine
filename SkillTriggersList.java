@@ -95,13 +95,13 @@ public class SkillTriggersList {
         }
         for (int i = 0; i < skillTriggers.length; i += 2) {
             outputString += "  ";
-            for (int ii = i; ii < Math.min(i + 2, skillTriggers.length); ii++) {
-                if (ii != i) {
+            for (int j = i; j < Math.min(i + 2, skillTriggers.length); j++) {
+                if (j != i) {
                     outputString += " ";
                 }
-                outputString += skillTriggers[ii].getName() + " (+"
-                    + skillTriggers[ii].getValue() + ")";
-                if (ii + 1 < skillTriggers.length) {
+                outputString += skillTriggers[j].getName() + " (+"
+                    + skillTriggers[j].getValue() + ")";
+                if (j + 1 < skillTriggers.length) {
                     outputString += ",";
                 }
             }

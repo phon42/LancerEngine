@@ -649,7 +649,7 @@ public class Pilot {
                 for (int j = i; j < Math.min(i + 2, licenseList.length); j++) {
                     outputString += licenseList[j].getName() + " "
                         + licenseList[j].getLevel();
-                    if (j == i && i + 1 < licenseList.length) {
+                    if (j == i && i < licenseList.length + 1) {
                         outputString += ", ";
                     }
                 }
@@ -684,7 +684,7 @@ public class Pilot {
             outputString += "  ";
             for (int i = 0; i < talents.length; i++) {
                 outputString += talents[i].name + " " + talents[i].level;
-                if (i + 1 < talents.length) {
+                if (i < talents.length + 1) {
                     outputString += ", ";
                 }
             }
@@ -696,9 +696,9 @@ public class Pilot {
             //     "  Bonded 1\n"
             for (int i = 0; i < talents.length; i += 2) {
                 outputString += "  ";
-                for (int ii = i; ii < Math.min(i + 2, talents.length); ii++) {
-                    outputString += talents[ii].name + " " + talents[ii].level;
-                    if (ii == i && i + 1 < talents.length) {
+                for (int j = i; j < Math.min(i + 2, talents.length); j++) {
+                    outputString += talents[j].name + " " + talents[j].level;
+                    if (j == i && i < talents.length + 1) {
                         outputString += ", ";
                     }
                 }
@@ -746,13 +746,12 @@ public class Pilot {
             //     "  Improved Armament\n"
             for (int i = 0; i < coreBonuses.length; i += 2) {
                 outputString += "  ";
-                for (int ii = i; ii < Math.min(i + 2, coreBonuses.length);
-                    ii++) {
-                    outputString += coreBonuses[ii];
+                for (int j = i; j < Math.min(i + 2, coreBonuses.length); j++) {
+                    outputString += coreBonuses[j];
                     if (i + 1 >= coreBonuses.length) {
                         continue;
                     }
-                    if (ii == i) {
+                    if (j == i) {
                         outputString += ", ";
                     } else {
                         outputString += ",";

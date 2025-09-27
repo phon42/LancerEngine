@@ -532,9 +532,9 @@ public class Mech {
             //     + "  Seismic Ripper, High-Stress Mag Clamps\n"
             for (int i = 0; i < systems.length; i += 2) {
                 outputString += "  ";
-                for (int ii = i; ii < Math.min(systems.length, i + 2); ii++) {
-                    outputString += outputSystem(outputType, systems[ii]);
-                    if (ii == i && ii + 2 < systems.length) {
+                for (int j = i; j < Math.min(systems.length, i + 2); j++) {
+                    outputString += outputSystem(outputType, systems[j]);
+                    if (j == i && j + 2 < systems.length) {
                         outputString += ", ";
                     }
                 }
