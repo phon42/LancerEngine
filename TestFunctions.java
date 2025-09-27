@@ -90,7 +90,7 @@ public class TestFunctions {
                 new Test("Pilot.outputCoreBonuses()", runOutputCoreBonusesTests())
             }),
             // ---MECH------------------------------------------------------------
-            new Test("Mech", false)
+            new Test("Mech", runMechTests())
         });
         String result = allTests.output();
         for (int i = 0; i < lineWidths.length; i++) {
@@ -329,34 +329,29 @@ public class TestFunctions {
         boolean test3 = false;
         boolean test4 = false;
         boolean test5 = false;
-        
-        // normal case
-        pilot.setLicenseLevel(-1);
-        if (pilot.getGrit() == -1) {
-            test1 = true;
-        }
+
         // normal case
         pilot.setLicenseLevel(0);
         if (pilot.getGrit() == 0) {
-            test2 = true;
+            test1 = true;
         }
         // normal case
         pilot.setLicenseLevel(1);
         if (pilot.getGrit() == 1) {
-            test3 = true;
+            test2 = true;
         }
         // normal case
         pilot.setLicenseLevel(2);
         if (pilot.getGrit() == 1) {
-            test4 = true;
+            test3 = true;
         }
         // normal case
         pilot.setLicenseLevel(3);
         if (pilot.getGrit() == 2) {
-            test5 = true;
+            test4 = true;
         }
 
-        return test1 && test2 && test3 && test4 && test5;
+        return test1 && test2 && test3 && test4;
     }
     /**
      * Tests Pilot.setCurrentHP().
@@ -478,14 +473,14 @@ public class TestFunctions {
 
         // normal case
         try {
-            pilot.setSpeed(-2);
+            pilot.setSpeed(-1);
         } catch (IllegalArgumentException exception) {
             test1 = true;
         }
         // normal case
         pilot = new Pilot();
-        pilot.setSpeed(-1);
-        if (pilot.getSpeed() == -1) {
+        pilot.setSpeed(0);
+        if (pilot.getSpeed() == 0) {
             test2 = true;
         }
 
@@ -502,14 +497,14 @@ public class TestFunctions {
 
         // normal case
         try {
-            pilot.setEDefense(-2);
+            pilot.setEDefense(-1);
         } catch (IllegalArgumentException exception) {
             test1 = true;
         }
         // normal case
         pilot = new Pilot();
-        pilot.setEDefense(-1);
-        if (pilot.getEDefense() == -1) {
+        pilot.setEDefense(0);
+        if (pilot.getEDefense() == 0) {
             test2 = true;
         }
 
@@ -526,8 +521,6 @@ public class TestFunctions {
         boolean test1 = false;
         boolean test2 = false;
         boolean test3 = false;
-        boolean test4 = false;
-        boolean test5 = false;
 
         // normal case
         try {
@@ -541,26 +534,6 @@ public class TestFunctions {
             test2 = true;
         }
         // normal case
-        skillTrigger = new SkillTrigger("", 2);
-        skillTriggersList.setSkillTriggers(new SkillTrigger[] {
-            skillTrigger
-        });
-        try {
-            pilot.setSkillTriggers(skillTriggersList);
-        } catch (IllegalArgumentException exception) {
-            test3 = true;
-        }
-        // normal case
-        skillTrigger = new SkillTrigger("validSkillTrigger", -1);
-        skillTriggersList.setSkillTriggers(new SkillTrigger[] {
-            skillTrigger
-        });
-        try {
-            pilot.setSkillTriggers(skillTriggersList);
-        } catch (IllegalArgumentException exception) {
-            test4 = true;
-        }
-        // normal case
         skillTrigger = new SkillTrigger("validSkillTrigger", 2);
         skillTriggersList.setSkillTriggers(new SkillTrigger[] {
             skillTrigger
@@ -568,10 +541,10 @@ public class TestFunctions {
         pilot.setSkillTriggers(skillTriggersList);
         if (pilot.getSkillTriggers().getSkillTriggers()[0].equals(
             skillTrigger)) {
-            test5 = true;
+            test3 = true;
         }
 
-        return test1 && test2 && test3 && test4 && test5;
+        return test1 && test2 && test3;
     }
     /**
      * Tests SkillTriggersList.setSkillTriggers().
@@ -579,13 +552,11 @@ public class TestFunctions {
      */
     private static boolean runSetSkillTriggersTests() {
         SkillTriggersList skillTriggers = new SkillTriggersList();
-        SkillTrigger skillTrigger = new SkillTrigger(
-            "Apply Fists to Faces", 1);
+        SkillTrigger skillTrigger;
         boolean test1 = false;
         boolean test2 = false;
         boolean test3 = false;
         boolean test4 = false;
-        boolean test5 = false;
 
         // normal case
         try {
@@ -601,16 +572,10 @@ public class TestFunctions {
         }
         // normal case
         try {
-            skillTriggers.setSkillTriggers(new SkillTrigger[] {null});
+            // = SkillTrigger[] {null}
+            skillTriggers.setSkillTriggers(new SkillTrigger[1]);
         } catch (IllegalArgumentException exception) {
             test3 = true;
-        }
-        // normal case
-        try {
-            skillTriggers.setSkillTriggers(new SkillTrigger[] {
-                new SkillTrigger("Apply Fists to Faces", 1), null});
-        } catch (IllegalArgumentException exception) {
-            test4 = true;
         }
         // normal case
         skillTrigger = new SkillTrigger("Apply Fists to Faces", 2);
@@ -618,10 +583,10 @@ public class TestFunctions {
             skillTrigger
         });
         if (skillTriggers.getSkillTriggers()[0].equals(skillTrigger)) {
-            test5 = true;
+            test4 = true;
         }
 
-        return test1 && test2 && test3 && test4 && test5;
+        return test1 && test2 && test3 && test4;
     }
     /**
      * Tests the SkillTrigger class and all its functions.
@@ -629,7 +594,7 @@ public class TestFunctions {
      */
     private static boolean runSkillTriggerTests() {
         SkillTrigger skillTrigger = new SkillTrigger(
-            "Apply Fists to Faces", 1);
+            "Apply Fists to Faces", 2);
         boolean test1 = false;
         boolean test2 = false;
         boolean test3 = false;
@@ -702,7 +667,7 @@ public class TestFunctions {
      */
     private static boolean runSkillTriggerEqualsTests() {
         SkillTrigger skillTrigger = new SkillTrigger(
-            "Apply Fists to Faces", 1);
+            "Apply Fists to Faces", 2);
         boolean test1 = false;
         boolean test2 = false;
 
@@ -723,7 +688,7 @@ public class TestFunctions {
      */
     private static boolean runSkillTriggerEqualsSkillTriggerTests() {
         SkillTrigger skillTrigger = new SkillTrigger(
-            "Apply Fists to Faces", 1);
+            "Apply Fists to Faces", 4);
         SkillTrigger testSkillTrigger = new SkillTrigger("validName",
             2);
         boolean test1 = false;
@@ -741,7 +706,7 @@ public class TestFunctions {
             test2 = true;
         }
         // normal case
-        skillTrigger = new SkillTrigger("Apply Fists to Faces", 1);
+        skillTrigger = new SkillTrigger("Apply Fists to Faces", 4);
         skillTrigger.setName("validName");
         if (! skillTrigger.equals(testSkillTrigger)) {
             test3 = true;
@@ -870,7 +835,8 @@ public class TestFunctions {
         }
         // normal case
         try {
-            pilot.setReserves(new String[] {null});
+            // = String[] {null}
+            pilot.setReserves(new String[1]);
         } catch (IllegalArgumentException exception) {
             test3 = true;
         }
@@ -1038,7 +1004,7 @@ public class TestFunctions {
         }
         // normal case
         loadout = new Loadout("validArmor", new String[] {
-                "validWeapon", "validWeapon"}, new String[] {"", "", ""});
+                "validWeapon", "validWeapon"});
         if (! loadout.equals(testLoadout)) {
             test4 = true;
         }
@@ -1112,8 +1078,6 @@ public class TestFunctions {
         boolean test2 = false;
         boolean test3 = false;
         boolean test4 = false;
-        boolean test5 = false;
-        boolean test6 = false;
 
         // normal case
         try {
@@ -1125,24 +1089,14 @@ public class TestFunctions {
         pilot.setLicenseList(new License[0]);
         if (pilot.getLicenseList().getClass() == License[].class
             && pilot.getLicenseList().length == 0) {
-            test1 = true;
-        }
-        // normal case
-        try {
-            pilot.setLicenseList(new License[] {
-                null
-            });
-        } catch (IllegalArgumentException exception) {
             test2 = true;
         }
         // normal case
-        license = new License("", 2);
         try {
-            pilot.setLicenseList(new License[] {
-                license
-            });
+            // = License[] {null}
+            pilot.setLicenseList(new License[1]);
         } catch (IllegalArgumentException exception) {
-            test5 = true;
+            test3 = true;
         }
         // normal case
         license = new License("validFrame", 2);
@@ -1150,10 +1104,10 @@ public class TestFunctions {
             license
         });
         if (pilot.getLicenseList()[0].equals(license)) {
-            test6 = true;
+            test4 = true;
         }
 
-        return test1 && test2 && test3 && test4 && test5 && test6;
+        return test1 && test2 && test3 && test4;
     }
     /**
      * Tests License.
@@ -1167,7 +1121,6 @@ public class TestFunctions {
         boolean test3 = false;
         boolean test4 = false;
         boolean test5 = false;
-        boolean test6 = false;
 
         // normal case
         try {
@@ -1181,31 +1134,24 @@ public class TestFunctions {
             test2 = true;
         }
         // normal case
-        license = new License("IPS-N Blackbeard", 1);
         try {
-            license.setLevel(-1);
+            license.setLevel(0);
         } catch (IllegalArgumentException exception) {
             test3 = true;
         }
         // normal case
         try {
-            license.setLevel(0);
+            license.setLevel(4);
         } catch (IllegalArgumentException exception) {
             test4 = true;
         }
         // normal case
-        try {
-            license.setLevel(4);
-        } catch (IllegalArgumentException exception) {
+        license.setLevel(3);
+        if (license.getLevel() == 3) {
             test5 = true;
         }
-        // normal case
-        license.setLevel(-1);
-        if (license.getLevel() == -1) {
-            test6 = true;
-        }
 
-        return test1 && test2 && test3 && test4 && test5 && test6;
+        return test1 && test2 && test3 && test4 && test5;
     }
     /**
      * Tests License.equals(Object).
@@ -1245,17 +1191,20 @@ public class TestFunctions {
             test1 = true;
         }
         // normal case
-        if (! license.equals(new License("validFrame", -1))) {
+        if (! license.equals(new License("validFrame",
+            1))) {
             test2 = true;
         }
         // normal case
-        if (! license.equals(new License("", 2))) {
+        if (! license.equals(new License("IPS-N Blackbeard",
+            2))) {
             test3 = true;
         }
         // normal case
         license.setName("validFrame");
         license.setLevel(2);
-        if (license.equals(new License("validFrame", 2))) {
+        if (license.equals(new License("validFrame",
+            2))) {
             test4 = true;
         }
 
@@ -1325,9 +1274,7 @@ public class TestFunctions {
         }
         // normal case
         try {
-            pilot.setMechSkills(new int[] {
-                0
-            });
+            pilot.setMechSkills(new int[1]);
         } catch (IllegalArgumentException exception) {
             test2 = true;
         }
@@ -1375,7 +1322,8 @@ public class TestFunctions {
         // normal case
         pilot = new Pilot();
         try {
-            pilot.setCoreBonuses(new String[] {null});
+            // = String[] {null}
+            pilot.setCoreBonuses(new String[1]);
         } catch (IllegalArgumentException exception) {
             test3 = true;
         }
@@ -1445,7 +1393,8 @@ public class TestFunctions {
         // normal case
         pilot = new Pilot();
         try {
-            pilot.setTalents(new Talent[] {null});
+            // = Talent[] {null}
+            pilot.setTalents(new Talent[1]);
         } catch (IllegalArgumentException exception) {
             test3 = true;
         }
@@ -1488,8 +1437,8 @@ public class TestFunctions {
             test1 = true;
         }
         // normal case
-        talent.setName("");
-        if (talent.getName().equals("")) {
+        talent.setName("validName");
+        if (talent.getName().equals("validName")) {
             test2 = true;
         }
         // normal case
@@ -1512,8 +1461,8 @@ public class TestFunctions {
             test5 = true;
         }
         // normal case
-        talent.setLevel(-1);
-        if (talent.getLevel() == -1) {
+        talent.setLevel(3);
+        if (talent.getLevel() == 3) {
             test6 = true;
         }
 
