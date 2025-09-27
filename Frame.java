@@ -541,7 +541,7 @@ public class Frame {
      * A method checking whether any of the properties of this object whose
      *     placeholder value is normally not allowed are set to their
      *     placeholder value.
-     * @return a boolean representing the result of the check.
+     * @return a boolean containing the result of the check.
      */
     public boolean hasPlaceholders() {
         if (getManufacturer().equals("")) {
@@ -603,7 +603,7 @@ public class Frame {
     /**
      * A method checking whether every property of this object is set to its
      *     placeholder value.
-     * @return a boolean representing the result of the check.
+     * @return a boolean containing the result of the check.
      */
     public boolean isPlaceholder() {
         if (! getManufacturer().equals("")) {

@@ -153,7 +153,7 @@ public class Loadout {
     }
     /**
      * Generates a String output of the items within this Loadout.
-     * @return a String representing an output of the items within this Loadout.
+     * @return a String containing an output of the items within this Loadout.
      */
     public String generateOutput() {
         String outputString = "";

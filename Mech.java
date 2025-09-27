@@ -39,7 +39,7 @@ public class Mech {
 
     // frame attributes - size, structure, HP, etc.
     /**
-     * Represents the size of the mech.
+     * The size of the mech.
      * Size is stored as 2 * its value (Size 1/2 would be stored as int 1).
      * Allowed values for size: 1, 2, 4, 6, 8.
      */
@@ -110,8 +110,8 @@ public class Mech {
     }
     /**
      * Creates a non-placeholder Mech from a mech name and a frameID.
-     * @param name a String representing the mech name of the new Mech.
-     * @param frameID a String representing the frameID of the Frame to use to
+     * @param name a String containing the mech name of the new Mech.
+     * @param frameID a String containing the frameID of the Frame to use to
      *     create the new Mech.
      */
     public Mech(String name, String frameID) {
@@ -121,8 +121,8 @@ public class Mech {
     }
     /**
      * Creates a non-placeholder Mech from a mech name and a FrameEnum.
-     * @param name a String representing the mech name of the new Mech.
-     * @param frameEnum a FrameEnum representing the FrameEnum of the Frame to
+     * @param name a String containing the mech name of the new Mech.
+     * @param frameEnum a FrameEnum containing the FrameEnum of the Frame to
      *     use to create the new Mech.
      */
     public Mech(String name, FrameEnum frameEnum) {
@@ -391,6 +391,15 @@ public class Mech {
         this.limitedSystemsBonus = limitedSystemsBonus;
     }
 
+    /**
+     * Sets all of this Mech object's stat properties to their correct values,
+     *     calculated based off of the Mech's frame property as well as the
+     *     provided int[]. Called when LancerCharacter.setMech(Mech) is called
+     *     using a non-placeholder Mech as well as when Mech.setFrame(Frame) is
+     *     called.
+     * @param mechSkills an int[4] containing the mech skills of the Pilot
+     *     associated with this Mech through the parent LancerCharacter.
+     */
     public void calculateAttributes(int[] mechSkills) {
         // Calculate this mech's attributes based off of the frame template
         //     provided
@@ -423,6 +432,17 @@ public class Mech {
         setSensors(frame.getSensors());
         setSaveTarget(frame.getSaveTarget());
     }
+    /**
+     * Generates the output associated with the mech portion of the COMP/CON
+     *     "generate statblock" feature. Only returns something other than ""
+     *     when outputType is "mech build".
+     * @param outputType a String containing the type of statblock to
+     *     generate.
+     * @return a String containing the requested output.
+     * @throws IllegalArgumentException when outputType is "full" because that
+     *     output type requires additional information only obtainable through
+     *     Mech.generateOutput(String, int[], int)
+     */
     public String generateOutput(String outputType) {
         String outputString = "";
 
@@ -440,7 +460,20 @@ public class Mech {
 
         return outputString;
     }
-    public String generateOutput(String outputType, int[] mechSkills, int grit) {
+    /**
+     * Generates the output associated with the mech portion of the COMP/CON
+     *     "generate statblock" feature. Only returns something other than ""
+     *     when outputType is "mech build" or "full".
+     * @param outputType a String containing the type of statblock to
+     *     generate.
+     * @param mechSkills an int[4] containing the mech skills of the Pilot
+     *     associated with this Mech through the parent LancerCharacter.
+     * @param grit an int containing the grit stat of the Pilot associated with
+     *     this Mech through the parent LancerCharacter.
+     * @return a String containing the requested output.
+     */
+    public String generateOutput(String outputType, int[] mechSkills,
+        int grit) {
         String outputString = "";
 
         if (outputType.equals("mech build")) {
@@ -470,6 +503,17 @@ public class Mech {
 
         return outputString;
     }
+    /**
+     * A helper method which generates a mech stat block used in
+     *     Mech.generateOutput(). Only returns something other than "" when
+     *     outputType is "mech build".
+     * @param outputType a String containing the type of stat block to
+     *     generate.
+     * @return a String containing the requested output.
+     * @throws IllegalArgumentException when outputType is "full" because that
+     *     output type requires additional information only obtainable through
+     *     Mech.outputStats(String, int)
+     */
     public String outputStats(String outputType) {
         String outputString = "";
 
@@ -502,6 +546,16 @@ public class Mech {
 
         return outputString;
     }
+    /**
+     * A helper method which generates a mech stat block used in
+     *     Mech.generateOutput(). Only returns something other than "" when
+     *     outputType is "mech build" or "full".
+     * @param outputType a String containing the type of stat block to
+     *     generate.
+     * @param grit an int containing the grit stat of the Pilot associated with
+     *     this Mech through the parent LancerCharacter.
+     * @return a String containing the requested output.
+     */
     public String outputStats(String outputType, int grit) {
         String outputString = "";
 
@@ -527,6 +581,14 @@ public class Mech {
 
         return outputString;
     }
+    /**
+     * A helper method which generates a line of text containing output about
+     *     the mech's mounts used in Mech.generateOutput(). Only returns
+     *     something other than "" when outputType is "mech build" or "full".
+     * @param outputType a String containing the type of output to
+     *     generate.
+     * @return a String containing the requested output.
+     */
     public String outputWeapons(String outputType) {
         // output something along the lines of:
         // "  MAIN MOUNT: Vulture DMR // Overpower Caliber\n"
@@ -549,6 +611,14 @@ public class Mech {
 
         return outputString;
     }
+    /**
+     * A helper method which generates a line of text containing output about
+     *     the mech's systems used in Mech.generateOutput(). Only returns
+     *     something other than "" when outputType is "mech build" or "full".
+     * @param outputType a String containing the type of output to
+     *     generate.
+     * @return a String containing the requested output.
+     */
     public String outputSystems(String outputType) {
         String outputString = "";
 
@@ -560,7 +630,7 @@ public class Mech {
         if (outputType.equals("mech build")) {
             // output something like:
             //     "  Pattern-A Smoke Charges x4, Seismic Ripper,"
-            //     " High-Stress Mag Clamps, ATHENA-Class NHP\n"
+            //     "  High-Stress Mag Clamps, ATHENA-Class NHP\n"
             for (int i = 0; i < systems.length; i++) {
                 if (i == 0) {
                     outputString += "  ";
@@ -573,8 +643,8 @@ public class Mech {
             outputString += "\n";
         } else if (outputType.equals("full")) {
             // output something along the lines of:
-            //       "  Ammo Case II, Pattern-A Smoke Charges,\n"
-            //     + "  Seismic Ripper, High-Stress Mag Clamps\n"
+            //       "  Pattern-A Smoke Charges, Seismic Ripper,\n"
+            //       "  High-Stress Mag Clamps, ATHENA-Class NHP\n"
             for (int i = 0; i < systems.length; i += 2) {
                 outputString += "  ";
                 for (int j = i; j < Math.min(systems.length, i + 2); j++) {
@@ -592,6 +662,16 @@ public class Mech {
 
         return outputString;
     }
+    /**
+     * A helper method which generates a snippet of text containing output about
+     *     a given system of this Mech object used in Mech.outputSystems(). Only
+     *     returns something other than "" when outputType is "mech build" or
+     *     "full".
+     * @param outputType a String containing the type of output to
+     *     generate.
+     * @param system a MechSystem containing the system to generate output for.
+     * @return a String containing the requested output.
+     */
     public String outputSystem(String outputType, MechSystem system) {
         String outputString = "";
 
@@ -609,6 +689,11 @@ public class Mech {
 
         return outputString;
     }
+    /**
+     * A helper method which outputs the mech's size, formatted properly so that
+     *     it is human-readable. Used in Mech.outputStats("full", int).
+     * @return a String containing the requested output.
+     */
     public String outputSize() {
         if (getSize() == 1) {
             return "1/2";
@@ -679,6 +764,11 @@ public class Mech {
 
         return false;
     }
+    /**
+     * A method checking whether every property of this object is set to its
+     *     placeholder value.
+     * @return a boolean representing the result of the check.
+     */
     public boolean isPlaceholder() {
         if (! getName().equals("")) {
             return false;

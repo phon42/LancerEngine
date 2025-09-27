@@ -32,7 +32,7 @@ public class Test {
     /**
      * Converts a boolean to its TestStatus equivalent.
      * @param result a boolean to be converted
-     * @return a TestStatus representing the TestStatus equivalent of the given
+     * @return a TestStatus containing the TestStatus equivalent of the given
      *     boolean.
      */
     private static TestStatus run(boolean result) {
@@ -46,7 +46,7 @@ public class Test {
      *     of tests or a test with a battery of tests under it, returns the
      *     result value assigned to it combined with the results of any tests
      *     underneath it.
-     * @return a TestStatus representing the result of whatever was run.
+     * @return a TestStatus containing the result of whatever was run.
      */
     private TestStatus run() {
         boolean containsPass = false;

@@ -174,8 +174,8 @@ public class Mount {
      * Outputs a short snippet of text in the style of:
      *     "MAIN MOUNT: Assault Rifle (BOUNDER-Class Comp/Con)"
      *     " // Overpower Caliber"
-     * @return a String representing the mount and any weapons mounted on it, as
-     *     well as any modifications or core bonuses.
+     * @return a String containing output of the mount and any weapons mounted
+     *     on it, as well as any modifications or core bonuses.
      */
     public String outputWeapon() {
         String outputString = "";

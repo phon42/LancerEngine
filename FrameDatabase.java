@@ -90,9 +90,9 @@ public class FrameDatabase {
 
     /**
      * Searches for and returns a Frame matching the given search ID
-     * @param searchID a String representing the frame ID of the Frame the user
+     * @param searchID a String containing the frame ID of the Frame the user
      *     wants
-     * @return a Frame representing the Frame the user wants
+     * @return a Frame containing the Frame the user wants
      * @throws IllegalArgumentException when no Frame is found matching the
      *     given search ID
      */
@@ -112,9 +112,9 @@ public class FrameDatabase {
     }
     /**
      * Searches for and returns a Frame matching the given search enum
-     * @param searchEnum a FrameEnum representing the FrameEnum of the Frame the
+     * @param searchEnum a FrameEnum containing the FrameEnum of the Frame the
      *     user wants
-     * @return a Frame representing the Frame the user wants
+     * @return a Frame containing the Frame the user wants
      * @throws IllegalArgumentException when no Frame is found matching the
      *     given search enum
      */
