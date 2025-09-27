@@ -63,8 +63,9 @@ public class LancerCharacter {
         }
         if (! mech.isPlaceholder()) {
             if (mech.hasPlaceholders()) {
-                throw new IllegalArgumentException("New mech value has"
-                    + " placeholders");
+                throw new IllegalArgumentException("New mech value is not a"
+                    + " placeholder but has its properties set to placeholder"
+                    + " values");
             }
             mech.calculateAttributes(getPilot().getMechSkills());
         }

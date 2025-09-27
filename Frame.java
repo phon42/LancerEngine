@@ -406,8 +406,7 @@ public class Frame {
         if (getManufacturer().equals("")) {
             return true;
         }
-        if (getRole().getClass() == String[].class && getRole().length == 1
-            && getRole()[0].equals("")) {
+        if (getRole().getClass() == String[].class && getRole().length == 0) {
             return true;
         }
         if (getFrameDescription().equals("")) {
@@ -457,8 +456,7 @@ public class Frame {
         if (! getName().equals("")) {
             return false;
         }
-        if (getRole().getClass() != String[].class || getRole().length != 1
-            || ! getRole()[0].equals("")) {
+        if (getRole().getClass() != String[].class || getRole().length != 0) {
             return false;
         }
         if (! getFrameDescription().equals("")) {
