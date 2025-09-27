@@ -1,13 +1,18 @@
+enum FrameEnum {
+    EVEREST,
+    SWALLOWTAIL_RANGER
+}
 public class FrameDatabase {
     private static final Frame[] frameList = new Frame[] {
-        new Frame("GMS", "Everest", new String[] {"Balanced"},
-            "Most humans don’t think to ask about the history of the water they"
-            + " drink, the earth they walk, or the air they breathe. And yet,"
-            + " without water, earth, and air, there would be nowhere for"
-            + " humanity to make a home.\nJust the same, the GMS-SP1 “Everest”"
-            + " is often taken for granted, its importance dismissed in favor"
-            + " of other, more specialized frames. A plain and unpretentious"
-            + " mech, defined by simple lines, functional grace, universal"
+        new Frame("GMS", "Everest", "everest",
+            FrameEnum.EVEREST, new String[] {"Balanced"}, "Most humans don’t"
+            + " think to ask about the history of the water they drink, the"
+            + " earth they walk, or the air they breathe. And yet, without"
+            + " water, earth, and air, there would be nowhere for humanity to"
+            + " make a home.\nJust the same, the GMS-SP1 “Everest” is often"
+            + " taken for granted, its importance dismissed in favor of other,"
+            + " more specialized frames. A plain and unpretentious mech,"
+            + " defined by simple lines, functional grace, universal"
             + " compatibility, and sturdy bulk, the Everest is as fundamental"
             + " to the modern mechanized chassis as the natural world is to"
             + " human life. The Everest isn’t the most specialized mech, but it"
@@ -49,22 +54,23 @@ public class FrameDatabase {
                 new Mount("flex", new Weapon()),
                 new Mount("heavy", new Weapon())}),
         new Frame("SSC", "Swallowtail (Ranger Variant)",
-            new String[] {"Support"}, "This variant can be"
-            + " taken at rank II of the SWALLOWTAIL license instead of the base"
-            + " FRAME, or gained as EXOTIC GEAR by aiding Dthall Ordo during"
-            + " the campaign.\n\nThis Swallowtail variant is common among HUC"
-            + " ranger forces. It was adopted and reverse-engineered from the"
-            + " material remains of early, abandoned SSC survey expeditions."
-            + " With no ability to print-replicate the mech, the rangers"
-            + " painstakingly manufactured and assembled each unit to high"
-            + " specifications. Unlike the sleek luxury of other SSC frames,"
-            + " this Swallowtail is a rugged affair. Each one has a suite of"
-            + " marks left by its previous owners – livery, battle paint,"
-            + " custom gear, camouflage, and weathering. They have been"
-            + " repaired and maintained for two generations and each one is"
-            + " precious to the United Cities.", 2, 4, 10,
-            0, 4, 6, 8, 4,
-            8, 0, 10, 5,
+            "swallowtail_ranger", FrameEnum.SWALLOWTAIL_RANGER,
+            new String[] {"Support"}, "This variant can be taken at rank II of"
+            + " the SWALLOWTAIL license instead of the base FRAME, or gained as"
+            + " EXOTIC GEAR by aiding Dthall Ordo during the campaign.\n\nThis"
+            + " Swallowtail variant is common among HUC ranger forces. It was"
+            + " adopted and reverse-engineered from the material remains of"
+            + " early, abandoned SSC survey expeditions. With no ability to"
+            + " print-replicate the mech, the rangers painstakingly"
+            + " manufactured and assembled each unit to high specifications."
+            + " Unlike the sleek luxury of other SSC frames, this Swallowtail"
+            + " is a rugged affair. Each one has a suite of marks left by its"
+            + " previous owners – livery, battle paint, custom gear,"
+            + " camouflage, and weathering. They have been repaired and"
+            + " maintained for two generations and each one is precious to the"
+            + " United Cities.", 2, 4, 10, 0, 4,
+            6, 8, 4, 8,
+            0, 10, 5,
             10, 6, new String[] {"Scout Battlefield",
             "Invigorating Scanners", "Weathering"}, new Mount[] {
                 new Mount("flex", new Weapon()),
@@ -74,22 +80,30 @@ public class FrameDatabase {
     // Prevent users from instantiating this class
     private FrameDatabase() {}
 
-    public static Frame getFrame(String searchName) {
-        String manufacturer;
-        String frameName;
-        String originalSearch = new String(searchName);
+    public static Frame getFrame(String searchID) {
+        String frameID;
+        String originalSearch = new String(searchID);
         
-        searchName = searchName.toLowerCase();
+        searchID = searchID.toLowerCase();
         for (int i = 0; i < frameList.length; i++) {
-            manufacturer = frameList[i].getManufacturer().toLowerCase();
-            frameName = frameList[i].getName().toLowerCase();
-            if (frameName.equals(searchName)) {
-                return frameList[i];
-            } else if ((manufacturer + " " + frameName).equals(searchName)) {
+            frameID = frameList[i].getID().toLowerCase();
+            if (frameID.equals(searchID)) {
                 return frameList[i];
             }
         }
-        throw new IllegalArgumentException("No frame found for frame name: "
+        throw new IllegalArgumentException("No frame found for frame ID: "
             + originalSearch);
+    }
+    public static Frame getFrame(FrameEnum searchEnum) {
+        FrameEnum frameEnum;
+        
+        for (int i = 0; i < frameList.length; i++) {
+            frameEnum = frameList[i].getFrameEnum();
+            if (frameEnum == searchEnum) {
+                return frameList[i];
+            }
+        }
+        throw new IllegalArgumentException("No frame found for frame enum: "
+            + searchEnum.toString());
     }
 }

@@ -88,6 +88,16 @@ public class Mech {
         this.systemPoints = -1;
         this.limitedSystemsBonus = -1;
     }
+    public Mech(String name, String frameID) {
+        this();
+        setName(name);
+        setFrame(FrameDatabase.getFrame(frameID));
+    }
+    public Mech(String name, FrameEnum frameEnum) {
+        this();
+        setName(name);
+        setFrame(FrameDatabase.getFrame(frameEnum));
+    }
 
     public String getName() {
         return name;

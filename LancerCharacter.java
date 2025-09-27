@@ -40,6 +40,15 @@ public class LancerCharacter {
         setPilot(new Pilot(pilotName, pilotCallsign));
         setMech(new Mech());
     }
+    public LancerCharacter(String pilotName, String pilotCallsign, Mech mech) {
+        setPilot(new Pilot(pilotName, pilotCallsign));
+        setMech(mech);
+    }
+    // TODO: remove if unused
+    public LancerCharacter(Pilot pilot, Mech mech) {
+        setPilot(pilot);
+        setMech(mech);
+    }
     
     public Pilot getPilot() {
         return this.pilot;
@@ -141,7 +150,6 @@ public class LancerCharacter {
             "Coral Nolan", "Apocalypse");
         Pilot myPilot = myCharacter.getPilot();
         Mech myMech = myCharacter.getMech();
-        Frame myFrame;
         Loadout myLoadout = new Loadout();
 
         myPilot.setPlayer("Luna");
@@ -184,10 +192,7 @@ public class LancerCharacter {
         myLoadout.setPilotGear(new String[] {"Wilderness Survival Kit",
             "Flexsuit", "Personal Drone"});
         myPilot.setLoadout(myLoadout);
-
-        myFrame = FrameDatabase.getFrame("Swallowtail (Ranger Variant)");
-        myMech.setFrame(myFrame);
-        myMech.setName("Wraith");
+        myMech = new Mech("Wraith", "swallowtail_ranger");
         // TODO: add a way for mountType to be omitted and automatically filled
         //     in by the correct mount type as long as the index is valid
         // TODO: make this possible again

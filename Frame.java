@@ -8,6 +8,8 @@ public class Frame {
     private String manufacturer;
     // frame name (i.e. Everest), case-sensitive
     private String name;
+    private String ID;
+    private FrameEnum frameEnum;
     // role (i.e. striker)
     /**
      * Is set to "" at construction but must be one of the following values
@@ -113,6 +115,8 @@ public class Frame {
     public Frame() {
         this.manufacturer = "";
         this.name = "";
+        this.ID = "";
+        // this.frameEnum not set due to no possible placeholder value
         this.role = new String[0];
         this.frameDescription = "";
         this.size = -1;
@@ -136,22 +140,26 @@ public class Frame {
         this.traits = new String[0];
         this.mounts = new Mount[0];
     }
-    public Frame(String manufacturer, String name, String[] role,
-        String frameDescription, int size, int hp,
-        int armor, int heatCapacity, int evasion, int speed, int eDefense,
-        int techAttack, int sensors, int repairCapacity, int saveTarget,
-        int systemPoints, String[] traits, Mount[] mounts) {
-        this(manufacturer, name, role, frameDescription, size, 4, hp,
-            armor, 4, heatCapacity, evasion, speed, eDefense, techAttack,
-            sensors, repairCapacity, saveTarget, systemPoints, traits, mounts);
-    }
-    public Frame(String manufacturer, String name, String[] role,
-        String frameDescription, int size, int structure, int hp,
-        int armor, int stress, int heatCapacity, int evasion, int speed,
+    public Frame(String manufacturer, String name, String frameID,
+        FrameEnum frameEnum, String[] role, String frameDescription, int size,
+        int hp, int armor, int heatCapacity, int evasion, int speed,
         int eDefense, int techAttack, int sensors, int repairCapacity,
         int saveTarget, int systemPoints, String[] traits, Mount[] mounts) {
+        this(manufacturer, name, frameID, frameEnum, role, frameDescription,
+            size, 4, hp, armor, 4, heatCapacity, evasion,
+            speed, eDefense, techAttack, sensors, repairCapacity, saveTarget,
+            systemPoints, traits, mounts);
+    }
+    public Frame(String manufacturer, String name, String frameID,
+        FrameEnum frameEnum, String[] role, String frameDescription, int size,
+        int structure, int hp, int armor, int stress, int heatCapacity,
+        int evasion, int speed, int eDefense, int techAttack, int sensors,
+        int repairCapacity, int saveTarget, int systemPoints, String[] traits,
+        Mount[] mounts) {
         setManufacturer(manufacturer);
         setName(name);
+        setID(frameID);
+        setFrameEnum(frameEnum);
         setRole(role);
         setFrameDescription(frameDescription);
         setSize(size);
@@ -193,6 +201,27 @@ public class Frame {
             throw new IllegalArgumentException("New frame name is \"\"");
         }
         this.name = name;
+    }
+    public String getID() {
+        return ID;
+    }
+    public void setID(String ID) {
+        if (ID == null) {
+            throw new IllegalArgumentException("New frame ID is null");
+        }
+        if (ID.equals("")) {
+            throw new IllegalArgumentException("New frame ID is \"\"");
+        }
+        this.ID = ID;
+    }
+    public FrameEnum getFrameEnum() {
+        return frameEnum;
+    }
+    public void setFrameEnum(FrameEnum frameEnum) {
+        if (frameEnum == null) {
+            throw new IllegalArgumentException("New frame enum is null");
+        }
+        this.frameEnum = frameEnum;
     }
     public String[] getRole() {
         return role;
@@ -406,6 +435,16 @@ public class Frame {
         if (getManufacturer().equals("")) {
             return true;
         }
+        if (getID().equals("") && getFrameEnum() == null) {
+            if (getID().equals("") && getFrameEnum() != null) {
+                throw new IllegalArgumentException("Frame.ID is set but"
+                    + " Frame.frameEnum is not");
+            } else if (!(getID().equals("")) && getFrameEnum() == null) {
+                throw new IllegalArgumentException("Frame.frameEnum is set but"
+                    + " Frame.ID is not");
+            }
+            return true;
+        }
         if (getRole().getClass() == String[].class && getRole().length == 0) {
             return true;
         }
@@ -454,6 +493,12 @@ public class Frame {
             return false;
         }
         if (! getName().equals("")) {
+            return false;
+        }
+        if (! getID().equals("")) {
+            return false;
+        }
+        if (getFrameEnum() != null) {
             return false;
         }
         if (getRole().getClass() != String[].class || getRole().length != 0) {
