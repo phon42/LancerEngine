@@ -195,6 +195,20 @@ public class Mech {
         this.operatorNotes = operatorNotes;
     }
     public void setMount(int mountIndex, Mount mount) {
+        if (mountIndex < 0) {
+            throw new IllegalArgumentException("mountIndex:" + mountIndex
+                + " is out of bounds for length " + getMounts().length);
+        }
+        if (mountIndex >= getMounts().length) {
+            throw new IllegalArgumentException("mountIndex:" + mountIndex
+                + " is out of bounds for length " + getMounts().length);
+        }
+        if (mount.getMountType().equals("")) {
+            // the user was lazy and used new Mount(Weapon) instead of
+            //     new Mount(mountType, Weapon)
+            String mountType = getMounts()[mountIndex].getMountType();
+            mount = new Mount(mountType, mount.getWeapon());
+        }
         this.mounts[mountIndex] = mount;
     }
     private void setMounts(Mount[] mounts) {

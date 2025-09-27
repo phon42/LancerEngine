@@ -193,23 +193,15 @@ public class LancerCharacter {
             "Flexsuit", "Personal Drone"});
         myPilot.setLoadout(myLoadout);
         myMech = new Mech("Wraith", "swallowtail_ranger");
-        // TODO: add a way for mountType to be omitted and automatically filled
-        //     in by the correct mount type as long as the index is valid
-        // TODO: make this possible again
+        // TODO: add Integrated Weapon
         /*
         myMech.setMount(0, new Mount("Integrated Weapon",
             new Weapon("Nexus (Light)")));
-        myMech.setMount(1, new Mount("Flex",
-            new Weapon("Slag Cannon")));
-        myMech.setMount(2, new Mount("Main",
-            new Weapon("Vulture DMR"), "",
-            "Overpower Caliber"));
         */
-        myMech.setMount(0, new Mount("Flex",
+        myMech.setMount(0, new Mount(
             new Weapon("Slag Cannon")));
-        myMech.setMount(1, new Mount("Main",
-            new Weapon("Vulture DMR"), "",
-            "Overpower Caliber"));
+        myMech.setMount(1, new Mount(new Weapon("Vulture DMR"),
+            "", "Overpower Caliber"));
         myMech.setSystems(new MechSystem[] {
             new MechSystem("Pattern-A Smoke Charges", 3),
             new MechSystem("Seismic Ripper"),

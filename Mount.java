@@ -30,11 +30,24 @@ public class Mount {
      */
     private String coreBonus;
 
-    public Mount() {
+    private Mount() {
         this.mountType = "";
         setWeapon(new Weapon());
         setModification("");
         setCoreBonus("");
+    }
+    public Mount(Weapon weapon) {
+        this();
+        setWeapon(weapon);
+    }
+    public Mount(Weapon weapon, String modification) {
+        this(weapon, modification, "");
+    }
+    public Mount(Weapon weapon, String modification, String coreBonus) {
+        this.mountType = "";
+        setWeapon(weapon);
+        setModification(modification);
+        setCoreBonus(coreBonus);
     }
     public Mount(String mountType, Weapon weapon) {
         this();
@@ -42,10 +55,7 @@ public class Mount {
         setWeapon(weapon);
     }
     public Mount(String mountType, Weapon weapon, String modification) {
-        this();
-        setMountType(mountType);
-        setWeapon(weapon);
-        setModification(modification);
+        this(mountType, weapon, modification, "");
     }
     public Mount(String mountType, Weapon weapon, String modification,
         String coreBonus) {
