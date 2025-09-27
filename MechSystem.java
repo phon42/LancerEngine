@@ -53,9 +53,13 @@ public class MechSystem {
         }
         this.name = name;
     }
-    private void setLimited(boolean limited) {
-        this.limited = limited;
-    }
+    /**
+     * Sets this.limitedCharges to the value provided and automatically sets
+     *     this.limited accordingly.
+     * Passing 0 will automatically set this.limited to
+     *     false; anything else will set it to true.
+     * @param limitedCharges an int that cannot be < 0.
+     */
     public void setLimitedCharges(int limitedCharges) {
         if (limitedCharges < 0) {
             throw new IllegalArgumentException("New limited charges value is"
@@ -86,6 +90,11 @@ public class MechSystem {
 
         return outputString;
     }
+    /**
+     * Checks whether this object has all of its properties set to placeholder
+     *     values.
+     * @return a boolean representing the result of the check.
+     */
     public boolean isPlaceholder() {
         if (! getName().equals("")) {
             return false;

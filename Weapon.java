@@ -29,6 +29,12 @@ public class Weapon {
         this.name = name;
     }
 
+    /**
+     * A method checking whether any of the properties of this object whose
+     *     placeholder value is normally not allowed are set to their
+     *     placeholder value.
+     * @return a boolean representing the result of the check.
+     */
     public boolean hasPlaceholders() {
         if (getName().equals("")) {
             return true;
@@ -36,6 +42,11 @@ public class Weapon {
 
         return false;
     }
+    /**
+     * Checks whether this object has all of its properties set to placeholder
+     *     values.
+     * @return a boolean representing the result of the check.
+     */
     public boolean isPlaceholder() {
         if (! getName().equals("")) {
             return false;

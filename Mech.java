@@ -618,6 +618,12 @@ public class Mech {
         }
         return Integer.toString(getSize());
     }
+    /**
+     * A method checking whether any of the properties of this object whose
+     *     placeholder value is normally not allowed are set to their
+     *     placeholder value.
+     * @return a boolean representing the result of the check.
+     */
     public boolean hasPlaceholders() {
         if (getName().equals("")) {
             return true;

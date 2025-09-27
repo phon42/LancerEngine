@@ -121,6 +121,13 @@ public class Mount {
         this.weapon = weapon;
     }
     // Setters for hasModification and hasCoreBonus removed purposefully
+    /**
+     * Sets this.modification to the value provided and automatically sets
+     *     this.hasModification accordingly.
+     * Passing an empty String will automatically set this.modification to
+     *     false; anything else will set it to true.
+     * @param modification a String that cannot be null.
+     */
     public void setModification(String modification) {
         if (modification == null) {
             throw new IllegalArgumentException("New modification value is"
@@ -133,6 +140,13 @@ public class Mount {
         }
         this.modification = modification;
     }
+    /**
+     * Sets this.coreBonus to the value provided and automatically sets
+     *     this.hasCoreBonus accordingly.
+     * Passing an empty String will automatically set this.hasCoreBonus to
+     *     false; anything else will set it to true.
+     * @param coreBonus a String that cannot be null.
+     */
     public void setCoreBonus(String coreBonus) {
         if (coreBonus == null) {
             throw new IllegalArgumentException("New core bonus value is"
@@ -174,6 +188,11 @@ public class Mount {
 
         return outputString;
     }
+    /**
+     * Checks whether this object has all of its properties set to placeholder
+     *     values.
+     * @return a boolean representing the result of the check.
+     */
     public boolean isPlaceholder() {
         if (! getMountType().equals("")) {
             return false;

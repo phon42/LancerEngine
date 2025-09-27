@@ -2,6 +2,8 @@
  * Contains the data of a single Lancer character, including the pilot and their
  *     mech.
  * Stores a Pilot object and a Mech object.
+ * To be instantiated, must be provided at minimum pilotName and a pilotCallsign
+ *     or a Pilot object with those values.
  */
 public class LancerCharacter {
     /**
