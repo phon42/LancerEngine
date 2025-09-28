@@ -91,6 +91,10 @@ public class License {
         
         return true;
     }
+    /**
+     * Returns a deep copy of this object.
+     * @return a License deep copy of this object.
+     */
     public License copyOf() {
         License copy = new License(this.name, this.level);
 

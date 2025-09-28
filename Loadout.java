@@ -217,6 +217,10 @@ public class Loadout {
 
         return outputString;
     }
+    /**
+     * Returns a deepest copy of this object.
+     * @return a Loadout deepest copy of this object.
+     */
     public Loadout copyOf() {
         // don't need to make copies of these because the mutators already do so
         Loadout copy = new Loadout(this.pilotArmor, this.pilotWeapons,

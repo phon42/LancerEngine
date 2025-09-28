@@ -68,6 +68,11 @@ public class HelperFunctions {
         
         return newStringArray;
     }
+    /**
+     * Returns a deep copy of original.
+     * @param original an int[] that cannot be null.
+     * @return an int[] deep copy of original.
+     */
     public static int[] copyOf(int[] original) {
         if (original == null) {
             throw new IllegalArgumentException("Called"
@@ -81,6 +86,11 @@ public class HelperFunctions {
 
         return copy;
     }
+    /**
+     * Returns a deep copy of original.
+     * @param original a String[] that cannot be null.
+     * @return a String[] deep copy of original.
+     */
     public static String[] copyOf(String[] original) {
         if (original == null) {
             throw new IllegalArgumentException("Called"
@@ -94,6 +104,11 @@ public class HelperFunctions {
 
         return copy;
     }
+    /**
+     * Returns a deepest copy of original.
+     * @param original a License[] that cannot be null.
+     * @return a License[] deepest copy of original.
+     */
     public static License[] copyOf(License[] original) {
         if (original == null) {
             throw new IllegalArgumentException("Called"
@@ -102,11 +117,20 @@ public class HelperFunctions {
         }
         License[] copy = new License[original.length];
         for (int i = 0; i < original.length; i++) {
+            if (original[i] == null) {
+                copy[i] = original[i];
+                continue;
+            }
             copy[i] = original[i].copyOf();
         }
 
         return copy;
     }
+    /**
+     * Returns a deepest copy of original.
+     * @param original a MechSystem[] that cannot be null.
+     * @return a MechSystem[] deepest copy of original.
+     */
     public static MechSystem[] copyOf(MechSystem[] original) {
         if (original == null) {
             throw new IllegalArgumentException("Called"
@@ -115,11 +139,20 @@ public class HelperFunctions {
         }
         MechSystem[] copy = new MechSystem[original.length];
         for (int i = 0; i < original.length; i++) {
+            if (original[i] == null) {
+                copy[i] = original[i];
+                continue;
+            }
             copy[i] = original[i].copyOf();
         }
 
         return copy;
     }
+    /**
+     * Returns a deepest copy of original.
+     * @param original a Mount[] that cannot be null.
+     * @return a Mount[] deepest copy of original.
+     */
     public static Mount[] copyOf(Mount[] original) {
         if (original == null) {
             throw new IllegalArgumentException("Called"
@@ -128,11 +161,20 @@ public class HelperFunctions {
         }
         Mount[] copy = new Mount[original.length];
         for (int i = 0; i < original.length; i++) {
+            if (original[i] == null) {
+                copy[i] = original[i];
+                continue;
+            }
             copy[i] = original[i].copyOf();
         }
 
         return copy;
     }
+    /**
+     * Returns a deepest copy of original.
+     * @param original a SkillTrigger[] that cannot be null.
+     * @return a SkillTrigger[] deepest copy of original.
+     */
     public static SkillTrigger[] copyOf(SkillTrigger[] original) {
         if (original == null) {
             throw new IllegalArgumentException("Called"
@@ -141,11 +183,20 @@ public class HelperFunctions {
         }
         SkillTrigger[] copy = new SkillTrigger[original.length];
         for (int i = 0; i < original.length; i++) {
+            if (original[i] == null) {
+                copy[i] = original[i];
+                continue;
+            }
             copy[i] = original[i].copyOf();
         }
 
         return copy;
     }
+    /**
+     * Returns a deepest copy of original.
+     * @param original a Talent[] that cannot be null.
+     * @return a Talent[] deepest copy of original.
+     */
     public static Talent[] copyOf(Talent[] original) {
         if (original == null) {
             throw new IllegalArgumentException("Called"
@@ -154,6 +205,10 @@ public class HelperFunctions {
         }
         Talent[] copy = new Talent[original.length];
         for (int i = 0; i < original.length; i++) {
+            if (original[i] == null) {
+                copy[i] = original[i];
+                continue;
+            }
             copy[i] = original[i].copyOf();
         }
 

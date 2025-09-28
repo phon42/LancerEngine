@@ -926,6 +926,10 @@ public class Mech {
 
         return true;
     }
+    /**
+     * Returns a deepest copy of this object.
+     * @return a Mech deepest copy of this object.
+     */
     public Mech copyOf() {
         // don't need to make copies of these because the mutators already do so
         Mech copy = new Mech(this.name, this.frame, this.operatorNotes,

@@ -826,6 +826,10 @@ public class Pilot {
 
         return false;
     }
+    /**
+     * Returns a deepest copy of this object.
+     * @return a Pilot deepest copy of this object.
+     */
     public Pilot copyOf() {
         // don't need to make copies of these because the mutators already do so
         Pilot copy = new Pilot(this.name, this.callsign, this.player,

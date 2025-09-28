@@ -84,6 +84,10 @@ public class Talent {
         }
         return true;
     }
+    /**
+     * Returns a deep copy of this object.
+     * @return a Talent deep copy of this object.
+     */
     public Talent copyOf() {
         Talent copy = new Talent(this.name, this.level);
 

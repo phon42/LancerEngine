@@ -90,6 +90,10 @@ public class SkillTrigger {
         
         return true;
     }
+    /**
+     * Returns a deep copy of this object.
+     * @return a SkillTrigger deep copy of this object.
+     */
     public SkillTrigger copyOf() {
         SkillTrigger copy = new SkillTrigger(this.name, this.level);
 

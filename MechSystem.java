@@ -108,6 +108,10 @@ public class MechSystem {
 
         return true;
     }
+    /**
+     * Returns a deep copy of this object.
+     * @return a MechSystem deep copy of this object.
+     */
     public MechSystem copyOf() {
         MechSystem copy = new MechSystem(this.name, this.limitedCharges);
 

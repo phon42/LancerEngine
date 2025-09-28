@@ -226,6 +226,10 @@ public class Mount {
         
         return true;
     }
+    /**
+     * Returns a deepest copy of this object.
+     * @return a Mount deepest copy of this object.
+     */
     public Mount copyOf() {
         // don't need to make copies of these because the mutators already do so
         Mount copy = new Mount(this.mountType, this.weapon, this.modification,

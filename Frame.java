@@ -682,6 +682,10 @@ public class Frame {
 
         return true;
     }
+    /**
+     * Returns a deepest copy of this object.
+     * @return a Frame deepest copy of this object.
+     */
     public Frame copyOf() {
         // don't need to make copies of these because the mutators already do so
         Frame copy = new Frame(this.manufacturer, this.name, this.ID,
