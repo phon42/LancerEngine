@@ -4,7 +4,8 @@
  */
 public class Talent {
     /**
-     * Can be any String except "". Cannot be null.
+     * Can be any String except "". Cannot be null. Case-insensitive and stored
+     *     in lowercase.
      */
     public String name;
     /**
@@ -34,6 +35,7 @@ public class Talent {
         if (name.equals("")) {
             throw new IllegalArgumentException("New value for name is \"\"");
         }
+        name = name.toLowerCase();
         this.name = name;
     }
     /**

@@ -4,15 +4,18 @@
  */
 public class Loadout {
     /**
-     * Can be any String. Cannot be null.
+     * Can be any String. Cannot be null. Case-insensitive and stored in
+     *     lowercase.
      */
     private String pilotArmor;
     /**
      * Must be a String[] of length 2. Cannot be null or contain null elements.
+     *     Case-insensitive and stored in lowercase.
      */
     private String[] pilotWeapons;
     /**
      * Must be a String[] of length 3. Cannot be null or contain null elements.
+     *     Case-insensitive and stored in lowercase.
      */
     private String[] pilotGear;
 
@@ -58,6 +61,7 @@ public class Loadout {
             throw new IllegalArgumentException("New pilot armor value is"
                 + " null");
         }
+        pilotArmor = pilotArmor.toLowerCase();
         this.pilotArmor = pilotArmor;
     }
     /**
@@ -81,6 +85,9 @@ public class Loadout {
             }
         }
         pilotWeapons = HelperFunctions.copyOf(pilotWeapons);
+        for (int i = 0; i < pilotWeapons.length; i++) {
+            pilotWeapons[i] = pilotWeapons[i].toLowerCase();
+        }
         this.pilotWeapons = pilotWeapons;
     }
     /**
@@ -104,6 +111,9 @@ public class Loadout {
             }
         }
         pilotGear = HelperFunctions.copyOf(pilotGear);
+        for (int i = 0; i < pilotGear.length; i++) {
+            pilotGear[i] = pilotGear[i].toLowerCase();
+        }
         this.pilotGear = pilotGear;
     }
 

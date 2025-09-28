@@ -12,7 +12,7 @@ public class Mount {
      * String with allowed values:
      *     "aux", "aux/aux", "flex", "heavy", "integrated weapon", "main",
      *     "main/aux"
-     * Cannot be null.
+     * Cannot be null. Case-insensitive and stored in lowercase.
      */
     private String mountType;
     /**
@@ -26,7 +26,8 @@ public class Mount {
      */
     private boolean hasModification;
     /**
-     * Can be any String. Cannot be null.
+     * Can be any String. Cannot be null. Case-insensitive and stored in
+     *     lowercase.
      */
     private String modification;
     /**
@@ -35,7 +36,8 @@ public class Mount {
      */
     private boolean hasCoreBonus;
     /**
-     * Can be any String. Cannot be null.
+     * Can be any String. Cannot be null. Case-insensitive and stored in
+     *     lowercase.
      */
     private String coreBonus;
 
@@ -153,6 +155,7 @@ public class Mount {
         } else {
             hasModification = true;
         }
+        modification = modification.toLowerCase();
         this.modification = modification;
     }
     // Mutator for hasCoreBonus removed purposefully
@@ -173,6 +176,7 @@ public class Mount {
         } else {
             hasCoreBonus = true;
         }
+        coreBonus = coreBonus.toLowerCase();
         this.coreBonus = coreBonus;
     }
 

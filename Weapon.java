@@ -5,7 +5,8 @@ public class Weapon {
     // TODO: fill out
     // The weapon's name
     /**
-     * The weapon's name. Can be any String, though "" is a placeholder.
+     * The weapon's name. Case-insensitive and stored in lowercase. Can be any
+     *     String, though "" is a placeholder.
      */
     private String name;
 
@@ -26,6 +27,7 @@ public class Weapon {
         if (name.equals("")) {
             throw new IllegalArgumentException("New name is \"\"");
         }
+        name = name.toLowerCase();
         this.name = name;
     }
 

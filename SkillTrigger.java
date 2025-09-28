@@ -4,7 +4,8 @@
  */
 public class SkillTrigger {
     /**
-     * Can be any String except "". Cannot be null.
+     * Can be any String except "". Cannot be null. Case-insensitive and stored
+     *     in lowercase.
      */
     private String name;
     /**
@@ -34,6 +35,7 @@ public class SkillTrigger {
         if (name.equals("")) {
             throw new IllegalArgumentException("New name value is \"\"");
         }
+        name = name.toLowerCase();
         this.name = name;
     }
     /**

@@ -7,6 +7,7 @@ public class MechSystem {
     /**
      * The mech system name.
      * Can be any non-"" String. Cannot be null. Is set to "" on construction.
+     *     Case-insensitive and stored in lowercase.
      */
     private String name;
 
@@ -51,6 +52,7 @@ public class MechSystem {
         if (name.equals("")) {
             throw new IllegalArgumentException("New name is \"\"");
         }
+        name = name.toLowerCase();
         this.name = name;
     }
     /**

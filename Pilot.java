@@ -109,7 +109,7 @@ public class Pilot {
     /**
      * The pilot's reserves.
      * Can be any String[]. Cannot be null or contain null elements or
-     *     placeholders.
+     *     placeholders. Case-insensitive and stored in lowercase.
     */
     private String[] reserves;
 
@@ -138,6 +138,7 @@ public class Pilot {
     /**
      * The pilot's special equipment.
      * Can be any String[]. Cannot be null or contain null elements.
+     *     Case-insensitive and stored in lowercase.
      */
     private String[] specialEquipment;
 
@@ -153,7 +154,7 @@ public class Pilot {
     /**
      * The pilot's core bonuses.
      * Can be any String[] that does not contain null elements or placeholders.
-     *     Cannot be null.
+     *     Cannot be null. Case-insensitive and stored in lowercase.
      */
     private String[] coreBonuses;
 
@@ -488,6 +489,9 @@ public class Pilot {
             }
         }
         reserves = HelperFunctions.copyOf(reserves);
+        for (int i = 0; i < reserves.length; i++) {
+            reserves[i] = reserves[i].toLowerCase();
+        }
         this.reserves = reserves;
     }
     public void setLoadout(Loadout loadout) {
@@ -555,6 +559,9 @@ public class Pilot {
             }
         }
         specialEquipment = HelperFunctions.copyOf(specialEquipment);
+        for (int i = 0; i < specialEquipment.length; i++) {
+            specialEquipment[i] = specialEquipment[i].toLowerCase();
+        }
         this.specialEquipment = specialEquipment;
     }
     public void setMechSkills(int[] mechSkills) {
@@ -601,6 +608,9 @@ public class Pilot {
             }
         }
         coreBonuses = HelperFunctions.copyOf(coreBonuses);
+        for (int i = 0; i < coreBonuses.length; i++) {
+            coreBonuses[i] = coreBonuses[i].toLowerCase();
+        }
         this.coreBonuses = coreBonuses;
     }
     public void setTalents(Talent[] talents) {

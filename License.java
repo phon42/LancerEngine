@@ -6,7 +6,8 @@
 public class License {
     /**
      * The frame name.
-     * Can be any String except "". Cannot be null.
+     * Can be any String except "". Cannot be null. Case-insensitive and stored
+     *     in lowercase.
      */
     private String name;
     /**
@@ -37,6 +38,7 @@ public class License {
         if (name.equals("")) {
             throw new IllegalArgumentException("New frame name is \"\"");
         }
+        name = name.toLowerCase();
         this.name = name;
     }
     /**
