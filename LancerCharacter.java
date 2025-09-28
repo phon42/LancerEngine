@@ -233,7 +233,8 @@ public class LancerCharacter {
         myCharacter.setPilot(myPilot);
         myCharacter.setMech(myMech);
 
-        System.out.print(myCharacter.generateStatblock("mech build"));
+        System.out.print(myCharacter.generateStatblock(
+            "mech build"));
         // TestFunctions.runTests();
     }
 }

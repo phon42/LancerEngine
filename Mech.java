@@ -9,14 +9,14 @@
 public class Mech {
     /**
      * The name of this mech (NOT its frame name, the name given to this
-     *     specific chassis). Can be any non-"" String. Cannot be null. Set to
-     *     "" on construction from Mech().
+     *     specific chassis). Can be any non-"" String. Cannot be null. Is set
+     *     to "" on construction from Mech().
      */
     private String name;
     
     /**
      * The frame that this mech is patterned after (i.e. Swallowtail) as a Frame
-     *     object. Cannot be a placeholder Frame. Set to a placeholder Frame on
+     *     object. Cannot be a placeholder Frame. Is set to a placeholder Frame on
      *     construction from Mech().
      */
     private Frame frame;
@@ -35,53 +35,136 @@ public class Mech {
     private Mount[] mounts;
 
     // systems
+    /**
+     * The mech's systems. Can be any MechSystem[] that does not contain null.
+     *     Cannot be null.
+     */
     private MechSystem[] systems;
 
     // frame attributes - size, structure, HP, etc.
     /**
-     * The size of the mech.
-     * Size is stored as 2 * its value (Size 1/2 would be stored as int 1).
-     * Allowed values for size: 1, 2, 4, 6, 8.
+     * The mech's size.
+     * Size is stored as 2 * its value (i.e. Size 1/2 would be stored as int 1).
+     * Allowed values for size: 1, 2, 4, 6, 8. Is set to -1 on construction.
      */
     private int size;
 
     // health and structure
+    /**
+     * The mech's current structure value.
+     * Must be a minimum of 0.
+     */
     private int currentStructure;
+    /**
+     * The mech's max structure value.
+     * Must be a minimum of 1.
+     */
     private int maxStructure;
+    /**
+     * The mech's current HP value.
+     * Is set to -1 on construction, but must be a minimum of 0 otherwise.
+     */
     private int currentHP;
+    /**
+     * The mech's max HP value.
+     * Is set to -1 on construction, but must be a minimum of 1 otherwise.
+     */
     private int maxHP;
+    /**
+     * The mech's armor value.
+     * Is set to -1 at construction, but must be a minimum of 0 otherwise.
+     */
     private int armor;
 
     // heat and stress
+    /**
+     * The mech's current stress value.
+     * Must be a minimum of 0.
+     */
     private int currentStress;
+    /**
+     * The mech's max stress value.
+     * Must be a minimum of 1.
+     */
     private int maxStress;
+    /**
+     * The mech's current heat capacity.
+     * Is set to -1 at construction, but must be a minimum of 0 otherwise.
+     */
     private int currentHeatCapacity;
+    /**
+     * The mech's max heat capacity.
+     * Is set to -1 at construction, but must be a minimum of 1 otherwise.
+     */
     private int maxHeatCapacity;
 
     // evasion and speed
+    /**
+     * The mech's evasion value.
+     * Is set to -1 at construction, but must be a minimum of 0 otherwise.
+     */
     private int evasion;
+    /**
+     * The mech's speed value.
+     * Is set to -1 at construction, but must be a minimum of 0 otherwise.
+     */
     private int speed;
 
     // e-defense and tech attack
+    /**
+     * The mech's e-defense value.
+     * Is set to -1 at construction, but must be a minimum of 0 otherwise.
+     */
     private int eDefense;
+    /**
+     * The mech's tech attack value.
+     * Can be any integer.
+     */
     private int techAttack;
 
     // sensors and repair capacity
+    /**
+     * The mech's sensors value.
+     * Is set to -1 at construction, but must be a minimum of 0 otherwise.
+     */
     private int sensors;
+    /**
+     * The mech's current repair capacity value.
+     * Is set to -1 at construction, but must be a minimum of 0 otherwise.
+     */
     private int currentRepairCapacity;
+    /**
+     * The mech's max repair capacity value.
+     * Is set to -1 at construction, but must be a minimum of 0 otherwise.
+     */
     private int maxRepairCapacity;
 
     // save target and system points
+    /**
+     * The mech's save target value.
+     * Is set to -1 at construction, but must be a minimum of 0 otherwise.
+     */
     private int saveTarget;
+    /**
+     * The mech's system points value.
+     * Is set to -1 at construction, but must be a minimum of 0 otherwise.
+     */
     private int systemPoints;
 
     // limited systems bonus
+    /**
+     * The mech's limited systems bonus value.
+     * Is set to -1 at construction, but must be a minimum of 0 otherwise.
+     */
     private int limitedSystemsBonus;
 
     /**
      * Creates a placeholder Mech.
      */
     public Mech() {
+        // setMaxStructure() swapped with setCurrentStructure() and
+        //     setMaxStress() swapped with setCurrentStress() because the
+        //     mutators may throw exceptions otherwise
         this.name = "";
         this.frame = new Frame();
         this.operatorNotes = "";
@@ -93,14 +176,14 @@ public class Mech {
         this.currentHP = -1;
         this.maxHP = -1;
         this.armor = -1;
-        this.currentStress = 4;
-        this.maxStress = 4;
+        setMaxStress(4);
+        setCurrentStress(4);
         this.currentHeatCapacity = -1;
         this.maxHeatCapacity = -1;
         this.evasion = -1;
         this.speed = -1;
         this.eDefense = -1;
-        this.techAttack = -1;
+        setTechAttack(-1);
         this.sensors = -1;
         this.currentRepairCapacity = -1;
         this.maxRepairCapacity = -1;
@@ -137,6 +220,8 @@ public class Mech {
         int eDefense, int techAttack, int sensors, int currentRepairCapacity,
         int maxRepairCapacity, int saveTarget, int systemPoints,
         int limitedSystemsBonus) {
+        // Swapped max and current property mutators because they throw
+        //     exceptions otherwise
             setName(name);
             setFrame(frame);
             setOperatorNotes(operatorNotes);
@@ -305,9 +390,9 @@ public class Mech {
         this.size = size;
     }
     public void setCurrentStructure(int currentStructure) {
-        if (currentStructure < 1) {
+        if (currentStructure < 0) {
             throw new IllegalArgumentException("New currentStructure value is"
-                + " < 1");
+                + " < 0");
         }
         if (getMaxStructure() < currentStructure) {
             throw new IllegalArgumentException("currentStructure value"
@@ -356,9 +441,9 @@ public class Mech {
         this.armor = armor;
     }
     public void setCurrentStress(int currentStress) {
-        if (currentStress < 1) {
+        if (currentStress < 0) {
             throw new IllegalArgumentException("New currentStress value is <"
-                + " 1");
+                + " 0");
         }
         if (getMaxStress() < currentStress) {
             throw new IllegalArgumentException("currentStress value provided: "
@@ -509,8 +594,10 @@ public class Mech {
         setSystemPoints(frame.getSystemPoints() + (mechSkills[2] / 2));
 
         // Engineering
-        setCurrentHeatCapacity(0);
+        // setMaxHeatCapacity() swapped with setCurrentHeatCapacity() because
+        //     the mutators may throw exceptions otherwise
         setMaxHeatCapacity(frame.getHeatCapacity() + mechSkills[3]);
+        setCurrentHeatCapacity(0);
         setLimitedSystemsBonus(mechSkills[3] / 2);
         
         setSize(frame.getSize());

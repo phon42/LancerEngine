@@ -6,7 +6,7 @@ public class MechSystem {
     // TODO: fill out
     /**
      * The mech system name.
-     * Can be any non-"" String. Cannot be null. Set to "" on construction.
+     * Can be any non-"" String. Cannot be null. Is set to "" on construction.
      */
     private String name;
 

@@ -9,12 +9,12 @@
 public class Frame {
     /**
      * The frame's manufacturer (i.e. "GMS"). Case-insensitive and stored in
-     *     uppercase. Cannot be null or "". Set to "" on construction.
+     *     uppercase. Cannot be null or "". Is set to "" on construction.
      */
     private String manufacturer;
     /**
      * The frame's name (i.e. "everest"). Case-insensitive and stored in
-     *     lowercase. Cannot be null or "". Set to "" on construction.
+     *     lowercase. Cannot be null or "". Is set to "" on construction.
      * Use Frame.getName() to get the raw value and Frame.outputName() to obtain
      *     it properly formatted.
      */
@@ -22,18 +22,18 @@ public class Frame {
     /**
      * The frame's ID (i.e. "swallowtail_ranger"). Used for identifying it in
      *     FrameDatabase.getFrame(String). Case-insensitive and stored in
-     *     lowercase. Cannot be null or "". Set to "" on construction.
+     *     lowercase. Cannot be null or "". Is set to "" on construction.
      */
     private String ID;
     /**
      * The frame's frameEnum, used for identifying it in
-     *     FrameDatabase.getFrame(FrameEnum). Cannot be null. Set to null on
+     *     FrameDatabase.getFrame(FrameEnum). Cannot be null. Is set to null on
      *     construction.
      */
     private FrameEnum frameEnum;
     /**
      * The frame's role (i.e. "striker").
-     * Is set to "" at construction but must be one of the following values
+     * Is set to "" at construction, but must be one of the following values
      *     otherwise: "artillery", "balanced", "controller", "striker",
      *     "support".
      * Is case-insensitive and stored in all lowercase. Cannot be null.
@@ -56,14 +56,14 @@ public class Frame {
     /**
      * The frame's size.
      * Size is stored as 2 * its value (i.e. Size 1/2 would be stored as int 1).
-     * Allowed values for size: 1, 2, 4, 6, 8. Set to -1 on construction.
+     * Allowed values for size: 1, 2, 4, 6, 8. Is set to -1 on construction.
      */
     private int size;
 
     // health and structure
     /**
      * The frame's max structure value.
-     * Is set to -1 at construction but must be a minimum of 1 otherwise.
+     * Must be a minimum of 1.
      */
     private int structure;
     /**
@@ -73,67 +73,67 @@ public class Frame {
     private int HP;
     /**
      * The frame's armor value.
-     * Is set to -1 at construction but must be a minimum of 0 otherwise.
+     * Is set to -1 at construction, but must be a minimum of 0 otherwise.
      */
     private int armor;
 
     // heat and stress
     /**
      * The frame's max stress value.
-     * Is set to 4 at construction. Must be a minimum of 1.
+     * Must be a minimum of 1.
      */
     private int stress;
     /**
      * The frame's max heat capacity.
-     * Is set to -1 at construction but must be a minimum of 1 otherwise.
+     * Is set to -1 at construction, but must be a minimum of 1 otherwise.
      */
     private int heatCapacity;
 
     // evasion and speed
     /**
      * The frame's evasion value.
-     * Is set to -1 at construction but must be a minimum of 0 otherwise.
+     * Is set to -1 at construction, but must be a minimum of 0 otherwise.
      */
     private int evasion;
     /**
-     * The frame's evasion value.
-     * Is set to -1 at construction but must be a minimum of 0 otherwise.
+     * The frame's speed value.
+     * Is set to -1 at construction, but must be a minimum of 0 otherwise.
      */
     private int speed;
 
     // e-defense and tech attack
     /**
-     * The frame's evasion value.
-     * Is set to -1 at construction but must be a minimum of 0 otherwise.
+     * The frame's e-defense value.
+     * Is set to -1 at construction, but must be a minimum of 0 otherwise.
      */
     private int eDefense;
     /**
-     * The frame's evasion value.
-     * Set to -1 at construction. Can be any integer.
+     * The frame's tech attack value.
+     * Can be any integer.
      */
     private int techAttack;
 
     // sensors and repair capacity
     /**
-     * The frame's evasion value.
-     * Is set to -1 at construction but must be a minimum of 0 otherwise.
+     * The frame's sensors value.
+     * Is set to -1 at construction, but must be a minimum of 0 otherwise.
      */
     private int sensors;
     /**
-     * The frame's evasion value.
-     * Is set to -1 at construction but must be a minimum of 0 otherwise.
+     * The frame's max repair capacity value.
+     * Is set to -1 at construction ,but must be a minimum of 0 otherwise.
      */
     private int repairCapacity;
 
     // save target and system points
     /**
-     * The frame's evasion value.
-     * Is set to -1 at construction but must be a minimum of 0 otherwise.
+     * The frame's save target value.
+     * Is set to -1 at construction, but must be a minimum of 0 otherwise.
      */
     private int saveTarget;
     /**
-     * The frame's evasion value.
-     * Is set to -1 at construction but must be a minimum of 0 otherwise.
+     * The frame's system points value.
+     * Is set to -1 at construction, but must be a minimum of 0 otherwise.
      */
     private int systemPoints;
 
@@ -175,7 +175,7 @@ public class Frame {
         this.evasion = -1;
         this.speed = -1;
         this.eDefense = -1;
-        this.techAttack = -1;
+        setTechAttack(-1);
         this.sensors = -1;
         this.repairCapacity = -1;
         this.saveTarget = -1;
@@ -356,10 +356,6 @@ public class Frame {
         if (frameDescription == null) {
             throw new IllegalArgumentException("New frame description is"
                 + " null");
-        }
-        if (frameDescription.equals("")) {
-            throw new IllegalArgumentException("New frame description is"
-                + " \"\"");
         }
         this.frameDescription = frameDescription;
     }

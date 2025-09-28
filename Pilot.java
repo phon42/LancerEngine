@@ -7,22 +7,26 @@ public class Pilot {
     // ---Dossier-------------------
     // name and callsign
     /**
-     * Can be any String other than "". Cannot be null. Set to "" on
+     * The pilot's name.
+     * Can be any String other than "". Cannot be null. Is set to "" on
      *     construction.
      */
     private String name;
     /**
-     * Can be any String other than "". Cannot be null. Set to "" on
+     * The pilot's callsign.
+     * Can be any String other than "". Cannot be null. Is set to "" on
      *     construction.
      */
     private String callsign;
 
     // (optional) details
     /**
+     * The player name.
      * Can be any String. Cannot be null.
      */
     private String player;
     /**
+     * The pilot's status.
      * Must be one of the following:
      *     "active", "inactive", "retired", "missing in action",
      *     "killed in action", "unknown"
@@ -34,20 +38,24 @@ public class Pilot {
         "killed in action", "unknown"
     };
     /**
+     * The pilot's background.
      * Can be any String. Cannot be null.
      */
     private String background;
 
     // further optional details
     /**
+     * The pilot's biography.
      * Can be any String. Cannot be null.
      */
     private String biography;
     /**
+     * The pilot's appearance.
      * Can be any String. Cannot be null.
      */
     private String appearance;
     /**
+     * The pilot's player notes.
      * Can be any String. Cannot be null.
      */
     private String playerNotes;
@@ -55,42 +63,51 @@ public class Pilot {
     // ---Narrative Profile---------
     // stats
     /**
+     * The pilot's grit value.
      * Must be between 0 and 6 (inclusive).
      */
     private int grit;
     /**
+     * The pilot's current HP value.
      * Must be between 0 and maxHP (inclusive).
      */
     private int currentHP;
     /**
+     * The pilot's max HP value.
      * Must be >= 1.
      */
     private int maxHP;
     /**
+     * The pilot's armor value.
      * Must be >= 0.
      */
     private int armor;
     /**
+     * The pilot's evasion value.
      * Must be >= 0.
      */
     private int evasion;
     /**
+     * The pilot's speed value.
      * Must be >= 0.
      */
     private int speed;
     /**
+     * The pilot's e-defense value.
      * Must be >= 0.
      */
     private int eDefense;
     
     // Skill triggers
     /**
+     * The pilot's skill triggers.
      * Can be any SkillTriggersList. Cannot be null.
      */
     private SkillTriggersList skillTriggers;
 
     // Reserves and bonuses
     /**
+     * The pilot's reserves.
      * Can be any String[]. Cannot be null or contain null elements or
      *     placeholders.
     */
@@ -98,6 +115,7 @@ public class Pilot {
 
     // Gear Loadout
     /**
+     * The pilot's gear loadout.
      * Can be any Loadout. Cannot be null.
     */
     private Loadout loadout;
@@ -105,10 +123,12 @@ public class Pilot {
     // ---Tactical Profile---------
     // licenses
     /**
+     * The pilot's licenses.
      * Must be between 0 and 12 (inclusive).
      */
     private int licenseLevel;
     /**
+     * The pilot's license level.
      * Can be any License[] that does not contain null or elements with
      *     placeholders. Cannot be null.
      */
@@ -116,12 +136,14 @@ public class Pilot {
 
     // Special equipment
     /**
+     * The pilot's special equipment.
      * Can be any String[]. Cannot be null or contain null elements.
      */
     private String[] specialEquipment;
 
     // Mech skills
     /**
+     * The pilot's mech skills (Hull, Agility, Systems, Engineering).
      * Must be an int[] of length 4. Each element must be between 0 and 6
      *     (inclusive).
      */
@@ -129,6 +151,7 @@ public class Pilot {
 
     // Core bonuses
     /**
+     * The pilot's core bonuses.
      * Can be any String[] that does not contain null elements or placeholders.
      *     Cannot be null.
      */
@@ -136,6 +159,7 @@ public class Pilot {
 
     // Talents
     /**
+     * The pilot's talents (i.e. Ace 1).
      * Can be any Talent[] that does not contain null elements or elements with
      *     placeholders. Cannot be null.
      */
@@ -154,8 +178,8 @@ public class Pilot {
 
         // ---Narrative Profile---------
         // setGrit() is unnecessary because licenseLevel is set later
-        // setMaxHP() swapped with setCurrentHP() because the function may throw
-        //     an exception otherwise
+        // setMaxHP() swapped with setCurrentHP() because the mutators may throw
+        //     exceptions otherwise
         setMaxHP(8);
         setCurrentHP(8);
         setArmor(0);
@@ -198,8 +222,8 @@ public class Pilot {
 
         // ---Narrative Profile---------
         // setGrit() is unnecessary because licenseLevel is set later
-        // setMaxHP() swapped with setCurrentHP() because the function may throw
-        //     an exception otherwise
+        // setMaxHP() swapped with setCurrentHP() because the mutators may throw
+        //     exceptions otherwise
         setMaxHP(maxHP);
         setCurrentHP(currentHP);
         setArmor(armor);
