@@ -4,17 +4,29 @@
  *     has any modifications and whether there is a core bonus attached to it.
  */
 public class Mount {
+    /**
+     * Array of all possible allowed mount types.
+     */
     private final String[] allowedMountTypes = {
-        "aux", "aux/aux", "flex", "heavy", "integrated weapon", "main",
-        "main/aux"
+        "aux", "aux/aux", "flex", "heavy", "main", "main/aux",
+        "integrated weapon", "integrated weapon core bonus",
+        "improved armament core bonus"
+    };
+    /**
+     * Array of mount types that do not require talents or core bonuses to
+     *     exist.
+     */
+    private final String[] baseMountTypes = {
+        "aux", "aux/aux", "flex", "heavy", "main", "main/aux"
     };
     /**
      * The mount's type.
      * Must be one of the following values:
-     *     "aux", "aux/aux", "flex", "heavy", "integrated weapon", "main",
-     *     "main/aux"
-     * Case-insensitive and stored in lowercase. Can be any String. Cannot be
-     *     null.
+     *     "aux", "aux/aux", "flex", "heavy", "main", "main/aux",
+     *     "integrated weapon", "integrated weapon core bonus",
+     *     "improved armament core bonus"
+     * Case-insensitive and stored in lowercase. Cannot be null. Set to "" on
+     *     construction.
      */
     private String mountType;
     /**
@@ -46,12 +58,24 @@ public class Mount {
      *     lowercase.
      */
     private String coreBonus;
+    /**
+     * Whether the mount is from or is affected by any talents (at present this
+     *     can only be Engineer or Weaponsmith).
+     * Controlled automatically by Mount.setTalent().
+     */
+    private boolean hasTalent;
+    /**
+     * Any talents applied to the mount (i.e. "engineer"), if there are any.
+     * Can be any Talent. Value of null indicates a placeholder.
+     */
+    private Talent talent;
 
     private Mount() {
         this.mountType = "";
         setWeapon(new Weapon());
         setModification("");
         setCoreBonus("");
+        setTalent(null);
     }
     public Mount(Weapon weapon) {
         this();
@@ -65,6 +89,7 @@ public class Mount {
         setWeapon(weapon);
         setModification(modification);
         setCoreBonus(coreBonus);
+        setTalent(null);
     }
     public Mount(String mountType, Weapon weapon) {
         this();
@@ -72,14 +97,19 @@ public class Mount {
         setWeapon(weapon);
     }
     public Mount(String mountType, Weapon weapon, String modification) {
-        this(mountType, weapon, modification, "");
+        this(mountType, weapon, modification, "", null);
     }
     public Mount(String mountType, Weapon weapon, String modification,
         String coreBonus) {
+        this(mountType, weapon, modification, coreBonus, null);
+    }
+    public Mount(String mountType, Weapon weapon, String modification,
+        String coreBonus, Talent talent) {
         setMountType(mountType);
         setWeapon(weapon);
         setModification(modification);
         setCoreBonus(coreBonus);
+        setTalent(talent);
     }
 
     public String getMountType() {
@@ -100,6 +130,12 @@ public class Mount {
     public String getCoreBonus() {
         return coreBonus;
     }
+    public boolean hasTalent() {
+        return hasTalent;
+    }
+    public Talent getTalent() {
+        return talent;
+    }
     /**
      * Sets this.mountType to the value provided.
      * @param mountType a String that cannot be null or be anything outside of
@@ -109,7 +145,9 @@ public class Mount {
         boolean isValidType = false;
         String exceptionMessage = "Given mount type is not one of the allowed"
             + " mount types:\n\"aux\", \"aux/aux\", \"flex\", \"heavy\","
-            + " \"integrated weapon\", \"main\", \"main/aux\"";
+            + " \"main\", \"main/aux\", \"integrated weapon\","
+            + " \"integrated weapon core bonus\","
+            + " \"improved armament core bonus\"";
 
         if (mountType == null) {
             throw new IllegalArgumentException("New mount type is null");
@@ -135,7 +173,7 @@ public class Mount {
         if (weapon == null) {
             throw new IllegalArgumentException("New weapon is null");
         }
-        if (! weapon.isPlaceholder() && weapon.hasPlaceholders()) {
+        if ((! weapon.isPlaceholder()) && weapon.hasPlaceholders()) {
             throw new IllegalArgumentException("New weapon value is not a"
                 + " placeholder but has some properties set to placeholder"
                 + " values");
@@ -185,6 +223,15 @@ public class Mount {
         coreBonus = coreBonus.toLowerCase();
         this.coreBonus = coreBonus;
     }
+    // Mutator for hasTalent removed purposefully
+    public void setTalent(Talent talent) {
+        if (talent == null) {
+            this.hasTalent = false;
+        } else {
+            this.hasTalent = true;
+        }
+        this.talent = talent;
+    }
 
     /**
      * Outputs a short snippet of text in the style of:
@@ -195,10 +242,22 @@ public class Mount {
      */
     public String outputWeapon() {
         String outputString = "";
+        boolean isBaseType = false;
 
         outputString += mountType.toUpperCase();
-        if (! mountType.equals("integrated weapon")) {
+        for (int i = 0; i < baseMountTypes.length; i++) {
+            if (mountType.equals(baseMountTypes[i])) {
+                isBaseType = true;
+            }
+        }
+        if (isBaseType) {
             outputString += " MOUNT";
+        } else if (mountType.equals("integrated weapon")) {
+            outputString += "Integrated";
+        } else if (mountType.equals("integrated weapon core bonus")) {
+            outputString += "INTEGRATED WEAPON";
+        } else if (mountType.equals("improved armament core bonus")) {
+            outputString += "FLEX MOUNT";
         }
         outputString += ":";
         if (! weapon.isPlaceholder()) {
@@ -253,6 +312,7 @@ public class Mount {
         copy.weapon = this.weapon;
         copy.setModification(this.modification);
         copy.setCoreBonus(this.coreBonus);
+        copy.talent = this.talent;
 
         return copy;
     }

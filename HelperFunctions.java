@@ -68,6 +68,45 @@ public class HelperFunctions {
         
         return newStringArray;
     }
+    // TODO: maybe add a HelperFunctions.add(Mount[], Mount) version of this
+    //     method that automatically calls either HelperFunctions.add(Mount[],
+    //     Mount, 0) or HelperFunctions.add(Mount[], Mount, Mount[].length)?
+    /**
+     * Adds the given Mount element to an existing Mount[] at some specified
+     *     index.
+     * @param mountArray a Mount[] that cannot be null.
+     * @param newElement a Mount that cannot be null to add to mountArray.
+     * @param index an int containing the index at which to insert newElement.
+     * @return a Mount[] consisting of mountArray with newElement added to it.
+     * @throws IllegalArgumentException if mountArray or newElement is null.
+     */
+    public static Mount[] add(Mount[] mountArray, Mount newElement, int index) {
+        if (mountArray == null) {
+            throw new IllegalArgumentException("Called"
+                + " HelperFunctions.add(Mount[], Mount) with null in the"
+                + " place of the Mount[]");
+        }
+        if (newElement == null) {
+            throw new IllegalArgumentException("Called"
+                + " HelperFunctions.add(Mount[], Mount) with null in the"
+                + " place of the Mount");
+        }
+        Mount[] newMountArray = new Mount[mountArray.length + 1];
+
+        for (int i = 0; i < newMountArray.length; i++) {
+            if (i < index) {
+                newMountArray[i] = mountArray[i];
+                continue;
+            }
+            if (i == index) {
+                newMountArray[i] = newElement;
+                continue;
+            }
+            newMountArray[i] = mountArray[i - 1];
+        }
+
+        return newMountArray;
+    }
     /**
      * Returns a deep copy of original.
      * @param original an int[] that cannot be null.

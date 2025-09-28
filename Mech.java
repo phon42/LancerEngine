@@ -760,6 +760,45 @@ public class Mech {
         setCurrentHeatCapacity(0);
         setLimitedSystemsBonus(mechSkills[3] / 2);
         
+        // Order of these properties within the mech's weapon mounts is:
+        // Prototype Weapon (from Engineer talent)
+        // Integrated Weapon (from Integrated Weapon core bonus)
+        // Improved Armament (from Improved Armament core bonus)
+        // Therefore, we will add these mounts to index 0 in the OPPOSITE order
+        //     - so that Improved Armament ends up at index 2, Integrated Weapon
+        //     at index 1, and Prototype Weapon at index 0.
+        // TODO: make the improved armament calculate whether it should be added
+        //     instead of just adding itself
+        Mount[] mounts = this.frame.getMounts();
+        for (String coreBonus : coreBonuses) {
+            if (coreBonus.equals("improved armament")) {
+                mounts = HelperFunctions.add(mounts, 
+                    new Mount("improved armament core bonus",
+                    new Weapon(), "",
+                    "improved armament", null), 0);
+            }
+        }
+        for (String coreBonus : coreBonuses) {
+            if (coreBonus.equals("integrated weapon")) {
+                mounts = HelperFunctions.add(mounts, 
+                    new Mount("integrated weapon core bonus",
+                    new Weapon(), "",
+                    "integrated weapon", null), 0);
+            }
+        }
+        for (Talent talent : talents) {
+            if (talent.getName().equals("engineer")) {
+                String weaponName = "Prototype Weapon ";
+                for (int i = 0; i < talent.getLevel(); i++) {
+                    weaponName += "I";
+                }
+                mounts = HelperFunctions.add(mounts, 
+                    new Mount("integrated weapon",
+                    new Weapon(weaponName), "", "",
+                    talent), 0);
+            }
+        }
+        
         setManufacturer(frame.getManufacturer());
         setFrameName(frame.getName());
         setRole(frame.getRole());
