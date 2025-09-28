@@ -35,19 +35,18 @@ public class Frame {
      */
     private FrameEnum frameEnum;
     /**
-     * The frame's role (i.e. "striker"). Multiple items are stored as seperate
+     * The frame's role (i.e. "balanced"). Multiple items are stored as seperate
      *     elements (i.e "Controller/Support" would be stored as {"controller",
      *     "support"}).
      * Each element must be one of the following values:
      *     "artillery", "balanced", "controller", "striker", "support".
-     * Case-insensitive and stored in lowercase. Cannot be null. Is set to
-     *     "" at construction.
+     * Case-insensitive and stored in lowercase. Cannot be null.
      */
     private String[] role;
     /**
      * An array of allowed values for the elements of the role property.
      */
-    final String[] allowedRoles = new String[] {
+    final static String[] allowedRoles = new String[] {
         "artillery", "balanced", "controller", "striker", "support"
     };
     /**
@@ -328,7 +327,7 @@ public class Frame {
     /**
      * Sets this.role to the value provided.
      * @param role a String[] which cannot be null or contain any invalid
-     *     values, as defined by this.allowedRoles.
+     *     values, as defined by Frame.allowedRoles.
      */
     public void setRole(String[] role) {
         boolean isValidRole = false;
@@ -343,16 +342,16 @@ public class Frame {
             isValidRole = false;
             if (roleString == null) {
                 throw new IllegalArgumentException("New role array contains"
-                    + " a role value of null");
+                    + " a null element");
             }
-            for (String roleMatch : allowedRoles) {
+            for (String roleMatch : Frame.allowedRoles) {
                 if (roleString.equals(roleMatch)) {
                     isValidRole = true;
                 }
             }
             if (! isValidRole) {
-                throw new IllegalArgumentException("New role set contains an "
-                    + "illegal role value: \"" + roleString + "\"");
+                throw new IllegalArgumentException("New role array contains an "
+                    + "invalid role value: \"" + roleString + "\"");
             }
         }
         role = HelperFunctions.copyOf(role);
