@@ -38,8 +38,8 @@ public class HelperFunctions {
     }
     /**
      * Appends the given String element to the end of an existing String[].
-     * @param stringArray A String[] that cannot be null.
-     * @param newElement A String that cannot be null to append to the end of
+     * @param stringArray a String[] that cannot be null.
+     * @param newElement a String that cannot be null to append to the end of
      *     stringArray.
      * @return a String[] consisting of stringArray with newElement appended to
      *     the end of it.

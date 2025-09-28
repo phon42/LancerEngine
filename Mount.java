@@ -29,6 +29,10 @@ public class Mount {
      * Can be any String. Cannot be null.
      */
     private String modification;
+    /**
+     * Whether the mount is from or is affected by any core bonuses. Controlled
+     *     automatically by Mount.setCoreBonus().
+     */
     private boolean hasCoreBonus;
     /**
      * Can be any String. Cannot be null.
@@ -131,7 +135,7 @@ public class Mount {
         weapon = weapon.copyOf();
         this.weapon = weapon;
     }
-    // Setters for hasModification and hasCoreBonus removed purposefully
+    // Mutator for hasModification removed purposefully
     /**
      * Sets this.modification to the value provided and automatically sets
      *     this.hasModification accordingly.
@@ -151,6 +155,7 @@ public class Mount {
         }
         this.modification = modification;
     }
+    // Mutator for hasCoreBonus removed purposefully
     /**
      * Sets this.coreBonus to the value provided and automatically sets
      *     this.hasCoreBonus accordingly.
