@@ -59,7 +59,7 @@ public class Pilot {
      */
     private int grit;
     /**
-     * Must be between 1 and maxHP (inclusive).
+     * Must be between 0 and maxHP (inclusive).
      */
     private int currentHP;
     /**
@@ -353,14 +353,12 @@ public class Pilot {
         this.grit = grit;
     }
     public void setCurrentHP(int currentHP) {
-        if (currentHP < 1) {
-            throw new IllegalArgumentException("Error: currentHP value"
-                + " provided: " + currentHP + " is < 1");
+        if (currentHP < 0) {
+            throw new IllegalArgumentException("New currentHP value is < 0");
         }
         if (getMaxHP() < currentHP) {
-            throw new IllegalArgumentException("Error: currentHP value"
-                + " provided: " + currentHP + " is > maxHP value "
-                + getMaxHP());
+            throw new IllegalArgumentException("currentHP value provided: "
+                + currentHP + " is > maxHP value: " + getMaxHP());
         }
         this.currentHP = currentHP;
     }
