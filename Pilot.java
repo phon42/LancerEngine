@@ -357,9 +357,10 @@ public class Pilot {
             throw new IllegalArgumentException("Error: currentHP value"
                 + " provided: " + currentHP + " is < 1");
         }
-        if (currentHP > maxHP) {
+        if (getMaxHP() < currentHP) {
             throw new IllegalArgumentException("Error: currentHP value"
-                + " provided: " + currentHP + " is > maxHP value " + maxHP);
+                + " provided: " + currentHP + " is > maxHP value "
+                + getMaxHP());
         }
         this.currentHP = currentHP;
     }
@@ -367,8 +368,9 @@ public class Pilot {
         if (maxHP < 1) {
             throw new IllegalArgumentException("New maxHP value is < 1");
         }
-        if (getCurrentHP() > maxHP) {
-            System.out.println("WARNING: currentHP is more than maxHP");
+        if (maxHP < getCurrentHP()) {
+            System.out.println("[ WARNING ] maxHP value provided: " + maxHP
+                + " is < currentHP value: " + getCurrentHP());
         }
         this.maxHP = maxHP;
     }

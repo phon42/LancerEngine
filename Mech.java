@@ -269,32 +269,47 @@ public class Mech {
     }
     public void setCurrentStructure(int currentStructure) {
         if (currentStructure < 1) {
-            throw new IllegalArgumentException("New current structure is"
+            throw new IllegalArgumentException("New currentStructure value is"
                 + " < 1");
+        }
+        if (getMaxStructure() < currentStructure) {
+            throw new IllegalArgumentException("Error: currentStructure value"
+                + " provided: " + currentStructure + " is > maxStructure value "
+                + getMaxStructure());
         }
         this.currentStructure = currentStructure;
     }
     public void setMaxStructure(int maxStructure) {
         if (maxStructure < 1) {
-            throw new IllegalArgumentException("New max structure is < 1");
+            throw new IllegalArgumentException("New maxStructure value is <"
+                + " 1");
+        }
+        if (maxStructure < getCurrentStructure()) {
+            System.out.println("[ WARNING ] maxStructure value provided: "
+                + maxStructure + " is < currentStructure value "
+                + getCurrentStructure());
         }
         this.maxStructure = maxStructure;
     }
     public void setCurrentHP(int currentHP) {
-        if (currentHP < 1) {
+        if (currentHP < 0) {
             throw new IllegalArgumentException("Error: currentHP value"
-                + " provided: " + currentHP + " is < 1");
-        } else if (currentHP > getMaxHP()) {
+                + " provided: " + currentHP + " is < 0");
+        }
+        if (getMaxHP() < currentHP) {
             throw new IllegalArgumentException("Error: currentHP value"
                 + " provided: " + currentHP + " is > maxHP value "
                 + getMaxHP());
-        } else {
-            this.currentHP = currentHP;
         }
+        this.currentHP = currentHP;
     }
     public void setMaxHP(int maxHP) {
         if (maxHP < 1) {
-            throw new IllegalArgumentException("New max HP is < 1");
+            throw new IllegalArgumentException("New maxHP is < 1");
+        }
+        if (maxHP < getCurrentHP()) {
+            System.out.println("[ WARNING ] maxHP value provided: " + maxHP
+                + " is < currentHP value " + getCurrentHP());
         }
         this.maxHP = maxHP;
     }
@@ -306,27 +321,48 @@ public class Mech {
     }
     public void setCurrentStress(int currentStress) {
         if (currentStress < 1) {
-            throw new IllegalArgumentException("New current stress is < 1");
+            throw new IllegalArgumentException("New currentStress value is <"
+                + " 1");
+        }
+        if (getMaxStress() < currentStress) {
+            throw new IllegalArgumentException("Error: currentStress value"
+                + " provided: " + currentStress + " is > maxStress value "
+                + getMaxStress());
         }
         this.currentStress = currentStress;
     }
     public void setMaxStress(int maxStress) {
         if (maxStress < 1) {
-            throw new IllegalArgumentException("New max stress is < 1");
+            throw new IllegalArgumentException("New maxStress value is < 1");
+        }
+        if (maxStress < getCurrentStress()) {
+            System.out.println("[ WARNING ] maxStress value provided: "
+                + maxStress + " is < currentStress value "
+                + getCurrentStress());
         }
         this.maxStress = maxStress;
     }
     public void setCurrentHeatCapacity(int currentHeatCapacity) {
         if (currentHeatCapacity < 0) {
-            throw new IllegalArgumentException("New current heat capacity is"
-                + " < 0");
+            throw new IllegalArgumentException("New currentHeatCapacity value"
+                + " is < 0");
+        }
+        if (getMaxHeatCapacity() < currentHeatCapacity) {
+            throw new IllegalArgumentException("Error: currentHeatCapacity"
+                + " value provided: " + currentHeatCapacity + " is >"
+                + " maxHeatCapacity value " + getMaxHeatCapacity());
         }
         this.currentHeatCapacity = currentHeatCapacity;
     }
     public void setMaxHeatCapacity(int maxHeatCapacity) {
         if (maxHeatCapacity < 1) {
-            throw new IllegalArgumentException("New max heat capacity is"
+            throw new IllegalArgumentException("New maxHeatCapacity value is"
                 + " < 1");
+        }
+        if (maxHeatCapacity < getCurrentHeatCapacity()) {
+            System.out.println("[ WARNING ] maxHeatCapacity value provided: "
+                + maxHeatCapacity + " is < currentHeatCapacity value "
+                + getCurrentHeatCapacity());
         }
         this.maxHeatCapacity = maxHeatCapacity;
     }
@@ -359,15 +395,25 @@ public class Mech {
     }
     public void setCurrentRepairCapacity(int currentRepairCapacity) {
         if (currentRepairCapacity < 0) {
-            throw new IllegalArgumentException("New current repair capacity"
+            throw new IllegalArgumentException("New currentRepairCapacity value"
                 + " is < 0");
+        }
+        if (getMaxRepairCapacity() < currentRepairCapacity) {
+            throw new IllegalArgumentException("Error: currentRepairCapacity"
+                + " value provided: " + currentRepairCapacity + " is >"
+                + " maxRepairCapacity value " + getMaxRepairCapacity());
         }
         this.currentRepairCapacity = currentRepairCapacity;
     }
     public void setMaxRepairCapacity(int maxRepairCapacity) {
         if (maxRepairCapacity < 0) {
-            throw new IllegalArgumentException("New max repair capacity is"
+            throw new IllegalArgumentException("New maxRepairCapacity value is"
                 + " < 0");
+        }
+        if (maxRepairCapacity < getCurrentRepairCapacity()) {
+            System.out.println("[ WARNING ] maxRepairCapacity value provided: "
+                + maxRepairCapacity + " is < currentRepairCapacity value "
+                + getCurrentRepairCapacity());
         }
         this.maxRepairCapacity = maxRepairCapacity;
     }
