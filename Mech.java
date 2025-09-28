@@ -886,7 +886,7 @@ public class Mech {
         if (getName().equals("")) {
             return true;
         }
-        if (getFrame().isPlaceholder()) {
+        if (this.frame.isPlaceholder()) {
             return true;
         }
         if (getSize() == -1) {
@@ -946,16 +946,16 @@ public class Mech {
         if (! getName().equals("")) {
             return false;
         }
-        if (! getFrame().isPlaceholder()) {
+        if (! this.frame.isPlaceholder()) {
             return false;
         }
         if (! getOperatorNotes().equals("")) {
             return false;
         }
-        if (getMounts().length != 0) {
+        if (this.mounts.length != 0) {
             return false;
         }
-        if (getSystems().length != 0) {
+        if (this.systems.length != 0) {
             return false;
         }
         if (getSize() != -1) {
@@ -994,25 +994,25 @@ public class Mech {
         if (getEDefense() != -1) {
             return false;
         }
-        if (getTechAttack() != -1) {
+        if (this.techAttack != -1) {
             return false;
         }
-        if (getSensors() != -1) {
+        if (this.sensors != -1) {
             return false;
         }
-        if (getCurrentRepairCapacity() != -1) {
+        if (this.currentRepairCapacity != -1) {
             return false;
         }
-        if (getMaxRepairCapacity() != -1) {
+        if (this.maxRepairCapacity != -1) {
             return false;
         }
-        if (getSaveTarget() != -1) {
+        if (this.saveTarget != -1) {
             return false;
         }
-        if (getSystemPoints() != -1) {
+        if (this.systemPoints != -1) {
             return false;
         }
-        if (getLimitedSystemsBonus() != -1) {
+        if (this.limitedSystemsBonus != -1) {
             return false;
         }
 
@@ -1023,15 +1023,35 @@ public class Mech {
      * @return a Mech deepest copy of this object.
      */
     public Mech copyOf() {
-        // don't need to make copies of these because the mutators already do so
-        Mech copy = new Mech(this.name, this.frame, this.operatorNotes,
-            this.mounts, this.systems, this.size, this.currentStructure,
-            this.maxStructure, this.currentHP, this.maxHP, this.armor,
-            this.currentStress, this.maxStress, this.currentHeatCapacity,
-            this.maxHeatCapacity, this.evasion, this.speed, this.eDefense,
-            this.techAttack, this.sensors, this.currentRepairCapacity,
-            this.maxRepairCapacity, this.saveTarget, this.systemPoints,
-            this.limitedSystemsBonus);
+        // don't need to make copies of these for the ones using the mutator
+        //     methods (i.e. mounts) because the mutators already do so
+        Mech copy = new Mech();
+        
+        copy.name = this.name;
+        copy.frame = this.frame.copyOf();
+        copy.setOperatorNotes(this.operatorNotes);
+        copy.setMounts(this.mounts);
+        copy.setSystems(this.systems);
+        copy.size = this.size;
+        copy.currentStructure = this.currentStructure;
+        copy.maxStructure = this.maxStructure;
+        copy.currentHP = this.currentHP;
+        copy.maxHP = this.maxHP;
+        copy.armor = this.armor;
+        copy.currentStress = this.currentStress;
+        copy.maxStress = this.maxStress;
+        copy.currentHeatCapacity = this.currentHeatCapacity;
+        copy.maxHeatCapacity = this.maxHeatCapacity;
+        copy.evasion = this.evasion;
+        copy.speed = this.speed;
+        copy.eDefense = this.eDefense;
+        copy.setTechAttack(this.techAttack);
+        copy.sensors = this.sensors;
+        copy.currentRepairCapacity = this.currentRepairCapacity;
+        copy.maxRepairCapacity = this.maxRepairCapacity;
+        copy.saveTarget = this.saveTarget;
+        copy.systemPoints = this.systemPoints;
+        copy.limitedSystemsBonus = this.limitedSystemsBonus;
 
         return copy;
     }

@@ -208,7 +208,7 @@ public class Mount {
         if (! getMountType().equals("")) {
             return false;
         }
-        if (! getWeapon().isPlaceholder()) {
+        if (! this.weapon.isPlaceholder()) {
             return false;
         }
         if (hasModification()) {
@@ -232,8 +232,12 @@ public class Mount {
      */
     public Mount copyOf() {
         // don't need to make copies of these because the mutators already do so
-        Mount copy = new Mount(this.mountType, this.weapon, this.modification,
-            this.coreBonus);
+        Mount copy = new Mount();
+        
+        copy.setMountType(this.mountType);
+        copy.weapon = this.weapon;
+        copy.setModification(this.modification);
+        copy.setCoreBonus(this.coreBonus);
 
         return copy;
     }

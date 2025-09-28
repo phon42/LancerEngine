@@ -59,7 +59,9 @@ public class Weapon {
      * @return a Weapon deep copy of this object.
      */
     public Weapon copyOf() {
-        Weapon copy = new Weapon(this.name);
+        Weapon copy = new Weapon();
+
+        copy.name = this.name;
 
         return copy;
     }

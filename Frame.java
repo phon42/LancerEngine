@@ -556,7 +556,7 @@ public class Frame {
             }
             return true;
         }
-        if (getRole().getClass() == String[].class && getRole().length == 0) {
+        if (this.role.getClass() == String[].class && this.role.length == 0) {
             return true;
         }
         if (getFrameDescription().equals("")) {
@@ -617,7 +617,7 @@ public class Frame {
         if (getFrameEnum() != null) {
             return false;
         }
-        if (getRole().getClass() != String[].class || getRole().length != 0) {
+        if (this.role.getClass() != String[].class || this.role.length != 0) {
             return false;
         }
         if (! getFrameDescription().equals("")) {
@@ -667,12 +667,12 @@ public class Frame {
         if (getSystemPoints() != -1) {
             return false;
         }
-        if (getTraits().getClass() != String[].class
-            || getTraits().length != 0) {
+        if (this.traits.getClass() != String[].class
+            || this.traits.length != 0) {
             return false;
         }
-        if (getMounts().getClass() != Mount[].class
-            || getMounts().length != 0) {
+        if (this.mounts.getClass() != Mount[].class
+            || this.mounts.length != 0) {
             return false;
         }
 
@@ -683,13 +683,32 @@ public class Frame {
      * @return a Frame deepest copy of this object.
      */
     public Frame copyOf() {
-        // don't need to make copies of these because the mutators already do so
-        Frame copy = new Frame(this.manufacturer, this.name, this.ID,
-            this.frameEnum, this.role, this.frameDescription, this.size,
-            this.structure, this.HP, this.armor, this.stress, this.heatCapacity,
-            this.evasion, this.speed, this.eDefense, this.techAttack,
-            this.sensors, this.repairCapacity, this.saveTarget,
-            this.systemPoints, this.traits, this.mounts);
+        // don't need to make copies of these for the ones using the mutator
+        //     methods (i.e. mounts) because the mutators already do so
+        Frame copy = new Frame();
+        
+        copy.manufacturer = this.manufacturer;
+        copy.name = this.name;
+        copy.ID = this.ID;
+        copy.frameEnum = this.frameEnum;
+        copy.role = this.role;
+        copy.setFrameDescription(this.frameDescription);
+        copy.size = this.size;
+        copy.setStructure(this.structure);
+        copy.HP = this.HP;
+        copy.armor = this.armor;
+        copy.setStress(this.stress);
+        copy.heatCapacity = this.heatCapacity;
+        copy.evasion = this.evasion;
+        copy.speed = this.speed;
+        copy.eDefense = this.eDefense;
+        copy.setTechAttack(this.techAttack);
+        copy.sensors = this.sensors;
+        copy.repairCapacity = this.repairCapacity;
+        copy.saveTarget = this.saveTarget;
+        copy.systemPoints = this.systemPoints;
+        copy.setTraits(this.traits);
+        copy.setMounts(this.mounts);
 
         return copy;
     }
