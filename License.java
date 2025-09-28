@@ -5,9 +5,11 @@
  */
 public class License {
     /**
-     * The name of the frame to which the license is held (i.e. "everest").
+     * The name of the frame to which the license is held (i.e. "gms everest").
      * Case-insensitive and stored in lowercase. Can be any String except "".
      *     Cannot be null.
+     * Use License.getName() to get the raw value and License.outputName() to
+     *     obtain it properly formatted.
      */
     private String name;
     /**
@@ -23,6 +25,21 @@ public class License {
 
     public String getName() {
         return name;
+    }
+    public String outputName() {
+        String formattedName = name;
+        String[] stringArr;
+
+        // stringArr will become something like
+        //     {"ssc", "swallowtail (ranger variant)"}
+        stringArr = formattedName.split(" ", 2);
+        // {"SSC", "swallowtail (ranger variant)"}
+        stringArr[0] = stringArr[0].toUpperCase();
+        // {"SSC", "Swallowtail (Ranger Variant)"}
+        stringArr[1] = HelperFunctions.toProperCase(stringArr[1]);
+        formattedName = String.join(" ", stringArr);
+
+        return formattedName;
     }
     public int getLevel() {
         return level;

@@ -7,6 +7,8 @@ public class Talent {
      * The name of the talent (i.e. "ace").
      * Case-insensitive and stored in lowercase. Can be any String except "".
      *     Cannot be null.
+     * Use Talent.getName() to get the raw value and Talent.outputName() to
+     *     obtain it properly formatted.
      */
     public String name;
     /**
@@ -21,6 +23,9 @@ public class Talent {
 
     public String getName() {
         return name;
+    }
+    public String outputName() {
+        return HelperFunctions.toProperCase(name);
     }
     public int getLevel() {
         return level;

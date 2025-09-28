@@ -4,21 +4,18 @@
  */
 public class Loadout {
     /**
-     * The loadout's pilot armor (i.e. "light hardsuit").
-     * Can be any String. Cannot be null. Case-insensitive and stored in
-     *     lowercase.
+     * The loadout's pilot armor (i.e. "Light Hardsuit").
+     * Can be any String. Cannot be null.
      */
     private String pilotArmor;
     /**
-     * The loadout's pilot weapons (i.e. {"archaic melee", "archaic ranged"}).
+     * The loadout's pilot weapons (i.e. {"Archaic Melee", "Archaic Ranged"}).
      * Must be a String[] of length 2. Cannot be null or contain null elements.
-     *     Case-insensitive and stored in lowercase.
      */
     private String[] pilotWeapons;
     /**
-     * The loadout's pilot gear (i.e. {"corrective", "frag grenades", "patch"}).
+     * The loadout's pilot gear (i.e. {"Corrective", "Frag Grenades", "Patch"}).
      * Must be a String[] of length 3. Cannot be null or contain null elements.
-     *     Case-insensitive and stored in lowercase.
      */
     private String[] pilotGear;
 
@@ -64,7 +61,6 @@ public class Loadout {
             throw new IllegalArgumentException("New pilot armor value is"
                 + " null");
         }
-        pilotArmor = pilotArmor.toLowerCase();
         this.pilotArmor = pilotArmor;
     }
     /**
@@ -88,9 +84,6 @@ public class Loadout {
             }
         }
         pilotWeapons = HelperFunctions.copyOf(pilotWeapons);
-        for (int i = 0; i < pilotWeapons.length; i++) {
-            pilotWeapons[i] = pilotWeapons[i].toLowerCase();
-        }
         this.pilotWeapons = pilotWeapons;
     }
     /**
@@ -114,9 +107,6 @@ public class Loadout {
             }
         }
         pilotGear = HelperFunctions.copyOf(pilotGear);
-        for (int i = 0; i < pilotGear.length; i++) {
-            pilotGear[i] = pilotGear[i].toLowerCase();
-        }
         this.pilotGear = pilotGear;
     }
 

@@ -238,40 +238,7 @@ public class Frame {
         return name;
     }
     public String outputName() {
-        final String alphabet = "abcdefghijklmnopqrstuvwxyz";
-        String[] stringArr = new String[] {""};
-        String substring;
-        boolean isLetter;
-        boolean lastIsLetter;
-        
-        if (name.length() <= 1) {
-            return name.toUpperCase();
-        }
-        isLetter = (alphabet.indexOf(name.substring(0, 1))
-            != -1);
-        lastIsLetter = isLetter;
-        for (int i = 0; i < name.length(); i++) {
-            substring = name.substring(i, i + 1);
-            isLetter = (alphabet.indexOf(substring) != -1);
-            if (isLetter == lastIsLetter) {
-                stringArr[stringArr.length - 1] += substring;
-            } else {
-                stringArr = HelperFunctions.append(stringArr, substring);
-            }
-            lastIsLetter = isLetter;
-        }
-        String string1;
-        for (int i = 0; i < stringArr.length; i++) {
-            string1 = stringArr[i].substring(
-                0, 1).toUpperCase();
-            if (stringArr[i].length() > 1) {
-                string1 += stringArr[i].substring(1);
-            }
-            stringArr[i] = string1;
-        }
-        name = String.join("", stringArr);
-
-        return name;
+        return HelperFunctions.toProperCase(name);
     }
     public String getID() {
         return ID;

@@ -253,4 +253,53 @@ public class HelperFunctions {
 
         return copy;
     }
+    /**
+     * Converts a String to proper case, in which the first letter of every word
+     *     is capitalized.
+     * @param input a String to be converted that cannot be null.
+     * @return a String containing the converted text.
+     */
+    public static String toProperCase(String input) {
+        final String alphabet = "abcdefghijklmnopqrstuvwxyz";
+        String[] stringArr = new String[] {""};
+        String substring;
+        boolean isLetter;
+        boolean lastIsLetter;
+        // had to add an entire variable just because of one singular mech. fml
+        char lastLetter = ' ';
+        
+        if (input.length() <= 1) {
+            return input.toUpperCase();
+        }
+        isLetter = (alphabet.indexOf(input.substring(0, 1))
+            != -1);
+        lastIsLetter = isLetter;
+        for (int i = 0; i < input.length(); i++) {
+            substring = input.substring(i, i + 1);
+            isLetter = (alphabet.indexOf(substring) != -1);
+            // this is literally just to stop death's head from fucking
+            //     everything up
+            if (lastLetter == '\'') {
+                stringArr[stringArr.length - 1] += substring;
+            } else if (isLetter == lastIsLetter) {
+                stringArr[stringArr.length - 1] += substring;
+            } else {
+                stringArr = HelperFunctions.append(stringArr, substring);
+            }
+            lastIsLetter = isLetter;
+            lastLetter = substring.charAt(0);
+        }
+        String string1;
+        for (int i = 0; i < stringArr.length; i++) {
+            string1 = stringArr[i].substring(
+                0, 1).toUpperCase();
+            if (stringArr[i].length() > 1) {
+                string1 += stringArr[i].substring(1);
+            }
+            stringArr[i] = string1;
+        }
+        input = String.join("", stringArr);
+
+        return input;
+    }
 }

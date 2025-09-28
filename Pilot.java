@@ -718,7 +718,7 @@ public class Pilot {
                 if (i != 0) {
                     outputString += ", ";
                 }
-                outputString += licenseList[i].getName() + " "
+                outputString += licenseList[i].outputName() + " "
                     + licenseList[i].getLevel();
             }
             outputString += "\n";
@@ -765,8 +765,9 @@ public class Pilot {
             //     "  Ace 1, Brawler 1, Bonded 1\n"
             outputString += "  ";
             for (int i = 0; i < talents.length; i++) {
-                outputString += talents[i].name + " " + talents[i].level;
-                if (i < talents.length + 1) {
+                outputString += talents[i].outputName() + " "
+                    + talents[i].getLevel();
+                if (i < talents.length - 1) {
                     outputString += ", ";
                 }
             }
@@ -779,7 +780,8 @@ public class Pilot {
             for (int i = 0; i < talents.length; i += 2) {
                 outputString += "  ";
                 for (int j = i; j < Math.min(i + 2, talents.length); j++) {
-                    outputString += talents[j].name + " " + talents[j].level;
+                    outputString += talents[j].outputName() + " "
+                        + talents[j].getLevel();
                     if (j == i && i < talents.length + 1) {
                         outputString += ", ";
                     }
@@ -818,7 +820,7 @@ public class Pilot {
                 if (i != 0) {
                     outputString += ", ";
                 }
-                outputString += coreBonuses[i];
+                outputString += HelperFunctions.toProperCase(coreBonuses[i]);
             }
             outputString += "\n";
         } else if (outputType.equals("pilot")

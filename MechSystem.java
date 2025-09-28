@@ -6,8 +6,8 @@ public class MechSystem {
     // TODO: fill out
     /**
      * The mech system's name (i.e. "armament redundancy").
-     * Case-insensitive and stored in lowercase. Can be any String except "".
-     *     Cannot be null. Is set to "" on construction.
+     * Can be any String except "". Cannot be null. Is set to "" on
+     *     construction.
      */
     private String name;
 
@@ -53,7 +53,6 @@ public class MechSystem {
         if (name.equals("")) {
             throw new IllegalArgumentException("New name is \"\"");
         }
-        name = name.toLowerCase();
         this.name = name;
     }
     /**
