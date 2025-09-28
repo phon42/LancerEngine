@@ -93,7 +93,9 @@ public class LancerCharacter {
                     + " placeholder but has some properties set to placeholder"
                     + " values");
             }
-            mech.calculateAttributes(getPilot().getMechSkills());
+            Pilot pilot = getPilot();
+            mech.calculateAttributes(pilot.getMechSkills(),
+                pilot.getCoreBonuses(), pilot.getTalents());
         }
         mech = mech.copyOf();
         this.mech = mech;
@@ -212,7 +214,6 @@ public class LancerCharacter {
             "Personal Drone"});
         myPilot.setLoadout(myLoadout);
         myMech = new Mech("Wraith", "swallowtail_ranger");
-        // TODO: add Integrated Weapon and the Engineer talent
         /*
         myMech.setMount(0, new Mount("Integrated Weapon",
             new Weapon("Nexus (Light)")));

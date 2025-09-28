@@ -339,7 +339,7 @@ public class Mech {
         }
         frame = frame.copyOf();
         this.frame = frame;
-        calculateAttributes(new int[4]);
+        calculateAttributes();
         setMounts(frame.getMounts());
     }
     public void setOperatorNotes(String operatorNotes) {
@@ -559,16 +559,29 @@ public class Mech {
 
     /**
      * Sets all of this Mech object's stat properties to their correct values,
+     *     calculated based off of the Mech's frame property. Called when
+     *     Mech.setFrame(Frame) is called.
+     */
+    public void calculateAttributes() {
+        calculateAttributes(new int[4], new String[0], new Talent[0]);
+    }
+    /**
+     * Sets all of this Mech object's stat properties to their correct values,
      *     calculated based off of the Mech's frame property as well as the
      *     provided int[]. Called when LancerCharacter.setMech(Mech) is called
      *     using a non-placeholder Mech as well as when Mech.setFrame(Frame) is
-     *     called.
+     *     called through calculateAttributes().
      * @param mechSkills an int[4] containing the mech skills of the Pilot
      *     associated with this Mech through the parent LancerCharacter.
+     * @param coreBonuses a String[] containing the core bonuses of the Pilot
+     *     associated with this Mech through the parent LancerCharacter.
+     * @param talents a String[] containing the talents of the Pilot associated
+     *     with this Mech through the parent LancerCharacter.
      */
-    public void calculateAttributes(int[] mechSkills) {
-        // Calculate this mech's attributes based off of the frame template
-        //     provided
+    public void calculateAttributes(int[] mechSkills, String[] coreBonuses,
+        Talent[] talents) {
+        // TODO: update to acount for the Engineer talent as well as the
+        //     Improved Armament and Integrated Weapon core bonuses
         if (frame == null) {
             throw new IllegalArgumentException("calculateAttributes() was"
                 + " called while frame was set to null");
