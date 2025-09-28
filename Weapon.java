@@ -3,10 +3,10 @@
  */
 public class Weapon {
     // TODO: fill out
-    // The weapon's name
     /**
-     * The weapon's name. Case-insensitive and stored in lowercase. Can be any
-     *     String, though "" is a placeholder.
+     * The weapon's name (i.e. "anti-materiel rifle").
+     * Case-insensitive and stored in lowercase. Can be any String, though "" is
+     *     a placeholder. Cannot be null.
      */
     private String name;
 

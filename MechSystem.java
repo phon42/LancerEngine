@@ -5,20 +5,21 @@
 public class MechSystem {
     // TODO: fill out
     /**
-     * The mech system name.
-     * Can be any non-"" String. Cannot be null. Is set to "" on construction.
-     *     Case-insensitive and stored in lowercase.
+     * The mech system's name (i.e. "armament redundancy").
+     * Case-insensitive and stored in lowercase. Can be any String except "".
+     *     Cannot be null. Is set to "" on construction.
      */
     private String name;
 
     /**
-     * Whether the mech system has the "Limited" tag or not. Controlled
-     *     automatically by MechSystem.setLimitedCharges().
+     * Whether the mech system has the "Limited" tag or not.
+     * Controlled automatically by MechSystem.setLimitedCharges().
      */
     private boolean limited;
     /**
      * The number of charges the mech system has, if it has the "Limited" tag.
-     *     If not, set to 0. Must be > -1.
+     *     If not, set to 0.
+     * Must be > -1.
      */
     private int limitedCharges;
 

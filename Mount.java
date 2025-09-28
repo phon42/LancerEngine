@@ -9,33 +9,39 @@ public class Mount {
         "main/aux"
     };
     /**
-     * String with allowed values:
+     * The mount's type.
+     * Must be one of the following values:
      *     "aux", "aux/aux", "flex", "heavy", "integrated weapon", "main",
      *     "main/aux"
-     * Cannot be null. Case-insensitive and stored in lowercase.
+     * Case-insensitive and stored in lowercase. Can be any String. Cannot be
+     *     null.
      */
     private String mountType;
     /**
-     * The mount's weapon (if it has one). Can be any Weapon, though
-     *     new Weapon() is a placeholder. Cannot be null.
+     * The mount's weapon (if it has one).
+     * Can be any Weapon, though new Weapon() is a placeholder. Cannot be null.
      */
     private Weapon weapon;
     /**
-     * Whether the mount has any modifications. Controlled automatically by
-     *     Mount.setModification().
+     * Whether the mount has any modifications.
+     * Controlled automatically by Mount.setModification().
      */
     private boolean hasModification;
     /**
+     * Any modifications applied to the mount (i.e. "molten wreathe"), if there
+     *     are any.
      * Can be any String. Cannot be null. Case-insensitive and stored in
      *     lowercase.
      */
     private String modification;
     /**
-     * Whether the mount is from or is affected by any core bonuses. Controlled
-     *     automatically by Mount.setCoreBonus().
+     * Whether the mount is from or is affected by any core bonuses.
+     * Controlled automatically by Mount.setCoreBonus().
      */
     private boolean hasCoreBonus;
     /**
+     * Any core bonuses applied to the mount (i.e.
+     *     "auto-stabilizing hardpoints"), if there are any.
      * Can be any String. Cannot be null. Case-insensitive and stored in
      *     lowercase.
      */

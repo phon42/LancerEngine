@@ -6,12 +6,14 @@
 public class Pilot {
     // ---Dossier-------------------
     // name and callsign
+    // TODO: get a pilot name from the core rulebook for this
     /**
      * The pilot's name.
      * Can be any String other than "". Cannot be null. Is set to "" on
      *     construction.
      */
     private String name;
+    // TODO: get a pilot callsign from the core rulebook for this
     /**
      * The pilot's callsign.
      * Can be any String other than "". Cannot be null. Is set to "" on
@@ -20,6 +22,7 @@ public class Pilot {
     private String callsign;
 
     // (optional) details
+    // TODO: get a player name from the core rulebook for this
     /**
      * The player name.
      * Can be any String. Cannot be null.
@@ -27,7 +30,7 @@ public class Pilot {
     private String player;
     /**
      * The pilot's status.
-     * Must be one of the following:
+     * Must be one of the following values:
      *     "active", "inactive", "retired", "missing in action",
      *     "killed in action", "unknown"
      * Case-insensitive and stored in lowercase. Cannot be null.
@@ -38,8 +41,9 @@ public class Pilot {
         "killed in action", "unknown"
     };
     /**
-     * The pilot's background.
-     * Can be any String. Cannot be null.
+     * The pilot's background (i.e. "celebrity").
+     * Case-insensitive and stored in lowercase. Can be any String. Cannot be
+     *     null.
      */
     private String background;
 
@@ -98,22 +102,19 @@ public class Pilot {
      */
     private int eDefense;
     
-    // Skill triggers
     /**
      * The pilot's skill triggers.
      * Can be any SkillTriggersList. Cannot be null.
      */
     private SkillTriggersList skillTriggers;
 
-    // Reserves and bonuses
     /**
-     * The pilot's reserves.
+     * The pilot's reserves and bonuses.
      * Can be any String[]. Cannot be null or contain null elements or
      *     placeholders. Case-insensitive and stored in lowercase.
     */
     private String[] reserves;
 
-    // Gear Loadout
     /**
      * The pilot's gear loadout.
      * Can be any Loadout. Cannot be null.
@@ -123,26 +124,27 @@ public class Pilot {
     // ---Tactical Profile---------
     // licenses
     /**
-     * The pilot's licenses.
+     * The pilot's license level.
      * Must be between 0 and 12 (inclusive).
      */
     private int licenseLevel;
     /**
-     * The pilot's license level.
+     * The pilot's licenses.
      * Can be any License[] that does not contain null or elements with
      *     placeholders. Cannot be null.
      */
     private License[] licenseList;
 
-    // Special equipment
+    // TODO: create a new Equipment class and have both Weapon and MechSystem
+    //     extend it
     /**
-     * The pilot's special equipment.
+     * The pilot's special equipment - frames, mech systems, and weapons, both
+     *     normal and exotics, that the pilot gains access to for free.
      * Can be any String[]. Cannot be null or contain null elements.
      *     Case-insensitive and stored in lowercase.
      */
     private String[] specialEquipment;
 
-    // Mech skills
     /**
      * The pilot's mech skills (Hull, Agility, Systems, Engineering).
      * Must be an int[] of length 4. Each element must be between 0 and 6
@@ -150,7 +152,6 @@ public class Pilot {
      */
     private int[] mechSkills;
 
-    // Core bonuses
     /**
      * The pilot's core bonuses.
      * Can be any String[] that does not contain null elements or placeholders.
@@ -158,7 +159,6 @@ public class Pilot {
      */
     private String[] coreBonuses;
 
-    // Talents
     /**
      * The pilot's talents (i.e. Ace 1).
      * Can be any Talent[] that does not contain null elements or elements with
@@ -380,6 +380,7 @@ public class Pilot {
             throw new IllegalArgumentException("Invalid value provided for "
                 + "pilot background: null");
         }
+        background = background.toLowerCase();
         this.background = background;
     }
     public void setBiography(String biography) {

@@ -4,12 +4,15 @@
  */
 public class SkillTrigger {
     /**
-     * Can be any String except "". Cannot be null. Case-insensitive and stored
-     *     in lowercase.
+     * The name of the skill trigger (i.e. "apply fists to faces").
+     * Case-insensitive and stored in lowercase. Can be any String except "".
+     *     Cannot be null.
      */
     private String name;
     /**
-     * Must be between 2 and 6 (inclusive). Cannot be 3 or 5.
+     * The level at which the skill trigger is held.
+     * Must be one of the following values:
+     *     2, 4, 6
      */
     private int level;
 

@@ -5,13 +5,13 @@
  */
 public class License {
     /**
-     * The frame name.
-     * Can be any String except "". Cannot be null. Case-insensitive and stored
-     *     in lowercase.
+     * The name of the frame to which the license is held (i.e. "everest").
+     * Case-insensitive and stored in lowercase. Can be any String except "".
+     *     Cannot be null.
      */
     private String name;
     /**
-     * The license level.
+     * The license's level.
      * Must be between 1 and 3 (inclusive).
      */
     private int level;

@@ -8,35 +8,40 @@
  */
 public class Frame {
     /**
-     * The frame's manufacturer (i.e. "GMS"). Case-insensitive and stored in
-     *     uppercase. Cannot be null or "". Is set to "" on construction.
+     * The frame's manufacturer (i.e. "GMS").
+     * Case-insensitive and stored in uppercase. Can be any String except "".
+     *     Cannot be null. Is set to "" on construction.
      */
     private String manufacturer;
     /**
-     * The frame's name (i.e. "everest"). Case-insensitive and stored in
-     *     lowercase. Cannot be null or "". Is set to "" on construction.
+     * The frame's name (i.e. "everest").
+     * Case-insensitive and stored in lowercase. Can be any String except "".
+     *     Cannot be null. Is set to "" on construction.
      * Use Frame.getName() to get the raw value and Frame.outputName() to obtain
      *     it properly formatted.
      */
     private String name;
     /**
-     * The frame's ID (i.e. "swallowtail_ranger"). Used for identifying it in
-     *     FrameDatabase.getFrame(String). Case-insensitive and stored in
-     *     lowercase. Cannot be null or "". Is set to "" on construction.
+     * The frame's ID (i.e. "swallowtail_ranger").
+     * Used for identifying it in FrameDatabase.getFrame(String).
+     *     Case-insensitive and stored in lowercase. Can be any String except
+     *     "". Cannot be null. Is set to "" on construction.
      */
     private String ID;
     /**
-     * The frame's frameEnum, used for identifying it in
-     *     FrameDatabase.getFrame(FrameEnum). Cannot be null. Is set to null on
-     *     construction.
+     * The frame's frameEnum (i.e. FrameEnum.SWALLOWTAIL_RANGER).
+     * Used for identifying it in FrameDatabase.getFrame(FrameEnum). Cannot be
+     *     null. Is set to null on construction.
      */
     private FrameEnum frameEnum;
     /**
-     * The frame's role (i.e. "striker").
-     * Is set to "" at construction, but must be one of the following values
-     *     otherwise: "artillery", "balanced", "controller", "striker",
-     *     "support".
-     * Is case-insensitive and stored in all lowercase. Cannot be null.
+     * The frame's role (i.e. "striker"). Multiple items are stored as seperate
+     *     elements (i.e "Controller/Support" would be stored as {"controller",
+     *     "support"}).
+     * Each element must be one of the following values:
+     *     "artillery", "balanced", "controller", "striker", "support".
+     * Case-insensitive and stored in lowercase. Cannot be null. Is set to
+     *     "" at construction.
      */
     private String[] role;
     /**
@@ -48,7 +53,7 @@ public class Frame {
     /**
      * The description at the top of a frame's page on COMP/CON (i.e. "Most
      *     humans don’t...").
-     * Is case-sensitive. Cannot be null.
+     * Can be any String. Cannot be null.
      */
     private String frameDescription;
 
@@ -56,7 +61,9 @@ public class Frame {
     /**
      * The frame's size.
      * Size is stored as 2 * its value (i.e. Size 1/2 would be stored as int 1).
-     * Allowed values for size: 1, 2, 4, 6, 8. Is set to -1 on construction.
+     * Must be one of the following values:
+     *     1, 2, 4, 6, 8.
+     * Is set to -1 on construction.
      */
     private int size;
 
@@ -138,14 +145,16 @@ public class Frame {
     private int systemPoints;
 
     /**
-     * An array of the frame's traits. Cannot be null or contain null elements
-     *     or elements that are "".
+     * The frame's traits (i.e. {"Initiative", "Replaceable Parts"}).
+     * Can be any String[] that does not contain null elements or elements that
+     *     are "". Cannot be null.
      */
     private String[] traits;
 
     /**
-     * An array of the frame's weapon mounts. Cannot be null or contain null
-     *     elements.
+     * The frame's weapon mounts.
+     * Can be any Mount[] that does not contain null elements or elements that
+     *     are placeholders. Cannot be null.
      */
     private Mount[] mounts;
 

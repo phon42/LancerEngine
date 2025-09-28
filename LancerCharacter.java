@@ -7,6 +7,7 @@
  */
 public class LancerCharacter {
     /**
+     * The pilot associated with this character.
      * Holds a Pilot object. Cannot be a placeholder or have placeholders in
      *     the following fields:
      *     - Pilot Name
@@ -15,6 +16,7 @@ public class LancerCharacter {
     private Pilot pilot;
     
     /**
+     * The mech associated with this character (if there is one).
      * Holds a Mech object. Can be a placeholder, but must either be a
      *     placeholder or not have placeholders in the following fields:
      *     - Mech/Chassis Name

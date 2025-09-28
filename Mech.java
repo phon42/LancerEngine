@@ -7,37 +7,38 @@
  *     skills, weapons, systems, and other modifications are added.
  */
 public class Mech {
+    // TODO: get an example mech name from the core rulebook for this
     /**
      * The name of this mech (NOT its frame name, the name given to this
-     *     specific chassis). Can be any non-"" String. Cannot be null. Is set
-     *     to "" on construction from Mech().
+     *     specific chassis).
+     * Can be any String except "". Cannot be null. Is set to "" on construction
+     *     from Mech().
      */
     private String name;
     
     /**
      * The frame that this mech is patterned after (i.e. Swallowtail) as a Frame
-     *     object. Cannot be a placeholder Frame. Is set to a placeholder Frame on
-     *     construction from Mech().
+     *     object.
+     * Can be any Frame except a placeholder Frame. Is set to a placeholder
+     *     Frame on construction from Mech().
      */
     private Frame frame;
 
     /**
-     * The operator notes attached to this mech. Can be any String. Cannot be
-     *     null.
+     * The operator notes attached to this mech.
+     * Can be any String. Cannot be null.
      */
     private String operatorNotes;
     
-    // mounts/weapons
     /**
-     * The mech's weapon mounts. Can be any Mount[] that does not contain null.
-     *     Cannot be null.
+     * The mech's weapon mounts.
+     * Can be any Mount[] that does not contain null. Cannot be null.
      */
     private Mount[] mounts;
 
-    // systems
     /**
-     * The mech's systems. Can be any MechSystem[] that does not contain null.
-     *     Cannot be null.
+     * The mech's systems.
+     * Can be any MechSystem[] that does not contain null. Cannot be null.
      */
     private MechSystem[] systems;
 
@@ -45,7 +46,9 @@ public class Mech {
     /**
      * The mech's size.
      * Size is stored as 2 * its value (i.e. Size 1/2 would be stored as int 1).
-     * Allowed values for size: 1, 2, 4, 6, 8. Is set to -1 on construction.
+     * Must be one of the following values:
+     *     1, 2, 4, 6, 8.
+     * Is set to -1 on construction.
      */
     private int size;
 
@@ -151,7 +154,6 @@ public class Mech {
      */
     private int systemPoints;
 
-    // limited systems bonus
     /**
      * The mech's limited systems bonus value.
      * Is set to -1 at construction, but must be a minimum of 0 otherwise.

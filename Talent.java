@@ -4,8 +4,9 @@
  */
 public class Talent {
     /**
-     * Can be any String except "". Cannot be null. Case-insensitive and stored
-     *     in lowercase.
+     * The name of the talent (i.e. "ace").
+     * Case-insensitive and stored in lowercase. Can be any String except "".
+     *     Cannot be null.
      */
     public String name;
     /**

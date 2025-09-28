@@ -4,16 +4,19 @@
  */
 public class Loadout {
     /**
+     * The loadout's pilot armor (i.e. "light hardsuit").
      * Can be any String. Cannot be null. Case-insensitive and stored in
      *     lowercase.
      */
     private String pilotArmor;
     /**
+     * The loadout's pilot weapons (i.e. {"archaic melee", "archaic ranged"}).
      * Must be a String[] of length 2. Cannot be null or contain null elements.
      *     Case-insensitive and stored in lowercase.
      */
     private String[] pilotWeapons;
     /**
+     * The loadout's pilot gear (i.e. {"corrective", "frag grenades", "patch"}).
      * Must be a String[] of length 3. Cannot be null or contain null elements.
      *     Case-insensitive and stored in lowercase.
      */
