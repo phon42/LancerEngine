@@ -729,34 +729,35 @@ public class Mech {
         Talent[] talents) {
         // TODO: update to account for the Engineer talent as well as the
         //     Improved Armament and Integrated Weapon core bonuses
-        if (frame == null) {
+        if (this.frame == null) {
             throw new IllegalArgumentException("calculateAttributes() was"
                 + " called while frame was set to null");
         }
-        setMaxStructure(frame.getStructure());
-        setCurrentStructure(currentStructure);
-        setMaxStress(frame.getStress());
-        setCurrentStress(currentStress);
+        setMaxStructure(this.frame.getStructure());
+        setCurrentStructure(this.currentStructure);
+        setMaxStress(this.frame.getStress());
+        setCurrentStress(this.currentStress);
         
         // Hull
-        setMaxHP(frame.getHP() + (mechSkills[0] * 2));
+        setMaxHP(this.frame.getHP() + (mechSkills[0] * 2));
         setCurrentHP(getMaxHP());
-        setMaxRepairCapacity(frame.getRepairCapacity() + (mechSkills[0] / 2));
+        setMaxRepairCapacity(this.frame.getRepairCapacity()
+            + (mechSkills[0] / 2));
         setCurrentRepairCapacity(getMaxRepairCapacity());
 
         // Agility
-        setEvasion(frame.getEvasion() + mechSkills[1]);
-        setSpeed(frame.getSpeed() + (mechSkills[1] / 2));
+        setEvasion(this.frame.getEvasion() + mechSkills[1]);
+        setSpeed(this.frame.getSpeed() + (mechSkills[1] / 2));
 
         // Systems
-        setEDefense(frame.getEDefense() + mechSkills[2]);
-        setTechAttack(frame.getTechAttack() + mechSkills[2]);
-        setSystemPoints(frame.getSystemPoints() + (mechSkills[2] / 2));
+        setEDefense(this.frame.getEDefense() + mechSkills[2]);
+        setTechAttack(this.frame.getTechAttack() + mechSkills[2]);
+        setSystemPoints(this.frame.getSystemPoints() + (mechSkills[2] / 2));
 
         // Engineering
         // setMaxHeatCapacity() swapped with setCurrentHeatCapacity() because
         //     the mutators may throw exceptions otherwise
-        setMaxHeatCapacity(frame.getHeatCapacity() + mechSkills[3]);
+        setMaxHeatCapacity(this.frame.getHeatCapacity() + mechSkills[3]);
         setCurrentHeatCapacity(0);
         setLimitedSystemsBonus(mechSkills[3] / 2);
         
@@ -799,16 +800,16 @@ public class Mech {
             }
         }
         
-        setManufacturer(frame.getManufacturer());
-        setFrameName(frame.getName());
-        setRole(frame.getRole());
-        setFrameDescription(frame.getFrameDescription());
-        setSize(frame.getSize());
-        setArmor(frame.getArmor());
-        setSensors(frame.getSensors());
-        setSaveTarget(frame.getSaveTarget());
-        setTraits(frame.getTraits());
-        setMounts(frame.getMounts());
+        setManufacturer(this.frame.getManufacturer());
+        setFrameName(this.frame.getName());
+        setRole(this.frame.getRole());
+        setFrameDescription(this.frame.getFrameDescription());
+        setSize(this.frame.getSize());
+        setArmor(this.frame.getArmor());
+        setSensors(this.frame.getSensors());
+        setSaveTarget(this.frame.getSaveTarget());
+        setTraits(this.frame.getTraits());
+        setMounts(this.frame.getMounts());
     }
     /**
      * Generates the output associated with the mech portion of the COMP/CON
