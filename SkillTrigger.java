@@ -10,18 +10,18 @@ public class SkillTrigger {
     /**
      * Must be between 2 and 6 (inclusive). Cannot be 3 or 5.
      */
-    private int value;
+    private int level;
 
-    public SkillTrigger(String name, int value) {
+    public SkillTrigger(String name, int level) {
         setName(name);
-        setValue(value);
+        setLevel(level);
     }
 
     public String getName() {
         return name;
     }
-    public int getValue() {
-        return value;
+    public int getLevel() {
+        return level;
     }
     /**
      * Sets this.name to the provided value.
@@ -37,21 +37,21 @@ public class SkillTrigger {
         this.name = name;
     }
     /**
-     * Sets this.value to the provided value.
-     * @param value an int which must be 2, 4, or 6.
+     * Sets this.level to the provided value.
+     * @param level an int which must be 2, 4, or 6.
      */
-    public void setValue(int value) {
-        if (value < 2) {
-            throw new IllegalArgumentException("New value is < 2");
+    public void setLevel(int level) {
+        if (level < 2) {
+            throw new IllegalArgumentException("New level value is < 2");
         }
-        if (value > 6) {
-            throw new IllegalArgumentException("New value is > 6");
+        if (level > 6) {
+            throw new IllegalArgumentException("New level value is > 6");
         }
-        if (value == 3 || value == 5) {
-            throw new IllegalArgumentException("New value is an invalid"
+        if (level == 3 || level == 5) {
+            throw new IllegalArgumentException("New level value is an invalid"
                 + " value");
         }
-        this.value = value;
+        this.level = level;
     }
 
     /**
@@ -84,10 +84,15 @@ public class SkillTrigger {
         if (! skillTrigger.getName().equals(getName())) {
             return false;
         }
-        if (skillTrigger.getValue() != getValue()) {
+        if (skillTrigger.getLevel() != getLevel()) {
             return false;
         }
         
         return true;
+    }
+    public SkillTrigger copyOf() {
+        SkillTrigger copy = new SkillTrigger(this.name, this.level);
+
+        return copy;
     }
 }

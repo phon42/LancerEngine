@@ -74,7 +74,7 @@ public class Mount {
         return mountType;
     }
     public Weapon getWeapon() {
-        return weapon;
+        return weapon.copyOf();
     }
     public boolean hasModification() {
         return hasModification;
@@ -128,6 +128,7 @@ public class Mount {
                 + " placeholder but has some properties set to placeholder"
                 + " values");
         }
+        weapon = weapon.copyOf();
         this.weapon = weapon;
     }
     // Setters for hasModification and hasCoreBonus removed purposefully
@@ -224,5 +225,12 @@ public class Mount {
         }
         
         return true;
+    }
+    public Mount copyOf() {
+        // don't need to make copies of these because the mutators already do so
+        Mount copy = new Mount(this.mountType, this.weapon, this.modification,
+            this.coreBonus);
+
+        return copy;
     }
 }

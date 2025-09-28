@@ -314,7 +314,7 @@ public class Frame {
         this.frameEnum = frameEnum;
     }
     public String[] getRole() {
-        return role;
+        return HelperFunctions.copyOf(role);
     }
     /**
      * Sets this.role to the value provided.
@@ -346,6 +346,7 @@ public class Frame {
                     + "illegal role value: \"" + roleString + "\"");
             }
         }
+        role = HelperFunctions.copyOf(role);
         this.role = role;
     }
     public String getFrameDescription() {
@@ -503,7 +504,7 @@ public class Frame {
         this.systemPoints = systemPoints;
     }
     public String[] getTraits() {
-        return traits;
+        return HelperFunctions.copyOf(traits);
     }
     public void setTraits(String[] traits) {
         if (traits == null) {
@@ -519,10 +520,11 @@ public class Frame {
                     + " an \"\" element");
             }
         }
+        traits = HelperFunctions.copyOf(traits);
         this.traits = traits;
     }
     public Mount[] getMounts() {
-        return mounts;
+        return HelperFunctions.copyOf(mounts);
     }
     public void setMounts(Mount[] mounts) {
         if (mounts == null) {
@@ -534,6 +536,7 @@ public class Frame {
                     + " a null element");
             }
         }
+        mounts = HelperFunctions.copyOf(mounts);
         this.mounts = mounts;
     }
 
@@ -678,5 +681,16 @@ public class Frame {
         }
 
         return true;
+    }
+    public Frame copyOf() {
+        // don't need to make copies of these because the mutators already do so
+        Frame copy = new Frame(this.manufacturer, this.name, this.ID,
+            this.frameEnum, this.role, this.frameDescription, this.size,
+            this.structure, this.HP, this.armor, this.stress, this.heatCapacity,
+            this.evasion, this.speed, this.eDefense, this.techAttack,
+            this.sensors, this.repairCapacity, this.saveTarget,
+            this.systemPoints, this.traits, this.mounts);
+
+        return copy;
     }
 }

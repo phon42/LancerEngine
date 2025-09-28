@@ -88,8 +88,8 @@ public class Mech {
         this.mounts = new Mount[0];
         this.systems = new MechSystem[0];
         this.size = -1;
-        this.currentStructure = 4;
-        this.maxStructure = 4;
+        setCurrentStructure(4);
+        setMaxStructure(4);
         this.currentHP = -1;
         this.maxHP = -1;
         this.armor = -1;
@@ -130,21 +130,54 @@ public class Mech {
         setName(name);
         setFrame(FrameDatabase.getFrame(frameEnum));
     }
+    public Mech(String name, Frame frame, String operatorNotes, Mount[] mounts,
+        MechSystem[] systems, int size, int currentStructure, int maxStructure,
+        int currentHP, int maxHP, int armor, int currentStress, int maxStress,
+        int currentHeatCapacity, int maxHeatCapacity, int evasion, int speed,
+        int eDefense, int techAttack, int sensors, int currentRepairCapacity,
+        int maxRepairCapacity, int saveTarget, int systemPoints,
+        int limitedSystemsBonus) {
+            setName(name);
+            setFrame(frame);
+            setOperatorNotes(operatorNotes);
+            setMounts(mounts);
+            setSystems(systems);
+            setSize(size);
+            setCurrentStructure(currentStructure);
+            setMaxStructure(maxStructure);
+            setCurrentHP(currentHP);
+            setMaxHP(maxHP);
+            setArmor(armor);
+            setCurrentStress(currentStress);
+            setMaxStress(maxStress);
+            setCurrentHeatCapacity(currentHeatCapacity);
+            setMaxHeatCapacity(maxHeatCapacity);
+            setEvasion(evasion);
+            setSpeed(speed);
+            setEDefense(eDefense);
+            setTechAttack(techAttack);
+            setSensors(sensors);
+            setCurrentRepairCapacity(currentRepairCapacity);
+            setMaxRepairCapacity(maxRepairCapacity);
+            setSaveTarget(saveTarget);
+            setSystemPoints(systemPoints);
+            setLimitedSystemsBonus(limitedSystemsBonus);
+        }
 
     public String getName() {
         return name;
     }
     public Frame getFrame() {
-        return frame;
+        return frame.copyOf();
     }
     public String getOperatorNotes() {
         return operatorNotes;
     }
     public Mount[] getMounts() {
-        return mounts;
+        return HelperFunctions.copyOf(mounts);
     }
     public MechSystem[] getSystems() {
-        return systems;
+        return HelperFunctions.copyOf(systems);
     }
     public int getSize() {
         return size;
@@ -219,6 +252,7 @@ public class Mech {
         if (frame == null) {
             throw new IllegalArgumentException("New frame is null");
         }
+        frame = frame.copyOf();
         this.frame = frame;
         calculateAttributes(new int[4]);
         setMounts(frame.getMounts());
@@ -239,6 +273,7 @@ public class Mech {
                     + " a null element");
             }
         }
+        mounts = HelperFunctions.copyOf(mounts);
         this.mounts = mounts;
     }
     public void setMount(int mountIndex, Mount mount) {
@@ -256,9 +291,11 @@ public class Mech {
             String mountType = getMounts()[mountIndex].getMountType();
             mount = new Mount(mountType, mount.getWeapon());
         }
+        mount = mount.copyOf();
         this.mounts[mountIndex] = mount;
     }
     public void setSystems(MechSystem[] systems) {
+        systems = HelperFunctions.copyOf(systems);
         this.systems = systems;
     }
     public void setSize(int size) {
@@ -888,5 +925,18 @@ public class Mech {
         }
 
         return true;
+    }
+    public Mech copyOf() {
+        // don't need to make copies of these because the mutators already do so
+        Mech copy = new Mech(this.name, this.frame, this.operatorNotes,
+            this.mounts, this.systems, this.size, this.currentStructure,
+            this.maxStructure, this.currentHP, this.maxHP, this.armor,
+            this.currentStress, this.maxStress, this.currentHeatCapacity,
+            this.maxHeatCapacity, this.evasion, this.speed, this.eDefense,
+            this.techAttack, this.sensors, this.currentRepairCapacity,
+            this.maxRepairCapacity, this.saveTarget, this.systemPoints,
+            this.limitedSystemsBonus);
+
+        return copy;
     }
 }

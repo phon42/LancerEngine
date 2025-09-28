@@ -54,4 +54,9 @@ public class Weapon {
 
         return true;
     }
+    public Weapon copyOf() {
+        Weapon copy = new Weapon(this.name);
+
+        return copy;
+    }
 }

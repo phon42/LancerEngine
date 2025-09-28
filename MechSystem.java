@@ -108,4 +108,9 @@ public class MechSystem {
 
         return true;
     }
+    public MechSystem copyOf() {
+        MechSystem copy = new MechSystem(this.name, this.limitedCharges);
+
+        return copy;
+    }
 }

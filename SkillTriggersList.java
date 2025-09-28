@@ -10,9 +10,12 @@ public class SkillTriggersList {
     public SkillTriggersList() {
         setSkillTriggers(new SkillTrigger[0]);
     }
+    public SkillTriggersList(SkillTrigger[] skillTriggers) {
+        setSkillTriggers(skillTriggers);
+    }
 
     public SkillTrigger[] getSkillTriggers() {
-        return skillTriggers;
+        return HelperFunctions.copyOf(skillTriggers);
     }
     /**
      * Sets this.skillTriggers to the provided value.
@@ -32,6 +35,7 @@ public class SkillTriggersList {
                 }
             }
         }
+        skillTriggers = HelperFunctions.copyOf(skillTriggers);
         this.skillTriggers = skillTriggers;
     }
 
@@ -100,7 +104,7 @@ public class SkillTriggersList {
                     outputString += " ";
                 }
                 outputString += skillTriggers[j].getName() + " (+"
-                    + skillTriggers[j].getValue() + ")";
+                    + skillTriggers[j].getLevel() + ")";
                 if (j + 1 < skillTriggers.length) {
                     outputString += ",";
                 }
@@ -109,5 +113,11 @@ public class SkillTriggersList {
         }
 
         return outputString;
+    }
+    public SkillTriggersList copyOf() {
+        // don't need to make copies of these because the mutators already do so
+        SkillTriggersList copy = new SkillTriggersList(this.skillTriggers);
+
+        return copy;
     }
 }

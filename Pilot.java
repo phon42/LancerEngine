@@ -174,10 +174,49 @@ public class Pilot {
         setCoreBonuses(new String[0]);
         setTalents(new Talent[0]);
     }
-    public Pilot(String pilotName, String callsign) {
+    public Pilot(String pilotName, String pilotCallsign) {
         this();
         setName(pilotName);
-        setCallsign(callsign);
+        setCallsign(pilotCallsign);
+    }
+    public Pilot(String pilotName, String pilotCallsign, String player,
+        String status, String background, String biography, String appearance,
+        String playerNotes, int currentHP, int maxHP, int armor, int evasion,
+        int speed, int eDefense, SkillTriggersList skillTriggers,
+        String[] reserves, Loadout loadout, int licenseLevel,
+        License[] licenseList, String[] specialEquipment, int[] mechSkills,
+        String[] coreBonuses, Talent[] talents) {
+        // ---Dossier-------------------
+        setName(pilotName);
+        setCallsign(pilotCallsign);
+        setPlayer(player);
+        setStatus(status);
+        setBackground(background);
+        setBiography(biography);
+        setAppearance(appearance);
+        setPlayerNotes(playerNotes);
+
+        // ---Narrative Profile---------
+        // setGrit() is unnecessary because licenseLevel is set later
+        // setMaxHP() swapped with setCurrentHP() because the function may throw
+        //     an exception otherwise
+        setMaxHP(maxHP);
+        setCurrentHP(currentHP);
+        setArmor(armor);
+        setEvasion(evasion);
+        setSpeed(speed);
+        setEDefense(eDefense);
+        setSkillTriggers(skillTriggers);
+        setReserves(reserves);
+        setLoadout(loadout);
+
+        // ---Tactical Profile---------
+        setLicenseLevel(licenseLevel);
+        setLicenseList(licenseList);
+        setSpecialEquipment(specialEquipment);
+        setMechSkills(mechSkills);
+        setCoreBonuses(coreBonuses);
+        setTalents(talents);
     }
 
     // ---Dossier-------------------
@@ -402,6 +441,7 @@ public class Pilot {
             throw new IllegalArgumentException("New skill triggers list value"
                 + " is null");
         }
+        skillTriggers = skillTriggers.copyOf();
         this.skillTriggers = skillTriggers;
     }
     public void setReserves(String[] reserves) {
@@ -423,6 +463,7 @@ public class Pilot {
                 }
             }
         }
+        reserves = HelperFunctions.copyOf(reserves);
         this.reserves = reserves;
     }
     public void setLoadout(Loadout loadout) {
@@ -430,6 +471,7 @@ public class Pilot {
         if (loadout == null) {
             throw new IllegalArgumentException("New loadout value is null");
         }
+        loadout.copyOf();
         this.loadout = loadout;
     }
     // ---Tactical Profile---------
@@ -465,6 +507,7 @@ public class Pilot {
                 }
             }
         }
+        licenseList = HelperFunctions.copyOf(licenseList);
         this.licenseList = licenseList;
     }
     public void setSpecialEquipment(String[] specialEquipment) {
@@ -487,6 +530,7 @@ public class Pilot {
                 }
             }
         }
+        specialEquipment = HelperFunctions.copyOf(specialEquipment);
         this.specialEquipment = specialEquipment;
     }
     public void setMechSkills(int[] mechSkills) {
@@ -510,6 +554,7 @@ public class Pilot {
                     + " includes an invalid element");
             }
         }
+        mechSkills = HelperFunctions.copyOf(mechSkills);
         this.mechSkills = mechSkills;
     }
     public void setCoreBonuses(String[] coreBonuses) {
@@ -531,6 +576,7 @@ public class Pilot {
                 }
             }
         }
+        coreBonuses = HelperFunctions.copyOf(coreBonuses);
         this.coreBonuses = coreBonuses;
     }
     public void setTalents(Talent[] talents) {
@@ -546,6 +592,7 @@ public class Pilot {
                 }
             }
         }
+        talents = HelperFunctions.copyOf(talents);
         this.talents = talents;
     }
 
@@ -778,5 +825,17 @@ public class Pilot {
         }
 
         return false;
+    }
+    public Pilot copyOf() {
+        // don't need to make copies of these because the mutators already do so
+        Pilot copy = new Pilot(this.name, this.callsign, this.player,
+            this.status, this.background, this.biography, this.appearance,
+            this.playerNotes, this.currentHP, this.maxHP, this.armor,
+            this.evasion, this.speed, this.eDefense, this.skillTriggers,
+            this.reserves, this.loadout, this.licenseLevel, this.licenseList,
+            this.specialEquipment, this.mechSkills, this.coreBonuses,
+            this.talents);
+
+        return copy;
     }
 }

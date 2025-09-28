@@ -58,7 +58,7 @@ public class LancerCharacter {
     }
     
     public Pilot getPilot() {
-        return this.pilot;
+        return this.pilot.copyOf();
     }
     /**
      * Sets this.pilot to the value provided.
@@ -72,10 +72,11 @@ public class LancerCharacter {
             throw new IllegalArgumentException("New pilot value has"
                 + " placeholders");
         }
+        pilot = pilot.copyOf();
         this.pilot = pilot;
     }
     public Mech getMech() {
-        return this.mech;
+        return this.mech.copyOf();
     }
     /**
      * Sets this.mech to the value provided.
@@ -94,6 +95,7 @@ public class LancerCharacter {
             }
             mech.calculateAttributes(getPilot().getMechSkills());
         }
+        mech = mech.copyOf();
         this.mech = mech;
     }
 

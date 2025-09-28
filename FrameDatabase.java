@@ -104,7 +104,7 @@ public class FrameDatabase {
         for (int i = 0; i < frameList.length; i++) {
             frameID = frameList[i].getID();
             if (frameID.equals(searchID)) {
-                return frameList[i];
+                return frameList[i].copyOf();
             }
         }
         throw new IllegalArgumentException("No frame found for frame ID: "
@@ -124,7 +124,7 @@ public class FrameDatabase {
         for (int i = 0; i < frameList.length; i++) {
             frameEnum = frameList[i].getFrameEnum();
             if (frameEnum == searchEnum) {
-                return frameList[i];
+                return frameList[i].copyOf();
             }
         }
         throw new IllegalArgumentException("No frame found for frame enum: "

@@ -68,4 +68,95 @@ public class HelperFunctions {
         
         return newStringArray;
     }
+    public static int[] copyOf(int[] original) {
+        if (original == null) {
+            throw new IllegalArgumentException("Called"
+                + " HelperFunctions.copyOf(int[]) with null in the place of"
+                + " the int[]");
+        }
+        int[] copy = new int[original.length];
+        for (int i = 0; i < original.length; i++) {
+            copy[i] = original[i];
+        }
+
+        return copy;
+    }
+    public static String[] copyOf(String[] original) {
+        if (original == null) {
+            throw new IllegalArgumentException("Called"
+                + " HelperFunctions.copyOf(String[]) with null in the place of"
+                + " the String[]");
+        }
+        String[] copy = new String[original.length];
+        for (int i = 0; i < original.length; i++) {
+            copy[i] = original[i];
+        }
+
+        return copy;
+    }
+    public static License[] copyOf(License[] original) {
+        if (original == null) {
+            throw new IllegalArgumentException("Called"
+                + " HelperFunctions.copyOf(License[]) with null in the place of"
+                + " the License[]");
+        }
+        License[] copy = new License[original.length];
+        for (int i = 0; i < original.length; i++) {
+            copy[i] = original[i].copyOf();
+        }
+
+        return copy;
+    }
+    public static MechSystem[] copyOf(MechSystem[] original) {
+        if (original == null) {
+            throw new IllegalArgumentException("Called"
+                + " HelperFunctions.copyOf(MechSystem[]) with null in the place"
+                + " of the MechSystem[]");
+        }
+        MechSystem[] copy = new MechSystem[original.length];
+        for (int i = 0; i < original.length; i++) {
+            copy[i] = original[i].copyOf();
+        }
+
+        return copy;
+    }
+    public static Mount[] copyOf(Mount[] original) {
+        if (original == null) {
+            throw new IllegalArgumentException("Called"
+                + " HelperFunctions.copyOf(Mount[]) with null in the place of"
+                + " the Mount[]");
+        }
+        Mount[] copy = new Mount[original.length];
+        for (int i = 0; i < original.length; i++) {
+            copy[i] = original[i].copyOf();
+        }
+
+        return copy;
+    }
+    public static SkillTrigger[] copyOf(SkillTrigger[] original) {
+        if (original == null) {
+            throw new IllegalArgumentException("Called"
+                + " HelperFunctions.copyOf(SkillTrigger[]) with null in the"
+                + " place of the SkillTrigger[]");
+        }
+        SkillTrigger[] copy = new SkillTrigger[original.length];
+        for (int i = 0; i < original.length; i++) {
+            copy[i] = original[i].copyOf();
+        }
+
+        return copy;
+    }
+    public static Talent[] copyOf(Talent[] original) {
+        if (original == null) {
+            throw new IllegalArgumentException("Called"
+                + " HelperFunctions.copyOf(Talent[]) with null in the place of"
+                + " the Talent[]");
+        }
+        Talent[] copy = new Talent[original.length];
+        for (int i = 0; i < original.length; i++) {
+            copy[i] = original[i].copyOf();
+        }
+
+        return copy;
+    }
 }

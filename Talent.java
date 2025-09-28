@@ -84,4 +84,9 @@ public class Talent {
         }
         return true;
     }
+    public Talent copyOf() {
+        Talent copy = new Talent(this.name, this.level);
+
+        return copy;
+    }
 }

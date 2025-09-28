@@ -44,10 +44,10 @@ public class Loadout {
         return pilotArmor;
     }
     public String[] getPilotWeapons() {
-        return pilotWeapons;
+        return HelperFunctions.copyOf(pilotWeapons);
     }
     public String[] getPilotGear() {
-        return pilotGear;
+        return HelperFunctions.copyOf(pilotGear);
     }
     /**
      * Sets this.pilotArmor to the provided value.
@@ -80,6 +80,7 @@ public class Loadout {
                     + " contains a null element");
             }
         }
+        pilotWeapons = HelperFunctions.copyOf(pilotWeapons);
         this.pilotWeapons = pilotWeapons;
     }
     /**
@@ -102,6 +103,7 @@ public class Loadout {
                     + " contains a null element");
             }
         }
+        pilotGear = HelperFunctions.copyOf(pilotGear);
         this.pilotGear = pilotGear;
     }
 
@@ -214,5 +216,12 @@ public class Loadout {
         }
 
         return outputString;
+    }
+    public Loadout copyOf() {
+        // don't need to make copies of these because the mutators already do so
+        Loadout copy = new Loadout(this.pilotArmor, this.pilotWeapons,
+            this.pilotGear);
+
+        return copy;
     }
 }

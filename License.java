@@ -91,4 +91,9 @@ public class License {
         
         return true;
     }
+    public License copyOf() {
+        License copy = new License(this.name, this.level);
+
+        return copy;
+    }
 }

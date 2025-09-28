@@ -618,43 +618,43 @@ public class TestFunctions {
         }
         // normal case
         try {
-            skillTrigger.setValue(-2);
+            skillTrigger.setLevel(-2);
         } catch (IllegalArgumentException exception) {
             test3 = true;
         }
         // normal case
         try {
-            skillTrigger.setValue(7);
+            skillTrigger.setLevel(7);
         } catch (IllegalArgumentException exception) {
             test4 = true;
         }
         // normal case
         try {
-            skillTrigger.setValue(0);
+            skillTrigger.setLevel(0);
         } catch (IllegalArgumentException exception) {
             test5 = true;
         }
         // normal case
         try {
-            skillTrigger.setValue(1);
+            skillTrigger.setLevel(1);
         } catch (IllegalArgumentException exception) {
             test6 = true;
         }
         // normal case
         try {
-            skillTrigger.setValue(3);
+            skillTrigger.setLevel(3);
         } catch (IllegalArgumentException exception) {
             test7 = true;
         }
         // normal case
         try {
-            skillTrigger.setValue(5);
+            skillTrigger.setLevel(5);
         } catch (IllegalArgumentException exception) {
             test8 = true;
         }
         // normal case
-        skillTrigger.setValue(2);
-        if (skillTrigger.getValue() == 2) {
+        skillTrigger.setLevel(2);
+        if (skillTrigger.getLevel() == 2) {
             test9 = true;
         }
         
@@ -701,7 +701,7 @@ public class TestFunctions {
             test1 = true;
         }
         // normal case
-        skillTrigger.setValue(2);
+        skillTrigger.setLevel(2);
         if (! skillTrigger.equals(testSkillTrigger)) {
             test2 = true;
         }
