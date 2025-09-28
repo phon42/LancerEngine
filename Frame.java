@@ -172,8 +172,8 @@ public class Frame {
         this.frameDescription = "";
         this.size = -1;
 
-        // this can be changed but 90% of frames (100% of player frames) have
-        //     4 structure, 4 stress
+        // these properties can be modified later on but 90% of frames (100% of
+        //     player frames) have 4 structure, 4 stress
         this.structure = 4;
         this.stress = 4;
 
@@ -234,18 +234,6 @@ public class Frame {
     public String getManufacturer() {
         return manufacturer;
     }
-    public void setManufacturer(String manufacturer) {
-        if (manufacturer == null) {
-            throw new IllegalArgumentException("New manufacturer value is"
-                + " null");
-        }
-        if (manufacturer.equals("")) {
-            throw new IllegalArgumentException("New manufacturer value is"
-                + " \"\"");
-        }
-        manufacturer = manufacturer.toUpperCase();
-        this.manufacturer = manufacturer;
-    }
     public String getName() {
         return name;
     }
@@ -285,6 +273,78 @@ public class Frame {
 
         return name;
     }
+    public String getID() {
+        return ID;
+    }
+    public FrameEnum getFrameEnum() {
+        return frameEnum;
+    }
+    public void setManufacturer(String manufacturer) {
+        if (manufacturer == null) {
+            throw new IllegalArgumentException("New manufacturer value is"
+                + " null");
+        }
+        if (manufacturer.equals("")) {
+            throw new IllegalArgumentException("New manufacturer value is"
+                + " \"\"");
+        }
+        manufacturer = manufacturer.toUpperCase();
+        this.manufacturer = manufacturer;
+    }
+    public String[] getRole() {
+        return HelperFunctions.copyOf(role);
+    }
+    public String getFrameDescription() {
+        return frameDescription;
+    }
+    public int getSize() {
+        return size;
+    }
+    public int getStructure() {
+        return structure;
+    }
+    public int getHP() {
+        return HP;
+    }
+    public int getArmor() {
+        return armor;
+    }
+    public int getStress() {
+        return stress;
+    }
+    public int getHeatCapacity() {
+        return heatCapacity;
+    }
+    public int getEvasion() {
+        return evasion;
+    }
+    public int getSpeed() {
+        return speed;
+    }
+    public int getEDefense() {
+        return eDefense;
+    }
+    public int getTechAttack() {
+        return techAttack;
+    }
+    public int getSensors() {
+        return sensors;
+    }
+    public int getRepairCapacity() {
+        return repairCapacity;
+    }
+    public int getSaveTarget() {
+        return saveTarget;
+    }
+    public int getSystemPoints() {
+        return systemPoints;
+    }
+    public String[] getTraits() {
+        return HelperFunctions.copyOf(traits);
+    }
+    public Mount[] getMounts() {
+        return HelperFunctions.copyOf(mounts);
+    }
     /**
      * Sets this.name to the value provided.
      * @param name a String which cannot be null or "".
@@ -299,9 +359,6 @@ public class Frame {
         name = name.toLowerCase();
         this.name = name;
     }
-    public String getID() {
-        return ID;
-    }
     public void setID(String ID) {
         if (ID == null) {
             throw new IllegalArgumentException("New frame ID is null");
@@ -312,17 +369,11 @@ public class Frame {
         ID = ID.toLowerCase();
         this.ID = ID;
     }
-    public FrameEnum getFrameEnum() {
-        return frameEnum;
-    }
     public void setFrameEnum(FrameEnum frameEnum) {
         if (frameEnum == null) {
             throw new IllegalArgumentException("New frame enum is null");
         }
         this.frameEnum = frameEnum;
-    }
-    public String[] getRole() {
-        return HelperFunctions.copyOf(role);
     }
     /**
      * Sets this.role to the value provided.
@@ -357,18 +408,12 @@ public class Frame {
         role = HelperFunctions.copyOf(role);
         this.role = role;
     }
-    public String getFrameDescription() {
-        return frameDescription;
-    }
     public void setFrameDescription(String frameDescription) {
         if (frameDescription == null) {
             throw new IllegalArgumentException("New frame description is"
                 + " null");
         }
         this.frameDescription = frameDescription;
-    }
-    public int getSize() {
-        return size;
     }
     /**
      * Sets this.size to the value provided.
@@ -387,9 +432,6 @@ public class Frame {
         }
         this.size = size;
     }
-    public int getStructure() {
-        return structure;
-    }
     public void setStructure(int structure) {
         if (structure < 1) {
             throw new IllegalArgumentException(
@@ -397,17 +439,11 @@ public class Frame {
         }
         this.structure = structure;
     }
-    public int getHP() {
-        return HP;
-    }
     public void setHP(int HP) {
         if (HP < 1) {
             throw new IllegalArgumentException("New HP value is < 1");
         }
         this.HP = HP;
-    }
-    public int getArmor() {
-        return armor;
     }
     public void setArmor(int armor) {
         if (armor < 0) {
@@ -415,17 +451,11 @@ public class Frame {
         }
         this.armor = armor;
     }
-    public int getStress() {
-        return stress;
-    }
     public void setStress(int stress) {
         if (stress < 1) {
             throw new IllegalArgumentException("New stress value is < -1");
         }
         this.stress = stress;
-    }
-    public int getHeatCapacity() {
-        return heatCapacity;
     }
     public void setHeatCapacity(int heatCapacity) {
         if (heatCapacity < 1) {
@@ -434,26 +464,17 @@ public class Frame {
         }
         this.heatCapacity = heatCapacity;
     }
-    public int getEvasion() {
-        return evasion;
-    }
     public void setEvasion(int evasion) {
         if (evasion < 0) {
             throw new IllegalArgumentException("New evasion value is < 0");
         }
         this.evasion = evasion;
     }
-    public int getSpeed() {
-        return speed;
-    }
     public void setSpeed(int speed) {
         if (speed < 0) {
             throw new IllegalArgumentException("New speed value is < 0");
         }
         this.speed = speed;
-    }
-    public int getEDefense() {
-        return eDefense;
     }
     public void setEDefense(int eDefense) {
         if (eDefense < 0) {
@@ -462,23 +483,14 @@ public class Frame {
         }
         this.eDefense = eDefense;
     }
-    public int getTechAttack() {
-        return techAttack;
-    }
     public void setTechAttack(int techAttack) {
         this.techAttack = techAttack;
-    }
-    public int getSensors() {
-        return sensors;
     }
     public void setSensors(int sensors) {
         if (sensors < 0) {
             throw new IllegalArgumentException("New sensors value is < 0");
         }
         this.sensors = sensors;
-    }
-    public int getRepairCapacity() {
-        return repairCapacity;
     }
     public void setRepairCapacity(int repairCapacity) {
         if (repairCapacity < 0) {
@@ -487,9 +499,6 @@ public class Frame {
         }
         this.repairCapacity = repairCapacity;
     }
-    public int getSaveTarget() {
-        return saveTarget;
-    }
     public void setSaveTarget(int saveTarget) {
         if (saveTarget < 0) {
             throw new IllegalArgumentException("New save target value is < "
@@ -497,18 +506,12 @@ public class Frame {
         }
         this.saveTarget = saveTarget;
     }
-    public int getSystemPoints() {
-        return systemPoints;
-    }
     public void setSystemPoints(int systemPoints) {
         if (systemPoints < 0) {
             throw new IllegalArgumentException("New system points value is < "
                 + "0");
         }
         this.systemPoints = systemPoints;
-    }
-    public String[] getTraits() {
-        return HelperFunctions.copyOf(traits);
     }
     public void setTraits(String[] traits) {
         if (traits == null) {
@@ -526,9 +529,6 @@ public class Frame {
         }
         traits = HelperFunctions.copyOf(traits);
         this.traits = traits;
-    }
-    public Mount[] getMounts() {
-        return HelperFunctions.copyOf(mounts);
     }
     public void setMounts(Mount[] mounts) {
         if (mounts == null) {
