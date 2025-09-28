@@ -88,8 +88,8 @@ public class Mech {
         this.mounts = new Mount[0];
         this.systems = new MechSystem[0];
         this.size = -1;
-        setCurrentStructure(4);
         setMaxStructure(4);
+        setCurrentStructure(4);
         this.currentHP = -1;
         this.maxHP = -1;
         this.armor = -1;
@@ -143,22 +143,22 @@ public class Mech {
             setMounts(mounts);
             setSystems(systems);
             setSize(size);
-            setCurrentStructure(currentStructure);
             setMaxStructure(maxStructure);
-            setCurrentHP(currentHP);
+            setCurrentStructure(currentStructure);
             setMaxHP(maxHP);
+            setCurrentHP(currentHP);
             setArmor(armor);
-            setCurrentStress(currentStress);
             setMaxStress(maxStress);
-            setCurrentHeatCapacity(currentHeatCapacity);
+            setCurrentStress(currentStress);
             setMaxHeatCapacity(maxHeatCapacity);
+            setCurrentHeatCapacity(currentHeatCapacity);
             setEvasion(evasion);
             setSpeed(speed);
             setEDefense(eDefense);
             setTechAttack(techAttack);
             setSensors(sensors);
-            setCurrentRepairCapacity(currentRepairCapacity);
             setMaxRepairCapacity(maxRepairCapacity);
+            setCurrentRepairCapacity(currentRepairCapacity);
             setSaveTarget(saveTarget);
             setSystemPoints(systemPoints);
             setLimitedSystemsBonus(limitedSystemsBonus);
@@ -488,9 +488,14 @@ public class Mech {
             throw new IllegalArgumentException("calculateAttributes() was"
                 + " called while frame was set to null");
         }
+        setMaxStructure(frame.getStructure());
+        setCurrentStructure(currentStructure);
+        setMaxStress(frame.getStress());
+        setCurrentStress(currentStress);
+        
         // Hull
         setMaxHP(frame.getHP() + (mechSkills[0] * 2));
-        setCurrentHP(maxHP);
+        setCurrentHP(getMaxHP());
         setMaxRepairCapacity(frame.getRepairCapacity() + (mechSkills[0] / 2));
         setCurrentRepairCapacity(getMaxRepairCapacity());
 
@@ -504,8 +509,8 @@ public class Mech {
         setSystemPoints(frame.getSystemPoints() + (mechSkills[2] / 2));
 
         // Engineering
-        setMaxHeatCapacity(frame.getHeatCapacity() + mechSkills[3]);
         setCurrentHeatCapacity(0);
+        setMaxHeatCapacity(frame.getHeatCapacity() + mechSkills[3]);
         setLimitedSystemsBonus(mechSkills[3] / 2);
         
         setSize(frame.getSize());
