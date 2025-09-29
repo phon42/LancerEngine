@@ -809,7 +809,7 @@ public class Mech {
         setSensors(this.frame.getSensors());
         setSaveTarget(this.frame.getSaveTarget());
         setTraits(this.frame.getTraits());
-        setMounts(this.frame.getMounts());
+        setMounts(mounts);
     }
     /**
      * Generates the output associated with the mech portion of the COMP/CON
