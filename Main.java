@@ -39,8 +39,8 @@
  *     - For arrays and classes, I call HelperFunctions.copyOf() (for arrays),
  *           and [Class].copyOf() (for classes). In either case, a deepest copy
  *           of the property's value is created and then returned.
- * - Second, the property is mutated as desired. (For example,
- *        Mech.getFrame().setName())
+ * - Second, the property is mutated as desired. For example:
+ *        Mech.getFrame().setName()
  * - Finally, [Class].set[Property]() is called with the new, mutated value.
  *     - Internally, a deepest copy is once again created when necessary.
  *     - Then, the property is set to the mutated value.
@@ -108,8 +108,12 @@
  *     be required to know to what EXTENT the property has been modified, but it
  *     requires the addition of multiple methods to support it.
  * 
- * The Mech.generateOutput("mech build") function may be of use to you for the
- *     purposes of testing.
+ * The Mech.generateOutput("mech build") method may be of use to you for the
+ *     purposes of testing. It generates the section of text beginning with
+ *     "STRUCTURE:" and ending with the "[ SYSTEMS ]" section.
+ * Additionally, Mech.outputWeapons("mech build") is the method specifically
+ *     responsible for generating the line of output directly under the
+ *     "[ WEAPONS ]" line.
  */
 /**
  * Contains the main() function for the project. Doesn't really do anything
