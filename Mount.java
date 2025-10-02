@@ -7,7 +7,7 @@ public class Mount {
     /**
      * Array of all possible allowed mount types.
      */
-    private final String[] allowedMountTypes = {
+    private static final String[] allowedMountTypes = {
         "aux", "aux/aux", "flex", "heavy", "main", "main/aux",
         "integrated weapon", "integrated weapon core bonus",
         "improved armament core bonus"
@@ -70,37 +70,17 @@ public class Mount {
      */
     private Talent talent;
 
-    private Mount() {
-        this.mountType = "";
-        setWeapon(new Weapon());
-        setModification("");
-        setCoreBonus("");
-        setTalent(null);
-    }
-    public Mount(Weapon weapon) {
-        this();
-        setWeapon(weapon);
-    }
-    public Mount(Weapon weapon, String modification) {
-        this(weapon, modification, "");
-    }
-    public Mount(Weapon weapon, String modification, String coreBonus) {
-        this.mountType = "";
-        setWeapon(weapon);
-        setModification(modification);
-        setCoreBonus(coreBonus);
-        setTalent(null);
-    }
     /**
      * Creates a new Mount with the provided mountType.
      */
+    public Mount(String mountType) {
+        this(mountType, new Weapon(), "", "", null);
+    }
     /**
      * Creates a new Mount with the provided mountType and weapon.
      */
     public Mount(String mountType, Weapon weapon) {
-        this();
-        setMountType(mountType);
-        setWeapon(weapon);
+        this(mountType, weapon, "", "", null);
     }
     /**
      * Creates a new Mount with the provided mountType, weapon, and
@@ -171,8 +151,8 @@ public class Mount {
             throw new IllegalArgumentException("New mount type is null");
         }
         mountType = mountType.toLowerCase();
-        for (int i = 0; i < allowedMountTypes.length; i++) {
-            if (allowedMountTypes[i].equals(mountType)) {
+        for (int i = 0; i < Mount.allowedMountTypes.length; i++) {
+            if (Mount.allowedMountTypes[i].equals(mountType)) {
                 isValidType = true;
                 break;
             }
@@ -331,9 +311,8 @@ public class Mount {
      */
     public Mount copyOf() {
         // don't need to make copies of these because the mutators already do so
-        Mount copy = new Mount();
+        Mount copy = new Mount(this.mountType);
         
-        copy.setMountType(this.mountType);
         copy.weapon = this.weapon;
         copy.setModification(this.modification);
         copy.setCoreBonus(this.coreBonus);

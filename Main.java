@@ -208,10 +208,11 @@ public class Main {
         // Now we attempt to change something about it
         // These functions change the weapon mounted on one specific part of the
         //     mech
-        myMech.setMount(0, new Mount(
+        myMech.setMount(0, new Mount("aux",
             new Weapon("Slag Cannon")));
-        myMech.setMount(1, new Mount(new Weapon("Vulture DMR"),
-            "", "Overpower Caliber"));
+        myMech.setMount(1, new Mount("aux",
+            new Weapon("Vulture DMR"), "",
+            "Overpower Caliber"));
         myMech.setSystems(new MechSystem[] {
             new MechSystem("Pattern-A Smoke Charges", 3),
             new MechSystem("Seismic Ripper"),
@@ -239,7 +240,7 @@ public class Main {
         //     things have been calculated, it does nothing because the stats
         //     just get calculated again:
         myMech = myCharacter.getMech();
-        myMech.setMount(0, new Mount(
+        myMech.setMount(0, new Mount("aux",
             new Weapon("Slag Cannon")));
         myCharacter.setMech(myMech);
         System.out.println("Desperate final attempt to change that which is"

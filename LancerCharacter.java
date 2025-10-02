@@ -76,6 +76,9 @@ public class LancerCharacter {
     public Pilot getPilot() {
         return this.pilot.copyOf();
     }
+    public Mech getMech() {
+        return this.mech.copyOf();
+    }
     /**
      * Sets this.pilot to the value provided.
      * @param pilot a Pilot that cannot be null or have placeholders.
@@ -90,9 +93,6 @@ public class LancerCharacter {
         }
         pilot = pilot.copyOf();
         this.pilot = pilot;
-    }
-    public Mech getMech() {
-        return this.mech.copyOf();
     }
     /**
      * Sets this.mech to the value provided.

@@ -46,7 +46,7 @@ public class Frame {
     /**
      * An array of allowed values for the elements of the role property.
      */
-    final static String[] allowedRoles = new String[] {
+    public static final String[] allowedRoles = new String[] {
         "artillery", "balanced", "controller", "striker", "support"
     };
     /**
@@ -263,18 +263,6 @@ public class Frame {
     public FrameEnum getFrameEnum() {
         return frameEnum;
     }
-    public void setManufacturer(String manufacturer) {
-        if (manufacturer == null) {
-            throw new IllegalArgumentException("New manufacturer value is"
-                + " null");
-        }
-        if (manufacturer.equals("")) {
-            throw new IllegalArgumentException("New manufacturer value is"
-                + " \"\"");
-        }
-        manufacturer = manufacturer.toUpperCase();
-        this.manufacturer = manufacturer;
-    }
     public String[] getRole() {
         return HelperFunctions.copyOf(role);
     }
@@ -328,6 +316,18 @@ public class Frame {
     }
     public Mount[] getMounts() {
         return HelperFunctions.copyOf(mounts);
+    }
+    public void setManufacturer(String manufacturer) {
+        if (manufacturer == null) {
+            throw new IllegalArgumentException("New manufacturer value is"
+                + " null");
+        }
+        if (manufacturer.equals("")) {
+            throw new IllegalArgumentException("New manufacturer value is"
+                + " \"\"");
+        }
+        manufacturer = manufacturer.toUpperCase();
+        this.manufacturer = manufacturer;
     }
     public void setName(String name) {
         if (name == null) {
@@ -385,8 +385,8 @@ public class Frame {
                 }
             }
             if (! isValidRole) {
-                throw new IllegalArgumentException("New role array contains an "
-                    + "invalid role value: \"" + roleString + "\"");
+                throw new IllegalArgumentException("New role array contains an"
+                    + " invalid role value: \"" + roleString + "\"");
             }
         }
         role = HelperFunctions.copyOf(role);
@@ -411,8 +411,8 @@ public class Frame {
             throw new IllegalArgumentException("New frame size is > 8");
         }
         if (size == 3 || size == 5 || size == 7) {
-            throw new IllegalArgumentException("New frame size is an invalid "
-                + "value: " + size);
+            throw new IllegalArgumentException("New frame size is an invalid"
+                + " value: " + size);
         }
         this.size = size;
     }
@@ -443,8 +443,8 @@ public class Frame {
     }
     public void setHeatCapacity(int heatCapacity) {
         if (heatCapacity < 1) {
-            throw new IllegalArgumentException("New heat capacity value is < "
-                + "1");
+            throw new IllegalArgumentException("New heat capacity value is <"
+                + " 1");
         }
         this.heatCapacity = heatCapacity;
     }
@@ -478,22 +478,22 @@ public class Frame {
     }
     public void setRepairCapacity(int repairCapacity) {
         if (repairCapacity < 0) {
-            throw new IllegalArgumentException("New repair capacity value is "
-                + "< 0");
+            throw new IllegalArgumentException("New repair capacity value is"
+                + " < 0");
         }
         this.repairCapacity = repairCapacity;
     }
     public void setSaveTarget(int saveTarget) {
         if (saveTarget < 0) {
-            throw new IllegalArgumentException("New save target value is < "
-                + "0");
+            throw new IllegalArgumentException("New save target value is <"
+                + " 0");
         }
         this.saveTarget = saveTarget;
     }
     public void setSystemPoints(int systemPoints) {
         if (systemPoints < 0) {
-            throw new IllegalArgumentException("New system points value is < "
-                + "0");
+            throw new IllegalArgumentException("New system points value is <"
+                + " 0");
         }
         this.systemPoints = systemPoints;
     }

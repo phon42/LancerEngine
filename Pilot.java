@@ -36,7 +36,7 @@ public class Pilot {
      * Case-insensitive and stored in lowercase. Cannot be null.
      */
     private String status;
-    static final String[] allowedStatuses = {
+    private static final String[] allowedStatuses = {
         "active", "inactive", "retired", "missing in action",
         "killed in action", "unknown"
     };
@@ -169,10 +169,10 @@ public class Pilot {
     /**
      * Creates a new Pilot from the provided pilotName and pilotCallsign.
      */
-    public Pilot() {
+    public Pilot(String pilotName, String pilotCallsign) {
         // ---Dossier-------------------
-        this.name = "";
-        this.callsign = "";
+        setName(pilotName);
+        setCallsign(pilotCallsign);
         setPlayer("");
         setStatus("Active");
         setBackground("");
@@ -201,11 +201,6 @@ public class Pilot {
         setMechSkills(new int[4]);
         setCoreBonuses(new String[0]);
         setTalents(new Talent[0]);
-    }
-    public Pilot(String pilotName, String pilotCallsign) {
-        this();
-        setName(pilotName);
-        setCallsign(pilotCallsign);
     }
     /**
      * Creates a new Pilot using every possible property.
@@ -350,8 +345,8 @@ public class Pilot {
     }
     public void setPlayer(String player) {
         if (player == null) {
-            throw new IllegalArgumentException("Invalid value provided for "
-                + "player name: null");
+            throw new IllegalArgumentException("Invalid value provided for"
+                + " player name: null");
         }
         this.player = player;
     }
@@ -364,8 +359,8 @@ public class Pilot {
         boolean isValidStatus = false;
 
         if (status == null) {
-            throw new IllegalArgumentException("Invalid value provided for "
-                + "pilot status: null");
+            throw new IllegalArgumentException("Invalid value provided for"
+                + " pilot status: null");
         }
         status = status.toLowerCase();
         for (String allowedStatus : Pilot.allowedStatuses) {
@@ -377,40 +372,36 @@ public class Pilot {
         if (isValidStatus) {
             this.status = status;
         } else {
-            throw new IllegalArgumentException("Invalid value provided for "
-                + "pilot status: " + status);
+            throw new IllegalArgumentException("Invalid value provided for"
+                + " pilot status: " + status);
         }
     }
     public void setBackground(String background) {
-        // accept a String only, do NOT accept null
         if (background == null) {
-            throw new IllegalArgumentException("Invalid value provided for "
-                + "pilot background: null");
+            throw new IllegalArgumentException("Invalid value provided for"
+                + " pilot background: null");
         }
         background = background.toLowerCase();
         this.background = background;
     }
     public void setBiography(String biography) {
-        // accept a String only, do NOT accept null
         if (biography == null) {
-            throw new IllegalArgumentException("Invalid value provided for "
-                + "pilot biography: null");
+            throw new IllegalArgumentException("Invalid value provided for"
+                + " pilot biography: null");
         }
         this.biography = biography;
     }
     public void setAppearance(String appearance) {
-        // accept a String only, do NOT accept null
         if (appearance == null) {
-            throw new IllegalArgumentException("Invalid value provided for "
-                + "pilot appearance: null");
+            throw new IllegalArgumentException("Invalid value provided for"
+                + " pilot appearance: null");
         }
         this.appearance = appearance;
     }
     public void setPlayerNotes(String playerNotes) {
-        // accept a String only, do NOT accept null
         if (playerNotes == null) {
-            throw new IllegalArgumentException("Invalid value provided for "
-                + "player notes: null");
+            throw new IllegalArgumentException("Invalid value provided for"
+                + " player notes: null");
         }
         this.playerNotes = playerNotes;
     }
@@ -503,16 +494,14 @@ public class Pilot {
             throw new IllegalArgumentException("New reserves value is"
                 + " invalid");
         }
-        if (reserves.length != 0) {
-            for (String reserve : reserves) {
-                if (reserve == null) {
-                    throw new IllegalArgumentException("New reserves value"
-                        + " includes an element with a value of null");
-                }
-                if (reserve.equals("")) {
-                    throw new IllegalArgumentException("New reserves value"
-                        + " includes an element with a value of \"\"");
-                }
+        for (String reserve : reserves) {
+            if (reserve == null) {
+                throw new IllegalArgumentException("New reserves value"
+                    + " includes an element with a value of null");
+            }
+            if (reserve.equals("")) {
+                throw new IllegalArgumentException("New reserves value"
+                    + " includes an element with a value of \"\"");
             }
         }
         reserves = HelperFunctions.copyOf(reserves);
@@ -566,12 +555,10 @@ public class Pilot {
             throw new IllegalArgumentException("New license list value is"
                 + " null");
         }
-        if (licenseList.length != 0) {
-            for (License license : licenseList) {
-                if (license == null) {
-                    throw new IllegalArgumentException("New license list"
-                        + " value includes a null element");
-                }
+        for (License license : licenseList) {
+            if (license == null) {
+                throw new IllegalArgumentException("New license list"
+                    + " value includes a null element");
             }
         }
         licenseList = HelperFunctions.copyOf(licenseList);
@@ -587,16 +574,14 @@ public class Pilot {
             throw new IllegalArgumentException("New special equipment value"
                 + " is null");
         }
-        if (specialEquipment.length != 0) {
-            for (String equipment : specialEquipment) {
-                if (equipment == null) {
-                    throw new IllegalArgumentException("New special equipment"
-                        + " value includes an element with a value of null");
-                }
-                if (equipment.equals("")) {
-                    throw new IllegalArgumentException("New special equipment"
-                        + " value includes an element with a value of \"\"");
-                }
+        for (String equipment : specialEquipment) {
+            if (equipment == null) {
+                throw new IllegalArgumentException("New special equipment"
+                    + " value includes an element with a value of null");
+            }
+            if (equipment.equals("")) {
+                throw new IllegalArgumentException("New special equipment"
+                    + " value includes an element with a value of \"\"");
             }
         }
         specialEquipment = HelperFunctions.copyOf(specialEquipment);
@@ -642,16 +627,14 @@ public class Pilot {
             throw new IllegalArgumentException("New core bonuses value is"
                 + " invalid");
         }
-        if (coreBonuses.length != 0) {
-            for (String coreBonus : coreBonuses) {
-                if (coreBonus == null) {
-                    throw new IllegalArgumentException("New core bonuses"
-                        + " value includes an element with a value of null");
-                }
-                if (coreBonus.equals("")) {
-                    throw new IllegalArgumentException("New core bonuses"
-                        + " value includes an element with a value of \"\"");
-                }
+        for (String coreBonus : coreBonuses) {
+            if (coreBonus == null) {
+                throw new IllegalArgumentException("New core bonuses"
+                    + " value includes an element with a value of null");
+            }
+            if (coreBonus.equals("")) {
+                throw new IllegalArgumentException("New core bonuses"
+                    + " value includes an element with a value of \"\"");
             }
         }
         coreBonuses = HelperFunctions.copyOf(coreBonuses);
@@ -668,12 +651,11 @@ public class Pilot {
         if (talents == null) {
             throw new IllegalArgumentException("New talents value is"
                 + " invalid");
-        } else if (talents.length != 0) {
-            for (Talent talent : talents) {
-                if (talent == null) {
-                    throw new IllegalArgumentException("New talents value"
-                        + " includes a null element");
-                }
+        }
+        for (Talent talent : talents) {
+            if (talent == null) {
+                throw new IllegalArgumentException("New talents value"
+                    + " includes a null element");
             }
         }
         talents = HelperFunctions.copyOf(talents);

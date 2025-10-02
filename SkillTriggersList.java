@@ -27,12 +27,10 @@ public class SkillTriggersList {
             throw new IllegalArgumentException("New skill triggers value is"
                 + " null");
         }
-        if (skillTriggers.length != 0) {
-            for (SkillTrigger skillTrigger : skillTriggers) {
-                if (skillTrigger == null) {
-                    throw new IllegalArgumentException("New skill triggers"
-                        + " value includes a null element");
-                }
+        for (SkillTrigger skillTrigger : skillTriggers) {
+            if (skillTrigger == null) {
+                throw new IllegalArgumentException("New skill triggers"
+                    + " value includes a null element");
             }
         }
         skillTriggers = HelperFunctions.copyOf(skillTriggers);

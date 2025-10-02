@@ -422,6 +422,12 @@ public class Mech {
         if (frame == null) {
             throw new IllegalArgumentException("New frame is null");
         }
+        if (frame.hasPlaceholders()) {
+            if (! frame.isPlaceholder()) {
+                throw new IllegalArgumentException("New frame has placeholder"
+                    + " values but is not a placeholder Frame");
+            }
+        }
         frame = frame.copyOf();
         this.frame = frame;
         calculateAttributes();
@@ -475,8 +481,8 @@ public class Mech {
                 }
             }
             if (! isValidRole) {
-                throw new IllegalArgumentException("New role array contains an "
-                    + "invalid role value: \"" + roleString + "\"");
+                throw new IllegalArgumentException("New role array contains an"
+                    + " invalid role value: \"" + roleString + "\"");
             }
         }
         role = HelperFunctions.copyOf(role);
@@ -502,6 +508,13 @@ public class Mech {
     private void setSize(int size) {
         if (size < 1) {
             throw new IllegalArgumentException("New size is < 1");
+        }
+        if (size > 8) {
+            throw new IllegalArgumentException("New size is > 8");
+        }
+        if (size == 3 || size == 5 || size == 7) {
+            throw new IllegalArgumentException("New size is an invalid"
+                + " value");
         }
         this.size = size;
     }
@@ -726,6 +739,20 @@ public class Mech {
      *     elements that are "".
      */
     private void setTraits(String[] traits) {
+        if (traits == null) {
+            throw new IllegalArgumentException("New traits are null");
+        }
+        for (String trait : traits) {
+            if (trait == null) {
+                throw new IllegalArgumentException("New traits array contains"
+                    + " a null element");
+            }
+            if (trait.equals("")) {
+                throw new IllegalArgumentException("New traits array contains"
+                    + " an element that is \"\"");
+            }
+        }
+        traits = HelperFunctions.copyOf(traits);
         this.traits = traits;
     }
     /**
@@ -760,7 +787,11 @@ public class Mech {
             throw new IllegalArgumentException("mountIndex:" + mountIndex
                 + " is out of bounds for length " + getMounts().length);
         }
-        if (mount.getMountType().equals("")) {
+        if (mount == null) {
+            throw new IllegalArgumentException("New mount is null");
+        }
+        if (! mount.getMountType().equals(
+            getMounts()[mountIndex].getMountType())) {
             // the user was lazy and used new Mount(Weapon) instead of
             //     new Mount(mountType, Weapon)
             String mountType = getMounts()[mountIndex].getMountType();
