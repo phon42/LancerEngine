@@ -19,23 +19,37 @@ public class Loadout {
      */
     private String[] pilotGear;
 
+    /**
+     * Creates an empty Loadout.
+     */
     public Loadout() {
         setPilotArmor("");
         setPilotWeapons(new String[] {"", ""});
         setPilotGear(new String[] {"", "", ""});
     }
     // TODO: remove if unused
+    /**
+     * Creates a non-empty Loadout using the provided pilotArmor.
+     */
     public Loadout(String pilotArmor) {
         this();
         setPilotArmor(pilotArmor);
     }
     // TODO: remove if unused
+    /**
+     * Creates a non-empty Loadout using the provided pilotArmor and
+     *     pilotWeapons.
+     */
     public Loadout(String pilotArmor, String[] pilotWeapons) {
         this();
         setPilotArmor(pilotArmor);
         setPilotWeapons(pilotWeapons);
     }
     // TODO: remove if unused
+    /**
+     * Creates a non-empty Loadout using the provided pilotArmor,
+     *     pilotWeapons, and pilotGear.
+     */
     public Loadout(String pilotArmor, String[] pilotWeapons,
         String[] pilotGear) {
         setPilotArmor(pilotArmor);
@@ -52,10 +66,6 @@ public class Loadout {
     public String[] getPilotGear() {
         return HelperFunctions.copyOf(pilotGear);
     }
-    /**
-     * Sets this.pilotArmor to the provided value.
-     * @param pilotArmor a String which cannot be null.
-     */
     public void setPilotArmor(String pilotArmor) {
         if (pilotArmor == null) {
             throw new IllegalArgumentException("New pilot armor value is"

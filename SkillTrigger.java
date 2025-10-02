@@ -27,10 +27,6 @@ public class SkillTrigger {
     public int getLevel() {
         return level;
     }
-    /**
-     * Sets this.name to the provided value.
-     * @param name a String which cannot be null or "".
-     */
     public void setName(String name) {
         if (name == null) {
             throw new IllegalArgumentException("New name value is null");

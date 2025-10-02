@@ -19,8 +19,8 @@ public class Mech {
     /**
      * The frame that this mech is patterned after (i.e. Swallowtail) as a Frame
      *     object.
-     * Can be any Frame except a placeholder Frame. Is set to a placeholder
-     *     Frame on construction from Mech().
+     * Must either be a Frame without any placeholder values OR a placeholder
+     *     Frame.
      */
     private Frame frame;
     /**
@@ -265,6 +265,9 @@ public class Mech {
         setName(name);
         setFrame(FrameDatabase.getFrame(frameEnum));
     }
+    /**
+     * Creates a non-placeholder Mech given every possible Mech property.
+     */
     public Mech(String name, Frame frame, String operatorNotes, Mount[] mounts,
         MechSystem[] systems, int size, int currentStructure, int maxStructure,
         int currentHP, int maxHP, int armor, int currentStress, int maxStress,
@@ -410,6 +413,11 @@ public class Mech {
         }
         this.name = name;
     }
+    /**
+     * Sets this.frame to the provided value.
+     * @param frame a Frame which cannot be null. Must be either a Frame without
+     *     any placeholder values OR a placeholder Frame.
+     */
     public void setFrame(Frame frame) {
         if (frame == null) {
             throw new IllegalArgumentException("New frame is null");
@@ -441,6 +449,11 @@ public class Mech {
         frameName = frameName.toLowerCase();
         this.frameName = frameName;
     }
+    /**
+     * Sets this.role to the provided value.
+     * @param role a String[] which cannot be null, contain null elements, or
+     *     invalid elements, as defined by Frame.allowedRoles.
+     */
     public void setRole(String[] role) {
         boolean isValidRole = false;
         String roleString;
@@ -482,12 +495,21 @@ public class Mech {
         }
         this.operatorNotes = operatorNotes;
     }
+    /**
+     * Sets this.size to the provided value.
+     * @param size an int which must be 1, 2, 4, 6, or 8.
+     */
     private void setSize(int size) {
         if (size < 1) {
             throw new IllegalArgumentException("New size is < 1");
         }
         this.size = size;
     }
+    /**
+     * Sets this.currentStructure to the provided value.
+     * @param currentStructure an int which cannot be < 0 or >
+     *     this.maxStructure.
+     */
     public void setCurrentStructure(int currentStructure) {
         if (currentStructure < 0) {
             throw new IllegalArgumentException("New currentStructure value is"
@@ -500,6 +522,11 @@ public class Mech {
         }
         this.currentStructure = currentStructure;
     }
+    /**
+     * Sets this.maxStructure to the provided value.
+     * @param maxStructure an int which cannot be < 1. Will print a warning if
+     *     maxStructure is < this.currentStructure.
+     */
     private void setMaxStructure(int maxStructure) {
         if (maxStructure < 1) {
             throw new IllegalArgumentException("New maxStructure value is <"
@@ -512,6 +539,10 @@ public class Mech {
         }
         this.maxStructure = maxStructure;
     }
+    /**
+     * Sets this.currentHP to the provided value.
+     * @param currentHP an int which cannot be < 0 or > this.maxHP.
+     */
     public void setCurrentHP(int currentHP) {
         if (currentHP < 0) {
             throw new IllegalArgumentException("New currentHP value provided is"
@@ -523,6 +554,11 @@ public class Mech {
         }
         this.currentHP = currentHP;
     }
+    /**
+     * Sets this.maxHP to the provided value.
+     * @param maxHP an int which cannot be < 1. Will print a warning if maxHP is
+     *     < this.currentHP.
+     */
     private void setMaxHP(int maxHP) {
         if (maxHP < 1) {
             throw new IllegalArgumentException("New maxHP value is < 1");
@@ -539,6 +575,10 @@ public class Mech {
         }
         this.armor = armor;
     }
+    /**
+     * Sets this.currentStress to the provided value.
+     * @param currentStress an int which cannot be < 0 or > this.maxStress.
+     */
     public void setCurrentStress(int currentStress) {
         if (currentStress < 0) {
             throw new IllegalArgumentException("New currentStress value is <"
@@ -550,6 +590,11 @@ public class Mech {
         }
         this.currentStress = currentStress;
     }
+    /**
+     * Sets this.maxStress to the provided value.
+     * @param maxStress an int which cannot be < 1. Will print a warning if
+     *     maxStress is < this.currentStress.
+     */
     private void setMaxStress(int maxStress) {
         if (maxStress < 1) {
             throw new IllegalArgumentException("New maxStress value is < 1");
@@ -561,6 +606,11 @@ public class Mech {
         }
         this.maxStress = maxStress;
     }
+    /**
+     * Sets this.currentHeatCapacity to the provided value.
+     * @param currentHeatCapacity an int which cannot be < 0 or >
+     *     this.maxHeatCapacity.
+     */
     public void setCurrentHeatCapacity(int currentHeatCapacity) {
         if (currentHeatCapacity < 0) {
             throw new IllegalArgumentException("New currentHeatCapacity value"
@@ -573,6 +623,11 @@ public class Mech {
         }
         this.currentHeatCapacity = currentHeatCapacity;
     }
+    /**
+     * Sets this.maxHeatCapacity to the provided value.
+     * @param maxHeatCapacity an int which cannot be < 1. Will print a warning
+     *     if maxHeatCapacity is < this.currentHeatCapacity.
+     */
     private void setMaxHeatCapacity(int maxHeatCapacity) {
         if (maxHeatCapacity < 1) {
             throw new IllegalArgumentException("New maxHeatCapacity value is"
@@ -612,6 +667,11 @@ public class Mech {
         }
         this.sensors = sensors;
     }
+    /**
+     * Sets this.currentRepairCapacity to the provided value.
+     * @param currentRepairCapacity an int which cannot be < 0 or >
+     *     this.maxRepairCapacity.
+     */
     public void setCurrentRepairCapacity(int currentRepairCapacity) {
         if (currentRepairCapacity < 0) {
             throw new IllegalArgumentException("New currentRepairCapacity value"
@@ -624,6 +684,11 @@ public class Mech {
         }
         this.currentRepairCapacity = currentRepairCapacity;
     }
+    /**
+     * Sets this.maxRepairCapacity to the provided value.
+     * @param maxRepairCapacity an int which cannot be < 0. Will print a warning
+     *     if maxRepairCapacity is < this.currentRepairCapacity.
+     */
     private void setMaxRepairCapacity(int maxRepairCapacity) {
         if (maxRepairCapacity < 0) {
             throw new IllegalArgumentException("New maxRepairCapacity value is"
@@ -655,9 +720,18 @@ public class Mech {
         }
         this.limitedSystemsBonus = limitedSystemsBonus;
     }
+    /**
+     * Sets this.traits to the provided value.
+     * @param traits a String[] which cannot be null, include null elements, or
+     *     elements that are "".
+     */
     private void setTraits(String[] traits) {
         this.traits = traits;
     }
+    /**
+     * Sets this.mounts to the provided value.
+     * @param mounts a Mount[] which cannot be null or contain null elements.
+     */
     private void setMounts(Mount[] mounts) {
         if (mounts == null) {
             throw new IllegalArgumentException("New mounts value is null");
@@ -671,6 +745,12 @@ public class Mech {
         mounts = HelperFunctions.copyOf(mounts);
         this.mounts = mounts;
     }
+    /**
+     * Sets this.mounts[mountIndex] to the specified Mount. mount.mountType need
+     *     not be correct as long as mountIndex is valid.
+     * @param mountIndex an int which must be a valid index for this.mounts.
+     * @param mount a Mount which cannot be null
+     */
     public void setMount(int mountIndex, Mount mount) {
         if (mountIndex < 0) {
             throw new IllegalArgumentException("mountIndex:" + mountIndex
@@ -689,6 +769,11 @@ public class Mech {
         mount = mount.copyOf();
         this.mounts[mountIndex] = mount;
     }
+    /**
+     * Sets this.systems to the provided value.
+     * @param systems a MechSystem[] which cannot be null or contain null
+     *     elements.
+     */
     public void setSystems(MechSystem[] systems) {
         if (systems == null) {
             throw new IllegalArgumentException("New mech systems value is"

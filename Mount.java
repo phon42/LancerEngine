@@ -91,18 +91,36 @@ public class Mount {
         setCoreBonus(coreBonus);
         setTalent(null);
     }
+    /**
+     * Creates a new Mount with the provided mountType.
+     */
+    /**
+     * Creates a new Mount with the provided mountType and weapon.
+     */
     public Mount(String mountType, Weapon weapon) {
         this();
         setMountType(mountType);
         setWeapon(weapon);
     }
+    /**
+     * Creates a new Mount with the provided mountType, weapon, and
+     *     modification.
+     */
     public Mount(String mountType, Weapon weapon, String modification) {
         this(mountType, weapon, modification, "", null);
     }
+    /**
+     * Creates a new Mount with the provided mountType, weapon, modification,
+     *    and coreBonus.
+     */
     public Mount(String mountType, Weapon weapon, String modification,
         String coreBonus) {
         this(mountType, weapon, modification, coreBonus, null);
     }
+    /**
+     * Creates a new Mount with the provided mountType, weapon, modification,
+     *    coreBonus, and talent.
+     */
     public Mount(String mountType, Weapon weapon, String modification,
         String coreBonus, Talent talent) {
         setMountType(mountType);
@@ -138,8 +156,8 @@ public class Mount {
     }
     /**
      * Sets this.mountType to the value provided.
-     * @param mountType a String that cannot be null or be anything outside of
-     *     this.allowedMountTypes.
+     * @param mountType a String that cannot be null or an invalid value, as
+     *     defined by Mount.allowedMountTypes.
      */
     public void setMountType(String mountType) {
         boolean isValidType = false;
@@ -224,6 +242,13 @@ public class Mount {
         this.coreBonus = coreBonus;
     }
     // Mutator for hasTalent removed purposefully
+    /**
+     * Sets this.talent to the provided value and automatically sets
+     *     this.hasTalent accordingly.
+     * Passing any Talent will automatically set this.hasTalent to true; passing
+     *     null will set it to false.
+     * @param talent a Talent that can be any Talent. Can also be null.
+     */
     public void setTalent(Talent talent) {
         if (talent == null) {
             this.hasTalent = false;

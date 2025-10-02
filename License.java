@@ -18,6 +18,12 @@ public class License {
      */
     private int level;
 
+    /**
+     * Creates a new License.
+     * @param frameName a String containing the frameName for the new License.
+     * @param licenseLevel an int containing the licenseLevel for the new
+     *     License.
+     */
     public License(String frameName, int licenseLevel) {
         setName(frameName);
         setLevel(licenseLevel);
@@ -26,6 +32,12 @@ public class License {
     public String getName() {
         return name;
     }
+    /**
+     * Returns this.name, properly formatted. "ssc swallowtail (ranger variant)"
+     *     will become "SSC Swallowtail (Ranger Variant)", and "ssc death's
+     *     head" will become "SSC Death's Head".
+     * @return a String containing this.name, properly formatted.
+     */
     public String outputName() {
         String formattedName = name;
         String[] stringArr;
@@ -44,10 +56,6 @@ public class License {
     public int getLevel() {
         return level;
     }
-    /**
-     * Sets this.name to the value provided.
-     * @param name a String which cannot be null or "".
-     */
     public void setName(String name) {
         if (name == null) {
             throw new IllegalArgumentException("New frame name is null");

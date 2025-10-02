@@ -166,6 +166,9 @@ public class Pilot {
      */
     private Talent[] talents;
 
+    /**
+     * Creates a new Pilot from the provided pilotName and pilotCallsign.
+     */
     public Pilot() {
         // ---Dossier-------------------
         this.name = "";
@@ -204,6 +207,9 @@ public class Pilot {
         setName(pilotName);
         setCallsign(pilotCallsign);
     }
+    /**
+     * Creates a new Pilot using every possible property.
+     */
     public Pilot(String pilotName, String pilotCallsign, String player,
         String status, String background, String biography, String appearance,
         String playerNotes, int currentHP, int maxHP, int armor, int evasion,
@@ -321,7 +327,6 @@ public class Pilot {
     }
     // ---Dossier-------------------
     public void setName(String name) {
-        // accept a non-"" String only, do NOT accept null
         if (name == null) {
             throw new IllegalArgumentException("Invalid value provided for"
                 + "pilot name: null");
@@ -333,7 +338,6 @@ public class Pilot {
         this.name = name;
     }
     public void setCallsign(String callsign) {
-        // accept a non-"" String only, do NOT accept null
         if (callsign == null) {
             throw new IllegalArgumentException("Invalid value provided for"
                 + " pilot callsign: null");
@@ -345,15 +349,18 @@ public class Pilot {
         this.callsign = callsign;
     }
     public void setPlayer(String player) {
-        // accept a String only, do NOT accept null
         if (player == null) {
             throw new IllegalArgumentException("Invalid value provided for "
                 + "player name: null");
         }
         this.player = player;
     }
+    /**
+     * Sets this.status to the provided value.
+     * @param status a String which cannot be null and cannot be an invalid
+     *     status, as defined by Pilot.allowedStatuses.
+     */
     public void setStatus(String status) {
-        // accept a valid status only, do NOT accept null
         boolean isValidStatus = false;
 
         if (status == null) {
@@ -408,6 +415,10 @@ public class Pilot {
         this.playerNotes = playerNotes;
     }
     // ---Narrative Profile---------
+    /**
+     * Sets this.grit to the provided value.
+     * @param grit an int which cannot be < 0 or > 6.
+     */
     private void setGrit(int grit) {
         if (grit < 0) {
             throw new IllegalArgumentException("New grit value is < 0");
@@ -417,6 +428,10 @@ public class Pilot {
         }
         this.grit = grit;
     }
+    /**
+     * Sets this.currentHP to the provided value.
+     * @param currentHP an int which cannot be < 0 or > this.maxHP.
+     */
     public void setCurrentHP(int currentHP) {
         if (currentHP < 0) {
             throw new IllegalArgumentException("New currentHP value is < 0");
@@ -427,6 +442,11 @@ public class Pilot {
         }
         this.currentHP = currentHP;
     }
+    /**
+     * Sets this.frameEnum to the provided value.
+     * @param maxHP an int which cannot be < 1. Will print a warning if maxHP is
+     *     < this.currentHP.
+     */
     public void setMaxHP(int maxHP) {
         if (maxHP < 1) {
             throw new IllegalArgumentException("New maxHP value is < 1");
@@ -461,8 +481,11 @@ public class Pilot {
         }
         this.eDefense = eDefense;
     }
+    /**
+     * Sets this.skillTriggers to the provided value.
+     * @param skillTriggers a SkillTriggersList which cannot be null.
+     */
     public void setSkillTriggers(SkillTriggersList skillTriggers) {
-        // accept any SkillTriggersList, do NOT accept null
         if (skillTriggers == null) {
             throw new IllegalArgumentException("New skill triggers list value"
                 + " is null");
@@ -470,9 +493,12 @@ public class Pilot {
         skillTriggers = skillTriggers.copyOf();
         this.skillTriggers = skillTriggers;
     }
+    /**
+     * Sets this.reserves to the provided value.
+     * @param reserves a String[] which cannot be null, contain null elements,
+     *     or elements that are "".
+     */
     public void setReserves(String[] reserves) {
-        // accept any String[] that doesn't include null elements or "", do NOT
-        //     accept null
         if (reserves == null) {
             throw new IllegalArgumentException("New reserves value is"
                 + " invalid");
@@ -495,8 +521,11 @@ public class Pilot {
         }
         this.reserves = reserves;
     }
+    /**
+     * Sets this.loadout to the provided value.
+     * @param loadout a Loadout which cannot be null.
+     */
     public void setLoadout(Loadout loadout) {
-        // accept any Loadout, do NOT accept null
         if (loadout == null) {
             throw new IllegalArgumentException("New loadout value is null");
         }
@@ -504,6 +533,13 @@ public class Pilot {
         this.loadout = loadout;
     }
     // ---Tactical Profile---------
+    /**
+     * Sets this.licenseLevel to the provided value, and automatically sets
+     *     this.grit accordingly.
+     * Passing -1 will set this.grit to -1; anything else will set it to
+     *     (licenseLevel + 1) / 2, rounded down.
+     * @param licenseLevel an int which cannot be < 0 or > 12.
+     */
     public void setLicenseLevel(int licenseLevel) {
         if (licenseLevel < 0) {
             throw new IllegalArgumentException("New license level value is"
@@ -520,10 +556,12 @@ public class Pilot {
         }
         this.licenseLevel = licenseLevel;
     }
+    /**
+     * Sets this.licenseList to the provided value.
+     * @param licenseList a License[] which cannot be null or contain null
+     *     elements.
+     */
     public void setLicenseList(License[] licenseList) {
-        // accept a value of a blank array or an array of valid (without
-        //     placeholder values) Licenses, but no in betweens, do NOT accept
-        //     null
         if (licenseList == null) {
             throw new IllegalArgumentException("New license list value is"
                 + " null");
@@ -539,10 +577,12 @@ public class Pilot {
         licenseList = HelperFunctions.copyOf(licenseList);
         this.licenseList = licenseList;
     }
+    /**
+     * Sets this.specialEquipment to the provided value.
+     * @param specialEquipment a String[] which cannot be null, contain null
+     *     elements, or elements that are "".
+     */
     public void setSpecialEquipment(String[] specialEquipment) {
-        // accept a value of a blank array or an array of valid Strings (not
-        //     null or a placeholder value), but no in betweens, do NOT accept
-        //     null
         if (specialEquipment == null) {
             throw new IllegalArgumentException("New special equipment value"
                 + " is null");
@@ -565,9 +605,12 @@ public class Pilot {
         }
         this.specialEquipment = specialEquipment;
     }
+    /**
+     * Sets this.mechSkills to the provided value.
+     * @param mechSkills an int[] which cannot be null or elements that are < 0
+     *     or > 6. Must be of length 4.
+     */
     public void setMechSkills(int[] mechSkills) {
-        // accept a length 4 array of valid ints (between 0 and 6, inclusive),
-        //     do NOT accept null
         if (mechSkills == null) {
             throw new IllegalArgumentException("New mech skills value is"
                 + " null");
@@ -589,9 +632,12 @@ public class Pilot {
         mechSkills = HelperFunctions.copyOf(mechSkills);
         this.mechSkills = mechSkills;
     }
+    /**
+     * Sets this.coreBonuses to the provided value.
+     * @param coreBonuses a String[] which cannot be null, contain null
+     *     elements, or elements that are "".
+     */
     public void setCoreBonuses(String[] coreBonuses) {
-        // accept any array of Strings that does not include null elements or
-        //     placeholders, do NOT accept null
         if (coreBonuses == null) {
             throw new IllegalArgumentException("New core bonuses value is"
                 + " invalid");
@@ -614,8 +660,11 @@ public class Pilot {
         }
         this.coreBonuses = coreBonuses;
     }
+    /**
+     * Sets this.talents to the provided value.
+     * @param talents a Talent[] which cannot be null or contain null elements.
+     */
     public void setTalents(Talent[] talents) {
-        // accept any array of Talents, do NOT accept null
         if (talents == null) {
             throw new IllegalArgumentException("New talents value is"
                 + " invalid");

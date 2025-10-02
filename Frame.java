@@ -163,6 +163,9 @@ public class Frame {
     // core system passive
     // core system active
 
+    /**
+     * Creates a new placeholder Frame.
+     */
     public Frame() {
         this.manufacturer = "";
         this.name = "";
@@ -191,6 +194,11 @@ public class Frame {
         this.traits = new String[0];
         this.mounts = new Mount[0];
     }
+    /**
+     * Creates a new non-placeholder Frame using every property except Structure
+     *     and Stress, which it automatically sets to 4. Helpful for player
+     *     frames.
+     */
     public Frame(String manufacturer, String name, String frameID,
         FrameEnum frameEnum, String[] role, String frameDescription, int size,
         int hp, int armor, int heatCapacity, int evasion, int speed,
@@ -201,6 +209,9 @@ public class Frame {
             speed, eDefense, techAttack, sensors, repairCapacity, saveTarget,
             systemPoints, traits, mounts);
     }
+    /**
+     * Creates a new non-placeholder Frame using every possible property.
+     */
     public Frame(String manufacturer, String name, String frameID,
         FrameEnum frameEnum, String[] role, String frameDescription, int size,
         int structure, int hp, int armor, int stress, int heatCapacity,
@@ -237,6 +248,12 @@ public class Frame {
     public String getName() {
         return name;
     }
+    /**
+     * Returns this.name, properly formatted (i.e. "swallowtail (ranger
+     *     variant)" becomes "Swallowtail (Ranger Variant)" and "death's head"
+     *     becomes "Death's Head")
+     * @return
+     */
     public String outputName() {
         return HelperFunctions.toProperCase(name);
     }
@@ -312,10 +329,6 @@ public class Frame {
     public Mount[] getMounts() {
         return HelperFunctions.copyOf(mounts);
     }
-    /**
-     * Sets this.name to the value provided.
-     * @param name a String which cannot be null or "".
-     */
     public void setName(String name) {
         if (name == null) {
             throw new IllegalArgumentException("New frame name is null");
@@ -336,6 +349,10 @@ public class Frame {
         ID = ID.toLowerCase();
         this.ID = ID;
     }
+    /**
+     * Sets this.frameEnum to the provided value.
+     * @param frameEnum a FrameEnum which cannot be null.
+     */
     public void setFrameEnum(FrameEnum frameEnum) {
         if (frameEnum == null) {
             throw new IllegalArgumentException("New frame enum is null");
@@ -344,8 +361,8 @@ public class Frame {
     }
     /**
      * Sets this.role to the value provided.
-     * @param role a String[] which cannot be null or contain any invalid
-     *     values, as defined by Frame.allowedRoles.
+     * @param role a String[] which cannot be null, contain null elements, or
+     *     contain any invalid values, as defined by Frame.allowedRoles.
      */
     public void setRole(String[] role) {
         boolean isValidRole = false;
@@ -480,6 +497,11 @@ public class Frame {
         }
         this.systemPoints = systemPoints;
     }
+    /**
+     * Sets this.traits to the provided value.
+     * @param traits a String[] that cannot be null, contain null elements, or
+     *     elements that are "".
+     */
     public void setTraits(String[] traits) {
         if (traits == null) {
             throw new IllegalArgumentException("New traits value is null");
@@ -497,6 +519,10 @@ public class Frame {
         traits = HelperFunctions.copyOf(traits);
         this.traits = traits;
     }
+    /**
+     * Sets this.mounts to the provided value.
+     * @param mounts a Mount[] that cannot be null or contain null elements.
+     */
     public void setMounts(Mount[] mounts) {
         if (mounts == null) {
             throw new IllegalArgumentException("New mounts value is null");

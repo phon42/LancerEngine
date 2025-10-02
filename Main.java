@@ -116,6 +116,19 @@
  *     "[ WEAPONS ]" line.
  */
 /**
+ * All non-set[Property]() methods have a Javadoc comment. Any set[Property]()
+ *     methods within this code have a Javadoc comment if one of the following
+ *     conditions are met:
+ *     - For properties of a primitive type (such as int), the property must be
+ *           governed by a rule that is not as simple as a single bound (i.e.
+ *           "[Property] cannot be < 0").
+ *         - For properties of type String specifically, the property must be
+ *               governed by a rule that is not as simple as '[Property] cannot
+ *               be null or ""'.
+ *     - For properties of type Array or any other class (other than String),
+ *           all set[Property]() methods have a Javadoc comment.
+ */
+/**
  * Contains the main() function for the project. Doesn't really do anything
  *     else.
  */

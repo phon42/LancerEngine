@@ -40,20 +40,34 @@ public class LancerCharacter {
      */
     private Mech mech;
     
+    /**
+     * Creates a new LancerCharacter from a pilotName and a pilotCallsign. Sets
+     *     this.mech to a placeholder Mech.
+     */
     public LancerCharacter(String pilotName, String pilotCallsign) {
         setPilot(new Pilot(pilotName, pilotCallsign));
         setMech(new Mech());
     }
+    /**
+     * Creates a new LancerCharacter from a pilotName, a pilotCallsign, and a
+     *     mech.
+     */
     public LancerCharacter(String pilotName, String pilotCallsign, Mech mech) {
         setPilot(new Pilot(pilotName, pilotCallsign));
         setMech(mech);
     }
     // TODO: remove if unused
+    /**
+     * Creates a new LancerCharacter from a Pilot.
+     */
     public LancerCharacter(Pilot pilot) {
         setPilot(pilot);
         setMech(new Mech());
     }
     // TODO: remove if unused
+    /**
+     * Creates a new LancerCharacter from a Pilot and a Mech.
+     */
     public LancerCharacter(Pilot pilot, Mech mech) {
         setPilot(pilot);
         setMech(mech);
@@ -83,7 +97,8 @@ public class LancerCharacter {
     /**
      * Sets this.mech to the value provided.
      * @param mech a Mech that cannot be null and must EITHER be a placeholder
-     *     or not have any placeholders.
+     *     or not have any placeholders. Calls Mech.calculateAttributes() before
+     *     setting this.mech to it.
      */
     public void setMech(Mech mech) {
         if (mech == null) {
