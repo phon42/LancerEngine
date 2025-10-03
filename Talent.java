@@ -26,9 +26,6 @@ public class Talent {
     public String getName() {
         return name;
     }
-    public String outputName() {
-        return HelperFunctions.toProperCase(name);
-    }
     public int getLevel() {
         return level;
     }
@@ -98,5 +95,13 @@ public class Talent {
         Talent copy = new Talent(this.name, this.level);
 
         return copy;
+    }
+    /**
+     * Returns this.name, properly formatted (i.e. "combined arms" becomes
+     *     "Combined Arms").
+     * @return a String containing this.name, properly formatted.
+     */
+    public String outputName() {
+        return HelperFunctions.toProperCase(name);
     }
 }

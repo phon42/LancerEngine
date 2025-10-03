@@ -824,6 +824,199 @@ public class Mech {
     }
 
     /**
+     * A method checking whether any of the properties of this object whose
+     *     placeholder value is normally not allowed are set to their
+     *     placeholder value.
+     * @return a boolean representing the result of the check.
+     */
+    public boolean hasPlaceholders() {
+        if (getName().equals("")) {
+            return true;
+        }
+        if (this.frame.isPlaceholder()) {
+            return true;
+        }
+        if (getSize() == -1) {
+            return true;
+        }
+        if (getCurrentHP() == -1) {
+            return true;
+        }
+        if (getMaxHP() == -1) {
+            return true;
+        }
+        if (getArmor() == -1) {
+            return true;
+        }
+        if (getCurrentHeatCapacity() == -1) {
+            return true;
+        }
+        if (getMaxHeatCapacity() == -1) {
+            return true;
+        }
+        if (getEvasion() == -1) {
+            return true;
+        }
+        if (getSpeed() == -1) {
+            return true;
+        }
+        if (getEDefense() == -1) {
+            return true;
+        }
+        if (getSensors() == -1) {
+            return true;
+        }
+        if (getCurrentRepairCapacity() == -1) {
+            return true;
+        }
+        if (getMaxRepairCapacity() == -1) {
+            return true;
+        }
+        if (getSaveTarget() == -1) {
+            return true;
+        }
+        if (getSystemPoints() == -1) {
+            return true;
+        }
+        if (getLimitedSystemsBonus() == -1) {
+            return true;
+        }
+
+        return false;
+    }
+    /**
+     * A method checking whether every property of this object is set to its
+     *     placeholder value.
+     * @return a boolean representing the result of the check.
+     */
+    public boolean isPlaceholder() {
+        if (! getName().equals("")) {
+            return false;
+        }
+        if (! this.frame.isPlaceholder()) {
+            return false;
+        }
+        if (! getOperatorNotes().equals("")) {
+            return false;
+        }
+        if (this.mounts.length != 0) {
+            return false;
+        }
+        if (this.systems.length != 0) {
+            return false;
+        }
+        if (getSize() != -1) {
+            return false;
+        }
+        if (getCurrentStructure() != 4) {
+            return false;
+        }
+        if (getMaxStructure() != 4) {
+            return false;
+        }
+        if (getCurrentHP() != -1) {
+            return false;
+        }
+        if (getArmor() != -1) {
+            return false;
+        }
+        if (getCurrentStress() != 4) {
+            return false;
+        }
+        if (getMaxStress() != 4) {
+            return false;
+        }
+        if (getCurrentHeatCapacity() != -1) {
+            return false;
+        }
+        if (getMaxHeatCapacity() != -1) {
+            return false;
+        }
+        if (getEvasion() != -1) {
+            return false;
+        }
+        if (getSpeed() != -1) {
+            return false;
+        }
+        if (getEDefense() != -1) {
+            return false;
+        }
+        if (this.techAttack != -1) {
+            return false;
+        }
+        if (this.sensors != -1) {
+            return false;
+        }
+        if (this.currentRepairCapacity != -1) {
+            return false;
+        }
+        if (this.maxRepairCapacity != -1) {
+            return false;
+        }
+        if (this.saveTarget != -1) {
+            return false;
+        }
+        if (this.systemPoints != -1) {
+            return false;
+        }
+        if (this.limitedSystemsBonus != -1) {
+            return false;
+        }
+
+        return true;
+    }
+    /**
+     * Returns a deepest copy of this object.
+     * @return a Mech deepest copy of this object.
+     */
+    public Mech copyOf() {
+        // don't need to make copies of these for the ones using the mutator
+        //     methods (i.e. mounts) because the mutators already do so
+        Mech copy = new Mech();
+        
+        copy.name = this.name;
+        copy.frame = this.frame.copyOf();
+        copy.setOperatorNotes(this.operatorNotes);
+        copy.setMounts(this.mounts);
+        copy.setSystems(this.systems);
+        copy.size = this.size;
+        copy.currentStructure = this.currentStructure;
+        copy.maxStructure = this.maxStructure;
+        copy.currentHP = this.currentHP;
+        copy.maxHP = this.maxHP;
+        copy.armor = this.armor;
+        copy.currentStress = this.currentStress;
+        copy.maxStress = this.maxStress;
+        copy.currentHeatCapacity = this.currentHeatCapacity;
+        copy.maxHeatCapacity = this.maxHeatCapacity;
+        copy.evasion = this.evasion;
+        copy.speed = this.speed;
+        copy.eDefense = this.eDefense;
+        copy.setTechAttack(this.techAttack);
+        copy.sensors = this.sensors;
+        copy.currentRepairCapacity = this.currentRepairCapacity;
+        copy.maxRepairCapacity = this.maxRepairCapacity;
+        copy.saveTarget = this.saveTarget;
+        copy.systemPoints = this.systemPoints;
+        copy.limitedSystemsBonus = this.limitedSystemsBonus;
+
+        return copy;
+    }
+    /**
+     * A helper method which outputs the mech's size, formatted properly so that
+     *     it is human-readable. Used in Mech.outputStats("full", int).
+     * @return a String containing the requested output.
+     */
+    public String outputSize() {
+        if (getSize() == 1) {
+            return "1/2";
+        }
+        if (getSize() > 1) {
+            return Integer.toString(getSize() / 2);
+        }
+        return Integer.toString(getSize());
+    }
+    /**
      * Sets all of this Mech object's stat properties to their correct values,
      *     calculated based off of the Mech's frame property. Called when
      *     Mech.setFrame(Frame) is called.
@@ -1186,198 +1379,5 @@ public class Mech {
         }
 
         return outputString;
-    }
-    /**
-     * A helper method which outputs the mech's size, formatted properly so that
-     *     it is human-readable. Used in Mech.outputStats("full", int).
-     * @return a String containing the requested output.
-     */
-    public String outputSize() {
-        if (getSize() == 1) {
-            return "1/2";
-        }
-        if (getSize() > 1) {
-            return Integer.toString(getSize() / 2);
-        }
-        return Integer.toString(getSize());
-    }
-    /**
-     * A method checking whether any of the properties of this object whose
-     *     placeholder value is normally not allowed are set to their
-     *     placeholder value.
-     * @return a boolean representing the result of the check.
-     */
-    public boolean hasPlaceholders() {
-        if (getName().equals("")) {
-            return true;
-        }
-        if (this.frame.isPlaceholder()) {
-            return true;
-        }
-        if (getSize() == -1) {
-            return true;
-        }
-        if (getCurrentHP() == -1) {
-            return true;
-        }
-        if (getMaxHP() == -1) {
-            return true;
-        }
-        if (getArmor() == -1) {
-            return true;
-        }
-        if (getCurrentHeatCapacity() == -1) {
-            return true;
-        }
-        if (getMaxHeatCapacity() == -1) {
-            return true;
-        }
-        if (getEvasion() == -1) {
-            return true;
-        }
-        if (getSpeed() == -1) {
-            return true;
-        }
-        if (getEDefense() == -1) {
-            return true;
-        }
-        if (getSensors() == -1) {
-            return true;
-        }
-        if (getCurrentRepairCapacity() == -1) {
-            return true;
-        }
-        if (getMaxRepairCapacity() == -1) {
-            return true;
-        }
-        if (getSaveTarget() == -1) {
-            return true;
-        }
-        if (getSystemPoints() == -1) {
-            return true;
-        }
-        if (getLimitedSystemsBonus() == -1) {
-            return true;
-        }
-
-        return false;
-    }
-    /**
-     * A method checking whether every property of this object is set to its
-     *     placeholder value.
-     * @return a boolean representing the result of the check.
-     */
-    public boolean isPlaceholder() {
-        if (! getName().equals("")) {
-            return false;
-        }
-        if (! this.frame.isPlaceholder()) {
-            return false;
-        }
-        if (! getOperatorNotes().equals("")) {
-            return false;
-        }
-        if (this.mounts.length != 0) {
-            return false;
-        }
-        if (this.systems.length != 0) {
-            return false;
-        }
-        if (getSize() != -1) {
-            return false;
-        }
-        if (getCurrentStructure() != 4) {
-            return false;
-        }
-        if (getMaxStructure() != 4) {
-            return false;
-        }
-        if (getCurrentHP() != -1) {
-            return false;
-        }
-        if (getArmor() != -1) {
-            return false;
-        }
-        if (getCurrentStress() != 4) {
-            return false;
-        }
-        if (getMaxStress() != 4) {
-            return false;
-        }
-        if (getCurrentHeatCapacity() != -1) {
-            return false;
-        }
-        if (getMaxHeatCapacity() != -1) {
-            return false;
-        }
-        if (getEvasion() != -1) {
-            return false;
-        }
-        if (getSpeed() != -1) {
-            return false;
-        }
-        if (getEDefense() != -1) {
-            return false;
-        }
-        if (this.techAttack != -1) {
-            return false;
-        }
-        if (this.sensors != -1) {
-            return false;
-        }
-        if (this.currentRepairCapacity != -1) {
-            return false;
-        }
-        if (this.maxRepairCapacity != -1) {
-            return false;
-        }
-        if (this.saveTarget != -1) {
-            return false;
-        }
-        if (this.systemPoints != -1) {
-            return false;
-        }
-        if (this.limitedSystemsBonus != -1) {
-            return false;
-        }
-
-        return true;
-    }
-    /**
-     * Returns a deepest copy of this object.
-     * @return a Mech deepest copy of this object.
-     */
-    public Mech copyOf() {
-        // don't need to make copies of these for the ones using the mutator
-        //     methods (i.e. mounts) because the mutators already do so
-        Mech copy = new Mech();
-        
-        copy.name = this.name;
-        copy.frame = this.frame.copyOf();
-        copy.setOperatorNotes(this.operatorNotes);
-        copy.setMounts(this.mounts);
-        copy.setSystems(this.systems);
-        copy.size = this.size;
-        copy.currentStructure = this.currentStructure;
-        copy.maxStructure = this.maxStructure;
-        copy.currentHP = this.currentHP;
-        copy.maxHP = this.maxHP;
-        copy.armor = this.armor;
-        copy.currentStress = this.currentStress;
-        copy.maxStress = this.maxStress;
-        copy.currentHeatCapacity = this.currentHeatCapacity;
-        copy.maxHeatCapacity = this.maxHeatCapacity;
-        copy.evasion = this.evasion;
-        copy.speed = this.speed;
-        copy.eDefense = this.eDefense;
-        copy.setTechAttack(this.techAttack);
-        copy.sensors = this.sensors;
-        copy.currentRepairCapacity = this.currentRepairCapacity;
-        copy.maxRepairCapacity = this.maxRepairCapacity;
-        copy.saveTarget = this.saveTarget;
-        copy.systemPoints = this.systemPoints;
-        copy.limitedSystemsBonus = this.limitedSystemsBonus;
-
-        return copy;
     }
 }

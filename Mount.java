@@ -241,46 +241,6 @@ public class Mount {
     }
 
     /**
-     * Outputs a short snippet of text in the style of:
-     *     "MAIN MOUNT: Assault Rifle (BOUNDER-Class Comp/Con)"
-     *     " // Overpower Caliber"
-     * @return a String containing output of the mount and any weapons mounted
-     *     on it, as well as any modifications or core bonuses.
-     */
-    public String outputWeapon() {
-        String outputString = "";
-        boolean isBaseType = false;
-
-        outputString += mountType.toUpperCase();
-        for (int i = 0; i < baseMountTypes.length; i++) {
-            if (mountType.equals(baseMountTypes[i])) {
-                isBaseType = true;
-            }
-        }
-        if (isBaseType) {
-            outputString += " MOUNT";
-        } else if (mountType.equals("integrated weapon")) {
-            outputString += "Integrated";
-        } else if (mountType.equals("integrated weapon core bonus")) {
-            outputString += "INTEGRATED WEAPON";
-        } else if (mountType.equals("improved armament core bonus")) {
-            outputString += "FLEX MOUNT";
-        }
-        outputString += ":";
-        if (! weapon.isPlaceholder()) {
-            outputString += " ";
-            outputString += weapon.getName();
-        }
-        if (hasModification) {
-            outputString += " (" + modification + ")";
-        }
-        if (hasCoreBonus) {
-            outputString += " // " + coreBonus;
-        }
-
-        return outputString;
-    }
-    /**
      * Checks whether this object has all of its properties set to placeholder
      *     values.
      * @return a boolean representing the result of the check.
@@ -321,5 +281,45 @@ public class Mount {
         copy.talent = this.talent;
 
         return copy;
+    }
+    /**
+     * Outputs a short snippet of text in the style of:
+     *     "MAIN MOUNT: Assault Rifle (BOUNDER-Class Comp/Con)"
+     *     " // Overpower Caliber"
+     * @return a String containing output of the mount and any weapons mounted
+     *     on it, as well as any modifications or core bonuses.
+     */
+    public String outputWeapon() {
+        String outputString = "";
+        boolean isBaseType = false;
+
+        outputString += mountType.toUpperCase();
+        for (int i = 0; i < baseMountTypes.length; i++) {
+            if (mountType.equals(baseMountTypes[i])) {
+                isBaseType = true;
+            }
+        }
+        if (isBaseType) {
+            outputString += " MOUNT";
+        } else if (mountType.equals("integrated weapon")) {
+            outputString += "Integrated";
+        } else if (mountType.equals("integrated weapon core bonus")) {
+            outputString += "INTEGRATED WEAPON";
+        } else if (mountType.equals("improved armament core bonus")) {
+            outputString += "FLEX MOUNT";
+        }
+        outputString += ":";
+        if (! weapon.isPlaceholder()) {
+            outputString += " ";
+            outputString += weapon.getName();
+        }
+        if (hasModification) {
+            outputString += " (" + modification + ")";
+        }
+        if (hasCoreBonus) {
+            outputString += " // " + coreBonus;
+        }
+
+        return outputString;
     }
 }

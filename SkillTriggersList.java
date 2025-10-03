@@ -84,6 +84,16 @@ public class SkillTriggersList {
         return false;
     }
     /**
+     * Returns a deepest copy of this object.
+     * @return a SkillTriggersList deepest copy of this object.
+     */
+    public SkillTriggersList copyOf() {
+        // don't need to make copies of these because the mutators already do so
+        SkillTriggersList copy = new SkillTriggersList(this.skillTriggers);
+
+        return copy;
+    }
+    /**
      * Outputs the skill triggers contained in this object as a String.
      * @return a String representing the output.
      */
@@ -113,15 +123,5 @@ public class SkillTriggersList {
         }
 
         return outputString;
-    }
-    /**
-     * Returns a deepest copy of this object.
-     * @return a SkillTriggersList deepest copy of this object.
-     */
-    public SkillTriggersList copyOf() {
-        // don't need to make copies of these because the mutators already do so
-        SkillTriggersList copy = new SkillTriggersList(this.skillTriggers);
-
-        return copy;
     }
 }

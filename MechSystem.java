@@ -78,23 +78,6 @@ public class MechSystem {
     }
 
     /**
-     * Outputs a printout of this specific mech system.
-     * @param outputType a String which can be one of the following:
-     *     "mech build", "pilot", or "full", and determines how much information
-     *     is printed.
-     * @return a String containing the printed out information of the system.
-     */
-    public String outputSystem(String outputType) {
-        String outputString = "";
-
-        if (outputType.equals("mech build")
-            || outputType.equals("full")) {
-            outputString += name;
-        }
-
-        return outputString;
-    }
-    /**
      * Checks whether this object has all of its properties set to placeholder
      *     values.
      * @return a boolean representing the result of the check.
@@ -120,5 +103,22 @@ public class MechSystem {
         MechSystem copy = new MechSystem(this.name, this.limitedCharges);
 
         return copy;
+    }
+    /**
+     * Outputs a printout of this specific mech system.
+     * @param outputType a String which can be one of the following:
+     *     "mech build", "pilot", or "full", and determines how much information
+     *     is printed.
+     * @return a String containing the printed out information of the system.
+     */
+    public String outputSystem(String outputType) {
+        String outputString = "";
+
+        if (outputType.equals("mech build")
+            || outputType.equals("full")) {
+            outputString += name;
+        }
+
+        return outputString;
     }
 }

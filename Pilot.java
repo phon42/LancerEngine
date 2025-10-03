@@ -657,6 +657,38 @@ public class Pilot {
     }
 
     /**
+     * A method checking whether any of the properties of this object whose
+     *     placeholder value is normally not allowed are set to their
+     *     placeholder value.
+     * @return a boolean representing the result of the check.
+     */
+    public boolean hasPlaceholders() {
+        if (getName().equals("")) {
+            return true;
+        }
+        if (getCallsign().equals("")) {
+            return true;
+        }
+
+        return false;
+    }
+    /**
+     * Returns a deepest copy of this object.
+     * @return a Pilot deepest copy of this object.
+     */
+    public Pilot copyOf() {
+        // don't need to make copies of these because the mutators already do so
+        Pilot copy = new Pilot(this.name, this.callsign, this.player,
+            this.status, this.background, this.biography, this.appearance,
+            this.playerNotes, this.currentHP, this.maxHP, this.armor,
+            this.evasion, this.speed, this.eDefense, this.skillTriggers,
+            this.reserves, this.loadout, this.licenseLevel, this.licenseList,
+            this.specialEquipment, this.mechSkills, this.coreBonuses,
+            this.talents);
+
+        return copy;
+    }
+    /**
      * Generates the pilot portion of the COMP/CON character output function.
      * @param outputType a String which can be one of the following:
      *     "mech build", "pilot", or "full", and determines how much information
@@ -871,37 +903,5 @@ public class Pilot {
         }
 
         return outputString;
-    }
-    /**
-     * A method checking whether any of the properties of this object whose
-     *     placeholder value is normally not allowed are set to their
-     *     placeholder value.
-     * @return a boolean representing the result of the check.
-     */
-    public boolean hasPlaceholders() {
-        if (getName().equals("")) {
-            return true;
-        }
-        if (getCallsign().equals("")) {
-            return true;
-        }
-
-        return false;
-    }
-    /**
-     * Returns a deepest copy of this object.
-     * @return a Pilot deepest copy of this object.
-     */
-    public Pilot copyOf() {
-        // don't need to make copies of these because the mutators already do so
-        Pilot copy = new Pilot(this.name, this.callsign, this.player,
-            this.status, this.background, this.biography, this.appearance,
-            this.playerNotes, this.currentHP, this.maxHP, this.armor,
-            this.evasion, this.speed, this.eDefense, this.skillTriggers,
-            this.reserves, this.loadout, this.licenseLevel, this.licenseList,
-            this.specialEquipment, this.mechSkills, this.coreBonuses,
-            this.talents);
-
-        return copy;
     }
 }

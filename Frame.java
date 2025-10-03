@@ -252,15 +252,6 @@ public class Frame {
     public String getName() {
         return name;
     }
-    /**
-     * Returns this.name, properly formatted (i.e. "swallowtail (ranger
-     *     variant)" becomes "Swallowtail (Ranger Variant)" and "death's head"
-     *     becomes "Death's Head")
-     * @return
-     */
-    public String outputName() {
-        return HelperFunctions.toProperCase(name);
-    }
     public String getID() {
         return ID;
     }
@@ -716,5 +707,14 @@ public class Frame {
         copy.setMounts(this.mounts);
 
         return copy;
+    }
+    /**
+     * Returns this.name, properly formatted (i.e. "swallowtail (ranger
+     *     variant)" becomes "Swallowtail (Ranger Variant)" and "death's head"
+     *     becomes "Death's Head").
+     * @return a String containing this.name, properly formatted.
+     */
+    public String outputName() {
+        return HelperFunctions.toProperCase(name);
     }
 }

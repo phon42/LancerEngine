@@ -34,31 +34,10 @@ public class License {
     public String getName() {
         return name;
     }
-    /**
-     * Returns this.name, properly formatted. "ssc swallowtail (ranger variant)"
-     *     will become "SSC Swallowtail (Ranger Variant)", and "ssc death's
-     *     head" will become "SSC Death's Head".
-     * @return a String containing this.name, properly formatted.
-     */
-    public String outputName() {
-        String formattedName = name;
-        String[] stringArr;
-
-        // stringArr will become something like
-        //     {"ssc", "swallowtail (ranger variant)"}
-        stringArr = formattedName.split(" ", 2);
-        // {"SSC", "swallowtail (ranger variant)"}
-        stringArr[0] = stringArr[0].toUpperCase();
-        // {"SSC", "Swallowtail (Ranger Variant)"}
-        stringArr[1] = HelperFunctions.toProperCase(stringArr[1]);
-        formattedName = String.join(" ", stringArr);
-
-        return formattedName;
-    }
     public int getLevel() {
         return level;
     }
-    public void setName(String name) {
+    private void setName(String name) {
         if (name == null) {
             throw new IllegalArgumentException("New frame name is null");
         }
@@ -73,7 +52,7 @@ public class License {
      * @param level an int which must be between 1 and 3 (inclusive) and cannot
      *     be null.
      */
-    public void setLevel(int level) {
+    private void setLevel(int level) {
         if (level < 1) {
             throw new IllegalArgumentException("New value for license level"
                 + " is < 1");
@@ -128,5 +107,26 @@ public class License {
         License copy = new License(this.name, this.level);
 
         return copy;
+    }
+    /**
+     * Returns this.name, properly formatted. "ssc swallowtail (ranger variant)"
+     *     will become "SSC Swallowtail (Ranger Variant)", and "ssc death's
+     *     head" will become "SSC Death's Head".
+     * @return a String containing this.name, properly formatted.
+     */
+    public String outputName() {
+        String formattedName = name;
+        String[] stringArr;
+
+        // stringArr will become something like
+        //     {"ssc", "swallowtail (ranger variant)"}
+        stringArr = formattedName.split(" ", 2);
+        // {"SSC", "swallowtail (ranger variant)"}
+        stringArr[0] = stringArr[0].toUpperCase();
+        // {"SSC", "Swallowtail (Ranger Variant)"}
+        stringArr[1] = HelperFunctions.toProperCase(stringArr[1]);
+        formattedName = String.join(" ", stringArr);
+
+        return formattedName;
     }
 }
