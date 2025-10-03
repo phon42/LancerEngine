@@ -448,7 +448,7 @@ public class Mech {
         manufacturer = manufacturer.toUpperCase();
         this.manufacturer = manufacturer;
     }
-    public void setFrameName(String frameName) {
+    private void setFrameName(String frameName) {
         if (frameName == null) {
             throw new IllegalArgumentException("New frame name is null");
         }
@@ -463,7 +463,7 @@ public class Mech {
      * @param role a String[] which cannot be null, contain null elements, or
      *     invalid elements, as defined by Frame.allowedRoles.
      */
-    public void setRole(String[] role) {
+    private void setRole(String[] role) {
         boolean isValidRole = false;
         String roleString;
 

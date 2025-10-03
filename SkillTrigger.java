@@ -29,7 +29,7 @@ public class SkillTrigger {
     public int getLevel() {
         return level;
     }
-    public void setName(String name) {
+    private void setName(String name) {
         if (name == null) {
             throw new IllegalArgumentException("New name value is null");
         }
@@ -43,7 +43,7 @@ public class SkillTrigger {
      * Sets this.level to the provided value.
      * @param level an int which must be 2, 4, or 6.
      */
-    public void setLevel(int level) {
+    private void setLevel(int level) {
         if (level < 2) {
             throw new IllegalArgumentException("New level value is < 2");
         }

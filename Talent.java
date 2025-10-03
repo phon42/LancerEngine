@@ -29,7 +29,7 @@ public class Talent {
     public int getLevel() {
         return level;
     }
-    public void setName(String name) {
+    private void setName(String name) {
         if (name == null) {
             throw new IllegalArgumentException("New value for name is null");
         }
@@ -43,7 +43,7 @@ public class Talent {
      * Sets this.level to the provided value.
      * @param level an int which must be 1, 2, or 3.
      */
-    public void setLevel(int level) {
+    private void setLevel(int level) {
         if (level < 1) {
             throw new IllegalArgumentException("New level is < 1");
         }

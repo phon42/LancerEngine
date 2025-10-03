@@ -447,25 +447,25 @@ public class Pilot {
         }
         this.maxHP = maxHP;
     }
-    public void setArmor(int armor) {
+    private void setArmor(int armor) {
         if (armor < 0) {
             throw new IllegalArgumentException("New armor value is < 0");
         }
         this.armor = armor;
     }
-    public void setEvasion(int evasion) {
+    private void setEvasion(int evasion) {
         if (evasion < 0) {
             throw new IllegalArgumentException("New evasion value is < 0");
         }
         this.evasion = evasion;
     }
-    public void setSpeed(int speed) {
+    private void setSpeed(int speed) {
         if (speed < 0) {
             throw new IllegalArgumentException("New speed value is < 0");
         }
         this.speed = speed;
     }
-    public void setEDefense(int eDefense) {
+    private void setEDefense(int eDefense) {
         if (eDefense < 0) {
             throw new IllegalArgumentException("New e-defense value is < 0");
         }
