@@ -1,5 +1,5 @@
 /**
- * Tests every class and every function under every class. Yes, I'm serious.
+ * Tests every class and every method under every class. Yes, I'm serious.
  * Cannot be instantiated. All its methods are static.
  * Safety: N/A because this class cannot be instantiated.
  */
@@ -13,10 +13,10 @@ public class TestFunctions {
     private TestFunctions() {}
     
     /**
-     * Tests every class and function in the project.
+     * Tests every class and method in the project and prints the results.
      */
     public static void runTests() {
-        // run a test on every single goddamn class and function in this place
+        // run a test on every single goddamn class and method in this place
         String line = "= = = = = = = = = = = = = = =";
         String spaces;
 
@@ -29,7 +29,6 @@ public class TestFunctions {
         System.out.println(line);
 
         Test allTests = new Test("ALL TESTS", new Test[] {
-            // ---PILOT-----------------------------------------------------------
             new Test("Pilot", new Test[] {
                 new Test("Pilot.setName()", runSetPilotNameTests()),
                 new Test("Pilot.setCallsign()", runSetCallsignTests()),
@@ -39,49 +38,57 @@ public class TestFunctions {
                 new Test("Pilot.setBiography()", runSetBiographyTests()),
                 new Test("Pilot.setAppearance()", runSetAppearanceTests()),
                 new Test("Pilot.setPlayerNotes()", runSetPlayerNotesTests()),
-                new Test("Pilot.setGrit()", runSetPilotGritTests()),
                 new Test("Pilot.setCurrentHP()", runSetPilotCurrentHPTests()),
                 new Test("Pilot.setMaxHP()", runSetPilotMaxHPTests()),
-                new Test("Pilot.setArmor()", runSetPilotArmorTests()),
-                new Test("Pilot.setEvasion()", runSetPilotEvasionTests()),
-                new Test("Pilot.setSpeed()", runSetPilotSpeedTests()),
-                new Test("Pilot.setEDefense()", runSetPilotEDefenseTests()),
                 new Test("Pilot.setSkillTriggers()", runSetPilotSkillTriggersTests(), new Test[] {
                     new Test("SkillTriggersList", new Test[] {
-                        new Test("SkillTriggersList.setSkillTriggers()", runSetSkillTriggersTests()),
-                        new Test("SkillTrigger", runSkillTriggerTests(), new Test[] {
-                            new Test("SkillTrigger.equals(Object)", runSkillTriggerEqualsTests()),
-                            new Test("SkillTrigger.equals(SkillTrigger)", runSkillTriggerEqualsSkillTriggerTests())
-                        }),
+                        new Test("SkillTriggersList.setSkillTriggers()", runSetSkillTriggersTests(), new Test[] {
+                            new Test("SkillTrigger", runSkillTriggerTests(), new Test[] {
+                                new Test("SkillTrigger.equals(Object)", runSkillTriggerEqualsTests()),
+                                new Test("SkillTrigger.equals(SkillTrigger)", runSkillTriggerEqualsSkillTriggerTests()),
+                                new Test("SkillTrigger.copyOf()", runSkillTriggerCopyOfTests())
+                            })
+                        }),    
                         new Test("SkillTriggersList.equals(Object)", runSkillTriggersListEqualsTests()),
                         new Test("SkillTriggersList.equals(SkillTriggersList)", runSkillTriggersListEqualsSkillTriggersListTests()),
+                        new Test("SkillTriggersList.copyOf()", runSkillTriggersListCopyOfTests()),
                         new Test("SkillTriggersList.generateOutput()", runSkillTriggersListGenerateOutputTests())
                     })
                 }),
                 new Test("Pilot.setReserves()", runSetReservesTests()),
                 new Test("Pilot.setLoadout()", runSetLoadoutTests(), new Test[] {
-                    new Test("Loadout", runLoadoutTests(), new Test[] {
+                    new Test("Loadout", new Test[] {
+                        new Test("Loadout.setPilotArmor()", runLoadoutSetPilotArmorTests()),
+                        new Test("Loadout.setPilotWeapons()", runLoadoutSetPilotWeaponsTests()),
+                        new Test("Loadout.setPilotGear()", runLoadoutSetPilotGearTests()),
                         new Test("Loadout.equals(Object)", runLoadoutEqualsTests()),
                         new Test("Loadout.equals(Loadout)", runLoadoutEqualsLoadoutTests()),
+                        new Test("Loadout.copyOf()", runLoadoutCopyOfTests()),
                         new Test("Loadout.generateOutput()", runLoadoutGenerateOutputTests())
                     })
                 }),
                 new Test("Pilot.setLicenseLevel()", runSetLicenseLevelTests()),
                 new Test("Pilot.setLicenseList()", runSetLicenseListTests(), new Test[] {
-                    new Test("License", runLicenseTests(), new Test[] {
+                    new Test("License", new Test[] {
                         new Test("License.equals(Object)", runLicenseEqualsTests()),
-                        new Test("License.equals(License)", runLicenseEqualsLicenseTests())
+                        new Test("License.equals(License)", runLicenseEqualsLicenseTests()),
+                        new Test("License.copyOf()", runLicenseCopyOfTests()),
+                        new Test("License.outputName()", runLicenseOutputNameTests())
                     })
                 }),
                 new Test("Pilot.setSpecialEquipment()", runSetSpecialEquipmentTests()),
                 new Test("Pilot.setMechSkills()", runSetMechSkillsTests()),
                 new Test("Pilot.setCoreBonuses()", runSetCoreBonusesTests()),
                 new Test("Pilot.setTalents()", runSetTalentsTests(), new Test[] {
-                    new Test("Talent", runTalentTests(), new Test[] {
+                    new Test("Talent", new Test[] {
                         new Test("Talent.equals(Object)", runTalentEqualsTests()),
-                        new Test("Talent.equals(Talent)", runTalentEqualsTalentTests())
+                        new Test("Talent.equals(Talent)", runTalentEqualsTalentTests()),
+                        new Test("Talent.copyOf()", runTalentCopyOfTests()),
+                        new Test("Talent.outputName()", runTalentOutputNameTests())
                     })
                 }),
+                new Test("Pilot.hasPlaceholders()", runPilotHasPlaceholdersTests()),
+                new Test("Pilot.copyOf()", runPilotCopyOfTests()),
                 new Test("Pilot.generateOutput()", new Test[] {
                     new Test("Pilot.generateOutput(\"mech build\")", runPilotGenerateMechOutputTests()),
                     new Test("Pilot.generateOutput(\"pilot\")", runPilotGeneratePilotOutputTests()),
@@ -91,8 +98,30 @@ public class TestFunctions {
                 new Test("Pilot.outputTalents()", runOutputTalentsTests()),
                 new Test("Pilot.outputCoreBonuses()", runOutputCoreBonusesTests())
             }),
-            // ---MECH------------------------------------------------------------
-            new Test("Mech", runMechTests())
+            new Test("Mech", new Test[] {
+                new Test("Mech.setName()", runMechSetNameTests()),
+                new Test("Mech.setFrame()", runMechSetFrameTests()),
+                new Test("Mech.setManufacturer()", runMechSetManufacturerTests()),
+                new Test("Mech.setFrameDescription()", runMechSetFrameDescriptionTests()),
+                new Test("Mech.setOperatorNotes()", runMechSetOperatorNotesTests()),
+                new Test("Mech.setCurrentStructure()", runMechSetCurrentStructureTests()),
+                new Test("Mech.setCurrentHP()", runMechSetCurrentHPTests()),
+                new Test("Mech.setCurrentStress()", runMechSetCurrentStressTests()),
+                new Test("Mech.setCurrentHeatCapacity()", runMechSetCurrentHeatCapacityTests()),
+                new Test("Mech.setCurrentRepairCapacity()", runMechSetCurrentRepairCapacityTests()),
+                new Test("Mech.setMount()", runMechSetMountTests()),
+                new Test("Mech.setSystems()", runMechSetSystemsTests()),
+                new Test("Mech.hasPlaceholders()", runMechHasPlaceholdersTests()),
+                new Test("Mech.isPlaceholder()", runMechIsPlaceholderTests()),
+                new Test("Mech.copyOf()", runMechCopyOfTests()),
+                new Test("Mech.outputSize()", runMechOutputSizeTests()),
+                new Test("Mech.calculateAttributes()", runMechCalculateAttributesTests()),
+                new Test("Mech.generateOutput()", runMechGenerateOutputTests()),
+                new Test("Mech.outputStats()", runMechOutputStatsTests()),
+                new Test("Mech.outputWeapons()", runMechOutputWeaponsTests()),
+                new Test("Mech.outputSystems()", runMechOutputSystemsTests()),
+                new Test("Mech.outputSystem()", runMechOutputSystemTests()),
+            })
         });
         String result = allTests.output();
         for (int i = 0; i < lineWidths.length; i++) {
@@ -112,25 +141,34 @@ public class TestFunctions {
                 + numPassed + "/" + numTests + " passed)");
         }
     }
+    /**
+     * Compares two Strings and prints information about each one.
+     * @param string1
+     * @param string2
+     */
     public static void compareStrings(String string1, String string2) {
         char char1;
         char char2;
 
-        if (string1.length() != string2.length()) {
-            System.out.println("Error! Strings are different lengths");
-        }
-        for (int i = 0; i < Math.min(string1.length(), string2.length()); i++) {
-            char1 = string1.charAt(i);
-            char2 = string2.charAt(i);
-            if (char1 != char2) {
-                System.out.println("Error! Characters \"" + char1 + "\" and \""
-                    + char2 + "\" at index " + i + " are not the same.");
+        if (string1.equals(string2)) {
+            System.out.println("The two Strings are the same.");
+        } else {
+            if (string1.length() != string2.length()) {
+                System.out.println("Error! Strings are different lengths");
+            }
+            for (int i = 0; i < Math.min(string1.length(), string2.length()); i++) {
+                char1 = string1.charAt(i);
+                char2 = string2.charAt(i);
+                if (char1 != char2) {
+                    System.out.println("Error! Characters \"" + char1 + "\" and \""
+                        + char2 + "\" at index " + i + " are not the same.");
+                }
             }
         }
     }
     /**
      * Tests Pilot.setPilotName().
-     * @return a boolean representing whether the function passed.
+     * @return a boolean representing whether the method passed.
      */
     private static boolean runSetPilotNameTests() {
         Pilot pilot = new Pilot("validName",
@@ -154,7 +192,7 @@ public class TestFunctions {
     }
     /**
      * Tests Pilot.setCallsign().
-     * @return a boolean representing whether the function passed.
+     * @return a boolean representing whether the method passed.
      */
     private static boolean runSetCallsignTests() {
         Pilot pilot = new Pilot("validName",
@@ -178,7 +216,7 @@ public class TestFunctions {
     }
     /**
      * Tests Pilot.setPlayer().
-     * @return a boolean representing whether the function passed.
+     * @return a boolean representing whether the method passed.
      */
     private static boolean runSetPlayerTests() {
         Pilot pilot = new Pilot("validName",
@@ -202,7 +240,7 @@ public class TestFunctions {
     }
     /**
      * Tests Pilot.setStatus().
-     * @return a boolean representing whether the function passed.
+     * @return a boolean representing whether the method passed.
      */
     private static boolean runSetStatusTests() {
         Pilot pilot = new Pilot("validName",
@@ -233,7 +271,7 @@ public class TestFunctions {
     }
     /**
      * Tests Pilot.setBackground().
-     * @return a boolean representing whether the function passed.
+     * @return a boolean representing whether the method passed.
      */
     private static boolean runSetBackgroundTests() {
         Pilot pilot = new Pilot("validName",
@@ -257,7 +295,7 @@ public class TestFunctions {
     }
     /**
      * Tests Pilot.setBiography().
-     * @return a boolean representing whether the function passed.
+     * @return a boolean representing whether the method passed.
      */
     private static boolean runSetBiographyTests() {
         Pilot pilot = new Pilot("validName",
@@ -281,7 +319,7 @@ public class TestFunctions {
     }
     /**
      * Tests Pilot.setAppearance().
-     * @return a boolean representing whether the function passed.
+     * @return a boolean representing whether the method passed.
      */
     private static boolean runSetAppearanceTests() {
         Pilot pilot = new Pilot("validName",
@@ -305,7 +343,7 @@ public class TestFunctions {
     }
     /**
      * Tests Pilot.setPlayerNotes().
-     * @return a boolean representing whether the function passed.
+     * @return a boolean representing whether the method passed.
      */
     private static boolean runSetPlayerNotesTests() {
         Pilot pilot = new Pilot("validName",
@@ -328,44 +366,8 @@ public class TestFunctions {
         return test1 && test2;
     }
     /**
-     * Tests Pilot.setGrit() indirectly by testing Pilot.setLicenseLevel() and
-     *     Pilot.getGrit().
-     * @return a boolean representing whether the function passed.
-     */
-    private static boolean runSetPilotGritTests() {
-        Pilot pilot = new Pilot("validName",
-            "validCallsign");
-        boolean test1 = false;
-        boolean test2 = false;
-        boolean test3 = false;
-        boolean test4 = false;
-
-        // normal case
-        pilot.setLicenseLevel(0);
-        if (pilot.getGrit() == 0) {
-            test1 = true;
-        }
-        // normal case
-        pilot.setLicenseLevel(1);
-        if (pilot.getGrit() == 1) {
-            test2 = true;
-        }
-        // normal case
-        pilot.setLicenseLevel(2);
-        if (pilot.getGrit() == 1) {
-            test3 = true;
-        }
-        // normal case
-        pilot.setLicenseLevel(3);
-        if (pilot.getGrit() == 2) {
-            test4 = true;
-        }
-
-        return test1 && test2 && test3 && test4;
-    }
-    /**
      * Tests Pilot.setCurrentHP().
-     * @return a boolean representing whether the function passed.
+     * @return a boolean representing whether the method passed.
      */
     private static boolean runSetPilotCurrentHPTests() {
         Pilot pilot = new Pilot("validName",
@@ -398,7 +400,7 @@ public class TestFunctions {
     }
     /**
      * Tests Pilot.setMaxHP().
-     * @return a boolean representing whether the function passed.
+     * @return a boolean representing whether the method passed.
      */
     private static boolean runSetPilotMaxHPTests() {
         Pilot pilot = new Pilot("validName",
@@ -428,107 +430,8 @@ public class TestFunctions {
         return test1 && test2 && test3;
     }
     /**
-     * Tests Pilot.setArmor().
-     * @return a boolean representing whether the function passed.
-     */
-    private static boolean runSetPilotArmorTests() {
-        Pilot pilot = new Pilot("validName",
-            "validCallsign");
-        boolean test1 = false;
-        boolean test2 = false;
-
-        // normal case
-        try {
-            pilot.setArmor(-2);
-        } catch (IllegalArgumentException exception) {
-            test1 = true;
-        }
-        // normal case
-        pilot.setArmor(8);
-        if (pilot.getArmor() == 8) {
-            test2 = true;
-        }
-
-        return test1 && test2;
-    }
-    /**
-     * Tests Pilot.setEvasion().
-     * @return a boolean representing whether the function passed.
-     */
-    private static boolean runSetPilotEvasionTests() {
-        Pilot pilot = new Pilot("validName",
-            "validCallsign");
-        boolean test1 = false;
-        boolean test2 = false;
-
-        // normal case
-        try {
-            pilot.setEvasion(-2);
-        } catch (IllegalArgumentException exception) {
-            test1 = true;
-        }
-        // normal case
-        pilot = new Pilot("validName", "validCallsign");
-        pilot.setEvasion(8);
-        if (pilot.getEvasion() == 8) {
-            test2 = true;
-        }
-
-        return test1 && test2;
-    }
-    /**
-     * Tests Pilot.setSpeed().
-     * @return a boolean representing whether the function passed.
-     */
-    private static boolean runSetPilotSpeedTests() {
-        Pilot pilot = new Pilot("validName",
-            "validCallsign");
-        boolean test1 = false;
-        boolean test2 = false;
-
-        // normal case
-        try {
-            pilot.setSpeed(-1);
-        } catch (IllegalArgumentException exception) {
-            test1 = true;
-        }
-        // normal case
-        pilot = new Pilot("validName", "validCallsign");
-        pilot.setSpeed(0);
-        if (pilot.getSpeed() == 0) {
-            test2 = true;
-        }
-
-        return test1 && test2;
-    }
-    /**
-     * Tests Pilot.setEDefense().
-     * @return a boolean representing whether the function passed.
-     */
-    private static boolean runSetPilotEDefenseTests() {
-        Pilot pilot = new Pilot("validName",
-            "validCallsign");
-        boolean test1 = false;
-        boolean test2 = false;
-
-        // normal case
-        try {
-            pilot.setEDefense(-1);
-        } catch (IllegalArgumentException exception) {
-            test1 = true;
-        }
-        // normal case
-        pilot = new Pilot("validName", "validCallsign");
-        pilot.setEDefense(0);
-        if (pilot.getEDefense() == 0) {
-            test2 = true;
-        }
-
-        return test1 && test2;
-    }
-    /**
      * Tests Pilot.setSkillTriggers().
-     * @return a boolean representing whether the function passed.
+     * @return a boolean representing whether the method passed.
      */
     private static boolean runSetPilotSkillTriggersTests() {
         Pilot pilot = new Pilot("validName",
@@ -565,7 +468,7 @@ public class TestFunctions {
     }
     /**
      * Tests SkillTriggersList.setSkillTriggers().
-     * @return a boolean representing whether the function passed.
+     * @return a boolean representing whether the method passed.
      */
     private static boolean runSetSkillTriggersTests() {
         SkillTriggersList skillTriggers = new SkillTriggersList();
@@ -606,7 +509,7 @@ public class TestFunctions {
         return test1 && test2 && test3 && test4;
     }
     /**
-     * Tests the SkillTrigger class and all its functions.
+     * Tests the SkillTrigger class and all its methods.
      * @return a boolean representing whether the class passed.
      */
     private static boolean runSkillTriggerTests() {
@@ -624,53 +527,59 @@ public class TestFunctions {
 
         // normal case
         try {
-            skillTrigger.setName(null);
+            skillTrigger = new SkillTrigger(null, 2);
         } catch (IllegalArgumentException exception) {
             test1 = true;
         }
         // normal case
-        skillTrigger.setName("validName");
+        skillTrigger = new SkillTrigger("validName", 2);
         if (skillTrigger.getName().equals("validName")) {
             test2 = true;
         }
         // normal case
         try {
-            skillTrigger.setLevel(-2);
+            skillTrigger = new SkillTrigger("Apply Fists to Faces", -2);
         } catch (IllegalArgumentException exception) {
             test3 = true;
         }
         // normal case
         try {
-            skillTrigger.setLevel(7);
+            skillTrigger = new SkillTrigger("Apply Fists to Faces",
+                7);
         } catch (IllegalArgumentException exception) {
             test4 = true;
         }
         // normal case
         try {
-            skillTrigger.setLevel(0);
+            skillTrigger = new SkillTrigger("Apply Fists to Faces",
+                0);
         } catch (IllegalArgumentException exception) {
             test5 = true;
         }
         // normal case
         try {
-            skillTrigger.setLevel(1);
+            skillTrigger = new SkillTrigger("Apply Fists to Faces",
+                1);
         } catch (IllegalArgumentException exception) {
             test6 = true;
         }
         // normal case
         try {
-            skillTrigger.setLevel(3);
+            skillTrigger = new SkillTrigger("Apply Fists to Faces",
+                3);
         } catch (IllegalArgumentException exception) {
             test7 = true;
         }
         // normal case
         try {
-            skillTrigger.setLevel(5);
+            skillTrigger = new SkillTrigger("Apply Fists to Faces",
+                5);
         } catch (IllegalArgumentException exception) {
             test8 = true;
         }
         // normal case
-        skillTrigger.setLevel(2);
+            skillTrigger = new SkillTrigger("Apply Fists to Faces",
+                2);
         if (skillTrigger.getLevel() == 2) {
             test9 = true;
         }
@@ -680,7 +589,7 @@ public class TestFunctions {
     }
     /**
      * Tests SkillTrigger.equals(Object).
-     * @return a boolean representing whether the function passed.
+     * @return a boolean representing whether the method passed.
      */
     private static boolean runSkillTriggerEqualsTests() {
         SkillTrigger skillTrigger = new SkillTrigger(
@@ -701,7 +610,7 @@ public class TestFunctions {
     }
     /**
      * Tests SkillTrigger.equals(SkillTrigger).
-     * @return a boolean representing whether the function passed.
+     * @return a boolean representing whether the method passed.
      */
     private static boolean runSkillTriggerEqualsSkillTriggerTests() {
         SkillTrigger skillTrigger = new SkillTrigger(
@@ -718,13 +627,12 @@ public class TestFunctions {
             test1 = true;
         }
         // normal case
-        skillTrigger.setLevel(2);
+        skillTrigger = new SkillTrigger("validName", 2);
         if (! skillTrigger.equals(testSkillTrigger)) {
             test2 = true;
         }
         // normal case
-        skillTrigger = new SkillTrigger("Apply Fists to Faces", 4);
-        skillTrigger.setName("validName");
+        skillTrigger = new SkillTrigger("validName", 4);
         if (! skillTrigger.equals(testSkillTrigger)) {
             test3 = true;
         }
@@ -737,8 +645,16 @@ public class TestFunctions {
         return test1 && test2 && test3 && test4;
     }
     /**
+     * Tests SkillTrigger.copyOf().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runSkillTriggerCopyOfTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
      * Tests SkillTriggersList.equals(Object).
-     * @return a boolean representing whether the function passed.
+     * @return a boolean representing whether the method passed.
      */
     private static boolean runSkillTriggersListEqualsTests() {
         SkillTriggersList skillTriggersList = new SkillTriggersList();
@@ -758,7 +674,7 @@ public class TestFunctions {
     }
     /**
      * Tests SkillTriggersList.equals(SkillTriggersList).
-     * @return a boolean representing whether the function passed.
+     * @return a boolean representing whether the method passed.
      */
     private static boolean runSkillTriggersListEqualsSkillTriggersListTests() {
         SkillTriggersList skillTriggersList = new SkillTriggersList();
@@ -779,8 +695,16 @@ public class TestFunctions {
         return test1 && test2;
     }
     /**
+     * Tests SkillTriggersList.copyOf().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runSkillTriggersListCopyOfTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
      * Tests SkillTriggersList.generateOutput().
-     * @return a boolean representing whether the function passed.
+     * @return a boolean representing whether the method passed.
      */
     private static boolean runSkillTriggersListGenerateOutputTests() {
         SkillTriggersList skillTriggers = new SkillTriggersList();
@@ -827,7 +751,7 @@ public class TestFunctions {
     }
     /**
      * Tests Pilot.setReserves().
-     * @return a boolean representing whether the function passed.
+     * @return a boolean representing whether the method passed.
      */
     private static boolean runSetReservesTests() {
         Pilot pilot = new Pilot("validName",
@@ -881,7 +805,7 @@ public class TestFunctions {
     }
     /**
      * Tests Pilot.setLoadout().
-     * @return a boolean representing whether the function passed.
+     * @return a boolean representing whether the method passed.
      */
     private static boolean runSetLoadoutTests() {
         Pilot pilot = new Pilot("validName",
@@ -904,19 +828,14 @@ public class TestFunctions {
         return test1 && test2;
     }
     /**
-     * Tests the Loadout class.
-     * @return a boolean representing whether the class passed.
+     * Tests Loadout.setPilotArmor().
+     * @return a boolean representing whether the method passed.
      */
-    private static boolean runLoadoutTests() {
+    private static boolean runLoadoutSetPilotArmorTests() {
+        // TODO: fill out
         Loadout loadout = new Loadout();
         boolean test1 = false;
         boolean test2 = false;
-        boolean test3 = false;
-        boolean test4 = false;
-        boolean test5 = false;
-        boolean test6 = false;
-        boolean test7 = false;
-        boolean test8 = false;
 
         // normal case
         try {
@@ -929,49 +848,77 @@ public class TestFunctions {
         if (loadout.getPilotArmor().equals("validArmor")) {
             test2 = true;
         }
+        
+        return test1 && test2;
+    }
+    /**
+     * Tests Loadout.setPilotWeapons().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runLoadoutSetPilotWeaponsTests() {
+        // TODO: fill out
+        Loadout loadout = new Loadout();
+        boolean test1 = false;
+        boolean test2 = false;
+        boolean test3 = false;
+        boolean test4 = false;
+
         // normal case
         try {
             loadout.setPilotWeapons(null);
         } catch (IllegalArgumentException exception) {
-            test3 = true;
+            test2 = true;
         }
         // normal case
         try {
             loadout.setPilotWeapons(new String[] {"validWeapon"});
         } catch (IllegalArgumentException exception) {
-            test4 = true;
+            test3 = true;
         }
         // normal case
         try {
             loadout.setPilotWeapons(new String[] {"validWeapon", null});
         } catch (IllegalArgumentException exception) {
-            test5 = true;
+            test4 = true;
         }
+        
+        return test1 && test2 && test3 && test4;
+    }
+    /**
+     * Tests Loadout.setPilotGear().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runLoadoutSetPilotGearTests() {
+        // TODO: fill out
+        Loadout loadout = new Loadout();
+        boolean test1 = false;
+        boolean test2 = false;
+        boolean test3 = false;
+
         // normal case
         try {
             loadout.setPilotGear(null);
         } catch (IllegalArgumentException exception) {
-            test6 = true;
+            test1 = true;
         }
         // normal case
         try {
             loadout.setPilotGear(new String[] {"validGear"});
         } catch (IllegalArgumentException exception) {
-            test7 = true;
+            test2 = true;
         }
         // normal case
         try {
             loadout.setPilotGear(new String[] {"validGear", null, "validGear"});
         } catch (IllegalArgumentException exception) {
-            test8 = true;
+            test3 = true;
         }
         
-        return test1 && test2 && test3 && test4 && test5 && test6 && test7
-            && test8;
+        return test1 && test2 && test3;
     }
     /**
      * Tests Loadout.equals(Object).
-     * @return a boolean representing whether the function passed.
+     * @return a boolean representing whether the method passed.
      */
     private static boolean runLoadoutEqualsTests() {
         Loadout loadout = new Loadout();
@@ -991,7 +938,7 @@ public class TestFunctions {
     }
     /**
      * Tests Loadout.equals(Loadout).
-     * @return a boolean representing whether the function passed.
+     * @return a boolean representing whether the method passed.
      */
     private static boolean runLoadoutEqualsLoadoutTests() {
         Loadout loadout = new Loadout();
@@ -1038,8 +985,16 @@ public class TestFunctions {
         return test1 && test2 && test3 && test4 && test5;
     }
     /**
+     * Tests Loadout.copyOf().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runLoadoutCopyOfTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
      * Tests Loadout.generateOutput().
-     * @return a boolean representing whether the function passed.
+     * @return a boolean representing whether the method passed.
      */
     private static boolean runLoadoutGenerateOutputTests() {
         // TODO: fill out
@@ -1058,7 +1013,7 @@ public class TestFunctions {
     }
     /**
      * Tests Pilot.setLicenseLevel().
-     * @return a boolean representing whether the function passed.
+     * @return a boolean representing whether the method passed.
      */
     private static boolean runSetLicenseLevelTests() {
         Pilot pilot = new Pilot("validName",
@@ -1089,7 +1044,7 @@ public class TestFunctions {
     }
     /**
      * Tests Pilot.setLicenseList().
-     * @return a boolean representing whether the function passed.
+     * @return a boolean representing whether the method passed.
      */
     private static boolean runSetLicenseListTests() {
         Pilot pilot = new Pilot("validName",
@@ -1131,52 +1086,8 @@ public class TestFunctions {
         return test1 && test2 && test3 && test4;
     }
     /**
-     * Tests License.
-     * @return a boolean representing whether the class passed.
-     */
-    private static boolean runLicenseTests() {
-        License license = new License("IPS-N Blackbeard",
-            1);
-        boolean test1 = false;
-        boolean test2 = false;
-        boolean test3 = false;
-        boolean test4 = false;
-        boolean test5 = false;
-
-        // normal case
-        try {
-            license.setName(null);
-        } catch (IllegalArgumentException exception) {
-            test1 = true;
-        }
-        // normal case
-        license.setName("validFrame");
-        if (license.getName().equals("validFrame")) {
-            test2 = true;
-        }
-        // normal case
-        try {
-            license.setLevel(0);
-        } catch (IllegalArgumentException exception) {
-            test3 = true;
-        }
-        // normal case
-        try {
-            license.setLevel(4);
-        } catch (IllegalArgumentException exception) {
-            test4 = true;
-        }
-        // normal case
-        license.setLevel(3);
-        if (license.getLevel() == 3) {
-            test5 = true;
-        }
-
-        return test1 && test2 && test3 && test4 && test5;
-    }
-    /**
      * Tests License.equals(Object).
-     * @return a boolean representing whether the function passed.
+     * @return a boolean representing whether the method passed.
      */
     private static boolean runLicenseEqualsTests() {
         License license = new License("IPS-N Blackbeard",
@@ -1197,7 +1108,7 @@ public class TestFunctions {
     }
     /**
      * Tests License.equals(License).
-     * @return a boolean representing whether the function passed.
+     * @return a boolean representing whether the method passed.
      */
     private static boolean runLicenseEqualsLicenseTests() {
         License license = new License("IPS-N Blackbeard",
@@ -1222,8 +1133,7 @@ public class TestFunctions {
             test3 = true;
         }
         // normal case
-        license.setName("validFrame");
-        license.setLevel(2);
+        license = new License("validFrame", 2);
         if (license.equals(new License("validFrame",
             2))) {
             test4 = true;
@@ -1232,8 +1142,24 @@ public class TestFunctions {
         return test1 && test2 && test3 && test4;
     }
     /**
+     * Tests License.copyOf().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runLicenseCopyOfTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests License.outputName().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runLicenseOutputNameTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
      * Tests Pilot.setSpecialEquipment().
-     * @return a boolean representing whether the function passed.
+     * @return a boolean representing whether the method passed.
      */
     private static boolean runSetSpecialEquipmentTests() {
         Pilot pilot = new Pilot("validName",
@@ -1279,7 +1205,7 @@ public class TestFunctions {
     }
     /**
      * Tests Pilot.setMechSkills().
-     * @return a boolean representing whether the function passed.
+     * @return a boolean representing whether the method passed.
      */
     private static boolean runSetMechSkillsTests() {
         Pilot pilot = new Pilot("validName",
@@ -1318,7 +1244,7 @@ public class TestFunctions {
     }
     /**
      * Tests Pilot.setCoreBonuses().
-     * @return a boolean representing whether the function passed.
+     * @return a boolean representing whether the method passed.
      */
     private static boolean runSetCoreBonusesTests() {
         Pilot pilot = new Pilot("validName",
@@ -1390,7 +1316,7 @@ public class TestFunctions {
     }
     /**
      * Tests Pilot.setTalents().
-     * @return a boolean representing whether the function passed.
+     * @return a boolean representing whether the method passed.
      */
     private static boolean runSetTalentsTests() {
         Pilot pilot;
@@ -1442,59 +1368,8 @@ public class TestFunctions {
         return test1 && test2 && test3 && test4 && test5;
     }
     /**
-     * Tests Talent.
-     * @return a boolean representing whether the class passed.
-     */
-    private static boolean runTalentTests() {
-        Talent talent = new Talent("Ace", 1);
-        boolean test1 = false;
-        boolean test2 = false;
-        boolean test3 = false;
-        boolean test4 = false;
-        boolean test5 = false;
-        boolean test6 = false;
-
-        // normal case
-        try {
-            talent.setName(null);
-        } catch (IllegalArgumentException exception) {
-            test1 = true;
-        }
-        // normal case
-        talent.setName("validName");
-        if (talent.getName().equals("validName")) {
-            test2 = true;
-        }
-        // normal case
-        talent = new Talent("Ace", 1);
-        try {
-            talent.setLevel(-2);
-        } catch (IllegalArgumentException exception) {
-            test3 = true;
-        }
-        // normal case
-        try {
-            talent.setLevel(4);
-        } catch (IllegalArgumentException exception) {
-            test4 = true;
-        }
-        // normal case
-        try {
-            talent.setLevel(0);
-        } catch (IllegalArgumentException exception) {
-            test5 = true;
-        }
-        // normal case
-        talent.setLevel(3);
-        if (talent.getLevel() == 3) {
-            test6 = true;
-        }
-
-        return test1 && test2 && test3 && test4 && test5 && test6;
-    }
-    /**
      * Tests Talent.equals(Object).
-     * @return a boolean representing whether the function passed.
+     * @return a boolean representing whether the method passed.
      */
     private static boolean runTalentEqualsTests() {
         Talent talent = new Talent("Ace", 1);
@@ -1514,7 +1389,7 @@ public class TestFunctions {
     }
     /**
      * Tests Talent.equals(Talent).
-     * @return a boolean representing whether the function passed.
+     * @return a boolean representing whether the method passed.
      */
     private static boolean runTalentEqualsTalentTests() {
         Talent talent = new Talent("Ace", 1);
@@ -1534,7 +1409,7 @@ public class TestFunctions {
             test2 = true;
         }
         // normal case
-        talent.setLevel(1);
+        talent = new Talent("Ace", 1);
         if (! talent.equals(testTalent)) {
             test3 = true;
         }
@@ -1552,8 +1427,40 @@ public class TestFunctions {
         return test1 && test2 && test3 && test4 && test5;
     }
     /**
+     * Tests Talent.copyOf().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runTalentCopyOfTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Talent.outputName().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runTalentOutputNameTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Pilot.hasPlaceholders().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runPilotHasPlaceholdersTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Pilot.copyOf().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runPilotCopyOfTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
      * Tests Pilot.generateOutput("mech build").
-     * @return a boolean representing whether the function passed.
+     * @return a boolean representing whether the method passed.
      */
     private static boolean runPilotGenerateMechOutputTests() {
         Pilot pilot = new Pilot("validName",
@@ -1667,7 +1574,7 @@ public class TestFunctions {
     }
     /**
      * Tests Pilot.generateOutput("pilot").
-     * @return a boolean representing whether the function passed.
+     * @return a boolean representing whether the method passed.
      */
     private static boolean runPilotGeneratePilotOutputTests() {
         Pilot pilot = new Pilot("validName",
@@ -1792,7 +1699,7 @@ public class TestFunctions {
     }
     /**
      * Tests Pilot.generateOutput("full").
-     * @return a boolean representing whether the function passed.
+     * @return a boolean representing whether the method passed.
      */
     private static boolean runPilotGenerateFullOutputTests() {
         Pilot pilot = new Pilot("validName",
@@ -1912,7 +1819,7 @@ public class TestFunctions {
     }
     /**
      * Tests Pilot.outputLicenses().
-     * @return a boolean representing whether the function passed.
+     * @return a boolean representing whether the method passed.
      */
     private static boolean runOutputLicensesTests() {
         Pilot pilot = new Pilot("validName",
@@ -1954,7 +1861,7 @@ public class TestFunctions {
     }
     /**
      * Tests Pilot.outputTalents().
-     * @return a boolean representing whether the function passed.
+     * @return a boolean representing whether the method passed.
      */
     private static boolean runOutputTalentsTests() {
         Pilot pilot = new Pilot("validName",
@@ -2004,7 +1911,7 @@ public class TestFunctions {
     }
     /**
      * Tests Pilot.outputCoreBonuses().
-     * @return a boolean representing whether the function passed.
+     * @return a boolean representing whether the method passed.
      */
     private static boolean runOutputCoreBonusesTests() {
         Pilot pilot = new Pilot("validName",
@@ -2046,10 +1953,178 @@ public class TestFunctions {
         return test1 && test2 && test3;
     }
     /**
-     * Tests Mech.
-     * @return a boolean representing whether the class passed.
+     * Tests Mech.setName().
+     * @return a boolean representing whether the method passed.
      */
-    private static boolean runMechTests() {
+    private static boolean runMechSetNameTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Mech.setFrame().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runMechSetFrameTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Mech.setManufacturer().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runMechSetManufacturerTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Mech.setFrameDescription().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runMechSetFrameDescriptionTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Mech.setOperatorNotes().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runMechSetOperatorNotesTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Mech.setCurrentStructure().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runMechSetCurrentStructureTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Mech.setCurrentHP().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runMechSetCurrentHPTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Mech.setCurrentStress().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runMechSetCurrentStressTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Mech.setCurrentHeatCapacity().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runMechSetCurrentHeatCapacityTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Mech.setCurrentRepairCapacity().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runMechSetCurrentRepairCapacityTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Mech.setMount().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runMechSetMountTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Mech.setSystems().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runMechSetSystemsTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Mech.hasPlaceholders().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runMechHasPlaceholdersTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Mech.isPlaceholder().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runMechIsPlaceholderTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Mech.copyOf().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runMechCopyOfTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Mech.outputSize().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runMechOutputSizeTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Mech.calculateAttributes().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runMechCalculateAttributesTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Mech.generateOutput().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runMechGenerateOutputTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Mech.outputStats().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runMechOutputStatsTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Mech.outputWeapons().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runMechOutputWeaponsTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Mech.outputSystems().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runMechOutputSystemsTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Mech.outputSystem().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runMechOutputSystemTests() {
         // TODO: fill out
         return false;
     }
