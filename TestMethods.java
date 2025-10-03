@@ -3,14 +3,14 @@
  * Cannot be instantiated. All its methods are static.
  * Safety: N/A because this class cannot be instantiated.
  */
-public class TestFunctions {
+public class TestMethods {
     public static int maxWidth = 0;
     public static int[] lineWidths;
     public static int numPassed = 0;
     public static int numTests = 0;
 
     // Prevent user from instantiating this class
-    private TestFunctions() {}
+    private TestMethods() {}
     
     /**
      * Tests every class and method in the project and prints the results.
