@@ -135,10 +135,10 @@ public class Test {
         String indent = "";
         String output;
 
-        TestFunctions.numTests++;
+        TestMethods.numTests++;
         if (status == TestStatus.PASS) {
             result = "PASS";
-            TestFunctions.numPassed++;
+            TestMethods.numPassed++;
         } else if (status == TestStatus.FAIL) {
             result = "FAIL";
         } else if (status == TestStatus.MIXED) {
@@ -151,10 +151,10 @@ public class Test {
             indent += "- ";
         }
 
-        TestFunctions.maxWidth = Math.max(TestFunctions.maxWidth,
+        TestMethods.maxWidth = Math.max(TestMethods.maxWidth,
             indent.length() + this.name.length());
-        TestFunctions.lineWidths = HelperFunctions.append(
-            TestFunctions.lineWidths, indent.length() + this.name.length());
+        TestMethods.lineWidths = HelperFunctions.append(
+            TestMethods.lineWidths, indent.length() + this.name.length());
         output = indent + "- " + this.name + ": %spaces%" + result;
         for (Test test : this.tests) {
             output += "\n" + test.output(level + 1);
