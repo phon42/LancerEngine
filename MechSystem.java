@@ -21,7 +21,7 @@ public class MechSystem {
     /**
      * The number of charges the mech system has, if it has the "Limited" tag.
      *     If not, set to 0.
-     * Must be > -1.
+     * Must be > 0.
      */
     private int limitedCharges;
 

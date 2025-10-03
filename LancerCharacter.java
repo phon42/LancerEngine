@@ -19,7 +19,7 @@ public class LancerCharacter {
     
     /**
      * The mech associated with this character (if there is one).
-     * Holds a Mech object. Can be a placeholder, but must either be a
+     * Holds a Mech object. Can be a placeholder Mech, but must either be a
      *     placeholder or not have placeholders in the following fields:
      *     - Mech/Chassis Name
      *     - Frame

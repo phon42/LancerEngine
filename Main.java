@@ -134,6 +134,9 @@
  * Safety: N/A because this class cannot be instantiated.
  */
 public class Main {
+    // prevent user from instantiating
+    private Main() {}
+
     // if you don't know what this is from looking at the method name
     // you should not be reading this code right now
     public static void main(String[] args) {
