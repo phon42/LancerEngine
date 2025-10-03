@@ -6,6 +6,7 @@ enum FrameEnum {
  * Contains a set array of Frames to be used by Mech(String, String) and
  *     Mech(String, FrameEnum). Cannot be instantiated. All its methods are
  *     static.
+ * Safety: N/A because this class cannot be instantiated.
  */
 public class FrameDatabase {
     /**

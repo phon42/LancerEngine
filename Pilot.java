@@ -2,6 +2,8 @@
  * Represents the pilot portion of a Lancer character, i.e. the non-mech items.
  * Stores various pieces of information such as the pilot's name, callsign,
  *     stats, licenses, and so on.
+ * Safety: This class has placeholder values but cannot be a placeholder. None
+ *     of its properties have allowed values of null.
  */
 public class Pilot {
     // ---Dossier-------------------

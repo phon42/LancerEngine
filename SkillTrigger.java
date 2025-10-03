@@ -1,6 +1,8 @@
 /**
  * Represents a single skill trigger. Stores the skill trigger's name and the
  *     level at which it is held.
+ * Safety: This class does not have placeholder values. None of its properties
+ *     have allowed values of null.
  */
 public class SkillTrigger {
     /**

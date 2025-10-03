@@ -1,5 +1,7 @@
 /**
  * Stores a set of the skill triggers a pilot has.
+ * Safety: This class does not have placeholder values. None of its properties
+ *     have allowed values of null.
  */
 public class SkillTriggersList {
     /**

@@ -131,6 +131,7 @@
 /**
  * Contains the main() function for the project. Doesn't really do anything
  *     else.
+ * Safety: N/A because this class cannot be instantiated.
  */
 public class Main {
     // if you don't know what this is from looking at the method name

@@ -2,6 +2,8 @@
  * Represents a single license. Stores the frame to which the license is held,
  *     and the level of the license.
  * Requires a frameName and a licenseLevel to be instantiated.
+ * Safety: This class does not have placeholder values. None of its properties
+ *     can be null.
  */
 public class License {
     /**

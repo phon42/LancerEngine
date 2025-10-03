@@ -4,6 +4,8 @@
  * Stores a Pilot object and a Mech object.
  * To be instantiated, must be provided at minimum pilotName and a pilotCallsign
  *     or a Pilot object with those values.
+ * Safety: This class does not have placeholder values. None of its properties
+ *     can be null.
  */
 public class LancerCharacter {
     /**

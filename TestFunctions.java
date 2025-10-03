@@ -1,6 +1,7 @@
 /**
  * Tests every class and every function under every class. Yes, I'm serious.
  * Cannot be instantiated. All its methods are static.
+ * Safety: N/A because this class cannot be instantiated.
  */
 public class TestFunctions {
     public static int maxWidth = 0;

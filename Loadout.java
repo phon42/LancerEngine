@@ -1,6 +1,8 @@
 /**
  * Represents a pilot gear loadout. Stores information about what gear items the
  *     pilot has chosen.
+ * Safety: This class does not have placeholder values. None of its properties
+ *     can be null.
  */
 public class Loadout {
     /**

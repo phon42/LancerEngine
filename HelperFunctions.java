@@ -1,6 +1,7 @@
 /**
  * A helper class containing useful functions. Cannot be instantiated. All its
  *     methods are static.
+ * Safety: N/A because this class cannot be instantiated.
  */
 public class HelperFunctions {
     // Prevent user from instantiating this class

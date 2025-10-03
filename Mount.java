@@ -2,6 +2,8 @@
  * Represents a single mount on a mech. Contains information such as what type
  *     this mount is, what weapon is mounted on it (if there is one), whether it
  *     has any modifications and whether there is a core bonus attached to it.
+ * Safety: This class does not have placeholder values. At least one of its
+ *     properties has an allowed value of null.
  */
 public class Mount {
     /**

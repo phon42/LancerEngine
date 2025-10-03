@@ -5,6 +5,10 @@
  * A Frame object is required to create a non-placeholder Mech object. The Frame
  *     object's stats, traits, and mounts serve as the base on top of which mech
  *     skills, weapons, systems, and other modifications are added.
+ * Safety: This class has placeholder values and can be a placeholder, but in
+ *     most cases should either have no placeholder values or be a placeholder,
+ *     which must be checked for. None of its properties have allowed values of
+ *     null.
  */
 public class Mech {
     // TODO: get an example mech name from the core rulebook for this

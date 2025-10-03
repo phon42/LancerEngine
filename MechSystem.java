@@ -1,6 +1,8 @@
 /**
  * Contains a single system for a mech. Stores information about that system
  *     such as its name and its tags.
+ * Safety: This class has placeholder values but cannot be a placeholder. None
+ *     of its properties have allowed values of null.
  */
 public class MechSystem {
     // TODO: fill out

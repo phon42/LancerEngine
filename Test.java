@@ -11,6 +11,8 @@ enum TestStatus {
  *     feeding the result of a boolean test method directly into the "result"
  *     parameter. Alternatively, the run() method can be overridden to call
  *     run(that boolean test method) instead.
+ * Safety: This class does not have placeholder values. All of its properties
+ *     can be set to null.
  */
 public class Test {
     public String name;

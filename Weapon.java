@@ -1,5 +1,8 @@
 /**
  * Represents a single weapon to be mounted on a mount.
+ * Safety: This class has placeholder values and can be a placeholder, though
+ *     there is no difference between the two. None of its properties have
+ *     allowed values of null.
  */
 public class Weapon {
     // TODO: fill out

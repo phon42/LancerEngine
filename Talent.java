@@ -1,6 +1,8 @@
 /**
  * Represents a single talent of the pilot. Stores the talent's name, as well as
  *     the level at which it is held.
+ * Safety: This class does not have placeholder values. None of its properties
+ *     have allowed values of null.
  */
 public class Talent {
     /**
