@@ -132,7 +132,8 @@ public class TestFunctions {
      * @return a boolean representing whether the function passed.
      */
     private static boolean runSetPilotNameTests() {
-        Pilot pilot = new Pilot();
+        Pilot pilot = new Pilot("validName",
+            "validCallsign");
         boolean test1 = false;
         boolean test2 = false;
         
@@ -155,7 +156,8 @@ public class TestFunctions {
      * @return a boolean representing whether the function passed.
      */
     private static boolean runSetCallsignTests() {
-        Pilot pilot = new Pilot();
+        Pilot pilot = new Pilot("validName",
+            "validCallsign");
         boolean test1 = false;
         boolean test2 = false;
         
@@ -178,7 +180,8 @@ public class TestFunctions {
      * @return a boolean representing whether the function passed.
      */
     private static boolean runSetPlayerTests() {
-        Pilot pilot = new Pilot();
+        Pilot pilot = new Pilot("validName",
+            "validCallsign");
         boolean test1 = false;
         boolean test2 = false;
         
@@ -201,7 +204,8 @@ public class TestFunctions {
      * @return a boolean representing whether the function passed.
      */
     private static boolean runSetStatusTests() {
-        Pilot pilot = new Pilot();
+        Pilot pilot = new Pilot("validName",
+            "validCallsign");
         boolean test1 = false;
         boolean test2 = false;
         boolean test3 = false;
@@ -231,7 +235,8 @@ public class TestFunctions {
      * @return a boolean representing whether the function passed.
      */
     private static boolean runSetBackgroundTests() {
-        Pilot pilot = new Pilot();
+        Pilot pilot = new Pilot("validName",
+            "validCallsign");
         boolean test1 = false;
         boolean test2 = false;
         
@@ -254,7 +259,8 @@ public class TestFunctions {
      * @return a boolean representing whether the function passed.
      */
     private static boolean runSetBiographyTests() {
-        Pilot pilot = new Pilot();
+        Pilot pilot = new Pilot("validName",
+            "validCallsign");
         boolean test1 = false;
         boolean test2 = false;
         
@@ -277,7 +283,8 @@ public class TestFunctions {
      * @return a boolean representing whether the function passed.
      */
     private static boolean runSetAppearanceTests() {
-        Pilot pilot = new Pilot();
+        Pilot pilot = new Pilot("validName",
+            "validCallsign");
         boolean test1 = false;
         boolean test2 = false;
         
@@ -300,7 +307,8 @@ public class TestFunctions {
      * @return a boolean representing whether the function passed.
      */
     private static boolean runSetPlayerNotesTests() {
-        Pilot pilot = new Pilot();
+        Pilot pilot = new Pilot("validName",
+            "validCallsign");
         boolean test1 = false;
         boolean test2 = false;
         
@@ -324,7 +332,8 @@ public class TestFunctions {
      * @return a boolean representing whether the function passed.
      */
     private static boolean runSetPilotGritTests() {
-        Pilot pilot = new Pilot();
+        Pilot pilot = new Pilot("validName",
+            "validCallsign");
         boolean test1 = false;
         boolean test2 = false;
         boolean test3 = false;
@@ -358,7 +367,8 @@ public class TestFunctions {
      * @return a boolean representing whether the function passed.
      */
     private static boolean runSetPilotCurrentHPTests() {
-        Pilot pilot = new Pilot();
+        Pilot pilot = new Pilot("validName",
+            "validCallsign");
         boolean test1 = false;
         boolean test2 = false;
         boolean test3 = false;
@@ -377,7 +387,7 @@ public class TestFunctions {
             test2 = true;
         }
         // normal case
-        pilot = new Pilot();
+        pilot = new Pilot("validName", "validCallsign");
         pilot.setCurrentHP(4);
         if (pilot.getCurrentHP() == 4) {
             test3 = true;
@@ -390,7 +400,8 @@ public class TestFunctions {
      * @return a boolean representing whether the function passed.
      */
     private static boolean runSetPilotMaxHPTests() {
-        Pilot pilot = new Pilot();
+        Pilot pilot = new Pilot("validName",
+            "validCallsign");
         boolean test1 = false;
         boolean test2 = false;
         boolean test3 = false;
@@ -420,7 +431,8 @@ public class TestFunctions {
      * @return a boolean representing whether the function passed.
      */
     private static boolean runSetPilotArmorTests() {
-        Pilot pilot = new Pilot();
+        Pilot pilot = new Pilot("validName",
+            "validCallsign");
         boolean test1 = false;
         boolean test2 = false;
 
@@ -443,7 +455,8 @@ public class TestFunctions {
      * @return a boolean representing whether the function passed.
      */
     private static boolean runSetPilotEvasionTests() {
-        Pilot pilot = new Pilot();
+        Pilot pilot = new Pilot("validName",
+            "validCallsign");
         boolean test1 = false;
         boolean test2 = false;
 
@@ -454,7 +467,7 @@ public class TestFunctions {
             test1 = true;
         }
         // normal case
-        pilot = new Pilot();
+        pilot = new Pilot("validName", "validCallsign");
         pilot.setEvasion(8);
         if (pilot.getEvasion() == 8) {
             test2 = true;
@@ -467,7 +480,8 @@ public class TestFunctions {
      * @return a boolean representing whether the function passed.
      */
     private static boolean runSetPilotSpeedTests() {
-        Pilot pilot = new Pilot();
+        Pilot pilot = new Pilot("validName",
+            "validCallsign");
         boolean test1 = false;
         boolean test2 = false;
 
@@ -478,7 +492,7 @@ public class TestFunctions {
             test1 = true;
         }
         // normal case
-        pilot = new Pilot();
+        pilot = new Pilot("validName", "validCallsign");
         pilot.setSpeed(0);
         if (pilot.getSpeed() == 0) {
             test2 = true;
@@ -491,7 +505,8 @@ public class TestFunctions {
      * @return a boolean representing whether the function passed.
      */
     private static boolean runSetPilotEDefenseTests() {
-        Pilot pilot = new Pilot();
+        Pilot pilot = new Pilot("validName",
+            "validCallsign");
         boolean test1 = false;
         boolean test2 = false;
 
@@ -502,7 +517,7 @@ public class TestFunctions {
             test1 = true;
         }
         // normal case
-        pilot = new Pilot();
+        pilot = new Pilot("validName", "validCallsign");
         pilot.setEDefense(0);
         if (pilot.getEDefense() == 0) {
             test2 = true;
@@ -515,7 +530,8 @@ public class TestFunctions {
      * @return a boolean representing whether the function passed.
      */
     private static boolean runSetPilotSkillTriggersTests() {
-        Pilot pilot = new Pilot();
+        Pilot pilot = new Pilot("validName",
+            "validCallsign");
         SkillTriggersList skillTriggersList = new SkillTriggersList();
         SkillTrigger skillTrigger;
         boolean test1 = false;
@@ -813,7 +829,8 @@ public class TestFunctions {
      * @return a boolean representing whether the function passed.
      */
     private static boolean runSetReservesTests() {
-        Pilot pilot = new Pilot();
+        Pilot pilot = new Pilot("validName",
+            "validCallsign");
         boolean test1 = false;
         boolean test2 = false;
         boolean test3 = false;
@@ -866,7 +883,8 @@ public class TestFunctions {
      * @return a boolean representing whether the function passed.
      */
     private static boolean runSetLoadoutTests() {
-        Pilot pilot = new Pilot();
+        Pilot pilot = new Pilot("validName",
+            "validCallsign");
         boolean test1 = false;
         boolean test2 = false;
 
@@ -1042,7 +1060,8 @@ public class TestFunctions {
      * @return a boolean representing whether the function passed.
      */
     private static boolean runSetLicenseLevelTests() {
-        Pilot pilot = new Pilot();
+        Pilot pilot = new Pilot("validName",
+            "validCallsign");
         boolean test1 = false;
         boolean test2 = false;
         boolean test3 = false;
@@ -1072,7 +1091,8 @@ public class TestFunctions {
      * @return a boolean representing whether the function passed.
      */
     private static boolean runSetLicenseListTests() {
-        Pilot pilot = new Pilot();
+        Pilot pilot = new Pilot("validName",
+            "validCallsign");
         License license;
         boolean test1 = false;
         boolean test2 = false;
@@ -1215,7 +1235,8 @@ public class TestFunctions {
      * @return a boolean representing whether the function passed.
      */
     private static boolean runSetSpecialEquipmentTests() {
-        Pilot pilot = new Pilot();
+        Pilot pilot = new Pilot("validName",
+            "validCallsign");
         boolean test1 = false;
         boolean test2 = false;
         boolean test3 = false;
@@ -1235,7 +1256,7 @@ public class TestFunctions {
             test2 = true;
         }
         // normal case
-        pilot = new Pilot();
+        pilot = new Pilot("validName", "validCallsign");
         try {
             pilot.setSpecialEquipment(new String[] {"validEquipment", null});
         } catch (IllegalArgumentException exception) {
@@ -1260,7 +1281,8 @@ public class TestFunctions {
      * @return a boolean representing whether the function passed.
      */
     private static boolean runSetMechSkillsTests() {
-        Pilot pilot = new Pilot();
+        Pilot pilot = new Pilot("validName",
+            "validCallsign");
         boolean test1 = false;
         boolean test2 = false;
         boolean test3 = false;
@@ -1298,7 +1320,8 @@ public class TestFunctions {
      * @return a boolean representing whether the function passed.
      */
     private static boolean runSetCoreBonusesTests() {
-        Pilot pilot = new Pilot();
+        Pilot pilot = new Pilot("validName",
+            "validCallsign");
         boolean test1 = false;
         boolean test2 = false;
         boolean test3 = false;
@@ -1320,7 +1343,7 @@ public class TestFunctions {
             test2 = true;
         }
         // normal case
-        pilot = new Pilot();
+        pilot = new Pilot("validName", "validCallsign");
         try {
             // = String[] {null}
             pilot.setCoreBonuses(new String[1]);
@@ -1378,7 +1401,7 @@ public class TestFunctions {
         boolean test5 = false;
 
         // normal case
-        pilot = new Pilot();
+        pilot = new Pilot("validName", "validCallsign");
         try {
             pilot.setTalents(null);
         } catch (IllegalArgumentException exception) {
@@ -1391,7 +1414,7 @@ public class TestFunctions {
             test2 = true;
         }
         // normal case
-        pilot = new Pilot();
+        pilot = new Pilot("validName", "validCallsign");
         try {
             // = Talent[] {null}
             pilot.setTalents(new Talent[1]);
@@ -1532,7 +1555,8 @@ public class TestFunctions {
      * @return a boolean representing whether the function passed.
      */
     private static boolean runPilotGenerateMechOutputTests() {
-        Pilot pilot = new Pilot();
+        Pilot pilot = new Pilot("validName",
+            "validCallsign");
         License[] licenseList;
         String[] coreBonuses;
         Talent[] talents;
@@ -1645,7 +1669,8 @@ public class TestFunctions {
      * @return a boolean representing whether the function passed.
      */
     private static boolean runPilotGeneratePilotOutputTests() {
-        Pilot pilot = new Pilot();
+        Pilot pilot = new Pilot("validName",
+            "validCallsign");
         License[] licenseList;
         String[] coreBonuses;
         Talent[] talents;
@@ -1769,7 +1794,8 @@ public class TestFunctions {
      * @return a boolean representing whether the function passed.
      */
     private static boolean runPilotGenerateFullOutputTests() {
-        Pilot pilot = new Pilot();
+        Pilot pilot = new Pilot("validName",
+            "validCallsign");
         License[] licenseList;
         String[] coreBonuses;
         Talent[] talents;
@@ -1888,7 +1914,8 @@ public class TestFunctions {
      * @return a boolean representing whether the function passed.
      */
     private static boolean runOutputLicensesTests() {
-        Pilot pilot = new Pilot();
+        Pilot pilot = new Pilot("validName",
+            "validCallsign");
         License[] licenseList;
         boolean test1 = false;
         boolean test2 = false;
@@ -1906,7 +1933,7 @@ public class TestFunctions {
             test1 = true;
         }
         // normal case
-        pilot = new Pilot();
+        pilot = new Pilot("validName", "validCallsign");
         pilot.setLicenseList(licenseList);
         String testString1 = "  IPS-N Blackbeard 1, IPS-N Drake 2,"
             + " IPS-N Lancaster 3\n";
@@ -1914,7 +1941,7 @@ public class TestFunctions {
             test2 = true;
         }
         // normal case
-        pilot = new Pilot();
+        pilot = new Pilot("validName", "validCallsign");
         pilot.setLicenseList(licenseList);
         String testString2 = "  IPS-N Blackbeard 1, IPS-N Drake 2,\n"
             + "  IPS-N Lancaster 3\n";
@@ -1929,7 +1956,8 @@ public class TestFunctions {
      * @return a boolean representing whether the function passed.
      */
     private static boolean runOutputTalentsTests() {
-        Pilot pilot = new Pilot();
+        Pilot pilot = new Pilot("validName",
+            "validCallsign");
         boolean test1 = false;
         boolean test2 = false;
         boolean test3 = false;
@@ -1942,14 +1970,14 @@ public class TestFunctions {
             test1 = true;
         }
         // normal case
-        pilot = new Pilot();
+        pilot = new Pilot("validName", "validCallsign");
         pilot.setTalents(new Talent[0]);
         if (pilot.outputTalents("pilot").equals(
             "  N/A\n")) {
             test2 = true;
         }
         // normal case
-        pilot = new Pilot();
+        pilot = new Pilot("validName", "validCallsign");
         pilot.setTalents(new Talent[] {
             new Talent("Ace", 1),
             new Talent("Brawler", 1),
@@ -1960,7 +1988,7 @@ public class TestFunctions {
             test3 = true;
         }
         // normal case
-        pilot = new Pilot();
+        pilot = new Pilot("validName", "validCallsign");
         pilot.setTalents(new Talent[] {
             new Talent("Ace", 1),
             new Talent("Brawler", 1),
@@ -1978,7 +2006,8 @@ public class TestFunctions {
      * @return a boolean representing whether the function passed.
      */
     private static boolean runOutputCoreBonusesTests() {
-        Pilot pilot = new Pilot();
+        Pilot pilot = new Pilot("validName",
+            "validCallsign");
         String[] coreBonuses;
         boolean test1 = false;
         boolean test2 = false;
@@ -1996,7 +2025,7 @@ public class TestFunctions {
             test1 = true;
         }
         // normal case
-        pilot = new Pilot();
+        pilot = new Pilot("validName", "validCallsign");
         pilot.setCoreBonuses(coreBonuses);
         String testString1 = "  Auto-Stabilizing Hardpoints, Overpower Caliber,"
             + " Improved Armament\n";
@@ -2005,7 +2034,7 @@ public class TestFunctions {
             test2 = true;
         }
         // normal case
-        pilot = new Pilot();
+        pilot = new Pilot("validName", "validCallsign");
         pilot.setCoreBonuses(coreBonuses);
         String testString2 = "  Auto-Stabilizing Hardpoints,"
             + " Overpower Caliber,\n  Improved Armament\n";

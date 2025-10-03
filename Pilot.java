@@ -525,8 +525,7 @@ public class Pilot {
     /**
      * Sets this.licenseLevel to the provided value, and automatically sets
      *     this.grit accordingly.
-     * Passing -1 will set this.grit to -1; anything else will set it to
-     *     (licenseLevel + 1) / 2, rounded down.
+     * this.grit will be set to (licenseLevel + 1) / 2, rounded down.
      * @param licenseLevel an int which cannot be < 0 or > 12.
      */
     public void setLicenseLevel(int licenseLevel) {
@@ -538,11 +537,7 @@ public class Pilot {
             throw new IllegalArgumentException("New license level value"
                 + " is > 12");
         }
-        if (licenseLevel == -1) {
-            setGrit(licenseLevel);
-        } else {
-            setGrit((licenseLevel + 1) / 2);
-        }
+        setGrit((licenseLevel + 1) / 2);
         this.licenseLevel = licenseLevel;
     }
     /**
