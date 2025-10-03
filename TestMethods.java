@@ -286,8 +286,8 @@ public class TestMethods {
             test1 = true;
         }
         // normal case
-        pilot.setBackground("validBackground");
-        if (pilot.getBackground().equals("validBackground")) {
+        pilot.setBackground("validbackground");
+        if (pilot.getBackground().equals("validbackground")) {
             test2 = true;
         }
 
@@ -832,7 +832,6 @@ public class TestMethods {
      * @return a boolean representing whether the method passed.
      */
     private static boolean runLoadoutSetPilotArmorTests() {
-        // TODO: fill out
         Loadout loadout = new Loadout();
         boolean test1 = false;
         boolean test2 = false;
@@ -856,7 +855,6 @@ public class TestMethods {
      * @return a boolean representing whether the method passed.
      */
     private static boolean runLoadoutSetPilotWeaponsTests() {
-        // TODO: fill out
         Loadout loadout = new Loadout();
         boolean test1 = false;
         boolean test2 = false;
@@ -867,17 +865,23 @@ public class TestMethods {
         try {
             loadout.setPilotWeapons(null);
         } catch (IllegalArgumentException exception) {
-            test2 = true;
+            test1 = true;
         }
         // normal case
         try {
             loadout.setPilotWeapons(new String[] {"validWeapon"});
         } catch (IllegalArgumentException exception) {
-            test3 = true;
+            test2 = true;
         }
         // normal case
         try {
             loadout.setPilotWeapons(new String[] {"validWeapon", null});
+        } catch (IllegalArgumentException exception) {
+            test3 = true;
+        }
+        // normal case
+        try {
+            loadout.setPilotWeapons(new String[] {"validWeapon", "validWeapon"});
         } catch (IllegalArgumentException exception) {
             test4 = true;
         }
@@ -889,11 +893,13 @@ public class TestMethods {
      * @return a boolean representing whether the method passed.
      */
     private static boolean runLoadoutSetPilotGearTests() {
-        // TODO: fill out
         Loadout loadout = new Loadout();
+        Loadout testLoadout = new Loadout();
         boolean test1 = false;
         boolean test2 = false;
         boolean test3 = false;
+        boolean test4 = false;
+        boolean test5 = false;
 
         // normal case
         try {
@@ -913,8 +919,22 @@ public class TestMethods {
         } catch (IllegalArgumentException exception) {
             test3 = true;
         }
+        // normal case
+        testLoadout.setPilotGear(new String[] {"validGear", "", "validGear"});
+        loadout.setPilotGear(new String[] {"validGear", "", "validGear"});
+        if (loadout.equals(testLoadout)) {
+            test4 = true;
+        }
+        // normal case
+        testLoadout.setPilotGear(new String[] {"validGear", "validGear",
+            "validGear"});
+        loadout.setPilotGear(new String[] {"validGear", "validGear",
+            "validGear"});
+        if (loadout.equals(testLoadout)) {
+            test5 = true;
+        }
         
-        return test1 && test2 && test3;
+        return test1 && test2 && test3 && test4 && test5;
     }
     /**
      * Tests Loadout.equals(Object).
