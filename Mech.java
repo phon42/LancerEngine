@@ -11,10 +11,9 @@
  *     null.
  */
 public class Mech {
-    // TODO: get an example mech name from the core rulebook for this
     /**
-     * The name of this mech (NOT its frame name, the name given to this
-     *     specific chassis).
+     * The name of this mech (i.e. Raijin) - NOT its frame name, the name given to this
+     *     specific chassis.
      * Can be any String except "". Cannot be null. Is set to "" on construction
      *     from Mech().
      */

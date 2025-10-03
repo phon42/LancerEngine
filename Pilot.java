@@ -8,25 +8,22 @@
 public class Pilot {
     // ---Dossier-------------------
     // name and callsign
-    // TODO: get a pilot name from the core rulebook for this
     /**
-     * The pilot's name.
+     * The pilot's name (i.e. Taro Oda).
      * Can be any String other than "". Cannot be null. Is set to "" on
      *     construction.
      */
     private String name;
-    // TODO: get a pilot callsign from the core rulebook for this
     /**
-     * The pilot's callsign.
+     * The pilot's callsign (i.e. Marigold).
      * Can be any String other than "". Cannot be null. Is set to "" on
      *     construction.
      */
     private String callsign;
 
     // (optional) details
-    // TODO: get a player name from the core rulebook for this
     /**
-     * The player name.
+     * The player name (i.e. Jacques).
      * Can be any String. Cannot be null.
      */
     private String player;
