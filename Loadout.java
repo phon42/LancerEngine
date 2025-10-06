@@ -31,24 +31,6 @@ public class Loadout {
     }
     // TODO: remove if unused
     /**
-     * Creates a non-empty Loadout using the provided pilotArmor.
-     */
-    public Loadout(String pilotArmor) {
-        this();
-        setPilotArmor(pilotArmor);
-    }
-    // TODO: remove if unused
-    /**
-     * Creates a non-empty Loadout using the provided pilotArmor and
-     *     pilotWeapons.
-     */
-    public Loadout(String pilotArmor, String[] pilotWeapons) {
-        this();
-        setPilotArmor(pilotArmor);
-        setPilotWeapons(pilotWeapons);
-    }
-    // TODO: remove if unused
-    /**
      * Creates a non-empty Loadout using the provided pilotArmor,
      *     pilotWeapons, and pilotGear.
      */
@@ -184,6 +166,10 @@ public class Loadout {
      * @return a String containing an output of the items within this Loadout.
      */
     public String generateOutput() {
+        // Generate something along the lines of:
+        // "validArmor, validWeapon\n"
+        // "validWeapon, validGear"\n
+        // "validGear, validGear\n"
         String outputString = "";
         String[] outputArray;
         String[] newOutputArray;

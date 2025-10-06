@@ -108,6 +108,11 @@
  *     be required to know to what EXTENT the property has been modified, but it
  *     requires the addition of multiple methods to support it.
  * 
+ * Some questions:
+ * - Should I hold an unset "frame" value (Mech.frame) as null or some kind of
+ *       special placeholder Frame value?
+ *     - Same question for LancerCharacter.mech?
+ * 
  * The Mech.generateOutput("mech build") method may be of use to you for the
  *     purposes of testing. It generates the section of text beginning with
  *     "STRUCTURE:" and ending with the "[ SYSTEMS ]" section.

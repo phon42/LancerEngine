@@ -7,8 +7,7 @@
 public class SkillTrigger {
     /**
      * The name of the skill trigger (i.e. "apply fists to faces").
-     * Case-insensitive and stored in lowercase. Can be any String except "".
-     *     Cannot be null.
+     * Can be any String except "". Cannot be null.
      */
     private String name;
     /**
@@ -36,7 +35,6 @@ public class SkillTrigger {
         if (name.equals("")) {
             throw new IllegalArgumentException("New name value is \"\"");
         }
-        name = name.toLowerCase();
         this.name = name;
     }
     /**

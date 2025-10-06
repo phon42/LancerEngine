@@ -101,8 +101,6 @@ public class TestMethods {
             new Test("Mech", new Test[] {
                 new Test("Mech.setName()", runMechSetNameTests()),
                 new Test("Mech.setFrame()", runMechSetFrameTests()),
-                new Test("Mech.setManufacturer()", runMechSetManufacturerTests()),
-                new Test("Mech.setFrameDescription()", runMechSetFrameDescriptionTests()),
                 new Test("Mech.setOperatorNotes()", runMechSetOperatorNotesTests()),
                 new Test("Mech.setCurrentStructure()", runMechSetCurrentStructureTests()),
                 new Test("Mech.setCurrentHP()", runMechSetCurrentHPTests()),
@@ -627,7 +625,7 @@ public class TestMethods {
             test1 = true;
         }
         // normal case
-        skillTrigger = new SkillTrigger("validName", 2);
+        skillTrigger = new SkillTrigger("Apply Fists to Faces", 2);
         if (! skillTrigger.equals(testSkillTrigger)) {
             test2 = true;
         }
@@ -649,8 +647,21 @@ public class TestMethods {
      * @return a boolean representing whether the method passed.
      */
     private static boolean runSkillTriggerCopyOfTests() {
-        // TODO: fill out
-        return false;
+        SkillTrigger original = new SkillTrigger("validName", 2);
+        SkillTrigger copy;
+        boolean test1 = false;
+        boolean test2 = false;
+
+        // normal case
+        copy = original.copyOf();
+        if (original != copy) {
+            test1 = true;
+        }
+        if (original.equals(copy)) {
+            test2 = true;
+        }
+
+        return test1 && test2;
     }
     /**
      * Tests SkillTriggersList.equals(Object).
@@ -699,8 +710,24 @@ public class TestMethods {
      * @return a boolean representing whether the method passed.
      */
     private static boolean runSkillTriggersListCopyOfTests() {
-        // TODO: fill out
-        return false;
+        SkillTrigger skillTrigger = new SkillTrigger("validName", 2);
+        SkillTriggersList original = new SkillTriggersList(new SkillTrigger[] {
+            skillTrigger
+        });
+        SkillTriggersList copy;
+        boolean test1 = false;
+        boolean test2 = false;
+
+        // normal case
+        copy = original.copyOf();
+        if (original != copy) {
+            test1 = true;
+        }
+        if (original.equals(copy)) {
+            test2 = true;
+        }
+
+        return test1 && test2;
     }
     /**
      * Tests SkillTriggersList.generateOutput().
@@ -880,9 +907,11 @@ public class TestMethods {
             test3 = true;
         }
         // normal case
-        try {
-            loadout.setPilotWeapons(new String[] {"validWeapon", "validWeapon"});
-        } catch (IllegalArgumentException exception) {
+        loadout.setPilotWeapons(new String[] {"validWeapon", "validWeapon"});
+        if (loadout.getPilotWeapons().getClass() == String[].class
+            && loadout.getPilotWeapons().length == 2
+            && loadout.getPilotWeapons()[0].equals("validWeapon")
+            && loadout.getPilotWeapons()[1].equals("validWeapon")) {
             test4 = true;
         }
         
@@ -930,7 +959,11 @@ public class TestMethods {
             "validGear"});
         loadout.setPilotGear(new String[] {"validGear", "validGear",
             "validGear"});
-        if (loadout.equals(testLoadout)) {
+        if (loadout.getPilotGear().getClass() == String[].class
+            && loadout.getPilotGear().length == 3
+            && loadout.getPilotGear()[0].equals("validGear")
+            && loadout.getPilotGear()[1].equals("validGear")
+            && loadout.getPilotGear()[2].equals("validGear")) {
             test5 = true;
         }
         
@@ -990,7 +1023,7 @@ public class TestMethods {
         }
         // normal case
         loadout = new Loadout("validArmor", new String[] {
-                "validWeapon", "validWeapon"});
+                "validWeapon", "validWeapon"}, new String[] {"", "", ""});
         if (! loadout.equals(testLoadout)) {
             test4 = true;
         }
@@ -1009,27 +1042,126 @@ public class TestMethods {
      * @return a boolean representing whether the method passed.
      */
     private static boolean runLoadoutCopyOfTests() {
-        // TODO: fill out
-        return false;
+        Loadout original = new Loadout();
+        Loadout copy;
+        boolean test1 = false;
+        boolean test2 = false;
+
+        original.setPilotArmor("validArmor");
+        original.setPilotWeapons(new String[] {"validWeapon", "validWeapon"});
+        original.setPilotGear(new String[] {"validGear", "validGear",
+            "validGear"});
+        copy = original.copyOf();
+        if (original != copy) {
+            test1 = true;
+        }
+        if (original.equals(copy)) {
+            test2 = true;
+        }
+
+        return test1 && test2;
     }
     /**
      * Tests Loadout.generateOutput().
      * @return a boolean representing whether the method passed.
      */
     private static boolean runLoadoutGenerateOutputTests() {
-        // TODO: fill out
-        Loadout loadout = new Loadout("validArmor",
-            new String[] {"validWeapon", "validWeapon"}, new String[] {
-            "validGear", "validGear", "validGear"});
+        Loadout loadout = new Loadout();
         boolean test1 = false;
+        boolean test2 = false;
+        boolean test3 = false;
+        boolean test4 = false;
+        boolean test5 = false;
+        boolean test6 = false;
+        boolean test7 = false;
+        boolean test8 = false;
+        boolean test9 = false;
+        boolean test10 = false;
+        boolean test11 = false;
 
         // normal case
         String testString1 = "  N/A\n";
         if (loadout.generateOutput().equals(testString1)) {
             test1 = true;
         }
+        // normal case
+        String testString2 = "  validArmor\n";
+        loadout = new Loadout("validArmor", new String[] {"", ""},
+            new String[] {"", "", ""});
+        if (loadout.generateOutput().equals(testString2)) {
+            test2 = true;
+        }
+        // normal case
+        String testString3 = "  validWeapon\n";
+        loadout = new Loadout("", new String[] {"validWeapon", ""},
+            new String[] {"", "", ""});
+        if (loadout.generateOutput().equals(testString3)) {
+            test3 = true;
+        }
+        // normal case
+        String testString4 = "  validWeapon, validWeapon\n";
+        loadout = new Loadout("", new String[] {"validWeapon",
+            "validWeapon"}, new String[] {"", "", ""});
+        if (loadout.generateOutput().equals(testString4)) {
+            test4 = true;
+        }
+        // normal case
+        String testString5 = "  validArmor, validWeapon,\n  validWeapon\n";
+        loadout = new Loadout("validArmor",
+            new String[] {"validWeapon", "validWeapon"}, new String[] {"", "",
+            ""});
+        if (loadout.generateOutput().equals(testString5)) {
+            test5 = true;
+        }
+        // normal case
+        String testString6 = "  validGear\n";
+        loadout = new Loadout("", new String[] {"", ""},
+            new String[] {"validGear", "", ""});
+        if (loadout.generateOutput().equals(testString6)) {
+            test6 = true;
+        }
+        // normal case
+        String testString7 = "  validGear, validGear\n";
+        loadout = new Loadout("", new String[] {"", ""},
+            new String[] {"validGear", "validGear", ""});
+        if (loadout.generateOutput().equals(testString7)) {
+            test7 = true;
+        }
+        // normal case
+        String testString8 = "  validArmor, validGear,\n  validGear\n";
+        loadout = new Loadout("validArmor", new String[] {"", ""},
+            new String[] {"validGear", "validGear", ""});
+        if (loadout.generateOutput().equals(testString8)) {
+            test8 = true;
+        }
+        // normal case
+        String testString9 = "  validWeapon, validGear,\n  validGear\n";
+        loadout = new Loadout("", new String[] {"validWeapon", ""},
+            new String[] {"validGear", "validGear", ""});
+        if (loadout.generateOutput().equals(testString9)) {
+            test9 = true;
+        }
+        // normal case
+        String testString10 = "  validWeapon, validWeapon,\n  validGear,"
+            + " validGear\n";
+        loadout = new Loadout("",
+            new String[] {"validWeapon", "validWeapon"},
+            new String[] {"validGear", "validGear", ""});
+        if (loadout.generateOutput().equals(testString10)) {
+            test10 = true;
+        }
+        // normal case
+        String testString11 = "  validArmor, validWeapon,\n  validWeapon,"
+            + " validGear,\n  validGear\n";
+        loadout = new Loadout("validArmor",
+            new String[] {"validWeapon", "validWeapon"}, new String[] {
+            "validGear", "validGear", ""});
+        if (loadout.generateOutput().equals(testString11)) {
+            test11 = true;
+        }
 
-        return test1;
+        return test1 && test2 && test3 && test4 && test5 && test6 && test7
+            && test8 && test9 && test10 && test11;
     }
     /**
      * Tests Pilot.setLicenseLevel().
@@ -1166,16 +1298,48 @@ public class TestMethods {
      * @return a boolean representing whether the method passed.
      */
     private static boolean runLicenseCopyOfTests() {
-        // TODO: fill out
-        return false;
+        License original = new License("validFrameName",
+            1);
+        License copy;
+        boolean test1 = false;
+        boolean test2 = false;
+
+        copy = original.copyOf();
+        if (original != copy) {
+            test1 = true;
+        }
+        if (original.equals(copy)) {
+            test2 = true;
+        }
+
+        return test1 && test2;
     }
     /**
      * Tests License.outputName().
      * @return a boolean representing whether the method passed.
      */
     private static boolean runLicenseOutputNameTests() {
-        // TODO: fill out
-        return false;
+        License license;
+        boolean test1 = false;
+        boolean test2 = false;
+        boolean test3 = false;
+
+        license = new License("ips-n blackbeard", 1);
+        if (license.outputName().equals("IPS-N Blackbeard")) {
+            test1 = true;
+        }
+        license = new License("ssc death's head", 1);
+        if (license.outputName().equals("SSC Death's Head")) {
+            test2 = true;
+        }
+        license = new License("ssc swallowtail (ranger variant)",
+            1);
+        if (license.outputName().equals(
+            "SSC Swallowtail (Ranger Variant)")) {
+            test3 = true;
+        }
+        
+        return test1 && test2 && test3;
     }
     /**
      * Tests Pilot.setSpecialEquipment().
@@ -1205,19 +1369,22 @@ public class TestMethods {
         // normal case
         pilot = new Pilot("validName", "validCallsign");
         try {
-            pilot.setSpecialEquipment(new String[] {"validEquipment", null});
+            pilot.setSpecialEquipment(new String[] {"validequipment", null});
         } catch (IllegalArgumentException exception) {
             test3 = true;
         }
         // normal case
         try {
-            pilot.setSpecialEquipment(new String[] {"validEquipment", ""});
+            pilot.setSpecialEquipment(new String[] {"validequipment", ""});
         } catch (IllegalArgumentException exception) {
             test4 = true;
         }
         // normal case
-        pilot.setSpecialEquipment(new String[] {"validEquipment"});
-        if (pilot.getSpecialEquipment()[0].equals("validEquipment")) {
+        pilot.setSpecialEquipment(new String[] {"validequipment"});
+        if (pilot.getSpecialEquipment().getClass() == String[].class
+            && pilot.getSpecialEquipment().length == 1
+            && pilot.getSpecialEquipment()[0].equals(
+            "validequipment")) {
             test5 = true;
         }
 
@@ -1300,7 +1467,7 @@ public class TestMethods {
         // normal case
         try {
             pilot.setCoreBonuses(new String[] {
-                "validCoreBonus",
+                "validcorebonus",
                 null
             });
         } catch (IllegalArgumentException exception) {
@@ -1317,7 +1484,7 @@ public class TestMethods {
         // normal case
         try {
             pilot.setCoreBonuses(new String[] {
-                "Auto-Stabilizing Hardpoints",
+                "auto-stabilizing hardpoints",
                 ""
             });
         } catch (IllegalArgumentException exception) {
@@ -1325,10 +1492,10 @@ public class TestMethods {
         }
         // normal case
         pilot.setCoreBonuses(new String[] {
-            "Auto-Stabilizing Hardpoints"
+            "auto-stabilizing hardpoints"
         });
         if (pilot.getCoreBonuses()[0].equals(
-            "Auto-Stabilizing Hardpoints")) {
+            "auto-stabilizing hardpoints")) {
             test7 = true;
         }
 
@@ -1451,16 +1618,40 @@ public class TestMethods {
      * @return a boolean representing whether the method passed.
      */
     private static boolean runTalentCopyOfTests() {
-        // TODO: fill out
-        return false;
+        Talent original = new Talent("validTalent", 1);
+        Talent copy;
+        boolean test1 = false;
+        boolean test2 = false;
+
+        copy = original.copyOf();
+        if (original != copy) {
+            test1 = true;
+        }
+        if (original.equals(copy)) {
+            test2 = true;
+        }
+
+        return test1 && test2;
     }
     /**
      * Tests Talent.outputName().
      * @return a boolean representing whether the method passed.
      */
     private static boolean runTalentOutputNameTests() {
-        // TODO: fill out
-        return false;
+        Talent talent;
+        boolean test1 = false;
+        boolean test2 = false;
+
+        talent = new Talent("ace", 1);
+        if (talent.outputName().equals("Ace")) {
+            test1 = true;
+        }
+        talent = new Talent("combined arms", 1);
+        if (talent.outputName().equals("Combined Arms")) {
+            test2 = true;
+        }
+        
+        return test1 && test2;
     }
     /**
      * Tests Pilot.hasPlaceholders().
@@ -1475,8 +1666,21 @@ public class TestMethods {
      * @return a boolean representing whether the method passed.
      */
     private static boolean runPilotCopyOfTests() {
-        // TODO: fill out
-        return false;
+        Pilot original = new Pilot("validName",
+            "validCallsign");
+        Pilot copy;
+        boolean test1 = false;
+        boolean test2 = false;
+
+        copy = original.copyOf();
+        if (original != copy) {
+            test1 = true;
+        }
+        if (original.equals(copy)) {
+            test2 = true;
+        }
+
+        return test1 && test2;
     }
     /**
      * Tests Pilot.generateOutput("mech build").
@@ -1977,8 +2181,30 @@ public class TestMethods {
      * @return a boolean representing whether the method passed.
      */
     private static boolean runMechSetNameTests() {
-        // TODO: fill out
-        return false;
+        Mech mech = new Mech();
+        boolean test1 = false;
+        boolean test2 = false;
+        boolean test3 = false;
+
+        // normal case
+        try {
+            mech.setName(null);
+        } catch (IllegalArgumentException exception) {
+            test1 = true;
+        }
+        // normal case
+        try {
+            mech.setName("");
+        } catch (IllegalArgumentException exception) {
+            test2 = true;
+        }
+        // normal case
+        mech.setName("validName");
+        if (mech.getName().equals("validName")) {
+            test3 = true;
+        }
+        
+        return test1 && test2 && test3;
     }
     /**
      * Tests Mech.setFrame().
@@ -1989,68 +2215,187 @@ public class TestMethods {
         return false;
     }
     /**
-     * Tests Mech.setManufacturer().
-     * @return a boolean representing whether the method passed.
-     */
-    private static boolean runMechSetManufacturerTests() {
-        // TODO: fill out
-        return false;
-    }
-    /**
-     * Tests Mech.setFrameDescription().
-     * @return a boolean representing whether the method passed.
-     */
-    private static boolean runMechSetFrameDescriptionTests() {
-        // TODO: fill out
-        return false;
-    }
-    /**
      * Tests Mech.setOperatorNotes().
      * @return a boolean representing whether the method passed.
      */
     private static boolean runMechSetOperatorNotesTests() {
-        // TODO: fill out
-        return false;
+        Mech mech = new Mech();
+        boolean test1 = false;
+        boolean test2 = false;
+
+        // normal case
+        try {
+            mech.setOperatorNotes(null);
+        } catch (IllegalArgumentException exception) {
+            test1 = true;
+        }
+        // normal case
+        mech.setOperatorNotes("validOperatorNotes");
+        if (mech.getOperatorNotes().equals("validOperatorNotes")) {
+            test2 = true;
+        }
+        
+        return test1 && test2;
     }
     /**
      * Tests Mech.setCurrentStructure().
      * @return a boolean representing whether the method passed.
      */
     private static boolean runMechSetCurrentStructureTests() {
-        // TODO: fill out
-        return false;
+        Mech mech = new Mech("validName", FrameEnum.EVEREST);
+        boolean test1 = false;
+        boolean test2 = false;
+        boolean test3 = false;
+        boolean test4 = false;
+
+        try {
+            mech.setCurrentStructure(-1);
+        } catch (IllegalArgumentException exception) {
+            test1 = true;
+        }
+        try {
+            mech.setCurrentStructure(5);
+        } catch (IllegalArgumentException exception) {
+            test2 = true;
+        }
+        mech.setCurrentStructure(0);
+        if (mech.getCurrentStructure() == 0) {
+            test3 = true;
+        }
+        mech.setCurrentStructure(4);
+        if (mech.getCurrentStructure() == 4) {
+            test4 = true;
+        }
+        
+        return test1 && test2 && test3 && test4;
     }
     /**
      * Tests Mech.setCurrentHP().
      * @return a boolean representing whether the method passed.
      */
     private static boolean runMechSetCurrentHPTests() {
-        // TODO: fill out
-        return false;
+        Mech mech = new Mech("validName", FrameEnum.EVEREST);
+        boolean test1 = false;
+        boolean test2 = false;
+        boolean test3 = false;
+        boolean test4 = false;
+
+        try {
+            mech.setCurrentHP(-1);
+        } catch (IllegalArgumentException exception) {
+            test1 = true;
+        }
+        try {
+            mech.setCurrentHP(11);
+        } catch (IllegalArgumentException exception) {
+            test2 = true;
+        }
+        mech.setCurrentHP(0);
+        if (mech.getCurrentHP() == 0) {
+            test3 = true;
+        }
+        mech.setCurrentHP(10);
+        if (mech.getCurrentHP() == 10) {
+            test4 = true;
+        }
+        
+        return test1 && test2 && test3 && test4;
     }
     /**
      * Tests Mech.setCurrentStress().
      * @return a boolean representing whether the method passed.
      */
     private static boolean runMechSetCurrentStressTests() {
-        // TODO: fill out
-        return false;
+        Mech mech = new Mech("validName", FrameEnum.EVEREST);
+        boolean test1 = false;
+        boolean test2 = false;
+        boolean test3 = false;
+        boolean test4 = false;
+
+        try {
+            mech.setCurrentStress(-1);
+        } catch (IllegalArgumentException exception) {
+            test1 = true;
+        }
+        try {
+            mech.setCurrentStress(5);
+        } catch (IllegalArgumentException exception) {
+            test2 = true;
+        }
+        mech.setCurrentStress(0);
+        if (mech.getCurrentStress() == 0) {
+            test3 = true;
+        }
+        mech.setCurrentStress(4);
+        if (mech.getCurrentStress() == 4) {
+            test4 = true;
+        }
+        
+        return test1 && test2 && test3 && test4;
     }
     /**
      * Tests Mech.setCurrentHeatCapacity().
      * @return a boolean representing whether the method passed.
      */
     private static boolean runMechSetCurrentHeatCapacityTests() {
-        // TODO: fill out
-        return false;
+        Mech mech = new Mech("validName", FrameEnum.EVEREST);
+        boolean test1 = false;
+        boolean test2 = false;
+        boolean test3 = false;
+        boolean test4 = false;
+
+        try {
+            mech.setCurrentHeatCapacity(-1);
+        } catch (IllegalArgumentException exception) {
+            test1 = true;
+        }
+        try {
+            mech.setCurrentHeatCapacity(7);
+        } catch (IllegalArgumentException exception) {
+            test2 = true;
+        }
+        mech.setCurrentHeatCapacity(0);
+        if (mech.getCurrentHeatCapacity() == 0) {
+            test3 = true;
+        }
+        mech.setCurrentHeatCapacity(6);
+        if (mech.getCurrentHeatCapacity() == 6) {
+            test4 = true;
+        }
+        
+        return test1 && test2 && test3 && test4;
     }
     /**
      * Tests Mech.setCurrentRepairCapacity().
      * @return a boolean representing whether the method passed.
      */
     private static boolean runMechSetCurrentRepairCapacityTests() {
-        // TODO: fill out
-        return false;
+        Mech mech = new Mech("validName", FrameEnum.EVEREST);
+        boolean test1 = false;
+        boolean test2 = false;
+        boolean test3 = false;
+        boolean test4 = false;
+
+        try {
+            mech.setCurrentRepairCapacity(-1);
+        } catch (IllegalArgumentException exception) {
+            test1 = true;
+        }
+        try {
+            mech.setCurrentRepairCapacity(6);
+        } catch (IllegalArgumentException exception) {
+            test2 = true;
+        }
+        mech.setCurrentRepairCapacity(0);
+        if (mech.getCurrentRepairCapacity() == 0) {
+            test3 = true;
+        }
+        mech.setCurrentRepairCapacity(5);
+        if (mech.getCurrentRepairCapacity() == 5) {
+            test4 = true;
+        }
+        
+        return test1 && test2 && test3 && test4;
     }
     /**
      * Tests Mech.setMount().
@@ -2089,16 +2434,358 @@ public class TestMethods {
      * @return a boolean representing whether the method passed.
      */
     private static boolean runMechCopyOfTests() {
-        // TODO: fill out
-        return false;
+        Mech original;
+        Mech copy;
+        Frame frame1;
+        Frame frame2;
+        Mount mount1;
+        Mount mount2;
+        MechSystem system1;
+        MechSystem system2;
+        boolean test1 = false;
+        boolean test2 = false;
+        boolean test3 = true;
+        boolean test4 = false;
+        boolean test5 = false;
+        boolean test6 = true;
+        boolean test7 = false;
+        boolean test8 = false;
+        boolean test9 = false;
+        boolean test10 = false;
+        boolean test11 = false;
+        boolean test12 = false;
+        boolean test13 = false;
+        boolean test14 = false;
+        boolean test15 = false;
+        boolean test16 = false;
+        boolean test17 = false;
+        boolean test18 = false;
+        boolean test19 = false;
+        boolean test20 = false;
+        boolean test21 = false;
+        boolean test22 = false;
+        boolean test23 = false;
+        boolean test24 = false;
+        boolean test25 = false;
+        boolean test26 = false;
+        boolean test27 = false;
+        boolean test28 = false;
+        boolean test29 = true;
+        boolean test30 = true;
+        boolean test31 = true;
+
+        original = new Mech("Wraith", FrameEnum.SWALLOWTAIL_RANGER);
+        original.setOperatorNotes("validOperatorNotes");
+        original.setMount(0, new Mount("aux",
+            new Weapon("Slag Cannon")));
+        original.setMount(1, new Mount("aux",
+            new Weapon("Vulture DMR"), "",
+            "Overpower Caliber"));
+        original.setSystems(new MechSystem[] {
+            new MechSystem("Pattern-A Smoke Charges", 3),
+            new MechSystem("Seismic Ripper"),
+            new MechSystem("High-Stress Mag Clamps"),
+            new MechSystem("ATHENA-Class NHP"),
+            new MechSystem("Markerlight"),
+            new MechSystem("IMMOLATE"),
+            new MechSystem("Wandering Nightmare")
+        });
+        copy = original.copyOf();
+        if (original != copy) {
+            test1 = true;
+        }
+        if (original.getName().equals(copy.getName())) {
+            test2 = true;
+        }
+        frame1 = original.getFrame();
+        frame2 = copy.getFrame();
+        if (! (frame1.isPlaceholder() && frame2.isPlaceholder())) {
+            if (! frame1.getManufacturer().equals(frame2.getManufacturer())) {
+                test3 = false;
+            } else if (! frame1.getName().equals(frame2.getName())) {
+                test3 = false;
+            } else if (! frame1.getID().equals(frame2.getID())) {
+                test3 = false;
+            } else if (frame1.getFrameEnum() != frame2.getFrameEnum()) {
+                test3 = false;
+            } else if (frame1.getRole().getClass() == String[].class // TODO: FIX
+                && frame1.getRole().getClass() == frame2.getRole().getClass()
+                && frame1.getRole().length == frame2.getRole().length) {
+                for (int i = 0; i < frame1.getRole().length; i++) {
+                    if (! frame1.getRole()[i].equals(frame2.getRole()[i])) {
+                        test3 = false;
+                        break;
+                    }
+                }
+            } else if (! frame1.getFrameDescription().equals(
+                frame2.getFrameDescription())) {
+                test3 = false;
+            } else if (frame1.getSize() != frame2.getSize()) {
+                test3 = false;
+            } else if (frame1.getStructure() != frame2.getStructure()) {
+                test3 = false;
+            } else if (frame1.getHP() != frame2.getHP()) {
+                test3 = false;
+            } else if (frame1.getArmor() != frame2.getArmor()) {
+                test3 = false;
+            } else if (frame1.getStress() != frame2.getStress()) {
+                test3 = false;
+            } else if (frame1.getHeatCapacity() != frame2.getHeatCapacity()) {
+                test3 = false;
+            } else if (frame1.getEvasion() != frame2.getEvasion()) {
+                test3 = false;
+            } else if (frame1.getSpeed() != frame2.getSpeed()) {
+                test3 = false;
+            } else if (frame1.getEDefense() != frame2.getEDefense()) {
+                test3 = false;
+            } else if (frame1.getTechAttack() != frame2.getTechAttack()) {
+                test3 = false;
+            } else if (frame1.getSensors() != frame2.getSensors()) {
+                test3 = false;
+            } else if (frame1.getRepairCapacity() !=
+                frame2.getRepairCapacity()) {
+                test3 = false;
+            } else if (frame1.getSaveTarget() != frame2.getSaveTarget()) {
+                test3 = false;
+            } else if (frame1.getSystemPoints() != frame2.getSystemPoints()) {
+                test3 = false;
+            // TODO: FIX - this doesn't catch if any of these conditions are false
+            } else if (frame1.getTraits().getClass() == String[].class
+                && frame1.getTraits().getClass() ==
+                    frame2.getTraits().getClass()
+                && frame1.getTraits().length == frame2.getTraits().length) {
+                for (int i = 0; i < frame1.getRole().length; i++) {
+                    if (! frame1.getRole()[i].equals(frame2.getRole()[i])) {
+                        test3 = false;
+                        break;
+                    }
+                }
+            } else if (frame1.getMounts().getClass() == Mount[].class
+                && frame1.getMounts().getClass() == frame2.getMounts().getClass()
+                && frame1.getMounts().length == frame2.getMounts().length) { // TODO: FIX
+                for (int i = 0; i < frame1.getMounts().length; i++) {
+                    mount1 = frame1.getMounts()[i];
+                    mount2 = frame2.getMounts()[i];
+                    if ((! mount1.getMountType().equals(mount2.getMountType()))
+                        || (! mount1.getWeapon().getName().equals(mount2.getWeapon().getName()))
+                        || mount1.hasModification() != mount2.hasModification()
+                        || (! mount1.getModification().equals(mount2.getModification()))
+                        || mount1.hasCoreBonus() != mount2.hasCoreBonus()) { // TODO: finish
+                        test3 = false;
+                        break;
+                    }
+                }
+                test3 = false;
+            }
+        }
+        if (original.getManufacturer().equals(copy.getManufacturer())) {
+            test4 = true;
+        }
+        if (original.getFrameName().equals(copy.getFrameName())) {
+            test5 = true;
+        }
+        if (original.getRole().getClass() == String[].class
+            && original.getRole().getClass() == copy.getRole().getClass()
+            && original.getRole().length == copy.getRole().length) {
+            for (int i = 0; i < original.getRole().length; i++) {
+                if (! original.getRole()[i].equals(copy.getRole()[i])) {
+                    test6 = false;
+                    break;
+                }
+            }
+        }
+        if (original.getFrameDescription().equals(copy.getFrameDescription())) {
+            test7 = true;
+        }
+        if (original.getOperatorNotes().equals(copy.getOperatorNotes())) {
+            test8 = true;
+        }
+        if (original.getSize() == copy.getSize()) {
+            test9 = true;
+        }
+        if (original.getCurrentStructure() == copy.getCurrentStructure()) {
+            test10 = true;
+        }
+        if (original.getMaxStructure() == copy.getMaxStructure()) {
+            test11 = true;
+        }
+        if (original.getCurrentHP() == copy.getCurrentHP()) {
+            test12 = true;
+        }
+        if (original.getMaxHP() == copy.getMaxHP()) {
+            test13 = true;
+        }
+        if (original.getArmor() == copy.getArmor()) {
+            test14 = true;
+        }
+        if (original.getCurrentStress() == copy.getCurrentStress()) {
+            test15 = true;
+        }
+        if (original.getMaxStress() == copy.getMaxStress()) {
+            test16 = true;
+        }
+        if (original.getCurrentHeatCapacity() ==
+            copy.getCurrentHeatCapacity()) {
+            test17 = true;
+        }
+        if (original.getMaxHeatCapacity() == copy.getMaxHeatCapacity()) {
+            test18 = true;
+        }
+        if (original.getEvasion() == copy.getEvasion()) {
+            test19 = true;
+        }
+        if (original.getSpeed() == copy.getSpeed()) {
+            test20 = true;
+        }
+        if (original.getEDefense() == copy.getEDefense()) {
+            test21 = true;
+        }
+        if (original.getTechAttack() == copy.getTechAttack()) {
+            test22 = true;
+        }
+        if (original.getSensors() == copy.getSensors()) {
+            test23 = true;
+        }
+        if (original.getCurrentRepairCapacity() ==
+            copy.getCurrentRepairCapacity()) {
+            test24 = true;
+        }
+        if (original.getMaxRepairCapacity() == copy.getMaxRepairCapacity()) {
+            test25 = true;
+        }
+        if (original.getSaveTarget() == copy.getSaveTarget()) {
+            test26 = true;
+        }
+        if (original.getSystemPoints() == copy.getSystemPoints()) {
+            test27 = true;
+        }
+        if (original.getLimitedSystemsBonus() ==
+            copy.getLimitedSystemsBonus()) {
+            test28 = true;
+        }
+        if (original.getTraits().getClass() == String[].class
+            && original.getTraits().getClass() == copy.getTraits().getClass()
+            && original.getTraits().length == copy.getTraits().length) {
+            for (int i = 0; i < original.getTraits().length; i++) {
+                if (! original.getTraits()[i].equals(copy.getTraits()[i])) {
+                    test29 = false;
+                    break;
+                }
+            }
+        }
+        if (original.getMounts().getClass() == Mount[].class
+            && original.getMounts().getClass() == copy.getMounts().getClass()
+            && original.getMounts().length == copy.getMounts().length) {
+            for (int i = 0; i < original.getMounts().length; i++) {
+                mount1 = original.getMounts()[i];
+                mount2 = copy.getMounts()[i];
+                if (! mount1.getMountType().equals(mount2.getMountType())) {
+                    test30 = false;
+                    break;
+                }
+                if (! mount1.getWeapon().getName().equals(
+                    mount2.getWeapon().getName())) {
+                    test30 = false;
+                    break;
+                }
+                if (mount1.hasModification() != mount2.hasModification()) {
+                    test30 = false;
+                    break;
+                }
+                if (! mount1.getModification().equals(
+                    mount2.getModification())) {
+                    test30 = false;
+                    break;
+                }
+                if (mount1.hasCoreBonus() != mount2.hasCoreBonus()) {
+                    test30 = false;
+                    break;
+                }
+                if (! mount1.getCoreBonus().equals(
+                    mount2.getCoreBonus())) {
+                    test30 = false;
+                    break;
+                }
+                if (mount1.hasTalent() != mount2.hasTalent()) {
+                    test30 = false;
+                    break;
+                }
+                if (mount1.getTalent() == null) {
+                    if (mount1.getTalent() != mount2.getTalent()) {
+                        test30 = false;
+                        break;
+                    }
+                } else {
+                    if (! mount1.getTalent().equals(mount2.getTalent())) {
+                        test30 = false;
+                        break;
+                    }
+                }
+            }
+        }
+        if (original.getSystems().getClass() == MechSystem[].class
+            && original.getSystems().getClass() == copy.getSystems().getClass()
+            && original.getSystems().length == copy.getSystems().length) {
+            for (int i = 0; i < original.getSystems().length; i++) {
+                system1 = original.getSystems()[i];
+                system2 = copy.getSystems()[i];
+                if (! system1.getName().equals(system2.getName())) {
+                    test31 = false;
+                    break;
+                }
+                if (system1.isLimited() != system2.isLimited()) {
+                    test31 = false;
+                    break;
+                }
+                if (system1.getLimitedCharges() !=
+                    system2.getLimitedCharges()) {
+                    test31 = false;
+                    break;
+                }
+            }
+        }
+
+        return test1 && test2 && test3 && test4 && test5 && test6 && test7
+            && test8 && test9 && test10 && test11 && test12 && test13 && test14
+            && test15 && test16 && test17 && test18 && test19 && test20
+            && test21 && test22 && test23 && test24 && test25 && test26
+            && test27 && test28 && test29 && test30 && test31;
     }
     /**
      * Tests Mech.outputSize().
      * @return a boolean representing whether the method passed.
      */
     private static boolean runMechOutputSizeTests() {
-        // TODO: fill out
-        return false;
+        // TODO: un-comment
+        Mech mech;
+        boolean test1 = false;
+        boolean test2 = false;
+        boolean test3 = false;
+        boolean test4 = false;
+        boolean test5 = false;
+        
+        // mech = new Mech("validName", FrameEnum.CALIBAN);
+        // if (mech.outputSize().equals("1/2")) {
+        //     test1 = true;
+        // }
+        mech = new Mech("validName", FrameEnum.EVEREST);
+        if (mech.outputSize().equals("1")) {
+            test2 = true;
+        }
+        // mech = new Mech("validName", FrameEnum.SAGARMATHA);
+        // if (mech.outputSize().equals("2")) {
+        //     test3 = true;
+        // }
+        // mech = new Mech("validName", FrameEnum.BARBAROSSA);
+        // if (mech.outputSize().equals("3")) {
+        //     test4 = true;
+        // }
+        // mech = new Mech("validName", FrameEnum.SIZE_4);
+        // if (mech.outputSize().equals("4")) {
+        //     test5 = true;
+        // }
+        
+        return test1 && test2 && test3 && test4 && test5;
     }
     /**
      * Tests Mech.calculateAttributes().
