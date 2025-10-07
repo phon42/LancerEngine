@@ -87,11 +87,49 @@ public class FrameDatabase {
             }),
         new Frame("IPS-N", "Caliban", "caliban",
             FrameEnum.CALIBAN, new String[] {"striker", "controller"},
-            "INSERT FRAME DESCRIPTION", 1, 4,
-            6, 2, 4, 5, 8, 3,
-            8, -2, 3, 5, 11,
-            5, new String[] {"Wrecking Ball", "Pursue Prey",
-            "Slam", "Weak Computer"}, new Mount[] {
+            "The Caliban chassis is a popular new order among anti piracy and"
+            + " stellar marine forces. Unlike many of IPS-N's modern frames,"
+            + " the Caliban was designed from the ground up to be a military"
+            + " machine.\n\nThe Caliban is IPS-N's solution to the \"Yemanova"
+            + " \" Problem, more properly known as the Impact-Override Problem."
+            + " Capital ships, the problem posits, are incredibly expensive,"
+            + " demand a tremendous amount of time for corpros and Diasporan"
+            + " states to produce and maintain, and increasingly outmatched by"
+            + " anti-ship weaponry. In a conventional capital duel, a"
+            + " successful kill means the death of thousands of personnel and"
+            + " the loss of millions of units of manna; this makes many"
+            + " commanders gun-shy, encouraging them to rely on subline vessels"
+            + " and fighters to accomplish battle objectives rather than risk"
+            + " their big ships. This strategy tends to prove just as"
+            + " expensive: instead of one or a handful of large ships being"
+            + " destroyed, signifying the end of a battle, engagements can"
+            + " grind on for weeks as squadrons of smaller ships engage inside"
+            + " the unpredictability gap, inching towards victory.\n\nIPS-N was"
+            + " the first to crack the Yemanova Problem. The corpro's designers"
+            + " identified the need for a rapidly deployable, sub-signature,"
+            + " directed weapon. It needed to be well-armed and well-armored,"
+            + " small enough to enter a ship and efficiently neutralize"
+            + " personnel in order to achieve victory. IPS-N created the"
+            + " Caliban to solve this need.\n\nCultural critics argue that"
+            + " mechanized chassis venerate the form of a particular humanity;"
+            + " it is an unconscious nod towards the anthrochauvinist roots of"
+            + " the machine among leading designers and fabricators. The"
+            + " Caliban is not that. It was never intended to be an image of"
+            + " man writ large, striding across the battlefield heroically to"
+            + " affect a greater purpose.\n\nUnlike many IPS-N frames, the"
+            + " Caliban has no roots in early attempts at self-defense by"
+            + " freighter crews and asteroid miners. It was not born from"
+            + " ingenuity - there is no legacy of resilience, heroism, or the"
+            + " frontier spirit to paper over the purpose of its birth. It has"
+            + " no civilian applications in aid, disaster relief, construction,"
+            + " or farming; it does not build, defend, or inspire – it was"
+            + " designed to solve a numbers problem on a ledger.\n\nIt is a"
+            + " tool designed to kill human beings very, very quickly.", 1,
+            4, 6, 2, 4, 5,
+            8, 3, 8, -2, 3,
+            5, 11, 5, new String[]
+            {"Wrecking Ball", "Pursue Prey", "Slam", "Weak Computer"},
+            new Mount[] {
                 new Mount("heavy", new Weapon())
             }),
         new Frame("SSC", "Swallowtail (Ranger Variant)",
@@ -117,9 +155,22 @@ public class FrameDatabase {
                 new Mount("flex", new Weapon()),
                 new Mount("main", new Weapon())
             }),
-        new Frame("HA", "Barbarossa", "barbarossa", FrameEnum.BARBAROSSA,
-            new String[] {"artillery"}, "INSERT FRAME"
-            + " DESCRIPTION", 6, 4, 10, 2, 4,
+        new Frame("HA", "Barbarossa", "barbarossa",
+            FrameEnum.BARBAROSSA, new String[] {"artillery"},
+            "The Barbarossa is Harrison Armory’s most massive frame to date,"
+            + " built, per the orders of Harrison II, to “stand as the"
+            + " unstoppable image of Harrison I” and to carry the heaviest of"
+            + " weapons and equipment the Armory offers. Standing nearly"
+            + " thirteen meters tall, it is an unsubtle beast of a mech,"
+            + " inspiring terror in enemies and awe in allies. The Barbarossa"
+            + " can mount weapons suitable for engaging toe-to-toe with"
+            + " gunboats and low-gross tonnage subline vessels; due to its size"
+            + " and slow maneuverability, it is often employed in low-gravity"
+            + " engagements where mass is less of a concern.\nThe Barbarossa is"
+            + " a popular target for Purview essayists, who have been known to"
+            + " remark on the drawbacks that come with its size and how, as a"
+            + " result, it is a perfect stand-in for their political enemies.",
+            6, 4, 10, 2, 4,
             8, 6, 2, 6, -2,
             10, 4, 10,
             5, new String[] {"Heavy Frame", "Pressure Plating",
