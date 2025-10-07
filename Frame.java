@@ -432,7 +432,7 @@ public class Frame {
     }
     public void setStress(int stress) {
         if (stress < 1) {
-            throw new IllegalArgumentException("New stress value is < -1");
+            throw new IllegalArgumentException("New stress value is < 1");
         }
         this.stress = stress;
     }
@@ -546,7 +546,8 @@ public class Frame {
             if (getID().equals("") && getFrameEnum() != null) {
                 throw new IllegalArgumentException("Frame.ID is set but"
                     + " Frame.frameEnum is not");
-            } else if (!(getID().equals("")) && getFrameEnum() == null) {
+            } else if (!(getID().equals(""))
+                && getFrameEnum() == null) {
                 throw new IllegalArgumentException("Frame.frameEnum is set but"
                     + " Frame.ID is not");
             }

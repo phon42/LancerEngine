@@ -323,7 +323,7 @@ public class Pilot {
     public void setName(String name) {
         if (name == null) {
             throw new IllegalArgumentException("Invalid value provided for"
-                + "pilot name: null");
+                + " pilot name: null");
         }
         if (name.equals("")) {
             throw new IllegalArgumentException("Invalid value provided for"
