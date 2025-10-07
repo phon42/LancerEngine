@@ -4,26 +4,8 @@
  * Safety: This class has placeholder values but cannot be a placeholder. None
  *     of its properties have allowed values of null.
  */
-public class MechSystem {
+public class MechSystem extends Equipment {
     // TODO: fill out
-    /**
-     * The mech system's name (i.e. "armament redundancy").
-     * Can be any String except "". Cannot be null. Is set to "" on
-     *     construction.
-     */
-    private String name;
-
-    /**
-     * Whether the mech system has the "Limited" tag or not.
-     * Controlled automatically by MechSystem.setLimitedCharges().
-     */
-    private boolean limited;
-    /**
-     * The number of charges the mech system has, if it has the "Limited" tag.
-     *     If not, set to 0.
-     * Must be > 0.
-     */
-    private int limitedCharges;
 
     public MechSystem() {
         this.name = "";
@@ -38,44 +20,6 @@ public class MechSystem {
         setLimitedCharges(limitedCharges);
     }
     
-    public String getName() {
-        return name;
-    }
-    public boolean isLimited() {
-        return limited;
-    }
-    public int getLimitedCharges() {
-        return limitedCharges;
-    }
-    public void setName(String name) {
-        if (name == null) {
-            throw new IllegalArgumentException("New value for name is"
-                + " null");
-        }
-        if (name.equals("")) {
-            throw new IllegalArgumentException("New name is \"\"");
-        }
-        this.name = name;
-    }
-    /**
-     * Sets this.limitedCharges to the value provided and automatically sets
-     *     this.limited accordingly.
-     * Passing 0 will automatically set this.limited to
-     *     false; anything else will set it to true.
-     * @param limitedCharges an int that cannot be < 0.
-     */
-    public void setLimitedCharges(int limitedCharges) {
-        if (limitedCharges < 0) {
-            throw new IllegalArgumentException("New limited charges value is"
-                + " < 0");
-        }
-        if (limitedCharges == 0) {
-            this.limited = false;
-        } else {
-            this.limited = true;
-        }
-        this.limitedCharges = limitedCharges;
-    }
 
     /**
      * Checks whether this object has all of its properties set to placeholder

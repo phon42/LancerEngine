@@ -4,34 +4,13 @@
  *     there is no difference between the two. None of its properties have
  *     allowed values of null.
  */
-public class Weapon {
+public class Weapon extends Equipment {
     // TODO: fill out
-    /**
-     * The weapon's name (i.e. "anti-materiel rifle").
-     * Case-insensitive and stored in lowercase. Can be any String, though "" is
-     *     a placeholder. Cannot be null.
-     */
-    private String name;
-
     public Weapon() {
         this.name = "";
     }
     public Weapon(String name) {
         setName(name);
-    }
-
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        if (name == null) {
-            throw new IllegalArgumentException("New name is null");
-        }
-        if (name.equals("")) {
-            throw new IllegalArgumentException("New name is \"\"");
-        }
-        name = name.toLowerCase();
-        this.name = name;
     }
 
     /**
