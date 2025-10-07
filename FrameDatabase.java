@@ -1,6 +1,9 @@
 enum FrameEnum {
     EVEREST,
-    SWALLOWTAIL_RANGER
+    SAGARMATHA,
+    CALIBAN,
+    SWALLOWTAIL_RANGER,
+    BARBAROSSA,
 }
 /**
  * Contains a set array of Frames to be used by Mech(String, String) and
@@ -56,15 +59,44 @@ public class FrameDatabase {
             + " they proved they could plant their own flag at the peak of the"
             + " world.\nSagarmatha. Chomolungma.\nEverest – you’ll never forget"
             + " it.", 2, 4, 10, 0, 4,
-            6, 8, 4, 8, 0,
-            10, 5, 10, 6,
-            new String[] {"Initiative", "Replaceable Parts"}, new Mount[] {
+            6, 8, 4, 8,
+            0, 10, 5,
+            10, 6, new String[] {"Initiative",
+            "Replaceable Parts"}, new Mount[] {
                 new Mount("main", new Weapon()),
                 new Mount("flex", new Weapon()),
-                new Mount("heavy", new Weapon())}),
+                new Mount("heavy", new Weapon())
+            }),
+        new Frame("GMS", "Sagarmatha", "sagarmatha",
+            FrameEnum.SAGARMATHA, new String[] {"defender"}, "The SAGARMATHA is"
+            + " a SIZE 2 legacy GMS chassis that all characters have access to"
+            + " from LL0 onwards. This variant FRAME is not mutually exclusive"
+            + " with the EVEREST.\n\nThe Sagarmatha is of an older pattern than"
+            + " the Everest, sturdier and bulkier by necessity more than"
+            + " design. It is seen as somewhat antiquated through the lens of"
+            + " modern manufacturing standards. Nevertheless, it enjoys some"
+            + " use in border colonies, in the Baronies, and with the"
+            + " Albatross.", 4, 4, 8, 1, 4,
+            6, 8, 4, 8,
+            0, 10, 4,
+            10, 6, new String[] {"Guardian", "Heroism",
+            "Replaceable Parts"}, new Mount[] {
+                new Mount("main", new Weapon()),
+                new Mount("flex", new Weapon()),
+                new Mount("heavy", new Weapon())
+            }),
+        new Frame("IPS-N", "Caliban", "caliban",
+            FrameEnum.CALIBAN, new String[] {"striker", "controller"},
+            "INSERT FRAME DESCRIPTION", 1, 4,
+            6, 2, 4, 5, 8, 3,
+            8, -2, 3, 5, 11,
+            5, new String[] {"Wrecking Ball", "Pursue Prey",
+            "Slam", "Weak Computer"}, new Mount[] {
+                new Mount("heavy", new Weapon())
+            }),
         new Frame("SSC", "Swallowtail (Ranger Variant)",
             "swallowtail_ranger", FrameEnum.SWALLOWTAIL_RANGER,
-            new String[] {"Support"}, "This variant can be taken at rank II of"
+            new String[] {"support"}, "This variant can be taken at rank II of"
             + " the SWALLOWTAIL license instead of the base FRAME, or gained as"
             + " EXOTIC GEAR by aiding Dthall Ordo during the campaign.\n\nThis"
             + " Swallowtail variant is common among HUC ranger forces. It was"
@@ -83,7 +115,19 @@ public class FrameDatabase {
             10, 6, new String[] {"Scout Battlefield",
             "Invigorating Scanners", "Weathering"}, new Mount[] {
                 new Mount("flex", new Weapon()),
-                new Mount("main", new Weapon())})
+                new Mount("main", new Weapon())
+            }),
+        new Frame("HA", "Barbarossa", "barbarossa", FrameEnum.BARBAROSSA,
+            new String[] {"artillery"}, "INSERT FRAME"
+            + " DESCRIPTION", 6, 4, 10, 2, 4,
+            8, 6, 2, 6, -2,
+            10, 4, 10,
+            5, new String[] {"Heavy Frame", "Pressure Plating",
+            "Colossus", "Slow"}, new Mount[] {
+                new Mount("main", new Weapon()),
+                new Mount("main", new Weapon()),
+                new Mount("heavy", new Weapon())
+            })
     };
 
     // Prevent user from instantiating this class
