@@ -5,47 +5,20 @@
  *     allowed values of null.
  */
 public class Weapon extends Equipment {
-    // TODO: fill out
-    public Weapon() {
-        this.name = "";
-    }
     public Weapon(String name) {
-        setName(name);
+        super(name);
+    }
+    public Weapon(String name, EquipmentTag[] equipmentTags) {
+        super(name, equipmentTags);
     }
 
-    /**
-     * A method checking whether any of the properties of this object whose
-     *     placeholder value is normally not allowed are set to their
-     *     placeholder value.
-     * @return a boolean representing the result of the check.
-     */
-    public boolean hasPlaceholders() {
-        if (getName().equals("")) {
-            return true;
-        }
-
-        return false;
-    }
-    /**
-     * Checks whether this object has all of its properties set to placeholder
-     *     values.
-     * @return a boolean representing the result of the check.
-     */
-    public boolean isPlaceholder() {
-        if (! getName().equals("")) {
-            return false;
-        }
-
-        return true;
-    }
+    @Override
     /**
      * Returns a deep copy of this object.
      * @return a Weapon deep copy of this object.
      */
     public Weapon copyOf() {
-        Weapon copy = new Weapon();
-
-        copy.name = this.name;
+        Weapon copy = new Weapon(this.name, this.tags);
 
         return copy;
     }

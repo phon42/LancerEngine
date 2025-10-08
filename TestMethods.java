@@ -2482,7 +2482,9 @@ public class TestMethods {
             new Weapon("Vulture DMR"), "",
             "Overpower Caliber"));
         original.setSystems(new MechSystem[] {
-            new MechSystem("Pattern-A Smoke Charges", 3),
+            new MechSystem("Pattern-A Smoke Charges", new EquipmentTag[] {
+                new EquipmentTag("Limited X", 3)
+            }),
             new MechSystem("Seismic Ripper"),
             new MechSystem("High-Stress Mag Clamps"),
             new MechSystem("ATHENA-Class NHP"),
@@ -2733,14 +2735,17 @@ public class TestMethods {
                     test31 = false;
                     break;
                 }
-                if (system1.isLimited() != system2.isLimited()) {
+                if (system1.hasTag("Limited X") !=
+                    system2.hasTag("Limited X")) {
                     test31 = false;
                     break;
                 }
-                if (system1.getLimitedCharges() !=
-                    system2.getLimitedCharges()) {
-                    test31 = false;
-                    break;
+                if (system1.hasTag("Limited X")) {
+                    if (system1.getTag("Limited X") !=
+                        system2.getTag("Limited X")) {
+                        test31 = false;
+                        break;
+                    }
                 }
             }
         }

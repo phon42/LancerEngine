@@ -5,46 +5,20 @@
  *     of its properties have allowed values of null.
  */
 public class MechSystem extends Equipment {
-    // TODO: fill out
-
-    public MechSystem() {
-        this.name = "";
-        setLimitedCharges(0);
-    }
     public MechSystem(String name) {
-        this();
-        setName(name);
+        super(name);
     }
-    public MechSystem(String name, int limitedCharges) {
-        setName(name);
-        setLimitedCharges(limitedCharges);
+    public MechSystem(String name, EquipmentTag[] equipmentTags) {
+        super(name, equipmentTags);
     }
-    
 
-    /**
-     * Checks whether this object has all of its properties set to placeholder
-     *     values.
-     * @return a boolean representing the result of the check.
-     */
-    public boolean isPlaceholder() {
-        if (! getName().equals("")) {
-            return false;
-        }
-        if (isLimited()) {
-            return false;
-        }
-        if (getLimitedCharges() != 0) {
-            return false;
-        }
-
-        return true;
-    }
+    @Override
     /**
      * Returns a deep copy of this object.
      * @return a MechSystem deep copy of this object.
      */
     public MechSystem copyOf() {
-        MechSystem copy = new MechSystem(this.name, this.limitedCharges);
+        MechSystem copy = new MechSystem(this.name, this.tags);
 
         return copy;
     }
