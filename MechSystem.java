@@ -26,13 +26,14 @@ public class MechSystem extends Equipment {
             }
             isValid = false;
             for (String allowedTag : EquipmentTag.allowedSystemNames) {
-                if (tag.equals(allowedTag)) {
+                if (tag.getName().equals(allowedTag)) {
                     isValid = true;
                 }
             }
             if (! isValid) {
                 throw new IllegalArgumentException("New tags array includes an"
-                    + " invalid tag name for a MechSystem: \"" + tag + "\"");
+                    + " invalid tag name for a MechSystem: \"" + tag.getName()
+                    + "\"");
             }
         }
         tags = HelperFunctions.copyOf(tags);

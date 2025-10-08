@@ -163,7 +163,8 @@ public class LancerCharacter {
             outputString += "-- " + manufacturer + " " + frameName + " @ LL"
                 + licenseLevel + " --\n";
             outputString += getPilot().generateOutput(outputType);
-            outputString += getMech().generateOutput(outputType);
+            outputString += getMech().generateOutput(outputType,
+                this.getMech().getLimitedSystemsBonus());
         } else if (outputType.equals("pilot")) {
             outputString += getPilot().generateOutput(outputType);
         } else if (outputType.equals("full")) {

@@ -234,7 +234,7 @@ public class Mount {
         if (! getMountType().equals("")) {
             return false;
         }
-        if (! this.weapon.isPlaceholder()) {
+        if (this.weapon != null) {
             return false;
         }
         if (hasModification()) {
@@ -302,7 +302,7 @@ public class Mount {
             outputString += "FLEX MOUNT";
         }
         outputString += ":";
-        if (! weapon.isPlaceholder()) {
+        if (weapon != null) {
             outputString += " ";
             outputString += weapon.getName();
         }

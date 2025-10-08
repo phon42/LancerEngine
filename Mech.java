@@ -1139,7 +1139,7 @@ public class Mech {
      *     output type requires additional information only obtainable through
      *     Mech.generateOutput(String, int[], int)
      */
-    public String generateOutput(String outputType) {
+    public String generateOutput(String outputType, int limitedSystemsBonus) {
         String outputString = "";
 
         if (outputType.equals("mech build")) {
@@ -1147,7 +1147,8 @@ public class Mech {
             outputString += "[ WEAPONS ]\n";
             outputString += outputWeapons("mech build");
             outputString += "[ SYSTEMS ]\n";
-            outputString += outputSystems("mech build");
+            outputString += outputSystems("mech build",
+                limitedSystemsBonus);
         } else if (outputType.equals("full")) {
             throw new IllegalArgumentException("Called"
                 + " Mech.generateOutput(\"full\") but mech skills value was not"
@@ -1167,12 +1168,19 @@ public class Mech {
      * @param grit an int containing the grit stat of the Pilot associated with
      *     this Mech through the parent LancerCharacter.
      * @return a String containing the requested output.
+     * @throws IllegalArgumentException when outputType is "mech build" because
+     *     that output type requires additional information only obtainable
+     *     through Mech.generateOutput(String, int)
      */
     public String generateOutput(String outputType, int[] mechSkills,
         int grit) {
         String outputString = "";
 
-        if (outputType.equals("full")) {
+        if (outputType.equals("mech build")) {
+            throw new IllegalArgumentException("Called"
+                + " Mech.generateOutput(\"mech build\") but limited systems"
+                + " bonus value was not provided.");
+        } else if (outputType.equals("full")) {
             outputString += "[ MECH ]\n";
             if (isPlaceholder()) {
                 outputString += "  « N/A »\n";
@@ -1193,8 +1201,6 @@ public class Mech {
             outputString += outputWeapons("full");
             outputString += "[ SYSTEMS ]\n";
             outputString += outputSystems("full");
-        } else {
-            return generateOutput(outputType);
         }
 
         return outputString;
@@ -1314,6 +1320,9 @@ public class Mech {
      * @param outputType a String containing the type of output to
      *     generate.
      * @return a String containing the requested output.
+     * @throws IllegalArgumentException when outputType is "mech build" because
+     *     that output type requires additional information only obtainable
+     *     through Mech.outputSystems(String, int)
      */
     public String outputSystems(String outputType) {
         String outputString = "";
@@ -1324,19 +1333,9 @@ public class Mech {
         }
         outputType = outputType.toLowerCase();
         if (outputType.equals("mech build")) {
-            // output something like:
-            //     "  Pattern-A Smoke Charges x4, Seismic Ripper,"
-            //     "  High-Stress Mag Clamps, ATHENA-Class NHP\n"
-            for (int i = 0; i < systems.length; i++) {
-                if (i == 0) {
-                    outputString += "  ";
-                }
-                outputString += systems[i].outputSystem(outputType);
-                if (i != systems.length - 1) {
-                    outputString += ", ";
-                }
-            }
-            outputString += "\n";
+            throw new IllegalArgumentException("Called"
+                + " Mech.generateOutput(\"mech build\") but limited systems"
+                + " bonus value was not provided.");
         } else if (outputType.equals("full")) {
             // output something along the lines of:
             //       "  Pattern-A Smoke Charges, Seismic Ripper,\n"
@@ -1354,6 +1353,45 @@ public class Mech {
                 }
                 outputString += "\n";
             }
+        }
+
+        return outputString;
+    }
+    /**
+     * A helper method which generates a line of text containing output about
+     *     the mech's systems used in Mech.generateOutput(). Only returns
+     *     something other than "" when outputType is "mech build" or "full".
+     * @param outputType a String containing the type of output to
+     *     generate.
+     * @param limitedSystemsBonus an int containing the limited systems bonus of
+     *     the Mech calling this method.
+     * @return a String containing the requested output.
+     */
+    public String outputSystems(String outputType, int limitedSystemsBonus) {
+        String outputString = "";
+
+        if (systems == null || systems.length == 0) {
+            outputString += "  N/A\n";
+            return outputString;
+        }
+        outputType = outputType.toLowerCase();
+        if (outputType.equals("mech build")) {
+            // output something like:
+            //     "  Pattern-A Smoke Charges x4, Seismic Ripper,"
+            //     "  High-Stress Mag Clamps, ATHENA-Class NHP\n"
+            for (int i = 0; i < systems.length; i++) {
+                if (i == 0) {
+                    outputString += "  ";
+                }
+                outputString += systems[i].outputSystem(outputType,
+                    limitedSystemsBonus);
+                if (i != systems.length - 1) {
+                    outputString += ", ";
+                }
+            }
+            outputString += "\n";
+        } else if (outputType.equals("full")) {
+            return outputSystems(outputType);
         }
 
         return outputString;

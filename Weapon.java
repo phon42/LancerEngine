@@ -26,13 +26,14 @@ public class Weapon extends Equipment {
             }
             isValid = false;
             for (String allowedTag : EquipmentTag.allowedWeaponNames) {
-                if (tag.equals(allowedTag)) {
+                if (tag.getName().equals(allowedTag)) {
                     isValid = true;
                 }
             }
             if (! isValid) {
                 throw new IllegalArgumentException("New tags array includes an"
-                    + " invalid tag name for a Weapon: \"" + tag + "\"");
+                    + " invalid tag name for a Weapon: \"" + tag.getName()
+                    + "\"");
             }
         }
         tags = HelperFunctions.copyOf(tags);
