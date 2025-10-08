@@ -70,6 +70,9 @@ public class Equipment {
         }
         this.name = name;
     }
+    /**
+     * Is overridden in all of Equipment's children.
+     */
     public void setTags(EquipmentTag[] tags) {
         if (tags == null) {
             throw new IllegalArgumentException("New tags value is null");
