@@ -33,7 +33,7 @@ public class Mount {
     private String mountType;
     /**
      * The mount's weapon (if it has one).
-     * Can be any Weapon, though new Weapon() is a placeholder. Cannot be null.
+     * Can be any Weapon, though null is a placeholder.
      */
     private Weapon weapon;
     /**
@@ -76,7 +76,7 @@ public class Mount {
      * Creates a new Mount with the provided mountType.
      */
     public Mount(String mountType) {
-        this(mountType, new Weapon(), "", "", null);
+        this(mountType, null, "", "", null);
     }
     /**
      * Creates a new Mount with the provided mountType and weapon.
@@ -160,21 +160,10 @@ public class Mount {
         }
         this.mountType = mountType;
     }
-    /**
-     * Sets this.weapon to the value provided.
-     * @param weapon a Weapon that cannot be null and must EITHER be a
-     *     placeholder or not have any placeholders.
-     */
     public void setWeapon(Weapon weapon) {
-        if (weapon == null) {
-            throw new IllegalArgumentException("New weapon is null");
+        if (weapon != null) {
+            weapon = weapon.copyOf();
         }
-        if ((! weapon.isPlaceholder()) && weapon.hasPlaceholders()) {
-            throw new IllegalArgumentException("New weapon value is not a"
-                + " placeholder but has some properties set to placeholder"
-                + " values");
-        }
-        weapon = weapon.copyOf();
         this.weapon = weapon;
     }
     // Mutator for hasModification removed purposefully
@@ -272,12 +261,8 @@ public class Mount {
      */
     public Mount copyOf() {
         // don't need to make copies of these because the mutators already do so
-        Mount copy = new Mount(this.mountType);
-        
-        copy.weapon = this.weapon;
-        copy.setModification(this.modification);
-        copy.setCoreBonus(this.coreBonus);
-        copy.talent = this.talent;
+        Mount copy = new Mount(this.mountType, this.weapon, this.modification,
+            this.coreBonus, this.talent);
 
         return copy;
     }

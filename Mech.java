@@ -1092,7 +1092,7 @@ public class Mech {
             if (coreBonus.equals("improved armament")) {
                 mounts = HelperFunctions.add(mounts, 
                     new Mount("improved armament core bonus",
-                    new Weapon(), "",
+                    null, "",
                     "improved armament", null), 0);
             }
         }
@@ -1100,7 +1100,7 @@ public class Mech {
             if (coreBonus.equals("integrated weapon")) {
                 mounts = HelperFunctions.add(mounts, 
                     new Mount("integrated weapon core bonus",
-                    new Weapon(), "",
+                    null, "",
                     "integrated weapon", null), 0);
             }
         }

@@ -63,9 +63,9 @@ public class FrameDatabase {
             0, 10, 5,
             10, 6, new String[] {"Initiative",
             "Replaceable Parts"}, new Mount[] {
-                new Mount("main", new Weapon()),
-                new Mount("flex", new Weapon()),
-                new Mount("heavy", new Weapon())
+                new Mount("main", null),
+                new Mount("flex", null),
+                new Mount("heavy", null)
             }),
         new Frame("GMS", "Sagarmatha", "sagarmatha",
             FrameEnum.SAGARMATHA, new String[] {"defender"}, "The SAGARMATHA is"
@@ -81,9 +81,9 @@ public class FrameDatabase {
             0, 10, 4,
             10, 6, new String[] {"Guardian", "Heroism",
             "Replaceable Parts"}, new Mount[] {
-                new Mount("main", new Weapon()),
-                new Mount("flex", new Weapon()),
-                new Mount("heavy", new Weapon())
+                new Mount("main", null),
+                new Mount("flex", null),
+                new Mount("heavy", null)
             }),
         new Frame("IPS-N", "Caliban", "caliban",
             FrameEnum.CALIBAN, new String[] {"striker", "controller"},
@@ -130,7 +130,7 @@ public class FrameDatabase {
             5, 11, 5, new String[]
             {"Wrecking Ball", "Pursue Prey", "Slam", "Weak Computer"},
             new Mount[] {
-                new Mount("heavy", new Weapon())
+                new Mount("heavy", null)
             }),
         new Frame("SSC", "Swallowtail (Ranger Variant)",
             "swallowtail_ranger", FrameEnum.SWALLOWTAIL_RANGER,
@@ -152,8 +152,8 @@ public class FrameDatabase {
             0, 10, 5,
             10, 6, new String[] {"Scout Battlefield",
             "Invigorating Scanners", "Weathering"}, new Mount[] {
-                new Mount("flex", new Weapon()),
-                new Mount("main", new Weapon())
+                new Mount("flex", null),
+                new Mount("main", null)
             }),
         new Frame("HA", "Barbarossa", "barbarossa",
             FrameEnum.BARBAROSSA, new String[] {"artillery"},
@@ -175,9 +175,9 @@ public class FrameDatabase {
             10, 4, 10,
             5, new String[] {"Heavy Frame", "Pressure Plating",
             "Colossus", "Slow"}, new Mount[] {
-                new Mount("main", new Weapon()),
-                new Mount("main", new Weapon()),
-                new Mount("heavy", new Weapon())
+                new Mount("main", null),
+                new Mount("main", null),
+                new Mount("heavy", null)
             })
     };
 
