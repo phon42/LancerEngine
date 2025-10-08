@@ -16,19 +16,17 @@ public class EquipmentTag {
         "Ordnance", "Reliable X", "Inaccurate", "Arcing", "Smart", "Overkill",
         "Thrown X", "Knockback X", "Seeking"};
     /**
-     * Contains an array of allowed values for this.name for a MechSystem
-     *     specifically.
+     * Contains an array of allowed values for MechSystem.name.
      */
-    protected static final String[] allowedSystemNames = new String[] {"AI",
+    public static final String[] allowedSystemNames = new String[] {"AI",
         "Unique", "Limited X", "Grenade", "Mine", "Quick Action", "Deployable",
         "Drone", "Shield", "Heat X (Self)", "Protocol", "Overshield",
         "Full Action", "Quick Tech", "Invade", "Reaction", "Full Tech",
         "X/Round", "Danger Zone", "X/Turn"};
     /**
-     * Contains an array of allowed values for this.name for a Weapon
-     *     specifically.
+     * Contains an array of allowed values for Weapon.name.
      */
-    protected static final String[] allowedWeaponNames = new String[]
+    public static final String[] allowedWeaponNames = new String[]
         {"Accurate", "Armor-Piercing (AP)", "Loading", "Ordnance", "Reliable X",
         "Inaccurate", "Arcing", "Smart", "Overkill", "Thrown X",
         "Heat X (Self)", "Knockback X", "Limited X", "Seeking", "Unique",
@@ -73,7 +71,6 @@ public class EquipmentTag {
             }
         }
         if (! isAllowed) {
-            // TODO: add allowedNames as well as for all the other classes
             throw new IllegalArgumentException("New name: \"" + name + "\" is"
                 + " not an allowed value.");
         }

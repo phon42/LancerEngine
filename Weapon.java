@@ -13,6 +13,33 @@ public class Weapon extends Equipment {
     }
 
     @Override
+    public void setTags(EquipmentTag[] tags) {
+        boolean isValid = false;
+
+        if (tags == null) {
+            throw new IllegalArgumentException("New tags value is null");
+        }
+        for (EquipmentTag tag : tags) {
+            if (tag == null) {
+                throw new IllegalArgumentException("New tags value includes a"
+                    + " null value");
+            }
+            isValid = false;
+            for (String allowedTag : EquipmentTag.allowedWeaponNames) {
+                if (tag.equals(allowedTag)) {
+                    isValid = true;
+                }
+            }
+            if (! isValid) {
+                throw new IllegalArgumentException("New tags array includes an"
+                    + " invalid tag name for a Weapon: \"" + tag + "\"");
+            }
+        }
+        tags = HelperFunctions.copyOf(tags);
+        this.tags = tags;
+    }
+
+    @Override
     /**
      * Returns a deep copy of this object.
      * @return a Weapon deep copy of this object.
