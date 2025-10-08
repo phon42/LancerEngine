@@ -223,7 +223,9 @@ public class Main {
             new Weapon("Vulture DMR"), "",
             "Overpower Caliber"));
         myMech.setSystems(new MechSystem[] {
-            new MechSystem("Pattern-A Smoke Charges", 3),
+            new MechSystem("Pattern-A Smoke Charges", new EquipmentTag[] {
+                new EquipmentTag("Limited X", 3)
+            }),
             new MechSystem("Seismic Ripper"),
             new MechSystem("High-Stress Mag Clamps"),
             new MechSystem("ATHENA-Class NHP"),
