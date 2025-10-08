@@ -28,8 +28,7 @@ public class Equipment {
     }
     public void setName(String name) {
         if (name == null) {
-            throw new IllegalArgumentException("New value for name is"
-                + " null");
+            throw new IllegalArgumentException("New name is null");
         }
         if (name.equals("")) {
             throw new IllegalArgumentException("New name is \"\"");

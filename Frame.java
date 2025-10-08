@@ -51,7 +51,7 @@ public class Frame {
      * An array of allowed values for the elements of the role property.
      */
     public static final String[] allowedRoles = new String[] {
-        "artillery", "balanced", "controller", "striker", "support"
+        "artillery", "balanced", "controller", "defender", "striker", "support"
     };
     /**
      * The description at the top of a frame's page on COMP/CON (i.e. "Most
@@ -377,6 +377,7 @@ public class Frame {
             for (String roleMatch : Frame.allowedRoles) {
                 if (roleString.equals(roleMatch)) {
                     isValidRole = true;
+                    break;
                 }
             }
             if (! isValidRole) {

@@ -372,7 +372,7 @@ public class Pilot {
             this.status = status;
         } else {
             throw new IllegalArgumentException("Invalid value provided for"
-                + " pilot status: " + status);
+                + " pilot status: \"" + status + "\"");
         }
     }
     public void setBackground(String background) {

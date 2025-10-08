@@ -3,7 +3,7 @@ enum FrameEnum {
     SAGARMATHA,
     CALIBAN,
     SWALLOWTAIL_RANGER,
-    BARBAROSSA,
+    BARBAROSSA
 }
 /**
  * Contains a set array of Frames to be used by Mech(String, String) and

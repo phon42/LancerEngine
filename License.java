@@ -54,12 +54,10 @@ public class License {
      */
     private void setLevel(int level) {
         if (level < 1) {
-            throw new IllegalArgumentException("New value for license level"
-                + " is < 1");
+            throw new IllegalArgumentException("New license level is < 1");
         }
         if (level > 3) {
-            throw new IllegalArgumentException("New value for license level"
-                + " is > 3");
+            throw new IllegalArgumentException("New license level is > 3");
         }
         this.level = level;
     }

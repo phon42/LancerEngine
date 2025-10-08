@@ -143,11 +143,6 @@ public class Mount {
      */
     public void setMountType(String mountType) {
         boolean isValidType = false;
-        String exceptionMessage = "Given mount type is not one of the allowed"
-            + " mount types:\n\"aux\", \"aux/aux\", \"flex\", \"heavy\","
-            + " \"main\", \"main/aux\", \"integrated weapon\","
-            + " \"integrated weapon core bonus\","
-            + " \"improved armament core bonus\"";
 
         if (mountType == null) {
             throw new IllegalArgumentException("New mount type is null");
@@ -160,7 +155,8 @@ public class Mount {
             }
         }
         if (! isValidType) {
-            throw new IllegalArgumentException(exceptionMessage);
+            throw new IllegalArgumentException("New mount type is an invalid"
+                + " role value: \"" + mountType + "\"");
         }
         this.mountType = mountType;
     }
@@ -264,6 +260,9 @@ public class Mount {
         if (! getCoreBonus().equals("")) {
             return false;
         }
+        if (getTalent() != null) {
+            return false;
+        }
         
         return true;
     }
@@ -283,23 +282,32 @@ public class Mount {
         return copy;
     }
     /**
+     * A helper method which generates a short snippet of text containing output
+     *     about this mount used in Mech.outputWeapons(). Only returns something
+     *     other than "" when outputType is "mech build" or "full".
      * Outputs a short snippet of text in the style of:
      *     "MAIN MOUNT: Assault Rifle (BOUNDER-Class Comp/Con)"
      *     " // Overpower Caliber"
+     * @param outputType a String containing the type of output to
+     *     generate.
      * @return a String containing output of the mount and any weapons mounted
      *     on it, as well as any modifications or core bonuses.
      */
-    public String outputWeapon() {
+    public String outputWeapon(String outputType) {
         String outputString = "";
         boolean isBaseType = false;
 
-        outputString += mountType.toUpperCase();
+        outputType = outputType.toLowerCase();
+        if ((! outputType.equals("mech build")) && (! outputType.equals("full"))) {
+            return outputString;
+        }
         for (int i = 0; i < baseMountTypes.length; i++) {
             if (mountType.equals(baseMountTypes[i])) {
                 isBaseType = true;
             }
         }
         if (isBaseType) {
+            outputString += mountType.toUpperCase();
             outputString += " MOUNT";
         } else if (mountType.equals("integrated weapon")) {
             outputString += "Integrated";

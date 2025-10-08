@@ -776,7 +776,7 @@ public class Mech {
         this.mounts = mounts;
     }
     /**
-     * Sets this.mounts[mountIndex] to the specified Mount. mount.mountType need
+     * Sets this.mounts[mountIndex] to the provided Mount. mount.mountType need
      *     not be correct as long as mountIndex is valid.
      * @param mountIndex an int which must be a valid index for this.mounts.
      * @param mount a Mount which cannot be null
@@ -1172,9 +1172,7 @@ public class Mech {
         int grit) {
         String outputString = "";
 
-        if (outputType.equals("mech build")) {
-            return generateOutput(outputType);
-        } else if (outputType.equals("full")) {
+        if (outputType.equals("full")) {
             outputString += "[ MECH ]\n";
             if (isPlaceholder()) {
                 outputString += "  « N/A »\n";
@@ -1195,6 +1193,8 @@ public class Mech {
             outputString += outputWeapons("full");
             outputString += "[ SYSTEMS ]\n";
             outputString += outputSystems("full");
+        } else {
+            return generateOutput(outputType);
         }
 
         return outputString;
@@ -1256,9 +1256,7 @@ public class Mech {
         String outputString = "";
 
         outputType = outputType.toLowerCase();
-        if (outputType.equals("mech build")) {
-            return outputStats(outputType);
-        } else if (outputType.equals("full")) {
+        if (outputType.equals("full")) {
             outputString += " SIZE:" + outputSize() + "\n";
             outputString += "  STRUCTURE:" + getCurrentStructure() + "/"
                 + getMaxStructure() + " HP:" + getCurrentHP() + "/" + getMaxHP()
@@ -1273,6 +1271,8 @@ public class Mech {
             outputString += "  SPD:" + getSpeed() + " EVA:" + getEvasion()
                 + " EDEF:" + getEDefense() + " SENS:" + getSensors() + " SAVE:"
                 + getSaveTarget() + "\n";
+        } else {
+            return outputStats(outputType);
         }
 
         return outputString;
@@ -1291,16 +1291,16 @@ public class Mech {
         // or "  INTEGRATED WEAPON: Nexus (Light)\n"
         String outputString = "";
 
-        if (mounts == null || mounts.length == 0) {
+        outputType = outputType.toLowerCase();
+        if (mounts.length == 0) {
             outputString += "  N/A\n";
             return outputString;
         }
-        outputType = outputType.toLowerCase();
         if (outputType.equals("mech build")
             || outputType.equals("full")) {
             for (int i = 0; i < mounts.length; i++) {
                 outputString += "  ";
-                outputString += mounts[i].outputWeapon();
+                outputString += mounts[i].outputWeapon(outputType);
                 outputString += "\n";
             }
         }
@@ -1331,7 +1331,7 @@ public class Mech {
                 if (i == 0) {
                     outputString += "  ";
                 }
-                outputString += outputSystem(outputType, systems[i]);
+                outputString += systems[i].outputSystem(outputType);
                 if (i != systems.length - 1) {
                     outputString += ", ";
                 }
@@ -1344,7 +1344,7 @@ public class Mech {
             for (int i = 0; i < systems.length; i += 2) {
                 outputString += "  ";
                 for (int j = i; j < Math.min(systems.length, i + 2); j++) {
-                    outputString += outputSystem(outputType, systems[j]);
+                    outputString += systems[j].outputSystem(outputType);
                     if (j == i && j + 2 < systems.length) {
                         outputString += ", ";
                     }
@@ -1354,33 +1354,6 @@ public class Mech {
                 }
                 outputString += "\n";
             }
-        }
-
-        return outputString;
-    }
-    /**
-     * A helper method which generates a snippet of text containing output about
-     *     a given system of this Mech object used in Mech.outputSystems(). Only
-     *     returns something other than "" when outputType is "mech build" or
-     *     "full".
-     * @param outputType a String containing the type of output to
-     *     generate.
-     * @param system a MechSystem containing the system to generate output for.
-     * @return a String containing the requested output.
-     */
-    public String outputSystem(String outputType, MechSystem system) {
-        String outputString = "";
-
-        outputType = outputType.toLowerCase();
-        if (outputType.equals("full")
-            || outputType.equals("mech build")) {
-            // output something like "Pattern-A Smoke Charges"
-            outputString += system.outputSystem(outputType);
-        }
-        if (outputType.equals("mech build") && system.isLimited()) {
-            // add something like " x4"
-            outputString += " x" + (system.getLimitedCharges()
-                + getLimitedSystemsBonus());
         }
 
         return outputString;
