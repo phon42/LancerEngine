@@ -31,6 +31,8 @@ public class Mount {
      * See the documentation on Weapon.size for more information.
      * 
      * Details about the non-base mount types:
+     *     "integrated mount" - for integrated weapons such as Caliban's Flayer
+     *         Shotgun.
      *     "integrated weapon" - for integrated weapons such as the Prototype
      *         weapon from the Engineer talent.
      *     "integrated weapon core bonus" - for the Integrated Weapon core
@@ -40,14 +42,14 @@ public class Mount {
      */
     private static final String[] allowedMountTypes = {
         "aux", "aux/aux", "flex", "heavy", "main", "main/aux",
-        "integrated weapon", "integrated weapon core bonus",
+        "integrated mount", "integrated weapon", "integrated weapon core bonus",
         "improved armament core bonus"
     };
     /**
      * Contains an array of mount types that do not require talents, core
      *     bonuses, or integrated weapons on the base frame to exist.
      */
-    private final String[] baseMountTypes = {
+    private static final String[] baseMountTypes = {
         "aux", "aux/aux", "flex", "heavy", "main", "main/aux"
     };
     /**
@@ -244,6 +246,7 @@ public class Mount {
             this.hasTalent = false;
         } else {
             this.hasTalent = true;
+            talent = talent.copyOf();
         }
         this.talent = talent;
     }
