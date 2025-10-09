@@ -42,12 +42,20 @@ public class EquipmentTag {
     private int value;
 
     /**
+     * Creates a new EquipmentTag for use in EquipmentTag.copyOf() only.
+     */
+    private EquipmentTag() {
+        this.name = "";
+        this.value = 0;
+    }
+    /**
      * Creates a new EquipmentTag given an equipment tag name.
      * @param tagName a String which cannot be null or an invalid value, as
      *     defined by EquipmentTag.allowedNames.
      */
     public EquipmentTag(String tagName) {
-        this(tagName, 0);
+        this.value = 0;
+        setName(tagName);
     }
     /**
      * Creates a new EquipmentTag for an EquipmentTag like the "Limited X" tag,
@@ -126,7 +134,10 @@ public class EquipmentTag {
      * @return an EquipmentTag copy of this object.
      */
     public EquipmentTag copyOf() {
-        EquipmentTag copy = new EquipmentTag(this.name, this.value);
+        EquipmentTag copy = new EquipmentTag();
+        
+        copy.setName(this.name);
+        copy.value = this.value;
 
         return copy;
     }
