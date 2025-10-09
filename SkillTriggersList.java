@@ -34,13 +34,15 @@ public class SkillTriggersList {
         return HelperMethods.copyOf(skillTriggers);
     }
     /**
-     * add documentation
-     * @param skillTriggerName
-     * @return
+     * Searches for a specified skill trigger. Returns whether the search was
+     *     successful.
+     * @param skillTriggerName a String containing the name of the skill trigger
+     *     to be searched for.
+     * @return a boolean containing the result of the search.
      */
     public boolean hasSkillTrigger(String skillTriggerName) {
-        for (int i = 0; i < this.skillTriggers.length; i++) {
-            if (this.skillTriggers[i].getName().equals(skillTriggerName)) {
+        for (SkillTrigger skillTrigger : this.skillTriggers) {
+            if (skillTrigger.getName().equals(skillTriggerName)) {
                 return true;
             }
         }
@@ -48,18 +50,24 @@ public class SkillTriggersList {
         return false;
     }
     /**
-     * add documentation
-     * @param skillTriggerName
-     * @return
+     * Searches for a specified skill trigger. If the skill trigger is present,
+     *     returns it.
+     * @param skillTriggerName a String containing the name of the skill trigger
+     *     to be searched for.
+     * @return a SkillTrigger containing the skill trigger that was searched
+     *     for.
+     * @throws IllegalArgumentException if the requested skill trigger could not
+     *     be found.
      */
     public SkillTrigger getSkillTrigger(String skillTriggerName) {
-        for (int i = 0; i < this.skillTriggers.length; i++) {
-            if (this.skillTriggers[i].getName().equals(skillTriggerName)) {
-                return this.skillTriggers[i].copyOf();
+        for (SkillTrigger skillTrigger : this.skillTriggers) {
+            if (skillTrigger.getName().equals(skillTriggerName)) {
+                return skillTrigger.copyOf();
             }
         }
 
-        throw new IllegalArgumentException;
+        throw new IllegalArgumentException("Requested skill trigger: \""
+            + skillTriggerName + "\" could not be found.");
     }
     /**
      * Sets this.skillTriggers to the provided value.
