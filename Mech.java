@@ -52,9 +52,11 @@ public class Mech {
      * The mech's origin frame's role (i.e. "balanced"). Multiple items are 
      *     stored as seperate elements (i.e "Controller/Support" would be stored
      *     as {"controller", "support"}).
-     * Each element must be one of the following values:
+     * Must be of length 1 at minimum. Each element must be one of the following
+     *     values:
      *     "artillery", "balanced", "controller", "striker", "support".
-     * Case-insensitive and stored in lowercase. Cannot be null.
+     * Case-insensitive and stored in lowercase. Cannot be null. Is set to a new
+     *     String[0] on construction.
      */
     private String[] role;
     /**
@@ -469,8 +471,10 @@ public class Mech {
     }
     /**
      * Sets this.role to the provided value.
-     * @param role a String[] which cannot be null, contain null elements, or
-     *     invalid elements, as defined by Frame.allowedRoles.
+     * @param role a String[] which cannot be null, be of length 0, contain null
+     *     elements, or invalid elements, as defined by Frame.allowedRoles.
+     * @throws IllegalArgumentException if role is null, of length 0, contains
+     *     null elements, or invalid elements, as defined by Frame.allowedRoles.
      */
     private void setRole(String[] role) {
         boolean isValidRole = false;
@@ -478,6 +482,10 @@ public class Mech {
 
         if (role == null) {
             throw new IllegalArgumentException("New role value is null");
+        }
+        if (role.length == 0) {
+            throw new IllegalArgumentException("New role array has a length"
+                + " of 0");
         }
         for (int i = 0; i < role.length; i++) {
             if (role[i] == null) {
@@ -871,6 +879,9 @@ public class Mech {
         if (frame.isPlaceholder()) {
             return true;
         }
+        if (role.length == 0) {
+            return true;
+        }
         if (size == -1) {
             return true;
         }
@@ -937,7 +948,7 @@ public class Mech {
         if (mounts.length != 0) {
             return false;
         }
-        if (systems.length != 0) {
+        if (role.length != 0) {
             return false;
         }
         if (size != -1) {
