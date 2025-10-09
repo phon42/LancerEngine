@@ -51,9 +51,6 @@ public class Test {
     public Test(String testName, boolean testResult) {
         this(testName, testResult, new Test[0]);
     }
-    public Test(String name, Test[] tests) {
-        this(name, true, tests);
-    }
     /**
      * Creates a new Test with the provided test name and array of tests.
      * @param testName a String which cannot be null or "".
@@ -69,9 +66,38 @@ public class Test {
      * @param testResult a boolean.
      * @param testArray a Test[] which cannot be null or contain null elements.
      */
+    public Test(String testName, boolean testResult, Test[] testArray) {
+        this.name = testName;
+        this.result = Test.run(testResult);
+        this.tests = testArray;
+    }
+
+    public void setName(String name) {
+        if (name == null) {
+            throw new IllegalArgumentException("New test name is null");
+        }
+        if (name.equals("")) {
+            throw new IllegalArgumentException("New test name is \"\"");
+        }
         this.name = name;
-        this.result = Test.run(result);
+    }
+    public void setTests(Test[] tests) {
+        if (tests == null) {
+            throw new IllegalArgumentException("New tests array is null");
+        }
+        for (Test test : tests) {
+            if (test == null) {
+                throw new IllegalArgumentException("New tests array contains"
+                    + " a null element");
+            }
+        }
         this.tests = tests;
+    }
+    public void setResult(TestStatus result) {
+        if (result == null) {
+            throw new IllegalArgumentException("New test result is null");
+        }
+        this.result = result;
     }
 
     /**
