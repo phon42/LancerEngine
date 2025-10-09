@@ -204,7 +204,7 @@ public class Mech {
      */
     private Mount[] mounts;
 
-    // TODO: fill out
+    // TODO: fill out core system section
     // core system
     // core system description
     // core system passive
@@ -1169,8 +1169,8 @@ public class Mech {
                 }
                 mounts = HelperMethods.add(mounts, 
                     new Mount("integrated weapon",
-                    new Weapon(weaponName, 1), "",
-                    "", talent), 0);
+                    new Weapon(weaponName, 1, 9),
+                    "", "", talent), 0);
             }
         }
         

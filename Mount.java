@@ -19,6 +19,8 @@ public class Mount {
      *     "integrated mount", "integrated weapon",
      *     "integrated weapon core bonus",
      *     "improved armament core bonus"
+     * See Mount.allowedMountTypes' documentation for more information on these
+     *     values.
      * Case-insensitive and stored in lowercase. Cannot be null.
      */
     private String mountType;
