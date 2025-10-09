@@ -1105,6 +1105,9 @@ public class Mech {
      */
     public void calculateAttributes(int[] mechSkills, String[] coreBonuses,
         Talent[] talents) {
+        // TODO: add possibility for multiple core bonuses (because any of the
+        //     mount core bonuses can be layered on top of something like
+        //     Auto-Stabilizing Hardpoints or Overpower Caliber)
         // TODO: update to account for the Engineer talent as well as the
         //     Improved Armament and Integrated Weapon core bonuses
         if (this.frame == null) {
