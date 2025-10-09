@@ -10,8 +10,22 @@
  *     of its properties have allowed values of null.
  */
 public class MechSystem extends Equipment {
-    public MechSystem(String name) {
-        super(name);
+    /**
+     * Contains an array of allowed values for MechSystem.tags'
+     *     EquipmentTag.name values.
+     */
+    public static final String[] allowedNames = new String[] {"AI",
+        "Unique", "Limited X", "Grenade", "Mine", "Quick Action", "Deployable",
+        "Drone", "Shield", "Heat X (Self)", "Protocol", "Overshield",
+        "Full Action", "Quick Tech", "Invade", "Reaction", "Full Tech",
+        "X/Round", "Danger Zone", "X/Turn"};
+
+    /**
+     * Creates a MechSystem given a system name.
+     * @param systemName a String which cannot be null or "".
+     */
+    public MechSystem(String systemName) {
+        super(systemName);
     }
     /**
      * Creates a MechSystem given a system name and array of system tags.
@@ -49,7 +63,7 @@ public class MechSystem extends Equipment {
                     + " null value");
             }
             isValid = false;
-            for (String allowedTag : EquipmentTag.allowedSystemNames) {
+            for (String allowedTag : MechSystem.allowedNames) {
                 if (tag.getName().equals(allowedTag)) {
                     isValid = true;
                 }

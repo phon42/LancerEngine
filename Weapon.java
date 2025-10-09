@@ -22,6 +22,16 @@ public class Weapon extends Equipment {
         super(name, equipmentTags);
     }
     /**
+     * Contains an array of allowed values for Weapon.tags' EquipmentTag.name
+     *     values.
+     */
+    public static final String[] allowedNames = new String[] {"Accurate",
+        "Armor-Piercing (AP)", "Loading", "Ordnance", "Reliable X",
+        "Inaccurate", "Arcing", "Smart", "Overkill", "Thrown X",
+        "Heat X (Self)", "Knockback X", "Limited X", "Seeking", "Unique",
+        "Reaction", "Drone", "Protocol", "Full Action", "Deployable",
+        "Quick Action", "X/Round", "Danger Zone", "AI"};
+    /**
      * Sets this.tags to the provided value.
      * @param tags an EquipmentTag[] which cannot be null, contain null
      *     elements, or contain EquipmentTags with invalid EquipmentTag.name
@@ -41,7 +51,7 @@ public class Weapon extends Equipment {
         }
         for (EquipmentTag tag : tags) {
             isValid = false;
-            for (String allowedTag : EquipmentTag.allowedWeaponNames) {
+            for (String allowedTag : Weapon.allowedNames) {
                 if (tag.getName().equals(allowedTag)) {
                     isValid = true;
                 }
