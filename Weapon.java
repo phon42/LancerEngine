@@ -18,9 +18,29 @@ public class Weapon extends Equipment {
     public Weapon(String name) {
         super(name);
     }
-    public Weapon(String name, EquipmentTag[] equipmentTags) {
-        super(name, equipmentTags);
-    }
+    /**
+     * The weapon's size.
+     * Must be between 0 and 4 (inclusive).
+     * Details on these values:
+     *     0 - an aux weapon. This can go in a Mount of Mount.mountType:
+     *         "aux", "aux/aux", "flex", "heavy", "main", "main/aux",
+     *             "integrated weapon core bonus", or
+     *             "improved armament core bonus".
+     *     1 - a main weapon. This can go in a Mount of Mount.mountType:
+     *         "flex", "heavy", "main", "main/aux", or
+     *             "improved armament core bonus".
+     *     2 - a heavy weapon. This can go in a Mount of Mount.mountType:
+     *         "heavy"
+     *     3 - a superheavy weapon. This can go in a Mount of Mount.mountType:
+     *         "heavy"
+     *         and requires an additional mount to brace against. In doing so,
+     *         it consumes the ENTIRE mount - Mounts of Mount.mountType
+     *         "aux/aux", "flex", or "main/aux" cannot be used as bracing AND
+     *         still hold an additional weapon.
+     *     4 - a ship-class weapon. This can go in a Mount of Mount.mountType:
+     *         "integrated mount"
+     */
+    private int size;
     /**
      * Contains an array of allowed values for Weapon.tags' EquipmentTag.name
      *     values.
@@ -31,6 +51,52 @@ public class Weapon extends Equipment {
         "Heat X (Self)", "Knockback X", "Limited X", "Seeking", "Unique",
         "Reaction", "Drone", "Protocol", "Full Action", "Deployable",
         "Quick Action", "X/Round", "Danger Zone", "AI"};
+
+    /**
+     * Creates a new Weapon given a weapon name and weapon size.
+     * @param weaponName a String which cannot be null or "".
+     * @param weaponSize an int which must be between 0 and 4 (inclusive).
+     */
+    public Weapon(String weaponName, int weaponSize) {
+        super(weaponName);
+        setSize(weaponSize);
+    }
+    /**
+     * Creates a new Weapon given a weapon name, weapon size, and an array of
+     *     weapon tags.
+     * @param weaponName a String which cannot be null or "".
+     * @param weaponSize an int which must be between 0 and 4 (inclusive).
+     * @param weaponTags an EquipmentTag[] which cannot be null, contain null
+     *     elements, or elements with invalid EquipmentTag.name values, as
+     *     defined by Weapon.allowedNames.
+     */
+    public Weapon(String weaponName, int weaponSize,
+        EquipmentTag[] weaponTags) {
+        super(weaponName);
+        setSize(weaponSize);
+        setTags(weaponTags);
+    }
+
+    public int getSize() {
+        return size;
+    }
+    /**
+     * Sets this.size to the provided value.
+     * @param size an int which must be between 0 and 4 (inclusive).
+     * @throws IllegalArgumentException if size is not between 0 and 4
+     *     (inclusive).
+     */
+    public void setSize(int size) {
+        if (size < 0) {
+            throw new IllegalArgumentException("New size value: " + size + " is"
+                + " < 0");
+        }
+        if (size > 4) {
+            throw new IllegalArgumentException("New size value: " + size + " is"
+                + " > 4");
+        }
+        this.size = size;
+    }
     /**
      * Sets this.tags to the provided value.
      * @param tags an EquipmentTag[] which cannot be null, contain null

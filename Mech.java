@@ -1169,8 +1169,8 @@ public class Mech {
                 }
                 mounts = HelperFunctions.add(mounts, 
                     new Mount("integrated weapon",
-                    new Weapon(weaponName), "", "",
-                    talent), 0);
+                    new Weapon(weaponName, 1), "",
+                    "", talent), 0);
             }
         }
         
