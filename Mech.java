@@ -278,15 +278,13 @@ public class Mech {
     }
     // TODO: remove if unused
     /**
-     * Creates a non-placeholder Mech given every possible Mech property.
+     * Creates a non-placeholder Mech given every Mech property that isn't
+     *     calculated by the Mech's Frame.
      */
-    public Mech(String name, Frame frame, String operatorNotes, Mount[] mounts,
-        MechSystem[] systems, int size, int currentStructure, int maxStructure,
-        int currentHP, int maxHP, int armor, int currentStress, int maxStress,
-        int currentHeatCapacity, int maxHeatCapacity, int evasion, int speed,
-        int eDefense, int techAttack, int sensors, int currentRepairCapacity,
-        int maxRepairCapacity, int saveTarget, int systemPoints,
-        int limitedSystemsBonus) {
+    public Mech(String name, Frame frame, String operatorNotes,
+        int currentStructure, int currentHP, int currentStress,
+        int currentHeatCapacity, int currentRepairCapacity,
+        MechSystem[] systems) {
         // Swapped max and current property mutators because they throw
         //     exceptions otherwise
         // manufacturer and other such frame-related properties are set at the
@@ -297,32 +295,17 @@ public class Mech {
         this.manufacturer = "";
         this.frameName = "";
         this.role = new String[0];
-        this.frameDescription = "";
-        this.traits = new String[0];
+        setFrameDescription("");
+        setTraits(new String[0]);
+
         setName(name);
         setFrame(frame);
         setOperatorNotes(operatorNotes);
-        setSize(size);
-        setMaxStructure(maxStructure);
         setCurrentStructure(currentStructure);
-        setMaxHP(maxHP);
         setCurrentHP(currentHP);
-        setArmor(armor);
-        setMaxStress(maxStress);
         setCurrentStress(currentStress);
-        setMaxHeatCapacity(maxHeatCapacity);
         setCurrentHeatCapacity(currentHeatCapacity);
-        setEvasion(evasion);
-        setSpeed(speed);
-        setEDefense(eDefense);
-        setTechAttack(techAttack);
-        setSensors(sensors);
-        setMaxRepairCapacity(maxRepairCapacity);
         setCurrentRepairCapacity(currentRepairCapacity);
-        setSaveTarget(saveTarget);
-        setSystemPoints(systemPoints);
-        setLimitedSystemsBonus(limitedSystemsBonus);
-        setMounts(mounts);
         setSystems(systems);
     }
 
