@@ -862,6 +862,12 @@ public class Mech {
         if (frame.isPlaceholder()) {
             return true;
         }
+        if (manufacturer.equals("")) {
+            return true;
+        }
+        if (frameName.equals("")) {
+            return true;
+        }
         if (role.length == 0) {
             return true;
         }
@@ -925,13 +931,19 @@ public class Mech {
         if (! frame.isPlaceholder()) {
             return false;
         }
-        if (! operatorNotes.equals("")) {
+        if (! manufacturer.equals("")) {
             return false;
         }
-        if (mounts.length != 0) {
+        if (! frameName.equals("")) {
             return false;
         }
         if (role.length != 0) {
+            return false;
+        }
+        if (! frameDescription.equals("")) {
+            return false;
+        }
+        if (! operatorNotes.equals("")) {
             return false;
         }
         if (size != -1) {
@@ -944,6 +956,9 @@ public class Mech {
             return false;
         }
         if (currentHP != -1) {
+            return false;
+        }
+        if (maxHP != -1) {
             return false;
         }
         if (armor != -1) {
@@ -989,6 +1004,15 @@ public class Mech {
             return false;
         }
         if (limitedSystemsBonus != -1) {
+            return false;
+        }
+        if (traits.length != 0) {
+            return false;
+        }
+        if (mounts.length != 0) {
+            return false;
+        }
+        if (systems.length != 0) {
             return false;
         }
 
@@ -1359,7 +1383,7 @@ public class Mech {
     public String outputSystems(String outputType) {
         String outputString = "";
 
-        if (this.systems == null || this.systems.length == 0) {
+        if (this.systems.length == 0) {
             outputString += "  N/A\n";
             return outputString;
         }
@@ -1402,7 +1426,7 @@ public class Mech {
     public String outputSystems(String outputType, int limitedSystemsBonus) {
         String outputString = "";
 
-        if (this.systems == null || this.systems.length == 0) {
+        if (this.systems.length == 0) {
             outputString += "  N/A\n";
             return outputString;
         }
