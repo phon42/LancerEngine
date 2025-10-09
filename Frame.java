@@ -578,23 +578,13 @@ public class Frame {
         if (manufacturer.equals("")) {
             return true;
         }
-        if (getID().equals("") && getFrameEnum() == null) {
-            if (getID().equals("") && getFrameEnum() != null) {
-                throw new IllegalArgumentException("Frame.ID is set but"
-                    + " Frame.frameEnum is not");
-            } else if (!(getID().equals(""))
-                && getFrameEnum() == null) {
-                throw new IllegalArgumentException("Frame.frameEnum is set but"
-                    + " Frame.ID is not");
-            }
-        }
         if (name.equals("")) {
             return true;
         }
-        if (role.length == 0) {
+        if (ID.equals("") || frameEnum == null) {
             return true;
         }
-        if (getFrameDescription().equals("")) {
+        if (role.length == 0) {
             return true;
         }
         if (size == -1) {
