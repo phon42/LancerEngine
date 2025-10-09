@@ -50,9 +50,11 @@ public class Frame {
      * The frame's role (i.e. "balanced"). Multiple items are stored as seperate
      *     elements (i.e "Controller/Support" would be stored as {"controller",
      *     "support"}).
-     * Each element must be one of the following values:
+     * Must be of length 1 at minimum. Each element must be one of the following
+     *     values:
      *     "artillery", "balanced", "controller", "striker", "support".
-     * Case-insensitive and stored in lowercase. Cannot be null.
+     * Case-insensitive and stored in lowercase. Cannot be null. Is set to a new
+     *     String[0] on construction.
      */
     private String[] role;
     /**
@@ -366,10 +368,12 @@ public class Frame {
     }
     /**
      * Sets this.role to the value provided.
-     * @param role a String[] which cannot be null, contain null elements, or
-     *     contain any invalid values, as defined by Frame.allowedRoles.
-     * @throws IllegalArgumentException if role is null, contains null elements,
-     *     or invalid values, as defined by Frame.allowedRoles.
+     * @param role a String[] which must be at least of length 1, cannot be
+     *     null, contain null elements, or contain any invalid values, as
+     *     defined by Frame.allowedRoles.
+     * @throws IllegalArgumentException if role is null, contains null elements
+     *     or invalid values, as defined by Frame.allowedRoles, or has a length
+     *     of 0.
      */
     public void setRole(String[] role) {
         boolean isValidRole = false;
@@ -377,6 +381,10 @@ public class Frame {
 
         if (role == null) {
             throw new IllegalArgumentException("New role value is null");
+        }
+        if (role.length == 0) {
+            throw new IllegalArgumentException("New role value has a length"
+                + " of 0");
         }
         for (int i = 0; i < role.length; i++) {
             if (role[i] == null) {
