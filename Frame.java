@@ -541,9 +541,12 @@ public class Frame {
     }
     /**
      * Sets this.mounts to the provided value.
-     * @param mounts a Mount[] that cannot be null or contain null elements.
-     * @throws IllegalArgumentException if mounts is null or contains null
-     *     elements.
+     * @param mounts a Mount[] that cannot be null, contain null elements, or
+     *     elements that have their Mount.modification, Mount.coreBonus, or
+     *     Mount.talent set to anything except ""/""/null.
+     * @throws IllegalArgumentException if mounts is null, contains null
+     *     elements, or elements with their Mount.modification, Mount.coreBonus,
+     *     or Mount.talent set to something other than its construction value.
      */
     public void setMounts(Mount[] mounts) {
         if (mounts == null) {
@@ -553,6 +556,12 @@ public class Frame {
             if (mount == null) {
                 throw new IllegalArgumentException("New mounts array contains"
                     + " a null element");
+            }
+            if (! mount.isEmpty()) {
+                throw new IllegalArgumentException("New mounts array"
+                    + " contained an element with its Mount.modification,"
+                    + " Mount.coreBonus, or Mount.talent set to something other"
+                    + " than its construction value");
             }
         }
         mounts = HelperFunctions.copyOf(mounts);

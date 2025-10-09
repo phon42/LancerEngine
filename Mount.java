@@ -254,26 +254,14 @@ public class Mount {
      *     than their construction values.
      * @return a boolean representing the result of the check.
      */
-    public boolean isPlaceholder() {
-        if (! getMountType().equals("")) {
+    public boolean isEmpty() {
+        if (! modification.equals("")) {
             return false;
         }
-        if (this.weapon != null) {
+        if (! coreBonus.equals("")) {
             return false;
         }
-        if (hasModification()) {
-            return false;
-        }
-        if (! getModification().equals("")) {
-            return false;
-        }
-        if (hasCoreBonus()) {
-            return false;
-        }
-        if (! getCoreBonus().equals("")) {
-            return false;
-        }
-        if (getTalent() != null) {
+        if (talent != null) {
             return false;
         }
         
