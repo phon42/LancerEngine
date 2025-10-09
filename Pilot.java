@@ -452,7 +452,7 @@ public class Pilot {
      *     < this.currentHP.
      * @throws IllegalArgumentException if maxHP is < 1.
      */
-    public void setMaxHP(int maxHP) {
+    private void setMaxHP(int maxHP) {
         if (maxHP < 1) {
             throw new IllegalArgumentException("New maxHP value: " + maxHP
                 + " is < 1");

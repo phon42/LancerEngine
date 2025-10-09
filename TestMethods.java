@@ -47,7 +47,6 @@ public class TestMethods {
                 new Test("Pilot.setAppearance()", runSetAppearanceTests()),
                 new Test("Pilot.setPlayerNotes()", runSetPlayerNotesTests()),
                 new Test("Pilot.setCurrentHP()", runSetPilotCurrentHPTests()),
-                new Test("Pilot.setMaxHP()", runSetPilotMaxHPTests()),
                 new Test("Pilot.setSkillTriggers()", runSetPilotSkillTriggersTests(), new Test[] {
                     new Test("SkillTriggersList", new Test[] {
                         new Test("SkillTriggersList.setSkillTriggers()", runSetSkillTriggersTests(), new Test[] {
@@ -390,8 +389,7 @@ public class TestMethods {
         }
         // normal case
         try {
-            pilot.setMaxHP(5);
-            pilot.setCurrentHP(9);
+            pilot.setCurrentHP(15);
         } catch (IllegalArgumentException exception) {
             test2 = true;
         }
@@ -399,37 +397,6 @@ public class TestMethods {
         pilot = new Pilot("validName", "validCallsign");
         pilot.setCurrentHP(4);
         if (pilot.getCurrentHP() == 4) {
-            test3 = true;
-        }
-
-        return test1 && test2 && test3;
-    }
-    /**
-     * Tests Pilot.setMaxHP().
-     * @return a boolean representing whether the method passed.
-     */
-    private static boolean runSetPilotMaxHPTests() {
-        Pilot pilot = new Pilot("validName",
-            "validCallsign");
-        boolean test1 = false;
-        boolean test2 = false;
-        boolean test3 = false;
-
-        // normal case
-        try {
-            pilot.setMaxHP(-2);
-        } catch (IllegalArgumentException exception) {
-            test1 = true;
-        }
-        // normal case
-        try {
-            pilot.setMaxHP(0);
-        } catch (IllegalArgumentException exception) {
-            test2 = true;
-        }
-        // normal case
-        pilot.setMaxHP(9);
-        if (pilot.getMaxHP() == 9) {
             test3 = true;
         }
 
