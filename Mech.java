@@ -267,7 +267,7 @@ public class Mech {
     public Mech(String name, String frameID) {
         this();
         setName(name);
-        setFrame(FrameDatabase.getFrame(frameID));
+        setFrame(Database.getFrame(frameID));
     }
     /**
      * Creates a non-placeholder Mech from a mech name and a FrameEnum.
@@ -278,7 +278,7 @@ public class Mech {
     public Mech(String name, FrameEnum frameEnum) {
         this();
         setName(name);
-        setFrame(FrameDatabase.getFrame(frameEnum));
+        setFrame(Database.getFrame(frameEnum));
     }
     // TODO: remove if unused
     /**

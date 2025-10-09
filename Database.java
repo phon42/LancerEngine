@@ -16,7 +16,7 @@ enum FrameEnum {
  * 
  * Safety: N/A because this class cannot be instantiated.
  */
-public class FrameDatabase {
+public class Database {
     /**
      * Contains every frame's data for reference.
      */
@@ -204,7 +204,7 @@ public class FrameDatabase {
     };
 
     // Prevent user from instantiating this class
-    private FrameDatabase() {}
+    private Database() {}
 
     /**
      * Searches for and returns a Frame matching the given search ID

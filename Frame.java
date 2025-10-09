@@ -11,7 +11,7 @@
  * Requires nothing to be instantiated.
  * 
  * Used in Mech to create non-placeholder Mech objects. Also used in
- *     FrameDatabase.
+ *     Database.
  * 
  * Safety: This class has placeholder values and can be a placeholder, but in
  *     most cases should either have no placeholder values or be a placeholder,
@@ -35,15 +35,15 @@ public class Frame {
     private String name;
     /**
      * The frame's ID (i.e. "swallowtail_ranger").
-     * Used for identifying it in FrameDatabase.getFrame(String).
+     * Used for identifying it in Database.getFrame(String).
      *     Case-insensitive and stored in lowercase. Can be any String except
      *     "". Cannot be null. Is set to "" on construction.
      */
     private String ID;
     /**
      * The frame's frameEnum (i.e. FrameEnum.SWALLOWTAIL_RANGER).
-     * Used for identifying it in FrameDatabase.getFrame(FrameEnum). Cannot be
-     *     null. Is set to null on construction.
+     * Used for identifying it in Database.getFrame(FrameEnum). Cannot be null.
+     *     Is set to null on construction.
      */
     private FrameEnum frameEnum;
     /**
