@@ -270,7 +270,7 @@ public class Frame {
         return frameEnum;
     }
     public String[] getRole() {
-        return HelperFunctions.copyOf(role);
+        return HelperMethods.copyOf(role);
     }
     public String getFrameDescription() {
         return frameDescription;
@@ -318,10 +318,10 @@ public class Frame {
         return systemPoints;
     }
     public String[] getTraits() {
-        return HelperFunctions.copyOf(traits);
+        return HelperMethods.copyOf(traits);
     }
     public Mount[] getMounts() {
-        return HelperFunctions.copyOf(mounts);
+        return HelperMethods.copyOf(mounts);
     }
     public void setManufacturer(String manufacturer) {
         if (manufacturer == null) {
@@ -405,7 +405,7 @@ public class Frame {
                     + " invalid role value: \"" + roleString + "\"");
             }
         }
-        role = HelperFunctions.copyOf(role);
+        role = HelperMethods.copyOf(role);
         this.role = role;
     }
     public void setFrameDescription(String frameDescription) {
@@ -536,7 +536,7 @@ public class Frame {
                     + " element that is \"\"");
             }
         }
-        traits = HelperFunctions.copyOf(traits);
+        traits = HelperMethods.copyOf(traits);
         this.traits = traits;
     }
     /**
@@ -564,7 +564,7 @@ public class Frame {
                     + " than its construction value");
             }
         }
-        mounts = HelperFunctions.copyOf(mounts);
+        mounts = HelperMethods.copyOf(mounts);
         this.mounts = mounts;
     }
 
@@ -746,6 +746,6 @@ public class Frame {
      * @return a String containing this.name, properly formatted.
      */
     public String outputName() {
-        return HelperFunctions.toProperCase(name);
+        return HelperMethods.toProperCase(name);
     }
 }

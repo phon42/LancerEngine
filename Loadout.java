@@ -49,10 +49,10 @@ public class Loadout {
         return pilotArmor;
     }
     public String[] getPilotWeapons() {
-        return HelperFunctions.copyOf(pilotWeapons);
+        return HelperMethods.copyOf(pilotWeapons);
     }
     public String[] getPilotGear() {
-        return HelperFunctions.copyOf(pilotGear);
+        return HelperMethods.copyOf(pilotGear);
     }
     public void setPilotArmor(String pilotArmor) {
         if (pilotArmor == null) {
@@ -83,7 +83,7 @@ public class Loadout {
                     + " contains a null element");
             }
         }
-        pilotWeapons = HelperFunctions.copyOf(pilotWeapons);
+        pilotWeapons = HelperMethods.copyOf(pilotWeapons);
         this.pilotWeapons = pilotWeapons;
     }
     /**
@@ -108,7 +108,7 @@ public class Loadout {
                     + " contains a null element");
             }
         }
-        pilotGear = HelperFunctions.copyOf(pilotGear);
+        pilotGear = HelperMethods.copyOf(pilotGear);
         this.pilotGear = pilotGear;
     }
 
@@ -216,7 +216,7 @@ public class Loadout {
         newOutputArray = new String[0];
         for (int i = 0; i < outputArray.length; i++) {
             if (! outputArray[i].equals("")) {
-                newOutputArray = HelperFunctions.append(newOutputArray,
+                newOutputArray = HelperMethods.append(newOutputArray,
                     outputArray[i]);
             }
         }

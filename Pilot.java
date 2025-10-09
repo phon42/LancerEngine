@@ -298,7 +298,7 @@ public class Pilot {
         return skillTriggers.copyOf();
     }
     public String[] getReserves() {
-        return HelperFunctions.copyOf(reserves);
+        return HelperMethods.copyOf(reserves);
     }
     public Loadout getLoadout() {
         return loadout.copyOf();
@@ -308,19 +308,19 @@ public class Pilot {
         return licenseLevel;
     }
     public License[] getLicenseList() {
-        return HelperFunctions.copyOf(licenseList);
+        return HelperMethods.copyOf(licenseList);
     }
     public String[] getSpecialEquipment() {
-        return HelperFunctions.copyOf(specialEquipment);
+        return HelperMethods.copyOf(specialEquipment);
     }
     public int[] getMechSkills() {
-        return HelperFunctions.copyOf(mechSkills);
+        return HelperMethods.copyOf(mechSkills);
     }
     public String[] getCoreBonuses() {
-        return HelperFunctions.copyOf(coreBonuses);
+        return HelperMethods.copyOf(coreBonuses);
     }
     public Talent[] getTalents() {
-        return HelperFunctions.copyOf(talents);
+        return HelperMethods.copyOf(talents);
     }
     // ---Dossier-------------------
     public void setName(String name) {
@@ -521,7 +521,7 @@ public class Pilot {
                     + " includes an element with a value of \"\"");
             }
         }
-        reserves = HelperFunctions.copyOf(reserves);
+        reserves = HelperMethods.copyOf(reserves);
         for (int i = 0; i < reserves.length; i++) {
             reserves[i] = reserves[i].toLowerCase();
         }
@@ -577,7 +577,7 @@ public class Pilot {
                     + " value includes a null element");
             }
         }
-        licenseList = HelperFunctions.copyOf(licenseList);
+        licenseList = HelperMethods.copyOf(licenseList);
         this.licenseList = licenseList;
     }
     /**
@@ -602,7 +602,7 @@ public class Pilot {
                     + " value includes an element with a value of \"\"");
             }
         }
-        specialEquipment = HelperFunctions.copyOf(specialEquipment);
+        specialEquipment = HelperMethods.copyOf(specialEquipment);
         this.specialEquipment = specialEquipment;
     }
     /**
@@ -633,7 +633,7 @@ public class Pilot {
                     + " > 6");
             }
         }
-        mechSkills = HelperFunctions.copyOf(mechSkills);
+        mechSkills = HelperMethods.copyOf(mechSkills);
         this.mechSkills = mechSkills;
     }
     /**
@@ -658,7 +658,7 @@ public class Pilot {
                     + " value includes an element with a value of \"\"");
             }
         }
-        coreBonuses = HelperFunctions.copyOf(coreBonuses);
+        coreBonuses = HelperMethods.copyOf(coreBonuses);
         for (int i = 0; i < coreBonuses.length; i++) {
             coreBonuses[i] = coreBonuses[i].toLowerCase();
         }
@@ -681,7 +681,7 @@ public class Pilot {
                     + " includes a null element");
             }
         }
-        talents = HelperFunctions.copyOf(talents);
+        talents = HelperMethods.copyOf(talents);
         this.talents = talents;
     }
 
@@ -905,7 +905,7 @@ public class Pilot {
                 if (i != 0) {
                     outputString += ", ";
                 }
-                outputString += HelperFunctions.toProperCase(
+                outputString += HelperMethods.toProperCase(
                     this.coreBonuses[i]);
             }
             outputString += "\n";

@@ -225,7 +225,7 @@ public class Test {
 
         TestMethods.maxWidth = Math.max(TestMethods.maxWidth,
             indent.length() + this.name.length());
-        TestMethods.lineWidths = HelperFunctions.append(
+        TestMethods.lineWidths = HelperMethods.append(
             TestMethods.lineWidths, indent.length() + this.name.length());
         output = indent + "- " + this.name + ": %spaces%" + result;
         for (Test test : this.tests) {

@@ -115,6 +115,6 @@ public class Talent {
      * @return a String containing this.name, properly formatted.
      */
     public String outputName() {
-        return HelperFunctions.toProperCase(name);
+        return HelperMethods.toProperCase(name);
     }
 }

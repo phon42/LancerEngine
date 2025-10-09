@@ -322,7 +322,7 @@ public class Mech {
         return frameName;
     }
     public String[] getRole() {
-        return HelperFunctions.copyOf(role);
+        return HelperMethods.copyOf(role);
     }
     public String getFrameDescription() {
         return frameDescription;
@@ -391,13 +391,13 @@ public class Mech {
         return limitedSystemsBonus;
     }
     public String[] getTraits() {
-        return HelperFunctions.copyOf(traits);
+        return HelperMethods.copyOf(traits);
     }
     public Mount[] getMounts() {
-        return HelperFunctions.copyOf(mounts);
+        return HelperMethods.copyOf(mounts);
     }
     public MechSystem[] getSystems() {
-        return HelperFunctions.copyOf(systems);
+        return HelperMethods.copyOf(systems);
     }
     public void setName(String name) {
         if (name == null) {
@@ -488,7 +488,7 @@ public class Mech {
                     + " invalid element: \"" + roleString + "\"");
             }
         }
-        role = HelperFunctions.copyOf(role);
+        role = HelperMethods.copyOf(role);
         this.role = role;
     }
     private void setFrameDescription(String frameDescription) {
@@ -775,7 +775,7 @@ public class Mech {
                     + " an element that is \"\"");
             }
         }
-        traits = HelperFunctions.copyOf(traits);
+        traits = HelperMethods.copyOf(traits);
         this.traits = traits;
     }
     /**
@@ -794,7 +794,7 @@ public class Mech {
                     + " a null element");
             }
         }
-        mounts = HelperFunctions.copyOf(mounts);
+        mounts = HelperMethods.copyOf(mounts);
         this.mounts = mounts;
     }
     /**
@@ -845,7 +845,7 @@ public class Mech {
                     + " contains a null element");
             }
         }
-        systems = HelperFunctions.copyOf(systems);
+        systems = HelperMethods.copyOf(systems);
         this.systems = systems;
     }
 
@@ -1147,7 +1147,7 @@ public class Mech {
         Mount[] mounts = this.frame.getMounts();
         for (String coreBonus : coreBonuses) {
             if (coreBonus.equals("improved armament")) {
-                mounts = HelperFunctions.add(mounts, 
+                mounts = HelperMethods.add(mounts, 
                     new Mount("improved armament core bonus",
                     null, "",
                     "improved armament", null), 0);
@@ -1155,7 +1155,7 @@ public class Mech {
         }
         for (String coreBonus : coreBonuses) {
             if (coreBonus.equals("integrated weapon")) {
-                mounts = HelperFunctions.add(mounts, 
+                mounts = HelperMethods.add(mounts, 
                     new Mount("integrated weapon core bonus",
                     null, "",
                     "integrated weapon", null), 0);
@@ -1167,7 +1167,7 @@ public class Mech {
                 for (int i = 0; i < talent.getLevel(); i++) {
                     weaponName += "I";
                 }
-                mounts = HelperFunctions.add(mounts, 
+                mounts = HelperMethods.add(mounts, 
                     new Mount("integrated weapon",
                     new Weapon(weaponName, 1), "",
                     "", talent), 0);

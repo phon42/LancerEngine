@@ -91,7 +91,7 @@ public class Equipment {
     public void setTags(EquipmentTag[] tags) {
         // This will throw an exception if tags is invalid
         checkTagsArray(tags);
-        tags = HelperFunctions.copyOf(tags);
+        tags = HelperMethods.copyOf(tags);
         this.tags = tags;
     }
     /**

@@ -31,7 +31,7 @@ public class SkillTriggersList {
     }
 
     public SkillTrigger[] getSkillTriggers() {
-        return HelperFunctions.copyOf(skillTriggers);
+        return HelperMethods.copyOf(skillTriggers);
     }
     /**
      * Sets this.skillTriggers to the provided value.
@@ -51,7 +51,7 @@ public class SkillTriggersList {
                     + " value includes a null element");
             }
         }
-        skillTriggers = HelperFunctions.copyOf(skillTriggers);
+        skillTriggers = HelperMethods.copyOf(skillTriggers);
         this.skillTriggers = skillTriggers;
     }
 

@@ -68,7 +68,7 @@ public class MechSystem extends Equipment {
                     + " \"" + tag.getName() + "\"");
             }
         }
-        tags = HelperFunctions.copyOf(tags);
+        tags = HelperMethods.copyOf(tags);
         this.tags = tags;
     }
 

@@ -36,7 +36,7 @@
  * - First, I call [Class].get[Property]().
  *     - For primitives such as int, and the String class, the value is returned
  *           directly.
- *     - For arrays and classes, I call HelperFunctions.copyOf() (for arrays),
+ *     - For arrays and classes, I call HelperMethods.copyOf() (for arrays),
  *           and [Class].copyOf() (for classes). In either case, a deepest copy
  *           of the property's value is created and then returned.
  * - Second, the property is mutated as desired. For example:

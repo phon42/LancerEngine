@@ -129,7 +129,7 @@ public class License {
         // {"SSC", "swallowtail (ranger variant)"}
         stringArr[0] = stringArr[0].toUpperCase();
         // {"SSC", "Swallowtail (Ranger Variant)"}
-        stringArr[1] = HelperFunctions.toProperCase(stringArr[1]);
+        stringArr[1] = HelperMethods.toProperCase(stringArr[1]);
         formattedName = String.join(" ", stringArr);
 
         return formattedName;

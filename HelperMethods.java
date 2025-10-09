@@ -1,4 +1,3 @@
-// TODO: Change this file's name from HelperFunctions.java to HelperMethods.java
 // TODO: Use polymorphic methods or generic types or something to combine all
 //     these methods together
 /**
@@ -10,9 +9,9 @@
  * 
  * Safety: N/A because this class cannot be instantiated.
  */
-public class HelperFunctions {
+public class HelperMethods {
     // Prevent user from instantiating this class
-    private HelperFunctions() {}
+    private HelperMethods() {}
 
     // TODO: fill out with a helper method that outputs a properly formatted
     //     String from an array
@@ -29,7 +28,7 @@ public class HelperFunctions {
     public static int[] append(int[] intArray, int newElement) {
         if (intArray == null) {
             throw new IllegalArgumentException("Called"
-                + " HelperFunctions.append(int[], int) with null in the place"
+                + " HelperMethods.append(int[], int) with null in the place"
                 + " of the int[]");
         }
         int[] newIntArray = new int[intArray.length + 1];
@@ -56,12 +55,12 @@ public class HelperFunctions {
     public static String[] append(String[] stringArray, String newElement) {
         if (stringArray == null) {
             throw new IllegalArgumentException("Called"
-                + " HelperFunctions.append(String[], String) with null in the"
+                + " HelperMethods.append(String[], String) with null in the"
                 + " place of the String[]");
         }
         if (newElement == null) {
             throw new IllegalArgumentException("Called"
-                + " HelperFunctions.append(String[], String) with null in the"
+                + " HelperMethods.append(String[], String) with null in the"
                 + " place of the String");
         }
         String[] newStringArray = new String[stringArray.length + 1];
@@ -76,9 +75,9 @@ public class HelperFunctions {
         
         return newStringArray;
     }
-    // TODO: maybe add a HelperFunctions.add(Mount[], Mount) version of this
-    //     method that automatically calls either HelperFunctions.add(Mount[],
-    //     Mount, 0) or HelperFunctions.add(Mount[], Mount, Mount[].length)?
+    // TODO: maybe add a HelperMethods.add(Mount[], Mount) version of this
+    //     method that automatically calls either HelperMethods.add(Mount[],
+    //     Mount, 0) or HelperMethods.add(Mount[], Mount, Mount[].length)?
     /**
      * Adds the given Mount element to an existing Mount[] at some specified
      *     index.
@@ -91,12 +90,12 @@ public class HelperFunctions {
     public static Mount[] add(Mount[] mountArray, Mount newElement, int index) {
         if (mountArray == null) {
             throw new IllegalArgumentException("Called"
-                + " HelperFunctions.add(Mount[], Mount) with null in the"
+                + " HelperMethods.add(Mount[], Mount) with null in the"
                 + " place of the Mount[]");
         }
         if (newElement == null) {
             throw new IllegalArgumentException("Called"
-                + " HelperFunctions.add(Mount[], Mount) with null in the"
+                + " HelperMethods.add(Mount[], Mount) with null in the"
                 + " place of the Mount");
         }
         Mount[] newMountArray = new Mount[mountArray.length + 1];
@@ -124,7 +123,7 @@ public class HelperFunctions {
     public static int[] copyOf(int[] original) {
         if (original == null) {
             throw new IllegalArgumentException("Called"
-                + " HelperFunctions.copyOf(int[]) with null in the place of"
+                + " HelperMethods.copyOf(int[]) with null in the place of"
                 + " the int[]");
         }
         int[] copy = new int[original.length];
@@ -143,7 +142,7 @@ public class HelperFunctions {
     public static String[] copyOf(String[] original) {
         if (original == null) {
             throw new IllegalArgumentException("Called"
-                + " HelperFunctions.copyOf(String[]) with null in the place of"
+                + " HelperMethods.copyOf(String[]) with null in the place of"
                 + " the String[]");
         }
         String[] copy = new String[original.length];
@@ -162,7 +161,7 @@ public class HelperFunctions {
     public static License[] copyOf(License[] original) {
         if (original == null) {
             throw new IllegalArgumentException("Called"
-                + " HelperFunctions.copyOf(License[]) with null in the place of"
+                + " HelperMethods.copyOf(License[]) with null in the place of"
                 + " the License[]");
         }
         License[] copy = new License[original.length];
@@ -185,7 +184,7 @@ public class HelperFunctions {
     public static MechSystem[] copyOf(MechSystem[] original) {
         if (original == null) {
             throw new IllegalArgumentException("Called"
-                + " HelperFunctions.copyOf(MechSystem[]) with null in the place"
+                + " HelperMethods.copyOf(MechSystem[]) with null in the place"
                 + " of the MechSystem[]");
         }
         MechSystem[] copy = new MechSystem[original.length];
@@ -208,7 +207,7 @@ public class HelperFunctions {
     public static Mount[] copyOf(Mount[] original) {
         if (original == null) {
             throw new IllegalArgumentException("Called"
-                + " HelperFunctions.copyOf(Mount[]) with null in the place of"
+                + " HelperMethods.copyOf(Mount[]) with null in the place of"
                 + " the Mount[]");
         }
         Mount[] copy = new Mount[original.length];
@@ -231,7 +230,7 @@ public class HelperFunctions {
     public static SkillTrigger[] copyOf(SkillTrigger[] original) {
         if (original == null) {
             throw new IllegalArgumentException("Called"
-                + " HelperFunctions.copyOf(SkillTrigger[]) with null in the"
+                + " HelperMethods.copyOf(SkillTrigger[]) with null in the"
                 + " place of the SkillTrigger[]");
         }
         SkillTrigger[] copy = new SkillTrigger[original.length];
@@ -254,7 +253,7 @@ public class HelperFunctions {
     public static Talent[] copyOf(Talent[] original) {
         if (original == null) {
             throw new IllegalArgumentException("Called"
-                + " HelperFunctions.copyOf(Talent[]) with null in the place of"
+                + " HelperMethods.copyOf(Talent[]) with null in the place of"
                 + " the Talent[]");
         }
         Talent[] copy = new Talent[original.length];
@@ -277,7 +276,7 @@ public class HelperFunctions {
     public static EquipmentTag[] copyOf(EquipmentTag[] original) {
         if (original == null) {
             throw new IllegalArgumentException("Called"
-                + " HelperFunctions.copyOf(EquipmentTag[]) with null in the"
+                + " HelperMethods.copyOf(EquipmentTag[]) with null in the"
                 + " place of the EquipmentTag[]");
         }
         EquipmentTag[] copy = new EquipmentTag[original.length];
@@ -322,7 +321,7 @@ public class HelperFunctions {
             } else if (isLetter == lastIsLetter) {
                 stringArr[stringArr.length - 1] += substring;
             } else {
-                stringArr = HelperFunctions.append(stringArr, substring);
+                stringArr = HelperMethods.append(stringArr, substring);
             }
             lastIsLetter = isLetter;
             lastLetter = substring.charAt(0);
