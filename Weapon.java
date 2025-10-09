@@ -46,9 +46,7 @@ public class Weapon extends Equipment {
 
         // Throws an IllegalArgumentException if tags is null or contains null
         //     elements
-        if (tags == null) {
-            throw new IllegalArgumentException("New tags value is null");
-        }
+        checkTagsArray(tags);
         for (EquipmentTag tag : tags) {
             isValid = false;
             for (String allowedTag : Weapon.allowedNames) {
@@ -66,11 +64,26 @@ public class Weapon extends Equipment {
         this.tags = tags;
     }
 
+    /**
+     * Checks whether this object has all of its properties set to placeholder
+     *     values.
+     * @return a boolean representing the result of the check.
+     */
     @Override
+    public boolean isPlaceholder() {
+        // Checks to see if all of the properties created by Equipment are
+        //     set to placeholder values
+        if (! super.isPlaceholder()) {
+            return false;
+        }
+
+        return true;
+    }
     /**
      * Returns a deep copy of this Weapon object.
      * @return a Weapon deep copy of this object.
      */
+    @Override
     public Weapon copyOf() {
         // don't need to make copies of this.tags because the mutator
         //     (Equipment.setTags()) called by Weapon(String, int,
