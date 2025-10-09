@@ -135,7 +135,16 @@ public class FrameDatabase {
             5, 11, 5, new String[]
             {"Wrecking Ball", "Pursue Prey", "Slam", "Weak Computer"},
             new Mount[] {
-                // TODO: add Caliban's integrated weapon
+                new Mount("integrated mount",
+                    new Weapon("HHS-075 \"Flayer\" Shotgun",
+                    1, 0, new EquipmentTag[] {
+                        // TODO: disentangle these two weapon profiles
+                        new EquipmentTag("Inaccurate"),
+                        new EquipmentTag("Knockback X", 2),
+                        new EquipmentTag("Accurate"),
+                        // new EquipmentTag("Knockback X", 5)
+                    })
+                ),
                 new Mount("heavy", null)
             }),
         new Frame("SSC", "Swallowtail (Ranger Variant)",
@@ -181,7 +190,13 @@ public class FrameDatabase {
             10, 4, 10,
             5, new String[] {"Heavy Frame", "Pressure Plating",
             "Colossus", "Slow"}, new Mount[] {
-                // TODO: add Barbarossa's integrated weapon
+                // TODO: add some kind of automatic action-to-tag translation
+                new Mount("integrated mount",
+                    new Weapon("Apocalypse Rail", 4,
+                    7, new EquipmentTag[] {
+                        new EquipmentTag("Full Action")
+                    })
+                ),
                 new Mount("main", null),
                 new Mount("main", null),
                 new Mount("heavy", null)
