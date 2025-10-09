@@ -129,7 +129,7 @@ public class TestMethods {
                 new Test("Mech.outputSystem()", runMechOutputSystemTests()),
             })
         });
-        String result = allTests.output();
+        String result = allTests.toString();
         for (int i = 0; i < lineWidths.length; i++) {
             spaces = "";
             for (int j = 0; j < maxWidth - lineWidths[i]; j++) {
@@ -750,7 +750,7 @@ public class TestMethods {
 
         // normal case
         skillTriggers.setSkillTriggers(new SkillTrigger[0]);
-        if (skillTriggers.generateOutput().equals("  N/A\n")) {
+        if (skillTriggers.toString().equals("  N/A\n")) {
             test1 = true;
         }
         // normal case
@@ -758,7 +758,7 @@ public class TestMethods {
             new SkillTrigger("Apply Fists to Faces", 2)
         });
         String testString1 = "  Apply Fists to Faces (+2)\n";
-        if (skillTriggers.generateOutput().equals(testString1)) {
+        if (skillTriggers.toString().equals(testString1)) {
             test2 = true;
         }
         // normal case
@@ -767,7 +767,7 @@ public class TestMethods {
             new SkillTrigger("Assault", 4)
         });
         String testString2 = "  Apply Fists to Faces (+2), Assault (+4)\n";
-        if (skillTriggers.generateOutput().equals(testString2)) {
+        if (skillTriggers.toString().equals(testString2)) {
             test3 = true;
         }
         // normal case
@@ -778,7 +778,7 @@ public class TestMethods {
         });
         String testString3 = "  Apply Fists to Faces (+2), Assault (+4),\n"
             + "  Blow Something Up (+6)\n";
-        if (skillTriggers.generateOutput().equals(testString3)) {
+        if (skillTriggers.toString().equals(testString3)) {
             test4 = true;
         }
 
@@ -1089,28 +1089,28 @@ public class TestMethods {
 
         // normal case
         String testString1 = "  N/A\n";
-        if (loadout.generateOutput().equals(testString1)) {
+        if (loadout.toString().equals(testString1)) {
             test1 = true;
         }
         // normal case
         String testString2 = "  validArmor\n";
         loadout = new Loadout("validArmor", new String[] {"", ""},
             new String[] {"", "", ""});
-        if (loadout.generateOutput().equals(testString2)) {
+        if (loadout.toString().equals(testString2)) {
             test2 = true;
         }
         // normal case
         String testString3 = "  validWeapon\n";
         loadout = new Loadout("", new String[] {"validWeapon", ""},
             new String[] {"", "", ""});
-        if (loadout.generateOutput().equals(testString3)) {
+        if (loadout.toString().equals(testString3)) {
             test3 = true;
         }
         // normal case
         String testString4 = "  validWeapon, validWeapon\n";
         loadout = new Loadout("", new String[] {"validWeapon",
             "validWeapon"}, new String[] {"", "", ""});
-        if (loadout.generateOutput().equals(testString4)) {
+        if (loadout.toString().equals(testString4)) {
             test4 = true;
         }
         // normal case
@@ -1118,35 +1118,35 @@ public class TestMethods {
         loadout = new Loadout("validArmor",
             new String[] {"validWeapon", "validWeapon"}, new String[] {"", "",
             ""});
-        if (loadout.generateOutput().equals(testString5)) {
+        if (loadout.toString().equals(testString5)) {
             test5 = true;
         }
         // normal case
         String testString6 = "  validGear\n";
         loadout = new Loadout("", new String[] {"", ""},
             new String[] {"validGear", "", ""});
-        if (loadout.generateOutput().equals(testString6)) {
+        if (loadout.toString().equals(testString6)) {
             test6 = true;
         }
         // normal case
         String testString7 = "  validGear, validGear\n";
         loadout = new Loadout("", new String[] {"", ""},
             new String[] {"validGear", "validGear", ""});
-        if (loadout.generateOutput().equals(testString7)) {
+        if (loadout.toString().equals(testString7)) {
             test7 = true;
         }
         // normal case
         String testString8 = "  validArmor, validGear,\n  validGear\n";
         loadout = new Loadout("validArmor", new String[] {"", ""},
             new String[] {"validGear", "validGear", ""});
-        if (loadout.generateOutput().equals(testString8)) {
+        if (loadout.toString().equals(testString8)) {
             test8 = true;
         }
         // normal case
         String testString9 = "  validWeapon, validGear,\n  validGear\n";
         loadout = new Loadout("", new String[] {"validWeapon", ""},
             new String[] {"validGear", "validGear", ""});
-        if (loadout.generateOutput().equals(testString9)) {
+        if (loadout.toString().equals(testString9)) {
             test9 = true;
         }
         // normal case
@@ -1155,7 +1155,7 @@ public class TestMethods {
         loadout = new Loadout("",
             new String[] {"validWeapon", "validWeapon"},
             new String[] {"validGear", "validGear", ""});
-        if (loadout.generateOutput().equals(testString10)) {
+        if (loadout.toString().equals(testString10)) {
             test10 = true;
         }
         // normal case
@@ -1164,7 +1164,7 @@ public class TestMethods {
         loadout = new Loadout("validArmor",
             new String[] {"validWeapon", "validWeapon"}, new String[] {
             "validGear", "validGear", ""});
-        if (loadout.generateOutput().equals(testString11)) {
+        if (loadout.toString().equals(testString11)) {
             test11 = true;
         }
 

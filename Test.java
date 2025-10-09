@@ -234,4 +234,13 @@ public class Test {
 
         return output;
     }
+    /**
+     * Helper method allowing output() or output(0) to be called as toString()
+     *     instead.
+     * @return a String containing the output of this test and any nested tests.
+     */
+    @Override
+    public String toString() {
+        return output(0);
+    }
 }
