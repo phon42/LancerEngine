@@ -176,7 +176,7 @@ public class Pilot {
         setName(pilotName);
         setCallsign(pilotCallsign);
         setPlayer("");
-        setStatus("Active");
+        setStatus("active");
         setBackground("");
         setBiography("");
         setAppearance("");
@@ -603,9 +603,6 @@ public class Pilot {
             }
         }
         specialEquipment = HelperFunctions.copyOf(specialEquipment);
-        for (int i = 0; i < specialEquipment.length; i++) {
-            specialEquipment[i] = specialEquipment[i].toLowerCase();
-        }
         this.specialEquipment = specialEquipment;
     }
     /**
@@ -689,22 +686,6 @@ public class Pilot {
     }
 
     /**
-     * A method checking whether any of the properties of this object whose
-     *     placeholder value is normally not allowed are set to their
-     *     placeholder value.
-     * @return a boolean representing the result of the check.
-     */
-    public boolean hasPlaceholders() {
-        if (getName().equals("")) {
-            return true;
-        }
-        if (getCallsign().equals("")) {
-            return true;
-        }
-
-        return false;
-    }
-    /**
      * Returns a deepest copy of this Pilot object.
      * @return a Pilot deepest copy of this object.
      */
@@ -719,6 +700,28 @@ public class Pilot {
             this.talents);
 
         return copy;
+    }
+    /**
+     * Returns this.status, properly formatted. "active" will become "Active",
+     *     and "missing in action" will become "Missing in Action".
+     * @return a String containing this.status, properly formatted.
+     */
+    public String outputStatus() {
+        String output = "";
+
+        if (this.status.equals("missing in action")) {
+            return "Missing in Action";
+        }
+        if (this.status.equals("killed in action")) {
+            return "Killed in Action";
+        }
+        // Status is one of the following: "active", "inactive", "retired",
+        //     or "unknown"
+        output = this.status.substring(0, 1);
+        output = output.toUpperCase();
+        output += this.status.substring(1);
+        
+        return output;
     }
     /**
      * Generates the pilot portion of the COMP/CON character output function.
