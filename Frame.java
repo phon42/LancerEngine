@@ -574,7 +574,7 @@ public class Frame {
         if (name.equals("")) {
             return true;
         }
-        if (this.role.getClass() == String[].class && this.role.length == 0) {
+        if (role.length == 0) {
             return true;
         }
         if (getFrameDescription().equals("")) {
@@ -636,7 +636,7 @@ public class Frame {
         if (frameEnum != null) {
             return false;
         }
-        if (this.role.getClass() != String[].class || this.role.length != 0) {
+        if (role.length != 0) {
             return false;
         }
         if (! frameDescription.equals("")) {
