@@ -54,14 +54,8 @@ public class MechSystem extends Equipment {
 
         // Throws an IllegalArgumentException if tags is null or contains null
         //     elements
-        if (tags == null) {
-            throw new IllegalArgumentException("New tags value is null");
-        }
+        checkTagsArray(tags);
         for (EquipmentTag tag : tags) {
-            if (tag == null) {
-                throw new IllegalArgumentException("New tags value includes a"
-                    + " null value");
-            }
             isValid = false;
             for (String allowedTag : MechSystem.allowedNames) {
                 if (tag.getName().equals(allowedTag)) {
