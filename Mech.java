@@ -16,6 +16,10 @@
  *     null.
  */
 public class Mech {
+    // TODO: add some set of inherently available actions
+    // TODO: add some way for all possible actions from a Mech's MechSystems and
+    //     Weapons to bubble up
+    // TODO: add some way for a Mech to attack with its Weapons
     /**
      * The name of this mech (i.e. "Raijin") - NOT its frame name, the name
      *     given to this specific chassis.

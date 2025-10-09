@@ -1,5 +1,6 @@
 // TODO: change LancerCharacter.mech to allow null and alter documentation to
 //     compensate
+// TODO: add some kind of way for Pilot and Mech's actions to bubble up
 /**
  * Represents a single Lancer character, including the pilot and their mech.
  *     Contains a Pilot object and a Mech object.

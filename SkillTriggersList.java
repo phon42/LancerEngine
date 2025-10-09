@@ -34,6 +34,34 @@ public class SkillTriggersList {
         return HelperMethods.copyOf(skillTriggers);
     }
     /**
+     * add documentation
+     * @param skillTriggerName
+     * @return
+     */
+    public boolean hasSkillTrigger(String skillTriggerName) {
+        for (int i = 0; i < this.skillTriggers.length; i++) {
+            if (this.skillTriggers[i].getName().equals(skillTriggerName)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+    /**
+     * add documentation
+     * @param skillTriggerName
+     * @return
+     */
+    public SkillTrigger getSkillTrigger(String skillTriggerName) {
+        for (int i = 0; i < this.skillTriggers.length; i++) {
+            if (this.skillTriggers[i].getName().equals(skillTriggerName)) {
+                return this.skillTriggers[i].copyOf();
+            }
+        }
+
+        throw new IllegalArgumentException;
+    }
+    /**
      * Sets this.skillTriggers to the provided value.
      * @param skillTriggers a SkillTrigger[] which cannot be null or contain
      *     null elements.

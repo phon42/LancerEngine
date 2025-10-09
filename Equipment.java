@@ -10,6 +10,9 @@
  *     have allowed values of null.
  */
 public class Equipment {
+    // TODO: add some way to add actions for systems that provide them
+    // TODO: add some way for EquipmentTags to be automatically added based on
+    //     an equipment's contents
     /**
      * The equipment's name (i.e. "Armament Redundancy" or "Anti-Materiel
      *     Rifle").

@@ -11,6 +11,10 @@
  *     placeholder. None of its properties have allowed values of null.
  */
 public class Pilot {
+    // TODO: add some set of inherently available actions
+    // TODO: add functions for Pilot.licenseList and Pilot.talents to check if
+    //     individual items are present or to get an item with a specific name,
+    //     see SkillTriggersList
     // ---Dossier-------------------
     // name and callsign
     /**

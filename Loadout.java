@@ -10,6 +10,7 @@
  *     can be null.
  */
 public class Loadout {
+// TODO: have a pilot's Loadout actually affect their stats
     /**
      * The loadout's pilot armor (i.e. "Light Hardsuit").
      * Can be any String. Cannot be null.
