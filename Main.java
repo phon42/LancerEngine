@@ -89,7 +89,7 @@
  *            X = LancerCharacter.mech. Why did I think this was a good idea?
  * 2. Change LancerCharacter.pilot and .mech from private to public final and
  *        create some kind of mirror object that, when any of Mech's instance
- *        functions are called on it, it calls a function that I define manually
+ *        methods are called on it, it calls a method that I define manually
  *        within LancerCharacter with the same name that calls that method with
  *        the same parameters on a private (and thus hidden) Mech object.
  *        Why: Now the LancerCharacter's Mech object isn't actually exposed.
@@ -112,6 +112,7 @@
  * - Should I hold an unset "frame" value (Mech.frame) as null or some kind of
  *       special placeholder Frame value?
  *     - Same question for LancerCharacter.mech?
+ *     - Same question for Mount.weapon?
  * 
  * The Mech.generateOutput("mech build") method may be of use to you for the
  *     purposes of testing. It generates the section of text beginning with
@@ -134,8 +135,13 @@
  *           all set[Property]() methods have a Javadoc comment.
  */
 /**
- * Contains the main() function for the project. Doesn't really do anything
- *     else.
+ * Represents absolutely nothing. Contains the main() method for the project.
+ *     Doesn't really do anything else.
+ * 
+ * Cannot be instantiated.
+ * 
+ * Used for its main() method only.
+ * 
  * Safety: N/A because this class cannot be instantiated.
  */
 public class Main {
@@ -215,7 +221,7 @@ public class Main {
         System.out.println();
         
         // Now we attempt to change something about it
-        // These functions change the weapon mounted on one specific part of the
+        // These methods change the weapon mounted on one specific part of the
         //     mech
         myMech.setMount(0, new Mount("aux",
             new Weapon("Slag Cannon")));

@@ -1,6 +1,11 @@
 /**
- * Represents a single talent of the pilot. Stores the talent's name, as well as
- *     the level at which it is held.
+ * Represents a single talent of the pilot. Contains the talent's name, as well
+ *     as the level at which it is held.
+ * 
+ * Requires a talent name as well as a talent level to be instantiated.
+ * 
+ * Used in Pilot.
+ * 
  * Safety: This class does not have placeholder values. None of its properties
  *     have allowed values of null.
  */
@@ -18,6 +23,11 @@ public class Talent {
      */
     public int level;
 
+    /**
+     * Creates a new Talent with the provided talent name and talent level.
+     * @param name a String which cannot be null or "".
+     * @param level an int which must be between 1 and 3 (inclusive).
+     */
     public Talent(String name, int level) {
         setName(name);
         setLevel(level);
@@ -42,6 +52,7 @@ public class Talent {
     /**
      * Sets this.level to the provided value.
      * @param level an int which must be 1, 2, or 3.
+     * @throws IllegalArgumentException if level is not 1, 2, or 3.
      */
     private void setLevel(int level) {
         if (level < 1) {
@@ -88,8 +99,8 @@ public class Talent {
         return true;
     }
     /**
-     * Returns a deep copy of this object.
-     * @return a Talent deep copy of this object.
+     * Returns a copy of this Talent object.
+     * @return a Talent copy of this object.
      */
     public Talent copyOf() {
         Talent copy = new Talent(this.name, this.level);

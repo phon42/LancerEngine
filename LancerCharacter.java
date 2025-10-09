@@ -1,17 +1,21 @@
+// TODO: change LancerCharacter.mech to allow null and alter documentation to
+//     compensate
 /**
- * Contains the data of a single Lancer character, including the pilot and their
- *     mech.
- * Stores a Pilot object and a Mech object.
- * To be instantiated, must be provided at minimum pilotName and a pilotCallsign
- *     or a Pilot object with those values.
+ * Represents a single Lancer character, including the pilot and their mech.
+ *     Contains a Pilot object and a Mech object.
+ * 
+ * Requires at minimum a pilot name and a pilot callsign or a Pilot object with
+ *     those values.
+ * 
+ * Used in Main.
+ * 
  * Safety: This class does not have placeholder values. None of its properties
  *     can be null.
  */
 public class LancerCharacter {
     /**
      * The pilot associated with this character.
-     * Holds a Pilot object. Cannot be a placeholder or have placeholders in
-     *     the following fields:
+     * Holds a Pilot object. Cannot have placeholders in the following fields:
      *     - Pilot Name
      *     - Pilot Callsign
      */
@@ -84,6 +88,7 @@ public class LancerCharacter {
     /**
      * Sets this.pilot to the value provided.
      * @param pilot a Pilot that cannot be null or have placeholders.
+     * @throws IllegalArgumentException if pilot is null or has placeholders.
      */
     public void setPilot(Pilot pilot) {
         if (pilot == null) {
@@ -101,6 +106,8 @@ public class LancerCharacter {
      * @param mech a Mech that cannot be null and must EITHER be a placeholder
      *     or not have any placeholders. Calls Mech.calculateAttributes() before
      *     setting this.mech to it.
+     * @throws IllegalArgumentException if mech is null or is not a placeholder
+     *     but has some properties set to placeholder values.
      */
     public void setMech(Mech mech) {
         if (mech == null) {

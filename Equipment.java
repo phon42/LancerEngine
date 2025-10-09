@@ -1,5 +1,15 @@
+/**
+ * Represents a piece of mech equipment of any kind, such as a mech system or a
+ *     mech weapon. Contains information about the equipment's name and tags.
+ * 
+ * Requires an equipment name to be instantiated.
+ * 
+ * Used in and extended by MechSystem and Weapon.
+ * 
+ * Safety: This class does not have placeholder values. None of its properties
+ *     have allowed values of null.
+ */
 public class Equipment {
-    // TODO: fill out
     /**
      * The equipment's name (i.e. "Armament Redundancy" or "Anti-Materiel
      *     Rifle").
@@ -7,18 +17,21 @@ public class Equipment {
      */
     protected String name;
     /**
-     * Contains an array of all of this equipment's tags (i.e. "AI" or "Limited
-     *     X"). Cannot be null or contain null elements.
+     * Contains an array of all of this equipment's tags (i.e. EquipmentTag
+     *     elements representing an "AI" or "Limited X" tag). Cannot be null or
+     *     contain null elements.
      */
     protected EquipmentTag[] tags;
     
+    /**
+     * Creates a new Equipment from a given equipment name and sets up all
+     *     Equipment's other properties. Used in Equipment's children's
+     *     constructors as the mandatory super() constructor.
+     * @param equipmentName a String containing the Equipment's name.
+     */
     protected Equipment(String equipmentName) {
         setName(equipmentName);
         setTags(new EquipmentTag[0]);
-    }
-    public Equipment(String equipmentName, EquipmentTag[] equipmentTags) {
-        setName(equipmentName);
-        setTags(equipmentTags);
     }
 
     public String getName() {
@@ -72,30 +85,46 @@ public class Equipment {
     }
     /**
      * Is overridden in all of Equipment's children.
+     * @throws IllegalArgumentException if tags is null or includes a null
+     *     element.
      */
     public void setTags(EquipmentTag[] tags) {
+        // This will throw an exception if tags is invalid
+        checkTagsArray(tags);
+        tags = HelperFunctions.copyOf(tags);
+        this.tags = tags;
+    }
+    /**
+     * Checks an EquipmentTag[] to see if it is a valid value for
+     *     Equipment.tags. Throws an IllegalArgumentException if not. Used in
+     *     Equipment's children's overridden setTags() methods.
+     * @param tags an EquipmentTag[] to be checked.
+     * @return a boolean containing the result of the check.
+     * @throws IllegalArgumentException if the EquipmentTag[] is invalid or
+     *     contains an invalid value for any number of reasons.
+     */
+    protected void checkTagsArray(EquipmentTag[] tags) {
         if (tags == null) {
             throw new IllegalArgumentException("New tags value is null");
         }
         for (EquipmentTag tag : tags) {
             if (tag == null) {
-                throw new IllegalArgumentException("New tags value includes a"
-                    + " null value");
+                throw new IllegalArgumentException("New tags array includes a"
+                    + " null element");
             }
+            // Checking for tag.name being valid isn't necessary because it's
+            //     already done in EquipmentTag's constructors
         }
-        tags = HelperFunctions.copyOf(tags);
-        this.tags = tags;
     }
     
     /**
      * Checks whether this object has all of its properties set to placeholder
-     *     values.
+     *     values. Is both used and overridden in some of Equipment's children.
      * @return a boolean representing the result of the check.
      */
     public boolean isPlaceholder() {
-        if (! getName().equals("")) {
-            return false;
-        }
+        // Checking of this.name removed because it does not have a placeholder
+        //     value
         if (this.tags.length != 0) {
             return false;
         }
@@ -103,11 +132,17 @@ public class Equipment {
         return true;
     }
     /**
-     * Returns a deep copy of this object.
+     * Returns a deep copy of this Equipment object. Is overridden in all of
+     *     Equipment's children.
      * @return an Equipment deep copy of this object.
      */
     public Equipment copyOf() {
-        Equipment copy = new Equipment(this.name, this.tags);
+        // don't need to make copies of this.tags because the mutator
+        //     (Equipment.setTags()) called by Equipment(String, EquipmentTag[])
+        //     already does so
+        Equipment copy = new Equipment(this.name);
+
+        copy.setTags(this.tags);
 
         return copy;
     }

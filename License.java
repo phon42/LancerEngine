@@ -1,7 +1,11 @@
 /**
- * Represents a single license. Stores the frame to which the license is held,
- *     and the level of the license.
- * Requires a frameName and a licenseLevel to be instantiated.
+ * Represents a single license. Contains the name of the frame to which the
+ *     license is held, and the level of the license.
+ * 
+ * Requires a frame name and a license level to be instantiated.
+ * 
+ * Used in Pilot.
+ * 
  * Safety: This class does not have placeholder values. None of its properties
  *     can be null.
  */
@@ -49,8 +53,9 @@ public class License {
     }
     /**
      * Sets this.level to the value provided.
-     * @param level an int which must be between 1 and 3 (inclusive) and cannot
-     *     be null.
+     * @param level an int which must be between 1 and 3 (inclusive).
+     * @throws IllegalArgumentException if level is not between 1 and 3
+     *     (inclusive).
      */
     private void setLevel(int level) {
         if (level < 1) {
@@ -98,7 +103,7 @@ public class License {
         return true;
     }
     /**
-     * Returns a deep copy of this object.
+     * Returns a deep copy of this License object.
      * @return a License deep copy of this object.
      */
     public License copyOf() {

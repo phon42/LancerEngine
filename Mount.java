@@ -1,7 +1,13 @@
+// TODO: change Mount.weapon to allow null and alter documentation to compensate
 /**
  * Represents a single mount on a mech. Contains information such as what type
- *     this mount is, what weapon is mounted on it (if there is one), whether it
- *     has any modifications and whether there is a core bonus attached to it.
+ *     this mount is, what weapon is mounted on it (if there is one), and its
+ *     modifications, core bonuses, and talents.
+ * 
+ * Requires a mount type to be instantiated.
+ * 
+ * Used in Frame and Mech.
+ * 
  * Safety: This class does not have placeholder values. At least one of its
  *     properties has an allowed value of null.
  */
@@ -33,7 +39,7 @@ public class Mount {
     private String mountType;
     /**
      * The mount's weapon (if it has one).
-     * Can be any Weapon, though null is a placeholder.
+     * Can be any Weapon or null.
      */
     private Weapon weapon;
     /**
@@ -67,8 +73,9 @@ public class Mount {
      */
     private boolean hasTalent;
     /**
-     * Any talents applied to the mount (i.e. "engineer"), if there are any.
-     * Can be any Talent. Value of null indicates a placeholder.
+     * Any talents applied to the mount (i.e. the Engineer talent), if there are
+     *     any.
+     * Can be any Talent or null.
      */
     private Talent talent;
 
@@ -140,6 +147,8 @@ public class Mount {
      * Sets this.mountType to the value provided.
      * @param mountType a String that cannot be null or an invalid value, as
      *     defined by Mount.allowedMountTypes.
+     * @throws IllegalArgumentException if mountType is null or an invalid
+     *     value, as defined by Mount.allowedMountTypes.
      */
     public void setMountType(String mountType) {
         boolean isValidType = false;
@@ -226,8 +235,9 @@ public class Mount {
     }
 
     /**
-     * Checks whether this object has all of its properties set to placeholder
-     *     values.
+     * Checks whether this Mount has object has its Mount.modification,
+     *     Mount.coreBonus, or Mount.talent properties set to anything other
+     *     than their construction values.
      * @return a boolean representing the result of the check.
      */
     public boolean isPlaceholder() {
@@ -256,7 +266,7 @@ public class Mount {
         return true;
     }
     /**
-     * Returns a deepest copy of this object.
+     * Returns a deepest copy of this Mount object.
      * @return a Mount deepest copy of this object.
      */
     public Mount copyOf() {

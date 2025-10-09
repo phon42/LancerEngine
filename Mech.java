@@ -1,10 +1,15 @@
+// TODO: change Mech.frame to allow null and alter documentation to compensate
 /**
  * Represents a single mech. Contains information about that mech's origin frame
  *     (the stat block after which it is patterned), its stats, its mounts, and
  *     its systems, among other statistics.
- * A Frame object is required to create a non-placeholder Mech object. The Frame
+ * 
+ * Requires a Frame object to create a non-placeholder Mech object. The Frame
  *     object's stats, traits, and mounts serve as the base on top of which mech
  *     skills, weapons, systems, and other modifications are added.
+ * 
+ * Used in LancerCharacter.
+ * 
  * Safety: This class has placeholder values and can be a placeholder, but in
  *     most cases should either have no placeholder values or be a placeholder,
  *     which must be checked for. None of its properties have allowed values of
@@ -12,13 +17,15 @@
  */
 public class Mech {
     /**
-     * The name of this mech (i.e. Raijin) - NOT its frame name, the name given to this
-     *     specific chassis.
+     * The name of this mech (i.e. "Raijin") - NOT its frame name, the name
+     *     given to this specific chassis.
      * Can be any String except "". Cannot be null. Is set to "" on construction
      *     from Mech().
      */
     private String name;
     
+    // Frame properties being held here for convenience (as to not require
+    //     referencing Mech.frame to get them)
     /**
      * The frame that this mech is patterned after (i.e. Swallowtail) as a Frame
      *     object.
@@ -36,8 +43,8 @@ public class Mech {
      * The mech's origin frame's name (i.e. "everest").
      * Case-insensitive and stored in lowercase. Can be any String except "".
      *     Cannot be null. Is set to "" on construction.
-     * Use Frame.getName() to get the raw value and Frame.outputName() to obtain
-     *     it properly formatted.
+     * Use Mech.getFrameName() to get the raw value and
+     *     Mech.getFrame().outputName() to obtain it properly formatted.
      */
     private String frameName;
     // ID and frameEnum from Frame were intentionally omitted here
@@ -47,8 +54,7 @@ public class Mech {
      *     as {"controller", "support"}).
      * Each element must be one of the following values:
      *     "artillery", "balanced", "controller", "striker", "support".
-     * Case-insensitive and stored in lowercase. Cannot be null. Is set to
-     *     "" at construction.
+     * Case-insensitive and stored in lowercase. Cannot be null.
      */
     private String[] role;
     /**
@@ -87,17 +93,17 @@ public class Mech {
     private int maxStructure;
     /**
      * The mech's current HP value.
-     * Is set to -1 on construction, but must be a minimum of 0 otherwise.
+     * Must be a minimum of 0. Is set to -1 on construction.
      */
     private int currentHP;
     /**
      * The mech's max HP value.
-     * Is set to -1 on construction, but must be a minimum of 1 otherwise.
+     * Must be a minimum of 1. Is set to -1 on construction.
      */
     private int maxHP;
     /**
      * The mech's armor value.
-     * Is set to -1 at construction, but must be a minimum of 0 otherwise.
+     * Must be a minimum of 0. Is set to -1 on construction.
      */
     private int armor;
 
@@ -114,77 +120,77 @@ public class Mech {
     private int maxStress;
     /**
      * The mech's current heat capacity.
-     * Is set to -1 at construction, but must be a minimum of 0 otherwise.
+     * Must be a minimum of 0. Is set to -1 on construction.
      */
     private int currentHeatCapacity;
     /**
      * The mech's max heat capacity.
-     * Is set to -1 at construction, but must be a minimum of 1 otherwise.
+     * Must be a minimum of 1. Is set to -1 on construction.
      */
     private int maxHeatCapacity;
 
     // evasion and speed
     /**
      * The mech's evasion value.
-     * Is set to -1 at construction, but must be a minimum of 0 otherwise.
+     * Must be a minimum of 0. Is set to -1 on construction.
      */
     private int evasion;
     /**
      * The mech's speed value.
-     * Is set to -1 at construction, but must be a minimum of 0 otherwise.
+     * Must be a minimum of 0. Is set to -1 on construction.
      */
     private int speed;
 
     // e-defense and tech attack
     /**
      * The mech's e-defense value.
-     * Is set to -1 at construction, but must be a minimum of 0 otherwise.
+     * Must be a minimum of 0. Is set to -1 on construction.
      */
     private int eDefense;
     /**
      * The mech's tech attack value.
-     * Can be any integer.
+     * Can be any int.
      */
     private int techAttack;
 
     // sensors and repair capacity
     /**
      * The mech's sensors value.
-     * Is set to -1 at construction, but must be a minimum of 0 otherwise.
+     * Must be a minimum of 0. Is set to -1 on construction.
      */
     private int sensors;
     /**
      * The mech's current repair capacity value.
-     * Is set to -1 at construction, but must be a minimum of 0 otherwise.
+     * Must be a minimum of 0. Is set to -1 on construction.
      */
     private int currentRepairCapacity;
     /**
      * The mech's max repair capacity value.
-     * Is set to -1 at construction, but must be a minimum of 0 otherwise.
+     * Must be a minimum of 0. Is set to -1 on construction.
      */
     private int maxRepairCapacity;
 
     // save target and system points
     /**
      * The mech's save target value.
-     * Is set to -1 at construction, but must be a minimum of 0 otherwise.
+     * Must be a minimum of 0. Is set to -1 on construction.
      */
     private int saveTarget;
     /**
      * The mech's system points value.
-     * Is set to -1 at construction, but must be a minimum of 0 otherwise.
+     * Must be a minimum of 0. Is set to -1 on construction.
      */
     private int systemPoints;
 
     /**
      * The mech's limited systems bonus value.
-     * Is set to -1 at construction, but must be a minimum of 0 otherwise.
+     * Must be a minimum of 0. Is set to -1 on construction.
      */
     private int limitedSystemsBonus;
 
     /**
-     * The mech's origin frame's traits (i.e.
-     *     {"Initiative", "Replaceable Parts"}).
+     * The mech's origin frame's traits (i.e. {"Initiative",
+     *     "Replaceable Parts"}).
      * Can be any String[] that does not contain null elements or elements that
      *     are "". Cannot be null.
      */
@@ -268,6 +274,7 @@ public class Mech {
         setName(name);
         setFrame(FrameDatabase.getFrame(frameEnum));
     }
+    // TODO: remove if unused
     /**
      * Creates a non-placeholder Mech given every possible Mech property.
      */
@@ -420,6 +427,8 @@ public class Mech {
      * Sets this.frame to the provided value.
      * @param frame a Frame which cannot be null. Must be either a Frame without
      *     any placeholder values OR a placeholder Frame.
+     * @throws IllegalArgumentException if frame is null or has placeholder
+     *     values but is not a placeholder Frame.
      */
     public void setFrame(Frame frame) {
         if (frame == null) {
@@ -507,6 +516,7 @@ public class Mech {
     /**
      * Sets this.size to the provided value.
      * @param size an int which must be 1, 2, 4, 6, or 8.
+     * @throws IllegalArgumentException if size is not 1, 2, 4, 6, or 8.
      */
     private void setSize(int size) {
         if (size < 1) {
@@ -525,6 +535,8 @@ public class Mech {
      * Sets this.currentStructure to the provided value.
      * @param currentStructure an int which cannot be < 0 or >
      *     this.maxStructure.
+     * @throws IllegalArgumentException if currentStructure is < 0 or >
+     *     this.maxStructure.
      */
     public void setCurrentStructure(int currentStructure) {
         if (currentStructure < 0) {
@@ -542,6 +554,7 @@ public class Mech {
      * Sets this.maxStructure to the provided value.
      * @param maxStructure an int which cannot be < 1. Will print a warning if
      *     maxStructure is < this.currentStructure.
+     * @throws IllegalArgumentException if maxStructure is < 1.
      */
     private void setMaxStructure(int maxStructure) {
         if (maxStructure < 1) {
@@ -558,6 +571,7 @@ public class Mech {
     /**
      * Sets this.currentHP to the provided value.
      * @param currentHP an int which cannot be < 0 or > this.maxHP.
+     * @throws IllegalArgumentException if currentHP is < 0 or > this.maxHP.
      */
     public void setCurrentHP(int currentHP) {
         if (currentHP < 0) {
@@ -574,6 +588,7 @@ public class Mech {
      * Sets this.maxHP to the provided value.
      * @param maxHP an int which cannot be < 1. Will print a warning if maxHP is
      *     < this.currentHP.
+     * @throws IllegalArgumentException if maxHP is < 1.
      */
     private void setMaxHP(int maxHP) {
         if (maxHP < 1) {
@@ -594,6 +609,8 @@ public class Mech {
     /**
      * Sets this.currentStress to the provided value.
      * @param currentStress an int which cannot be < 0 or > this.maxStress.
+     * @throws IllegalArgumentException if currentStress is < 0 or >
+     * this.maxStress.
      */
     public void setCurrentStress(int currentStress) {
         if (currentStress < 0) {
@@ -610,6 +627,7 @@ public class Mech {
      * Sets this.maxStress to the provided value.
      * @param maxStress an int which cannot be < 1. Will print a warning if
      *     maxStress is < this.currentStress.
+     * @throws IllegalArgumentException if maxStress is < 1.
      */
     private void setMaxStress(int maxStress) {
         if (maxStress < 1) {
@@ -625,6 +643,8 @@ public class Mech {
     /**
      * Sets this.currentHeatCapacity to the provided value.
      * @param currentHeatCapacity an int which cannot be < 0 or >
+     *     this.maxHeatCapacity.
+     * @throws IllegalArgumentException if currentHeatCapacity is < 0 or >
      *     this.maxHeatCapacity.
      */
     public void setCurrentHeatCapacity(int currentHeatCapacity) {
@@ -687,6 +707,8 @@ public class Mech {
      * Sets this.currentRepairCapacity to the provided value.
      * @param currentRepairCapacity an int which cannot be < 0 or >
      *     this.maxRepairCapacity.
+     * @throws IllegalArgumentException if currentRepairCapacity is < 0 or >
+     *     this.maxRepairCapacity.
      */
     public void setCurrentRepairCapacity(int currentRepairCapacity) {
         if (currentRepairCapacity < 0) {
@@ -704,6 +726,7 @@ public class Mech {
      * Sets this.maxRepairCapacity to the provided value.
      * @param maxRepairCapacity an int which cannot be < 0. Will print a warning
      *     if maxRepairCapacity is < this.currentRepairCapacity.
+     * @throws IllegalArgumentException if maxRepairCapacity is < 0.
      */
     private void setMaxRepairCapacity(int maxRepairCapacity) {
         if (maxRepairCapacity < 0) {
@@ -740,6 +763,8 @@ public class Mech {
      * Sets this.traits to the provided value.
      * @param traits a String[] which cannot be null, include null elements, or
      *     elements that are "".
+     * @throws IllegalArgumentException if traits is null, includes null
+     *     elements, or elements that are "".
      */
     private void setTraits(String[] traits) {
         if (traits == null) {
@@ -761,6 +786,8 @@ public class Mech {
     /**
      * Sets this.mounts to the provided value.
      * @param mounts a Mount[] which cannot be null or contain null elements.
+     * @throws IllegalArgumentException if mounts is null or contains null
+     *     elements.
      */
     private void setMounts(Mount[] mounts) {
         if (mounts == null) {
@@ -780,6 +807,8 @@ public class Mech {
      *     not be correct as long as mountIndex is valid.
      * @param mountIndex an int which must be a valid index for this.mounts.
      * @param mount a Mount which cannot be null
+     * @throws IllegalArgumentException if mountIndex is out of bounds or mount
+     *     is null.
      */
     public void setMount(int mountIndex, Mount mount) {
         if (mountIndex < 0) {
@@ -806,6 +835,8 @@ public class Mech {
     /**
      * Sets this.systems to the provided value.
      * @param systems a MechSystem[] which cannot be null or contain null
+     *     elements.
+     * @throws IllegalArgumentException if systems is null or contains null
      *     elements.
      */
     public void setSystems(MechSystem[] systems) {
@@ -966,12 +997,15 @@ public class Mech {
         return true;
     }
     /**
-     * Returns a deepest copy of this object.
+     * Returns a deepest copy of this Mech object.
      * @return a Mech deepest copy of this object.
      */
     public Mech copyOf() {
         // don't need to make copies of these for the ones using the mutator
         //     methods (i.e. mounts) because the mutators already do so
+        // for the ones that DON'T use a mutator method (i.e. "copy.name =
+        //     name"), make sure to use the proper accessor method instead
+        //     of "property" if the property's type is mutable
         Mech copy = new Mech();
         
         copy.name = this.getName();
@@ -1041,6 +1075,7 @@ public class Mech {
      *     associated with this Mech through the parent LancerCharacter.
      * @param talents a String[] containing the talents of the Pilot associated
      *     with this Mech through the parent LancerCharacter.
+     * @throws IllegalArgumentException if this.frame is null.
      */
     public void calculateAttributes(int[] mechSkills, String[] coreBonuses,
         Talent[] talents) {

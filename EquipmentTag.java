@@ -1,8 +1,19 @@
+/**
+ * Represents a tag for a mech system or weapon, like the tags "AI" or "Limited
+ *     X". Contains information about the tag's name and value (if it has one).
+ * 
+ * Requires a tag name and tag value to be instantiated.
+ * 
+ * Used in Equipment, MechSystem, and Weapon.
+ * 
+ * Safety: This class does not have placeholder values. None of its properties
+ *     have allowed values of null.
+ */
 public class EquipmentTag {
     /**
      * Stores the name for this equipment tag (i.e. "AI").
-     * Cannot be null or an invalid value (as defined by
-     *     EquipmentTag.allowedNames).
+     * Must be a valid value (as defined by EquipmentTag.allowedNames). Cannot
+     *     be null.
      */
     private String name;
     /**
@@ -16,25 +27,8 @@ public class EquipmentTag {
         "Ordnance", "Reliable X", "Inaccurate", "Arcing", "Smart", "Overkill",
         "Thrown X", "Knockback X", "Seeking"};
     /**
-     * Contains an array of allowed values for MechSystem.name.
-     */
-    public static final String[] allowedSystemNames = new String[] {"AI",
-        "Unique", "Limited X", "Grenade", "Mine", "Quick Action", "Deployable",
-        "Drone", "Shield", "Heat X (Self)", "Protocol", "Overshield",
-        "Full Action", "Quick Tech", "Invade", "Reaction", "Full Tech",
-        "X/Round", "Danger Zone", "X/Turn"};
-    /**
-     * Contains an array of allowed values for Weapon.name.
-     */
-    public static final String[] allowedWeaponNames = new String[]
-        {"Accurate", "Armor-Piercing (AP)", "Loading", "Ordnance", "Reliable X",
-        "Inaccurate", "Arcing", "Smart", "Overkill", "Thrown X",
-        "Heat X (Self)", "Knockback X", "Limited X", "Seeking", "Unique",
-        "Reaction", "Drone", "Protocol", "Full Action", "Deployable",
-        "Quick Action", "X/Round", "Danger Zone", "AI"};
-    /**
-     * Array of values for this.name for which having a value other than 0 for
-     *     this.value makes sense
+     * Contains an array of values for this.name for which having a value other
+     *     than 0 for this.value makes sense.
      */
     private static final String[] valueNames = new String[] {"Limited X",
         "Heat X (Self)", "X/Round", "X/Turn", "Reliable X", "Thrown X",
@@ -42,9 +36,27 @@ public class EquipmentTag {
     /**
      * Stores the value for this equipment tag if it has one (i.e. the "X" in
      *     "Limited X").
+     * Must be a minimum of 0. If this.name is one of EquipmentTag.valueNames,
+     *     must be a minimum of 1. Set to 0 on construction.
      */
     private int value;
 
+    /**
+     * Creates a new EquipmentTag given an equipment tag name.
+     * @param tagName a String which cannot be null or an invalid value, as
+     *     defined by EquipmentTag.allowedNames.
+     */
+    public EquipmentTag(String tagName) {
+        this(tagName, 0);
+    }
+    /**
+     * Creates a new EquipmentTag for an EquipmentTag like the "Limited X" tag,
+     *     given an equipment tag name for which having a value other than 0 for
+     *     this.value makes sense, and a tag value.
+     * @param tagName a String which cannot be null or an invalid value, as
+     *     defined by EquipmentTag.valueNames.
+     * @param tagValue an int which must be > 1.
+     */
     public EquipmentTag(String tagName, int tagValue) {
         setName(tagName);
         setValue(tagValue);
@@ -56,16 +68,20 @@ public class EquipmentTag {
     public int getValue() {
         return value;
     }
+    /**
+     * Sets this.name to the provided value.
+     * @param name a String which must be a valid value (as defined by
+     *     EquipmentTag.allowedNames). Cannot be null.
+     * @throws IllegalArgumentException if name is null or an invalid value, as
+     *     defined by EquipmentTag.allowedNames.
+     */
     public void setName(String name) {
         boolean isAllowed = false;
 
         if (name == null) {
             throw new IllegalArgumentException("New name is null");
         }
-        if (name.equals("")) {
-            throw new IllegalArgumentException("New name is \"\"");
-        }
-        for (String allowedName : allowedNames) {
+        for (String allowedName : EquipmentTag.allowedNames) {
             if (name.equals(allowedName)) {
                 isAllowed = true;
             }
@@ -105,6 +121,10 @@ public class EquipmentTag {
         }
     }
 
+    /**
+     * Returns a copy of this EquipmentTag object.
+     * @return an EquipmentTag copy of this object.
+     */
     public EquipmentTag copyOf() {
         EquipmentTag copy = new EquipmentTag(this.name, this.value);
 

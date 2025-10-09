@@ -1,6 +1,14 @@
 /**
  * Tests every class and every method under every class. Yes, I'm serious.
+ */
+/**
+ * Represents absolutely nothing. Contains the runTests() method, which tests
+ *     every class and method in the project and prints the results.
+ * 
  * Cannot be instantiated. All its methods are static.
+ * 
+ * Used in Main.
+ * 
  * Safety: N/A because this class cannot be instantiated.
  */
 public class TestMethods {

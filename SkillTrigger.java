@@ -1,6 +1,11 @@
 /**
- * Represents a single skill trigger. Stores the skill trigger's name and the
+ * Represents a single skill trigger. Contains the skill trigger's name and the
  *     level at which it is held.
+ * 
+ * Requires a skill trigger name and a skill trigger level to be instantiated.
+ * 
+ * Used in SkillTriggersList.
+ * 
  * Safety: This class does not have placeholder values. None of its properties
  *     have allowed values of null.
  */
@@ -17,6 +22,12 @@ public class SkillTrigger {
      */
     private int level;
 
+    /**
+     * Creates a new SkillTrigger with the provided skill trigger name and skill
+     *     trigger level.
+     * @param name a String which cannot be null or "".
+     * @param level an int which must be 2, 4, or 6.
+     */
     public SkillTrigger(String name, int level) {
         setName(name);
         setLevel(level);
@@ -40,6 +51,7 @@ public class SkillTrigger {
     /**
      * Sets this.level to the provided value.
      * @param level an int which must be 2, 4, or 6.
+     * @throws IllegalArgumentException if level is not 2, 4, or 6.
      */
     private void setLevel(int level) {
         if (level < 2) {
@@ -92,8 +104,8 @@ public class SkillTrigger {
         return true;
     }
     /**
-     * Returns a deep copy of this object.
-     * @return a SkillTrigger deep copy of this object.
+     * Returns a copy of this SkillTrigger object.
+     * @return a SkillTrigger copy of this object.
      */
     public SkillTrigger copyOf() {
         SkillTrigger copy = new SkillTrigger(this.name, this.level);

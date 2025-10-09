@@ -1,23 +1,26 @@
 /**
  * Represents the pilot portion of a Lancer character, i.e. the non-mech items.
- * Stores various pieces of information such as the pilot's name, callsign,
- *     stats, licenses, and so on.
- * Safety: This class has placeholder values but cannot be a placeholder. None
- *     of its properties have allowed values of null.
+ *     Contains various pieces of information such as the pilot's name,
+ *     callsign, stats, licenses, and so on.
+ * 
+ * Requires a pilot name and pilot callsign to be instantiated.
+ * 
+ * Used in LancerCharacter.
+ * 
+ * Safety: This class does not have placeholder values and cannot be a
+ *     placeholder. None of its properties have allowed values of null.
  */
 public class Pilot {
     // ---Dossier-------------------
     // name and callsign
     /**
      * The pilot's name (i.e. Taro Oda).
-     * Can be any String other than "". Cannot be null. Is set to "" on
-     *     construction.
+     * Can be any String other than "". Cannot be null.
      */
     private String name;
     /**
      * The pilot's callsign (i.e. Marigold).
-     * Can be any String other than "". Cannot be null. Is set to "" on
-     *     construction.
+     * Can be any String other than "". Cannot be null.
      */
     private String callsign;
 
@@ -33,8 +36,13 @@ public class Pilot {
      *     "active", "inactive", "retired", "missing in action",
      *     "killed in action", "unknown"
      * Case-insensitive and stored in lowercase. Cannot be null.
+     * Use Pilot.getStatus() to get the raw value and Pilot.outputStatus() to
+     *     obtain it properly formatted.
      */
     private String status;
+    /**
+     * Contains an array of all possible allowed pilot statuses.
+     */
     private static final String[] allowedStatuses = {
         "active", "inactive", "retired", "missing in action",
         "killed in action", "unknown"
@@ -109,8 +117,8 @@ public class Pilot {
 
     /**
      * The pilot's reserves and bonuses.
-     * Can be any String[]. Cannot be null or contain null elements or
-     *     placeholders. Case-insensitive and stored in lowercase.
+     * Can be any String[]. Cannot be null or contain null elements or elements
+     *     that are "". Case-insensitive and stored in lowercase.
     */
     private String[] reserves;
 
@@ -129,18 +137,14 @@ public class Pilot {
     private int licenseLevel;
     /**
      * The pilot's licenses.
-     * Can be any License[] that does not contain null or elements with
-     *     placeholders. Cannot be null.
+     * Can be any License[] that is not null or contains null elements.
      */
     private License[] licenseList;
 
-    // TODO: create a new Equipment class and have both Weapon and MechSystem
-    //     extend it
     /**
      * The pilot's special equipment - frames, mech systems, and weapons, both
      *     normal and exotics, that the pilot gains access to for free.
      * Can be any String[]. Cannot be null or contain null elements.
-     *     Case-insensitive and stored in lowercase.
      */
     private String[] specialEquipment;
 
@@ -153,15 +157,14 @@ public class Pilot {
 
     /**
      * The pilot's core bonuses.
-     * Can be any String[] that does not contain null elements or placeholders.
-     *     Cannot be null. Case-insensitive and stored in lowercase.
+     * Can be any String[] that is not null, contains null elements, or elements
+     *     that are "". Case-insensitive and stored in lowercase.
      */
     private String[] coreBonuses;
 
     /**
      * The pilot's talents (i.e. Ace 1).
-     * Can be any Talent[] that does not contain null elements or elements with
-     *     placeholders. Cannot be null.
+     * Can be any Talent[] that is not null or contains null elements.
      */
     private Talent[] talents;
 
@@ -353,6 +356,8 @@ public class Pilot {
      * Sets this.status to the provided value.
      * @param status a String which cannot be null and cannot be an invalid
      *     status, as defined by Pilot.allowedStatuses.
+     * @throws IllegalArgumentException if status is null or an invalid value,
+     *     as defined by Pilot.allowedStatuses.
      */
     public void setStatus(String status) {
         boolean isValidStatus = false;
@@ -408,6 +413,7 @@ public class Pilot {
     /**
      * Sets this.grit to the provided value.
      * @param grit an int which cannot be < 0 or > 6.
+     * @throws IllegalArgumentException if grit is < 0 or > 6.
      */
     private void setGrit(int grit) {
         if (grit < 0) {
@@ -421,6 +427,7 @@ public class Pilot {
     /**
      * Sets this.currentHP to the provided value.
      * @param currentHP an int which cannot be < 0 or > this.maxHP.
+     * @throws IllegalArgumentException if currentHP is < 0 or > this.maxHP.
      */
     public void setCurrentHP(int currentHP) {
         if (currentHP < 0) {
@@ -433,9 +440,10 @@ public class Pilot {
         this.currentHP = currentHP;
     }
     /**
-     * Sets this.frameEnum to the provided value.
+     * Sets this.maxHP to the provided value.
      * @param maxHP an int which cannot be < 1. Will print a warning if maxHP is
      *     < this.currentHP.
+     * @throws IllegalArgumentException if maxHP is < 1.
      */
     public void setMaxHP(int maxHP) {
         if (maxHP < 1) {
@@ -474,6 +482,7 @@ public class Pilot {
     /**
      * Sets this.skillTriggers to the provided value.
      * @param skillTriggers a SkillTriggersList which cannot be null.
+     * @throws IllegalArgumentException if skillTriggers is null.
      */
     public void setSkillTriggers(SkillTriggersList skillTriggers) {
         if (skillTriggers == null) {
@@ -487,6 +496,8 @@ public class Pilot {
      * Sets this.reserves to the provided value.
      * @param reserves a String[] which cannot be null, contain null elements,
      *     or elements that are "".
+     * @throws IllegalArgumentException if reserves is null, contains null
+     *     values, or elements that are "".
      */
     public void setReserves(String[] reserves) {
         if (reserves == null) {
@@ -512,6 +523,7 @@ public class Pilot {
     /**
      * Sets this.loadout to the provided value.
      * @param loadout a Loadout which cannot be null.
+     * @throws IllegalArgumentException if loadout is null.
      */
     public void setLoadout(Loadout loadout) {
         if (loadout == null) {
@@ -526,6 +538,7 @@ public class Pilot {
      *     this.grit accordingly.
      * this.grit will be set to (licenseLevel + 1) / 2, rounded down.
      * @param licenseLevel an int which cannot be < 0 or > 12.
+     * @throws IllegalArgumentException if licenseLevel is < 0 or > 12.
      */
     public void setLicenseLevel(int licenseLevel) {
         if (licenseLevel < 0) {
@@ -542,6 +555,8 @@ public class Pilot {
     /**
      * Sets this.licenseList to the provided value.
      * @param licenseList a License[] which cannot be null or contain null
+     *     elements.
+     * @throws IllegalArgumentException if licenseList is null or contains null
      *     elements.
      */
     public void setLicenseList(License[] licenseList) {
@@ -562,6 +577,8 @@ public class Pilot {
      * Sets this.specialEquipment to the provided value.
      * @param specialEquipment a String[] which cannot be null, contain null
      *     elements, or elements that are "".
+     * @throws IllegalArgumentException if specialEquipment is null, contains
+     *     null elements, or elements that are "".
      */
     public void setSpecialEquipment(String[] specialEquipment) {
         if (specialEquipment == null) {
@@ -586,8 +603,10 @@ public class Pilot {
     }
     /**
      * Sets this.mechSkills to the provided value.
-     * @param mechSkills an int[] which cannot be null or elements that are < 0
-     *     or > 6. Must be of length 4.
+     * @param mechSkills an int[] of length 4 which cannot be null or contain
+     *     elements that are < 0 or > 6.
+     * @throws IllegalArgumentException if mechSkills is null, of length other
+     *     than 4, or contains elements that are < 0 or > 6.
      */
     public void setMechSkills(int[] mechSkills) {
         if (mechSkills == null) {
@@ -615,6 +634,8 @@ public class Pilot {
      * Sets this.coreBonuses to the provided value.
      * @param coreBonuses a String[] which cannot be null, contain null
      *     elements, or elements that are "".
+     * @throws IllegalArgumentException if coreBonuses is null, contains null
+     *     elements, or elements that are "".
      */
     public void setCoreBonuses(String[] coreBonuses) {
         if (coreBonuses == null) {
@@ -640,6 +661,8 @@ public class Pilot {
     /**
      * Sets this.talents to the provided value.
      * @param talents a Talent[] which cannot be null or contain null elements.
+     * @throws IllegalArgumentException if talents is null or contains null
+     *     elements.
      */
     public void setTalents(Talent[] talents) {
         if (talents == null) {
@@ -673,7 +696,7 @@ public class Pilot {
         return false;
     }
     /**
-     * Returns a deepest copy of this object.
+     * Returns a deepest copy of this Pilot object.
      * @return a Pilot deepest copy of this object.
      */
     public Pilot copyOf() {
@@ -752,8 +775,8 @@ public class Pilot {
         return outputString;
     }
     /**
-     * Helper function for Pilot.generateOutput() that outputs only
-     *     the licenses portion of the printout.
+     * Helper method for Pilot.generateOutput() that outputs only the licenses
+     *     portion of the printout.
      * @param outputType a String which can be one of the following:
      *     "mech build", "pilot", or "full", and determines how much information
      *     is printed.
@@ -802,7 +825,7 @@ public class Pilot {
         return outputString;
     }
     /**
-     * Helper function for Pilot.generateOutput() that outputs only the talents
+     * Helper method for Pilot.generateOutput() that outputs only the talents
      *     portion of the printout.
      * @param outputType a String which can be one of the following:
      *     "mech build", "pilot", or "full", and determines how much information
@@ -853,7 +876,7 @@ public class Pilot {
         return outputString;
     }
     /**
-     * Helper function for Pilot.generateOutput() that outputs only the core
+     * Helper method for Pilot.generateOutput() that outputs only the core
      *     bonuses portion of the printout.
      * @param outputType a String which can be one of the following:
      *     "mech build", "pilot", or "full", and determines how much information

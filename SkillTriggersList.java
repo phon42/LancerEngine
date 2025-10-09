@@ -1,5 +1,11 @@
 /**
- * Stores a set of the skill triggers a pilot has.
+ * Represents the set of skill triggers a pilot has. Stores an array of those
+ *     skill triggers.
+ * 
+ * Requires nothing to be instantiated.
+ * 
+ * Used in Pilot.
+ * 
  * Safety: This class does not have placeholder values. None of its properties
  *     have allowed values of null.
  */
@@ -9,9 +15,17 @@ public class SkillTriggersList {
      */
     private SkillTrigger[] skillTriggers;
 
+    /**
+     * Creates an empty SkillTriggersList.
+     */
     public SkillTriggersList() {
         setSkillTriggers(new SkillTrigger[0]);
     }
+    /**
+     * Creates a new SkillTriggersList with the provided list of skill triggers.
+     * @param skillTriggers a SkillTrigger[] that cannot be null or contain null
+     *     elements.
+     */
     public SkillTriggersList(SkillTrigger[] skillTriggers) {
         setSkillTriggers(skillTriggers);
     }
@@ -22,6 +36,8 @@ public class SkillTriggersList {
     /**
      * Sets this.skillTriggers to the provided value.
      * @param skillTriggers a SkillTrigger[] which cannot be null or contain
+     *     null elements.
+     * @throws IllegalArgumentException if skillTriggers is null or contains
      *     null elements.
      */
     public void setSkillTriggers(SkillTrigger[] skillTriggers) {
@@ -84,7 +100,7 @@ public class SkillTriggersList {
         return false;
     }
     /**
-     * Returns a deepest copy of this object.
+     * Returns a deepest copy of this SkillTriggersList object.
      * @return a SkillTriggersList deepest copy of this object.
      */
     public SkillTriggersList copyOf() {

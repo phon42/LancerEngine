@@ -1,3 +1,4 @@
+// TODO: add documentation for TestStatus
 enum TestStatus {
     PASS,
     MIXED,
@@ -7,25 +8,67 @@ enum TestStatus {
 /**
  * A class representing a single test. May have an empty Test[] as its tests
  *     property, or a battery of tests which might themselves have their own
- *     tests. The result property can be set either as a constant boolean, or by
+ *     tests.
+ * The result property can be set either as a constant boolean, or by
  *     feeding the result of a boolean test method directly into the "result"
  *     parameter. Alternatively, the run() method can be overridden to call
  *     run(that boolean test method) instead.
+ * When output() is called, this test's result is combined with the results of
+ *     all tests underneath it.
+ */
+/**
+ * Represents a single test. Contains a test name, an array of tests underneath
+ *     it, and a result for this specific test.
+ * 
+ * Requires a test name and a test result to be instantiated.
+ * 
+ * Used in TestMethods.
+ * 
  * Safety: This class does not have placeholder values. All of its properties
  *     can be set to null.
  */
 public class Test {
+    /**
+     * The test's name (i.e. "Pilot.setCallsign()").
+     * Can be any String except "". Cannot be null.
+     */
     public String name;
+    /**
+     * The set of tests underneath this test.
+     * Can be any Test[] that is not null or contains null elements.
+     */
     public Test[] tests;
+    /**
+     * This test's result. Can be any TestStatus. Cannot be null.
+     */
     public TestStatus result;
 
+    /**
+     * Creates a new Test with the provided test name and test result.
+     * @param name a String which cannot be null or "".
+     * @param result a boolean.
+     */
     public Test(String name, boolean result) {
         this(name, result, new Test[0]);
     }
     public Test(String name, Test[] tests) {
         this(name, true, tests);
     }
-    public Test(String name, boolean result, Test[] tests) {
+    /**
+     * Creates a new Test with the provided test name and array of tests.
+     * @param testName a String which cannot be null or "".
+     * @param testArray a Test[] which cannot be null or contain null elements.
+     */
+    public Test(String testName, Test[] testArray) {
+        this(testName, true, testArray);
+    }
+    /**
+     * Creates a new Test with the provided test name, test result, and array of
+     *     tests.
+     * @param testName a String which cannot be null or "".
+     * @param testResult a boolean.
+     * @param testArray a Test[] which cannot be null or contain null elements.
+     */
         this.name = name;
         this.result = Test.run(result);
         this.tests = tests;
@@ -33,7 +76,7 @@ public class Test {
 
     /**
      * Converts a boolean to its TestStatus equivalent.
-     * @param result a boolean to be converted
+     * @param result a boolean to be converted.
      * @return a TestStatus containing the TestStatus equivalent of the given
      *     boolean.
      */
@@ -117,17 +160,19 @@ public class Test {
         return newTestArray;
     }
     /**
-     * Helper function allowing output(0) to be called as output() instead.
+     * Helper method allowing output(0) to be called as output() instead.
      * @return a String containing the output of this test and any nested tests.
      */
     public String output() {
         return output(0);
     }
     /**
-     * A recursive function returning the output of this test and the output of
+     * A recursive method returning the output of this test and the output of
      *     any tests nested one level beneath it.
      * @return a String containing the output of this test and any tests nested
      *     one level beneath it.
+     * @throws IllegalArgumentException if this.run() evaluates to
+     *     TestStatus.ERROR.
      */
     private String output(int level) {
         TestStatus status = this.run();

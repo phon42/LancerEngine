@@ -1,6 +1,11 @@
 /**
- * Contains a single system for a mech. Stores information about that system
- *     such as its name and its tags.
+ * Represents a single system for a mech. Contains information about that system
+ *     such as its name and tags.
+ * 
+ * Requires a system name to be instantiated.
+ * 
+ * Used in Mech.
+ * 
  * Safety: This class has placeholder values but cannot be a placeholder. None
  *     of its properties have allowed values of null.
  */
@@ -40,11 +45,13 @@ public class MechSystem extends Equipment {
         this.tags = tags;
     }
 
-    @Override
+    // Equipment.isPlaceholder() need not be overridden because MechSystem has
+    //     all the same properties as Equipment
     /**
-     * Returns a deep copy of this object.
+     * Returns a deep copy of this MechSystem object.
      * @return a MechSystem deep copy of this object.
      */
+    @Override
     public MechSystem copyOf() {
         MechSystem copy = new MechSystem(this.name, this.tags);
 

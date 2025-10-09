@@ -1,13 +1,20 @@
+// TODO: Change this file's name from HelperFunctions.java to HelperMethods.java
+// TODO: Use polymorphic methods or generic types or something to combine all
+//     these methods together
 /**
- * A helper class containing useful functions. Cannot be instantiated. All its
- *     methods are static.
+ * A helper class containing useful methods.
+ * 
+ * Cannot be instantiated. All its methods are static.
+ * 
+ * Used in myriad other classes.
+ * 
  * Safety: N/A because this class cannot be instantiated.
  */
 public class HelperFunctions {
     // Prevent user from instantiating this class
     private HelperFunctions() {}
 
-    // TODO: fill out with a helper function that outputs a properly formatted
+    // TODO: fill out with a helper method that outputs a properly formatted
     //     String from an array
     // there are bits of code that perform this function all over this project,
     //     i.e. Mech.outputSystems()
@@ -112,6 +119,7 @@ public class HelperFunctions {
      * Returns a deep copy of original.
      * @param original an int[] that cannot be null.
      * @return an int[] deep copy of original.
+     * @throws IllegalArgumentException if original is null.
      */
     public static int[] copyOf(int[] original) {
         if (original == null) {
@@ -130,6 +138,7 @@ public class HelperFunctions {
      * Returns a deep copy of original.
      * @param original a String[] that cannot be null.
      * @return a String[] deep copy of original.
+     * @throws IllegalArgumentException if original is null.
      */
     public static String[] copyOf(String[] original) {
         if (original == null) {
@@ -148,6 +157,7 @@ public class HelperFunctions {
      * Returns a deepest copy of original.
      * @param original a License[] that cannot be null.
      * @return a License[] deepest copy of original.
+     * @throws IllegalArgumentException if original is null.
      */
     public static License[] copyOf(License[] original) {
         if (original == null) {
@@ -170,6 +180,7 @@ public class HelperFunctions {
      * Returns a deepest copy of original.
      * @param original a MechSystem[] that cannot be null.
      * @return a MechSystem[] deepest copy of original.
+     * @throws IllegalArgumentException if original is null.
      */
     public static MechSystem[] copyOf(MechSystem[] original) {
         if (original == null) {
@@ -192,6 +203,7 @@ public class HelperFunctions {
      * Returns a deepest copy of original.
      * @param original a Mount[] that cannot be null.
      * @return a Mount[] deepest copy of original.
+     * @throws IllegalArgumentException if original is null.
      */
     public static Mount[] copyOf(Mount[] original) {
         if (original == null) {
@@ -214,6 +226,7 @@ public class HelperFunctions {
      * Returns a deepest copy of original.
      * @param original a SkillTrigger[] that cannot be null.
      * @return a SkillTrigger[] deepest copy of original.
+     * @throws IllegalArgumentException if original is null.
      */
     public static SkillTrigger[] copyOf(SkillTrigger[] original) {
         if (original == null) {
@@ -236,6 +249,7 @@ public class HelperFunctions {
      * Returns a deepest copy of original.
      * @param original a Talent[] that cannot be null.
      * @return a Talent[] deepest copy of original.
+     * @throws IllegalArgumentException if original is null.
      */
     public static Talent[] copyOf(Talent[] original) {
         if (original == null) {

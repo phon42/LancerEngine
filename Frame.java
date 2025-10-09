@@ -1,10 +1,18 @@
 /**
- * Represents a frame (a pattern or statblock that can be copied to form mechs).
- *     Stores information about the frame such as its manufacturer, frame name,
- *     role, and stats.
  * A Frame object is needed to create a non-placeholder Mech object. Its stats,
  *     traits, and mounts serve as the base on top of which mech skills,
  *     weapons, systems, and other modifications are added.
+ */
+/**
+ * Represents a frame (a pattern or statblock that can be copied to form mechs).
+ *     Contains information about the frame such as its manufacturer, frame
+ *     name, role, and stats.
+ * 
+ * Requires nothing to be instantiated.
+ * 
+ * Used in Mech to create non-placeholder Mech objects. Also used in
+ *     FrameDatabase.
+ * 
  * Safety: This class has placeholder values and can be a placeholder, but in
  *     most cases should either have no placeholder values or be a placeholder,
  *     which must be checked for. None of its properties have allowed values of
@@ -78,12 +86,12 @@ public class Frame {
     private int structure;
     /**
      * The frame's max HP value.
-     * Must be a minimum of 1.
+     * Must be a minimum of 1. Is set to -1 on construction.
      */
     private int HP;
     /**
      * The frame's armor value.
-     * Is set to -1 at construction, but must be a minimum of 0 otherwise.
+     * Must be a minimum of 0. Is set to -1 at construction.
      */
     private int armor;
 
@@ -95,26 +103,26 @@ public class Frame {
     private int stress;
     /**
      * The frame's max heat capacity.
-     * Is set to -1 at construction, but must be a minimum of 1 otherwise.
+     * Must be a minimum of 1. Is set to -1 at construction.
      */
     private int heatCapacity;
 
     // evasion and speed
     /**
      * The frame's evasion value.
-     * Is set to -1 at construction, but must be a minimum of 0 otherwise.
+     * Must be a minimum of 0. Is set to -1 at construction.
      */
     private int evasion;
     /**
      * The frame's speed value.
-     * Is set to -1 at construction, but must be a minimum of 0 otherwise.
+     * Must be a minimum of 0. Is set to -1 at construction.
      */
     private int speed;
 
     // e-defense and tech attack
     /**
      * The frame's e-defense value.
-     * Is set to -1 at construction, but must be a minimum of 0 otherwise.
+     * Must be a minimum of 0. Is set to -1 at construction.
      */
     private int eDefense;
     /**
@@ -126,24 +134,24 @@ public class Frame {
     // sensors and repair capacity
     /**
      * The frame's sensors value.
-     * Is set to -1 at construction, but must be a minimum of 0 otherwise.
+     * Must be a minimum of 0. Is set to -1 at construction.
      */
     private int sensors;
     /**
      * The frame's max repair capacity value.
-     * Is set to -1 at construction ,but must be a minimum of 0 otherwise.
+     * Must be a minimum of 0. Is set to -1 at construction.
      */
     private int repairCapacity;
 
     // save target and system points
     /**
      * The frame's save target value.
-     * Is set to -1 at construction, but must be a minimum of 0 otherwise.
+     * Must be a minimum of 0. Is set to -1 at construction.
      */
     private int saveTarget;
     /**
      * The frame's system points value.
-     * Is set to -1 at construction, but must be a minimum of 0 otherwise.
+     * Must be a minimum of 0. Is set to -1 at construction.
      */
     private int systemPoints;
 
@@ -157,11 +165,12 @@ public class Frame {
     /**
      * The frame's weapon mounts.
      * Can be any Mount[] that does not contain null elements or elements that
-     *     are placeholders. Cannot be null.
+     *     have their Mount.modification, Mount.coreBonus, or Mount.talent set
+     *     to anything except ""/""/null. Cannot be null.
      */
     private Mount[] mounts;
 
-    // TODO: fill out
+    // TODO: fill out core system section
     // core system
     // core system description
     // core system passive
@@ -347,6 +356,7 @@ public class Frame {
     /**
      * Sets this.frameEnum to the provided value.
      * @param frameEnum a FrameEnum which cannot be null.
+     * @throws IllegalArgumentException if frameEnum is null.
      */
     public void setFrameEnum(FrameEnum frameEnum) {
         if (frameEnum == null) {
@@ -358,6 +368,8 @@ public class Frame {
      * Sets this.role to the value provided.
      * @param role a String[] which cannot be null, contain null elements, or
      *     contain any invalid values, as defined by Frame.allowedRoles.
+     * @throws IllegalArgumentException if role is null, contains null elements,
+     *     or invalid values, as defined by Frame.allowedRoles.
      */
     public void setRole(String[] role) {
         boolean isValidRole = false;
@@ -398,17 +410,13 @@ public class Frame {
     /**
      * Sets this.size to the value provided.
      * @param size an int which must be 1, 2, 4, 6, or 8.
+     * @throws IllegalArgumentException if size is anything other than 1, 2, 4,
+     *     6, or 8.
      */
     public void setSize(int size) {
-        if (size < 1) {
-            throw new IllegalArgumentException("New frame size is < 1");
-        }
-        if (size > 8) {
-            throw new IllegalArgumentException("New frame size is > 8");
-        }
-        if (size == 3 || size == 5 || size == 7) {
-            throw new IllegalArgumentException("New frame size is an invalid"
-                + " value: " + size);
+        if (size != 1 && size != 2 && size != 4 && size != 6 && size != 8) {
+            throw new IllegalArgumentException("New frame size: " + size + " is"
+                + " not one of the following valid values: 1, 2, 4, 6, 8");
         }
         this.size = size;
     }
@@ -497,6 +505,8 @@ public class Frame {
      * Sets this.traits to the provided value.
      * @param traits a String[] that cannot be null, contain null elements, or
      *     elements that are "".
+     * @throws IllegalArgumentException if traits is null, contains null
+     *     elements, or elements that are "".
      */
     public void setTraits(String[] traits) {
         if (traits == null) {
@@ -518,6 +528,8 @@ public class Frame {
     /**
      * Sets this.mounts to the provided value.
      * @param mounts a Mount[] that cannot be null or contain null elements.
+     * @throws IllegalArgumentException if mounts is null or contains null
+     *     elements.
      */
     public void setMounts(Mount[] mounts) {
         if (mounts == null) {
@@ -563,7 +575,8 @@ public class Frame {
         if (getSize() == -1) {
             return true;
         }
-
+        // Frame.structure and Frame.stress excluded because they are set to 4
+        //     on construction, but 4 is a perfectly valid value for both
         if (getHP() == -1) {
             return true;
         }
@@ -677,12 +690,15 @@ public class Frame {
         return true;
     }
     /**
-     * Returns a deepest copy of this object.
+     * Returns a deepest copy of this Frame object.
      * @return a Frame deepest copy of this object.
      */
     public Frame copyOf() {
         // don't need to make copies of these for the ones using the mutator
         //     methods (i.e. mounts) because the mutators already do so
+        // for the ones that DON'T use a mutator method (i.e. "copy.name =
+        //     name"), make sure to use the proper accessor method instead
+        //     of "property" if the property's type is mutable
         Frame copy = new Frame();
         
         copy.manufacturer = this.manufacturer;

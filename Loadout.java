@@ -1,6 +1,11 @@
 /**
- * Represents a pilot gear loadout. Stores information about what gear items the
- *     pilot has chosen.
+ * Represents a pilot gear loadout. Contains information about what gear items
+ *     the pilot has chosen.
+ * 
+ * Requires nothing to be instantiated.
+ * 
+ * Used in Pilot.
+ * 
  * Safety: This class does not have placeholder values. None of its properties
  *     can be null.
  */
@@ -29,7 +34,6 @@ public class Loadout {
         setPilotWeapons(new String[] {"", ""});
         setPilotGear(new String[] {"", "", ""});
     }
-    // TODO: remove if unused
     /**
      * Creates a non-empty Loadout using the provided pilotArmor,
      *     pilotWeapons, and pilotGear.
@@ -61,6 +65,8 @@ public class Loadout {
      * Sets this.pilotWeapons to the provided value.
      * @param pilotWeapons a String[] which cannot be null, must be of length 2,
      *     and cannot contain a null element.
+     * @throws IllegalArgumentException if pilotWeapons is null, of length other
+     *     than 2, or contains a null element.
      */
     public void setPilotWeapons(String[] pilotWeapons) {
         if (pilotWeapons == null) {
@@ -84,6 +90,8 @@ public class Loadout {
      * Sets this.pilotGear to the provided value.
      * @param pilotGear a String[] which cannot be null, must be of length 3,
      *     and cannot contain a null element.
+     * @throws IllegalArgumentException if pilotGear is null, of length other
+     *     than 3, or contains a null element.
      */
     public void setPilotGear(String[] pilotGear) {
         if (pilotGear == null) {
@@ -151,7 +159,7 @@ public class Loadout {
         return true;
     }
     /**
-     * Returns a deepest copy of this object.
+     * Returns a deepest copy of this Loadout object.
      * @return a Loadout deepest copy of this object.
      */
     public Loadout copyOf() {
