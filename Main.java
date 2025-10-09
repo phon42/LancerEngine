@@ -224,10 +224,10 @@ public class Main {
         // These methods change the weapon mounted on one specific part of the
         //     mech
         myMech.setMount(0, new Mount("aux",
-            new Weapon("Slag Cannon", 1)));
+            new Weapon("Slag Cannon", 1, 1)));
         myMech.setMount(1, new Mount("aux",
-            new Weapon("Vulture DMR", 1), "",
-            "Overpower Caliber"));
+            new Weapon("Vulture DMR", 1, 5),
+            "", "Overpower Caliber"));
         myMech.setSystems(new MechSystem[] {
             new MechSystem("Pattern-A Smoke Charges", new EquipmentTag[] {
                 new EquipmentTag("Limited X", 3)
@@ -258,7 +258,7 @@ public class Main {
         //     just get calculated again:
         myMech = myCharacter.getMech();
         myMech.setMount(0, new Mount("aux",
-            new Weapon("Slag Cannon", 1)));
+            new Weapon("Slag Cannon", 1, 1)));
         myCharacter.setMech(myMech);
         System.out.println("Desperate final attempt to change that which is"
             + " forever enduring:");

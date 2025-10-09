@@ -11,15 +11,19 @@
  */
 public class Weapon extends Equipment {
     // TODO: fill out with some kind of way to attack
-    // TODO: add weapon type (add Bligh, Prototype Weapon,
-    // TODO: add a Superheavy weapon size (for Empaakai and Lycan)
-    // TODO: add a Ship-Class weapons size (for Barbarossa)
     // TODO: fucking deal with Ushabti Omnigun somehow
-    public Weapon(String name) {
-        super(name);
-    }
     /**
-     * The weapon's size.
+     * Contains an array of allowed values for Weapon.tags' EquipmentTag.name
+     *     values.
+     */
+    public static final String[] allowedNames = new String[] {"Accurate",
+        "Armor-Piercing (AP)", "Loading", "Ordnance", "Reliable X",
+        "Inaccurate", "Arcing", "Smart", "Overkill", "Thrown X",
+        "Heat X (Self)", "Knockback X", "Limited X", "Seeking", "Unique",
+        "Reaction", "Drone", "Protocol", "Full Action", "Deployable",
+        "Quick Action", "X/Round", "Danger Zone", "AI"};
+    /**
+     * The weapon's size (i.e. Main).
      * Must be between 0 and 4 (inclusive).
      * Details on these values:
      *     0 - an aux weapon. This can go in a Mount of Mount.mountType:
@@ -42,43 +46,56 @@ public class Weapon extends Equipment {
      */
     private int size;
     /**
-     * Contains an array of allowed values for Weapon.tags' EquipmentTag.name
-     *     values.
+     * The weapon's type (i.e. CQB).
+     * Must be between 0 and 9 (inclusive).
+     * Details on these values:
+     *     0 - CQB
+     *     1 - Cannon
+     *     2 - Launcher
+     *     3 - Melee
+     *     4 - Nexus
+     *     5 - Rifle
+     *     6 - Drone Weapon (Bligh integrated weapon only)
+     *     7 - Spool Weapon (Barbarossa integrated weapon only)
+     *     8 - ??? (Mimic Gun only)
+     *     9 - Special (Prototype Weapon only)
      */
-    public static final String[] allowedNames = new String[] {"Accurate",
-        "Armor-Piercing (AP)", "Loading", "Ordnance", "Reliable X",
-        "Inaccurate", "Arcing", "Smart", "Overkill", "Thrown X",
-        "Heat X (Self)", "Knockback X", "Limited X", "Seeking", "Unique",
-        "Reaction", "Drone", "Protocol", "Full Action", "Deployable",
-        "Quick Action", "X/Round", "Danger Zone", "AI"};
+    private int type;
 
     /**
-     * Creates a new Weapon given a weapon name and weapon size.
+     * Creates a new Weapon given a weapon name, weapon size, and weapon type.
      * @param weaponName a String which cannot be null or "".
      * @param weaponSize an int which must be between 0 and 4 (inclusive).
+     * @param weaponType an int which must be between 0 and 9 (inclusive).
      */
-    public Weapon(String weaponName, int weaponSize) {
+    public Weapon(String weaponName, int weaponSize, int weaponType) {
         super(weaponName);
         setSize(weaponSize);
+        setType(weaponType);
     }
     /**
-     * Creates a new Weapon given a weapon name, weapon size, and an array of
-     *     weapon tags.
+     * Creates a new Weapon given a weapon name, weapon size, weapon type, and
+     *     an array of weapon tags.
      * @param weaponName a String which cannot be null or "".
      * @param weaponSize an int which must be between 0 and 4 (inclusive).
+     * @param weaponType an int which must be between 0 and 9 (inclusive).
      * @param weaponTags an EquipmentTag[] which cannot be null, contain null
      *     elements, or elements with invalid EquipmentTag.name values, as
      *     defined by Weapon.allowedNames.
      */
-    public Weapon(String weaponName, int weaponSize,
+    public Weapon(String weaponName, int weaponSize, int weaponType,
         EquipmentTag[] weaponTags) {
         super(weaponName);
         setSize(weaponSize);
+        setType(weaponType);
         setTags(weaponTags);
     }
 
     public int getSize() {
         return size;
+    }
+    public int getType() {
+        return type;
     }
     /**
      * Sets this.size to the provided value.
@@ -96,6 +113,15 @@ public class Weapon extends Equipment {
                 + " > 4");
         }
         this.size = size;
+    }
+    /**
+     * Sets this.type to the provided value.
+     * @param type an int which must be between 0 and 9 (inclusive).
+     * @throws IllegalArgumentException if type is not between 0 and 9
+     *     (inclusive).
+     */
+    public void setType(int type) {
+        this.type = type;
     }
     /**
      * Sets this.tags to the provided value.
@@ -154,7 +180,7 @@ public class Weapon extends Equipment {
         // don't need to make copies of this.tags because the mutator
         //     (Equipment.setTags()) called by Weapon(String, int,
         //     EquipmentTag[]) already does so
-        Weapon copy = new Weapon(this.name, this.size, this.tags);
+        Weapon copy = new Weapon(this.name, this.size, this.type, this.tags);
 
         return copy;
     }
