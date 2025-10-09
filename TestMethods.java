@@ -2485,10 +2485,10 @@ public class TestMethods {
         original = new Mech("Wraith", FrameEnum.SWALLOWTAIL_RANGER);
         original.setOperatorNotes("validOperatorNotes");
         original.setMount(0, new Mount("aux",
-            new Weapon("Slag Cannon", 1)));
+            new Weapon("Slag Cannon", 1, 1)));
         original.setMount(1, new Mount("aux",
-            new Weapon("Vulture DMR", 1), "",
-            "Overpower Caliber"));
+            new Weapon("Vulture DMR", 1, 5),
+            "", "Overpower Caliber"));
         original.setSystems(new MechSystem[] {
             new MechSystem("Pattern-A Smoke Charges", new EquipmentTag[] {
                 new EquipmentTag("Limited X", 3)
