@@ -80,23 +80,19 @@ public class LancerCharacter {
     }
     
     public Pilot getPilot() {
-        return this.pilot.copyOf();
+        return pilot.copyOf();
     }
     public Mech getMech() {
-        return this.mech.copyOf();
+        return mech.copyOf();
     }
     /**
      * Sets this.pilot to the value provided.
      * @param pilot a Pilot that cannot be null or have placeholders.
-     * @throws IllegalArgumentException if pilot is null or has placeholders.
+     * @throws IllegalArgumentException if pilot is null.
      */
     public void setPilot(Pilot pilot) {
         if (pilot == null) {
             throw new IllegalArgumentException("New pilot value is null");
-        }
-        if (pilot.hasPlaceholders()) {
-            throw new IllegalArgumentException("New pilot value has"
-                + " placeholders");
         }
         pilot = pilot.copyOf();
         this.pilot = pilot;
@@ -119,9 +115,8 @@ public class LancerCharacter {
                     + " placeholder but has some properties set to placeholder"
                     + " values");
             }
-            Pilot pilot = getPilot();
-            mech.calculateAttributes(pilot.getMechSkills(),
-                pilot.getCoreBonuses(), pilot.getTalents());
+            mech.calculateAttributes(this.pilot.getMechSkills(),
+                this.pilot.getCoreBonuses(), this.pilot.getTalents());
         }
         mech = mech.copyOf();
         this.mech = mech;
@@ -139,20 +134,20 @@ public class LancerCharacter {
         String outputString = "";
         
         boolean hasMech = true;
-        if (getMech().getFrame() == null) {
+        if (this.mech.getFrame() == null) {
             hasMech = false;
         }
         
         String manufacturer = "";
         String frameName = "";
-        int licenseLevel = getPilot().getLicenseLevel();
+        int licenseLevel = this.pilot.getLicenseLevel();
         if (hasMech) {
-            if (getMech().isPlaceholder()) {
+            if (this.mech.isPlaceholder()) {
                 manufacturer = "N/A";
                 frameName = "N/A";
             } else {
-                manufacturer = getMech().getFrame().getManufacturer();
-                frameName = getMech().getFrame().outputName();
+                manufacturer = this.mech.getFrame().getManufacturer();
+                frameName = this.mech.getFrame().outputName();
             }
         }
 
@@ -162,31 +157,31 @@ public class LancerCharacter {
                 outputString += ">> NO MECH SELECTED <<";
                 return outputString;
             }
-            if (getMech().isPlaceholder()) {
+            if (this.mech.isPlaceholder()) {
                 System.out.println(" [ WARNING ]"
                     + " LancerCharacter.generateStats() has been called even"
                     + " though the object's mech value is a placeholder Mech");
             }
             outputString += "-- " + manufacturer + " " + frameName + " @ LL"
                 + licenseLevel + " --\n";
-            outputString += getPilot().generateOutput(outputType);
-            outputString += getMech().generateOutput(outputType,
-                this.getMech().getLimitedSystemsBonus());
+            outputString += this.pilot.generateOutput(outputType);
+            outputString += this.mech.generateOutput(outputType,
+                this.mech.getLimitedSystemsBonus());
         } else if (outputType.equals("pilot")) {
-            outputString += getPilot().generateOutput(outputType);
+            outputString += this.pilot.generateOutput(outputType);
         } else if (outputType.equals("full")) {
-            if (getMech().isPlaceholder()) {
+            if (this.mech.isPlaceholder()) {
                 System.out.println(" [ WARNING ]"
                     + " LancerCharacter.generateStats() has been called even"
                     + " though the object's mech value is a placeholder Mech");
             }
-            outputString += getPilot().generateOutput(outputType);
+            outputString += this.pilot.generateOutput(outputType);
             if (! hasMech) {
                 outputString += ">> NO MECH SELECTED <<";
                 return outputString;
             }
-            outputString += getMech().generateOutput(outputType,
-                getPilot().getMechSkills(), getPilot().getGrit());
+            outputString += this.mech.generateOutput(outputType,
+                this.pilot.getMechSkills(), this.pilot.getGrit());
         }
 
         return outputString;

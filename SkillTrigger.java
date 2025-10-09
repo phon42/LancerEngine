@@ -25,12 +25,12 @@ public class SkillTrigger {
     /**
      * Creates a new SkillTrigger with the provided skill trigger name and skill
      *     trigger level.
-     * @param name a String which cannot be null or "".
-     * @param level an int which must be 2, 4, or 6.
+     * @param skillTriggerName a String which cannot be null or "".
+     * @param skillTriggerLevel an int which must be 2, 4, or 6.
      */
-    public SkillTrigger(String name, int level) {
-        setName(name);
-        setLevel(level);
+    public SkillTrigger(String skillTriggerName, int skillTriggerLevel) {
+        setName(skillTriggerName);
+        setLevel(skillTriggerLevel);
     }
 
     public String getName() {
@@ -54,15 +54,9 @@ public class SkillTrigger {
      * @throws IllegalArgumentException if level is not 2, 4, or 6.
      */
     private void setLevel(int level) {
-        if (level < 2) {
-            throw new IllegalArgumentException("New level value is < 2");
-        }
-        if (level > 6) {
-            throw new IllegalArgumentException("New level value is > 6");
-        }
-        if (level == 3 || level == 5) {
-            throw new IllegalArgumentException("New level value is an invalid"
-                + " value");
+        if (level != 2 && level != 4 && level != 6) {
+            throw new IllegalArgumentException("New level value: " + level
+                + "is not one of the following valid values: 2, 4, 6");
         }
         this.level = level;
     }
@@ -94,10 +88,10 @@ public class SkillTrigger {
         if (skillTrigger == null) {
             return false;
         }
-        if (! skillTrigger.getName().equals(getName())) {
+        if (! skillTrigger.getName().equals(this.name)) {
             return false;
         }
-        if (skillTrigger.getLevel() != getLevel()) {
+        if (skillTrigger.getLevel() != this.level) {
             return false;
         }
         

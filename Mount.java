@@ -13,7 +13,30 @@
  */
 public class Mount {
     /**
-     * Array of all possible allowed mount types.
+     * The mount's type.
+     * Must be one of the following values:
+     *     "aux", "aux/aux", "flex", "heavy", "main", "main/aux",
+     *     "integrated mount", "integrated weapon",
+     *     "integrated weapon core bonus",
+     *     "improved armament core bonus"
+     * Case-insensitive and stored in lowercase. Cannot be null.
+     */
+    private String mountType;
+    /**
+     * Contains an array of all possible allowed mount types.
+     * Details about the base mount types:
+     *     "flex" - a weapon mount which can take one main weapon OR two
+     *         auxilary weapons.
+     * 
+     * See the documentation on Weapon.size for more information.
+     * 
+     * Details about the non-base mount types:
+     *     "integrated weapon" - for integrated weapons such as the Prototype
+     *         weapon from the Engineer talent.
+     *     "integrated weapon core bonus" - for the Integrated Weapon core
+     *         bonus. Essentially the same as "aux".
+     *     "improved armament core bonus" - for the Improved Armament core
+     *         bonus. Essentially the same as "flex".
      */
     private static final String[] allowedMountTypes = {
         "aux", "aux/aux", "flex", "heavy", "main", "main/aux",
@@ -21,22 +44,12 @@ public class Mount {
         "improved armament core bonus"
     };
     /**
-     * Array of mount types that do not require talents or core bonuses to
-     *     exist.
+     * Contains an array of mount types that do not require talents, core
+     *     bonuses, or integrated weapons on the base frame to exist.
      */
     private final String[] baseMountTypes = {
         "aux", "aux/aux", "flex", "heavy", "main", "main/aux"
     };
-    /**
-     * The mount's type.
-     * Must be one of the following values:
-     *     "aux", "aux/aux", "flex", "heavy", "main", "main/aux",
-     *     "integrated weapon", "integrated weapon core bonus",
-     *     "improved armament core bonus"
-     * Case-insensitive and stored in lowercase. Cannot be null. Set to "" on
-     *     construction.
-     */
-    private String mountType;
     /**
      * The mount's weapon (if it has one).
      * Can be any Weapon or null.
@@ -83,7 +96,8 @@ public class Mount {
      * Creates a new Mount with the provided mountType.
      */
     public Mount(String mountType) {
-        this(mountType, null, "", "", null);
+        this(mountType, null, "", "",
+            null);
     }
     /**
      * Creates a new Mount with the provided mountType and weapon.
@@ -293,34 +307,37 @@ public class Mount {
         boolean isBaseType = false;
 
         outputType = outputType.toLowerCase();
-        if ((! outputType.equals("mech build")) && (! outputType.equals("full"))) {
+        if (! (outputType.equals("mech build")
+            || outputType.equals("full"))) {
             return outputString;
         }
-        for (int i = 0; i < baseMountTypes.length; i++) {
-            if (mountType.equals(baseMountTypes[i])) {
+        for (int i = 0; i < Mount.baseMountTypes.length; i++) {
+            if (this.mountType.equals(Mount.baseMountTypes[i])) {
                 isBaseType = true;
             }
         }
         if (isBaseType) {
-            outputString += mountType.toUpperCase();
+            outputString += this.mountType.toUpperCase();
             outputString += " MOUNT";
-        } else if (mountType.equals("integrated weapon")) {
+        } else if (this.mountType.equals("integrated weapon")) {
             outputString += "Integrated";
-        } else if (mountType.equals("integrated weapon core bonus")) {
+        } else if (this.mountType.equals(
+            "integrated weapon core bonus")) {
             outputString += "INTEGRATED WEAPON";
-        } else if (mountType.equals("improved armament core bonus")) {
+        } else if (this.mountType.equals(
+            "improved armament core bonus")) {
             outputString += "FLEX MOUNT";
         }
         outputString += ":";
-        if (weapon != null) {
+        if (this.weapon != null) {
             outputString += " ";
-            outputString += weapon.getName();
+            outputString += this.weapon.getName();
         }
-        if (hasModification) {
-            outputString += " (" + modification + ")";
+        if (this.hasModification) {
+            outputString += " (" + this.modification + ")";
         }
-        if (hasCoreBonus) {
-            outputString += " // " + coreBonus;
+        if (this.hasCoreBonus) {
+            outputString += " // " + this.coreBonus;
         }
 
         return outputString;

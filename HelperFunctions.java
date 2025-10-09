@@ -269,6 +269,29 @@ public class HelperFunctions {
         return copy;
     }
     /**
+     * Returns a deepest copy of original.
+     * @param original an EquipmentTag[] that cannot be null.
+     * @return an EquipmentTag[] deepest copy of original.
+     * @throws IllegalArgumentException if original is null.
+     */
+    public static EquipmentTag[] copyOf(EquipmentTag[] original) {
+        if (original == null) {
+            throw new IllegalArgumentException("Called"
+                + " HelperFunctions.copyOf(EquipmentTag[]) with null in the"
+                + " place of the EquipmentTag[]");
+        }
+        EquipmentTag[] copy = new EquipmentTag[original.length];
+        for (int i = 0; i < original.length; i++) {
+            if (original[i] == null) {
+                copy[i] = original[i];
+                continue;
+            }
+            copy[i] = original[i].copyOf();
+        }
+
+        return copy;
+    }
+    /**
      * Converts a String to proper case, in which the first letter of every word
      *     is capitalized.
      * @param input a String to be converted that cannot be null.
@@ -316,27 +339,5 @@ public class HelperFunctions {
         input = String.join("", stringArr);
 
         return input;
-    }
-    /**
-     * Returns a deepest copy of original.
-     * @param original an EquipmentTag[] that cannot be null.
-     * @return an EquipmentTag[] deepest copy of original.
-     */
-    public static EquipmentTag[] copyOf(EquipmentTag[] original) {
-        if (original == null) {
-            throw new IllegalArgumentException("Called"
-                + " HelperFunctions.copyOf(EquipmentTag[]) with null in the"
-                + " place of the EquipmentTag[]");
-        }
-        EquipmentTag[] copy = new EquipmentTag[original.length];
-        for (int i = 0; i < original.length; i++) {
-            if (original[i] == null) {
-                copy[i] = original[i];
-                continue;
-            }
-            copy[i] = original[i].copyOf();
-        }
-
-        return copy;
     }
 }

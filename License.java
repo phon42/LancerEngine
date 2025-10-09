@@ -59,10 +59,12 @@ public class License {
      */
     private void setLevel(int level) {
         if (level < 1) {
-            throw new IllegalArgumentException("New license level is < 1");
+            throw new IllegalArgumentException("New license level: " + level
+                + " is < 1");
         }
         if (level > 3) {
-            throw new IllegalArgumentException("New license level is > 3");
+            throw new IllegalArgumentException("New license level: " + level
+                + " is > 3");
         }
         this.level = level;
     }
@@ -93,10 +95,10 @@ public class License {
         if (license == null) {
             return false;
         }
-        if (! license.getName().equals(getName())) {
+        if (! license.getName().equals(this.name)) {
             return false;
         }
-        if (license.getLevel() != getLevel()) {
+        if (license.getLevel() != this.level) {
             return false;
         }
         

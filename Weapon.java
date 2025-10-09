@@ -40,10 +40,6 @@ public class Weapon extends Equipment {
             throw new IllegalArgumentException("New tags value is null");
         }
         for (EquipmentTag tag : tags) {
-            if (tag == null) {
-                throw new IllegalArgumentException("New tags value includes a"
-                    + " null value");
-            }
             isValid = false;
             for (String allowedTag : EquipmentTag.allowedWeaponNames) {
                 if (tag.getName().equals(allowedTag)) {
@@ -52,8 +48,8 @@ public class Weapon extends Equipment {
             }
             if (! isValid) {
                 throw new IllegalArgumentException("New tags array includes an"
-                    + " invalid tag name for a Weapon: \"" + tag.getName()
-                    + "\"");
+                    + " EquipmentTag with an invalid tag name for a Weapon: \""
+                    + tag.getName() + "\"");
             }
         }
         tags = HelperFunctions.copyOf(tags);
@@ -67,8 +63,8 @@ public class Weapon extends Equipment {
      */
     public Weapon copyOf() {
         // don't need to make copies of this.tags because the mutator
-        //     (Equipment.setTags()) called by Weapon(String, EquipmentTag[])
-        //     already does so
+        //     (Equipment.setTags()) called by Weapon(String, int,
+        //     EquipmentTag[]) already does so
         Weapon copy = new Weapon(this.name, this.size, this.tags);
 
         return copy;

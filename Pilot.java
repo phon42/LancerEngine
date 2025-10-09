@@ -295,32 +295,32 @@ public class Pilot {
         return eDefense;
     }
     public SkillTriggersList getSkillTriggers() {
-        return skillTriggers;
+        return skillTriggers.copyOf();
     }
     public String[] getReserves() {
-        return reserves;
+        return HelperFunctions.copyOf(reserves);
     }
     public Loadout getLoadout() {
-        return loadout;
+        return loadout.copyOf();
     }
     // ---Tactical Profile---------
     public int getLicenseLevel() {
         return licenseLevel;
     }
     public License[] getLicenseList() {
-        return licenseList;
+        return HelperFunctions.copyOf(licenseList);
     }
     public String[] getSpecialEquipment() {
-        return specialEquipment;
+        return HelperFunctions.copyOf(specialEquipment);
     }
     public int[] getMechSkills() {
-        return mechSkills;
+        return HelperFunctions.copyOf(mechSkills);
     }
     public String[] getCoreBonuses() {
-        return coreBonuses;
+        return HelperFunctions.copyOf(coreBonuses);
     }
     public Talent[] getTalents() {
-        return talents;
+        return HelperFunctions.copyOf(talents);
     }
     // ---Dossier-------------------
     public void setName(String name) {
@@ -417,10 +417,12 @@ public class Pilot {
      */
     private void setGrit(int grit) {
         if (grit < 0) {
-            throw new IllegalArgumentException("New grit value is < 0");
+            throw new IllegalArgumentException("New grit value: " + grit + " is"
+                + " < 0");
         }
         if (grit > 6) {
-            throw new IllegalArgumentException("New grit value is > 6");
+            throw new IllegalArgumentException("New grit value: " + grit + " is"
+                + " > 6");
         }
         this.grit = grit;
     }
@@ -431,11 +433,12 @@ public class Pilot {
      */
     public void setCurrentHP(int currentHP) {
         if (currentHP < 0) {
-            throw new IllegalArgumentException("New currentHP value is < 0");
+            throw new IllegalArgumentException("New currentHP value: "
+                + currentHP + " is < 0");
         }
-        if (getMaxHP() < currentHP) {
+        if (this.maxHP < currentHP) {
             throw new IllegalArgumentException("currentHP value provided: "
-                + currentHP + " is > maxHP value: " + getMaxHP());
+                + currentHP + " is > maxHP value: " + this.maxHP);
         }
         this.currentHP = currentHP;
     }
@@ -447,35 +450,40 @@ public class Pilot {
      */
     public void setMaxHP(int maxHP) {
         if (maxHP < 1) {
-            throw new IllegalArgumentException("New maxHP value is < 1");
+            throw new IllegalArgumentException("New maxHP value: " + maxHP
+                + " is < 1");
         }
-        if (maxHP < getCurrentHP()) {
+        if (maxHP < this.currentHP) {
             System.out.println("[ WARNING ] maxHP value provided: " + maxHP
-                + " is < currentHP value: " + getCurrentHP());
+                + " is < currentHP value: " + this.currentHP);
         }
         this.maxHP = maxHP;
     }
     private void setArmor(int armor) {
         if (armor < 0) {
-            throw new IllegalArgumentException("New armor value is < 0");
+            throw new IllegalArgumentException("New armor value: " + armor
+                + " is < 0");
         }
         this.armor = armor;
     }
     private void setEvasion(int evasion) {
         if (evasion < 0) {
-            throw new IllegalArgumentException("New evasion value is < 0");
+            throw new IllegalArgumentException("New evasion value: " + evasion
+                + " is < 0");
         }
         this.evasion = evasion;
     }
     private void setSpeed(int speed) {
         if (speed < 0) {
-            throw new IllegalArgumentException("New speed value is < 0");
+            throw new IllegalArgumentException("New speed value: " + speed
+                + " is < 0");
         }
         this.speed = speed;
     }
     private void setEDefense(int eDefense) {
         if (eDefense < 0) {
-            throw new IllegalArgumentException("New e-defense value is < 0");
+            throw new IllegalArgumentException("New e-defense value: "
+                + eDefense + " is < 0");
         }
         this.eDefense = eDefense;
     }
@@ -501,8 +509,7 @@ public class Pilot {
      */
     public void setReserves(String[] reserves) {
         if (reserves == null) {
-            throw new IllegalArgumentException("New reserves value is"
-                + " invalid");
+            throw new IllegalArgumentException("New reserves value is null");
         }
         for (String reserve : reserves) {
             if (reserve == null) {
@@ -542,12 +549,12 @@ public class Pilot {
      */
     public void setLicenseLevel(int licenseLevel) {
         if (licenseLevel < 0) {
-            throw new IllegalArgumentException("New license level value is"
-                + " < 0");
+            throw new IllegalArgumentException("New license level value: "
+                + licenseLevel + " is < 0");
         }
         if (licenseLevel > 12) {
-            throw new IllegalArgumentException("New license level value"
-                + " is > 12");
+            throw new IllegalArgumentException("New license level value: "
+                + licenseLevel + " is > 12");
         }
         setGrit((licenseLevel + 1) / 2);
         this.licenseLevel = licenseLevel;
@@ -620,11 +627,13 @@ public class Pilot {
         for (int mechSkill : mechSkills) {
             if (mechSkill < 0) {
                 throw new IllegalArgumentException("New mech skills value"
-                    + " includes an invalid element");
+                    + " includes an element with a value: " + mechSkill + " of"
+                    + " < 0");
             }
             if (mechSkill > 6) {
                 throw new IllegalArgumentException("New mech skills value"
-                    + " includes an invalid element");
+                    + " includes an element with a value: " + mechSkill + " of"
+                    + " > 6");
             }
         }
         mechSkills = HelperFunctions.copyOf(mechSkills);
@@ -720,12 +729,6 @@ public class Pilot {
      */
     public String generateOutput(String outputType) {
         String outputString = "";
-        int[] mechSkills = getMechSkills();
-        String name = getName();
-        String callsign = getCallsign();
-        int licenseLevel = getLicenseLevel();
-        SkillTriggersList skillTriggers = getSkillTriggers();
-        Loadout loadout = getLoadout();
 
         if (outputType.equals("mech build")) {
             outputString += "[ LICENSES ]\n";
@@ -735,20 +738,21 @@ public class Pilot {
             outputString += "[ TALENTS ]\n";
             outputString += outputTalents(outputType);
             outputString += "[ STATS ]\n";
-            outputString += "  HULL:" + mechSkills[0] + " AGI:" + mechSkills[1]
-                + " SYS:" + mechSkills[2] + " ENGI:" + mechSkills[3] + "\n";
+            outputString += "  HULL:" + this.mechSkills[0] + " AGI:"
+                + this.mechSkills[1] + " SYS:" + this.mechSkills[2] + " ENGI:"
+                + this.mechSkills[3] + "\n";
         } else if (outputType.equals("pilot")) {
-            outputString += "» " + name + " // " + callsign.toUpperCase()
-                + " «\n";
-            outputString += "  LL" + licenseLevel + "\n";
+            outputString += "» " + this.name + " // "
+                + this.callsign.toUpperCase() + " «\n";
+            outputString += "  LL" + this.licenseLevel + "\n";
             outputString += "[ SKILL TRIGGERS ]\n";
-            outputString += skillTriggers.generateOutput();
+            outputString += this.skillTriggers.generateOutput();
             outputString += "[ GEAR ]\n";
-            outputString += loadout.generateOutput();
+            outputString += this.loadout.generateOutput();
             outputString += "[ MECH SKILLS ]\n";
-            outputString += "  GRIT:" + getGrit() + " // H:" + mechSkills[0]
-                + " A:" + mechSkills[1] + " S:" + mechSkills[2] + " E:"
-                + mechSkills[3] + "\n";
+            outputString += "  GRIT:" + this.grit + " // H:"
+                + this.mechSkills[0] + " A:" + this.mechSkills[1] + " S:"
+                + this.mechSkills[2] + " E:" + this.mechSkills[3] + "\n";
             outputString += "[ TALENTS ]\n";
             outputString += outputTalents(outputType);
             outputString += "[ LICENSES ]\n";
@@ -756,13 +760,13 @@ public class Pilot {
             outputString += "[ CORE BONUSES ]\n";
             outputString += outputCoreBonuses(outputType);
         } else if (outputType.equals("full")) {
-            outputString += "» " + name + " // " + callsign.toUpperCase()
-                + " «\n";
-            outputString += "  LL" + licenseLevel + "\n";
+            outputString += "» " + this.name + " // "
+                + this.callsign.toUpperCase() + " «\n";
+            outputString += "  LL" + this.licenseLevel + "\n";
             outputString += "[ SKILL TRIGGERS ]\n";
-            outputString += skillTriggers.generateOutput();
+            outputString += this.skillTriggers.generateOutput();
             outputString += "[ GEAR ]\n";
-            outputString += loadout.generateOutput();
+            outputString += this.loadout.generateOutput();
             outputString += "***\n";
             outputString += "[ TALENTS ]\n";
             outputString += outputTalents(outputType);
@@ -784,9 +788,8 @@ public class Pilot {
      */
     public String outputLicenses(String outputType) {
         String outputString = "";
-        License[] licenseList = getLicenseList();
 
-        if (licenseList.length == 0) {
+        if (this.licenseList.length == 0) {
             outputString += "  N/A\n";
             return outputString;
         }
@@ -794,28 +797,29 @@ public class Pilot {
             // Output something like:
             //     "  IPS-N Blackbeard 1, IPS-N Drake 1, IPS-N Lancaster 1\n"
             outputString += "  ";
-            for (int i = 0; i < licenseList.length; i++) {
+            for (int i = 0; i < this.licenseList.length; i++) {
                 if (i != 0) {
                     outputString += ", ";
                 }
-                outputString += licenseList[i].outputName() + " "
-                    + licenseList[i].getLevel();
+                outputString += this.licenseList[i].outputName() + " "
+                    + this.licenseList[i].getLevel();
             }
             outputString += "\n";
         } else if (outputType.equals("pilot")
             || outputType.equals("full")) {
             // Output something like:
             //     "  IPS-N Blackbeard 1, IPS-N Drake 1,\n  IPS-N Lancaster 1\n"
-            for (int i = 0; i < licenseList.length; i += 2) {
+            for (int i = 0; i < this.licenseList.length; i += 2) {
                 outputString += "  ";
-                for (int j = i; j < Math.min(i + 2, licenseList.length); j++) {
-                    outputString += licenseList[j].getName() + " "
-                        + licenseList[j].getLevel();
-                    if (j == i && i < licenseList.length + 1) {
+                for (int j = i; j < Math.min(i + 2, this.licenseList.length);
+                    j++) {
+                    outputString += this.licenseList[j].getName() + " "
+                        + this.licenseList[j].getLevel();
+                    if (j == i && i < this.licenseList.length + 1) {
                         outputString += ", ";
                     }
                 }
-                if (i + 2 < licenseList.length) {
+                if (i + 2 < this.licenseList.length) {
                     outputString += ",";
                 }
                 outputString += "\n";
@@ -834,7 +838,6 @@ public class Pilot {
      */
     public String outputTalents(String outputType) {
         String outputString = "";
-        Talent[] talents = getTalents();
 
         if (talents.length == 0) {
             outputString += "  N/A\n";
@@ -844,10 +847,10 @@ public class Pilot {
             // Output something like:
             //     "  Ace 1, Brawler 1, Bonded 1\n"
             outputString += "  ";
-            for (int i = 0; i < talents.length; i++) {
-                outputString += talents[i].outputName() + " "
-                    + talents[i].getLevel();
-                if (i < talents.length - 1) {
+            for (int i = 0; i < this.talents.length; i++) {
+                outputString += this.talents[i].outputName() + " "
+                    + this.talents[i].getLevel();
+                if (i < this.talents.length - 1) {
                     outputString += ", ";
                 }
             }
@@ -857,16 +860,16 @@ public class Pilot {
             // Output something like:
             //     "  Ace 1, Brawler 1,\n"
             //     "  Bonded 1\n"
-            for (int i = 0; i < talents.length; i += 2) {
+            for (int i = 0; i < this.talents.length; i += 2) {
                 outputString += "  ";
-                for (int j = i; j < Math.min(i + 2, talents.length); j++) {
-                    outputString += talents[j].outputName() + " "
-                        + talents[j].getLevel();
-                    if (j == i && i < talents.length + 1) {
+                for (int j = i; j < Math.min(i + 2, this.talents.length); j++) {
+                    outputString += this.talents[j].outputName() + " "
+                        + this.talents[j].getLevel();
+                    if (j == i && i < this.talents.length + 1) {
                         outputString += ", ";
                     }
                 }
-                if (i + 2 < talents.length) {
+                if (i + 2 < this.talents.length) {
                     outputString += ",";
                 }
                 outputString += "\n";
@@ -885,9 +888,8 @@ public class Pilot {
      */
     public String outputCoreBonuses(String outputType) {
         String outputString = "";
-        String[] coreBonuses = getCoreBonuses();
 
-        if (coreBonuses.length == 0) {
+        if (this.coreBonuses.length == 0) {
             outputString += "  N/A\n";
             return outputString;
         }
@@ -896,11 +898,12 @@ public class Pilot {
             //     "  Auto-Stabilizing Hardpoints, Overpower Caliber, Improved"
             //     " Armament\n"
             outputString += "  ";
-            for (int i = 0; i < coreBonuses.length; i++) {
+            for (int i = 0; i < this.coreBonuses.length; i++) {
                 if (i != 0) {
                     outputString += ", ";
                 }
-                outputString += HelperFunctions.toProperCase(coreBonuses[i]);
+                outputString += HelperFunctions.toProperCase(
+                    this.coreBonuses[i]);
             }
             outputString += "\n";
         } else if (outputType.equals("pilot")
@@ -908,11 +911,12 @@ public class Pilot {
             // Output something of the following form:
             //     "  Auto-Stabilizing Hardpoints, Overpower Caliber,\n"
             //     "  Improved Armament\n"
-            for (int i = 0; i < coreBonuses.length; i += 2) {
+            for (int i = 0; i < this.coreBonuses.length; i += 2) {
                 outputString += "  ";
-                for (int j = i; j < Math.min(i + 2, coreBonuses.length); j++) {
-                    outputString += coreBonuses[j];
-                    if (i + 1 >= coreBonuses.length) {
+                for (int j = i; j < Math.min(i + 2, this.coreBonuses.length);
+                    j++) {
+                    outputString += this.coreBonuses[j];
+                    if (i + 1 >= this.coreBonuses.length) {
                         continue;
                     }
                     if (j == i) {

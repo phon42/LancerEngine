@@ -180,32 +180,32 @@ public class Frame {
      * Creates a new placeholder Frame.
      */
     public Frame() {
-        this.manufacturer = "";
-        this.name = "";
-        this.ID = "";
-        // this.frameEnum not set due to no possible placeholder value
-        this.role = new String[0];
-        this.frameDescription = "";
-        this.size = -1;
+        manufacturer = "";
+        name = "";
+        ID = "";
+        frameEnum = null;
+        role = new String[0];
+        setFrameDescription("");
+        size = -1;
 
         // these properties can be modified later on but 90% of frames (100% of
         //     player frames) have 4 structure, 4 stress
-        this.structure = 4;
-        this.stress = 4;
+        structure = 4;
+        stress = 4;
 
-        this.HP = -1;
-        this.armor = -1;
-        this.heatCapacity = -1;
-        this.evasion = -1;
-        this.speed = -1;
-        this.eDefense = -1;
+        HP = -1;
+        armor = -1;
+        heatCapacity = -1;
+        evasion = -1;
+        speed = -1;
+        eDefense = -1;
         setTechAttack(-1);
-        this.sensors = -1;
-        this.repairCapacity = -1;
-        this.saveTarget = -1;
-        this.systemPoints = -1;
-        this.traits = new String[0];
-        this.mounts = new Mount[0];
+        sensors = -1;
+        repairCapacity = -1;
+        saveTarget = -1;
+        systemPoints = -1;
+        setTraits(new String[0]);
+        setMounts(new Mount[0]);
     }
     /**
      * Creates a new non-placeholder Frame using every property except Structure
@@ -379,13 +379,13 @@ public class Frame {
             throw new IllegalArgumentException("New role value is null");
         }
         for (int i = 0; i < role.length; i++) {
-            role[i] = role[i].toLowerCase();
-            roleString = role[i];
-            isValidRole = false;
-            if (roleString == null) {
+            if (role[i] == null) {
                 throw new IllegalArgumentException("New role array contains"
                     + " a null element");
             }
+            role[i] = role[i].toLowerCase();
+            roleString = role[i];
+            isValidRole = false;
             for (String roleMatch : Frame.allowedRoles) {
                 if (roleString.equals(roleMatch)) {
                     isValidRole = true;
@@ -422,52 +422,57 @@ public class Frame {
     }
     public void setStructure(int structure) {
         if (structure < 1) {
-            throw new IllegalArgumentException(
-                "New structure value is < 1");
+            throw new IllegalArgumentException("New structure value: "
+                + structure + " is < 1");
         }
         this.structure = structure;
     }
     public void setHP(int HP) {
         if (HP < 1) {
-            throw new IllegalArgumentException("New HP value is < 1");
+            throw new IllegalArgumentException("New HP value: " + HP + " is <"
+                + " 1");
         }
         this.HP = HP;
     }
     public void setArmor(int armor) {
         if (armor < 0) {
-            throw new IllegalArgumentException("New armor value is < 0");
+            throw new IllegalArgumentException("New armor value: " + armor
+                + " is < 0");
         }
         this.armor = armor;
     }
     public void setStress(int stress) {
         if (stress < 1) {
-            throw new IllegalArgumentException("New stress value is < 1");
+            throw new IllegalArgumentException("New stress value: " + stress
+                + " is < 1");
         }
         this.stress = stress;
     }
     public void setHeatCapacity(int heatCapacity) {
         if (heatCapacity < 1) {
-            throw new IllegalArgumentException("New heat capacity value is <"
-                + " 1");
+            throw new IllegalArgumentException("New heat capacity value: "
+                + heatCapacity + " is < 1");
         }
         this.heatCapacity = heatCapacity;
     }
     public void setEvasion(int evasion) {
         if (evasion < 0) {
-            throw new IllegalArgumentException("New evasion value is < 0");
+            throw new IllegalArgumentException("New evasion value: " + evasion
+                + " is < 0");
         }
         this.evasion = evasion;
     }
     public void setSpeed(int speed) {
         if (speed < 0) {
-            throw new IllegalArgumentException("New speed value is < 0");
+            throw new IllegalArgumentException("New speed value: " + speed
+                + " is < 0");
         }
         this.speed = speed;
     }
     public void setEDefense(int eDefense) {
         if (eDefense < 0) {
-            throw new IllegalArgumentException(
-                "New e-defense value is < 0");
+            throw new IllegalArgumentException("New e-defense value: "
+                + eDefense + " is < 0");
         }
         this.eDefense = eDefense;
     }
@@ -476,28 +481,29 @@ public class Frame {
     }
     public void setSensors(int sensors) {
         if (sensors < 0) {
-            throw new IllegalArgumentException("New sensors value is < 0");
+            throw new IllegalArgumentException("New sensors value: " + sensors
+                + " is < 0");
         }
         this.sensors = sensors;
     }
     public void setRepairCapacity(int repairCapacity) {
         if (repairCapacity < 0) {
-            throw new IllegalArgumentException("New repair capacity value is"
-                + " < 0");
+            throw new IllegalArgumentException("New repair capacity value is: "
+                + repairCapacity + " < 0");
         }
         this.repairCapacity = repairCapacity;
     }
     public void setSaveTarget(int saveTarget) {
         if (saveTarget < 0) {
-            throw new IllegalArgumentException("New save target value is <"
-                + " 0");
+            throw new IllegalArgumentException("New save target value: "
+                + saveTarget + " is < 0");
         }
         this.saveTarget = saveTarget;
     }
     public void setSystemPoints(int systemPoints) {
         if (systemPoints < 0) {
-            throw new IllegalArgumentException("New system points value is <"
-                + " 0");
+            throw new IllegalArgumentException("New system points value: "
+                + systemPoints + " is < 0");
         }
         this.systemPoints = systemPoints;
     }
@@ -519,7 +525,7 @@ public class Frame {
             }
             if (trait.equals("")) {
                 throw new IllegalArgumentException("New traits value contains"
-                    + " an \"\" element");
+                    + " element that is \"\"");
             }
         }
         traits = HelperFunctions.copyOf(traits);
@@ -552,7 +558,7 @@ public class Frame {
      * @return a boolean containing the result of the check.
      */
     public boolean hasPlaceholders() {
-        if (getManufacturer().equals("")) {
+        if (manufacturer.equals("")) {
             return true;
         }
         if (getID().equals("") && getFrameEnum() == null) {
@@ -564,6 +570,8 @@ public class Frame {
                 throw new IllegalArgumentException("Frame.frameEnum is set but"
                     + " Frame.ID is not");
             }
+        }
+        if (name.equals("")) {
             return true;
         }
         if (this.role.getClass() == String[].class && this.role.length == 0) {
@@ -572,39 +580,39 @@ public class Frame {
         if (getFrameDescription().equals("")) {
             return true;
         }
-        if (getSize() == -1) {
+        if (size == -1) {
             return true;
         }
         // Frame.structure and Frame.stress excluded because they are set to 4
         //     on construction, but 4 is a perfectly valid value for both
-        if (getHP() == -1) {
+        if (HP == -1) {
             return true;
         }
-        if (getArmor() == -1) {
+        if (armor == -1) {
             return true;
         }
-        if (getHeatCapacity() == -1) {
+        if (heatCapacity == -1) {
             return true;
         }
-        if (getEvasion() == -1) {
+        if (evasion == -1) {
             return true;
         }
-        if (getSpeed() == -1) {
+        if (speed == -1) {
             return true;
         }
-        if (getEDefense() == -1) {
+        if (eDefense == -1) {
             return true;
         }
-        if (getSensors() == -1) {
+        if (sensors == -1) {
             return true;
         }
-        if (getRepairCapacity() == -1) {
+        if (repairCapacity == -1) {
             return true;
         }
-        if (getSaveTarget() == -1) {
+        if (saveTarget == -1) {
             return true;
         }
-        if (getSystemPoints() == -1) {
+        if (systemPoints == -1) {
             return true;
         }
 
@@ -616,74 +624,72 @@ public class Frame {
      * @return a boolean containing the result of the check.
      */
     public boolean isPlaceholder() {
-        if (! getManufacturer().equals("")) {
+        if (! manufacturer.equals("")) {
             return false;
         }
-        if (! getName().equals("")) {
+        if (! name.equals("")) {
             return false;
         }
-        if (! getID().equals("")) {
+        if (! ID.equals("")) {
             return false;
         }
-        if (getFrameEnum() != null) {
+        if (frameEnum != null) {
             return false;
         }
         if (this.role.getClass() != String[].class || this.role.length != 0) {
             return false;
         }
-        if (! getFrameDescription().equals("")) {
+        if (! frameDescription.equals("")) {
             return false;
         }
-        if (getSize() != -1) {
-            return false;
-        }
-
-        if (getStructure() != 4) {
-            return false;
-        }
-        if (getStress() != 4) {
+        if (size != -1) {
             return false;
         }
 
-        if (getHP() != -1) {
+        if (structure != 4) {
             return false;
         }
-        if (getArmor() != -1) {
+        if (stress != 4) {
             return false;
         }
-        if (getHeatCapacity() != -1) {
+
+        if (HP != -1) {
             return false;
         }
-        if (getEvasion() != -1) {
+        if (armor != -1) {
             return false;
         }
-        if (getSpeed() != -1) {
+        if (heatCapacity != -1) {
             return false;
         }
-        if (getEDefense() != -1) {
+        if (evasion != -1) {
             return false;
         }
-        if (getTechAttack() != -1) {
+        if (speed != -1) {
             return false;
         }
-        if (getSensors() != -1) {
+        if (eDefense != -1) {
             return false;
         }
-        if (getRepairCapacity() != -1) {
+        if (techAttack != -1) {
             return false;
         }
-        if (getSaveTarget() != -1) {
+        if (sensors != -1) {
             return false;
         }
-        if (getSystemPoints() != -1) {
+        if (repairCapacity != -1) {
             return false;
         }
-        if (this.traits.getClass() != String[].class
-            || this.traits.length != 0) {
+        if (saveTarget != -1) {
             return false;
         }
-        if (this.mounts.getClass() != Mount[].class
-            || this.mounts.length != 0) {
+        if (systemPoints != -1) {
+            return false;
+        }
+        if (traits.length != 0) {
+            return false;
+        }
+        if (mounts.length != 0) {
             return false;
         }
 
@@ -701,28 +707,28 @@ public class Frame {
         //     of "property" if the property's type is mutable
         Frame copy = new Frame();
         
-        copy.manufacturer = this.manufacturer;
-        copy.name = this.name;
-        copy.ID = this.ID;
-        copy.frameEnum = this.frameEnum;
-        copy.role = this.role;
-        copy.setFrameDescription(this.frameDescription);
-        copy.size = this.size;
-        copy.setStructure(this.structure);
-        copy.HP = this.HP;
-        copy.armor = this.armor;
-        copy.setStress(this.stress);
-        copy.heatCapacity = this.heatCapacity;
-        copy.evasion = this.evasion;
-        copy.speed = this.speed;
-        copy.eDefense = this.eDefense;
-        copy.setTechAttack(this.techAttack);
-        copy.sensors = this.sensors;
-        copy.repairCapacity = this.repairCapacity;
-        copy.saveTarget = this.saveTarget;
-        copy.systemPoints = this.systemPoints;
-        copy.setTraits(this.traits);
-        copy.setMounts(this.mounts);
+        copy.manufacturer = manufacturer;
+        copy.name = name;
+        copy.ID = ID;
+        copy.frameEnum = frameEnum;
+        copy.role = getRole();
+        copy.setFrameDescription(frameDescription);
+        copy.size = size;
+        copy.setStructure(structure);
+        copy.HP = HP;
+        copy.armor = armor;
+        copy.setStress(stress);
+        copy.heatCapacity = heatCapacity;
+        copy.evasion = evasion;
+        copy.speed = speed;
+        copy.eDefense = eDefense;
+        copy.setTechAttack(techAttack);
+        copy.sensors = sensors;
+        copy.repairCapacity = repairCapacity;
+        copy.saveTarget = saveTarget;
+        copy.systemPoints = systemPoints;
+        copy.setTraits(traits);
+        copy.setMounts(mounts);
 
         return copy;
     }

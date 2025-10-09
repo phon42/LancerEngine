@@ -25,12 +25,12 @@ public class Talent {
 
     /**
      * Creates a new Talent with the provided talent name and talent level.
-     * @param name a String which cannot be null or "".
-     * @param level an int which must be between 1 and 3 (inclusive).
+     * @param talentName a String which cannot be null or "".
+     * @param talentLevel an int which must be between 1 and 3 (inclusive).
      */
-    public Talent(String name, int level) {
-        setName(name);
-        setLevel(level);
+    public Talent(String talentName, int talentLevel) {
+        setName(talentName);
+        setLevel(talentLevel);
     }
 
     public String getName() {
@@ -56,10 +56,12 @@ public class Talent {
      */
     private void setLevel(int level) {
         if (level < 1) {
-            throw new IllegalArgumentException("New level is < 1");
+            throw new IllegalArgumentException("New level value: " + level
+                + " is < 1");
         }
         if (level > 3) {
-            throw new IllegalArgumentException("New level is > 3");
+            throw new IllegalArgumentException("New level value: " + level
+                + " is > 3");
         }
         this.level = level;
     }
@@ -90,10 +92,10 @@ public class Talent {
         if (talent == null) {
             return false;
         }
-        if (! talent.getName().equals(getName())) {
+        if (! talent.getName().equals(this.name)) {
             return false;
         }
-        if (talent.getLevel() != getLevel()) {
+        if (talent.getLevel() != this.level) {
             return false;
         }
         return true;

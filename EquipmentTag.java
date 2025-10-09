@@ -110,8 +110,8 @@ public class EquipmentTag {
         }
         if (isValid) {
             if (value < 1) {
-                throw new IllegalArgumentException("Name is + \""
-                    + this.name + "\" and new value is < 1");
+                throw new IllegalArgumentException("Name is: \""
+                    + this.name + "\" and new value: " + value + " is < 1");
             }
             this.value = value;
         } else {

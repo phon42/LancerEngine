@@ -45,11 +45,11 @@ public class Test {
 
     /**
      * Creates a new Test with the provided test name and test result.
-     * @param name a String which cannot be null or "".
-     * @param result a boolean.
+     * @param testName a String which cannot be null or "".
+     * @param testResult a boolean.
      */
-    public Test(String name, boolean result) {
-        this(name, result, new Test[0]);
+    public Test(String testName, boolean testResult) {
+        this(testName, testResult, new Test[0]);
     }
     public Test(String name, Test[] tests) {
         this(name, true, tests);
@@ -189,7 +189,8 @@ public class Test {
         } else if (status == TestStatus.MIXED) {
             result = "SOME PASSING";
         } else {
-            throw new IllegalArgumentException("Result property was ERROR.");
+            throw new IllegalArgumentException("this.run() evaluated to"
+                + " TestStatus.ERROR");
         }
 
         for (int i = 0; i < level; i++) {

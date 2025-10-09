@@ -138,19 +138,19 @@ public class Loadout {
         if (loadout == null) {
             return false;
         }
-        if (! loadout.getPilotArmor().equals(pilotArmor)) {
+        if (! loadout.getPilotArmor().equals(this.pilotArmor)) {
             return false;
         }
         String weapon;
-        for (int i = 0; i < pilotWeapons.length; i++) {
-            weapon = pilotWeapons[i];
+        for (int i = 0; i < this.pilotWeapons.length; i++) {
+            weapon = this.pilotWeapons[i];
             if (! weapon.equals(loadout.getPilotWeapons()[i])) {
                 return false;
             }
         }
         String gear;
         for (int i = 0; i < pilotGear.length; i++) {
-            gear = pilotGear[i];
+            gear = this.pilotGear[i];
             if (! gear.equals(loadout.getPilotGear()[i])) {
                 return false;
             }
@@ -185,30 +185,30 @@ public class Loadout {
         boolean test2;
         boolean test3;
 
-        test1 = (getPilotArmor().equals(""));
-        test2 = (getPilotWeapons()[0].equals("")
-            && getPilotWeapons()[1].equals(""));
-        test3 = (getPilotGear()[0].equals("")
-            && getPilotGear()[1].equals("")
-            && getPilotGear()[2].equals(""));
+        test1 = (this.pilotArmor.equals(""));
+        test2 = (this.pilotWeapons[0].equals("")
+            && this.pilotGear[1].equals(""));
+        test3 = (this.pilotGear[0].equals("")
+            && this.pilotGear[1].equals("")
+            && this.pilotGear[2].equals(""));
         if (test1 && test2 && test3) {
             outputString += "  N/A\n";
             return outputString;
         }
         if (! test1) {
-            outputString += getPilotArmor() + ",";
+            outputString += this.pilotArmor + ",";
         }
         if (! test2) {
             for (int i = 0; i < 2; i++) {
-                if (! getPilotWeapons()[i].equals("")) {
-                    outputString += getPilotWeapons()[i] + ",";
+                if (! this.pilotWeapons[i].equals("")) {
+                    outputString += this.pilotWeapons[i] + ",";
                 }
             }
         }
         if (! test3) {
             for (int i = 0; i < 3; i++) {
-                if (! getPilotGear()[i].equals("")) {
-                    outputString += getPilotGear()[i] + ",";
+                if (! this.pilotGear[i].equals("")) {
+                    outputString += this.pilotGear[i] + ",";
                 }
             }
         }

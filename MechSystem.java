@@ -13,14 +13,33 @@ public class MechSystem extends Equipment {
     public MechSystem(String name) {
         super(name);
     }
-    public MechSystem(String name, EquipmentTag[] equipmentTags) {
-        super(name, equipmentTags);
+    /**
+     * Creates a MechSystem given a system name and array of system tags.
+     * @param systemName a String which cannot be null or "".
+     * @param systemTags an EquipmentTag[] which cannot be null, contain null
+     *     elements, or contain elements with invalid EquipmentTag.name values,
+     *     as defined by MechSystem.allowedNames.
+     */
+    public MechSystem(String systemName, EquipmentTag[] systemTags) {
+        super(systemName);
+        setTags(systemTags);
     }
 
+    /**
+     * Sets this.tags to the provided value.
+     * @param tags an EquipmentTag[] which cannot be null, contain null
+     *     elements, or contain elements with invalid EquipmentTag.name values
+     *     as defined by MechSystem.allowedNames.
+     * @throws IllegalArgumentException if tags is null, contains a null
+     *     element, or an element with an invalid EquipmentTag.name value, as
+     *     defined by MechSystem.allowedNames.
+     */
     @Override
     public void setTags(EquipmentTag[] tags) {
         boolean isValid = false;
 
+        // Throws an IllegalArgumentException if tags is null or contains null
+        //     elements
         if (tags == null) {
             throw new IllegalArgumentException("New tags value is null");
         }
@@ -37,8 +56,8 @@ public class MechSystem extends Equipment {
             }
             if (! isValid) {
                 throw new IllegalArgumentException("New tags array includes an"
-                    + " invalid tag name for a MechSystem: \"" + tag.getName()
-                    + "\"");
+                    + " EquipmentTag with an invalid tag name for a MechSystem:"
+                    + " \"" + tag.getName() + "\"");
             }
         }
         tags = HelperFunctions.copyOf(tags);
@@ -103,7 +122,7 @@ public class MechSystem extends Equipment {
             outputString += this.name;
             if (this.hasTag("Limited X")) {
                 // add something like " x4"
-                outputString += " x" + (this.getTag("Limited X")
+                outputString += " x" + (getTag("Limited X")
                     + limitedSystemsBonus);
             }
         } else {
