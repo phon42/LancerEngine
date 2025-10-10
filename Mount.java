@@ -108,6 +108,11 @@ public class Mount {
      */
     public Mount(String mountType, Weapon weapon) {
         this(mountType, weapon, "", "", null);
+        // TODO: do this for all overloaded constructors
+        if (weapon == null) {
+            throw new IllegalArgumentException("Called Mount(String, null)."
+                + " Use Mount(String) instead");
+        }
     }
     /**
      * Creates a new occupied Mount with the provided mountType, weapon, and
