@@ -1069,7 +1069,7 @@ public class Mech {
     }
     /**
      * A helper method which outputs the mech's size, formatted properly so that
-     *     it is human-readable. Used in Mech.outputStats("full", int).
+     *     it is human-readable. Used in Mech.outputStats("full", int, int[]).
      * @return a String containing the requested output.
      */
     public String outputSize() {
@@ -1249,19 +1249,10 @@ public class Mech {
             if (isPlaceholder()) {
                 outputString += "  « N/A »\n";
                 outputString += "  N/A N/A\n";
-                outputString += String.format(
-                    "  H:%d A:%d S:%d E:%d%s",
-                    mechSkills[0], mechSkills[1], mechSkills[2], mechSkills[3],
-                    outputStats("full", grit)
-                );
             } else {
                 outputString += "  « " + this.name + " »\n";
-                outputString += String.format(
-                    "  H:%d A:%d S:%d E:%d%s",
-                    mechSkills[0], mechSkills[1], mechSkills[2], mechSkills[3],
-                    outputStats("full", grit)
-                );
             }
+            outputString += outputStats("full", grit, mechSkills);
             outputString += "[ WEAPONS ]\n";
             outputString += outputWeapons("full");
             outputString += "[ SYSTEMS ]\n";
@@ -1279,7 +1270,7 @@ public class Mech {
      * @return a String containing the requested output.
      * @throws IllegalArgumentException when outputType is "full" because that
      *     output type requires additional information only obtainable through
-     *     Mech.outputStats(String, int)
+     *     Mech.outputStats(String, int, int[])
      */
     public String outputStats(String outputType) {
         String outputString = "";
@@ -1312,8 +1303,8 @@ public class Mech {
             );
         } else if (outputType.equals("full")) {
             throw new IllegalArgumentException("Called"
-                + " Mech.outputStats(\"full\") but grit value was not"
-                + " provided");
+                + " Mech.outputStats(\"full\") but grit value and mech skills"
+                + " array was not provided");
         }
 
         return outputString;
@@ -1326,14 +1317,20 @@ public class Mech {
      *     generate.
      * @param grit an int containing the grit stat of the Pilot associated with
      *     this Mech through the parent LancerCharacter.
+     * @param mechSkills an int[] of length 4 containing the mech skills of the
+     *     Pilot associated with this Mech through the parent LancerCharacter.
      * @return a String containing the requested output.
      */
-    public String outputStats(String outputType, int grit) {
+    public String outputStats(String outputType, int grit, int[] mechSkills) {
         String outputString = "";
 
         outputType = outputType.toLowerCase();
         if (outputType.equals("full")) {
-            outputString += " SIZE:" + outputSize() + "\n";
+            outputString += String.format(
+                "  H:%d A:%d S:%d E:%d SIZE:%s\n",
+                mechSkills[0], mechSkills[1], mechSkills[2], mechSkills[3],
+                outputSize()
+            );
             outputString += String.format(
                 "  STRUCTURE:%d/%d HP:%d/%d ARMOR:%d\n",
                 this.currentStructure, this.maxStructure, this.currentHP,
