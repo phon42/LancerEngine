@@ -1,3 +1,7 @@
+// TODO: let's go full crazy, add the ability to read a set of .lcp files and
+//     unzip those into as much Lancer data as we want:
+//         https://www.w3schools.com/java/java_files_read.asp
+//         https://www.baeldung.com/java-compress-and-uncompress#unzip
 /**
  * Contains a set of values that can be used to reference or obtain a specific
  *     frame.
