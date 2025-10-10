@@ -56,7 +56,7 @@ public class Mount {
     };
     /**
      * The mount's weapon (if it has one).
-     * Can be any Weapon or null.
+     * Can be any Weapon. Can be null.
      */
     private Weapon weapon;
     /**
@@ -92,7 +92,7 @@ public class Mount {
     /**
      * The talents applied to the mount (i.e. the Engineer talent), if there are
      *     any.
-     * Can be any Talent or null.
+     * Can be any Talent. Can be null.
      */
     private Talent talent;
 
@@ -146,6 +146,9 @@ public class Mount {
         return mountType;
     }
     public Weapon getWeapon() {
+        if (weapon == null) {
+            return weapon;
+        }
         return weapon.copyOf();
     }
     public boolean hasModification() {
@@ -164,7 +167,10 @@ public class Mount {
         return hasTalent;
     }
     public Talent getTalent() {
-        return talent;
+        if (talent == null) {
+            return talent;
+        }
+        return talent.copyOf();
     }
     /**
      * Sets this.mountType to the value provided.
