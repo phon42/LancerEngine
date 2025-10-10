@@ -1,3 +1,7 @@
+/**
+ * Contains a set of values that can be used to reference or obtain a specific
+ *     frame.
+ */
 enum FrameEnum {
     EVEREST,
     SAGARMATHA,

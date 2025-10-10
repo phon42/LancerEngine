@@ -1,5 +1,5 @@
 /**
- * Holds a set of possible test statuses that a Test can return or contain.
+ * Contains a set of possible test statuses that a Test can return or contain.
  */
 enum TestStatus {
     PASS,
