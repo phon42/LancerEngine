@@ -1,5 +1,3 @@
-// TODO: change LancerCharacter.mech to allow null and alter documentation to
-//     compensate
 // TODO: add some kind of way for Pilot and Mech's actions to bubble up
 /**
  * Represents a single Lancer character, including the pilot and their mech.
@@ -10,8 +8,8 @@
  * 
  * Used in Main.
  * 
- * Safety: This class does not have placeholder values. None of its properties
- *     can be null.
+ * Safety: This class does not have placeholder values. At least one of its
+ *     properties can be null.
  */
 public class LancerCharacter {
     /**
@@ -24,36 +22,17 @@ public class LancerCharacter {
     
     /**
      * The mech associated with this character (if there is one).
-     * Holds a Mech object. Can be a placeholder Mech, but must either be a
-     *     placeholder or not have placeholders in the following fields:
-     *     - Mech/Chassis Name
-     *     - Frame
-     *     - Mounts
-     *     - Size
-     *     - Current HP
-     *     - Max HP
-     *     - Armor
-     *     - Current Heat Capacity
-     *     - Max Heat Capacity
-     *     - Evasion
-     *     - Speed
-     *     - E-Defense
-     *     - Sensors
-     *     - Current Repair Capacity
-     *     - Max Repair Capacity
-     *     - Save Target
-     *     - System Points
-     *     - Limited Systems Bonus
+     * Holds a Mech object. Can be any Mech. Can be null.
      */
     private Mech mech;
     
     /**
      * Creates a new LancerCharacter from a pilotName and a pilotCallsign. Sets
-     *     this.mech to a placeholder Mech.
+     *     this.mech to null.
      */
     public LancerCharacter(String pilotName, String pilotCallsign) {
         setPilot(new Pilot(pilotName, pilotCallsign));
-        setMech(new Mech());
+        setMech(null);
     }
     /**
      * Creates a new LancerCharacter from a pilotName, a pilotCallsign, and a
@@ -65,11 +44,12 @@ public class LancerCharacter {
     }
     // TODO: remove if unused
     /**
-     * Creates a new LancerCharacter from a Pilot.
+     * Creates a new LancerCharacter from a Pilot. Sets
+     *     this.mech to null.
      */
     public LancerCharacter(Pilot pilot) {
         setPilot(pilot);
-        setMech(new Mech());
+        setMech(null);
     }
     // TODO: remove if unused
     /**
@@ -84,6 +64,9 @@ public class LancerCharacter {
         return pilot.copyOf();
     }
     public Mech getMech() {
+        if (mech == null) {
+            return mech;
+        }
         return mech.copyOf();
     }
     /**
@@ -99,27 +82,16 @@ public class LancerCharacter {
         this.pilot = pilot;
     }
     /**
-     * Sets this.mech to the value provided.
-     * @param mech a Mech that cannot be null and must EITHER be a placeholder
-     *     or not have any placeholders. Calls Mech.calculateAttributes() before
-     *     setting this.mech to it.
-     * @throws IllegalArgumentException if mech is null or is not a placeholder
-     *     but has some properties set to placeholder values.
+     * Sets this.mech to the value provided. Calls Mech.calculateAttributes()
+     *     before setting this.mech to it.
+     * @param mech a Mech.
      */
     public void setMech(Mech mech) {
-        if (mech == null) {
-            throw new IllegalArgumentException("New mech is null");
-        }
-        if (! mech.isPlaceholder()) {
-            if (mech.hasPlaceholders()) {
-                throw new IllegalArgumentException("New mech value is not a"
-                    + " placeholder but has some properties set to placeholder"
-                    + " values");
-            }
+        if (mech != null) {
             mech.calculateAttributes(this.pilot.getMechSkills(),
                 this.pilot.getCoreBonuses(), this.pilot.getTalents());
+            mech = mech.copyOf();
         }
-        mech = mech.copyOf();
         this.mech = mech;
     }
 
@@ -135,7 +107,7 @@ public class LancerCharacter {
         String outputString = "";
         
         boolean hasMech = true;
-        if (this.mech.getFrame() == null) {
+        if (this.mech == null) {
             hasMech = false;
         }
         
@@ -143,13 +115,8 @@ public class LancerCharacter {
         String frameName = "";
         int licenseLevel = this.pilot.getLicenseLevel();
         if (hasMech) {
-            if (this.mech.isPlaceholder()) {
-                manufacturer = "N/A";
-                frameName = "N/A";
-            } else {
-                manufacturer = this.mech.getFrame().getManufacturer();
-                frameName = this.mech.getFrame().outputName();
-            }
+            manufacturer = this.mech.getFrame().getManufacturer();
+            frameName = this.mech.getFrame().outputName();
         }
 
         outputType = outputType.toLowerCase();
@@ -157,11 +124,6 @@ public class LancerCharacter {
             if (! hasMech) {
                 outputString += ">> NO MECH SELECTED <<";
                 return outputString;
-            }
-            if (this.mech.isPlaceholder()) {
-                System.out.println(" [ WARNING ]"
-                    + " LancerCharacter.generateStats() has been called even"
-                    + " though the object's mech value is a placeholder Mech");
             }
             outputString += String.format(
                 "-- %s %s @ LL%d --\n",
@@ -173,11 +135,6 @@ public class LancerCharacter {
         } else if (outputType.equals("pilot")) {
             outputString += this.pilot.generateOutput(outputType);
         } else if (outputType.equals("full")) {
-            if (this.mech.isPlaceholder()) {
-                System.out.println(" [ WARNING ]"
-                    + " LancerCharacter.generateStats() has been called even"
-                    + " though the object's mech value is a placeholder Mech");
-            }
             outputString += this.pilot.generateOutput(outputType);
             if (! hasMech) {
                 outputString += ">> NO MECH SELECTED <<";

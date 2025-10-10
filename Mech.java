@@ -221,41 +221,11 @@ public class Mech {
     private MechSystem[] systems;
 
     /**
-     * Creates a placeholder Mech.
+     * Sets up any of Mech's properties that aren't filled in by
+     *     Mech.setFrame().
      */
-    public Mech() {
-        // setMaxStructure() swapped with setCurrentStructure() and
-        //     setMaxStress() swapped with setCurrentStress() because the
-        //     mutators may throw exceptions otherwise
-        this.name = "";
-        this.frame = new Frame();
-        this.manufacturer = "";
-        this.frameName = "";
-        this.role = new String[0];
-        setFrameDescription("");
+    private Mech() {
         setOperatorNotes("");
-        this.size = -1;
-        setMaxStructure(4);
-        setCurrentStructure(4);
-        this.currentHP = -1;
-        this.maxHP = -1;
-        this.armor = -1;
-        setMaxStress(4);
-        setCurrentStress(4);
-        this.currentHeatCapacity = -1;
-        this.maxHeatCapacity = -1;
-        this.evasion = -1;
-        this.speed = -1;
-        this.eDefense = -1;
-        setTechAttack(-1);
-        this.sensors = -1;
-        this.currentRepairCapacity = -1;
-        this.maxRepairCapacity = -1;
-        this.saveTarget = -1;
-        this.systemPoints = -1;
-        this.limitedSystemsBonus = -1;
-        setTraits(new String[0]);
-        setMounts(new Mount[0]);
         setSystems(new MechSystem[0]);
     }
     /**
@@ -289,19 +259,7 @@ public class Mech {
         int currentStructure, int currentHP, int currentStress,
         int currentHeatCapacity, int currentRepairCapacity,
         MechSystem[] systems) {
-        // Swapped max and current property mutators because they throw
-        //     exceptions otherwise
-        // manufacturer and other such frame-related properties are set at the
-        //     top instead of their normal places because setFrame() will
-        //     automatically populate them if provided with a non-placeholder
-        //     frame and setting them to their placeholder values would override
-        //     that
-        this.manufacturer = "";
-        this.frameName = "";
-        this.role = new String[0];
-        setFrameDescription("");
-        setTraits(new String[0]);
-
+        this();
         setName(name);
         setFrame(frame);
         setOperatorNotes(operatorNotes);
@@ -432,7 +390,6 @@ public class Mech {
         frame = frame.copyOf();
         this.frame = frame;
         calculateAttributes();
-        setMounts(this.frame.getMounts());
     }
     private void setManufacturer(String manufacturer) {
         if (manufacturer == null) {
@@ -854,175 +811,6 @@ public class Mech {
     }
 
     /**
-     * A method checking whether any of the properties of this object whose
-     *     placeholder value is normally not allowed are set to their
-     *     placeholder value.
-     * @return a boolean representing the result of the check.
-     */
-    public boolean hasPlaceholders() {
-        if (name.equals("")) {
-            return true;
-        }
-        if (frame.isPlaceholder()) {
-            return true;
-        }
-        if (manufacturer.equals("")) {
-            return true;
-        }
-        if (frameName.equals("")) {
-            return true;
-        }
-        if (role.length == 0) {
-            return true;
-        }
-        if (size == -1) {
-            return true;
-        }
-        if (currentHP == -1) {
-            return true;
-        }
-        if (maxHP == -1) {
-            return true;
-        }
-        if (armor == -1) {
-            return true;
-        }
-        if (currentHeatCapacity == -1) {
-            return true;
-        }
-        if (maxHeatCapacity == -1) {
-            return true;
-        }
-        if (evasion == -1) {
-            return true;
-        }
-        if (speed == -1) {
-            return true;
-        }
-        if (eDefense == -1) {
-            return true;
-        }
-        if (sensors == -1) {
-            return true;
-        }
-        if (currentRepairCapacity == -1) {
-            return true;
-        }
-        if (maxRepairCapacity == -1) {
-            return true;
-        }
-        if (saveTarget == -1) {
-            return true;
-        }
-        if (systemPoints == -1) {
-            return true;
-        }
-        if (limitedSystemsBonus == -1) {
-            return true;
-        }
-
-        return false;
-    }
-    /**
-     * A method checking whether every property of this object is set to its
-     *     placeholder value.
-     * @return a boolean representing the result of the check.
-     */
-    public boolean isPlaceholder() {
-        if (! name.equals("")) {
-            return false;
-        }
-        if (! frame.isPlaceholder()) {
-            return false;
-        }
-        if (! manufacturer.equals("")) {
-            return false;
-        }
-        if (! frameName.equals("")) {
-            return false;
-        }
-        if (role.length != 0) {
-            return false;
-        }
-        if (! frameDescription.equals("")) {
-            return false;
-        }
-        if (! operatorNotes.equals("")) {
-            return false;
-        }
-        if (size != -1) {
-            return false;
-        }
-        if (currentStructure != 4) {
-            return false;
-        }
-        if (maxStructure != 4) {
-            return false;
-        }
-        if (currentHP != -1) {
-            return false;
-        }
-        if (maxHP != -1) {
-            return false;
-        }
-        if (armor != -1) {
-            return false;
-        }
-        if (currentStress != 4) {
-            return false;
-        }
-        if (maxStress != 4) {
-            return false;
-        }
-        if (currentHeatCapacity != -1) {
-            return false;
-        }
-        if (maxHeatCapacity != -1) {
-            return false;
-        }
-        if (evasion != -1) {
-            return false;
-        }
-        if (speed != -1) {
-            return false;
-        }
-        if (eDefense != -1) {
-            return false;
-        }
-        if (techAttack != -1) {
-            return false;
-        }
-        if (sensors != -1) {
-            return false;
-        }
-        if (currentRepairCapacity != -1) {
-            return false;
-        }
-        if (maxRepairCapacity != -1) {
-            return false;
-        }
-        if (saveTarget != -1) {
-            return false;
-        }
-        if (systemPoints != -1) {
-            return false;
-        }
-        if (limitedSystemsBonus != -1) {
-            return false;
-        }
-        if (traits.length != 0) {
-            return false;
-        }
-        if (mounts.length != 0) {
-            return false;
-        }
-        if (systems.length != 0) {
-            return false;
-        }
-
-        return true;
-    }
-    /**
      * Returns a deepest copy of this Mech object.
      * @return a Mech deepest copy of this object.
      */
@@ -1246,12 +1034,7 @@ public class Mech {
                 + " bonus value was not provided.");
         } else if (outputType.equals("full")) {
             outputString += "[ MECH ]\n";
-            if (isPlaceholder()) {
-                outputString += "  « N/A »\n";
-                outputString += "  N/A N/A\n";
-            } else {
-                outputString += "  « " + this.name + " »\n";
-            }
+            outputString += "  « " + this.name + " »\n";
             outputString += outputStats("full", grit, mechSkills);
             outputString += "[ WEAPONS ]\n";
             outputString += outputWeapons("full");

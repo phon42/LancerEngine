@@ -166,7 +166,8 @@ public class Main {
         
         // Constructing objects
         LancerCharacter myCharacter = new LancerCharacter(
-            "Coral Nolan", "Apocalypse");
+            "Coral Nolan", "Apocalypse",
+            new Mech("Wraith", FrameEnum.SWALLOWTAIL_RANGER));
         Pilot myPilot = myCharacter.getPilot();
         Mech myMech = myCharacter.getMech();
         Loadout myLoadout;
@@ -212,8 +213,6 @@ public class Main {
         myPilot.setLoadout(myLoadout);
 
         // Down here is the important stuff
-        myMech = new Mech("Wraith", "swallowtail_ranger");
-
         // This is what's currently present in this Mech object
         System.out.println("On construction:");
         System.out.println(myCharacter.generateStatblock(

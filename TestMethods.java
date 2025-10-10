@@ -2156,7 +2156,7 @@ public class TestMethods {
      * @return a boolean representing whether the method passed.
      */
     private static boolean runMechSetNameTests() {
-        Mech mech = new Mech();
+        Mech mech = new Mech("validName", FrameEnum.EVEREST);
         boolean test1 = false;
         boolean test2 = false;
         boolean test3 = false;
@@ -2194,7 +2194,7 @@ public class TestMethods {
      * @return a boolean representing whether the method passed.
      */
     private static boolean runMechSetOperatorNotesTests() {
-        Mech mech = new Mech();
+        Mech mech = new Mech("validName", FrameEnum.EVEREST);
         boolean test1 = false;
         boolean test2 = false;
 
