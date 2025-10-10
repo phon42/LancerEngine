@@ -163,8 +163,10 @@ public class LancerCharacter {
                     + " LancerCharacter.generateStats() has been called even"
                     + " though the object's mech value is a placeholder Mech");
             }
-            outputString += "-- " + manufacturer + " " + frameName + " @ LL"
-                + licenseLevel + " --\n";
+            outputString += String.format(
+                "-- %s %s @ LL%d --\n",
+                manufacturer, frameName, licenseLevel
+            );
             outputString += this.pilot.generateOutput(outputType);
             outputString += this.mech.generateOutput(outputType,
                 this.mech.getLimitedSystemsBonus());

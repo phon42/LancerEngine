@@ -745,21 +745,27 @@ public class Pilot {
             outputString += "[ TALENTS ]\n";
             outputString += outputTalents(outputType);
             outputString += "[ STATS ]\n";
-            outputString += "  HULL:" + this.mechSkills[0] + " AGI:"
-                + this.mechSkills[1] + " SYS:" + this.mechSkills[2] + " ENGI:"
-                + this.mechSkills[3] + "\n";
+            outputString += String.format(
+                "  HULL:%d AGI:%d SYS:%d ENGI:%d\n",
+                this.mechSkills[0], this.mechSkills[1], this.mechSkills[2],
+                this.mechSkills[3]
+            );
         } else if (outputType.equals("pilot")) {
-            outputString += "» " + this.name + " // "
-                + this.callsign.toUpperCase() + " «\n";
+            outputString += String.format(
+                "» %s // %s «\n",
+                this.name, this.callsign.toUpperCase()
+            );
             outputString += "  LL" + this.licenseLevel + "\n";
             outputString += "[ SKILL TRIGGERS ]\n";
             outputString += this.skillTriggers.generateOutput();
             outputString += "[ GEAR ]\n";
             outputString += this.loadout.generateOutput();
             outputString += "[ MECH SKILLS ]\n";
-            outputString += "  GRIT:" + this.grit + " // H:"
-                + this.mechSkills[0] + " A:" + this.mechSkills[1] + " S:"
-                + this.mechSkills[2] + " E:" + this.mechSkills[3] + "\n";
+            outputString += String.format(
+                "  GRIT:%d // H:%d A:%d S:%d E:%d\n",
+                this.grit, this.mechSkills[0], this.mechSkills[1],
+                this.mechSkills[2], this.mechSkills[3]
+            );
             outputString += "[ TALENTS ]\n";
             outputString += outputTalents(outputType);
             outputString += "[ LICENSES ]\n";
@@ -767,8 +773,10 @@ public class Pilot {
             outputString += "[ CORE BONUSES ]\n";
             outputString += outputCoreBonuses(outputType);
         } else if (outputType.equals("full")) {
-            outputString += "» " + this.name + " // "
-                + this.callsign.toUpperCase() + " «\n";
+            outputString += String.format(
+                "» %s // %s «\n",
+                this.name, this.callsign.toUpperCase()
+            );
             outputString += "  LL" + this.licenseLevel + "\n";
             outputString += "[ SKILL TRIGGERS ]\n";
             outputString += this.skillTriggers.generateOutput();

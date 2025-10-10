@@ -1249,16 +1249,16 @@ public class Mech {
             if (isPlaceholder()) {
                 outputString += "  « N/A »\n";
                 outputString += "  N/A N/A\n";
-                outputString += "  H:" + mechSkills[0] + " A:" + mechSkills[1]
-                    + " S:" + mechSkills[2] + " E:" + mechSkills[3]
-                    + outputStats("full", grit);
+                outputString += String.format(
+                    "  %s %s\n",
+                    this.manufacturer, this.frame.outputName()
+                );
             } else {
                 outputString += "  « " + this.name + " »\n";
-                outputString += "  " + this.manufacturer + " "
-                    + this.frame.outputName() + "\n";
-                outputString += "  H:" + mechSkills[0] + " A:" + mechSkills[1]
-                    + " S:" + mechSkills[2] + " E:" + mechSkills[3]
-                    + outputStats("full", grit);
+                outputString += String.format(
+                    "  %s %s\n",
+                    this.manufacturer, this.frame.outputName()
+                );
             }
             outputString += "[ WEAPONS ]\n";
             outputString += outputWeapons("full");
@@ -1284,25 +1284,30 @@ public class Mech {
 
         outputType = outputType.toLowerCase();
         if (outputType.equals("mech build")) {
-            outputString += "  STRUCTURE:" + this.maxStructure + " HP:"
-                + this.maxHP + " ARMOR:" + this.armor + "\n";
-            outputString += "  STRESS:" + this.maxStress + " HEATCAP:"
-                + this.maxHeatCapacity + " REPAIR:" + this.maxRepairCapacity
-                + "\n";
-            if (this.techAttack >= 0) {
+            outputString += String.format(
+                "  STRUCTURE:%d HP:%d ARMOR:%d\n",
+                this.maxStructure, this.maxHP, this.armor
+            );
+            outputString += String.format(
+                "  STRESS:%d HEATCAP:%d REPAIR:%d\n",
+                this.maxStress, this.maxHeatCapacity, this.maxRepairCapacity
+            );
+            if (this.techAttack > 0) {
                 outputString += "  TECH ATK:+" + this.techAttack;
             } else {
                 outputString += "  TECH ATK:" + this.techAttack;
             }
-            if (this.limitedSystemsBonus >= 0) {
+            if (this.limitedSystemsBonus > -1) {
                 outputString += " LIMITED:+" + this.limitedSystemsBonus;
             } else {
                 outputString += " LIMITED:" + this.limitedSystemsBonus;
             }
             outputString += "\n";
-            outputString += "  SPD:" + this.speed + " EVA:" + this.evasion
-                + " EDEF:" + this.eDefense + " SENSE:" + this.sensors + " SAVE:"
-                + this.saveTarget + "\n";
+            outputString += String.format(
+                "  SPD:%d EVA:%d EDEF:%d SENSE:%d SAVE:%d\n",
+                this.speed, this.evasion, this.eDefense, this.sensors,
+                this.saveTarget
+            );
         } else if (outputType.equals("full")) {
             throw new IllegalArgumentException("Called"
                 + " Mech.outputStats(\"full\") but grit value was not"
@@ -1327,19 +1332,26 @@ public class Mech {
         outputType = outputType.toLowerCase();
         if (outputType.equals("full")) {
             outputString += " SIZE:" + outputSize() + "\n";
-            outputString += "  STRUCTURE:" + this.currentStructure + "/"
-                + this.maxStructure + " HP:" + this.currentHP + "/" + this.maxHP
-                + " ARMOR:" + this.armor + "\n";
-            outputString += "  STRESS:" + this.currentStress + "/"
-                + this.maxStress + " HEAT:" + this.currentHeatCapacity + "/"
-                + this.maxHeatCapacity + " REPAIR:" + this.currentRepairCapacity
-                + "/" + this.maxRepairCapacity + "\n";
-            outputString += "  ATK BONUS:" + grit + " TECH ATK:"
-                + this.techAttack + " LTD BONUS:" + this.limitedSystemsBonus
-                + "\n";
-            outputString += "  SPD:" + this.speed + " EVA:" + this.evasion
-                + " EDEF:" + this.eDefense + " SENS:" + this.sensors + " SAVE:"
-                + this.saveTarget + "\n";
+            outputString += String.format(
+                "  STRUCTURE:%d/%d HP:%d/%d ARMOR:%d\n",
+                this.currentStructure, this.maxStructure, this.currentHP,
+                this.maxHP, this.armor
+            );
+            outputString += String.format(
+                "  STRESS:%d/%d HEAT:%d/%d REPAIR:%d/%d\n",
+                this.currentStress, this.maxStress, this.currentHeatCapacity,
+                this.maxHeatCapacity, this.currentRepairCapacity,
+                this.maxRepairCapacity
+            );
+            outputString += String.format(
+                "  ATK BONUS:%d TECH ATK:%d LTD BONUS:%d\n",
+                grit, this.techAttack, this.limitedSystemsBonus
+            );
+            outputString += String.format(
+                "  SPD:%d EVA:%d EDEF:%d SENS:%d SAVE:%d\n",
+                this.speed, this.evasion, this.eDefense, this.sensors,
+                this.saveTarget
+            );
         } else {
             return outputStats(outputType);
         }
