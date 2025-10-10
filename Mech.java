@@ -1250,14 +1250,16 @@ public class Mech {
                 outputString += "  « N/A »\n";
                 outputString += "  N/A N/A\n";
                 outputString += String.format(
-                    "  %s %s\n",
-                    this.manufacturer, this.frame.outputName()
+                    "  H:%d A:%d S:%d E:%d%s",
+                    mechSkills[0], mechSkills[1], mechSkills[2], mechSkills[3],
+                    outputStats("full", grit)
                 );
             } else {
                 outputString += "  « " + this.name + " »\n";
                 outputString += String.format(
-                    "  %s %s\n",
-                    this.manufacturer, this.frame.outputName()
+                    "  H:%d A:%d S:%d E:%d%s",
+                    mechSkills[0], mechSkills[1], mechSkills[2], mechSkills[3],
+                    outputStats("full", grit)
                 );
             }
             outputString += "[ WEAPONS ]\n";
