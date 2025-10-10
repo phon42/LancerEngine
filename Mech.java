@@ -9,10 +9,8 @@
  * 
  * Used in LancerCharacter.
  * 
- * Safety: This class has placeholder values and can be a placeholder, but in
- *     most cases should either have no placeholder values or be a placeholder,
- *     which must be checked for. None of its properties have allowed values of
- *     null.
+ * Safety: This class does not have placeholder values and cannot be a
+ *     placeholder. None of its properties have allowed values of null.
  */
 public class Mech {
     // TODO: add some set of inherently available actions
@@ -22,8 +20,7 @@ public class Mech {
     /**
      * The name of this mech (i.e. "Raijin") - NOT its frame name, the name
      *     given to this specific chassis.
-     * Can be any String except "". Cannot be null. Is set to "" on construction
-     *     from Mech().
+     * Can be any String except "". Cannot be null.
      */
     private String name;
     
@@ -38,13 +35,13 @@ public class Mech {
     /**
      * The mech's origin frame's manufacturer (i.e. "GMS").
      * Case-insensitive and stored in uppercase. Can be any String except "".
-     *     Cannot be null. Is set to "" on construction.
+     *     Cannot be null.
      */
     private String manufacturer;
     /**
      * The mech's origin frame's name (i.e. "everest").
      * Case-insensitive and stored in lowercase. Can be any String except "".
-     *     Cannot be null. Is set to "" on construction.
+     *     Cannot be null.
      * Use Mech.getFrameName() to get the raw value and
      *     Mech.getFrame().outputName() to obtain it properly formatted.
      */
@@ -57,8 +54,7 @@ public class Mech {
      * Must be of length 1 at minimum. Each element must be one of the following
      *     values:
      *     "artillery", "balanced", "controller", "striker", "support".
-     * Case-insensitive and stored in lowercase. Cannot be null. Is set to a new
-     *     String[0] on construction.
+     * Case-insensitive and stored in lowercase. Cannot be null.
      */
     private String[] role;
     /**
@@ -80,7 +76,6 @@ public class Mech {
      * Size is stored as 2 * its value (i.e. Size 1/2 would be stored as int 1).
      * Must be one of the following values:
      *     1, 2, 4, 6, 8.
-     * Is set to -1 on construction.
      */
     private int size;
 
@@ -97,17 +92,17 @@ public class Mech {
     private int maxStructure;
     /**
      * The mech's current HP value.
-     * Must be a minimum of 0. Is set to -1 on construction.
+     * Must be a minimum of 0.
      */
     private int currentHP;
     /**
      * The mech's max HP value.
-     * Must be a minimum of 1. Is set to -1 on construction.
+     * Must be a minimum of 1.
      */
     private int maxHP;
     /**
      * The mech's armor value.
-     * Must be a minimum of 0. Is set to -1 on construction.
+     * Must be a minimum of 0.
      */
     private int armor;
 
@@ -124,31 +119,31 @@ public class Mech {
     private int maxStress;
     /**
      * The mech's current heat capacity.
-     * Must be a minimum of 0. Is set to -1 on construction.
+     * Must be a minimum of 0.
      */
     private int currentHeatCapacity;
     /**
      * The mech's max heat capacity.
-     * Must be a minimum of 1. Is set to -1 on construction.
+     * Must be a minimum of 1.
      */
     private int maxHeatCapacity;
 
     // evasion and speed
     /**
      * The mech's evasion value.
-     * Must be a minimum of 0. Is set to -1 on construction.
+     * Must be a minimum of 0.
      */
     private int evasion;
     /**
      * The mech's speed value.
-     * Must be a minimum of 0. Is set to -1 on construction.
+     * Must be a minimum of 0.
      */
     private int speed;
 
     // e-defense and tech attack
     /**
      * The mech's e-defense value.
-     * Must be a minimum of 0. Is set to -1 on construction.
+     * Must be a minimum of 0.
      */
     private int eDefense;
     /**
@@ -160,35 +155,35 @@ public class Mech {
     // sensors and repair capacity
     /**
      * The mech's sensors value.
-     * Must be a minimum of 0. Is set to -1 on construction.
+     * Must be a minimum of 0.
      */
     private int sensors;
     /**
      * The mech's current repair capacity value.
-     * Must be a minimum of 0. Is set to -1 on construction.
+     * Must be a minimum of 0.
      */
     private int currentRepairCapacity;
     /**
      * The mech's max repair capacity value.
-     * Must be a minimum of 0. Is set to -1 on construction.
+     * Must be a minimum of 0.
      */
     private int maxRepairCapacity;
 
     // save target and system points
     /**
      * The mech's save target value.
-     * Must be a minimum of 0. Is set to -1 on construction.
+     * Must be a minimum of 0.
      */
     private int saveTarget;
     /**
      * The mech's system points value.
-     * Must be a minimum of 0. Is set to -1 on construction.
+     * Must be a minimum of 0.
      */
     private int systemPoints;
 
     /**
      * The mech's limited systems bonus value.
-     * Must be a minimum of 0. Is set to -1 on construction.
+     * Must be a minimum of 0.
      */
     private int limitedSystemsBonus;
 
