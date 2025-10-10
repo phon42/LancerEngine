@@ -520,7 +520,7 @@ public class Frame {
                 throw new IllegalArgumentException("New mounts array contains"
                     + " a null element");
             }
-            if (! mount.isEmpty()) {
+            if (! mount.isUnmodified()) {
                 throw new IllegalArgumentException("New mounts array"
                     + " contained an element with its Mount.modification,"
                     + " Mount.coreBonus, or Mount.talent set to something other"

@@ -259,7 +259,7 @@ public class Mount {
      *     than their construction values.
      * @return a boolean representing the result of the check.
      */
-    public boolean isEmpty() {
+    public boolean isUnmodified() {
         if (! modification.equals("")) {
             return false;
         }
