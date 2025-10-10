@@ -68,9 +68,9 @@ public class Database {
             0, 10, 5,
             10, 6, new String[] {"Initiative",
             "Replaceable Parts"}, new Mount[] {
-                new Mount("main", null),
-                new Mount("flex", null),
-                new Mount("heavy", null)
+                new Mount("main"),
+                new Mount("flex"),
+                new Mount("heavy")
             }),
         new Frame("GMS", "Sagarmatha", "sagarmatha",
             FrameEnum.SAGARMATHA, new String[] {"defender"}, "The SAGARMATHA is"
@@ -86,9 +86,9 @@ public class Database {
             0, 10, 4,
             10, 6, new String[] {"Guardian", "Heroism",
             "Replaceable Parts"}, new Mount[] {
-                new Mount("main", null),
-                new Mount("flex", null),
-                new Mount("heavy", null)
+                new Mount("main"),
+                new Mount("flex"),
+                new Mount("heavy")
             }),
         new Frame("IPS-N", "Caliban", "caliban",
             FrameEnum.CALIBAN, new String[] {"striker", "controller"},
@@ -145,7 +145,7 @@ public class Database {
                         // new EquipmentTag("Knockback X", 5)
                     })
                 ),
-                new Mount("heavy", null)
+                new Mount("heavy")
             }),
         new Frame("SSC", "Swallowtail (Ranger Variant)",
             "swallowtail_ranger", FrameEnum.SWALLOWTAIL_RANGER,
@@ -167,8 +167,8 @@ public class Database {
             0, 10, 5,
             10, 6, new String[] {"Scout Battlefield",
             "Invigorating Scanners", "Weathering"}, new Mount[] {
-                new Mount("flex", null),
-                new Mount("main", null)
+                new Mount("flex"),
+                new Mount("main")
             }),
         new Frame("HA", "Barbarossa", "barbarossa",
             FrameEnum.BARBAROSSA, new String[] {"artillery"},
@@ -197,9 +197,9 @@ public class Database {
                         new EquipmentTag("Full Action")
                     })
                 ),
-                new Mount("main", null),
-                new Mount("main", null),
-                new Mount("heavy", null)
+                new Mount("main"),
+                new Mount("main"),
+                new Mount("heavy")
             })
     };
 
