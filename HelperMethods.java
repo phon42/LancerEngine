@@ -16,9 +16,9 @@ public class HelperMethods {
     // TODO: fill out with a helper method that outputs a properly formatted
     //     String from an array
     // there are bits of code that perform this function all over this project:
-    //     Loadout.generateOutput(), Mech.outputWeapons(), Mech.outputSystems(),
-    //     Pilot.outputLicenses(), Pilot.outputTalents(),
-    //     Pilot.outputCoreBonuses(), SkillTriggersList.generateOutput()
+    //     Loadout.generateOutput() line 224, Mech.outputWeapons(), Mech.outputSystems(),
+    //     Pilot.outputLicenses() line 860, Pilot.outputCoreBonuses() line 961,
+    //     Pilot.outputTalents() line 910, SkillTriggersList.generateOutput()
     /**
      * Appends the given int element to the end of an existing int[].
      * @param intArray an int[] that cannot be null.
@@ -340,5 +340,19 @@ public class HelperMethods {
         input = String.join("", stringArr);
 
         return input;
+    }
+    /**
+     * Capitalizes the first character of a provided String.
+     * @param input a String to be formatted.
+     * @return a String containing the formatted String.
+     */
+    public static String capitalizeFirst(String input) {
+        String outputString = "";
+
+        outputString += input.substring(0, 1);
+        outputString = outputString.toUpperCase();
+        outputString += input.substring(1);
+
+        return outputString;
     }
 }

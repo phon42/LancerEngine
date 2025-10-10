@@ -711,21 +711,15 @@ public class Pilot {
      * @return a String containing this.status, properly formatted.
      */
     public String outputStatus() {
-        String output = "";
-
-        if (this.status.equals("missing in action")) {
+        if (status.equals("missing in action")) {
             return "Missing in Action";
         }
-        if (this.status.equals("killed in action")) {
+        if (status.equals("killed in action")) {
             return "Killed in Action";
         }
         // Status is one of the following: "active", "inactive", "retired",
         //     or "unknown"
-        output = this.status.substring(0, 1);
-        output = output.toUpperCase();
-        output += this.status.substring(1);
-        
-        return output;
+        return HelperMethods.capitalizeFirst(status);
     }
     /**
      * Generates the pilot portion of the COMP/CON character output function.
