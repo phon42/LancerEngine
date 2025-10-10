@@ -180,9 +180,11 @@ public class Main {
         myPilot.setPlayerNotes("e");
         SkillTriggersList newSkillTriggers = new SkillTriggersList();
         newSkillTriggers.setSkillTriggers(new SkillTrigger[] {
-            new SkillTrigger("Apply Fists to Faces", 2),
+            new SkillTrigger("Apply Fists to Faces",
+                2),
             new SkillTrigger("Assault", 2),
-            new SkillTrigger("Blow Something Up", 2),
+            new SkillTrigger("Blow Something Up",
+                2),
             new SkillTrigger("Survive", 2)
         });
         myPilot.setSkillTriggers(newSkillTriggers);
@@ -228,7 +230,8 @@ public class Main {
             new Weapon("Vulture DMR", 1, 5),
             "", "Overpower Caliber"));
         myMech.setSystems(new MechSystem[] {
-            new MechSystem("Pattern-A Smoke Charges", new EquipmentTag[] {
+            new MechSystem("Pattern-A Smoke Charges",
+            new EquipmentTag[] {
                 new EquipmentTag("Limited X", 3)
             }),
             new MechSystem("Seismic Ripper"),
@@ -258,6 +261,9 @@ public class Main {
         myMech = myCharacter.getMech();
         myMech.setMount(0, new Mount("aux",
             new Weapon("Slag Cannon", 1, 1)));
+        myMech.setMount(1, new Mount("aux",
+            new Weapon("Vulture DMR", 1, 5),
+            "", "Overpower Caliber"));
         myCharacter.setMech(myMech);
         System.out.println("Desperate final attempt to change that which is"
             + " forever enduring:");
@@ -272,7 +278,7 @@ public class Main {
         System.out.println("< THIS IS THE IMPORTANT PART >");
         System.out.print("[ WEAPONS ]\n");
         System.out.print("  FLEX MOUNT: Slag Cannon\n");
-        System.out.print("  MAIN MOUNT:\n");
+        System.out.print("  MAIN MOUNT: Vulture DMR // Overpower Caliber\n");
         System.out.println(intendedString2);
     }
 }
