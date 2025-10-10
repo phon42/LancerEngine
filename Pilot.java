@@ -540,7 +540,7 @@ public class Pilot {
         if (loadout == null) {
             throw new IllegalArgumentException("New loadout value is null");
         }
-        loadout.copyOf();
+        loadout = loadout.copyOf();
         this.loadout = loadout;
     }
     // ---Tactical Profile---------
@@ -822,7 +822,7 @@ public class Pilot {
                 outputString += "  ";
                 for (int j = i; j < Math.min(i + 2, this.licenseList.length);
                     j++) {
-                    outputString += this.licenseList[j].getName() + " "
+                    outputString += this.licenseList[j].outputName() + " "
                         + this.licenseList[j].getLevel();
                     if (j == i && i < this.licenseList.length + 1) {
                         outputString += ", ";
@@ -904,8 +904,8 @@ public class Pilot {
         }
         if (outputType.equals("mech build")) {
             // Output something of the following form:
-            //     "  Auto-Stabilizing Hardpoints, Overpower Caliber, Improved"
-            //     " Armament\n"
+            //     "  Auto-Stabilizing Hardpoints, Overpower Caliber,"
+            //     " Improved Armament\n"
             outputString += "  ";
             for (int i = 0; i < this.coreBonuses.length; i++) {
                 if (i != 0) {
@@ -924,7 +924,8 @@ public class Pilot {
                 outputString += "  ";
                 for (int j = i; j < Math.min(i + 2, this.coreBonuses.length);
                     j++) {
-                    outputString += this.coreBonuses[j];
+                    outputString += HelperMethods.toProperCase(
+                        this.coreBonuses[j]);
                     if (i + 1 >= this.coreBonuses.length) {
                         continue;
                     }
