@@ -526,11 +526,12 @@ public class Frame {
                     + " a null element");
             }
             if (mount.getWeapon() != null) {
-                if (! mount.getMountType().equals("integrated weapon")) {
+                if (! mount.getMountType().equals(
+                    "integrated mount")) {
                     throw new IllegalArgumentException("New mounts array"
                         + " contains an element with its Mount.weapon set to"
                         + " something other than null, but its Mount.mountType"
-                        + " was not \"integrated weapon\"");
+                        + " was not \"integrated mount\"");
                 }
             }
             if (! mount.isUnmodified()) {
