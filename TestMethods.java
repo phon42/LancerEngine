@@ -2476,84 +2476,82 @@ public class TestMethods {
         }
         frame1 = original.getFrame();
         frame2 = copy.getFrame();
-        if (! (frame1.isPlaceholder() && frame2.isPlaceholder())) {
-            if (! frame1.getManufacturer().equals(frame2.getManufacturer())) {
-                test3 = false;
-            } else if (! frame1.getName().equals(frame2.getName())) {
-                test3 = false;
-            } else if (! frame1.getID().equals(frame2.getID())) {
-                test3 = false;
-            } else if (frame1.getFrameEnum() != frame2.getFrameEnum()) {
-                test3 = false;
-            } else if (frame1.getRole().getClass() == String[].class // TODO: FIX
-                && frame1.getRole().getClass() == frame2.getRole().getClass()
-                && frame1.getRole().length == frame2.getRole().length) {
-                for (int i = 0; i < frame1.getRole().length; i++) {
-                    if (! frame1.getRole()[i].equals(frame2.getRole()[i])) {
-                        test3 = false;
-                        break;
-                    }
+        if (! frame1.getManufacturer().equals(frame2.getManufacturer())) {
+            test3 = false;
+        } else if (! frame1.getName().equals(frame2.getName())) {
+            test3 = false;
+        } else if (! frame1.getID().equals(frame2.getID())) {
+            test3 = false;
+        } else if (frame1.getFrameEnum() != frame2.getFrameEnum()) {
+            test3 = false;
+        } else if (frame1.getRole().getClass() == String[].class // TODO: FIX
+            && frame1.getRole().getClass() == frame2.getRole().getClass()
+            && frame1.getRole().length == frame2.getRole().length) {
+            for (int i = 0; i < frame1.getRole().length; i++) {
+                if (! frame1.getRole()[i].equals(frame2.getRole()[i])) {
+                    test3 = false;
+                    break;
                 }
-            } else if (! frame1.getFrameDescription().equals(
-                frame2.getFrameDescription())) {
-                test3 = false;
-            } else if (frame1.getSize() != frame2.getSize()) {
-                test3 = false;
-            } else if (frame1.getStructure() != frame2.getStructure()) {
-                test3 = false;
-            } else if (frame1.getHP() != frame2.getHP()) {
-                test3 = false;
-            } else if (frame1.getArmor() != frame2.getArmor()) {
-                test3 = false;
-            } else if (frame1.getStress() != frame2.getStress()) {
-                test3 = false;
-            } else if (frame1.getHeatCapacity() != frame2.getHeatCapacity()) {
-                test3 = false;
-            } else if (frame1.getEvasion() != frame2.getEvasion()) {
-                test3 = false;
-            } else if (frame1.getSpeed() != frame2.getSpeed()) {
-                test3 = false;
-            } else if (frame1.getEDefense() != frame2.getEDefense()) {
-                test3 = false;
-            } else if (frame1.getTechAttack() != frame2.getTechAttack()) {
-                test3 = false;
-            } else if (frame1.getSensors() != frame2.getSensors()) {
-                test3 = false;
-            } else if (frame1.getRepairCapacity() !=
-                frame2.getRepairCapacity()) {
-                test3 = false;
-            } else if (frame1.getSaveTarget() != frame2.getSaveTarget()) {
-                test3 = false;
-            } else if (frame1.getSystemPoints() != frame2.getSystemPoints()) {
-                test3 = false;
-            // TODO: FIX - this doesn't catch if any of these conditions are false
-            } else if (frame1.getTraits().getClass() == String[].class
-                && frame1.getTraits().getClass() ==
-                    frame2.getTraits().getClass()
-                && frame1.getTraits().length == frame2.getTraits().length) {
-                for (int i = 0; i < frame1.getRole().length; i++) {
-                    if (! frame1.getRole()[i].equals(frame2.getRole()[i])) {
-                        test3 = false;
-                        break;
-                    }
-                }
-            } else if (frame1.getMounts().getClass() == Mount[].class
-                && frame1.getMounts().getClass() == frame2.getMounts().getClass()
-                && frame1.getMounts().length == frame2.getMounts().length) { // TODO: FIX
-                for (int i = 0; i < frame1.getMounts().length; i++) {
-                    mount1 = frame1.getMounts()[i];
-                    mount2 = frame2.getMounts()[i];
-                    if ((! mount1.getMountType().equals(mount2.getMountType()))
-                        || (! mount1.getWeapon().getName().equals(mount2.getWeapon().getName()))
-                        || mount1.hasModification() != mount2.hasModification()
-                        || (! mount1.getModification().equals(mount2.getModification()))
-                        || mount1.hasCoreBonus() != mount2.hasCoreBonus()) { // TODO: finish
-                        test3 = false;
-                        break;
-                    }
-                }
-                test3 = false;
             }
+        } else if (! frame1.getFrameDescription().equals(
+            frame2.getFrameDescription())) {
+            test3 = false;
+        } else if (frame1.getSize() != frame2.getSize()) {
+            test3 = false;
+        } else if (frame1.getStructure() != frame2.getStructure()) {
+            test3 = false;
+        } else if (frame1.getHP() != frame2.getHP()) {
+            test3 = false;
+        } else if (frame1.getArmor() != frame2.getArmor()) {
+            test3 = false;
+        } else if (frame1.getStress() != frame2.getStress()) {
+            test3 = false;
+        } else if (frame1.getHeatCapacity() != frame2.getHeatCapacity()) {
+            test3 = false;
+        } else if (frame1.getEvasion() != frame2.getEvasion()) {
+            test3 = false;
+        } else if (frame1.getSpeed() != frame2.getSpeed()) {
+            test3 = false;
+        } else if (frame1.getEDefense() != frame2.getEDefense()) {
+            test3 = false;
+        } else if (frame1.getTechAttack() != frame2.getTechAttack()) {
+            test3 = false;
+        } else if (frame1.getSensors() != frame2.getSensors()) {
+            test3 = false;
+        } else if (frame1.getRepairCapacity() !=
+            frame2.getRepairCapacity()) {
+            test3 = false;
+        } else if (frame1.getSaveTarget() != frame2.getSaveTarget()) {
+            test3 = false;
+        } else if (frame1.getSystemPoints() != frame2.getSystemPoints()) {
+            test3 = false;
+        // TODO: FIX - this doesn't catch if any of these conditions are false
+        } else if (frame1.getTraits().getClass() == String[].class
+            && frame1.getTraits().getClass() ==
+                frame2.getTraits().getClass()
+            && frame1.getTraits().length == frame2.getTraits().length) {
+            for (int i = 0; i < frame1.getRole().length; i++) {
+                if (! frame1.getRole()[i].equals(frame2.getRole()[i])) {
+                    test3 = false;
+                    break;
+                }
+            }
+        } else if (frame1.getMounts().getClass() == Mount[].class
+            && frame1.getMounts().getClass() == frame2.getMounts().getClass()
+            && frame1.getMounts().length == frame2.getMounts().length) { // TODO: FIX
+            for (int i = 0; i < frame1.getMounts().length; i++) {
+                mount1 = frame1.getMounts()[i];
+                mount2 = frame2.getMounts()[i];
+                if ((! mount1.getMountType().equals(mount2.getMountType()))
+                    || (! mount1.getWeapon().getName().equals(mount2.getWeapon().getName()))
+                    || mount1.hasModification() != mount2.hasModification()
+                    || (! mount1.getModification().equals(mount2.getModification()))
+                    || mount1.hasCoreBonus() != mount2.hasCoreBonus()) { // TODO: finish
+                    test3 = false;
+                    break;
+                }
+            }
+            test3 = false;
         }
         if (original.getManufacturer().equals(copy.getManufacturer())) {
             test4 = true;

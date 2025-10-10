@@ -13,22 +13,20 @@
  * Used in Mech to create non-placeholder Mech objects. Also used in
  *     Database.
  * 
- * Safety: This class has placeholder values and can be a placeholder, but in
- *     most cases should either have no placeholder values or be a placeholder,
- *     which must be checked for. None of its properties have allowed values of
- *     null.
+ * Safety: This class does not have placeholder values and cannot be a
+ *     placeholder. None of its properties have allowed values of null.
  */
 public class Frame {
     /**
      * The frame's manufacturer (i.e. "GMS").
      * Case-insensitive and stored in uppercase. Can be any String except "".
-     *     Cannot be null. Is set to "" on construction.
+     *     Cannot be null.
      */
     private String manufacturer;
     /**
      * The frame's name (i.e. "everest").
      * Case-insensitive and stored in lowercase. Can be any String except "".
-     *     Cannot be null. Is set to "" on construction.
+     *     Cannot be null.
      * Use Frame.getName() to get the raw value and Frame.outputName() to obtain
      *     it properly formatted.
      */
@@ -37,13 +35,12 @@ public class Frame {
      * The frame's ID (i.e. "swallowtail_ranger").
      * Used for identifying it in Database.getFrame(String).
      *     Case-insensitive and stored in lowercase. Can be any String except
-     *     "". Cannot be null. Is set to "" on construction.
+     *     "". Cannot be null.
      */
     private String ID;
     /**
      * The frame's frameEnum (i.e. FrameEnum.SWALLOWTAIL_RANGER).
      * Used for identifying it in Database.getFrame(FrameEnum). Cannot be null.
-     *     Is set to null on construction.
      */
     private FrameEnum frameEnum;
     /**
@@ -53,8 +50,7 @@ public class Frame {
      * Must be of length 1 at minimum. Each element must be one of the following
      *     values:
      *     "artillery", "balanced", "controller", "striker", "support".
-     * Case-insensitive and stored in lowercase. Cannot be null. Is set to a new
-     *     String[0] on construction.
+     * Case-insensitive and stored in lowercase. Cannot be null.
      */
     private String[] role;
     /**
@@ -76,7 +72,6 @@ public class Frame {
      * Size is stored as 2 * its value (i.e. Size 1/2 would be stored as int 1).
      * Must be one of the following values:
      *     1, 2, 4, 6, 8.
-     * Is set to -1 on construction.
      */
     private int size;
 
@@ -88,12 +83,12 @@ public class Frame {
     private int structure;
     /**
      * The frame's max HP value.
-     * Must be a minimum of 1. Is set to -1 on construction.
+     * Must be a minimum of 1.
      */
     private int HP;
     /**
      * The frame's armor value.
-     * Must be a minimum of 0. Is set to -1 at construction.
+     * Must be a minimum of 0.
      */
     private int armor;
 
@@ -105,26 +100,26 @@ public class Frame {
     private int stress;
     /**
      * The frame's max heat capacity.
-     * Must be a minimum of 1. Is set to -1 at construction.
+     * Must be a minimum of 1.
      */
     private int heatCapacity;
 
     // evasion and speed
     /**
      * The frame's evasion value.
-     * Must be a minimum of 0. Is set to -1 at construction.
+     * Must be a minimum of 0.
      */
     private int evasion;
     /**
      * The frame's speed value.
-     * Must be a minimum of 0. Is set to -1 at construction.
+     * Must be a minimum of 0.
      */
     private int speed;
 
     // e-defense and tech attack
     /**
      * The frame's e-defense value.
-     * Must be a minimum of 0. Is set to -1 at construction.
+     * Must be a minimum of 0.
      */
     private int eDefense;
     /**
@@ -136,24 +131,24 @@ public class Frame {
     // sensors and repair capacity
     /**
      * The frame's sensors value.
-     * Must be a minimum of 0. Is set to -1 at construction.
+     * Must be a minimum of 0.
      */
     private int sensors;
     /**
      * The frame's max repair capacity value.
-     * Must be a minimum of 0. Is set to -1 at construction.
+     * Must be a minimum of 0.
      */
     private int repairCapacity;
 
     // save target and system points
     /**
      * The frame's save target value.
-     * Must be a minimum of 0. Is set to -1 at construction.
+     * Must be a minimum of 0.
      */
     private int saveTarget;
     /**
      * The frame's system points value.
-     * Must be a minimum of 0. Is set to -1 at construction.
+     * Must be a minimum of 0.
      */
     private int systemPoints;
 
@@ -179,40 +174,8 @@ public class Frame {
     // core system active
 
     /**
-     * Creates a new placeholder Frame.
-     */
-    public Frame() {
-        manufacturer = "";
-        name = "";
-        ID = "";
-        frameEnum = null;
-        role = new String[0];
-        setFrameDescription("");
-        size = -1;
-
-        // these properties can be modified later on but 90% of frames (100% of
-        //     player frames) have 4 structure, 4 stress
-        structure = 4;
-        stress = 4;
-
-        HP = -1;
-        armor = -1;
-        heatCapacity = -1;
-        evasion = -1;
-        speed = -1;
-        eDefense = -1;
-        setTechAttack(-1);
-        sensors = -1;
-        repairCapacity = -1;
-        saveTarget = -1;
-        systemPoints = -1;
-        setTraits(new String[0]);
-        setMounts(new Mount[0]);
-    }
-    /**
-     * Creates a new non-placeholder Frame using every property except Structure
-     *     and Stress, which it automatically sets to 4. Helpful for player
-     *     frames.
+     * Creates a new Frame using every property except Structure and Stress,
+     *     which it automatically sets to 4. Helpful for player frames.
      */
     public Frame(String manufacturer, String name, String frameID,
         FrameEnum frameEnum, String[] role, String frameDescription, int size,
@@ -225,7 +188,7 @@ public class Frame {
             systemPoints, traits, mounts);
     }
     /**
-     * Creates a new non-placeholder Frame using every possible property.
+     * Creates a new Frame using every possible property.
      */
     public Frame(String manufacturer, String name, String frameID,
         FrameEnum frameEnum, String[] role, String frameDescription, int size,
@@ -569,175 +532,16 @@ public class Frame {
     }
 
     /**
-     * A method checking whether any of the properties of this object whose
-     *     placeholder value is normally not allowed are set to their
-     *     placeholder value.
-     * @return a boolean containing the result of the check.
-     */
-    public boolean hasPlaceholders() {
-        if (manufacturer.equals("")) {
-            return true;
-        }
-        if (name.equals("")) {
-            return true;
-        }
-        if (ID.equals("") || frameEnum == null) {
-            return true;
-        }
-        if (role.length == 0) {
-            return true;
-        }
-        if (size == -1) {
-            return true;
-        }
-        // Frame.structure and Frame.stress excluded because they are set to 4
-        //     on construction, but 4 is a perfectly valid value for both
-        if (HP == -1) {
-            return true;
-        }
-        if (armor == -1) {
-            return true;
-        }
-        if (heatCapacity == -1) {
-            return true;
-        }
-        if (evasion == -1) {
-            return true;
-        }
-        if (speed == -1) {
-            return true;
-        }
-        if (eDefense == -1) {
-            return true;
-        }
-        if (sensors == -1) {
-            return true;
-        }
-        if (repairCapacity == -1) {
-            return true;
-        }
-        if (saveTarget == -1) {
-            return true;
-        }
-        if (systemPoints == -1) {
-            return true;
-        }
-
-        return false;
-    }
-    /**
-     * A method checking whether every property of this object is set to its
-     *     placeholder value.
-     * @return a boolean containing the result of the check.
-     */
-    public boolean isPlaceholder() {
-        if (! manufacturer.equals("")) {
-            return false;
-        }
-        if (! name.equals("")) {
-            return false;
-        }
-        if (! ID.equals("")) {
-            return false;
-        }
-        if (frameEnum != null) {
-            return false;
-        }
-        if (role.length != 0) {
-            return false;
-        }
-        if (! frameDescription.equals("")) {
-            return false;
-        }
-        if (size != -1) {
-            return false;
-        }
-
-        if (structure != 4) {
-            return false;
-        }
-        if (stress != 4) {
-            return false;
-        }
-
-        if (HP != -1) {
-            return false;
-        }
-        if (armor != -1) {
-            return false;
-        }
-        if (heatCapacity != -1) {
-            return false;
-        }
-        if (evasion != -1) {
-            return false;
-        }
-        if (speed != -1) {
-            return false;
-        }
-        if (eDefense != -1) {
-            return false;
-        }
-        if (techAttack != -1) {
-            return false;
-        }
-        if (sensors != -1) {
-            return false;
-        }
-        if (repairCapacity != -1) {
-            return false;
-        }
-        if (saveTarget != -1) {
-            return false;
-        }
-        if (systemPoints != -1) {
-            return false;
-        }
-        if (traits.length != 0) {
-            return false;
-        }
-        if (mounts.length != 0) {
-            return false;
-        }
-
-        return true;
-    }
-    /**
      * Returns a deepest copy of this Frame object.
      * @return a Frame deepest copy of this object.
      */
     public Frame copyOf() {
-        // don't need to make copies of these for the ones using the mutator
-        //     methods (i.e. mounts) because the mutators already do so
-        // for the ones that DON'T use a mutator method (i.e. "copy.name =
-        //     name"), make sure to use the proper accessor method instead
-        //     of "property" if the property's type is mutable
-        Frame copy = new Frame();
-        
-        copy.manufacturer = manufacturer;
-        copy.name = name;
-        copy.ID = ID;
-        copy.frameEnum = frameEnum;
-        copy.role = getRole();
-        copy.setFrameDescription(frameDescription);
-        copy.size = size;
-        copy.setStructure(structure);
-        copy.HP = HP;
-        copy.armor = armor;
-        copy.setStress(stress);
-        copy.heatCapacity = heatCapacity;
-        copy.evasion = evasion;
-        copy.speed = speed;
-        copy.eDefense = eDefense;
-        copy.setTechAttack(techAttack);
-        copy.sensors = sensors;
-        copy.repairCapacity = repairCapacity;
-        copy.saveTarget = saveTarget;
-        copy.systemPoints = systemPoints;
-        copy.setTraits(traits);
-        copy.setMounts(mounts);
-
-        return copy;
+        // make sure to use the proper accessor method instead of "property" if
+        //     the property's type is mutable
+        return new Frame(manufacturer, name, ID, frameEnum, getRole(),
+            frameDescription, size, structure, HP, armor, stress, heatCapacity,
+            evasion, speed, eDefense, techAttack, sensors, repairCapacity,
+            saveTarget, systemPoints, getTraits(), getMounts());
     }
     /**
      * Returns this.name, properly formatted (i.e. "swallowtail (ranger

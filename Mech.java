@@ -1,4 +1,3 @@
-// TODO: change Mech.frame to allow null and alter documentation to compensate
 /**
  * Represents a single mech. Contains information about that mech's origin frame
  *     (the stat block after which it is patterned), its stats, its mounts, and
@@ -33,8 +32,7 @@ public class Mech {
     /**
      * The frame that this mech is patterned after (i.e. Swallowtail) as a Frame
      *     object.
-     * Must either be a Frame without any placeholder values OR a placeholder
-     *     Frame.
+     * Can be any Frame. Cannot be null.
      */
     private Frame frame;
     /**
@@ -372,20 +370,12 @@ public class Mech {
     }
     /**
      * Sets this.frame to the provided value.
-     * @param frame a Frame which cannot be null. Must be either a Frame without
-     *     any placeholder values OR a placeholder Frame.
-     * @throws IllegalArgumentException if frame is null or has placeholder
-     *     values but is not a placeholder Frame.
+     * @param frame a Frame which cannot be null.
+     * @throws IllegalArgumentException if frame is null.
      */
     public void setFrame(Frame frame) {
         if (frame == null) {
             throw new IllegalArgumentException("New frame is null");
-        }
-        if (frame.hasPlaceholders()) {
-            if (! frame.isPlaceholder()) {
-                throw new IllegalArgumentException("New frame has placeholder"
-                    + " values but is not a placeholder Frame");
-            }
         }
         frame = frame.copyOf();
         this.frame = frame;
