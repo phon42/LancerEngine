@@ -161,9 +161,11 @@ public class Frame {
 
     /**
      * The frame's weapon mounts.
-     * Can be any Mount[] that does not contain null elements or elements that
-     *     have their Mount.modification, Mount.coreBonus, or Mount.talent set
-     *     to anything except ""/""/null. Cannot be null.
+     * Can be any Mount[] that does not contain null elements, elements with
+     *     their Mount.weapon set to something other than null with a
+     *     Mount.mountType of anything other than "integrated weapon", or
+     *     elements with their Mount.modification, Mount.coreBonus, or
+     *     Mount.talent set to anything except ""/""/null. Cannot be null.
      */
     private Mount[] mounts;
 
@@ -508,8 +510,11 @@ public class Frame {
      *     elements that have their Mount.modification, Mount.coreBonus, or
      *     Mount.talent set to anything except ""/""/null.
      * @throws IllegalArgumentException if mounts is null, contains null
-     *     elements, or elements with their Mount.modification, Mount.coreBonus,
-     *     or Mount.talent set to something other than its construction value.
+     *     elements, elements with their Mount.weapon set to something other
+     *     than null with a Mount.mountType of anything other than
+     *     "integrated weapon", or elements with their Mount.modification,
+     *     Mount.coreBonus, or Mount.talent set to something other than its
+     *     construction value.
      */
     public void setMounts(Mount[] mounts) {
         if (mounts == null) {
@@ -520,9 +525,17 @@ public class Frame {
                 throw new IllegalArgumentException("New mounts array contains"
                     + " a null element");
             }
+            if (mount.getWeapon() != null) {
+                if (! mount.getMountType().equals("integrated weapon")) {
+                    throw new IllegalArgumentException("New mounts array"
+                        + " contains an element with its Mount.weapon set to"
+                        + " something other than null, but its Mount.mountType"
+                        + " was not \"integrated weapon\"");
+                }
+            }
             if (! mount.isUnmodified()) {
                 throw new IllegalArgumentException("New mounts array"
-                    + " contained an element with its Mount.modification,"
+                    + " contains an element with its Mount.modification,"
                     + " Mount.coreBonus, or Mount.talent set to something other"
                     + " than its construction value");
             }
