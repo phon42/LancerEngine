@@ -6,12 +6,12 @@
  * 
  * Used in Equipment, MechSystem, and Weapon.
  * 
- * Safety: This class does not have placeholder values. None of its properties
- *     have allowed values of null.
+ * Safety: This class does not have placeholder values and cannot be a
+ *     placeholder. None of its properties have allowed values of null.
  */
 public class EquipmentTag {
     /**
-     * Stores the name for this equipment tag (i.e. "AI").
+     * The name for this equipment tag (i.e. "AI").
      * Must be a valid value (as defined by EquipmentTag.allowedNames). Cannot
      *     be null.
      */
@@ -34,7 +34,7 @@ public class EquipmentTag {
         "Heat X (Self)", "X/Round", "X/Turn", "Reliable X", "Thrown X",
         "Knockback X"};
     /**
-     * Stores the value for this equipment tag if it has one (i.e. the "X" in
+     * The value for this equipment tag if it has one (i.e. the "X" in
      *     "Limited X").
      * Must be a minimum of 0. If this.name is one of EquipmentTag.valueNames,
      *     must be a minimum of 1. Set to 0 on construction.

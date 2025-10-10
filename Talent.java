@@ -6,8 +6,8 @@
  * 
  * Used in Pilot.
  * 
- * Safety: This class does not have placeholder values. None of its properties
- *     have allowed values of null.
+ * Safety: This class does not have placeholder values and cannot be a
+ *     placeholder. None of its properties have allowed values of null.
  */
 public class Talent {
     /**

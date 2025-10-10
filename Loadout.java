@@ -6,8 +6,8 @@
  * 
  * Used in Pilot.
  * 
- * Safety: This class does not have placeholder values. None of its properties
- *     can be null.
+ * Safety: This class does not have placeholder values and cannot be a
+ *     placeholder. None of its properties can be null.
  */
 public class Loadout {
 // TODO: have a pilot's Loadout actually affect their stats

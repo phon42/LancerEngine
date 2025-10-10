@@ -8,13 +8,13 @@
  * 
  * Used in Main.
  * 
- * Safety: This class does not have placeholder values. At least one of its
- *     properties can be null.
+ * Safety: This class does not have placeholder values and cannot be a
+ *     placeholder. At least one of its properties has an allowed value of null.
  */
 public class LancerCharacter {
     /**
      * The pilot associated with this character.
-     * Holds a Pilot object. Cannot have placeholders in the following fields:
+     * Can be any Pilot that does not have placeholders in the following fields:
      *     - Pilot Name
      *     - Pilot Callsign
      */
@@ -22,7 +22,7 @@ public class LancerCharacter {
     
     /**
      * The mech associated with this character (if there is one).
-     * Holds a Mech object. Can be any Mech. Can be null.
+     * Can be any Mech. Can be null.
      */
     private Mech mech;
     

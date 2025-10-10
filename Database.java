@@ -11,8 +11,8 @@ enum FrameEnum {
  * 
  * Cannot be instantiated. All its methods are static.
  * 
- * Used whenever creating a new Mech is needed, or when information about a
- *     frame needs to be referenced.
+ * Used to create a Mech, or when information about a frame needs to be
+ *     referenced.
  * 
  * Safety: N/A because this class cannot be instantiated.
  */

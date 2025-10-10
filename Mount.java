@@ -8,8 +8,8 @@
  * 
  * Used in Frame and Mech.
  * 
- * Safety: This class does not have placeholder values. At least one of its
- *     properties has an allowed value of null.
+ * Safety: This class does not have placeholder values and cannot be a
+ *     placeholder. At least one of its properties has an allowed value of null.
  */
 public class Mount {
     /**
@@ -65,7 +65,7 @@ public class Mount {
      */
     private boolean hasModification;
     /**
-     * Any modifications applied to the mount (i.e. "molten wreathe"), if there
+     * The modifications applied to the mount (i.e. "molten wreathe"), if there
      *     are any.
      * Can be any String. Cannot be null. Case-insensitive and stored in
      *     lowercase.
@@ -77,7 +77,7 @@ public class Mount {
      */
     private boolean hasCoreBonus;
     /**
-     * Any core bonuses applied to the mount (i.e.
+     * The core bonuses applied to the mount (i.e.
      *     "auto-stabilizing hardpoints"), if there are any.
      * Can be any String. Cannot be null. Case-insensitive and stored in
      *     lowercase.
@@ -90,43 +90,43 @@ public class Mount {
      */
     private boolean hasTalent;
     /**
-     * Any talents applied to the mount (i.e. the Engineer talent), if there are
+     * The talents applied to the mount (i.e. the Engineer talent), if there are
      *     any.
      * Can be any Talent or null.
      */
     private Talent talent;
 
     /**
-     * Creates a new Mount with the provided mountType.
+     * Creates a new empty Mount with the provided mountType.
      */
     public Mount(String mountType) {
         this(mountType, null, "", "",
             null);
     }
     /**
-     * Creates a new Mount with the provided mountType and weapon.
+     * Creates a new occupied Mount with the provided mountType and weapon.
      */
     public Mount(String mountType, Weapon weapon) {
         this(mountType, weapon, "", "", null);
     }
     /**
-     * Creates a new Mount with the provided mountType, weapon, and
+     * Creates a new occupied Mount with the provided mountType, weapon, and
      *     modification.
      */
     public Mount(String mountType, Weapon weapon, String modification) {
         this(mountType, weapon, modification, "", null);
     }
     /**
-     * Creates a new Mount with the provided mountType, weapon, modification,
-     *    and coreBonus.
+     * Creates a new occupied Mount with the provided mountType, weapon,
+     *     modification, and coreBonus.
      */
     public Mount(String mountType, Weapon weapon, String modification,
         String coreBonus) {
         this(mountType, weapon, modification, coreBonus, null);
     }
     /**
-     * Creates a new Mount with the provided mountType, weapon, modification,
-     *    coreBonus, and talent.
+     * Creates a new occupied Mount with the provided mountType, weapon,
+     *     modification, coreBonus, and talent.
      */
     public Mount(String mountType, Weapon weapon, String modification,
         String coreBonus, Talent talent) {

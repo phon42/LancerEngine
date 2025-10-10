@@ -6,8 +6,8 @@
  * 
  * Used in and extended by MechSystem and Weapon.
  * 
- * Safety: This class does not have placeholder values. None of its properties
- *     have allowed values of null.
+ * Safety: This class does not have placeholder values and cannot be a
+ *     placeholder. None of its properties have allowed values of null.
  */
 public class Equipment {
     // TODO: add some way to add actions for systems that provide them
@@ -21,8 +21,8 @@ public class Equipment {
     protected String name;
     /**
      * Contains an array of all of this equipment's tags (i.e. EquipmentTag
-     *     elements representing an "AI" or "Limited X" tag). Cannot be null or
-     *     contain null elements.
+     *     elements representing an "AI" or "Limited X" tag).
+     * Can be any EquipmentTag[]. Cannot be null or contain null elements.
      */
     protected EquipmentTag[] tags;
     

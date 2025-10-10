@@ -3,7 +3,7 @@
  *     (the stat block after which it is patterned), its stats, its mounts, and
  *     its systems, among other statistics.
  * 
- * Requires a Frame object to create a non-placeholder Mech object. The Frame
+ * Requires a Frame object to create a Mech object. The Frame
  *     object's stats, traits, and mounts serve as the base on top of which mech
  *     skills, weapons, systems, and other modifications are added.
  * 
@@ -245,7 +245,7 @@ public class Mech {
     }
     // TODO: remove if unused
     /**
-     * Creates a non-placeholder Mech given every Mech property that isn't
+     * Creates a new Mech given every Mech property that isn't
      *     calculated by the Mech's Frame.
      */
     public Mech(String name, Frame frame, String operatorNotes,

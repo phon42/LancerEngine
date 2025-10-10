@@ -1,5 +1,5 @@
 /**
- * A Frame object is needed to create a non-placeholder Mech object. Its stats,
+ * A Frame object is needed to create a Mech object. Its stats,
  *     traits, and mounts serve as the base on top of which mech skills,
  *     weapons, systems, and other modifications are added.
  */
@@ -10,8 +10,7 @@
  * 
  * Requires nothing to be instantiated.
  * 
- * Used in Mech to create non-placeholder Mech objects. Also used in
- *     Database.
+ * Used in Mech to create Mech objects. Also used in Database.
  * 
  * Safety: This class does not have placeholder values and cannot be a
  *     placeholder. None of its properties have allowed values of null.
@@ -54,7 +53,8 @@ public class Frame {
      */
     private String[] role;
     /**
-     * An array of allowed values for the elements of the role property.
+     * Contains an array of allowed values for the elements of the role
+     *     property.
      */
     public static final String[] allowedRoles = new String[] {
         "artillery", "balanced", "controller", "defender", "striker", "support"
@@ -124,7 +124,7 @@ public class Frame {
     private int eDefense;
     /**
      * The frame's tech attack value.
-     * Can be any integer.
+     * Can be any int.
      */
     private int techAttack;
 

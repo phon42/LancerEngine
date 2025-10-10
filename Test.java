@@ -24,8 +24,8 @@ enum TestStatus {
  * 
  * Used in TestMethods.
  * 
- * Safety: This class does not have placeholder values. All of its properties
- *     can be set to null.
+ * Safety: This class does not have placeholder values and cannot be a
+ *     placeholder. All of its properties can be set to null.
  */
 public class Test {
     /**
