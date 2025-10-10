@@ -42,23 +42,6 @@ public class LancerCharacter {
         setPilot(new Pilot(pilotName, pilotCallsign));
         setMech(mech);
     }
-    // TODO: remove if unused
-    /**
-     * Creates a new LancerCharacter from a Pilot. Sets
-     *     this.mech to null.
-     */
-    public LancerCharacter(Pilot pilot) {
-        setPilot(pilot);
-        setMech(null);
-    }
-    // TODO: remove if unused
-    /**
-     * Creates a new LancerCharacter from a Pilot and a Mech.
-     */
-    public LancerCharacter(Pilot pilot, Mech mech) {
-        setPilot(pilot);
-        setMech(mech);
-    }
     
     public Pilot getPilot() {
         return pilot.copyOf();
