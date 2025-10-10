@@ -119,21 +119,7 @@ public class Equipment {
             //     already done in EquipmentTag's constructors
         }
     }
-    
-    /**
-     * Checks whether this object has all of its properties set to placeholder
-     *     values. Is both used and overridden in some of Equipment's children.
-     * @return a boolean representing the result of the check.
-     */
-    public boolean isPlaceholder() {
-        // Checking of this.name removed because it does not have a placeholder
-        //     value
-        if (this.tags.length != 0) {
-            return false;
-        }
 
-        return true;
-    }
     /**
      * Returns a deep copy of this Equipment object. Is overridden in all of
      *     Equipment's children.

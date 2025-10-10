@@ -157,21 +157,6 @@ public class Weapon extends Equipment {
     }
 
     /**
-     * Checks whether this object has all of its properties set to placeholder
-     *     values.
-     * @return a boolean representing the result of the check.
-     */
-    @Override
-    public boolean isPlaceholder() {
-        // Checks to see if all of the properties created by Equipment are
-        //     set to placeholder values
-        if (! super.isPlaceholder()) {
-            return false;
-        }
-
-        return true;
-    }
-    /**
      * Returns a deep copy of this Weapon object.
      * @return a Weapon deep copy of this object.
      */

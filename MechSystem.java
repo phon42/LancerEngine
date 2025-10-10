@@ -72,8 +72,6 @@ public class MechSystem extends Equipment {
         this.tags = tags;
     }
 
-    // Equipment.isPlaceholder() need not be overridden because MechSystem has
-    //     all the same properties as Equipment
     /**
      * Returns a deep copy of this MechSystem object.
      * @return a MechSystem deep copy of this object.
