@@ -155,19 +155,19 @@ public class SkillTriggersList {
         //     "  Blow Something Up (+2)\n"
         String outputString = "";
 
-        if (skillTriggers.length == 0) {
+        if (this.skillTriggers.length == 0) {
             outputString += "  N/A\n";
             return outputString;
         }
-        for (int i = 0; i < skillTriggers.length; i += 2) {
+        for (int i = 0; i < this.skillTriggers.length; i += 2) {
             outputString += "  ";
-            for (int j = i; j < Math.min(i + 2, skillTriggers.length); j++) {
+            for (int j = i; j < Math.min(i + 2, this.skillTriggers.length);
+                j++) {
                 if (j != i) {
                     outputString += " ";
                 }
-                outputString += skillTriggers[j].getName() + " (+"
-                    + skillTriggers[j].getLevel() + ")";
-                if (j + 1 < skillTriggers.length) {
+                outputString += this.skillTriggers[j].outputSkillTrigger();
+                if (j + 1 < this.skillTriggers.length) {
                     outputString += ",";
                 }
             }

@@ -106,4 +106,11 @@ public class SkillTrigger {
 
         return copy;
     }
+    /**
+     * Generates a String output of this SkillTrigger.
+     * @return a String containing an output of this SkillTrigger.
+     */
+    public String outputSkillTrigger() {
+        return getName() + " (+" + getLevel() + ")";
+    }
 }
