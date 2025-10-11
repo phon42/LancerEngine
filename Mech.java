@@ -805,6 +805,7 @@ public class Mech {
         // for the ones that DON'T use a mutator method (i.e. "copy.name =
         //     name"), make sure to use the proper accessor method instead
         //     of "property" if the property's type is mutable
+        // max always comes before current
         Mech copy = new Mech();
         
         copy.name = name;
@@ -815,22 +816,22 @@ public class Mech {
         copy.setFrameDescription(frameDescription);
         copy.setOperatorNotes(operatorNotes);
         copy.size = size;
-        copy.setCurrentStructure(currentStructure);
         copy.setMaxStructure(maxStructure);
+        copy.setCurrentStructure(currentStructure);
         copy.currentHP = currentHP;
         copy.maxHP = maxHP;
         copy.armor = armor;
-        copy.setCurrentStress(currentStress);
         copy.setMaxStress(maxStress);
-        copy.currentHeatCapacity = currentHeatCapacity;
+        copy.setCurrentStress(currentStress);
         copy.maxHeatCapacity = maxHeatCapacity;
+        copy.currentHeatCapacity = currentHeatCapacity;
         copy.evasion = evasion;
         copy.speed = speed;
         copy.eDefense = eDefense;
         copy.setTechAttack(techAttack);
         copy.sensors = sensors;
-        copy.currentRepairCapacity = currentRepairCapacity;
         copy.maxRepairCapacity = maxRepairCapacity;
+        copy.currentRepairCapacity = currentRepairCapacity;
         copy.saveTarget = saveTarget;
         copy.systemPoints = systemPoints;
         copy.limitedSystemsBonus = limitedSystemsBonus;
@@ -888,9 +889,9 @@ public class Mech {
                 + " called while this.frame was set to null");
         }
         setMaxStructure(this.frame.getStructure());
-        setCurrentStructure(this.currentStructure);
+        setCurrentStructure(this.maxStructure);
         setMaxStress(this.frame.getStress());
-        setCurrentStress(this.currentStress);
+        setCurrentStress(this.maxStress);
         
         // Hull
         setMaxHP(this.frame.getHP() + (mechSkills[0] * 2));
