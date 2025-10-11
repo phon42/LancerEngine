@@ -810,8 +810,7 @@ public class Pilot {
                 if (i != 0) {
                     outputString += ", ";
                 }
-                outputString += this.licenseList[i].outputName() + " "
-                    + this.licenseList[i].getLevel();
+                outputString += this.licenseList[i].outputLicense();
             }
             outputString += "\n";
         } else if (outputType.equals("pilot")
@@ -823,8 +822,7 @@ public class Pilot {
                 outputString += "  ";
                 for (int j = i; j < Math.min(i + 2, this.licenseList.length);
                     j++) {
-                    outputString += this.licenseList[j].outputName() + " "
-                        + this.licenseList[j].getLevel();
+                    outputString += this.licenseList[j].outputLicense();
                     if (j == i && i < this.licenseList.length + 1) {
                         outputString += ", ";
                     }

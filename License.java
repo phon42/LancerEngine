@@ -114,9 +114,10 @@ public class License {
         return copy;
     }
     /**
-     * Returns this.name, properly formatted. "ssc swallowtail (ranger variant)"
-     *     will become "SSC Swallowtail (Ranger Variant)", and "ssc death's
-     *     head" will become "SSC Death's Head".
+     * A helper method for License.outputLicense(). Returns this.name, properly
+     *     formatted. "ssc swallowtail (ranger variant)" will become
+     *     "SSC Swallowtail (Ranger Variant)", and "ssc death's head" will
+     *     become "SSC Death's Head".
      * @return a String containing this.name, properly formatted.
      */
     public String outputName() {
@@ -133,5 +134,13 @@ public class License {
         formattedName = String.join(" ", stringArr);
 
         return formattedName;
+    }
+    /**
+     * Generates a String output of this License.
+     * @return a String containing an output of this License.
+     */
+    public String outputLicense() {
+        // Generate something of the form "IPS-N Blackbeard 1"
+        return outputName() + " " + getLevel();
     }
 }
