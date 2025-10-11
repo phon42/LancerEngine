@@ -25,7 +25,7 @@ public class TestMethods {
      */
     public static void runTests() {
         // run a test on every single goddamn class and method in this place
-        String line = "= = = = = = = = = = = = = = =";
+        final String line = "= = = = = = = = = = = = = = =";
         String spaces;
 
         maxWidth = 0;
@@ -49,6 +49,8 @@ public class TestMethods {
                 new Test("Pilot.setCurrentHP()", runSetPilotCurrentHPTests()),
                 new Test("Pilot.setSkillTriggers()", runSetPilotSkillTriggersTests(), new Test[] {
                     new Test("SkillTriggersList", new Test[] {
+                        new Test("SkillTriggersList.hasSkillTrigger()", runHasSkillTriggerTests()),
+                        new Test("SkillTriggersList.getSkillTrigger()", runGetSkillTriggerTests()),
                         new Test("SkillTriggersList.setSkillTriggers()", runSetSkillTriggersTests(), new Test[] {
                             new Test("SkillTrigger", runSkillTriggerTests(), new Test[] {
                                 new Test("SkillTrigger.equals(Object)", runSkillTriggerEqualsTests()),
@@ -80,7 +82,8 @@ public class TestMethods {
                         new Test("License.equals(Object)", runLicenseEqualsTests()),
                         new Test("License.equals(License)", runLicenseEqualsLicenseTests()),
                         new Test("License.copyOf()", runLicenseCopyOfTests()),
-                        new Test("License.outputName()", runLicenseOutputNameTests())
+                        new Test("License.outputName()", runLicenseOutputNameTests()),
+                        new Test("License.outputLicense()", runLicenseOutputLicenseTests())
                     })
                 }),
                 new Test("Pilot.setSpecialEquipment()", runSetSpecialEquipmentTests()),
@@ -94,7 +97,6 @@ public class TestMethods {
                         new Test("Talent.outputName()", runTalentOutputNameTests())
                     })
                 }),
-                new Test("Pilot.hasPlaceholders()", runPilotHasPlaceholdersTests()),
                 new Test("Pilot.copyOf()", runPilotCopyOfTests()),
                 new Test("Pilot.generateOutput()", new Test[] {
                     new Test("Pilot.generateOutput(\"mech build\")", runPilotGenerateMechOutputTests()),
@@ -107,7 +109,59 @@ public class TestMethods {
             }),
             new Test("Mech", new Test[] {
                 new Test("Mech.setName()", runMechSetNameTests()),
-                new Test("Mech.setFrame()", runMechSetFrameTests()),
+                new Test("Mech.setFrame()", runMechSetFrameTests(), new Test[] {
+                    new Test("Frame", new Test[] {
+                        new Test("Frame.setManufacturer()", runFrameSetManufacturerTests()),
+                        new Test("Frame.setName()", runFrameSetNameTests()),
+                        new Test("Frame.setID()", runFrameSetIDTests()),
+                        new Test("Frame.setFrameEnum()", runFrameSetFrameEnumTests()),
+                        new Test("Frame.setRole()", runFrameSetRoleTests()),
+                        new Test("Frame.setFrameDescription()", runFrameSetFrameDescriptionTests()),
+                        new Test("Frame.setSize()", runFrameSetSizeTests()),
+                        new Test("Frame.setStructure()", runFrameSetStructureTests()),
+                        new Test("Frame.setHP()", runFrameSetHPTests()),
+                        new Test("Frame.setArmor()", runFrameSetArmorTests()),
+                        new Test("Frame.setStress()", runFrameSetStressTests()),
+                        new Test("Frame.setHeatCapacity()", runFrameSetHeatCapacityTests()),
+                        new Test("Frame.setEvasion()", runFrameSetEvasionTests()),
+                        new Test("Frame.setSpeed()", runFrameSetSpeedTests()),
+                        new Test("Frame.setEDefense()", runFrameSetEDefenseTests()),
+                        new Test("Frame.setSensors()", runFrameSetSensorsTests()),
+                        new Test("Frame.setRepairCapacity()", runFrameSetRepairCapacityTests()),
+                        new Test("Frame.setSaveTarget()", runFrameSetSaveTargetTests()),
+                        new Test("Frame.setSystemPoints()", runFrameSetSystemPointsTests()),
+                        new Test("Frame.setTraits()", runFrameSetTraitsTests()),
+                        new Test("Frame.setMounts()", runFrameSetMountsTests(), new Test[] {
+                            new Test("Mount", new Test[] {
+                                new Test("Mount.setMountType()", runMountSetMountTypeTests()),
+                                new Test("Mount.setWeapon()", runMountSetWeaponTests(), new Test[] {
+                                    new Test("Equipment", new Test[] {
+                                        new Test("Equipment.hasTag()", runEquipmentHasTagTests()),
+                                        new Test("Equipment.getTag()", runEquipmentGetTagTests()),
+                                        new Test("Equipment.setName()", runEquipmentSetNameTests()),
+                                        new Test("Equipment.setTags()", runEquipmentSetTagsTests()),
+                                        new Test("Equipment.checkTagsArray()", runEquipmentCheckTagsArrayTests()),
+                                        new Test("Equipment.copyOf()", runEquipmentCopyOfTests()),
+                                        new Test("Weapon", new Test[] {
+                                            new Test("Weapon.setSize()", runWeaponSetSizeTests()),
+                                            new Test("Weapon.setType()", runWeaponSetTypeTests()),
+                                            new Test("Weapon.setTags()", runWeaponSetTagsTests()),
+                                            new Test("Weapon.copyOf()", runWeaponCopyOfTests()),
+                                        })
+                                    })
+                                }),
+                                new Test("Mount.setModification()", runMountSetModificationTests()),
+                                new Test("Mount.setCoreBonus()", runMountSetCoreBonusTests()),
+                                new Test("Mount.setTalent()", runMountSetTalentTests()),
+                                new Test("Mount.isUnmodified()", runMountIsUnmodifiedTests()),
+                                new Test("Mount.copyOf()", runMountCopyOfTests()),
+                                new Test("Mount.outputWeapon()", runMountOutputWeaponTests())
+                            })
+                        }),
+                        new Test("Frame.copyOf()", runFrameCopyOfTests()),
+                        new Test("Frame.outputName()", runFrameOutputNameTests())
+                    }),
+                }),
                 new Test("Mech.setOperatorNotes()", runMechSetOperatorNotesTests()),
                 new Test("Mech.setCurrentStructure()", runMechSetCurrentStructureTests()),
                 new Test("Mech.setCurrentHP()", runMechSetCurrentHPTests()),
@@ -115,9 +169,13 @@ public class TestMethods {
                 new Test("Mech.setCurrentHeatCapacity()", runMechSetCurrentHeatCapacityTests()),
                 new Test("Mech.setCurrentRepairCapacity()", runMechSetCurrentRepairCapacityTests()),
                 new Test("Mech.setMount()", runMechSetMountTests()),
-                new Test("Mech.setSystems()", runMechSetSystemsTests()),
-                new Test("Mech.hasPlaceholders()", runMechHasPlaceholdersTests()),
-                new Test("Mech.isPlaceholder()", runMechIsPlaceholderTests()),
+                new Test("Mech.setSystems()", runMechSetSystemsTests(), new Test[] {
+                    new Test("MechSystem", new Test[] {
+                        new Test("MechSystem.setTags()", runMechSystemSetTagsTests()),
+                        new Test("MechSystem.copyOf()", runMechSystemCopyOfTests()),
+                        new Test("MechSystem.outputSystem()", runMechSystemOutputSystemTests())
+                    })
+                }),
                 new Test("Mech.copyOf()", runMechCopyOfTests()),
                 new Test("Mech.outputSize()", runMechOutputSizeTests()),
                 new Test("Mech.calculateAttributes()", runMechCalculateAttributesTests()),
@@ -438,6 +496,22 @@ public class TestMethods {
         }
 
         return test1 && test2 && test3;
+    }
+    /**
+     * Tests SkillTriggersList.hasSkillTrigger().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runHasSkillTriggerTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests SkillTriggersList.getSkillTrigger().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runGetSkillTriggerTests() {
+        // TODO: fill out
+        return false;
     }
     /**
      * Tests SkillTriggersList.setSkillTriggers().
@@ -1317,6 +1391,14 @@ public class TestMethods {
         return test1 && test2 && test3;
     }
     /**
+     * Tests License.outputLicense().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runLicenseOutputLicenseTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
      * Tests Pilot.setSpecialEquipment().
      * @return a boolean representing whether the method passed.
      */
@@ -1627,14 +1709,6 @@ public class TestMethods {
         }
         
         return test1 && test2;
-    }
-    /**
-     * Tests Pilot.hasPlaceholders().
-     * @return a boolean representing whether the method passed.
-     */
-    private static boolean runPilotHasPlaceholdersTests() {
-        // TODO: fill out
-        return false;
     }
     /**
      * Tests Pilot.copyOf().
@@ -2190,6 +2264,334 @@ public class TestMethods {
         return false;
     }
     /**
+     * Tests Frame.setManufacturer().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runFrameSetManufacturerTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Frame.setName().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runFrameSetNameTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Frame.setID().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runFrameSetIDTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Frame.setFrameEnum().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runFrameSetFrameEnumTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Frame.setRole().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runFrameSetRoleTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Frame.setFrameDescription().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runFrameSetFrameDescriptionTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Frame.setSize().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runFrameSetSizeTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Frame.setStructure().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runFrameSetStructureTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Frame.setHP().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runFrameSetHPTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Frame.setArmor().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runFrameSetArmorTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Frame.setStress().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runFrameSetStressTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Frame.setHeatCapacity().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runFrameSetHeatCapacityTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Frame.setEvasion().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runFrameSetEvasionTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Frame.setSpeed().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runFrameSetSpeedTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Frame.setEDefense().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runFrameSetEDefenseTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Frame.setSensors().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runFrameSetSensorsTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Frame.setRepairCapacity().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runFrameSetRepairCapacityTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Frame.setSaveTarget().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runFrameSetSaveTargetTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Frame.setSystemPoints().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runFrameSetSystemPointsTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Frame.setTraits().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runFrameSetTraitsTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Frame.setMounts().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runFrameSetMountsTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Mount.setMountType().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runMountSetMountTypeTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Mount.setWeapon().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runMountSetWeaponTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Equipment.hasTag().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runEquipmentHasTagTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Equipment.getTag().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runEquipmentGetTagTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Equipment.setName().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runEquipmentSetNameTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Equipment.setTags().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runEquipmentSetTagsTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Equipment.checkTagsArray().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runEquipmentCheckTagsArrayTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Equipment.copyOf().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runEquipmentCopyOfTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Weapon.setSize().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runWeaponSetSizeTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Weapon.setType().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runWeaponSetTypeTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Weapon.setTags().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runWeaponSetTagsTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Weapon.copyOf().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runWeaponCopyOfTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Mount.setModification().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runMountSetModificationTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Mount.setCoreBonus().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runMountSetCoreBonusTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Mount.setTalent().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runMountSetTalentTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Mount.isUnmodified().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runMountIsUnmodifiedTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Mount.copyOf().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runMountCopyOfTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Mount.outputWeapon().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runMountOutputWeaponTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Frame.copyOf().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runFrameCopyOfTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests Frame.outputWeapon().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runFrameOutputNameTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
      * Tests Mech.setOperatorNotes().
      * @return a boolean representing whether the method passed.
      */
@@ -2389,18 +2791,26 @@ public class TestMethods {
         return false;
     }
     /**
-     * Tests Mech.hasPlaceholders().
+     * Tests MechSystem.setTags().
      * @return a boolean representing whether the method passed.
      */
-    private static boolean runMechHasPlaceholdersTests() {
+    private static boolean runMechSystemSetTagsTests() {
         // TODO: fill out
         return false;
     }
     /**
-     * Tests Mech.isPlaceholder().
+     * Tests MechSystem.copyOf().
      * @return a boolean representing whether the method passed.
      */
-    private static boolean runMechIsPlaceholderTests() {
+    private static boolean runMechSystemCopyOfTests() {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Tests MechSystem.outputSystem().
+     * @return a boolean representing whether the method passed.
+     */
+    private static boolean runMechSystemOutputSystemTests() {
         // TODO: fill out
         return false;
     }
