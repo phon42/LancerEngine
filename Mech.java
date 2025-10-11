@@ -988,8 +988,9 @@ public class Mech {
                 this.limitedSystemsBonus);
         } else if (outputType.equals("full")) {
             throw new IllegalArgumentException("Called"
-                + " Mech.generateOutput(\"full\") but mech skills value was not"
-                + " provided.");
+                + " Mech.generateOutput(\"full\", int) instead of"
+                + " Mech.generateOutput(\"full\", int[], int); therefore, mech"
+                + " skills value was not provided.");
         }
 
         return outputString;
@@ -1015,8 +1016,9 @@ public class Mech {
 
         if (outputType.equals("mech build")) {
             throw new IllegalArgumentException("Called"
-                + " Mech.generateOutput(\"mech build\") but limited systems"
-                + " bonus value was not provided.");
+                + " Mech.generateOutput(\"mech build\") instead of"
+                + " Mech.generateOutput(\"mech build\", int); therefore,"
+                + " limited systems bonus value was not provided.");
         } else if (outputType.equals("full")) {
             outputString += "[ MECH ]\n";
             outputString += "  « " + this.name + " »\n";
@@ -1176,7 +1178,7 @@ public class Mech {
         outputType = outputType.toLowerCase();
         if (outputType.equals("mech build")) {
             throw new IllegalArgumentException("Called"
-                + " Mech.generateOutput(\"mech build\") but limited systems"
+                + " Mech.outputSystems(\"mech build\") but limited systems"
                 + " bonus value was not provided.");
         } else if (outputType.equals("full")) {
             // output something along the lines of:

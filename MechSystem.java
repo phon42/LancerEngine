@@ -99,8 +99,8 @@ public class MechSystem extends Equipment {
         outputType = outputType.toLowerCase();
         if (outputType.equals("mech build")) {
             throw new IllegalArgumentException("Called"
-                + " MechSystem.generateOutput(\"mech build\") but limited"
-                + " systems bonus value was not provided.");
+                + " MechSystem.outputSystem(\"mech build\") but limited systems"
+                + " bonus value was not provided.");
         } else if (outputType.equals("full")) {
             // output something like "Pattern-A Smoke Charges"
             outputString += this.name;
