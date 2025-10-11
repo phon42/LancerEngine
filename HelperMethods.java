@@ -14,11 +14,13 @@ public class HelperMethods {
     private HelperMethods() {}
 
     // TODO: fill out with a helper method that outputs a properly formatted
-    //     String from an array
-    // there are bits of code that perform this function all over this project:
-    //     Loadout.generateOutput() line 224, Mech.outputWeapons(), Mech.outputSystems(),
-    //     Pilot.outputLicenses() line 860, Pilot.outputCoreBonuses() line 961,
-    //     Pilot.outputTalents() line 910, SkillTriggersList.generateOutput()
+    //     String from an array; there are bits of code that perform this
+    //     function all over this project:
+    //         Loadout.generateOutput() line 224, Mech.outputWeapons()
+    //         Mech.outputSystems(), Pilot.outputLicenses() line 860
+    //         Pilot.outputCoreBonuses() line 961, Pilot.outputTalents() line
+    //         910, SkillTriggersList.generateOutput()
+    // TODO: add null checks to all the HelperMethods methods
     /**
      * Appends the given int element to the end of an existing int[].
      * @param intArray an int[] that cannot be null.
