@@ -11,7 +11,7 @@
  */
 public class SkillTrigger {
     /**
-     * The name of the skill trigger (i.e. "apply fists to faces").
+     * The name of the skill trigger (i.e. "Apply Fists to Faces").
      * Can be any String except "". Cannot be null.
      */
     private String name;
