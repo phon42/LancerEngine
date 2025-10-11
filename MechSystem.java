@@ -49,7 +49,7 @@ public class MechSystem extends Equipment {
      *     defined by MechSystem.allowedNames.
      */
     @Override
-    public void setTags(EquipmentTag[] tags) {
+    protected void setTags(EquipmentTag[] tags) {
         boolean isValid = false;
 
         // Throws an IllegalArgumentException if tags is null or contains null

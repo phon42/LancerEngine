@@ -80,7 +80,7 @@ public class Equipment {
         throw new IllegalArgumentException("Requested tag: \"" + tagName + "\""
             + " could not be found.");
     }
-    public void setName(String name) {
+    protected void setName(String name) {
         if (name == null) {
             throw new IllegalArgumentException("New name is null");
         }
@@ -94,7 +94,7 @@ public class Equipment {
      * @throws IllegalArgumentException if tags is null or includes a null
      *     element.
      */
-    public void setTags(EquipmentTag[] tags) {
+    protected void setTags(EquipmentTag[] tags) {
         // This will throw an exception if tags is invalid
         checkTagsArray(tags);
         tags = HelperMethods.copyOf(tags);

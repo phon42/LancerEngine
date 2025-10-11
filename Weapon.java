@@ -103,7 +103,7 @@ public class Weapon extends Equipment {
      * @throws IllegalArgumentException if size is not between 0 and 4
      *     (inclusive).
      */
-    public void setSize(int size) {
+    private void setSize(int size) {
         if (size < 0) {
             throw new IllegalArgumentException("New size value: " + size + " is"
                 + " < 0");
@@ -120,7 +120,7 @@ public class Weapon extends Equipment {
      * @throws IllegalArgumentException if type is not between 0 and 9
      *     (inclusive).
      */
-    public void setType(int type) {
+    private void setType(int type) {
         this.type = type;
     }
     /**
@@ -133,7 +133,7 @@ public class Weapon extends Equipment {
      *     Weapon.allowedNames.
      */
     @Override
-    public void setTags(EquipmentTag[] tags) {
+    protected void setTags(EquipmentTag[] tags) {
         boolean isValid = false;
 
         // Throws an IllegalArgumentException if tags is null or contains null
