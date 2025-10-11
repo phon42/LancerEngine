@@ -817,7 +817,8 @@ public class Pilot {
         } else if (outputType.equals("pilot")
             || outputType.equals("full")) {
             // Output something like:
-            //     "  IPS-N Blackbeard 1, IPS-N Drake 1,\n  IPS-N Lancaster 1\n"
+            //     "  IPS-N Blackbeard 1, IPS-N Drake 1,\n"
+            //     "  IPS-N Lancaster 1\n"
             for (int i = 0; i < this.licenseList.length; i += 2) {
                 outputString += "  ";
                 for (int j = i; j < Math.min(i + 2, this.licenseList.length);

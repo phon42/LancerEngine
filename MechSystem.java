@@ -124,7 +124,8 @@ public class MechSystem extends Equipment {
 
         outputType = outputType.toLowerCase();
         if (outputType.equals("mech build")) {
-            // output something like "Pattern-A Smoke Charges"
+            // output something like "Pattern-A Smoke Charges x4"
+            // start with something like "Pattern-A Smoke Charges"
             outputString += this.name;
             if (this.hasTag("Limited X")) {
                 // add something like " x4"

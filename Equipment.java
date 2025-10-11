@@ -10,7 +10,10 @@
  *     placeholder. None of its properties have allowed values of null.
  */
 public class Equipment {
-    // TODO: add some way to add actions for systems that provide them
+    // TODO: add some way to add actions for equipments that provide them (i.e
+    //     GMS Pattern-A Jericho Deployable Cover and its Deploy Jericho
+    //     Deployable Cover action for MechSystem, or IPS-N D/D 288 and its
+    //     Charge D/D 288 action for Weapon)
     // TODO: add some way for EquipmentTags to be automatically added based on
     //     an equipment's contents
     /**

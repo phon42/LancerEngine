@@ -176,9 +176,9 @@ public class Loadout {
      */
     public String generateOutput() {
         // Generate something along the lines of:
-        // "validArmor, validWeapon\n"
-        // "validWeapon, validGear"\n
-        // "validGear, validGear\n"
+        // "  validArmor, validWeapon,\n"
+        // "  validWeapon, validGear,\n"
+        // "  validGear, validGear\n"
         String outputString = "";
         String[] outputArray;
         String[] newOutputArray;

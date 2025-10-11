@@ -295,18 +295,18 @@ public class Mount {
         return copy;
     }
     /**
-     * A helper method which generates a short snippet of text containing output
+     * A helper method which generates a snippet of text containing output
      *     about this mount used in Mech.outputWeapons(). Only returns something
      *     other than "" when outputType is "mech build" or "full".
-     * Outputs a short snippet of text in the style of:
-     *     "MAIN MOUNT: Assault Rifle (BOUNDER-Class Comp/Con)"
-     *     " // Overpower Caliber"
      * @param outputType a String containing the type of output to
      *     generate.
      * @return a String containing output of the mount and any weapons mounted
      *     on it, as well as any modifications or core bonuses.
      */
     public String outputWeapon(String outputType) {
+        // Outputs a snippet of text in the style of:
+        //     "MAIN MOUNT: Assault Rifle (BOUNDER-Class Comp/Con) // Overpower"
+        //     " Caliber"
         String outputString = "";
         boolean isBaseType = false;
 

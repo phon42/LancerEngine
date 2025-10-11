@@ -997,7 +997,7 @@ public class Mech {
     /**
      * Generates the output associated with the mech portion of the COMP/CON
      *     "generate statblock" feature. Only returns something other than ""
-     *     when outputType is "mech build" or "full".
+     *     when outputType is "full".
      * @param outputType a String containing the type of statblock to
      *     generate.
      * @param mechSkills an int[4] containing the mech skills of the Pilot
@@ -1136,7 +1136,7 @@ public class Mech {
     public String outputWeapons(String outputType) {
         // output something along the lines of:
         // "  MAIN MOUNT: Vulture DMR // Overpower Caliber\n"
-        // or "  INTEGRATED WEAPON: Nexus (Light)\n"
+        // "  INTEGRATED WEAPON: Nexus (Light)\n"
         String outputString = "";
 
         outputType = outputType.toLowerCase();
@@ -1158,7 +1158,7 @@ public class Mech {
     /**
      * A helper method which generates a line of text containing output about
      *     the mech's systems used in Mech.generateOutput(). Only returns
-     *     something other than "" when outputType is "mech build" or "full".
+     *     something other than "" when outputType is "full".
      * @param outputType a String containing the type of output to
      *     generate.
      * @return a String containing the requested output.
@@ -1220,7 +1220,7 @@ public class Mech {
         if (outputType.equals("mech build")) {
             // output something like:
             //     "  Pattern-A Smoke Charges x4, Seismic Ripper,"
-            //     "  High-Stress Mag Clamps, ATHENA-Class NHP\n"
+            //     " High-Stress Mag Clamps, ATHENA-Class NHP\n"
             for (int i = 0; i < this.systems.length; i++) {
                 if (i == 0) {
                     outputString += "  ";
