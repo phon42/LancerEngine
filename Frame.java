@@ -288,7 +288,7 @@ public class Frame {
     public Mount[] getMounts() {
         return HelperMethods.copyOf(mounts);
     }
-    public void setManufacturer(String manufacturer) {
+    private void setManufacturer(String manufacturer) {
         if (manufacturer == null) {
             throw new IllegalArgumentException("New manufacturer value is"
                 + " null");
@@ -300,7 +300,7 @@ public class Frame {
         manufacturer = manufacturer.toUpperCase();
         this.manufacturer = manufacturer;
     }
-    public void setName(String name) {
+    private void setName(String name) {
         if (name == null) {
             throw new IllegalArgumentException("New frame name is null");
         }
@@ -310,7 +310,7 @@ public class Frame {
         name = name.toLowerCase();
         this.name = name;
     }
-    public void setID(String ID) {
+    private void setID(String ID) {
         if (ID == null) {
             throw new IllegalArgumentException("New frame ID is null");
         }
@@ -325,7 +325,7 @@ public class Frame {
      * @param frameEnum a FrameEnum which cannot be null.
      * @throws IllegalArgumentException if frameEnum is null.
      */
-    public void setFrameEnum(FrameEnum frameEnum) {
+    private void setFrameEnum(FrameEnum frameEnum) {
         if (frameEnum == null) {
             throw new IllegalArgumentException("New frame enum is null");
         }
@@ -340,7 +340,7 @@ public class Frame {
      *     or invalid values, as defined by Frame.allowedRoles, or has a length
      *     of 0.
      */
-    public void setRole(String[] role) {
+    private void setRole(String[] role) {
         boolean isValidRole = false;
         String roleString;
 
@@ -373,7 +373,7 @@ public class Frame {
         role = HelperMethods.copyOf(role);
         this.role = role;
     }
-    public void setFrameDescription(String frameDescription) {
+    private void setFrameDescription(String frameDescription) {
         if (frameDescription == null) {
             throw new IllegalArgumentException("New frame description is"
                 + " null");
@@ -386,94 +386,94 @@ public class Frame {
      * @throws IllegalArgumentException if size is anything other than 1, 2, 4,
      *     6, or 8.
      */
-    public void setSize(int size) {
+    private void setSize(int size) {
         if (size != 1 && size != 2 && size != 4 && size != 6 && size != 8) {
             throw new IllegalArgumentException("New frame size: " + size + " is"
                 + " not one of the following valid values: 1, 2, 4, 6, 8");
         }
         this.size = size;
     }
-    public void setStructure(int structure) {
+    private void setStructure(int structure) {
         if (structure < 1) {
             throw new IllegalArgumentException("New structure value: "
                 + structure + " is < 1");
         }
         this.structure = structure;
     }
-    public void setHP(int HP) {
+    private void setHP(int HP) {
         if (HP < 1) {
             throw new IllegalArgumentException("New HP value: " + HP + " is <"
                 + " 1");
         }
         this.HP = HP;
     }
-    public void setArmor(int armor) {
+    private void setArmor(int armor) {
         if (armor < 0) {
             throw new IllegalArgumentException("New armor value: " + armor
                 + " is < 0");
         }
         this.armor = armor;
     }
-    public void setStress(int stress) {
+    private void setStress(int stress) {
         if (stress < 1) {
             throw new IllegalArgumentException("New stress value: " + stress
                 + " is < 1");
         }
         this.stress = stress;
     }
-    public void setHeatCapacity(int heatCapacity) {
+    private void setHeatCapacity(int heatCapacity) {
         if (heatCapacity < 1) {
             throw new IllegalArgumentException("New heat capacity value: "
                 + heatCapacity + " is < 1");
         }
         this.heatCapacity = heatCapacity;
     }
-    public void setEvasion(int evasion) {
+    private void setEvasion(int evasion) {
         if (evasion < 0) {
             throw new IllegalArgumentException("New evasion value: " + evasion
                 + " is < 0");
         }
         this.evasion = evasion;
     }
-    public void setSpeed(int speed) {
+    private void setSpeed(int speed) {
         if (speed < 0) {
             throw new IllegalArgumentException("New speed value: " + speed
                 + " is < 0");
         }
         this.speed = speed;
     }
-    public void setEDefense(int eDefense) {
+    private void setEDefense(int eDefense) {
         if (eDefense < 0) {
             throw new IllegalArgumentException("New e-defense value: "
                 + eDefense + " is < 0");
         }
         this.eDefense = eDefense;
     }
-    public void setTechAttack(int techAttack) {
+    private void setTechAttack(int techAttack) {
         this.techAttack = techAttack;
     }
-    public void setSensors(int sensors) {
+    private void setSensors(int sensors) {
         if (sensors < 0) {
             throw new IllegalArgumentException("New sensors value: " + sensors
                 + " is < 0");
         }
         this.sensors = sensors;
     }
-    public void setRepairCapacity(int repairCapacity) {
+    private void setRepairCapacity(int repairCapacity) {
         if (repairCapacity < 0) {
             throw new IllegalArgumentException("New repair capacity value is: "
                 + repairCapacity + " < 0");
         }
         this.repairCapacity = repairCapacity;
     }
-    public void setSaveTarget(int saveTarget) {
+    private void setSaveTarget(int saveTarget) {
         if (saveTarget < 0) {
             throw new IllegalArgumentException("New save target value: "
                 + saveTarget + " is < 0");
         }
         this.saveTarget = saveTarget;
     }
-    public void setSystemPoints(int systemPoints) {
+    private void setSystemPoints(int systemPoints) {
         if (systemPoints < 0) {
             throw new IllegalArgumentException("New system points value: "
                 + systemPoints + " is < 0");
@@ -487,7 +487,7 @@ public class Frame {
      * @throws IllegalArgumentException if traits is null, contains null
      *     elements, or elements that are "".
      */
-    public void setTraits(String[] traits) {
+    private void setTraits(String[] traits) {
         if (traits == null) {
             throw new IllegalArgumentException("New traits value is null");
         }
@@ -516,7 +516,7 @@ public class Frame {
      *     Mount.coreBonus, or Mount.talent set to something other than its
      *     construction value.
      */
-    public void setMounts(Mount[] mounts) {
+    private void setMounts(Mount[] mounts) {
         if (mounts == null) {
             throw new IllegalArgumentException("New mounts value is null");
         }
