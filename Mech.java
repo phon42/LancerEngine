@@ -222,7 +222,7 @@ public class Mech {
         setSystems(new MechSystem[0]);
     }
     /**
-     * Creates a non-placeholder Mech from a mech name and a frameID.
+     * Creates a Mech from a mech name and a frameID.
      * @param name a String containing the mech name of the new Mech.
      * @param frameID a String containing the frameID of the Frame to use to
      *     create the new Mech.
@@ -233,7 +233,7 @@ public class Mech {
         setFrame(Database.getFrame(frameID));
     }
     /**
-     * Creates a non-placeholder Mech from a mech name and a FrameEnum.
+     * Creates a Mech from a mech name and a FrameEnum.
      * @param name a String containing the mech name of the new Mech.
      * @param frameEnum a FrameEnum containing the FrameEnum of the Frame to
      *     use to create the new Mech.

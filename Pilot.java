@@ -877,6 +877,7 @@ public class Pilot {
                         outputString += ", ";
                     }
                 }
+                // TODO: fix the commas on Pilot.outputTalents("pilot")
                 if (i + 2 < this.talents.length) {
                     outputString += ",";
                 }

@@ -19,7 +19,6 @@ public class LancerCharacter {
      *     - Pilot Callsign
      */
     private Pilot pilot;
-    
     /**
      * The mech associated with this character (if there is one).
      * Can be any Mech. Can be null.
