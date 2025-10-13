@@ -542,6 +542,7 @@ public class Pilot {
         }
         loadout = loadout.copyOf();
         this.loadout = loadout;
+        calculateAttributes();
     }
     // ---Tactical Profile---------
     /**
@@ -720,6 +721,23 @@ public class Pilot {
         // Status is one of the following: "active", "inactive", "retired",
         //     or "unknown"
         return HelperMethods.capitalizeFirst(status);
+    }
+    /**
+     * Calculates a Pilot's stats based on its Loadout.
+     */
+    public void calculateAttributes() {
+        // TODO: finish
+        if (! this.loadout.getPilotArmor().equals("")) {
+            int[] armorAttributes = Database.getPilotArmorStats(
+                this.loadout.getPilotArmor());
+            
+            setMaxHP(8 + armorAttributes[0]);
+            setCurrentHP(8 + armorAttributes[0]);
+            setArmor(0 + armorAttributes[1]);
+            setEvasion(10 + armorAttributes[2]);
+            setSpeed(4 + armorAttributes[3]);
+            setEDefense(10 + armorAttributes[4]);
+        }
     }
     /**
      * Generates the pilot portion of the COMP/CON character output function.

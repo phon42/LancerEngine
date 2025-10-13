@@ -210,6 +210,36 @@ public class Database {
                 new Mount("heavy")
             })
     };
+    /**
+     * Contains every pilot armor's name for reference.
+     */
+    private static final String[] pilotArmorNames = new String[] {
+        "Light Hardsuit", "Assault Hardsuit", "Heavy Hardsuit",
+        "Mobility Hardsuit", "Stealth Hardsuit", "Personal Kinetic Shielding",
+        "Light Carapace Hardsuit", "Assault Carapace Hardsuit",
+        "Heavy Carapace Hardsuit"
+    };
+    /**
+     * Contains every pilot armor's stats for reference.
+     * Ordered in the order of pilot stats; in other words:
+     *     - HP
+     *     - armor
+     *     - evasion
+     *     - speed
+     *     - e-defense
+     */
+    private static final int[][] pilotArmorStats = new int[][] {
+        new int[] {3, 0, 0, 0, 0},
+        new int[] {3, 1, -2, 0, -2},
+        new int[] {3, 2, -4, -1, -2},
+        new int[] {0, 0, 0, 1, 0}, // TODO: allows flight, add this
+        // TODO: allows stealth, add this - it's an action
+        new int[] {0, 0, -2, 0, -2},
+        new int[] {0, 0, 0, 0, 0}, // TODO: has a special effect, add this
+        new int[] {2, 0, 0, 0, 0}, // TODO: has a special effect, add this
+        new int[] {2, 1, -2, 0, -2}, // TODO: has a special effect, add this
+        new int[] {2, 2, -4, -1, -4} // TODO: has a special effect, add this
+    };
 
     // Prevent user from instantiating this class
     private Database() {}
@@ -255,5 +285,23 @@ public class Database {
         }
         throw new IllegalArgumentException("No frame found for frame enum: "
             + searchEnum.toString());
+    }
+    /**
+     * Searches for a piece of pilot armor given its name.
+     * @param pilotArmorName a String containing the name of the pilot armor to
+     *     be searched for.
+     * @return an int[] of the requested pilot armor's stats.
+     * @throws IllegalArgumentException if the requested pilot armor was not
+     *     found.
+     */
+    public static int[] getPilotArmorStats(String pilotArmorName) {
+        for (int i = 0; i < Database.pilotArmorNames.length; i++) {
+            if (Database.pilotArmorNames[i].equals(pilotArmorName)) {
+                return HelperMethods.copyOf(Database.pilotArmorStats[i]);
+            }
+        }
+
+        throw new IllegalArgumentException("No pilot armor found for pilot"
+            + " armor name: " + pilotArmorName);
     }
 }
