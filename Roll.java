@@ -84,7 +84,6 @@ public final class Roll {
      */
     private static int[] rollComplex(int rollNum, int maxRoll, int keep,
         int keepNum) {
-        // TODO: fill out so that it records all the operations
         // String keepString;
         int[] rolls;
         int[] keptRolls;
