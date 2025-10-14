@@ -253,7 +253,7 @@ public final class LancerCharacter {
      * - [Core bonuses]
      * - [Talents]
      */
-    public void setPilotProperties(HashMap<String, Object> newPilotProperties) {
+    public void setPilotProperties(HashMap<String, Object> pilotProperties) {
         String[] propertyNames = new String[] {"name", "callsign", "player",
             "status", "background", "biography", "appearance", "playerNotes",
             "size", "grit", "currentHP", "maxHP", "armor", "evasion", "speed",
@@ -262,16 +262,16 @@ public final class LancerCharacter {
             "talents"};
         boolean isAllowed = false;
 
-        if (newPilotProperties == null) {
-            throw new IllegalArgumentException("newPilotProperties is null");
+        if (pilotProperties == null) {
+            throw new IllegalArgumentException("pilotProperties is null");
         }
         for (String propertyName : propertyNames) {
-            if (! newPilotProperties.containsKey(propertyName)) {
-                throw new IllegalArgumentException("newPilotProperties did not"
+            if (! pilotProperties.containsKey(propertyName)) {
+                throw new IllegalArgumentException("pilotProperties did not"
                     + " contain property: \"" + propertyName + "\"");
             }
         }
-        for (String propertyName : newPilotProperties.keySet()) {
+        for (String propertyName : pilotProperties.keySet()) {
             isAllowed = false;
             for (int i = 0; i < propertyNames.length; i++) {
                 if (propertyName.equals(propertyNames[i])) {
@@ -279,39 +279,36 @@ public final class LancerCharacter {
                 }
             }
             if (! isAllowed) {
-                throw new IllegalArgumentException("newPilotProperties contained"
+                throw new IllegalArgumentException("pilotProperties contained"
                     + " an illegal property: \"" + propertyName + "\"");
             }
         }
-        this.pilot.setName((String) newPilotProperties.get("name"));
-        this.pilot.setCallsign((String) newPilotProperties.get("callsign"));
-        this.pilot.setPlayer((String) newPilotProperties.get("player"));
-        this.pilot.setStatus((String) newPilotProperties.get("status"));
-        this.pilot.setBackground((String) newPilotProperties.get(
+        this.pilot.setName((String) pilotProperties.get("name"));
+        this.pilot.setCallsign((String) pilotProperties.get("callsign"));
+        this.pilot.setPlayer((String) pilotProperties.get("player"));
+        this.pilot.setStatus((String) pilotProperties.get("status"));
+        this.pilot.setBackground((String) pilotProperties.get(
             "background"));
-        this.pilot.setBiography((String) newPilotProperties.get(
-            "biography"));
-        this.pilot.setAppearance((String) newPilotProperties.get(
+        this.pilot.setBiography((String) pilotProperties.get("biography"));
+        this.pilot.setAppearance((String) pilotProperties.get(
             "appearance"));
-        this.pilot.setPlayerNotes((String) newPilotProperties.get(
+        this.pilot.setPlayerNotes((String) pilotProperties.get(
             "playerNotes"));
-        this.pilot.setCurrentHP((int) newPilotProperties.get("currentHP"));
-        this.pilot.setSkillTriggers((SkillTriggersList) newPilotProperties.get(
+        this.pilot.setCurrentHP((int) pilotProperties.get("currentHP"));
+        this.pilot.setSkillTriggers((SkillTriggersList) pilotProperties.get(
             "skillTriggers"));
-        this.pilot.setReserves((String[]) newPilotProperties.get(
-            "reserves"));
-        this.pilot.setLoadout((Loadout) newPilotProperties.get("loadout"));
-        this.pilot.setLicenseLevel((int) newPilotProperties.get(
+        this.pilot.setReserves((String[]) pilotProperties.get("reserves"));
+        this.pilot.setLoadout((Loadout) pilotProperties.get("loadout"));
+        this.pilot.setLicenseLevel((int) pilotProperties.get(
             "licenseLevel"));
-        this.pilot.setLicenseList((License[]) newPilotProperties.get(
+        this.pilot.setLicenseList((License[]) pilotProperties.get(
             "licenseList"));
-        this.pilot.setSpecialEquipment((String[]) newPilotProperties.get(
+        this.pilot.setSpecialEquipment((String[]) pilotProperties.get(
             "specialEquipment"));
-        this.pilot.setMechSkills((int[]) newPilotProperties.get(
-            "mechSkills"));
-        this.pilot.setCoreBonuses((String[]) newPilotProperties.get(
+        this.pilot.setMechSkills((int[]) pilotProperties.get("mechSkills"));
+        this.pilot.setCoreBonuses((String[]) pilotProperties.get(
             "coreBonuses"));
-        this.pilot.setTalents((Talent[]) newPilotProperties.get("talents"));
+        this.pilot.setTalents((Talent[]) pilotProperties.get("talents"));
     }
     /*
      * Mech - set: [Bracketing requires special monitoring]
@@ -329,7 +326,7 @@ public final class LancerCharacter {
      * - Mounts
      * - Systems
      */
-    public void setMechProperties(HashMap<String, Object> newMechProperties) {
+    public void setMechProperties(HashMap<String, Object> mechProperties) {
         String[] propertyNames = new String[] {
             "name", "frame", "manufacturer", "frameName", "role",
             "frameDescription", "operatorNotes", "size", "currentStructure",
@@ -340,17 +337,18 @@ public final class LancerCharacter {
             "systemPoints", "limitedSystemsBonus", "traits", "mounts", "systems"
         };
         boolean isAllowed = false;
+        Mount[] mounts;
 
-        if (newMechProperties == null) {
-            throw new IllegalArgumentException("newMechProperties is null");
+        if (mechProperties == null) {
+            throw new IllegalArgumentException("mechProperties is null");
         }
         for (String propertyName : propertyNames) {
-            if (! newMechProperties.containsKey(propertyName)) {
-                throw new IllegalArgumentException("newMechProperties did not"
+            if (! mechProperties.containsKey(propertyName)) {
+                throw new IllegalArgumentException("mechProperties did not"
                     + " contain property: \"" + propertyName + "\"");
             }
         }
-        for (String propertyName : newMechProperties.keySet()) {
+        for (String propertyName : mechProperties.keySet()) {
             isAllowed = false;
             for (int i = 0; i < propertyNames.length; i++) {
                 if (propertyName.equals(propertyNames[i])) {
@@ -358,30 +356,28 @@ public final class LancerCharacter {
                 }
             }
             if (! isAllowed) {
-                throw new IllegalArgumentException("newMechProperties contained"
-                    + " an illegal property: \"" + propertyName + "\"");
+                throw new IllegalArgumentException("mechProperties contained an"
+                    + " illegal property: \"" + propertyName + "\"");
             }
         }
-        this.mech.setName((String) newMechProperties.get("name"));
-        this.mech.setFrame((Frame) newMechProperties.get("frame"));
-        this.mech.setOperatorNotes((String) newMechProperties.get(
+        this.mech.setName((String) mechProperties.get("name"));
+        this.mech.setFrame((Frame) mechProperties.get("frame"));
+        this.mech.setOperatorNotes((String) mechProperties.get(
             "operatorNotes"));
-        this.mech.setCurrentStructure((int) newMechProperties.get(
+        this.mech.setCurrentStructure((int) mechProperties.get(
             "currentStructure"));
-        this.mech.setCurrentHP((int) newMechProperties.get("currentHP"));
-        this.mech.setCurrentStress((int) newMechProperties.get(
+        this.mech.setCurrentHP((int) mechProperties.get("currentHP"));
+        this.mech.setCurrentStress((int) mechProperties.get(
             "currentStress"));
-        this.mech.setCurrentHeatCapacity((int) newMechProperties.get(
+        this.mech.setCurrentHeatCapacity((int) mechProperties.get(
             "currentHeatCapacity"));
-        this.mech.setCurrentRepairCapacity((int) newMechProperties.get(
+        this.mech.setCurrentRepairCapacity((int) mechProperties.get(
             "currentRepairCapacity"));
-        for (int i = 0; i < ((Mount[]) newMechProperties.get(
-            "mounts")).length; i++) {
-            this.mech.setMount(i, ((Mount[]) newMechProperties.get(
-                "mounts"))[i]);
+        mounts = (Mount[]) mechProperties.get("mounts");
+        for (int i = 0; i < mounts.length; i++) {
+            this.mech.setMount(i, mounts[i]);
         }
-        this.mech.setSystems((MechSystem[]) newMechProperties.get(
-            "systems"));
+        this.mech.setSystems((MechSystem[]) mechProperties.get("systems"));
     }
     /**
      * Performs the "Generate Statblock" function from COMP/CON, printing out
