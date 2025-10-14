@@ -78,6 +78,13 @@ public final class Pilot {
     // ---Narrative Profile---------
     // stats
     /**
+     * The pilot's size.
+     * Size is stored as 2 * its value (i.e. Size 1/2 would be stored as int 1).
+     * Must be one of the following values:
+     *     1, 2, 4, 6, 8.
+     */
+    private int size;
+    /**
      * The pilot's grit value.
      * Must be between 0 and 6 (inclusive).
      */
@@ -190,6 +197,7 @@ public final class Pilot {
         // setGrit() is unnecessary because licenseLevel is set later
         // setMaxHP() swapped with setCurrentHP() because the mutators may throw
         //     exceptions otherwise
+        setSize(1);
         setMaxHP(8);
         setCurrentHP(8);
         setArmor(0);
@@ -213,8 +221,8 @@ public final class Pilot {
      */
     public Pilot(String pilotName, String pilotCallsign, String player,
         String status, String background, String biography, String appearance,
-        String playerNotes, int currentHP, int maxHP, int armor, int evasion,
-        int speed, int eDefense, SkillTriggersList skillTriggers,
+        String playerNotes, int size, int currentHP, int maxHP, int armor,
+        int evasion, int speed, int eDefense, SkillTriggersList skillTriggers,
         String[] reserves, Loadout loadout, int licenseLevel,
         License[] licenseList, String[] specialEquipment, int[] mechSkills,
         String[] coreBonuses, Talent[] talents) {
@@ -232,6 +240,7 @@ public final class Pilot {
         // setGrit() is unnecessary because licenseLevel is set later
         // setMaxHP() swapped with setCurrentHP() because the mutators may throw
         //     exceptions otherwise
+        setSize(size);
         setMaxHP(maxHP);
         setCurrentHP(currentHP);
         setArmor(armor);
@@ -277,6 +286,9 @@ public final class Pilot {
         return appearance;
     }
     // ---Narrative Profile---------
+    public int getSize() {
+        return size;
+    }
     public int getGrit() {
         return grit;
     }
@@ -414,6 +426,19 @@ public final class Pilot {
         this.playerNotes = playerNotes;
     }
     // ---Narrative Profile---------
+    /**
+     * Sets this.size to the value provided.
+     * @param size an int which must be 1, 2, 4, 6, or 8.
+     * @throws IllegalArgumentException if size is anything other than 1, 2, 4,
+     *     6, or 8.
+     */
+    private void setSize(int size) {
+        if (size != 1 && size != 2 && size != 4 && size != 6 && size != 8) {
+            throw new IllegalArgumentException("New pilot size: " + size + " is"
+                + " not one of the following valid values: 1, 2, 4, 6, 8");
+        }
+        this.size = size;
+    }
     /**
      * Sets this.grit to the provided value.
      * @param grit an int which cannot be < 0 or > 6.
@@ -698,7 +723,7 @@ public final class Pilot {
         // don't need to make copies of these because the mutators already do so
         Pilot copy = new Pilot(this.name, this.callsign, this.player,
             this.status, this.background, this.biography, this.appearance,
-            this.playerNotes, this.currentHP, this.maxHP, this.armor,
+            this.playerNotes, this.size, this.currentHP, this.maxHP, this.armor,
             this.evasion, this.speed, this.eDefense, this.skillTriggers,
             this.reserves, this.loadout, this.licenseLevel, this.licenseList,
             this.specialEquipment, this.mechSkills, this.coreBonuses,
