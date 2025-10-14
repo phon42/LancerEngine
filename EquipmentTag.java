@@ -56,8 +56,20 @@ public final class EquipmentTag {
      * @return an EquipmentTag copy of the provided EquipmentTag.
      */
     public EquipmentTag(EquipmentTag equipmentTag) {
+        boolean isValid = false;
+
         setName(equipmentTag.name);
-        setValue(equipmentTag.value);
+        for (String valueName : EquipmentTag.valueNames) {
+            if (equipmentTag.name.equals(valueName)) {
+                isValid = true;
+                break;
+            }
+        }
+        if (isValid) {
+            setValue(equipmentTag.value);
+        } else {
+            this.value = 0;
+        }
     }
     /**
      * Creates a new EquipmentTag for an EquipmentTag like the "Limited X" tag,
