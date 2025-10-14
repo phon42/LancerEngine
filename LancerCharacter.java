@@ -268,41 +268,46 @@ public final class LancerCharacter {
      * - Mounts
      * - Systems
      */
-    public void setMechProperties(Object[] newMechProperties) {
-        int length = newMechProperties.length;
+    public void setMechProperties(HashMap<String, Object> newMechProperties) {
+        String[] propertyNames = new String[] {
+            "name", "frame", "manufacturer", "frameName", "role",
+            "frameDescription", "operatorNotes", "size", "currentStructure",
+            "maxStructure", "currentHP", "maxHP", "armor", "currentStress",
+            "maxStress", "currentHeatCapacity", "maxHeatCapacity", "evasion",
+            "speed", "eDefense", "techAttack", "sensors",
+            "currentRepairCapacity", "maxRepairCapacity", "saveTarget",
+            "systemPoints", "limitedSystemsBonus", "traits", "mounts", "systems"
+        };
 
-        if (length > 0) {
-            this.mech.setName((String) newMechProperties[0]);
+        if (newMechProperties == null) {
+            throw new IllegalArgumentException("newMechProperties is null");
         }
-        if (length > 1) {
-            this.mech.setFrame((Frame) newMechProperties[1]);
-        }
-        if (length > 2) {
-            this.mech.setOperatorNotes((String) newMechProperties[2]);
-        }
-        if (length > 3) {
-            this.mech.setCurrentStructure((int) newMechProperties[3]);
-        }
-        if (length > 4) {
-            this.mech.setCurrentHP((int) newMechProperties[4]);
-        }
-        if (length > 5) {
-            this.mech.setCurrentStress((int) newMechProperties[5]);
-        }
-        if (length > 6) {
-            this.mech.setCurrentHeatCapacity((int) newMechProperties[6]);
-        }
-        if (length > 7) {
-            this.mech.setCurrentRepairCapacity((int) newMechProperties[7]);
-        }
-        if (length > 8) {
-            for (int i = 0; i < ((Mount[]) newMechProperties[8]).length; i++) {
-                this.mech.setMount(i, ((Mount[]) newMechProperties[8])[i]);
+        for (String propertyName : propertyNames) {
+            if (! newMechProperties.containsKey(propertyName)) {
+                throw new IllegalArgumentException("newMechProperties did not"
+                    + " contain property: \"" + propertyName + "\"");
             }
         }
-        if (length > 9) {
-            this.mech.setSystems((MechSystem[]) newMechProperties[9]);
+        this.mech.setName((String) newMechProperties.get("name"));
+        this.mech.setFrame((Frame) newMechProperties.get("frame"));
+        this.mech.setOperatorNotes((String) newMechProperties.get(
+            "operatorNotes"));
+        this.mech.setCurrentStructure((int) newMechProperties.get(
+            "currentStructure"));
+        this.mech.setCurrentHP((int) newMechProperties.get("currentHP"));
+        this.mech.setCurrentStress((int) newMechProperties.get(
+            "currentStress"));
+        this.mech.setCurrentHeatCapacity((int) newMechProperties.get(
+            "currentHeatCapacity"));
+        this.mech.setCurrentRepairCapacity((int) newMechProperties.get(
+            "currentRepairCapacity"));
+        for (int i = 0; i < ((Mount[]) newMechProperties.get(
+            "mounts")).length; i++) {
+            this.mech.setMount(i, ((Mount[]) newMechProperties.get(
+                "mounts"))[i]);
         }
+        this.mech.setSystems((MechSystem[]) newMechProperties.get(
+            "systems"));
     }
     /**
      * Performs the "Generate Statblock" function from COMP/CON, printing out
