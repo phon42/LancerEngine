@@ -155,7 +155,6 @@ public final class Main {
         LancerCharacter myCharacter = new LancerCharacter(
             "Coral Nolan", "Apocalypse",
             new Mech("Wraith", FrameEnum.SWALLOWTAIL_RANGER));
-        Mech myMech = myCharacter.getMech();
         HashMap<String, Object> mechProperties;
         HashMap<String, Object> pilotProperties;
 

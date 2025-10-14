@@ -18,9 +18,10 @@ public final class Roll {
      * Rolls a d(maxRoll). In other words, generates a single random int between
      *     1 and maxRoll (inclusive). Prints a warning if anything other than a
      *     d2, d3, d6, or d20 is requested.
-     * @param maxRoll an int containing the maximum possible value for the roll,
-     *     which must be a minimum of 2.
+     * @param maxRoll an int containing the maximum possible value for the roll.
+     *     Must be a minimum of 2.
      * @return an int containing the random result.
+     * @throws IllegalArgumentException if maxRoll is < 2.
      */
     public static int roll(int maxRoll) {
         double randomNum;
