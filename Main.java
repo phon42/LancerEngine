@@ -151,28 +151,13 @@ public final class Main {
     // if you don't know what this is from looking at the method name
     // you should not be reading this code right now
     public static void main(String[] args) {
-        // it's a surprise tool that will help us later
-        String intendedString = "-- SSC Swallowtail (Ranger Variant) @ LL9 --\n"
-            + "[ LICENSES ]\n  SSC Swallowtail 3, SSC Death's Head 3, HORUS"
-            + " Kobold 3, HORUS Lich 1\n[ CORE BONUSES ]\n  Neurolink"
-            + " Targeting, Overpower Caliber\n[ TALENTS ]\n  Tactician 3, Siege"
-            + " Specialist 3, Spotter 2, Walking Armory 2, Leader 2\n"
-            + "[ STATS ]\n  HULL:4 AGI:0 SYS:5 ENGI:2\n  STRUCTURE:4 HP:18"
-            + " ARMOR:0\n  STRESS:4 HEATCAP:8 REPAIR:7\n  TECH ATK:+5"
-            + " LIMITED:+1\n  SPD:4 EVA:8 EDEF:13 SENSE:10 SAVE:10\n";
-        String intendedString2 = "[ SYSTEMS ]\n  Pattern-A Smoke Charges x4,"
-            + " Seismic Ripper, High-Stress Mag Clamps, ATHENA-Class NHP,"
-            + " Markerlight, IMMOLATE, Wandering Nightmare";
-        
-        // Constructing objects
         LancerCharacter myCharacter = new LancerCharacter(
             "Coral Nolan", "Apocalypse",
             new Mech("Wraith", FrameEnum.SWALLOWTAIL_RANGER));
         Pilot myPilot = myCharacter.getPilot();
         Mech myMech = myCharacter.getMech();
         Loadout myLoadout;
-
-        // Setting up the Pilot object - not important and fully functional
+        
         myPilot.setPlayer("Luna");
         myPilot.setBackground("e");
         myPilot.setBiography("e");
@@ -214,16 +199,11 @@ public final class Main {
             "Personal Drone"});
         myPilot.setLoadout(myLoadout);
 
-        // Down here is the important stuff
-        // This is what's currently present in this Mech object
         System.out.println("On construction:");
         System.out.println(myCharacter.generateStatblock(
             "mech build"));
         System.out.println();
         
-        // Now we attempt to change something about it
-        // These methods change the weapon mounted on one specific part of the
-        //     mech
         myMech.setMount(0, new Mount("aux",
             new Weapon("Slag Cannon", 1, 1)));
         myMech.setMount(1, new Mount("aux",
@@ -242,43 +222,11 @@ public final class Main {
             new MechSystem("Wandering Nightmare")
         });
 
-        // Now all the data we've been inputting gets hooked up to the
-        //     LancerCharacter object
         myCharacter.setPilot(myPilot);
         myCharacter.setMech(myMech);
 
-        // Notice that some things HAVE changed because in calling setMech() the
-        //     Mech's stats are calculated, but the [ Weapons ] section remains
-        //     relatively barren
         System.out.println("After setup:");
         System.out.println(myCharacter.generateStatblock(
             "mech build"));
-        System.out.println();
-        
-        // Even if we attempt to change the weapon mounted at this slot AFTER
-        //     things have been calculated, it does nothing because the stats
-        //     just get calculated again:
-        myMech = myCharacter.getMech();
-        myMech.setMount(0, new Mount("aux",
-            new Weapon("Slag Cannon", 1, 1)));
-        myMech.setMount(1, new Mount("aux",
-            new Weapon("Vulture DMR", 1, 5),
-            "", "Overpower Caliber"));
-        myCharacter.setMech(myMech);
-        System.out.println("Desperate final attempt to change that which is"
-            + " forever enduring:");
-        System.out.println(myCharacter.generateStatblock(
-            "mech build"));
-        System.out.println();
-        
-        // If this were working properly, we would see something like this:
-        System.out.println("DESIRED:");
-        System.out.print(intendedString);
-        // this is the important part!
-        System.out.println("< THIS IS THE IMPORTANT PART >");
-        System.out.print("[ WEAPONS ]\n");
-        System.out.print("  FLEX MOUNT: Slag Cannon\n");
-        System.out.print("  MAIN MOUNT: Vulture DMR // Overpower Caliber\n");
-        System.out.println(intendedString2);
     }
 }
