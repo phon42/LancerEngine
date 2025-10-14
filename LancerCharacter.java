@@ -90,8 +90,8 @@ public final class LancerCharacter {
      *     - Status
      *     - Background
      *     - Biography
-     *     - Player notes
      *     - Appearance
+     *     - Player notes
      * - Stats
      *     - Grit
      *     - Current HP
@@ -120,8 +120,8 @@ public final class LancerCharacter {
         pilotProperties.put("status", this.pilot.getStatus());
         pilotProperties.put("background", this.pilot.getBackground());
         pilotProperties.put("biography", this.pilot.getBiography());
-        pilotProperties.put("playerNotes", this.pilot.getPlayerNotes());
         pilotProperties.put("appearance", this.pilot.getAppearance());
+        pilotProperties.put("playerNotes", this.pilot.getPlayerNotes());
 
         pilotProperties.put("size", this.pilot.getSize());
         pilotProperties.put("grit", this.pilot.getGrit());
@@ -239,8 +239,8 @@ public final class LancerCharacter {
      *     - Status
      *     - Background
      *     - Biography
-     *     - Player notes
      *     - Appearance
+     *     - Player notes
      * - Stats
      *     - [Current HP]
      * - [Skill triggers]
@@ -253,6 +253,66 @@ public final class LancerCharacter {
      * - [Core bonuses]
      * - [Talents]
      */
+    public void setPilotProperties(HashMap<String, Object> newPilotProperties) {
+        String[] propertyNames = new String[] {"name", "callsign", "player",
+            "status", "background", "biography", "appearance", "playerNotes",
+            "size", "grit", "currentHP", "maxHP", "armor", "evasion", "speed",
+            "eDefense", "skillTriggers", "reserves", "loadout", "licenseLevel",
+            "licenseList", "specialEquipment", "mechSkills", "coreBonuses",
+            "talents"};
+        boolean isAllowed = false;
+
+        if (newPilotProperties == null) {
+            throw new IllegalArgumentException("newPilotProperties is null");
+        }
+        for (String propertyName : propertyNames) {
+            if (! newPilotProperties.containsKey(propertyName)) {
+                throw new IllegalArgumentException("newPilotProperties did not"
+                    + " contain property: \"" + propertyName + "\"");
+            }
+        }
+        for (String propertyName : newPilotProperties.keySet()) {
+            isAllowed = false;
+            for (int i = 0; i < propertyNames.length; i++) {
+                if (propertyName.equals(propertyNames[i])) {
+                    isAllowed = true;
+                }
+            }
+            if (! isAllowed) {
+                throw new IllegalArgumentException("newPilotProperties contained"
+                    + " an illegal property: \"" + propertyName + "\"");
+            }
+        }
+        this.pilot.setName((String) newPilotProperties.get("name"));
+        this.pilot.setCallsign((String) newPilotProperties.get("callsign"));
+        this.pilot.setPlayer((String) newPilotProperties.get("player"));
+        this.pilot.setStatus((String) newPilotProperties.get("status"));
+        this.pilot.setBackground((String) newPilotProperties.get(
+            "background"));
+        this.pilot.setBiography((String) newPilotProperties.get(
+            "biography"));
+        this.pilot.setAppearance((String) newPilotProperties.get(
+            "appearance"));
+        this.pilot.setPlayerNotes((String) newPilotProperties.get(
+            "playerNotes"));
+        this.pilot.setCurrentHP((int) newPilotProperties.get("currentHP"));
+        this.pilot.setSkillTriggers((SkillTriggersList) newPilotProperties.get(
+            "skillTriggers"));
+        this.pilot.setReserves((String[]) newPilotProperties.get(
+            "reserves"));
+        this.pilot.setLoadout((Loadout) newPilotProperties.get("loadout"));
+        this.pilot.setLicenseLevel((int) newPilotProperties.get(
+            "licenseLevel"));
+        this.pilot.setLicenseList((License[]) newPilotProperties.get(
+            "licenseList"));
+        this.pilot.setSpecialEquipment((String[]) newPilotProperties.get(
+            "specialEquipment"));
+        this.pilot.setMechSkills((int[]) newPilotProperties.get(
+            "mechSkills"));
+        this.pilot.setCoreBonuses((String[]) newPilotProperties.get(
+            "coreBonuses"));
+        this.pilot.setTalents((Talent[]) newPilotProperties.get("talents"));
+    }
     /*
      * Mech - set: [Bracketing requires special monitoring]
      * - Identification fields
@@ -279,6 +339,7 @@ public final class LancerCharacter {
             "currentRepairCapacity", "maxRepairCapacity", "saveTarget",
             "systemPoints", "limitedSystemsBonus", "traits", "mounts", "systems"
         };
+        boolean isAllowed = false;
 
         if (newMechProperties == null) {
             throw new IllegalArgumentException("newMechProperties is null");
@@ -287,6 +348,18 @@ public final class LancerCharacter {
             if (! newMechProperties.containsKey(propertyName)) {
                 throw new IllegalArgumentException("newMechProperties did not"
                     + " contain property: \"" + propertyName + "\"");
+            }
+        }
+        for (String propertyName : newMechProperties.keySet()) {
+            isAllowed = false;
+            for (int i = 0; i < propertyNames.length; i++) {
+                if (propertyName.equals(propertyNames[i])) {
+                    isAllowed = true;
+                }
+            }
+            if (! isAllowed) {
+                throw new IllegalArgumentException("newMechProperties contained"
+                    + " an illegal property: \"" + propertyName + "\"");
             }
         }
         this.mech.setName((String) newMechProperties.get("name"));
