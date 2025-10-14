@@ -90,6 +90,17 @@ public final class Weapon extends Equipment {
         setType(weaponType);
         setTags(weaponTags);
     }
+    /**
+     * Creates a deep copy of the provided Weapon.
+     * @param weapon a Weapon to be copied.
+     * @return a Weapon deep copy of the provided Weapon.
+     */
+    public Weapon(Weapon weapon) {
+        // don't need to make copies of this.tags because the mutator
+        //     (Equipment.setTags()) called by Weapon(String, int,
+        //     EquipmentTag[]) already does so
+        this(weapon.name, weapon.size, weapon.type, weapon.tags);
+    }
 
     public int getSize() {
         return size;
@@ -154,19 +165,5 @@ public final class Weapon extends Equipment {
         }
         tags = HelperMethods.copyOf(tags);
         this.tags = tags;
-    }
-
-    /**
-     * Returns a deep copy of this Weapon object.
-     * @return a Weapon deep copy of this object.
-     */
-    @Override
-    public Weapon copyOf() {
-        // don't need to make copies of this.tags because the mutator
-        //     (Equipment.setTags()) called by Weapon(String, int,
-        //     EquipmentTag[]) already does so
-        Weapon copy = new Weapon(this.name, this.size, this.type, this.tags);
-
-        return copy;
     }
 }

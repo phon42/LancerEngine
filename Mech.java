@@ -263,12 +263,55 @@ public final class Mech {
         setCurrentRepairCapacity(currentRepairCapacity);
         setSystems(systems);
     }
+    /**
+     * Creates a deepest copy of the provided Mech.
+     * @param mech a Mech to be copied.
+     * @return a Mech deepest copy of the provided Mech.
+     */
+    public Mech(Mech mech) {
+        // don't need to make copies of these for the ones using the mutator
+        //     methods (i.e. mounts) because the mutators already do so
+        // for the ones that DON'T use a mutator method (i.e. "copy.name =
+        //     name"), make sure to use the proper accessor method instead
+        //     of "property" if the property's type is mutable
+        // max always comes before current
+        this.setName(mech.name);
+        this.setFrame(mech.frame);
+        this.setManufacturer(mech.manufacturer);
+        this.setFrameName(mech.frameName);
+        this.setRole(mech.role);
+        this.setFrameDescription(mech.frameDescription);
+        this.setOperatorNotes(mech.operatorNotes);
+        this.setSize(mech.size);
+        this.setMaxStructure(mech.maxStructure);
+        this.setCurrentStructure(mech.currentStructure);
+        this.setCurrentHP(mech.currentHP);
+        this.setMaxHP(mech.maxHP);
+        this.setArmor(mech.armor);
+        this.setMaxStress(mech.maxStress);
+        this.setCurrentStress(mech.currentStress);
+        this.setMaxHeatCapacity(mech.maxHeatCapacity);
+        this.setCurrentHeatCapacity(mech.currentHeatCapacity);
+        this.setEvasion(mech.evasion);
+        this.setSpeed(mech.speed);
+        this.setEDefense(mech.eDefense);
+        this.setTechAttack(mech.techAttack);
+        this.setSensors(mech.sensors);
+        this.setMaxRepairCapacity(mech.maxRepairCapacity);
+        this.setCurrentRepairCapacity(mech.currentRepairCapacity);
+        this.setSaveTarget(mech.saveTarget);
+        this.setSystemPoints(mech.systemPoints);
+        this.setLimitedSystemsBonus(mech.limitedSystemsBonus);
+        this.setTraits(mech.traits);
+        this.setMounts(mech.mounts);
+        this.setSystems(mech.systems);
+    }
 
     public String getName() {
         return name;
     }
     public Frame getFrame() {
-        return frame.copyOf();
+        return new Frame(frame);
     }
     public String getManufacturer() {
         return manufacturer;
@@ -372,7 +415,7 @@ public final class Mech {
         if (frame == null) {
             throw new IllegalArgumentException("New frame is null");
         }
-        frame = frame.copyOf();
+        frame = new Frame(frame);
         this.frame = frame;
         calculateAttributes();
     }
@@ -770,7 +813,7 @@ public final class Mech {
             String mountType = this.mounts[mountIndex].getMountType();
             mount = new Mount(mountType, mount.getWeapon());
         }
-        mount = mount.copyOf();
+        mount = new Mount(mount);
         this.mounts[mountIndex] = mount;
     }
     /**
@@ -795,52 +838,6 @@ public final class Mech {
         this.systems = systems;
     }
 
-    /**
-     * Returns a deepest copy of this Mech object.
-     * @return a Mech deepest copy of this object.
-     */
-    public Mech copyOf() {
-        // don't need to make copies of these for the ones using the mutator
-        //     methods (i.e. mounts) because the mutators already do so
-        // for the ones that DON'T use a mutator method (i.e. "copy.name =
-        //     name"), make sure to use the proper accessor method instead
-        //     of "property" if the property's type is mutable
-        // max always comes before current
-        Mech copy = new Mech();
-        
-        copy.name = name;
-        copy.frame = getFrame();
-        copy.manufacturer = manufacturer;
-        copy.frameName = frameName;
-        copy.role = getRole();
-        copy.setFrameDescription(frameDescription);
-        copy.setOperatorNotes(operatorNotes);
-        copy.size = size;
-        copy.setMaxStructure(maxStructure);
-        copy.setCurrentStructure(currentStructure);
-        copy.currentHP = currentHP;
-        copy.maxHP = maxHP;
-        copy.armor = armor;
-        copy.setMaxStress(maxStress);
-        copy.setCurrentStress(currentStress);
-        copy.maxHeatCapacity = maxHeatCapacity;
-        copy.currentHeatCapacity = currentHeatCapacity;
-        copy.evasion = evasion;
-        copy.speed = speed;
-        copy.eDefense = eDefense;
-        copy.setTechAttack(techAttack);
-        copy.sensors = sensors;
-        copy.maxRepairCapacity = maxRepairCapacity;
-        copy.currentRepairCapacity = currentRepairCapacity;
-        copy.saveTarget = saveTarget;
-        copy.systemPoints = systemPoints;
-        copy.limitedSystemsBonus = limitedSystemsBonus;
-        copy.setTraits(traits);
-        copy.setMounts(mounts);
-        copy.setSystems(systems);
-
-        return copy;
-    }
     /**
      * A helper method which outputs the mech's size, formatted properly so that
      *     it is human-readable. Used in Mech.outputStats("full", int, int[]).

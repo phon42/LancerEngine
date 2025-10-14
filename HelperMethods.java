@@ -174,7 +174,7 @@ public final class HelperMethods {
                 copy[i] = original[i];
                 continue;
             }
-            copy[i] = original[i].copyOf();
+            copy[i] = new License(original[i]);
         }
 
         return copy;
@@ -197,7 +197,7 @@ public final class HelperMethods {
                 copy[i] = original[i];
                 continue;
             }
-            copy[i] = original[i].copyOf();
+            copy[i] = new MechSystem(original[i]);
         }
 
         return copy;
@@ -220,7 +220,7 @@ public final class HelperMethods {
                 copy[i] = original[i];
                 continue;
             }
-            copy[i] = original[i].copyOf();
+            copy[i] = new Mount(original[i]);
         }
 
         return copy;
@@ -243,7 +243,7 @@ public final class HelperMethods {
                 copy[i] = original[i];
                 continue;
             }
-            copy[i] = original[i].copyOf();
+            copy[i] = new SkillTrigger(original[i]);
         }
 
         return copy;
@@ -266,7 +266,7 @@ public final class HelperMethods {
                 copy[i] = original[i];
                 continue;
             }
-            copy[i] = original[i].copyOf();
+            copy[i] = new Talent(original[i]);
         }
 
         return copy;
@@ -289,7 +289,7 @@ public final class HelperMethods {
                 copy[i] = original[i];
                 continue;
             }
-            copy[i] = original[i].copyOf();
+            copy[i] = new EquipmentTag(original[i]);
         }
 
         return copy;

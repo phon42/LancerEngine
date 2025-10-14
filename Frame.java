@@ -221,6 +221,22 @@ public final class Frame {
         setTraits(traits);
         setMounts(mounts);
     }
+    /**
+     * Creates a deepest copy of the provided Frame.
+     * @param frame a Frame to be copied.
+     * @return a Frame deepest copy of the provided Frame.
+     */
+    public Frame(Frame frame) {
+        // make sure to use the proper accessor method instead of "property" if
+        //     the property's type is mutable
+        this(frame.manufacturer, frame.name, frame.ID, frame.frameEnum,
+            frame.getRole(), frame.frameDescription, frame.size,
+            frame.structure, frame.HP, frame.armor, frame.stress,
+            frame.heatCapacity, frame.evasion, frame.speed, frame.eDefense,
+            frame.techAttack, frame.sensors, frame.repairCapacity,
+            frame.saveTarget, frame.systemPoints, frame.getTraits(),
+            frame.getMounts());
+    }
 
     public String getManufacturer() {
         return manufacturer;
@@ -545,18 +561,6 @@ public final class Frame {
         this.mounts = mounts;
     }
 
-    /**
-     * Returns a deepest copy of this Frame object.
-     * @return a Frame deepest copy of this object.
-     */
-    public Frame copyOf() {
-        // make sure to use the proper accessor method instead of "property" if
-        //     the property's type is mutable
-        return new Frame(manufacturer, name, ID, frameEnum, getRole(),
-            frameDescription, size, structure, HP, armor, stress, heatCapacity,
-            evasion, speed, eDefense, techAttack, sensors, repairCapacity,
-            saveTarget, systemPoints, getTraits(), getMounts());
-    }
     /**
      * Returns this.name, properly formatted (i.e. "swallowtail (ranger
      *     variant)" becomes "Swallowtail (Ranger Variant)" and "death's head"

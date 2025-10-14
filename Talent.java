@@ -32,6 +32,14 @@ public final class Talent {
         setName(talentName);
         setLevel(talentLevel);
     }
+    /**
+     * Creates a copy of the provided Talent.
+     * @param talent a Talent to be copied.
+     * @return a Talent copy of the provided Talent.
+     */
+    public Talent(Talent talent) {
+        this(talent.name, talent.level);
+    }
 
     public String getName() {
         return name;
@@ -99,15 +107,6 @@ public final class Talent {
             return false;
         }
         return true;
-    }
-    /**
-     * Returns a copy of this Talent object.
-     * @return a Talent copy of this object.
-     */
-    public Talent copyOf() {
-        Talent copy = new Talent(this.name, this.level);
-
-        return copy;
     }
     /**
      * Returns this.name, properly formatted (i.e. "combined arms" becomes

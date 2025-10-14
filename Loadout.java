@@ -45,6 +45,15 @@ public final class Loadout {
         setPilotWeapons(pilotWeapons);
         setPilotGear(pilotGear);
     }
+    /**
+     * Creates a deepest copy of the provided Loadout.
+     * @param loadout a Loadout to be copied.
+     * @return a Loadout deepest copy of the provided Loadout.
+     */
+    public Loadout(Loadout loadout) {
+        // don't need to make copies of these because the mutators already do so
+        this(loadout.pilotArmor, loadout.pilotWeapons, loadout.pilotGear);
+    }
 
     public String getPilotArmor() {
         return pilotArmor;
@@ -158,17 +167,6 @@ public final class Loadout {
         }
         
         return true;
-    }
-    /**
-     * Returns a deepest copy of this Loadout object.
-     * @return a Loadout deepest copy of this object.
-     */
-    public Loadout copyOf() {
-        // don't need to make copies of these because the mutators already do so
-        Loadout copy = new Loadout(this.pilotArmor, this.pilotWeapons,
-            this.pilotGear);
-
-        return copy;
     }
     /**
      * Generates a String output of the items within this Loadout.

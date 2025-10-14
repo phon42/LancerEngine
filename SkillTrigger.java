@@ -32,6 +32,14 @@ public final class SkillTrigger {
         setName(skillTriggerName);
         setLevel(skillTriggerLevel);
     }
+    /**
+     * Creates a copy of the provided SkillTrigger.
+     * @param skillTrigger a SkillTrigger to be copied.
+     * @return a SkillTrigger copy of the provided SkillTrigger.
+     */
+    public SkillTrigger(SkillTrigger skillTrigger) {
+        this(skillTrigger.name, skillTrigger.level);
+    }
 
     public String getName() {
         return name;
@@ -96,15 +104,6 @@ public final class SkillTrigger {
         }
         
         return true;
-    }
-    /**
-     * Returns a copy of this SkillTrigger object.
-     * @return a SkillTrigger copy of this object.
-     */
-    public SkillTrigger copyOf() {
-        SkillTrigger copy = new SkillTrigger(this.name, this.level);
-
-        return copy;
     }
     /**
      * Generates a String output of this SkillTrigger.

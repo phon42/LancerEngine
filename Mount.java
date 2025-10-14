@@ -141,6 +141,16 @@ public final class Mount {
         setCoreBonus(coreBonus);
         setTalent(talent);
     }
+    /**
+     * Creates a deepest copy of the provided Mount.
+     * @param mount a Mount to be copied.
+     * @return a Mount deepest copy of the provided Mount.
+     */
+    public Mount(Mount mount) {
+        // don't need to make copies of these because the mutators already do so
+        this(mount.mountType, mount.weapon, mount.modification, mount.coreBonus,
+            mount.talent);
+    }
 
     public String getMountType() {
         return mountType;
@@ -149,7 +159,7 @@ public final class Mount {
         if (weapon == null) {
             return weapon;
         }
-        return weapon.copyOf();
+        return new Weapon(weapon);
     }
     public boolean hasModification() {
         return hasModification;
@@ -170,7 +180,7 @@ public final class Mount {
         if (talent == null) {
             return talent;
         }
-        return talent.copyOf();
+        return new Talent(talent);
     }
     /**
      * Sets this.mountType to the value provided.
@@ -200,7 +210,7 @@ public final class Mount {
     }
     public void setWeapon(Weapon weapon) {
         if (weapon != null) {
-            weapon = weapon.copyOf();
+            weapon = new Weapon(weapon);
         }
         this.weapon = weapon;
     }
@@ -259,7 +269,7 @@ public final class Mount {
             this.hasTalent = false;
         } else {
             this.hasTalent = true;
-            talent = talent.copyOf();
+            talent = new Talent(talent);
         }
         this.talent = talent;
     }
@@ -282,17 +292,6 @@ public final class Mount {
         }
         
         return true;
-    }
-    /**
-     * Returns a deepest copy of this Mount object.
-     * @return a Mount deepest copy of this object.
-     */
-    public Mount copyOf() {
-        // don't need to make copies of these because the mutators already do so
-        Mount copy = new Mount(this.mountType, this.weapon, this.modification,
-            this.coreBonus, this.talent);
-
-        return copy;
     }
     /**
      * A helper method which generates a snippet of text containing output

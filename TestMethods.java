@@ -702,7 +702,7 @@ public final class TestMethods {
         boolean test2 = false;
 
         // normal case
-        copy = original.copyOf();
+        copy = new SkillTrigger(original);
         if (original != copy) {
             test1 = true;
         }
@@ -768,7 +768,7 @@ public final class TestMethods {
         boolean test2 = false;
 
         // normal case
-        copy = original.copyOf();
+        copy = new SkillTriggersList(original);
         if (original != copy) {
             test1 = true;
         }
@@ -1100,7 +1100,7 @@ public final class TestMethods {
         original.setPilotWeapons(new String[] {"validWeapon", "validWeapon"});
         original.setPilotGear(new String[] {"validGear", "validGear",
             "validGear"});
-        copy = original.copyOf();
+        copy = new Loadout(original);
         if (original != copy) {
             test1 = true;
         }
@@ -1353,7 +1353,7 @@ public final class TestMethods {
         boolean test1 = false;
         boolean test2 = false;
 
-        copy = original.copyOf();
+        copy = new License(original);
         if (original != copy) {
             test1 = true;
         }
@@ -1680,7 +1680,7 @@ public final class TestMethods {
         boolean test1 = false;
         boolean test2 = false;
 
-        copy = original.copyOf();
+        copy = new Talent(original);
         if (original != copy) {
             test1 = true;
         }
@@ -1721,7 +1721,7 @@ public final class TestMethods {
         boolean test1 = false;
         boolean test2 = false;
 
-        copy = original.copyOf();
+        copy = new Pilot(original);
         if (original != copy) {
             test1 = true;
         }
@@ -2877,7 +2877,7 @@ public final class TestMethods {
             new MechSystem("IMMOLATE"),
             new MechSystem("Wandering Nightmare")
         });
-        copy = original.copyOf();
+        copy = new Mech(original);
         if (original != copy) {
             test1 = true;
         }

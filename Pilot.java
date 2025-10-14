@@ -259,6 +259,21 @@ public final class Pilot {
         setCoreBonuses(coreBonuses);
         setTalents(talents);
     }
+    /**
+     * Creates a deepest copy of the provided Pilot.
+     * @param pilot a Pilot to be copied.
+     * @return a Pilot deepest copy of the provided Pilot.
+     */
+    public Pilot(Pilot pilot) {
+        // don't need to make copies of these because the mutators already do so
+        this(pilot.name, pilot.callsign, pilot.player, pilot.status,
+            pilot.background, pilot.biography, pilot.appearance,
+            pilot.playerNotes, pilot.size, pilot.currentHP, pilot.maxHP,
+            pilot.armor, pilot.evasion, pilot.speed, pilot.eDefense,
+            pilot.skillTriggers, pilot.reserves, pilot.loadout,
+            pilot.licenseLevel, pilot.licenseList, pilot.specialEquipment,
+            pilot.mechSkills, pilot.coreBonuses, pilot.talents);
+    }
 
     // ---Dossier-------------------
     public String getName() {
@@ -311,13 +326,13 @@ public final class Pilot {
         return eDefense;
     }
     public SkillTriggersList getSkillTriggers() {
-        return skillTriggers.copyOf();
+        return new SkillTriggersList(skillTriggers);
     }
     public String[] getReserves() {
         return HelperMethods.copyOf(reserves);
     }
     public Loadout getLoadout() {
-        return loadout.copyOf();
+        return new Loadout(loadout);
     }
     // ---Tactical Profile---------
     public int getLicenseLevel() {
@@ -526,7 +541,7 @@ public final class Pilot {
             throw new IllegalArgumentException("New skill triggers list value"
                 + " is null");
         }
-        skillTriggers = skillTriggers.copyOf();
+        skillTriggers = new SkillTriggersList(skillTriggers);
         this.skillTriggers = skillTriggers;
     }
     /**
@@ -565,7 +580,7 @@ public final class Pilot {
         if (loadout == null) {
             throw new IllegalArgumentException("New loadout value is null");
         }
-        loadout = loadout.copyOf();
+        loadout = new Loadout(loadout);
         this.loadout = loadout;
         calculateAttributes();
     }
@@ -715,22 +730,6 @@ public final class Pilot {
         this.talents = talents;
     }
 
-    /**
-     * Returns a deepest copy of this Pilot object.
-     * @return a Pilot deepest copy of this object.
-     */
-    public Pilot copyOf() {
-        // don't need to make copies of these because the mutators already do so
-        Pilot copy = new Pilot(this.name, this.callsign, this.player,
-            this.status, this.background, this.biography, this.appearance,
-            this.playerNotes, this.size, this.currentHP, this.maxHP, this.armor,
-            this.evasion, this.speed, this.eDefense, this.skillTriggers,
-            this.reserves, this.loadout, this.licenseLevel, this.licenseList,
-            this.specialEquipment, this.mechSkills, this.coreBonuses,
-            this.talents);
-
-        return copy;
-    }
     /**
      * Returns this.status, properly formatted. "active" will become "Active",
      *     and "missing in action" will become "Missing in Action".

@@ -37,8 +37,8 @@
  *     - For primitives such as int, and the String class, the value is returned
  *           directly.
  *     - For arrays and classes, I call HelperMethods.copyOf() (for arrays),
- *           and [Class].copyOf() (for classes). In either case, a deepest copy
- *           of the property's value is created and then returned.
+ *           and [Class]([Class instance]) (for classes). In either case, a
+ *           deepest copy of the property's value is created and then returned.
  * - Second, the property is mutated as desired. For example:
  *        Mech.getFrame().setName()
  * - Finally, [Class].set[Property]() is called with the new, mutated value.

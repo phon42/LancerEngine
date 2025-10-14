@@ -38,6 +38,14 @@ public final class MechSystem extends Equipment {
         super(systemName);
         setTags(systemTags);
     }
+    /**
+     * Creates a deep copy of the provided MechSystem.
+     * @param mechSystem a MechSystem to be copied.
+     * @return a MechSystem deep copy of the provided MechSystem.
+     */
+    public MechSystem(MechSystem mechSystem) {
+        this(mechSystem.name, mechSystem.tags);
+    }
 
     /**
      * Sets this.tags to the provided value.
@@ -72,16 +80,6 @@ public final class MechSystem extends Equipment {
         this.tags = tags;
     }
 
-    /**
-     * Returns a deep copy of this MechSystem object.
-     * @return a MechSystem deep copy of this object.
-     */
-    @Override
-    public MechSystem copyOf() {
-        MechSystem copy = new MechSystem(this.name, this.tags);
-
-        return copy;
-    }
     /**
      * A helper method which generates a snippet of text containing output about
      *     a given system of this Mech object used in Mech.outputSystems(). Only

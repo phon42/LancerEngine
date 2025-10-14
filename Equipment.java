@@ -122,20 +122,4 @@ public class Equipment {
             //     already done in EquipmentTag's constructors
         }
     }
-
-    /**
-     * Returns a deep copy of this Equipment object. Is overridden in all of
-     *     Equipment's children.
-     * @return an Equipment deep copy of this object.
-     */
-    public Equipment copyOf() {
-        // don't need to make copies of this.tags because the mutator
-        //     (Equipment.setTags()) called by Equipment(String, EquipmentTag[])
-        //     already does so
-        Equipment copy = new Equipment(this.name);
-
-        copy.setTags(this.tags);
-
-        return copy;
-    }
 }

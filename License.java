@@ -34,6 +34,14 @@ public final class License {
         setName(frameName);
         setLevel(licenseLevel);
     }
+    /**
+     * Creates a deep copy of the provided License.
+     * @param license a License to be copied.
+     * @return a License deep copy of the provided License.
+     */
+    public License(License license) {
+        this(license.name, license.level);
+    }
 
     public String getName() {
         return name;
@@ -103,15 +111,6 @@ public final class License {
         }
         
         return true;
-    }
-    /**
-     * Returns a deep copy of this License object.
-     * @return a License deep copy of this object.
-     */
-    public License copyOf() {
-        License copy = new License(this.name, this.level);
-
-        return copy;
     }
     /**
      * A helper method for License.outputLicense(). Returns this.name, properly

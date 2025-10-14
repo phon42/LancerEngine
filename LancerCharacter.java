@@ -43,13 +43,13 @@ public final class LancerCharacter {
     }
     
     public Pilot getPilot() {
-        return pilot.copyOf();
+        return new Pilot(pilot);
     }
     public Mech getMech() {
         if (mech == null) {
             return mech;
         }
-        return mech.copyOf();
+        return new Mech(mech);
     }
     /**
      * Sets this.pilot to the value provided.
@@ -60,7 +60,7 @@ public final class LancerCharacter {
         if (pilot == null) {
             throw new IllegalArgumentException("New pilot value is null");
         }
-        pilot = pilot.copyOf();
+        pilot = new Pilot(pilot);
         this.pilot = pilot;
     }
     /**
@@ -72,7 +72,7 @@ public final class LancerCharacter {
         if (mech != null) {
             mech.calculateAttributes(this.pilot.getMechSkills(),
                 this.pilot.getCoreBonuses(), this.pilot.getTalents());
-            mech = mech.copyOf();
+            mech = new Mech(mech);
         }
         this.mech = mech;
     }
