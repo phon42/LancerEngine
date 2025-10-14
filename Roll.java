@@ -38,6 +38,35 @@ public final class Roll {
         return result;
     }
     /**
+     * Rolls (rollNum)d(maxRoll)s.
+     * @param rollNum an int containing the number of dice to roll. Must be a
+     *     minimum of 1.
+     * @param maxRoll an int containing the maximum roll on each die. Must be a
+     *     minimum of 2.
+     * @return an int containing the total result.
+     */
+    public static int roll(int rollNum, int maxRoll) {
+        return rollComplex(rollNum, maxRoll)[0];
+    }
+    /**
+     * Rolls (rollNum)d(maxRoll)s, keeping the highest (or lowest, based on
+     *     keep) (keepNum) rolls.
+     * @param rollNum an int containing the number of dice to roll. Must be a
+     *     minimum of 1.
+     * @param maxRoll an int containing the maximum roll on each die. Must be a
+     *     minimum of 2.
+     * @param keep an int representing whether to keep only a specified number
+     *     of the total dice rolled; must be -1, 0, or 1. -1 means
+     *     "keep lowest", 0 means "keep all", and +1 means "keep highest".
+     * @param keepNum an int containing the number of dice to keep out of the
+     *     number of dice rolled. If keep is set to anything but 0, must be a
+     *     minimum of 1.
+     * @return an int containing the total result.
+     */
+    public static int roll(int rollNum, int maxRoll, int keep, int keepNum) {
+        return rollComplex(rollNum, maxRoll, keep, keepNum)[0];
+    }
+    /**
      * Rolls (rollNum)d(maxRoll)s, keeping the highest (or lowest, based on
      *     keep) (keepNum) rolls.
      * @param rollNum an int containing the number of dice to roll. Must be a
