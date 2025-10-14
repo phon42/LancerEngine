@@ -1,3 +1,4 @@
+import java.util.HashMap;
 /**
  * This program is intended to simulate one (or more) characters within the
  *     tabletop roleplaying game Lancer.
@@ -154,66 +155,28 @@ public final class Main {
         LancerCharacter myCharacter = new LancerCharacter(
             "Coral Nolan", "Apocalypse",
             new Mech("Wraith", FrameEnum.SWALLOWTAIL_RANGER));
-        Pilot myPilot = myCharacter.getPilot();
         Mech myMech = myCharacter.getMech();
-        Loadout myLoadout;
-        
-        myPilot.setPlayer("Luna");
-        myPilot.setBackground("e");
-        myPilot.setBiography("e");
-        myPilot.setAppearance("e");
-        myPilot.setPlayerNotes("e");
-        SkillTriggersList newSkillTriggers = new SkillTriggersList();
-        newSkillTriggers.setSkillTriggers(new SkillTrigger[] {
-            new SkillTrigger("Apply Fists to Faces",
-                2),
-            new SkillTrigger("Assault", 2),
-            new SkillTrigger("Blow Something Up",
-                2),
-            new SkillTrigger("Survive", 2)
-        });
-        myPilot.setSkillTriggers(newSkillTriggers);
-        myPilot.setLoadout(new Loadout());
-        myPilot.setLicenseLevel(9);
-        myPilot.setLicenseList(new License[] {
-            new License("SSC Swallowtail", 3),
-            new License("SSC Death's Head", 3),
-            new License("HORUS Kobold", 3),
-            new License("HORUS Lich", 1)
-        });
-        myPilot.setMechSkills(new int[] {4, 0, 5, 2});
-        myPilot.setCoreBonuses(new String[] {
-            "Neurolink Targeting",
-            "Overpower Caliber"
-        });
-        myPilot.setTalents(new Talent[] {
-            new Talent("Tactician", 3),
-            new Talent("Siege Specialist", 3),
-            new Talent("Spotter", 2),
-            new Talent("Walking Armory", 2),
-            new Talent("Leader", 2)
-        });
-        myLoadout = new Loadout("Mobility Hardsuit",
-            new String[] {"Heavy Signature", "Archaic Melee"},
-            new String[] {"Wilderness Survival Kit", "Flexsuit",
-            "Personal Drone"});
-        myPilot.setLoadout(myLoadout);
+        HashMap<String, Object> mechProperties;
+        HashMap<String, Object> pilotProperties;
 
-        System.out.println("On construction:");
-        System.out.println(myCharacter.generateStatblock(
-            "mech build"));
-        System.out.println();
-        
-        myMech.setMount(0, new Mount("aux",
-            new Weapon("Slag Cannon", 1, 1)));
-        myMech.setMount(1, new Mount("aux",
-            new Weapon("Vulture DMR", 1, 5),
-            "", "Overpower Caliber"));
-        myMech.setSystems(new MechSystem[] {
+        mechProperties = myCharacter.getMechProperties();
+        mechProperties.put("mounts", new Mount[] {
+            new Mount("aux",
+                new Weapon("Slag Cannon", 1,
+                    1)
+            ),
+            new Mount("aux",
+                new Weapon("Vulture DMR", 1,
+                    5),
+                "", "Overpower Caliber"
+            )
+        });
+        mechProperties.put("systems", new MechSystem[] {
             new MechSystem("Pattern-A Smoke Charges",
-            new EquipmentTag[] {
-                new EquipmentTag("Limited X", 3)
-            }),
+                new EquipmentTag[] {
+                    new EquipmentTag("Limited X", 3)
+                }
+            ),
             new MechSystem("Seismic Ripper"),
             new MechSystem("High-Stress Mag Clamps"),
             new MechSystem("ATHENA-Class NHP"),
@@ -221,12 +184,53 @@ public final class Main {
             new MechSystem("IMMOLATE"),
             new MechSystem("Wandering Nightmare")
         });
+        myCharacter.setMechProperties(mechProperties);
 
-        myCharacter.setPilot(myPilot);
-        myCharacter.setMech(myMech);
+        pilotProperties = myCharacter.getPilotProperties();
+        pilotProperties.put("player", "Luna");
+        pilotProperties.put("background", "e");
+        pilotProperties.put("biography", "e");
+        pilotProperties.put("appearance", "e");
+        pilotProperties.put("playerNotes", "e");
+        pilotProperties.put("skillTriggers", new SkillTriggersList(
+            new SkillTrigger[] {
+                new SkillTrigger("Apply Fists to Faces",
+                    2),
+                new SkillTrigger("Assault", 2),
+                new SkillTrigger("Blow Something Up",
+                    2),
+                new SkillTrigger("Survive", 2)
+            }
+        ));
+        pilotProperties.put("loadout", new Loadout());
+        pilotProperties.put("licenseLevel", 9);
+        pilotProperties.put("licenseList", new License[] {
+            new License("SSC Swallowtail", 3),
+            new License("SSC Death's Head", 3),
+            new License("HORUS Kobold", 3),
+            new License("HORUS Lich", 1)
+        });
+        pilotProperties.put("mechSkills", new int[] {4, 0, 5, 2});
+        pilotProperties.put("coreBonuses", new String[] {
+            "Neurolink Targeting",
+            "Overpower Caliber"
+        });
+        pilotProperties.put("talents", new Talent[] {
+            new Talent("Tactician", 3),
+            new Talent("Siege Specialist", 3),
+            new Talent("Spotter", 2),
+            new Talent("Walking Armory", 2),
+            new Talent("Leader", 2)
+        });
+        pilotProperties.put("loadout", new Loadout(
+            "Mobility Hardsuit", new String[] {"Heavy Signature",
+                "Archaic Melee"}, new String[] {"Wilderness Survival Kit",
+                    "Flexsuit", "Personal Drone"
+                }
+        ));
+        myCharacter.setPilotProperties(pilotProperties);
 
-        System.out.println("After setup:");
-        System.out.println(myCharacter.generateStatblock(
+        System.out.print(myCharacter.generateStatblock(
             "mech build"));
     }
 }
