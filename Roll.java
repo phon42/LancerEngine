@@ -1,4 +1,8 @@
+import java.util.Random;
+
 public final class Roll {
+    private static final Random randomGenerator = new Random();
+
     // prevent user from instantiating this class
     private Roll() {}
 
@@ -8,8 +12,7 @@ public final class Roll {
      * @return a double containing the randomly generated value.
      */
     private static double generateRandom() {
-        // TODO: replace
-        return 7 / 10.0; // randomly chosen by fair dice roll
+        return randomGenerator.nextDouble();
     }
     /**
      * Rolls a d(maxRoll). In other words, generates a single random int between
