@@ -9,7 +9,7 @@
  * Safety: This class does not have placeholder values and cannot be a
  *     placeholder. None of its properties have allowed values of null.
  */
-public class SkillTriggersList {
+public final class SkillTriggersList {
     /**
      * Can be any SkillTrigger[]. Cannot be null or contain null elements.
      */

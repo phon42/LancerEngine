@@ -24,7 +24,7 @@ enum FrameEnum {
  * 
  * Safety: N/A because this class cannot be instantiated.
  */
-public class Database {
+public final class Database {
     /**
      * Contains every frame's data for reference.
      */

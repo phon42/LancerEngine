@@ -11,7 +11,7 @@
  * Safety: This class does not have placeholder values and cannot be a
  *     placeholder. At least one of its properties has an allowed value of null.
  */
-public class LancerCharacter {
+public final class LancerCharacter {
     /**
      * The pilot associated with this character.
      * Can be any Pilot that does not have placeholders in the following fields:

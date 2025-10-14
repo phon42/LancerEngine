@@ -11,7 +11,7 @@
  * 
  * Safety: N/A because this class cannot be instantiated.
  */
-public class TestMethods {
+public final class TestMethods {
     public static int maxWidth = 0;
     public static int[] lineWidths;
     public static int numPassed = 0;

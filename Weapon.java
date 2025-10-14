@@ -9,7 +9,7 @@
  * Safety: This class has placeholder values and can be a placeholder. None of
  *     its properties have allowed values of null.
  */
-public class Weapon extends Equipment {
+public final class Weapon extends Equipment {
     // TODO: fill out with some kind of way to attack
     // TODO: fucking deal with Ushabti Omnigun somehow
     /**

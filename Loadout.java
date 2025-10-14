@@ -9,7 +9,7 @@
  * Safety: This class does not have placeholder values and cannot be a
  *     placeholder. None of its properties can be null.
  */
-public class Loadout {
+public final class Loadout {
 // TODO: have a pilot's Loadout actually affect their stats
     /**
      * The loadout's pilot armor (i.e. "Light Hardsuit").

@@ -29,7 +29,7 @@ enum TestStatus {
  * Safety: This class does not have placeholder values and cannot be a
  *     placeholder. All of its properties can be set to null.
  */
-public class Test {
+public final class Test {
     /**
      * The test's name (i.e. "Pilot.setCallsign()").
      * Can be any String except "". Cannot be null.

@@ -9,7 +9,7 @@
  * Safety: This class does not have placeholder values and cannot be a
  *     placeholder. None of its properties can be null.
  */
-public class License {
+public final class License {
     /**
      * The name of the frame to which the license is held (i.e. "gms everest").
      * Case-insensitive and stored in lowercase. Can be any String except "".

@@ -9,7 +9,7 @@
  * Safety: This class does not have placeholder values and cannot be a
  *     placeholder. None of its properties have allowed values of null.
  */
-public class SkillTrigger {
+public final class SkillTrigger {
     /**
      * The name of the skill trigger (i.e. "Apply Fists to Faces").
      * Can be any String except "". Cannot be null.

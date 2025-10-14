@@ -15,7 +15,7 @@
  * Safety: This class does not have placeholder values and cannot be a
  *     placeholder. None of its properties have allowed values of null.
  */
-public class Frame {
+public final class Frame {
     /**
      * The frame's manufacturer (i.e. "GMS").
      * Case-insensitive and stored in uppercase. Can be any String except "".

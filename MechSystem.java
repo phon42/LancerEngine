@@ -9,7 +9,7 @@
  * Safety: This class has placeholder values but cannot be a placeholder. None
  *     of its properties have allowed values of null.
  */
-public class MechSystem extends Equipment {
+public final class MechSystem extends Equipment {
     /**
      * Contains an array of allowed values for MechSystem.tags'
      *     EquipmentTag.name values.

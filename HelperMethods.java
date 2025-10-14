@@ -9,7 +9,7 @@
  * 
  * Safety: N/A because this class cannot be instantiated.
  */
-public class HelperMethods {
+public final class HelperMethods {
     // Prevent user from instantiating this class
     private HelperMethods() {}
 

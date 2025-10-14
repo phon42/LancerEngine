@@ -144,7 +144,7 @@
  * 
  * Safety: N/A because this class cannot be instantiated.
  */
-public class Main {
+public final class Main {
     // prevent user from instantiating
     private Main() {}
 

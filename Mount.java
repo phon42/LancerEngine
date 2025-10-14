@@ -11,7 +11,7 @@
  * Safety: This class does not have placeholder values and cannot be a
  *     placeholder. At least one of its properties has an allowed value of null.
  */
-public class Mount {
+public final class Mount {
     /**
      * The mount's type.
      * Must be one of the following values:

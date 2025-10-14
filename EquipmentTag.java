@@ -9,7 +9,7 @@
  * Safety: This class does not have placeholder values and cannot be a
  *     placeholder. None of its properties have allowed values of null.
  */
-public class EquipmentTag {
+public final class EquipmentTag {
     /**
      * The name for this equipment tag (i.e. "AI").
      * Must be a valid value (as defined by EquipmentTag.allowedNames). Cannot

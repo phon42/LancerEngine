@@ -9,7 +9,7 @@
  * Safety: This class does not have placeholder values and cannot be a
  *     placeholder. None of its properties have allowed values of null.
  */
-public class Talent {
+public final class Talent {
     /**
      * The name of the talent (i.e. "ace").
      * Case-insensitive and stored in lowercase. Can be any String except "".
