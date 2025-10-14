@@ -85,9 +85,7 @@ public final class Weapon extends Equipment {
      */
     public Weapon(String weaponName, int weaponSize, int weaponType,
         EquipmentTag[] weaponTags) {
-        super(weaponName);
-        setSize(weaponSize);
-        setType(weaponType);
+        this(weaponName, weaponSize, weaponType);
         setTags(weaponTags);
     }
     /**
