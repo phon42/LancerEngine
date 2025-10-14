@@ -1,4 +1,6 @@
 // TODO: add some kind of way for Pilot and Mech's actions to bubble up
+import java.util.HashMap;
+
 /**
  * Represents a single Lancer character, including the pilot and their mech.
  *     Contains a Pilot object and a Mech object.
@@ -107,36 +109,38 @@ public final class LancerCharacter {
      * - Core bonuses
      * - Talents
      */
-    public Object[] getPilotProperties() {
-        Object[] pilotProperties = new Object[24];
+    public HashMap<String, Object> getPilotProperties() {
+        HashMap<String, Object> pilotProperties = new HashMap<>();
 
-        pilotProperties[0] = this.pilot.getName();
-        pilotProperties[1] = this.pilot.getCallsign();
-        pilotProperties[2] = this.pilot.getPlayer();
+        pilotProperties.put("name", this.pilot.getName());
+        pilotProperties.put("callsign", this.pilot.getCallsign());
+        pilotProperties.put("player", this.pilot.getPlayer());
 
-        pilotProperties[3] = this.pilot.getStatus();
-        pilotProperties[4] = this.pilot.getBackground();
-        pilotProperties[5] = this.pilot.getBiography();
-        pilotProperties[6] = this.pilot.getPlayerNotes();
-        pilotProperties[7] = this.pilot.getAppearance();
+        pilotProperties.put("status", this.pilot.getStatus());
+        pilotProperties.put("background", this.pilot.getBackground());
+        pilotProperties.put("biography", this.pilot.getBiography());
+        pilotProperties.put("playerNotes", this.pilot.getPlayerNotes());
+        pilotProperties.put("appearance", this.pilot.getAppearance());
 
-        pilotProperties[8] = this.pilot.getGrit();
-        pilotProperties[9] = this.pilot.getCurrentHP();
-        pilotProperties[10] = this.pilot.getMaxHP();
-        pilotProperties[11] = this.pilot.getArmor();
-        pilotProperties[12] = this.pilot.getEvasion();
-        pilotProperties[13] = this.pilot.getSpeed();
-        pilotProperties[14] = this.pilot.getEDefense();
+        pilotProperties.put("size", this.pilot.getSize());
+        pilotProperties.put("grit", this.pilot.getGrit());
+        pilotProperties.put("currentHP", this.pilot.getCurrentHP());
+        pilotProperties.put("maxHP", this.pilot.getMaxHP());
+        pilotProperties.put("armor", this.pilot.getArmor());
+        pilotProperties.put("evasion", this.pilot.getEvasion());
+        pilotProperties.put("speed", this.pilot.getSpeed());
+        pilotProperties.put("eDefense", this.pilot.getEDefense());
 
-        pilotProperties[15] = this.pilot.getSkillTriggers();
-        pilotProperties[16] = this.pilot.getReserves();
-        pilotProperties[17] = this.pilot.getLoadout();
-        pilotProperties[18] = this.pilot.getLicenseLevel();
-        pilotProperties[19] = this.pilot.getLicenseList();
-        pilotProperties[20] = this.pilot.getSpecialEquipment();
-        pilotProperties[21] = this.pilot.getMechSkills();
-        pilotProperties[22] = this.pilot.getCoreBonuses();
-        pilotProperties[23] = this.pilot.getTalents();
+        pilotProperties.put("skillTriggers", this.pilot.getSkillTriggers());
+        pilotProperties.put("reserves", this.pilot.getReserves());
+        pilotProperties.put("loadout", this.pilot.getLoadout());
+        pilotProperties.put("licenseLevel", this.pilot.getLicenseLevel());
+        pilotProperties.put("licenseList", this.pilot.getLicenseList());
+        pilotProperties.put("specialEquipment",
+            this.pilot.getSpecialEquipment());
+        pilotProperties.put("mechSkills", this.pilot.getMechSkills());
+        pilotProperties.put("coreBonuses", this.pilot.getCoreBonuses());
+        pilotProperties.put("talents", this.pilot.getTalents());
 
         return pilotProperties;
     }
@@ -177,43 +181,50 @@ public final class LancerCharacter {
      * - Mounts
      * - Systems
      */
-    public Object[] getMechProperties() {
-        Object[] mechProperties = new Object[30];
+    public HashMap<String, Object> getMechProperties() {
+        HashMap<String, Object> mechProperties = new HashMap<>();
 
-        mechProperties[0] = this.mech.getName();
-        mechProperties[1] = this.mech.getFrame();
+        mechProperties.put("name", this.mech.getName());
+        mechProperties.put("frame", this.mech.getFrame());
 
-        mechProperties[2] = this.mech.getManufacturer();
-        mechProperties[3] = this.mech.getFrameName();
-        mechProperties[4] = this.mech.getRole();
-        mechProperties[5] = this.mech.getFrameDescription();
+        mechProperties.put("manufacturer", this.mech.getManufacturer());
+        mechProperties.put("frameName", this.mech.getFrameName());
+        mechProperties.put("role", this.mech.getRole());
+        mechProperties.put("frameDescription",
+            this.mech.getFrameDescription());
 
-        mechProperties[6] = this.mech.getOperatorNotes();
+        mechProperties.put("operatorNotes", this.mech.getOperatorNotes());
 
-        mechProperties[7] = this.mech.getSize();
-        mechProperties[8] = this.mech.getCurrentStructure();
-        mechProperties[9] = this.mech.getMaxStructure();
-        mechProperties[10] = this.mech.getCurrentHP();
-        mechProperties[11] = this.mech.getMaxHP();
-        mechProperties[12] = this.mech.getArmor();
-        mechProperties[13] = this.mech.getCurrentStress();
-        mechProperties[14] = this.mech.getMaxStress();
-        mechProperties[15] = this.mech.getCurrentHeatCapacity();
-        mechProperties[16] = this.mech.getMaxHeatCapacity();
-        mechProperties[17] = this.mech.getEvasion();
-        mechProperties[18] = this.mech.getSpeed();
-        mechProperties[19] = this.mech.getEDefense();
-        mechProperties[20] = this.mech.getTechAttack();
-        mechProperties[21] = this.mech.getSensors();
-        mechProperties[22] = this.mech.getCurrentRepairCapacity();
-        mechProperties[23] = this.mech.getMaxRepairCapacity();
-        mechProperties[24] = this.mech.getSaveTarget();
-        mechProperties[25] = this.mech.getSystemPoints();
-        mechProperties[26] = this.mech.getLimitedSystemsBonus();
+        mechProperties.put("size", this.mech.getSize());
+        mechProperties.put("currentStructure",
+            this.mech.getCurrentStructure());
+        mechProperties.put("maxStructure", this.mech.getMaxStructure());
+        mechProperties.put("currentHP", this.mech.getCurrentHP());
+        mechProperties.put("maxHP", this.mech.getMaxHP());
+        mechProperties.put("armor", this.mech.getArmor());
+        mechProperties.put("currentStress", this.mech.getCurrentStress());
+        mechProperties.put("maxStress", this.mech.getMaxStress());
+        mechProperties.put("currentHeatCapacity",
+            this.mech.getCurrentHeatCapacity());
+        mechProperties.put("maxHeatCapacity",
+            this.mech.getMaxHeatCapacity());
+        mechProperties.put("evasion", this.mech.getEvasion());
+        mechProperties.put("speed", this.mech.getSpeed());
+        mechProperties.put("eDefense", this.mech.getEDefense());
+        mechProperties.put("techAttack", this.mech.getTechAttack());
+        mechProperties.put("sensors", this.mech.getSensors());
+        mechProperties.put("currentRepairCapacity",
+            this.mech.getCurrentRepairCapacity());
+        mechProperties.put("maxRepairCapacity",
+            this.mech.getMaxRepairCapacity());
+        mechProperties.put("saveTarget", this.mech.getSaveTarget());
+        mechProperties.put("systemPoints", this.mech.getSystemPoints());
+        mechProperties.put("limitedSystemsBonus",
+            this.mech.getLimitedSystemsBonus());
 
-        mechProperties[27] = this.mech.getTraits();
-        mechProperties[28] = this.mech.getMounts();
-        mechProperties[29] = this.mech.getSystems();
+        mechProperties.put("traits", this.mech.getTraits());
+        mechProperties.put("mounts", this.mech.getMounts());
+        mechProperties.put("systems", this.mech.getSystems());
 
         return mechProperties;
     }
