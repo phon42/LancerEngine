@@ -285,8 +285,8 @@ public final class Mech {
         this.setSize(mech.size);
         this.setMaxStructure(mech.maxStructure);
         this.setCurrentStructure(mech.currentStructure);
-        this.setCurrentHP(mech.currentHP);
         this.setMaxHP(mech.maxHP);
+        this.setCurrentHP(mech.currentHP);
         this.setArmor(mech.armor);
         this.setMaxStress(mech.maxStress);
         this.setCurrentStress(mech.currentStress);
