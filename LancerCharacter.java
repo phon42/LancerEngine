@@ -59,7 +59,13 @@ public final class LancerCharacter {
      * @param pilot a Pilot that cannot be null or have placeholders.
      * @throws IllegalArgumentException if pilot is null.
      */
-    public void setPilot(Pilot pilot) {
+    // setPilot() is private because since a LancerCharacter is based on its
+    //     Pilot, not its Mech, it's a decent idea to force the user to create
+    //     an entirely new LancerCharacter if they want to change
+    //     LancerCharacter.pilot to the degree that using setPilot() is
+    //     necessary over an indirect method like
+    //     LancerCharacter.setPilotProperties()
+    private void setPilot(Pilot pilot) {
         if (pilot == null) {
             throw new IllegalArgumentException("New pilot value is null");
         }
