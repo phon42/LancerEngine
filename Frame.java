@@ -54,7 +54,7 @@ public final class Frame {
     private String[] role;
     /**
      * Contains an array of allowed values for the elements of the role
-     *     property.
+     *     property. Case-insensitive and stored in lowercase.
      */
     public static final String[] allowedRoles = new String[] {
         "artillery", "balanced", "controller", "defender", "striker", "support"

@@ -46,6 +46,7 @@ public final class Pilot {
     private String status;
     /**
      * Contains an array of all possible allowed pilot statuses.
+     *     Case-insensitive and stored in lowercase.
      */
     private static final String[] allowedStatuses = {
         "active", "inactive", "retired", "missing in action",

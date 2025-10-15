@@ -1,6 +1,9 @@
 import java.util.Random;
 
 public final class Roll {
+    /**
+     * Contains the random number generator for this class.
+     */
     private static final Random randomGenerator = new Random();
 
     // prevent user from instantiating this class
@@ -119,12 +122,6 @@ public final class Roll {
             if (keepNum > rollNum) {
                 throw new IllegalArgumentException("keepNum value: " + keepNum
                     + " is > rollNum value: " + rollNum);
-                /*
-                keepString = keep > 0 ? "kh" : "kl";
-                throw new IllegalArgumentException("Roll.rollComplex()"
-                    + " parameter included a \"XdY" + keepString + "Z\" clause"
-                    + " where X was " + rollNum + " and Z was " + keepNum);
-                */
             }
         }
         rolls = new int[rollNum];

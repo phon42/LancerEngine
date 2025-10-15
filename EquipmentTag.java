@@ -17,7 +17,7 @@ public final class EquipmentTag {
      */
     private String name;
     /**
-     * Contains an array of allowed values for this.name.
+     * Contains an array of allowed values for this.name. Case-sensitive.
      */
     private static final String[] allowedNames = new String[] {"AI", "Unique",
         "Limited X", "Grenade", "Mine", "Quick Action", "Deployable", "Drone",
@@ -28,7 +28,7 @@ public final class EquipmentTag {
         "Thrown X", "Knockback X", "Seeking"};
     /**
      * Contains an array of values for this.name for which having a value other
-     *     than 0 for this.value makes sense.
+     *     than 0 for this.value makes sense. Case-sensitive.
      */
     private static final String[] valueNames = new String[] {"Limited X",
         "Heat X (Self)", "X/Round", "X/Turn", "Reliable X", "Thrown X",

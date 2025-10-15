@@ -224,7 +224,7 @@ public final class Database {
         )
     };
     /**
-     * Contains every pilot armor's name for reference.
+     * Contains every pilot armor's name for reference. Case-sensitive.
      */
     private static final String[] pilotArmorNames = new String[] {
         "Light Hardsuit", "Assault Hardsuit", "Heavy Hardsuit",
@@ -236,10 +236,10 @@ public final class Database {
      * Contains every pilot armor's stats for reference.
      * Ordered in the order of pilot stats; in other words:
      *     - HP
-     *     - armor
-     *     - evasion
-     *     - speed
-     *     - e-defense
+     *     - Armor
+     *     - Evasion
+     *     - Speed
+     *     - E-defense
      */
     private static final int[][] pilotArmorStats = new int[][] {
         new int[] {3, 0, 0, 0, 0},

@@ -25,7 +25,8 @@ public final class Mount {
      */
     private String mountType;
     /**
-     * Contains an array of all possible allowed mount types.
+     * Contains an array of all possible allowed mount types. Case-insensitive
+     *     and stored in lowercase.
      * Details about the base mount types:
      *     "flex" - a weapon mount which can take one main weapon OR two
      *         auxilary weapons.
@@ -50,6 +51,7 @@ public final class Mount {
     /**
      * Contains an array of mount types that do not require talents, core
      *     bonuses, or integrated weapons on the base frame to exist.
+     *     Case-insensitive and stored in lowercase.
      */
     private static final String[] baseMountTypes = {
         "aux", "aux/aux", "flex", "heavy", "main", "main/aux"

@@ -220,6 +220,7 @@ public final class Mech {
     private String[] statuses;
     /**
      * Contains an array of allowed values for elements of Mech.statuses.
+     *     Case-insensitive and stored in lowercase.
      */
     private static final String[] allowedStatuses = new String[] {"danger zone",
         "engaged", "exposed", "hidden", "invisible", "prone", "shut down"};
@@ -233,6 +234,7 @@ public final class Mech {
     private String[] conditions;
     /**
      * Contains an array of allowed values for elements of Mech.conditions.
+     *     Case-insensitive and stored in lowercase.
      */
     private static final String[] allowedConditions = new String[] {
         "immobilized", "impaired", "jammed", "lock on", "shredded", "slowed",

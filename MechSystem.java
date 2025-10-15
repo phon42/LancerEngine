@@ -12,7 +12,7 @@
 public final class MechSystem extends Equipment {
     /**
      * Contains an array of allowed values for MechSystem.tags'
-     *     EquipmentTag.name values.
+     *     EquipmentTag.name values. Case-sensitive.
      */
     public static final String[] allowedNames = new String[] {"AI",
         "Unique", "Limited X", "Grenade", "Mine", "Quick Action", "Deployable",

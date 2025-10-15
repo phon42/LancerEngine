@@ -14,7 +14,7 @@ public final class Weapon extends Equipment {
     // TODO: fucking deal with Ushabti Omnigun somehow
     /**
      * Contains an array of allowed values for Weapon.tags' EquipmentTag.name
-     *     values.
+     *     values. Case-sensitive.
      */
     public static final String[] allowedNames = new String[] {"Accurate",
         "Armor-Piercing (AP)", "Loading", "Ordnance", "Reliable X",
