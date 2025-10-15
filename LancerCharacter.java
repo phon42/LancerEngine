@@ -252,9 +252,9 @@ public final class LancerCharacter {
      * - [Skill triggers]
      * - [Reserves]
      * - [Loadout]
-     * - License level (possibly goes up there with stats?)
+     * - [License level]
      * - [License list]
-     * - [Special equipment (maybe goes with reserves)]
+     * - [Special equipment]
      * - [Mech skills]
      * - [Core bonuses]
      * - [Talents]
@@ -320,17 +320,17 @@ public final class LancerCharacter {
      * Mech - set: [Bracketing requires special monitoring]
      * - Identification fields
      *     - Name
-     *     - Frame
+     *     - [Frame]
      * - Fluff/flavor
      *     - Operator notes
      * - Stats
      *     - [Current structure]
-     *     - Current HP
+     *     - [Current HP]
      *     - [Current stress]
-     *     - Current heat capacity
+     *     - [Current heat capacity]
      *     - Current repair capacity
-     * - Mounts
-     * - Systems
+     * - [Mounts]
+     * - [Systems]
      */
     public void setMechProperties(HashMap<String, Object> mechProperties) {
         String[] propertyNames = new String[] {
