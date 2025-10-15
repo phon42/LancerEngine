@@ -11,7 +11,8 @@ enum FrameEnum {
     SAGARMATHA,
     CALIBAN,
     SWALLOWTAIL_RANGER,
-    BARBAROSSA
+    BARBAROSSA,
+    SIZE_4
 }
 /**
  * Contains a set array of Frames to be used by Mech(String, String) and
@@ -208,7 +209,14 @@ public final class Database {
                 new Mount("main"),
                 new Mount("main"),
                 new Mount("heavy")
-            })
+            }),
+        new Frame("GMS", "Size 4", "size_4",
+            FrameEnum.SIZE_4, new String[] {"Balanced"}, "",
+            8, 4, 10, 0, 4,
+            6, 8, 4, 8,
+            0, 10, 5,
+            10, 6, new String[0], new Mount[0]
+            )
     };
     /**
      * Contains every pilot armor's name for reference.
