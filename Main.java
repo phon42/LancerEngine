@@ -3,6 +3,7 @@ import java.util.HashMap;
 /**
  * What's Left To Add:
  * - taking damage (pg 67)
+ *   - both mech and pilot
  * - pilot death, damage and heat (remember to special case)
  * - mech structuring, stressing, heat, burn, and damage
  * - conditions
@@ -27,6 +28,20 @@ import java.util.HashMap;
  * - lifting, dragging, jumping, climbing, flying, gravity, teleportation, hovering
  * - cover
  * - damaging the environment
+ */
+/**
+ * Eventually thinking of hooking this up to something else for graphics. If all
+ *     else fails, I will use HTML because that's what I know. In that case,
+ *     see:
+ * - https://stackoverflow.com/questions/10964693/java-embedding-into-html
+ * - https://stackoverflow.com/questions/985754/how-to-deploy-a-java-applet-for-todays-browsers-applet-embed-object
+ * - https://www.java.com/en/download/help/enable_browser.html
+ * 
+ * Preliminary searches show that C# is also a good language for creating graphics:
+ * - https://www.reddit.com/r/learnprogramming/comments/m7x51g/comment/gre467l/
+ * 
+ * Can also just straight up use Java AWT:
+ * - https://www.geeksforgeeks.org/java/what-is-java-awt-graphics/
  */
 /**
  * This program is intended to simulate one (or more) characters within the
