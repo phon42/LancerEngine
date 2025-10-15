@@ -172,7 +172,7 @@ public final class LancerCharacter {
      *     - Armor
      *     - Current stress
      *     - Max stress
-     *     - Current heat capacity
+     *     - Current heat
      *     - Max heat capacity
      *     - Evasion
      *     - Speed
@@ -211,8 +211,7 @@ public final class LancerCharacter {
         mechProperties.put("armor", this.mech.getArmor());
         mechProperties.put("currentStress", this.mech.getCurrentStress());
         mechProperties.put("maxStress", this.mech.getMaxStress());
-        mechProperties.put("currentHeatCapacity",
-            this.mech.getCurrentHeatCapacity());
+        mechProperties.put("currentHeat", this.mech.getCurrentHeat());
         mechProperties.put("maxHeatCapacity",
             this.mech.getMaxHeatCapacity());
         mechProperties.put("evasion", this.mech.getEvasion());
@@ -327,7 +326,7 @@ public final class LancerCharacter {
      *     - [Current structure]
      *     - [Current HP]
      *     - [Current stress]
-     *     - [Current heat capacity]
+     *     - [Current heat]
      *     - Current repair capacity
      * - [Mounts]
      * - [Systems]
@@ -337,10 +336,10 @@ public final class LancerCharacter {
             "name", "frame", "manufacturer", "frameName", "role",
             "frameDescription", "operatorNotes", "size", "currentStructure",
             "maxStructure", "currentHP", "maxHP", "armor", "currentStress",
-            "maxStress", "currentHeatCapacity", "maxHeatCapacity", "evasion",
-            "speed", "eDefense", "techAttack", "sensors",
-            "currentRepairCapacity", "maxRepairCapacity", "saveTarget",
-            "systemPoints", "limitedSystemsBonus", "traits", "mounts", "systems"
+            "maxStress", "currentHeat", "maxHeatCapacity", "evasion", "speed",
+            "eDefense", "techAttack", "sensors", "currentRepairCapacity",
+            "maxRepairCapacity", "saveTarget", "systemPoints",
+            "limitedSystemsBonus", "traits", "mounts", "systems"
         };
         boolean isAllowed = false;
         Mount[] mounts;
@@ -375,8 +374,8 @@ public final class LancerCharacter {
         this.mech.setCurrentHP((int) mechProperties.get("currentHP"));
         this.mech.setCurrentStress((int) mechProperties.get(
             "currentStress"));
-        this.mech.setCurrentHeatCapacity((int) mechProperties.get(
-            "currentHeatCapacity"));
+        this.mech.setCurrentHeat((int) mechProperties.get(
+            "currentHeat"));
         this.mech.setCurrentRepairCapacity((int) mechProperties.get(
             "currentRepairCapacity"));
         mounts = (Mount[]) mechProperties.get("mounts");

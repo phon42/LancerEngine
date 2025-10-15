@@ -166,7 +166,7 @@ public final class TestMethods {
                 new Test("Mech.setCurrentStructure()", runMechSetCurrentStructureTests()),
                 new Test("Mech.setCurrentHP()", runMechSetCurrentHPTests()),
                 new Test("Mech.setCurrentStress()", runMechSetCurrentStressTests()),
-                new Test("Mech.setCurrentHeatCapacity()", runMechSetCurrentHeatCapacityTests()),
+                new Test("Mech.setCurrentHeat()", runMechSetCurrentHeatTests()),
                 new Test("Mech.setCurrentRepairCapacity()", runMechSetCurrentRepairCapacityTests()),
                 new Test("Mech.setMount()", runMechSetMountTests()),
                 new Test("Mech.setSystems()", runMechSetSystemsTests(), new Test[] {
@@ -2711,10 +2711,10 @@ public final class TestMethods {
         return test1 && test2 && test3 && test4;
     }
     /**
-     * Tests Mech.setCurrentHeatCapacity().
+     * Tests Mech.setCurrentHeat().
      * @return a boolean representing whether the method passed.
      */
-    private static boolean runMechSetCurrentHeatCapacityTests() {
+    private static boolean runMechSetCurrentHeatTests() {
         Mech mech = new Mech("validName", FrameEnum.EVEREST);
         boolean test1 = false;
         boolean test2 = false;
@@ -2722,21 +2722,21 @@ public final class TestMethods {
         boolean test4 = false;
 
         try {
-            mech.setCurrentHeatCapacity(-1);
+            mech.setCurrentHeat(-1);
         } catch (IllegalArgumentException exception) {
             test1 = true;
         }
         try {
-            mech.setCurrentHeatCapacity(7);
+            mech.setCurrentHeat(7);
         } catch (IllegalArgumentException exception) {
             test2 = true;
         }
-        mech.setCurrentHeatCapacity(0);
-        if (mech.getCurrentHeatCapacity() == 0) {
+        mech.setCurrentHeat(0);
+        if (mech.getCurrentHeat() == 0) {
             test3 = true;
         }
-        mech.setCurrentHeatCapacity(6);
-        if (mech.getCurrentHeatCapacity() == 6) {
+        mech.setCurrentHeat(6);
+        if (mech.getCurrentHeat() == 6) {
             test4 = true;
         }
         
@@ -3009,8 +3009,7 @@ public final class TestMethods {
         if (original.getMaxStress() == copy.getMaxStress()) {
             test16 = true;
         }
-        if (original.getCurrentHeatCapacity() ==
-            copy.getCurrentHeatCapacity()) {
+        if (original.getCurrentHeat() == copy.getCurrentHeat()) {
             test17 = true;
         }
         if (original.getMaxHeatCapacity() == copy.getMaxHeatCapacity()) {
