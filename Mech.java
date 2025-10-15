@@ -1188,6 +1188,73 @@ public final class Mech {
         setConditions(new String[0]);
     }
     /**
+     * Deals (damageAmount) damage of type (damageType) to this Mech.
+     * @param damageAmount an int containing the amount of damage to deal. Must
+     *     be >= 0.
+     * @param damageType a String containing the type of the damage to deal.
+     *     Must be a valid damage type as defined by Mech.allowedDamageTypes.
+     * @throws IllegalArgumentException if damageAmount is < 0.
+     */
+    public void receiveDamage(int damageAmount, String damageType) {
+        // TODO: fill out with damage mitigation - armor, resistance etc
+        boolean isValid = false;
+        int remainingDamage = damageAmount;
+        int damageToTake;
+        int newCurrentHP;
+
+        if (damageAmount < 0) {
+            throw new IllegalArgumentException("damageAmount value: "
+                + damageAmount + " is < 0");
+        }
+        if (damageType == null) {
+            throw new IllegalArgumentException("damageType is null");
+        }
+        for (String allowedType : Mech.allowedDamageTypes) {
+            if (damageType.equals(allowedType)) {
+                isValid = true;
+            }
+        }
+        if (! isValid) {
+            throw new IllegalArgumentException("damageType value: \""
+                + damageType + "\" is an invalid damage type");
+        }
+        while (remainingDamage > 0) {
+            damageToTake = Math.min(remainingDamage, this.currentHP);
+            newCurrentHP = this.currentHP - damageToTake;
+            setCurrentHP(newCurrentHP);
+            if (remainingDamage > this.currentHP) {
+                // we're about to structure
+                if (this.currentStructure > 0) {
+                    receiveStructureDamage();
+                } else {
+                    // Structure is 0 and the mech is taking structure damage,
+                    //     automatically destroyed :(
+                    destroy();
+                    remainingDamage = 0;
+                    break;
+                }
+            }
+            remainingDamage -= damageToTake;
+        }
+    }
+    public void receiveStructureDamage(int structureDamage) {
+        if (structureDamage <= 0) {
+            throw new IllegalArgumentException("structureDamage value: "
+                + structureDamage + " is <= 0");
+        }
+        for (int i = 0; i < structureDamage; i++) {
+            receiveStructureDamage();
+        }
+    }
+    public void receiveStructureDamage() {
+        setCurrentStructure(this.currentStructure - 1);
+        setCurrentHP(this.maxHP);
+    }
+    public void destroy() {
+        // TODO: fill out
+        System.out.println("This Mech has been destroyed");
+    }
+    /**
      * Generates the output associated with the mech portion of the COMP/CON
      *     "generate statblock" feature. Only returns something other than ""
      *     when outputType is "mech build".

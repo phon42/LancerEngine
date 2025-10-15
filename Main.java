@@ -2,10 +2,9 @@ import java.util.HashMap;
 // TODO: implement this whole list
 /**
  * What's Left To Add:
- * - taking damage (pg 67)
- *   - both mech and pilot
- * - pilot death, damage and heat (remember to special case)
- * - mech structuring, stressing, heat, burn, and damage
+ * - taking damage (pg 67) for pilots
+ * - pilot death and damage (remember to special case heat to Energy damage)
+ * - mech stressing, heat, and burn
  * - conditions
  * - statuses
  * - Roll - add "Roll with accuracy" or something like that
