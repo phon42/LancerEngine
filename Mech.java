@@ -51,9 +51,8 @@ public final class Mech {
      * The mech's origin frame's role (i.e. "balanced"). Multiple items are 
      *     stored as seperate elements (i.e "Controller/Support" would be stored
      *     as {"controller", "support"}).
-     * Must be of length 1 at minimum. Each element must be one of the following
-     *     values:
-     *     "artillery", "balanced", "controller", "striker", "support".
+     * Must be of length 1 at minimum. Each element must be a valid role, as
+     *     defined by Frame.allowedRoles.
      * Case-insensitive and stored in lowercase. Cannot be null.
      */
     private String[] role;
