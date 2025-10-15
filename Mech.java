@@ -158,10 +158,10 @@ public final class Mech {
      */
     private int sensors;
     /**
-     * The mech's current repair capacity value.
+     * The number of repairs this mech currently has.
      * Must be a minimum of 0.
      */
-    private int currentRepairCapacity;
+    private int currentRepairs;
     /**
      * The mech's max repair capacity value.
      * Must be a minimum of 0.
@@ -277,7 +277,7 @@ public final class Mech {
      */
     public Mech(String name, Frame frame, String operatorNotes,
         int currentStructure, int currentHP, int currentStress,
-        int currentHeat, int currentRepairCapacity, MechSystem[] systems,
+        int currentHeat, int currentRepairs, MechSystem[] systems,
         String[] statuses, String[] conditions) {
         this();
         setName(name);
@@ -287,7 +287,7 @@ public final class Mech {
         setCurrentHP(currentHP);
         setCurrentStress(currentStress);
         setCurrentHeat(currentHeat, false);
-        setCurrentRepairCapacity(currentRepairCapacity);
+        setCurrentRepairs(currentRepairs);
         setSystems(systems);
         setStatuses(statuses);
         setConditions(conditions);
@@ -320,14 +320,14 @@ public final class Mech {
         setMaxStress(mech.maxStress);
         setCurrentStress(mech.currentStress);
         setMaxHeatCapacity(mech.maxHeatCapacity);
-        setCurrentHeatCapacity(mech.currentHeatCapacity, false);
+        setCurrentHeat(mech.currentHeat, false);
         setEvasion(mech.evasion);
         setSpeed(mech.speed);
         setEDefense(mech.eDefense);
         setTechAttack(mech.techAttack);
         setSensors(mech.sensors);
         setMaxRepairCapacity(mech.maxRepairCapacity);
-        setCurrentRepairCapacity(mech.currentRepairCapacity);
+        setCurrentRepairs(mech.currentRepairs);
         setSaveTarget(mech.saveTarget);
         setSystemPoints(mech.systemPoints);
         setLimitedSystemsBonus(mech.limitedSystemsBonus);
@@ -404,8 +404,8 @@ public final class Mech {
     public int getSensors() {
         return sensors;
     }
-    public int getCurrentRepairCapacity() {
-        return currentRepairCapacity;
+    public int getCurrentRepairs() {
+        return currentRepairs;
     }
     public int getMaxRepairCapacity() {
         return maxRepairCapacity;
@@ -743,28 +743,28 @@ public final class Mech {
         this.sensors = sensors;
     }
     /**
-     * Sets this.currentRepairCapacity to the provided value.
-     * @param currentRepairCapacity an int which cannot be < 0 or >
+     * Sets this.currentRepairs to the provided value.
+     * @param currentRepairs an int which cannot be < 0 or >
      *     this.maxRepairCapacity.
-     * @throws IllegalArgumentException if currentRepairCapacity is < 0 or >
+     * @throws IllegalArgumentException if currentRepairs is < 0 or >
      *     this.maxRepairCapacity.
      */
-    public void setCurrentRepairCapacity(int currentRepairCapacity) {
-        if (currentRepairCapacity < 0) {
-            throw new IllegalArgumentException("New currentRepairCapacity"
-                + " value:" + currentRepairCapacity + " is < 0");
+    public void setCurrentRepairs(int currentRepairs) {
+        if (currentRepairs < 0) {
+            throw new IllegalArgumentException("New currentRepairs value:"
+                + currentRepairs + " is < 0");
         }
-        if (this.maxRepairCapacity < currentRepairCapacity) {
-            throw new IllegalArgumentException("currentRepairCapacity value"
-                + " provided: " + currentRepairCapacity + " is >"
-                + " maxRepairCapacity value: " + this.maxRepairCapacity);
+        if (this.maxRepairCapacity < currentRepairs) {
+            throw new IllegalArgumentException("currentRepairs value provided: "
+                + currentRepairs + " is > maxRepairCapacity value: "
+                + this.maxRepairCapacity);
         }
-        this.currentRepairCapacity = currentRepairCapacity;
+        this.currentRepairs = currentRepairs;
     }
     /**
      * Sets this.maxRepairCapacity to the provided value.
      * @param maxRepairCapacity an int which cannot be < 0. Will print a warning
-     *     if maxRepairCapacity is < this.currentRepairCapacity.
+     *     if maxRepairCapacity is < this.currentRepairs.
      * @throws IllegalArgumentException if maxRepairCapacity is < 0.
      */
     private void setMaxRepairCapacity(int maxRepairCapacity) {
@@ -772,10 +772,10 @@ public final class Mech {
             throw new IllegalArgumentException("New maxRepairCapacity value: "
                 + maxRepairCapacity + " is < 0");
         }
-        if (maxRepairCapacity < this.currentRepairCapacity) {
+        if (maxRepairCapacity < this.currentRepairs) {
             System.out.println("[ WARNING ] maxRepairCapacity value provided: "
-                + maxRepairCapacity + " is < currentRepairCapacity value: "
-                + this.currentRepairCapacity);
+                + maxRepairCapacity + " is < currentRepairs value: "
+                + this.currentRepairs);
         }
         this.maxRepairCapacity = maxRepairCapacity;
     }
@@ -1116,7 +1116,7 @@ public final class Mech {
         setCurrentHP(this.maxHP);
         setMaxRepairCapacity(this.frame.getRepairCapacity()
             + (mechSkills[0] / 2));
-        setCurrentRepairCapacity(this.maxRepairCapacity);
+        setCurrentRepairs(this.maxRepairCapacity);
 
         // Agility
         setEvasion(this.frame.getEvasion() + mechSkills[1]);
@@ -1397,7 +1397,7 @@ public final class Mech {
             outputString += String.format(
                 "  STRESS:%d/%d HEAT:%d/%d REPAIR:%d/%d\n",
                 this.currentStress, this.maxStress, this.currentHeat,
-                this.maxHeatCapacity, this.currentRepairCapacity,
+                this.maxHeatCapacity, this.currentRepairs,
                 this.maxRepairCapacity
             );
             outputString += String.format(

@@ -167,7 +167,7 @@ public final class TestMethods {
                 new Test("Mech.setCurrentHP()", runMechSetCurrentHPTests()),
                 new Test("Mech.setCurrentStress()", runMechSetCurrentStressTests()),
                 new Test("Mech.setCurrentHeat()", runMechSetCurrentHeatTests()),
-                new Test("Mech.setCurrentRepairCapacity()", runMechSetCurrentRepairCapacityTests()),
+                new Test("Mech.setCurrentRepairs()", runMechSetCurrentRepairsTests()),
                 new Test("Mech.setMount()", runMechSetMountTests()),
                 new Test("Mech.setSystems()", runMechSetSystemsTests(), new Test[] {
                     new Test("MechSystem", new Test[] {
@@ -2743,10 +2743,10 @@ public final class TestMethods {
         return test1 && test2 && test3 && test4;
     }
     /**
-     * Tests Mech.setCurrentRepairCapacity().
+     * Tests Mech.setCurrentRepairs().
      * @return a boolean representing whether the method passed.
      */
-    private static boolean runMechSetCurrentRepairCapacityTests() {
+    private static boolean runMechSetCurrentRepairsTests() {
         Mech mech = new Mech("validName", FrameEnum.EVEREST);
         boolean test1 = false;
         boolean test2 = false;
@@ -2754,21 +2754,21 @@ public final class TestMethods {
         boolean test4 = false;
 
         try {
-            mech.setCurrentRepairCapacity(-1);
+            mech.setCurrentRepairs(-1);
         } catch (IllegalArgumentException exception) {
             test1 = true;
         }
         try {
-            mech.setCurrentRepairCapacity(6);
+            mech.setCurrentRepairs(6);
         } catch (IllegalArgumentException exception) {
             test2 = true;
         }
-        mech.setCurrentRepairCapacity(0);
-        if (mech.getCurrentRepairCapacity() == 0) {
+        mech.setCurrentRepairs(0);
+        if (mech.getCurrentRepairs() == 0) {
             test3 = true;
         }
-        mech.setCurrentRepairCapacity(5);
-        if (mech.getCurrentRepairCapacity() == 5) {
+        mech.setCurrentRepairs(5);
+        if (mech.getCurrentRepairs() == 5) {
             test4 = true;
         }
         
@@ -3030,8 +3030,7 @@ public final class TestMethods {
         if (original.getSensors() == copy.getSensors()) {
             test23 = true;
         }
-        if (original.getCurrentRepairCapacity() ==
-            copy.getCurrentRepairCapacity()) {
+        if (original.getCurrentRepairs() == copy.getCurrentRepairs()) {
             test24 = true;
         }
         if (original.getMaxRepairCapacity() == copy.getMaxRepairCapacity()) {
