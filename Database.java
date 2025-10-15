@@ -80,7 +80,8 @@ public final class Database {
                 new Mount("main"),
                 new Mount("flex"),
                 new Mount("heavy")
-            }),
+            }
+        ),
         new Frame("GMS", "Sagarmatha", "sagarmatha",
             FrameEnum.SAGARMATHA, new String[] {"defender"}, "The SAGARMATHA is"
             + " a SIZE 2 legacy GMS chassis that all characters have access to"
@@ -98,7 +99,8 @@ public final class Database {
                 new Mount("main"),
                 new Mount("flex"),
                 new Mount("heavy")
-            }),
+            }
+        ),
         new Frame("IPS-N", "Caliban", "caliban",
             FrameEnum.CALIBAN, new String[] {"striker", "controller"},
             "The Caliban chassis is a popular new order among anti piracy and"
@@ -155,7 +157,8 @@ public final class Database {
                     })
                 ),
                 new Mount("heavy")
-            }),
+            }
+        ),
         new Frame("SSC", "Swallowtail (Ranger Variant)",
             "swallowtail_ranger", FrameEnum.SWALLOWTAIL_RANGER,
             new String[] {"support"}, "This variant can be taken at rank II of"
@@ -178,7 +181,8 @@ public final class Database {
             "Invigorating Scanners", "Weathering"}, new Mount[] {
                 new Mount("flex"),
                 new Mount("main")
-            }),
+            }
+        ),
         new Frame("HA", "Barbarossa", "barbarossa",
             FrameEnum.BARBAROSSA, new String[] {"artillery"},
             "The Barbarossa is Harrison Armory’s most massive frame to date,"
@@ -209,14 +213,15 @@ public final class Database {
                 new Mount("main"),
                 new Mount("main"),
                 new Mount("heavy")
-            }),
+            }
+        ),
         new Frame("GMS", "Size 4", "size_4",
             FrameEnum.SIZE_4, new String[] {"Balanced"}, "",
             8, 4, 10, 0, 4,
             6, 8, 4, 8,
             0, 10, 5,
             10, 6, new String[0], new Mount[0]
-            )
+        )
     };
     /**
      * Contains every pilot armor's name for reference.
