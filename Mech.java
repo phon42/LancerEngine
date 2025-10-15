@@ -302,33 +302,36 @@ public final class Mech {
         //     name"), make sure to use the proper accessor method instead
         //     of "property" if the property's type is mutable
         // max always comes before current
-        this.setName(mech.name);
-        this.setFrame(mech.frame);
-        this.setManufacturer(mech.manufacturer);
-        this.setFrameName(mech.frameName);
-        this.setRole(mech.role);
-        this.setFrameDescription(mech.frameDescription);
-        this.setOperatorNotes(mech.operatorNotes);
-        this.setSize(mech.size);
-        this.setMaxStructure(mech.maxStructure);
-        this.setCurrentStructure(mech.currentStructure);
-        this.setMaxHP(mech.maxHP);
-        this.setCurrentHP(mech.currentHP);
-        this.setArmor(mech.armor);
-        this.setMaxStress(mech.maxStress);
-        this.setCurrentStress(mech.currentStress);
-        this.setMaxHeatCapacity(mech.maxHeatCapacity);
-        this.setCurrentHeatCapacity(mech.currentHeatCapacity);
-        this.setEvasion(mech.evasion);
-        this.setSpeed(mech.speed);
-        this.setEDefense(mech.eDefense);
-        this.setTechAttack(mech.techAttack);
-        this.setSensors(mech.sensors);
-        this.setMaxRepairCapacity(mech.maxRepairCapacity);
-        this.setCurrentRepairCapacity(mech.currentRepairCapacity);
-        this.setSaveTarget(mech.saveTarget);
-        this.setSystemPoints(mech.systemPoints);
-        this.setLimitedSystemsBonus(mech.limitedSystemsBonus);
+        setName(mech.name);
+        setFrame(mech.frame);
+        setManufacturer(mech.manufacturer);
+        setFrameName(mech.frameName);
+        setRole(mech.role);
+        setFrameDescription(mech.frameDescription);
+        setOperatorNotes(mech.operatorNotes);
+        setSize(mech.size);
+        setMaxStructure(mech.maxStructure);
+        setCurrentStructure(mech.currentStructure);
+        setMaxHP(mech.maxHP);
+        setCurrentHP(mech.currentHP);
+        setArmor(mech.armor);
+        setMaxStress(mech.maxStress);
+        setCurrentStress(mech.currentStress);
+        setMaxHeatCapacity(mech.maxHeatCapacity);
+        setCurrentHeatCapacity(mech.currentHeatCapacity);
+        setEvasion(mech.evasion);
+        setSpeed(mech.speed);
+        setEDefense(mech.eDefense);
+        setTechAttack(mech.techAttack);
+        setSensors(mech.sensors);
+        setMaxRepairCapacity(mech.maxRepairCapacity);
+        setCurrentRepairCapacity(mech.currentRepairCapacity);
+        setSaveTarget(mech.saveTarget);
+        setSystemPoints(mech.systemPoints);
+        setLimitedSystemsBonus(mech.limitedSystemsBonus);
+        setTraits(mech.traits);
+        setMounts(mech.mounts);
+        setSystems(mech.systems);
         setStatuses(mech.statuses);
         setConditions(mech.conditions);
     }
@@ -658,9 +661,6 @@ public final class Mech {
      *     this.maxHeatCapacity.
      */
     public void setCurrentHeatCapacity(int currentHeatCapacity) {
-        boolean containsDZ = false;
-        String[] newStatuses;
-
         if (currentHeatCapacity < 0) {
             throw new IllegalArgumentException("New currentHeatCapacity value: "
                 + currentHeatCapacity + " is < 0");
