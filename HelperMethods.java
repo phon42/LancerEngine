@@ -22,6 +22,79 @@ public final class HelperMethods {
     //         910, SkillTriggersList.generateOutput()
     // TODO: add null checks to all the HelperMethods methods
     /**
+     * Computes (dividend) divided by (divisor), or dividend / divisor, rounded
+     *     up (according to the second golden rule of Lancer - pg. 12).
+     * As a reminder, in 3 / 6, 3 is the dividend and 6 is the divisor.
+     * @param dividend an int which can be any int.
+     * @param divisor an int which cannot be 0.
+     * @return an int containing the result of the operation.
+     * @throws IllegalArgumentException if divisor is 0.
+     */
+    public static int div(int dividend, int divisor) {
+        int dividendSign;
+        int divisorSign;
+        int resultSign;
+
+        if (divisor == 0) {
+            throw new IllegalArgumentException("divisor is 0. Cannot compute"
+                + " because x / 0 is undefined according to the laws of math."
+                + " Also it would throw an ArithmeticException");
+        }
+        if (dividend == 0) {
+            return 0;
+        }
+        // Essentially, we are about to convert (dividend) / (divisor) to three
+        //     operations:
+        // 1. result sign = (dividend sign) / (divisor sign)
+        // 2. |result| = |dividend| / |divisor|
+        // 3. result = (result sign) * |result|
+        // We will compute (1) here, then call div(int, int, int) for (2) and
+        //     (3), then return that result
+
+        // neither dividend or divisor can be 0 at this point
+        // dividendSign is 1 if dividend is > 0 and -1 if dividend is < 0
+        dividendSign = dividend > 0 ? 1 : -1;
+        // divisorSign is 1 if divisor is > 0 and -1 if divisor is < 0
+        divisorSign = divisor > 0 ? 1 : -1;
+        // this is (result sign), aka step (1)
+        resultSign = dividendSign / divisorSign;
+
+        // this is part of step (2) - we convert dividend and divisor to
+        //     |dividend| and |divisor|, then feed that to div(int, int, int)
+        dividend = Math.abs(dividend);
+        divisor = Math.abs(divisor);
+
+        // this is the rest of step (2) as well as step (3)
+        return div(dividend, divisor, resultSign);
+    }
+    /**
+     * A helper method for div(int, int). Computes (dividend) divided by
+     *     (divisor), or dividend / divisor, rounded up (according to the second
+     *     golden rule of Lancer - pg. 12). Assumes both dividend and divisor
+     *     are positive and non-zero.
+     * @param dividend an int which must be > 0.
+     * @param divisor an int which must be > 0.
+     * @param resultSign an int which must be +1 or -1.
+     * @return an int containing the result of the operation.
+     */
+    private static int div(int dividend, int divisor, int resultSign) {
+        double divisionResult;
+        int roundedResult;
+        int result;
+
+        if (resultSign != 1 && resultSign != -1) {
+            throw new IllegalArgumentException("resultSign is not +1 or -1");
+        }
+        // these next two lines are the rest of step (2) as defined in
+        //     HelperMethods.div(int, int)
+        divisionResult = dividend / (double) divisor;
+        roundedResult = (int) Math.round(divisionResult);
+        // this is step (3) as defined in HelperMethods.div(int, int)
+        result = resultSign * roundedResult;
+
+        return result;
+    }
+    /**
      * Appends the given int element to the end of an existing int[].
      * @param intArray an int[] that cannot be null.
      * @param newElement an int to append to the end of intArray.

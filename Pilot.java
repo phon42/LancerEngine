@@ -588,7 +588,9 @@ public final class Pilot {
     /**
      * Sets this.licenseLevel to the provided value, and automatically sets
      *     this.grit accordingly.
-     * this.grit will be set to (licenseLevel + 1) / 2, rounded down.
+     * this.grit will be set to (licenseLevel / 2) in Lancer division,
+     *     equivalent to HelperMethods.div(licenseLevel, 2). In other words: a
+     *     double divison of (licenseLevel / 2), rounded up.
      * @param licenseLevel an int which cannot be < 0 or > 12.
      * @throws IllegalArgumentException if licenseLevel is < 0 or > 12.
      */
@@ -601,7 +603,7 @@ public final class Pilot {
             throw new IllegalArgumentException("New license level value: "
                 + licenseLevel + " is > 12");
         }
-        setGrit((licenseLevel + 1) / 2);
+        setGrit(HelperMethods.div(licenseLevel, 2));
         this.licenseLevel = licenseLevel;
     }
     /**
