@@ -284,7 +284,7 @@ public final class Mech {
         setCurrentStructure(currentStructure);
         setCurrentHP(currentHP);
         setCurrentStress(currentStress);
-        setCurrentHeatCapacity(currentHeatCapacity);
+        setCurrentHeatCapacity(currentHeatCapacity, false);
         setCurrentRepairCapacity(currentRepairCapacity);
         setSystems(systems);
         setStatuses(statuses);
@@ -318,7 +318,7 @@ public final class Mech {
         setMaxStress(mech.maxStress);
         setCurrentStress(mech.currentStress);
         setMaxHeatCapacity(mech.maxHeatCapacity);
-        setCurrentHeatCapacity(mech.currentHeatCapacity);
+        setCurrentHeatCapacity(mech.currentHeatCapacity, false);
         setEvasion(mech.evasion);
         setSpeed(mech.speed);
         setEDefense(mech.eDefense);
@@ -657,10 +657,14 @@ public final class Mech {
      *     "danger zone" from this.statuses to match.
      * @param currentHeatCapacity an int which cannot be < 0 or >
      *     this.maxHeatCapacity.
+     * @param modifyStatuses a boolean representing whether or not to
+     *     automatically change the Mech's statuses based on
+     *     currentHeatCapacity.
      * @throws IllegalArgumentException if currentHeatCapacity is < 0 or >
      *     this.maxHeatCapacity.
      */
-    public void setCurrentHeatCapacity(int currentHeatCapacity) {
+    private void setCurrentHeatCapacity(int currentHeatCapacity,
+        boolean modifyStatuses) {
         if (currentHeatCapacity < 0) {
             throw new IllegalArgumentException("New currentHeatCapacity value: "
                 + currentHeatCapacity + " is < 0");
@@ -671,13 +675,24 @@ public final class Mech {
                 + " value: " + this.maxHeatCapacity);
         }
         this.currentHeatCapacity = currentHeatCapacity;
-        if (this.currentHeatCapacity * 2 >= this.maxHeatCapacity) {
-            // in danger zone
-            addStatus("danger zone");
-        } else {
-            // not in danger zone
-            removeStatus("danger zone");
+        if (modifyStatuses) {
+            if (this.currentHeatCapacity * 2 >= this.maxHeatCapacity) {
+                // in danger zone
+                addStatus("danger zone");
+            } else {
+                // not in danger zone
+                removeStatus("danger zone");
+            }
         }
+    }
+    /**
+     * Helper method for setCurrentHeatCapacity(int). Allows that method to be
+     *     called with a default value of true for the boolean.
+     * @param currentHeatCapacity an int which cannot be < 0 or >
+     *     this.maxHeatCapacity.
+     */
+    public void setCurrentHeatCapacity(int currentHeatCapacity) {
+        setCurrentHeatCapacity(currentHeatCapacity, true);
     }
     /**
      * Sets this.maxHeatCapacity to the provided value.
@@ -1117,7 +1132,7 @@ public final class Mech {
         // setMaxHeatCapacity() swapped with setCurrentHeatCapacity() because
         //     the mutators may throw exceptions otherwise
         setMaxHeatCapacity(this.frame.getHeatCapacity() + mechSkills[3]);
-        setCurrentHeatCapacity(0);
+        setCurrentHeatCapacity(0, false);
         setLimitedSystemsBonus(mechSkills[3] / 2);
         
         // Order of these properties within the mech's weapon mounts is:
