@@ -214,6 +214,32 @@ public final class Mech {
     private MechSystem[] systems;
 
     /**
+     * Any statuses affecting the mech, i.e. "danger zone".
+     * Each element must be a valid status, as defined by Mech.allowedStatuses.
+     * Case-insensitive and stored in lowercase. Cannot be null.
+     */
+    private String[] statuses;
+    /**
+     * Contains an array of allowed values for elements of Mech.statuses.
+     */
+    private static final String[] allowedStatuses = new String[] {"danger zone",
+        "engaged", "exposed", "hidden", "invisible", "prone", "shut down"};
+
+    /**
+     * Any conditions affecting the mech, i.e. "immobilized".
+     * Each element must be a valid condition, as defined by
+     *     Mech.allowedConditions.
+     * Case-insensitive and stored in lowercase. Cannot be null.
+     */
+    private String[] conditions;
+    /**
+     * Contains an array of allowed values for elements of Mech.conditions.
+     */
+    private static final String[] allowedConditions = new String[] {
+        "immobilized", "impaired", "jammed", "lock on", "shredded", "slowed",
+        "stunned"};
+
+    /**
      * Sets up any of Mech's properties that aren't filled in by
      *     Mech.setFrame().
      */
@@ -251,7 +277,7 @@ public final class Mech {
     public Mech(String name, Frame frame, String operatorNotes,
         int currentStructure, int currentHP, int currentStress,
         int currentHeatCapacity, int currentRepairCapacity,
-        MechSystem[] systems) {
+        MechSystem[] systems, String[] statuses, String[] conditions) {
         this();
         setName(name);
         setFrame(frame);
@@ -262,6 +288,8 @@ public final class Mech {
         setCurrentHeatCapacity(currentHeatCapacity);
         setCurrentRepairCapacity(currentRepairCapacity);
         setSystems(systems);
+        setStatuses(statuses);
+        setConditions(conditions);
     }
     /**
      * Creates a deepest copy of the provided Mech.
@@ -302,9 +330,8 @@ public final class Mech {
         this.setSaveTarget(mech.saveTarget);
         this.setSystemPoints(mech.systemPoints);
         this.setLimitedSystemsBonus(mech.limitedSystemsBonus);
-        this.setTraits(mech.traits);
-        this.setMounts(mech.mounts);
-        this.setSystems(mech.systems);
+        setStatuses(mech.statuses);
+        setConditions(mech.conditions);
     }
 
     public String getName() {
@@ -396,6 +423,12 @@ public final class Mech {
     }
     public MechSystem[] getSystems() {
         return HelperMethods.copyOf(systems);
+    }
+    public String[] getStatuses() {
+        return statuses;
+    }
+    public String[] getConditions() {
+        return conditions;
     }
     public void setName(String name) {
         if (name == null) {
@@ -618,13 +651,17 @@ public final class Mech {
         this.maxStress = maxStress;
     }
     /**
-     * Sets this.currentHeatCapacity to the provided value.
+     * Sets this.currentHeatCapacity to the provided value and adds or removes
+     *     "danger zone" from this.statuses to match.
      * @param currentHeatCapacity an int which cannot be < 0 or >
      *     this.maxHeatCapacity.
      * @throws IllegalArgumentException if currentHeatCapacity is < 0 or >
      *     this.maxHeatCapacity.
      */
     public void setCurrentHeatCapacity(int currentHeatCapacity) {
+        boolean containsDZ = false;
+        String[] newStatuses;
+
         if (currentHeatCapacity < 0) {
             throw new IllegalArgumentException("New currentHeatCapacity value: "
                 + currentHeatCapacity + " is < 0");
@@ -635,6 +672,13 @@ public final class Mech {
                 + " value: " + this.maxHeatCapacity);
         }
         this.currentHeatCapacity = currentHeatCapacity;
+        if (this.currentHeatCapacity * 2 >= this.maxHeatCapacity) {
+            // in danger zone
+            addStatus("danger zone");
+        } else {
+            // not in danger zone
+            removeStatus("danger zone");
+        }
     }
     /**
      * Sets this.maxHeatCapacity to the provided value.
@@ -837,6 +881,78 @@ public final class Mech {
         systems = HelperMethods.copyOf(systems);
         this.systems = systems;
     }
+    /**
+     * Sets this.statuses to the provided value.
+     * @param statuses a String[] which cannot be null or contain invalid
+     *     elements as defined by Mech.allowedStatuses.
+     * @throws IllegalArgumentException if statuses is null or contains invalid
+     *     elements as defined by Mech.allowedStatuses.
+     */
+    public void setStatuses(String[] statuses) {
+        boolean isValidStatus = false;
+        String statusString = "";
+
+        if (statuses == null) {
+            throw new IllegalArgumentException("New statuses value is null");
+        }
+        for (int i = 0; i < statuses.length; i++) {
+            if (statuses[i] == null) {
+                throw new IllegalArgumentException("New statuses array"
+                    + " contains a null element");
+            }
+            statuses[i] = statuses[i].toLowerCase();
+            statusString = statuses[i];
+            isValidStatus = false;
+            for (String status : Mech.allowedStatuses) {
+                if (statusString.equals(status)) {
+                    isValidStatus = true;
+                }
+            }
+            if (! isValidStatus) {
+                throw new IllegalArgumentException("New statuses array contains"
+                    + " an invalid element: \"" + statusString + "\"");
+            }
+        }
+        statuses = HelperMethods.copyOf(statuses);
+        this.statuses = statuses;
+    }
+    /**
+     * Sets this.conditions to the provided value.
+     * @param conditions a String[] which cannot be null or contain invalid
+     *     elements as defined by Mech.allowedConditions.
+     * @throws IllegalArgumentException if conditions is null or contains
+     *     invalid elements as defined by Mech.allowedConditions.
+     */
+    public void setConditions(String[] conditions) {
+        boolean isValidCondition = false;
+        String conditionString = "";
+
+        if (conditions == null) {
+            throw new IllegalArgumentException("New conditions value is"
+                + " null");
+        }
+        for (int i = 0; i < conditions.length; i++) {
+            if (conditions[i] == null) {
+                throw new IllegalArgumentException("New conditions array"
+                    + " contains a null element");
+            }
+            conditions[i] = conditions[i].toLowerCase();
+            conditionString = conditions[i];
+            isValidCondition = false;
+            for (String condition : Mech.allowedConditions) {
+                if (conditionString.equals(condition)) {
+                    isValidCondition = true;
+                }
+            }
+            if (! isValidCondition) {
+                throw new IllegalArgumentException("New conditions array"
+                    + " contains an invalid element: \"" + conditionString
+                    + "\"");
+            }
+        }
+        conditions = HelperMethods.copyOf(conditions);
+        this.conditions = conditions;
+    }
 
     /**
      * A helper method which outputs the mech's size, formatted properly so that
@@ -851,6 +967,98 @@ public final class Mech {
             return Integer.toString(size / 2);
         }
         return Integer.toString(size);
+    }
+    /**
+     * Adds the provided status to this.statuses.
+     * @param newStatus a String containing the new status. Must be a valid
+     *     status as defined by Mech.allowedStatuses.
+     * @param addDuplicate a boolean representing whether or not to add a second
+     *     version of the same status if that status is already present in
+     *     this.statuses.
+     * @throws IllegalArgumentException if newStatus is an invalid status as
+     *     defined by Mech.allowedStatuses.
+     */
+    public void addStatus(String newStatus, boolean addDuplicate) {
+        boolean isValid = false;
+        boolean containsStatus = false;
+
+        for (String status : Mech.allowedStatuses) {
+            if (newStatus.equals(status)) {
+                isValid = true;
+                break;
+            }
+        }
+        if (! isValid) {
+            throw new IllegalArgumentException("newStatus is an invalid"
+                + " status");
+        }
+        for (String status : this.statuses) {
+            if (status.equals(newStatus)) {
+                containsStatus = true;
+            }
+        }
+        if (! containsStatus) {
+            setStatuses(HelperMethods.append(this.statuses, newStatus));
+        }
+    }
+    /**
+     * A helper method for addStatus(String, boolean). Allows that method to be
+     *     called with a default value of false for the boolean.
+     * @param status a String containing the new status. Must be a valid
+     *     status as defined by Mech.allowedStatuses.
+     */
+    public void addStatus(String status) {
+        addStatus(status, false);
+    }
+    /**
+     * Removes the provided status from this.statuses.
+     * @param oldStatus a String containing the status to be removed. Must be a
+     *     valid status as defined by Mech.allowedStatuses.
+     * @param removeAll a boolean representing whether to remove all instances
+     *     of a status if multiple instances are present, or just the specified
+     *     one.
+     * @throws IllegalArgumentException if oldStatus is an invalid status as
+     *     defined by Mech.allowedStatuses.
+     */
+    public void removeStatus(String oldStatus, boolean removeAll) {
+        boolean isValid = false;
+        String[] newStatuses;
+
+        for (String status : Mech.allowedStatuses) {
+            if (oldStatus.equals(status)) {
+                isValid = true;
+                break;
+            }
+        }
+        if (! isValid) {
+            throw new IllegalArgumentException("oldStatus is an invalid"
+                + " status");
+        }
+        for (int i = 0; i < this.statuses.length; i++) {
+            if (this.statuses[i].equals(oldStatus)) {
+                newStatuses = new String[this.statuses.length - 1];
+                for (int j = 0; j < this.statuses.length; j++) {
+                    if (j == i) {
+                        continue;
+                    }
+                    if (j < i) {
+                        newStatuses[j] = this.statuses[j];
+                    } else {
+                        newStatuses[j - 1] = this.statuses[j];
+                    }
+                }
+                setStatuses(newStatuses);
+            }
+        }
+    }
+    /**
+     * Helper method for removeStatus(String, boolean). Allows that method to be
+     *     run with a default value of false for the boolean.
+     * @param oldStatus a String containing the status to be removed. Must be a
+     *     valid status as defined by Mech.allowedStatuses.
+     */
+    public void removeStatus(String oldStatus) {
+        removeStatus(oldStatus, false);
     }
     /**
      * Sets all of this Mech object's stat properties to their correct values,
@@ -962,6 +1170,8 @@ public final class Mech {
         setSaveTarget(this.frame.getSaveTarget());
         setTraits(this.frame.getTraits());
         setMounts(mounts);
+        setStatuses(new String[0]);
+        setConditions(new String[0]);
     }
     /**
      * Generates the output associated with the mech portion of the COMP/CON
