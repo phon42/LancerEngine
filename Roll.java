@@ -36,7 +36,8 @@ public final class Roll {
                 + " being provided.");
         }
         if (maxRoll < 2) {
-            throw new IllegalArgumentException("maxRoll is < 2");
+            throw new IllegalArgumentException("maxRoll value: " + maxRoll
+                + " is < 2");
         }
         randomNum = generateRandom() * maxRoll;
         result = (int) Math.floor(randomNum);
@@ -97,16 +98,19 @@ public final class Roll {
         int total = 0;
 
         if (rollNum < 0) {
-            throw new IllegalArgumentException("rollNum is < 0");
+            throw new IllegalArgumentException("rollNum value: " + rollNum
+                + " is < 0");
         }
         if (rollNum == 0) {
             throw new IllegalArgumentException("rollNum is 0");
         }
         if (maxRoll < 2) {
-            throw new IllegalArgumentException("maxRoll is < 2");
+            throw new IllegalArgumentException("maxRoll value: " + maxRoll
+                + " is < 2");
         }
         if (Math.abs(keep) > 1) {
-            throw new IllegalArgumentException("keep is < -1 or > 1");
+            throw new IllegalArgumentException("keep value: " + keep + " is <"
+                + " -1 or > 1");
         }
         if (keepNum == rollNum) {
             keep = 0;
@@ -117,7 +121,8 @@ public final class Roll {
             keepNum = 0;
         } else {
             if (keepNum < 1) {
-                throw new IllegalArgumentException("keepNum is < 1");
+                throw new IllegalArgumentException("keepNum value: " + keepNum
+                    + " is < 1");
             }
             if (keepNum > rollNum) {
                 throw new IllegalArgumentException("keepNum value: " + keepNum
@@ -176,12 +181,11 @@ public final class Roll {
         int numRolls;
 
         if (keep == 0) {
-            throw new IllegalArgumentException("Roll.keepRolls() was called with a keep parameter of 0");
+            throw new IllegalArgumentException("keep was 0");
         }
         if (numToKeep >= rolls.length) {
-            throw new IllegalArgumentException("Roll.keepRolls() was called"
-                + " with a numToKeep parameter: " + numToKeep + " > the rolls"
-                + " parameter's length: " + rolls.length);
+            throw new IllegalArgumentException("numToKeep value: " + numToKeep
+                + " is > the rolls array's length: " + rolls.length);
         }
         if (rolls.length > numToKeep / 2.0) {
             // something like "8dYkh2", best strategy is to go through (2 times)

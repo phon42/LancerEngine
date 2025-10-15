@@ -1005,8 +1005,8 @@ public final class Mech {
             }
         }
         if (! isValid) {
-            throw new IllegalArgumentException("newStatus is an invalid"
-                + " status");
+            throw new IllegalArgumentException("newStatus value: \"" + newStatus
+                + "\" is an invalid status");
         }
         for (String status : this.statuses) {
             if (status.equals(newStatus)) {
@@ -1047,8 +1047,8 @@ public final class Mech {
             }
         }
         if (! isValid) {
-            throw new IllegalArgumentException("oldStatus is an invalid"
-                + " status");
+            throw new IllegalArgumentException("oldStatus value: \"" + oldStatus
+                + "\" is an invalid status");
         }
         for (int i = 0; i < this.statuses.length; i++) {
             if (this.statuses[i].equals(oldStatus)) {

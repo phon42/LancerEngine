@@ -83,7 +83,8 @@ public final class HelperMethods {
         int result;
 
         if (resultSign != 1 && resultSign != -1) {
-            throw new IllegalArgumentException("resultSign is not +1 or -1");
+            throw new IllegalArgumentException("resultSign: " + resultSign
+                + " is not +1 or -1");
         }
         // these next two lines are the rest of step (2) as defined in
         //     HelperMethods.div(int, int)
