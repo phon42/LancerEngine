@@ -1,4 +1,33 @@
 import java.util.HashMap;
+// TODO: implement this whole list
+/**
+ * What's Left To Add:
+ * - taking damage (pg 67)
+ * - pilot death, damage and heat (remember to special case)
+ * - mech structuring, stressing, heat, burn, and damage
+ * - conditions
+ * - statuses
+ * - Roll - add "Roll with accuracy" or something like that
+ * - Weapons - they have to actually attack lol
+ *   - incl pilot weapons
+ * - MechSystems need to do their actions/effects
+ *   - incl pilot armor and gear
+ * - checking validity for number of talents, skill triggers, and licenses
+ * - checking validity for weapons and systems
+ * - actions on your turns (everything on pg 61 honestly)
+ *   - incl movement
+ * - reactions
+ * - downtime actions and reserves I guess..
+ * 
+ * Probably best saved for next level of abstraction:
+ * - track engagement? (doesn't make any sense to do until we're a level up)
+ * - involuntary movement
+ * - difficult/dangerous terrain
+ * - adjacency
+ * - lifting, dragging, jumping, climbing, flying, gravity, teleportation, hovering
+ * - cover
+ * - damaging the environment
+ */
 /**
  * This program is intended to simulate one (or more) characters within the
  *     tabletop roleplaying game Lancer.
