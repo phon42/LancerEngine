@@ -239,6 +239,12 @@ public final class Mech {
     private static final String[] allowedConditions = new String[] {
         "immobilized", "impaired", "jammed", "lock on", "shredded", "slowed",
         "stunned"};
+    /**
+     * Contains an array of allowed damage types. Case-insensitive and stored in
+     *     lowercase.
+     */
+    private static final String[] allowedDamageTypes = new String[] {"kinetic",
+        "explosive", "energy"};
 
     /**
      * Sets up any of Mech's properties that aren't filled in by
@@ -1221,6 +1227,9 @@ public final class Mech {
             damageToTake = Math.min(remainingDamage, this.currentHP);
             newCurrentHP = this.currentHP - damageToTake;
             setCurrentHP(newCurrentHP);
+            // if the amount of damage remaining to take is greater than our
+            //     mech's maximum HP, we will structure no matter what its
+            //     current HP is
             if (remainingDamage > this.currentHP) {
                 // we're about to structure
                 if (this.currentStructure > 0) {
@@ -1236,6 +1245,43 @@ public final class Mech {
             remainingDamage -= damageToTake;
         }
     }
+    public void receiveHeat(int heatAmount) {
+        // TODO: fill out with mitigation, resistance etc
+        // basically an attempt to convert this.currentHeat into something like
+        //     how HP works; stores how much heat this Mech can presently take
+        //     before stressing
+        int currHeat;
+        int remainingHeat = heatAmount;
+        int heatToTake;
+        int newCurrentHeat;
+
+        if (heatAmount < 0) {
+            throw new IllegalArgumentException("heatAmount value: " + heatAmount
+                + " is < 0");
+        }
+        while (remainingHeat > 0) {
+            currHeat = this.maxHeatCapacity - this.currentHeat;
+            heatToTake = Math.min(remainingHeat, currHeat);
+            newCurrentHeat = this.currentHeat + heatToTake;
+            setCurrentHeat(newCurrentHeat);
+            // if the amount of heat remaining to take is greater than our
+            //     mech's maximum heat capacity, we will stress no matter what
+            //     its current heat level is
+            if (remainingHeat > this.maxHeatCapacity) {
+                // we're about to stress
+                if (this.currentStress > 0) {
+                    receiveStressDamage();
+                } else {
+                    // Stress is 0 and the mech is taking stress damage,
+                    //     automatically destroyed :(
+                    destroy();
+                    remainingHeat = 0;
+                    break;
+                }
+            }
+            remainingHeat -= heatToTake;
+        }
+    }
     public void receiveStructureDamage(int structureDamage) {
         if (structureDamage <= 0) {
             throw new IllegalArgumentException("structureDamage value: "
@@ -1248,6 +1294,19 @@ public final class Mech {
     public void receiveStructureDamage() {
         setCurrentStructure(this.currentStructure - 1);
         setCurrentHP(this.maxHP);
+    }
+    public void receiveStressDamage(int stressDamage) {
+        if (stressDamage <= 0) {
+            throw new IllegalArgumentException("stressDamage value: "
+                + stressDamage + " is <= 0");
+        }
+        for (int i = 0; i < stressDamage; i++) {
+            receiveStressDamage();
+        }
+    }
+    public void receiveStressDamage() {
+        setCurrentStress(this.currentStress - 1);
+        setCurrentHeat(0);
     }
     public void destroy() {
         // TODO: fill out
