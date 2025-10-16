@@ -1,0 +1,194 @@
+// see pg. 68
+public class Deployable implements Damageable {
+    /**
+     * The mech's size.
+     * Size is stored as 2 * its value (i.e. Size 1/2 would be stored as int 1).
+     * Must be one of the following values:
+     *     1, 2, 4, 6, 8.
+     * Use Deployable.getSize() to get the raw value and Deployable.outputSize()
+     *     to obtain it properly formatted.
+     */
+    private int size;
+    /**
+     * The mech's current HP value.
+     * Must be a minimum of 0.
+     */
+    private int currentHP;
+    /**
+     * The mech's max HP value.
+     * Must be a minimum of 1.
+     */
+    private int maxHP;
+    /**
+     * The mech's armor value.
+     * Must be a minimum of 0.
+     */
+    private int armor;
+    /**
+     * The mech's evasion value.
+     * Must be a minimum of 0.
+     */
+    private int evasion;
+
+    public Deployable() {
+        this(2, 0);
+    }
+    public Deployable(int size, int armor) {
+        // max always before current
+        setSize(size);
+        setMaxHP(10 / 2 * size);
+        setCurrentHP(10 / 2 * size);
+        setArmor(armor);
+        setEvasion(5);
+    }
+
+    public int getSize() {
+        return size;
+    }
+    public int getCurrentHP() {
+        return currentHP;
+    }
+    public int getMaxHP() {
+        return maxHP;
+    }
+    public int getArmor() {
+        return armor;
+    }
+    public int getEvasion() {
+        return evasion;
+    }
+    /**
+     * Sets this.size to the provided value.
+     * @param size an int which must be 1, 2, 4, 6, or 8.
+     * @throws IllegalArgumentException if size is not 1, 2, 4, 6, or 8.
+     */
+    private void setSize(int size) {
+        if (size != 1 && size != 2 && size != 4 && size != 6 && size != 8) {
+            throw new IllegalArgumentException("New size: " + size + " is not"
+                + " one of the following valid values: 1, 2, 4, 6, or 8");
+        }
+        this.size = size;
+    }
+    /**
+     * Sets this.currentHP to the provided value.
+     * @param currentHP an int which cannot be < 0 or > this.maxHP.
+     * @throws IllegalArgumentException if currentHP is < 0 or > this.maxHP.
+     */
+    public void setCurrentHP(int currentHP) {
+        if (currentHP < 0) {
+            throw new IllegalArgumentException("New currentHP value: "
+                + currentHP + " is < 0");
+        }
+        if (this.maxHP < currentHP) {
+            throw new IllegalArgumentException("currentHP value provided: "
+                + currentHP + " is > maxHP value: " + this.maxHP);
+        }
+        this.currentHP = currentHP;
+    }
+    /**
+     * Sets this.maxHP to the provided value.
+     * @param maxHP an int which cannot be < 1. Will print a warning if maxHP is
+     *     < this.currentHP.
+     * @throws IllegalArgumentException if maxHP is < 1.
+     */
+    private void setMaxHP(int maxHP) {
+        if (maxHP < 1) {
+            throw new IllegalArgumentException("New maxHP value: " + maxHP
+                + " is < 1");
+        }
+        if (maxHP < this.currentHP) {
+            System.out.println("[ WARNING ] maxHP value provided: " + maxHP
+                + " is < currentHP value: " + this.currentHP);
+        }
+        this.maxHP = maxHP;
+    }
+    private void setArmor(int armor) {
+        if (armor < 0) {
+            throw new IllegalArgumentException("New armor value: " + armor
+                + " is < 0");
+        }
+        this.armor = armor;
+    }
+    private void setEvasion(int evasion) {
+        if (evasion < 0) {
+            throw new IllegalArgumentException("New evasion value: " + evasion
+                + " is < 0");
+        }
+        this.evasion = evasion;
+    }
+
+    /**
+     * A helper method which outputs the deployable's size, formatted properly
+     *     so that it is human-readable.
+     * @return a String containing the requested output.
+     */
+    public String outputSize() {
+        if (size == 1) {
+            return "1/2";
+        }
+        if (size > 1) {
+            return Integer.toString(size / 2);
+        }
+        return Integer.toString(size);
+    }
+
+    /**
+     * Deals (damageAmount) damage of type (damageType) to this Deployable.
+     * @param damageAmount an int containing the amount of damage to deal. Must
+     *     be > 0.
+     * @param damageType a String containing the type of the damage to deal.
+     *     Must be a valid damage type as defined by
+     *     HelperMethods.allowedDamageTypes.
+     * @throws IllegalArgumentException if damageAmount is < 1.
+     */
+    public void receiveDamage(int damageAmount, String damageType) {
+        // TODO: fill out with damage mitigation - armor, resistance etc
+        boolean isValid = false;
+        int damageToTake;
+        int newCurrentHP;
+
+        if (damageAmount < 1) {
+            throw new IllegalArgumentException("damageAmount value: "
+                + damageAmount + " is < 1");
+        }
+        if (damageType == null) {
+            throw new IllegalArgumentException("damageType is null");
+        }
+        for (String allowedType : HelperMethods.allowedDamageTypes) {
+            if (damageType.equals(allowedType)) {
+                isValid = true;
+            }
+        }
+        if (! isValid) {
+            throw new IllegalArgumentException("damageType value: \""
+                + damageType + "\" is an invalid damage type");
+        }
+        damageToTake = Math.min(damageAmount, this.currentHP);
+        newCurrentHP = this.currentHP - damageToTake;
+        setCurrentHP(newCurrentHP);
+        // if the amount of damage it's taking is greater than our deployable's
+        //     maximum HP, it will be destroyed no matter what its current HP is
+        if (damageAmount > this.currentHP) {
+            // it's about to be destroyed
+            destroy();
+        }
+    }
+    /**
+     * Does nothing because Deployables don't receive heat.
+     */
+    public void receiveHeat(int heatAmount) {
+        // do nothing, according to Petrichor
+    }
+    /**
+     * Deals (burnAmount) burn to this Deployable.
+     * @param burnAmount an int containing the amount of burn to deal. Must be >
+     *     0.
+     * @throws IllegalArgumentException if burnAmount is < 1.
+     */
+    public void receiveBurn(int burnAmount) {
+        // TODO: fill out - Deployables do in fact receive burn
+    }
+    public void destroy() {
+        System.out.println("This Deployable has been destroyed");
+    }
+}

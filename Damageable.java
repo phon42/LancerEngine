@@ -6,7 +6,7 @@
  * 
  * Cannot be instantiated by virtue of being an interface.
  * 
- * Implemented by Mech and Pilot.
+ * Implemented by Deployable, Mech, Pilot, and TerrainUnit.
  * 
  * Safety: N/A because this class cannot be instantiated.
  */
