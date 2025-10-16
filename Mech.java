@@ -1010,7 +1010,8 @@ public final class Mech implements Damageable {
                 containsStatus = true;
             }
         }
-        if (! containsStatus) {
+        // if (! containsStatus) || addDuplicate:
+        if (! containsStatus || addDuplicate) {
             setStatuses(HelperMethods.append(this.statuses, newStatus));
         }
     }
@@ -1061,7 +1062,11 @@ public final class Mech implements Damageable {
                     }
                 }
                 setStatuses(newStatuses);
+                break;
             }
+        }
+        if (removeAll) {
+            removeStatus(oldStatus, removeAll);
         }
     }
     /**
@@ -1072,6 +1077,103 @@ public final class Mech implements Damageable {
      */
     public void removeStatus(String oldStatus) {
         removeStatus(oldStatus, false);
+    }
+    /**
+     * Adds the provided condition to this.conditions.
+     * @param newCondition a String containing the new condition. Must be a
+     *     valid condition as defined by Mech.allowedConditions.
+     * @param addDuplicate a boolean representing whether or not to add a second
+     *     version of the same condition if that condition is already present in
+     *     this.conditions.
+     * @throws IllegalArgumentException if newCondition is an invalid condition
+     *     as defined by Mech.allowedConditions.
+     */
+    public void addCondition(String newCondition, boolean addDuplicate) {
+        boolean isValid = false;
+        boolean containsCondition = false;
+
+        for (String condition : Mech.allowedConditions) {
+            if (newCondition.equals(condition)) {
+                isValid = true;
+                break;
+            }
+        }
+        if (! isValid) {
+            throw new IllegalArgumentException("newCondition value: \""
+                + newCondition + "\" is an invalid condition");
+        }
+        for (String condition : this.conditions) {
+            if (condition.equals(newCondition)) {
+                containsCondition = true;
+            }
+        }
+        // if (! containsCondition) || addDuplicate:
+        if (! containsCondition || addDuplicate) {
+            setConditions(HelperMethods.append(this.conditions, newCondition));
+        }
+    }
+    /**
+     * A helper method for addCondition(String, boolean). Allows that method to
+     *     be called with a default value of false for the boolean.
+     * @param condition a String containing the new condition. Must be a valid
+     *     condition as defined by Mech.allowedConditions.
+     */
+    public void addCondition(String condition) {
+        addCondition(condition, false);
+    }
+    /**
+     * Removes the provided condition from this.conditions.
+     * @param oldCondition a String containing the condition to be removed. Must
+     *     be a valid condition as defined by Mech.allowedConditions.
+     * @param removeAll a boolean representing whether to remove all instances
+     *     of a condition if multiple instances are present, or just the
+     *     specified one.
+     * @throws IllegalArgumentException if oldCondition is an invalid condition
+     *     as defined by Mech.allowedConditions.
+     */
+    public void removeCondition(String oldCondition, boolean removeAll) {
+        boolean isValid = false;
+        String[] newConditions;
+
+        for (String condition : Mech.allowedConditions) {
+            if (oldCondition.equals(condition)) {
+                isValid = true;
+                break;
+            }
+        }
+        if (! isValid) {
+            throw new IllegalArgumentException("oldCondition value: \""
+                + oldCondition + "\" is an invalid condition");
+        }
+        for (int i = 0; i < this.conditions.length; i++) {
+            if (this.conditions[i].equals(oldCondition)) {
+                newConditions = new String[this.conditions.length - 1];
+                for (int j = 0; j < this.conditions.length; j++) {
+                    if (j == i) {
+                        continue;
+                    }
+                    if (j < i) {
+                        newConditions[j] = this.conditions[j];
+                    } else {
+                        newConditions[j - 1] = this.conditions[j];
+                    }
+                }
+                setConditions(newConditions);
+                break;
+            }
+        }
+        if (removeAll) {
+            removeCondition(oldCondition, removeAll);
+        }
+    }
+    /**
+     * Helper method for removeCondition(String, boolean). Allows that method to
+     *     be run with a default value of false for the boolean.
+     * @param oldCondition a String containing the condition to be removed. Must
+     *     be a valid condition as defined by Mech.allowedConditions.
+     */
+    public void removeCondition(String oldCondition) {
+        removeCondition(oldCondition, false);
     }
     /**
      * Sets all of this Mech object's stat properties to their correct values,
