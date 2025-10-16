@@ -39,7 +39,7 @@ public class State {
      * Any States which this State causes to exist.
      * Can be any State[] that does not contain null elements. Cannot be null.
      */
-    protected State[] causes;
+    protected State[] effects;
 
     /**
      * The duration of this state (i.e. "1 round").
@@ -49,18 +49,25 @@ public class State {
     protected String duration;
     /**
      * Contains an array of possible values for this.duration.
-     * - "lifetime" - The life time of the source 
+     * - "source" - The life time of the source 
      * Case-insensitive and stored in lowercase.
      */
     protected static final String[] allowedDurations = new String[] {"round",
-        "turn", "lifetime"};
+        "turn", "permanent", "until removed", "source"};
 
     public State(String type, String source, String duration) {
         setType(type);
         setSource(source);
         setCausedBy(null);
-        setCauses(new State[0]);
+        setEffects(new State[0]);
         setDuration(duration);
+    }
+    public State(State state) {
+        setType(state.type);
+        setSource(state.source);
+        setCausedBy(state.causedBy);
+        setEffects(state.effects);
+        setDuration(state.duration);
     }
 
     public String getType() {
@@ -72,8 +79,8 @@ public class State {
     public State getCausedBy() {
         return causedBy;
     }
-    public State[] getCauses() {
-        return causes;
+    public State[] getEffects() {
+        return effects;
     }
     public String getDuration() {
         return duration;
@@ -108,26 +115,28 @@ public class State {
         this.source = source;
     }
     protected void setCausedBy(State causedBy) {
+        causedBy = new State(causedBy);
         this.causedBy = causedBy;
     }
     /**
-     * Sets this.causes to the provided value.
-     * @param causes a String[] which cannot be null, be of length 0, or contain
+     * Sets this.effects to the provided value.
+     * @param effects a State[] which cannot be null, be of length 0, or contain
      *     null elements.
-     * @throws IllegalArgumentException if causes is null, of length 0, or
+     * @throws IllegalArgumentException if effects is null, of length 0, or
      *     contains null elements.
      */
-    public void setCauses(State[] causes) {
-        if (causes == null) {
-            throw new IllegalArgumentException("New causes value is null");
+    protected void setEffects(State[] effects) {
+        if (effects == null) {
+            throw new IllegalArgumentException("New effects value is null");
         }
-        for (State cause : causes) {
-            if (cause == null) {
-                throw new IllegalArgumentException("New causes array includes"
+        for (State effect : effects) {
+            if (effect == null) {
+                throw new IllegalArgumentException("New effects array includes"
                     + " a null element");
             }
         }
-        this.causes = causes;
+        effects = HelperMethods.copyOf(effects);
+        this.effects = effects;
     }
     /**
      * Sets this.duration to the provided value.
@@ -154,5 +163,99 @@ public class State {
                 + " invalid value: \"" + type + "\"");
         }
         this.duration = duration;
+    }
+
+    /**
+     * Compares this State object and obj. If they are instances of the same
+     *     class, returns true.
+     * @param obj an Object to be compared to.
+     * @return a boolean representing whether the two Objects are the same.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (! (obj instanceof State)) {
+            return false;
+        }
+        return equals((Status) obj);
+    }
+    /**
+     * Compares this State object and state. If they have the same property
+     *     values, returns true.
+     * @param state a State to be compared to.
+     * @return a boolean representing whether the two States are the same.
+     */
+    public boolean equals(State state) {
+        if (state == null) {
+            return false;
+        }
+        if (! this.type.equals(state.getType())) {
+            return false;
+        }
+        if (! this.source.equals(state.getSource())) {
+            return false;
+        }
+        if (this.causedBy == null) {
+            if (state.getCausedBy() != null) {
+                return false;
+            }
+        } else if (! this.causedBy.equals(state.getCausedBy())) {
+            return false;
+        }
+        if (this.effects.length != state.getEffects().length) {
+            return false;
+        } else {
+            for (int i = 0; i < this.effects.length; i++) {
+                if (! this.effects[i].equals(state.getEffects()[i])) {
+                    return false;
+                }
+            }
+        }
+        if (! this.duration.equals(state.getDuration())) {
+            return false;
+        }
+        
+        return true;
+    }
+    /**
+     * Adds a provided Status effect to this.effects.
+     * @param effect a Status which cannot be null.
+     * @throws IllegalArgumentException if effect is null.
+     */
+    public void addEffect(Status effect) {
+        if (effect == null) {
+            throw new IllegalArgumentException("effect is null");
+        }
+        setEffects(HelperMethods.append(this.effects, effect));
+    }
+    public State removeEffect(int index) {
+        State removedEffect;
+        State[] effects;
+
+        if (this.effects.length == 0) {
+            throw new IllegalArgumentException("Attempted to call"
+                + " State.removeEffect() when this.effects.length is 0");
+        }
+        if (index < 0 || index > this.effects.length) {
+            throw new IllegalArgumentException("index value: " + index + " is"
+                + " out of bounds for a State[] of length: "
+                + this.effects.length);
+        }
+        removedEffect = this.effects[index];
+        effects = new State[this.effects.length - 1];
+        for (int i = 0; i < effects.length; i++) {
+            if (i < index) {
+                effects[i] = this.effects[i];
+                continue;
+            }
+            if (i > index) {
+                effects[i] = this.effects[i - 1];
+            }
+        }
+        setEffects(effects);
+
+        return removedEffect;
     }
 }

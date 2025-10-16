@@ -160,6 +160,38 @@ public final class HelperMethods {
         
         return newStringArray;
     }
+    /**
+     * Appends the given State element to the end of an existing State[].
+     * @param stateArray a State[] that cannot be null.
+     * @param newElement a State that cannot be null to append to the end of
+     *     stateArray.
+     * @return a State[] consisting of stateArray with newElement appended to
+     *     the end of it.
+     * @throws IllegalArgumentException if stateArray or newElement is null.
+     */
+    public static State[] append(State[] stateArray, State newElement) {
+        if (stateArray == null) {
+            throw new IllegalArgumentException("Called"
+                + " HelperMethods.append(String[], String) with null in the"
+                + " place of the String[]");
+        }
+        if (newElement == null) {
+            throw new IllegalArgumentException("Called"
+                + " HelperMethods.append(String[], String) with null in the"
+                + " place of the String");
+        }
+        State[] newStateArray = new State[stateArray.length + 1];
+
+        for (int i = 0; i < newStateArray.length; i++) {
+            if (i < stateArray.length) {
+                newStateArray[i] = stateArray[i];
+                continue;
+            }
+            newStateArray[i] = newElement;
+        }
+        
+        return newStateArray;
+    }
     // TODO: maybe add a HelperMethods.add(Mount[], Mount) version of this
     //     method that automatically calls either HelperMethods.add(Mount[],
     //     Mount, 0) or HelperMethods.add(Mount[], Mount, Mount[].length)?
@@ -325,6 +357,23 @@ public final class HelperMethods {
                 continue;
             }
             copy[i] = new SkillTrigger(original[i]);
+        }
+
+        return copy;
+    }
+    public static State[] copyOf(State[] original) {
+        if (original == null) {
+            throw new IllegalArgumentException("Called"
+                + " HelperMethods.copyOf(State[]) with null in the place of the"
+                + " State[]");
+        }
+        State[] copy = new State[original.length];
+        for (int i = 0; i < original.length; i++) {
+            if (original[i] == null) {
+                copy[i] = original[i];
+                continue;
+            }
+            copy[i] = new State(original[i]);
         }
 
         return copy;
