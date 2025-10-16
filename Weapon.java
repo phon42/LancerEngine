@@ -61,6 +61,12 @@ public final class Weapon extends Equipment {
      *     9 - Special (Prototype Weapon only)
      */
     private int type;
+    
+    // TODO: add, make sure to account for multiple possible ranges
+    /**
+     * The weapon's range (i.e. an Object representing Range 10).
+     */
+    private Object[] range;
 
     /**
      * Creates a new Weapon given a weapon name, weapon size, and weapon type.
