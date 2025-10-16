@@ -24,7 +24,8 @@ import java.util.HashMap;
  * - downtime actions and reserves I guess..
  * 
  * Probably best saved for next level of abstraction:
- * - track engagement? (doesn't make any sense to do until we're a level up)
+ * - track engagement (check page 74)? (doesn't make any sense to do until we're
+ *     a level up)
  * - involuntary movement
  * - difficult/dangerous terrain
  * - adjacency

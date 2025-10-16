@@ -1,7 +1,7 @@
 // see pg. 68
 public class Deployable implements Damageable {
     /**
-     * The mech's size.
+     * The deployable's size.
      * Size is stored as 2 * its value (i.e. Size 1/2 would be stored as int 1).
      * Must be one of the following values:
      *     1, 2, 4, 6, 8.
@@ -10,22 +10,22 @@ public class Deployable implements Damageable {
      */
     private int size;
     /**
-     * The mech's current HP value.
+     * The deployable's current HP value.
      * Must be a minimum of 0.
      */
     private int currentHP;
     /**
-     * The mech's max HP value.
+     * The deployable's max HP value.
      * Must be a minimum of 1.
      */
     private int maxHP;
     /**
-     * The mech's armor value.
+     * The deployable's armor value.
      * Must be a minimum of 0.
      */
     private int armor;
     /**
-     * The mech's evasion value.
+     * The deployable's evasion value.
      * Must be a minimum of 0.
      */
     private int evasion;

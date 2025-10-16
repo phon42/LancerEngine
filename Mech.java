@@ -1455,6 +1455,7 @@ public final class Mech implements Damageable {
      *     - Self-Destruct, for example.
      */
     public void destroy() {
+        // see pg. 74 - wrecks grant hard cover
         // TODO: fill out
         System.out.println("This Mech has been destroyed");
     }

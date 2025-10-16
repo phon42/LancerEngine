@@ -36,9 +36,7 @@ public final class Pilot implements Damageable {
     private String player;
     /**
      * The pilot's status.
-     * Must be one of the following values:
-     *     "active", "inactive", "retired", "missing in action",
-     *     "killed in action", "unknown"
+     * Must be a valid status as defined by Pilot.allowedFlavorStatuses.
      * Case-insensitive and stored in lowercase. Cannot be null.
      * Use Pilot.getStatus() to get the raw value and Pilot.outputStatus() to
      *     obtain it properly formatted.
@@ -229,9 +227,12 @@ public final class Pilot implements Damageable {
         // setGrit() is unnecessary because licenseLevel is set later
         // setMaxHP() swapped with setCurrentHP() because the mutators may throw
         //     exceptions otherwise
+        // From pg. 74:
         setSize(1);
-        setMaxHP(8);
-        setCurrentHP(8);
+        // add this.grit to get this.maxHP
+        setMaxHP(6 + 0);
+        // add this.grit to get this.currentHP
+        setCurrentHP(6 + 0);
         setArmor(0);
         setEvasion(10);
         setSpeed(4);
@@ -1123,8 +1124,9 @@ public final class Pilot implements Damageable {
             int[] armorAttributes = Database.getPilotArmorStats(
                 this.loadout.getPilotArmor());
             
-            setMaxHP(8 + armorAttributes[0]);
-            setCurrentHP(8 + armorAttributes[0]);
+            // From pg. 74:
+            setMaxHP(6 + armorAttributes[0] + this.grit);
+            setCurrentHP(6 + armorAttributes[0] + this.grit);
             setArmor(0 + armorAttributes[1]);
             setEvasion(10 + armorAttributes[2]);
             setSpeed(4 + armorAttributes[3]);
