@@ -3221,4 +3221,134 @@ public final class TestMethods {
         // TODO: fill out
         return false;
     }
+    /*
+    might be useful for when the Roll tests are made
+    public static void main(String[] args) {
+        int X;
+        int Y;
+        int Z;
+        String keep;
+        final int one = 1;
+        final int low = 3;
+        final int mid = 6;
+        final int high = 20;
+        
+        X = high;
+        Y = mid;
+        Z = high;
+        keep = "kh";
+        for (int i = 0; i < 4; i++) {
+            switch(i) {
+                case 0:
+                    X = one;
+                    break;
+                case 1:
+                    X = low;
+                    break;
+                case 2:
+                    X = mid;
+                    break;
+                case 3:
+                    X = high;
+                    break;
+            }
+            for (int j = 0; j < 4; j++) {
+                switch(j) {
+                    case 0:
+                        Y = one;
+                        break;
+                    case 1:
+                        Y = low;
+                        break;
+                    case 2:
+                        Y = mid;
+                        break;
+                    case 3:
+                        Y = high;
+                        break;
+                }
+                for (int k = 0; k < 4; k++) {
+                    switch(j) {
+                        case 0:
+                            Z = one;
+                            break;
+                        case 1:
+                            Z = low;
+                            break;
+                        case 2:
+                            Z = mid;
+                            break;
+                        case 3:
+                            Z = high;
+                            break;
+                    }
+                    for (int l = 0; l < 2; l++) {
+                        switch(j) {
+                            case 0:
+                                keep = "kh";
+                                break;
+                            case 1:
+                                keep = "kl";
+                                break;
+                        }
+                        test(X, Y, Z, keep);
+                        System.out.println();
+                    }
+                }
+            }
+        }
+    }
+    public static void test(int X, int Y, int Z, String keep) {
+        if (Y != 1) {
+            System.out.println("X = " + X + " | Y = " + Y + " | Z = " + Z);
+            System.out.println("-----------------------------");
+
+            if (X > Z) {
+                System.out.print("Rolling XdYkhZ: ");
+                Roll.roll("" + X + "d" + Y + keep + Z);
+
+                keep = "kl";
+                System.out.print("Rolling XdYklZ: ");
+                Roll.roll("" + X + "d" + Y + keep + Z);
+            }
+
+            if (Z == 1) {
+                keep = "kh";
+                System.out.print("Rolling dYkhZ: ");
+                Roll.roll("d" + Y + keep + Z);
+
+                keep = "kl";
+                System.out.print("Rolling dYklZ: ");
+                Roll.roll("d" + Y + keep + Z);
+            }
+
+            keep = "kh";
+            System.out.print("Rolling dYkh: ");
+            Roll.roll("d" + Y + keep);
+
+            keep = "kl";
+            System.out.print("Rolling dYkl: ");
+            Roll.roll("d" + Y + keep);
+
+            if (X > Z) {
+                keep = "kh";
+                System.out.print("Rolling XdYkh: ");
+                Roll.roll("" + X + "d" + Y + keep);
+
+                keep = "kl";
+                System.out.print("Rolling XdYkl: ");
+                Roll.roll("" + X + "d" + Y + keep);
+            }
+
+            System.out.print("Rolling XdY: ");
+            Roll.roll("" + X + "d" + Y);
+
+            System.out.print("Rolling dY: ");
+            Roll.roll("d" + Y);
+
+            System.out.print("Rolling X: ");
+            Roll.roll("" + X);
+        }
+    }
+    */
 }
