@@ -548,4 +548,322 @@ public final class Roll {
 
         return result * resultSign;
     }
+    /**
+     * Rolls a skill trigger skill check with the provided parameters.
+     * isDifficult, upon being true, which adds +1 difficulty to the total roll.
+     * backgroundInvoked adds +1 accuracy or +1 difficulty if its value is +1 or
+     *     -1, respectively.
+     * teamwork, upon being true, adds +1 accuracy to the total roll.
+     * @param skillTrigger a SkillTrigger which provides the bonus for the roll.
+     *     Cannot be null.
+     * @param accuracy an int containing the number of accuracy dice applied.
+     *     Must be a minimum of 0.
+     * @param difficulty an int containing the number of difficulty dice
+     *     applied. Must be a minimum of 0.
+     * @param isDifficult a boolean representing whether the GM has marked the
+     *     roll as Difficult.
+     * @param backgroundInvoked an int containing whether the pilot's
+     *     background was invoked, and if so, to what effect. Must be between -1
+     *     and 1 (inclusive).
+     * @param teamwork a boolean representing whether teamwork was involved in
+     *     the check.
+     * @return an int containing the result of the check.
+     * @throws IllegalArgumentException if any parameters are invalid.
+     */
+    public static int check(SkillTrigger skillTrigger, int accuracy,
+        int difficulty, boolean isDifficult, int backgroundInvoked,
+        boolean teamwork) {
+        // See pgs. 13, 45 - 47
+        int bonus;
+
+        if (skillTrigger == null) {
+            throw new IllegalArgumentException("skillTrigger is null");
+        }
+        if (accuracy < 0) {
+            throw new IllegalArgumentException("accuracy value: " + accuracy
+                + " is < 0");
+        }
+        if (difficulty < 0) {
+            throw new IllegalArgumentException("difficulty value: " + difficulty
+                + " is < 0");
+        }
+        if (Math.abs(backgroundInvoked) > 1) {
+            throw new IllegalArgumentException("absolute value of"
+                + " backgroundInvoked value: " + backgroundInvoked + " is > 1");
+        }
+        bonus = skillTrigger.getLevel();
+        difficulty += isDifficult ? 1 : 0;
+        accuracy += backgroundInvoked == +1 ? 1 : 0;
+        difficulty += backgroundInvoked == -1 ? 1 : 0;
+        accuracy += teamwork ? 1 : 0;
+
+        return roll(bonus, accuracy, difficulty);
+    }
+    /**
+     * Helper method for check(SkillTrigger, int, int, boolean, int, boolean).
+     *     Allows the method to be called with default values of false, 0, false
+     *     for the fourth parameter onward.
+     * @return an int containing the result of the check.
+     */
+    public static int check(SkillTrigger skillTrigger, int accuracy,
+        int difficulty) {
+            return check(skillTrigger, accuracy, difficulty, false,
+                0, false);
+    }
+    /**
+     * Determines whether the provided result of a skill trigger skill check was
+     *     a success, failure, or partial success. Returns whether the check
+     *     succeeded (1 - or more, in the case of Risky rolls) or failed (0).
+     *     For Risky rolls, returns 1 if the result was at least 10 but less
+     *     than 20, and 2 if the result was at least 20.
+     * riskiness' 2s digit represents whether the roll is Heroic,
+     *     which increases the number required for a success to 20. Its 1s digit
+     *     represents whether the roll is Risky, which adds consequences on a
+     *     roll of less than 20.
+     * @param result an int containing the result of the check to be evaluated.
+     *     Can be any int.
+     * @param riskiness an int containing whether the GM has marked the roll as
+     *     Heroic, Risky, or neither. Must be between 0 and 2 (inclusive).
+     * @return an int containing the result of the check.
+     */
+    public static int evaluateCheck(int result, int riskiness) {
+        // See pgs. 13, 45 - 47
+        if (riskiness < 0) {
+            throw new IllegalArgumentException("riskiness value: " + riskiness
+                + " is < 0");
+        }
+        if (riskiness > 2) {
+            throw new IllegalArgumentException("riskiness value: " + riskiness
+                + " is > 2");
+        }
+        if (riskiness == 2) {
+            // the roll is Heroic
+            return (int) (result >= 20 ? 1 : 0);
+        } else if (riskiness == 1) {
+            // the roll is Risky
+            if (result < 20) {
+                return (int) (result >= 10 ? 1 : 0);
+            }
+            return 2;
+        } else {
+            // the roll is neither Heroic nor Risky
+            return (int) (result >= 10 ? 1 : 0);
+        }
+    }
+    /**
+     * Rolls a mech skill skill check with the provided parameters.
+     * @param skillIndex an int containing the index of the mech skill to use as
+     *     a bonus for this check. Must be between 0 and 3 (inclusive).
+     * @param mechSkills an int[] containing the mech skills of the Pilot
+     *     associated with this check. Must be an int[] of length 4. Each
+     *     element must be between 0 and 6 (inclusive).
+     * @param accuracy an int containing the number of accuracy dice applied.
+     *     Must be a minimum of 0.
+     * @param difficulty an int containing the number of difficulty dice
+     *     applied. Must be a minimum of 0.
+     * @return an int containing the result of the check.
+     * @throws IllegalArgumentException if any parameters are invalid.
+     */
+    public static int check(int skillIndex, int[] mechSkills, int accuracy,
+        int difficulty) {
+        // See pg. 13
+        int bonus;
+
+        if (skillIndex < 0) {
+            throw new IllegalArgumentException("skillIndex value: " + skillIndex
+                + " is < 0");
+        }
+        if (skillIndex > 3) {
+            throw new IllegalArgumentException("skillIndex value: " + skillIndex
+                + " is > 3");
+        }
+        if (mechSkills == null) {
+            throw new IllegalArgumentException("mechSkills is null");
+        }
+        if (mechSkills.length != 4) {
+            throw new IllegalArgumentException("mechSkills is of length: "
+                + mechSkills.length + " which is not 4");
+        }
+        for (int mechSkill : mechSkills) {
+            if (mechSkill < 0) {
+                throw new IllegalArgumentException("mechSkills array contains a"
+                    + " value of: " + mechSkill + " which is < 0");
+            }
+            if (mechSkill > 6) {
+                throw new IllegalArgumentException("mechSkills array contains a"
+                    + " value of: " + mechSkill + " which is > 6");
+            }
+        }
+        if (accuracy < 0) {
+            throw new IllegalArgumentException("accuracy value: " + accuracy
+                + " is < 0");
+        }
+        if (difficulty < 0) {
+            throw new IllegalArgumentException("difficulty value: " + difficulty
+                + " is < 0");
+        }
+        bonus = mechSkills[skillIndex];
+
+        return roll(bonus, accuracy, difficulty);
+    }
+    /**
+     * Helper method for check(int, int[], int, int). Allows the method to be
+     *     called with default values of 0, 0 from the third parameter onward.
+     * @return an int containing the result of the check.
+     */
+    public static int check(int skillIndex, int[] mechSkills) {
+        return check(skillIndex, mechSkills, 0, 0);
+    }
+    /**
+     * Determines whether the provided result of a mech skills skill check was
+     *     a success or failure.
+     * @param result an int which can be any int.
+     * @return a boolean containing the result of the check.
+     */
+    public static boolean evaluateCheck(int result) {
+        return (result >= 10);
+    }
+    /**
+     * Rolls a contested skill trigger skill check. Returns the identity of the
+     *     winner as an int: +1 = Attacker (Participant #1) won, -1 = Defender
+     *     (Participant #2) won.
+     * @return an int containing the identity of the winner.
+     */
+    public static int contestedCheck(SkillTrigger skillTrigger1,
+        SkillTrigger skillTrigger2, int accuracy1, int difficulty1,
+        int accuracy2, int difficulty2) {
+        // See pg. 13
+        int result1 = check(skillTrigger1, accuracy1, difficulty1);
+        int result2 = check(skillTrigger2, accuracy2, difficulty2);
+
+        // If it's a tie (result1 == result2), the result is +1
+        return result1 >= result2 ? +1 : -1;
+    }
+    public static int contestedCheck(SkillTrigger skillTrigger1,
+        SkillTrigger skillTrigger2) {
+        return contestedCheck(skillTrigger1, skillTrigger2, 0,
+            0, 0, 0);
+    }
+    /**
+     * Rolls a contested mech skills skill check. Returns the identity of the
+     *     winner as an int: +1 = Attacker (Participant #1) won, -1 = Defender
+     *     (Participant #2) won.
+     * @return an int containing the identity of the winner.
+     */
+    public static int contestedCheck(int skillIndex1, int[] mechSkills1,
+        int skillIndex2, int[] mechSkills2, int accuracy1, int difficulty1,
+        int accuracy2, int difficulty2) {
+        // See pg. 13
+        int result1 = check(skillIndex1, mechSkills1, accuracy1, difficulty1);
+        int result2 = check(skillIndex2, mechSkills2, accuracy2, difficulty2);
+
+        // If it's a tie (result1 == result2), the result is +1
+        return result1 >= result2 ? +1 : -1;
+    }
+    public static int contestedCheck(int skillIndex1, int[] mechSkills1,
+        int skillIndex2, int[] mechSkills2) {
+        return contestedCheck(skillIndex1, mechSkills1, skillIndex2,
+            mechSkills2, 0, 0, 0,
+            0);
+    }
+    /**
+     * Rolls an attack roll.
+     * @param bonus an int containing the bonus to add to the roll. Can be any
+     *     int.
+     * @param accuracy an int containing the number of accuracy dice applied.
+     *     Must be a minimum of 0.
+     * @param difficulty an int containing the number of difficulty dice
+     *     applied. Must be a minimum of 0.
+     * @return an int containing the result of the roll.
+     * @throws IllegalArgumentException if any parameters are invalid.
+     */
+    public static int attack(int bonus, int accuracy, int difficulty) {
+        // See pg. 13
+        if (accuracy < 0) {
+            throw new IllegalArgumentException("accuracy value: " + accuracy
+                + " is < 0");
+        }
+        if (difficulty < 0) {
+            throw new IllegalArgumentException("difficulty value: " + difficulty
+                + " is < 0");
+        }
+
+        return roll(bonus, accuracy, difficulty);
+    }
+    /**
+     * Rolls a save.
+     * @param skillIndex an int containing the index of the mech skill to use as
+     *     a bonus for this check. Must be between 0 and 3 (inclusive).
+     * @param mechSkills an int[] containing the mech skills of the Pilot
+     *     associated with this check. Must be an int[] of length 4. Each
+     *     element must be between 0 and 6 (inclusive).
+     * @param accuracy an int containing the number of accuracy dice applied.
+     *     Must be a minimum of 0.
+     * @param difficulty an int containing the number of difficulty dice
+     *     applied. Must be a minimum of 0.
+     * @return an int containing the result of the roll.
+     * @throws IllegalArgumentException if any parameters are invalid.
+     */
+    public static int save(int skillIndex, int[] mechSkills, int accuracy,
+        int difficulty) {
+        // See pg. 13
+        // TODO: reminder that you can always choose to fail this kind of roll
+        int bonus;
+
+        if (skillIndex < 0) {
+            throw new IllegalArgumentException("skillIndex value: " + skillIndex
+                + " is < 0");
+        }
+        if (skillIndex > 3) {
+            throw new IllegalArgumentException("skillIndex value: " + skillIndex
+                + " is > 3");
+        }
+        if (mechSkills == null) {
+            throw new IllegalArgumentException("mechSkills is null");
+        }
+        if (mechSkills.length != 4) {
+            throw new IllegalArgumentException("mechSkills is of length: "
+                + mechSkills.length + " which is not 4");
+        }
+        for (int mechSkill : mechSkills) {
+            if (mechSkill < 0) {
+                throw new IllegalArgumentException("mechSkills array contains a"
+                    + " value of: " + mechSkill + " which is < 0");
+            }
+            if (mechSkill > 6) {
+                throw new IllegalArgumentException("mechSkills array contains a"
+                    + " value of: " + mechSkill + " which is > 6");
+            }
+        }
+        if (accuracy < 0) {
+            throw new IllegalArgumentException("accuracy value: " + accuracy
+                + " is < 0");
+        }
+        if (difficulty < 0) {
+            throw new IllegalArgumentException("difficulty value: " + difficulty
+                + " is < 0");
+        }
+        bonus = mechSkills[skillIndex];
+
+        return roll(bonus, accuracy, difficulty);
+    }
+    /**
+     * Rolls a check, attack roll, or save.
+     * @param bonus an int containing the bonus value to apply to the roll. Can
+     *     be any int.
+     * @param accuracy an int containing the number of accuracy dice to apply to
+     *     the roll. Must be a minimum of 0. Assumed to be valid.
+     * @param difficulty an int containing the number of difficulty dice to
+     *     apply to the roll. Must be a minimum of 0. Assumed to be valid.
+     * @return an int containing the result of the check.
+     */
+    private static int roll(int bonus, int accuracy, int difficulty) {
+        // See pg. 13
+        int result = roll("d20");
+
+        result += bonus;
+        result += rollAccDiff(accuracy, difficulty);
+
+        return result;
+    }
 }
