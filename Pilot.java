@@ -83,6 +83,8 @@ public final class Pilot implements Damageable {
      * Size is stored as 2 * its value (i.e. Size 1/2 would be stored as int 1).
      * Must be one of the following values:
      *     1, 2, 4, 6, 8.
+     * Use Pilot.getSize() to get the raw value and Pilot.outputSize() to obtain
+     *     it properly formatted.
      */
     private int size;
     /**
@@ -861,6 +863,20 @@ public final class Pilot implements Damageable {
         return HelperMethods.capitalizeFirst(status);
     }
     /**
+     * A helper method which outputs the mech's size, formatted properly so that
+     *     it is human-readable. Used in Mech.outputStats("full", int, int[]).
+     * @return a String containing the requested output.
+     */
+    public String outputSize() {
+        if (size == 1) {
+            return "1/2";
+        }
+        if (size > 1) {
+            return Integer.toString(size / 2);
+        }
+        return Integer.toString(size);
+    }
+    /**
      * Adds the provided status to this.statuses.
      * @param newStatus a String containing the new status. Must be a valid
      *     status as defined by Pilot.allowedStatuses.
@@ -1128,7 +1144,6 @@ public final class Pilot implements Damageable {
         }
         receiveDamage(heatAmount, "energy");
     }
-    // TODO: see whether this is even necessary
     /**
      * Deals (burnAmount) burn to this Pilot.
      * @param burnAmount an int containing the amount of burn to deal. Must be >
@@ -1136,7 +1151,7 @@ public final class Pilot implements Damageable {
      * @throws IllegalArgumentException if burnAmount is < 1.
      */
     public void receiveBurn(int burnAmount) {
-        // TODO: fill out
+        // TODO: fill out - pilots do in fact take burn
         if (burnAmount < 1) {
             throw new IllegalArgumentException("burnAmount value: " + burnAmount
                 + " is < 1");
