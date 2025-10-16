@@ -14,8 +14,8 @@ public class Equipment {
     //     GMS Pattern-A Jericho Deployable Cover and its Deploy Jericho
     //     Deployable Cover action for MechSystem, or IPS-N D/D 288 and its
     //     Charge D/D 288 action for Weapon)
-    // TODO: add some way for EquipmentTags to be automatically added based on
-    //     an equipment's contents
+    // TODO: add some way for Tags to be automatically added based on an
+    //     equipment's contents
     /**
      * The equipment's name (i.e. "Armament Redundancy" or "Anti-Materiel
      *     Rifle").
@@ -23,11 +23,11 @@ public class Equipment {
      */
     protected String name;
     /**
-     * Contains an array of all of this equipment's tags (i.e. EquipmentTag
-     *     elements representing an "AI" or "Limited X" tag).
-     * Can be any EquipmentTag[]. Cannot be null or contain null elements.
+     * Contains an array of all of this equipment's tags (i.e. Tag elements
+     *     representing an "AI" or "Limited X" tag).
+     * Can be any Tag[]. Cannot be null or contain null elements.
      */
-    protected EquipmentTag[] tags;
+    protected Tag[] tags;
     
     /**
      * Creates a new Equipment from a given equipment name and sets up all
@@ -37,7 +37,7 @@ public class Equipment {
      */
     protected Equipment(String equipmentName) {
         setName(equipmentName);
-        setTags(new EquipmentTag[0]);
+        setTags(new Tag[0]);
     }
 
     public String getName() {
@@ -50,7 +50,7 @@ public class Equipment {
      * @return a boolean containing the result of the search.
      */
     public boolean hasTag(String tagName) {
-        for (EquipmentTag tag : this.tags) {
+        for (Tag tag : this.tags) {
             if (tag.getName().equals(tagName)) {
                 return true;
             }
@@ -71,7 +71,7 @@ public class Equipment {
      * @throws IllegalArgumentException if the requested tag could not be found.
      */
     public int getTag(String tagName) {
-        for (EquipmentTag tag : this.tags) {
+        for (Tag tag : this.tags) {
             if (tag.getName().equals(tagName)) {
                 return tag.getValue();
             }
@@ -94,32 +94,32 @@ public class Equipment {
      * @throws IllegalArgumentException if tags is null or includes a null
      *     element.
      */
-    protected void setTags(EquipmentTag[] tags) {
+    protected void setTags(Tag[] tags) {
         // This will throw an exception if tags is invalid
         checkTagsArray(tags);
         tags = HelperMethods.copyOf(tags);
         this.tags = tags;
     }
     /**
-     * Checks an EquipmentTag[] to see if it is a valid value for
-     *     Equipment.tags. Throws an IllegalArgumentException if not. Used in
-     *     Equipment's children's overridden setTags() methods.
-     * @param tags an EquipmentTag[] to be checked.
+     * Checks a Tag[] to see if it is a valid value for Equipment.tags. Throws
+     *     an IllegalArgumentException if not. Used in Equipment's children's
+     *     overridden setTags() methods.
+     * @param tags a Tag[] to be checked.
      * @return a boolean containing the result of the check.
-     * @throws IllegalArgumentException if the EquipmentTag[] is invalid or
-     *     contains an invalid value for any number of reasons.
+     * @throws IllegalArgumentException if the Tag[] is invalid or contains an
+     *     invalid value for any number of reasons.
      */
-    protected void checkTagsArray(EquipmentTag[] tags) {
+    protected void checkTagsArray(Tag[] tags) {
         if (tags == null) {
             throw new IllegalArgumentException("New tags value is null");
         }
-        for (EquipmentTag tag : tags) {
+        for (Tag tag : tags) {
             if (tag == null) {
                 throw new IllegalArgumentException("New tags array includes a"
                     + " null element");
             }
             // Checking for tag.name being valid isn't necessary because it's
-            //     already done in EquipmentTag's constructors
+            //     already done in Tag's constructors
         }
     }
 }

@@ -11,8 +11,8 @@
  */
 public final class MechSystem extends Equipment {
     /**
-     * Contains an array of allowed values for MechSystem.tags'
-     *     EquipmentTag.name values. Case-sensitive.
+     * Contains an array of allowed values for MechSystem.tags' Tag.name values.
+     *     Case-sensitive.
      */
     public static final String[] allowedNames = new String[] {"AI",
         "Unique", "Limited X", "Grenade", "Mine", "Quick Action", "Deployable",
@@ -30,11 +30,11 @@ public final class MechSystem extends Equipment {
     /**
      * Creates a MechSystem given a system name and array of system tags.
      * @param systemName a String which cannot be null or "".
-     * @param systemTags an EquipmentTag[] which cannot be null, contain null
-     *     elements, or contain elements with invalid EquipmentTag.name values,
-     *     as defined by MechSystem.allowedNames.
+     * @param systemTags a Tag[] which cannot be null, contain null elements,
+     *     or contain elements with invalid Tag.name values, as defined by
+     *     MechSystem.allowedNames.
      */
-    public MechSystem(String systemName, EquipmentTag[] systemTags) {
+    public MechSystem(String systemName, Tag[] systemTags) {
         super(systemName);
         setTags(systemTags);
     }
@@ -49,21 +49,21 @@ public final class MechSystem extends Equipment {
 
     /**
      * Sets this.tags to the provided value.
-     * @param tags an EquipmentTag[] which cannot be null, contain null
-     *     elements, or contain elements with invalid EquipmentTag.name values
-     *     as defined by MechSystem.allowedNames.
+     * @param tags a Tag[] which cannot be null, contain null elements, or
+     *     contain elements with invalid Tag.name values as defined by
+     *     MechSystem.allowedNames.
      * @throws IllegalArgumentException if tags is null, contains a null
-     *     element, or an element with an invalid EquipmentTag.name value, as
-     *     defined by MechSystem.allowedNames.
+     *     element, or an element with an invalid Tag.name value, as defined by
+     *     MechSystem.allowedNames.
      */
     @Override
-    protected void setTags(EquipmentTag[] tags) {
+    protected void setTags(Tag[] tags) {
         boolean isValid = false;
 
         // Throws an IllegalArgumentException if tags is null or contains null
         //     elements
         checkTagsArray(tags);
-        for (EquipmentTag tag : tags) {
+        for (Tag tag : tags) {
             isValid = false;
             for (String allowedTag : MechSystem.allowedNames) {
                 if (tag.getName().equals(allowedTag)) {
@@ -72,8 +72,8 @@ public final class MechSystem extends Equipment {
             }
             if (! isValid) {
                 throw new IllegalArgumentException("New tags array includes an"
-                    + " EquipmentTag with an invalid tag name for a MechSystem:"
-                    + " \"" + tag.getName() + "\"");
+                    + " Tag with an invalid tag name for a MechSystem: \""
+                    + tag.getName() + "\"");
             }
         }
         tags = HelperMethods.copyOf(tags);

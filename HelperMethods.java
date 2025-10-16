@@ -403,23 +403,23 @@ public final class HelperMethods {
     }
     /**
      * Returns a deepest copy of original.
-     * @param original an EquipmentTag[] that cannot be null.
-     * @return an EquipmentTag[] deepest copy of original.
+     * @param original a Tag[] that cannot be null.
+     * @return a Tag[] deepest copy of original.
      * @throws IllegalArgumentException if original is null.
      */
-    public static EquipmentTag[] copyOf(EquipmentTag[] original) {
+    public static Tag[] copyOf(Tag[] original) {
         if (original == null) {
             throw new IllegalArgumentException("Called"
-                + " HelperMethods.copyOf(EquipmentTag[]) with null in the"
-                + " place of the EquipmentTag[]");
+                + " HelperMethods.copyOf(Tag[]) with null in the place of the"
+                + " Tag[]");
         }
-        EquipmentTag[] copy = new EquipmentTag[original.length];
+        Tag[] copy = new Tag[original.length];
         for (int i = 0; i < original.length; i++) {
             if (original[i] == null) {
                 copy[i] = original[i];
                 continue;
             }
-            copy[i] = new EquipmentTag(original[i]);
+            copy[i] = new Tag(original[i]);
         }
 
         return copy;

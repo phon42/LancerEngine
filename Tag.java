@@ -9,11 +9,10 @@
  * Safety: This class does not have placeholder values and cannot be a
  *     placeholder. None of its properties have allowed values of null.
  */
-public final class EquipmentTag {
+public final class Tag {
     /**
      * The name for this equipment tag (i.e. "AI").
-     * Must be a valid value (as defined by EquipmentTag.allowedNames). Cannot
-     *     be null.
+     * Must be a valid value (as defined by Tag.allowedNames). Cannot be null.
      */
     private String name;
     /**
@@ -36,50 +35,50 @@ public final class EquipmentTag {
     /**
      * The value for this equipment tag if it has one (i.e. the "X" in
      *     "Limited X").
-     * Must be a minimum of 0. If this.name is one of EquipmentTag.valueNames,
-     *     must be a minimum of 1. Set to 0 on construction.
+     * Must be a minimum of 0. If this.name is one of Tag.valueNames, must be a
+     *     minimum of 1. Set to 0 on construction.
      */
     private int value;
 
     /**
-     * Creates a new EquipmentTag given an equipment tag name.
+     * Creates a new Tag given an equipment tag name.
      * @param tagName a String which cannot be null or an invalid value, as
-     *     defined by EquipmentTag.allowedNames.
+     *     defined by Tag.allowedNames.
      */
-    public EquipmentTag(String tagName) {
+    public Tag(String tagName) {
         this.value = 0;
         setName(tagName);
     }
     /**
-     * Creates a copy of the provided EquipmentTag.
-     * @param equipmentTag an EquipmentTag to be copied.
-     * @return an EquipmentTag copy of the provided EquipmentTag.
+     * Creates a copy of the provided Tag.
+     * @param tag a Tag to be copied.
+     * @return a Tag copy of the provided Tag.
      */
-    public EquipmentTag(EquipmentTag equipmentTag) {
+    public Tag(Tag tag) {
         boolean isValid = false;
 
-        setName(equipmentTag.name);
-        for (String valueName : EquipmentTag.valueNames) {
-            if (equipmentTag.name.equals(valueName)) {
+        setName(tag.name);
+        for (String valueName : Tag.valueNames) {
+            if (tag.name.equals(valueName)) {
                 isValid = true;
                 break;
             }
         }
         if (isValid) {
-            setValue(equipmentTag.value);
+            setValue(tag.value);
         } else {
             this.value = 0;
         }
     }
     /**
-     * Creates a new EquipmentTag for an EquipmentTag like the "Limited X" tag,
-     *     given an equipment tag name for which having a value other than 0 for
-     *     this.value makes sense, and a tag value.
+     * Creates a new Tag such as the "Limited X" tag, given an equipment tag
+     *     name for which having a value other than 0 for this.value makes
+     *     sense, and a tag value.
      * @param tagName a String which cannot be null or an invalid value, as
-     *     defined by EquipmentTag.valueNames.
+     *     defined by Tag.valueNames.
      * @param tagValue an int which must be > 1.
      */
-    public EquipmentTag(String tagName, int tagValue) {
+    public Tag(String tagName, int tagValue) {
         setName(tagName);
         setValue(tagValue);
     }
@@ -93,9 +92,9 @@ public final class EquipmentTag {
     /**
      * Sets this.name to the provided value.
      * @param name a String which must be a valid value (as defined by
-     *     EquipmentTag.allowedNames). Cannot be null.
+     *     Tag.allowedNames). Cannot be null.
      * @throws IllegalArgumentException if name is null or an invalid value, as
-     *     defined by EquipmentTag.allowedNames.
+     *     defined by Tag.allowedNames.
      */
     public void setName(String name) {
         boolean isAllowed = false;
@@ -103,7 +102,7 @@ public final class EquipmentTag {
         if (name == null) {
             throw new IllegalArgumentException("New name is null");
         }
-        for (String allowedName : EquipmentTag.allowedNames) {
+        for (String allowedName : Tag.allowedNames) {
             if (name.equals(allowedName)) {
                 isAllowed = true;
             }
@@ -124,7 +123,7 @@ public final class EquipmentTag {
     public void setValue(int value) {
         boolean isValid = false;
         
-        for (String valueName : EquipmentTag.valueNames) {
+        for (String valueName : Tag.valueNames) {
             if (this.name.equals(valueName)) {
                 isValid = true;
                 break;
@@ -138,7 +137,7 @@ public final class EquipmentTag {
             this.value = value;
         } else {
             throw new IllegalArgumentException("Attempted to call"
-                + " EquipmentTag.setValue() when name is \"" + this.name
+                + " Tag.setValue() when name is \"" + this.name
                 + "\"");
         }
     }

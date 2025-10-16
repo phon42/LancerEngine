@@ -13,8 +13,8 @@ public final class Weapon extends Equipment {
     // TODO: fill out with some kind of way to attack
     // TODO: fucking deal with Ushabti Omnigun somehow
     /**
-     * Contains an array of allowed values for Weapon.tags' EquipmentTag.name
-     *     values. Case-sensitive.
+     * Contains an array of allowed values for Weapon.tags' Tag.name values.
+     *     Case-sensitive.
      */
     public static final String[] allowedNames = new String[] {"Accurate",
         "Armor-Piercing (AP)", "Loading", "Ordnance", "Reliable X",
@@ -85,12 +85,12 @@ public final class Weapon extends Equipment {
      * @param weaponName a String which cannot be null or "".
      * @param weaponSize an int which must be between 0 and 4 (inclusive).
      * @param weaponType an int which must be between 0 and 9 (inclusive).
-     * @param weaponTags an EquipmentTag[] which cannot be null, contain null
-     *     elements, or elements with invalid EquipmentTag.name values, as
-     *     defined by Weapon.allowedNames.
+     * @param weaponTags a Tag[] which cannot be null, contain null elements, or
+     *     elements with invalid Tag.name values, as defined by
+     *     Weapon.allowedNames.
      */
     public Weapon(String weaponName, int weaponSize, int weaponType,
-        EquipmentTag[] weaponTags) {
+        Tag[] weaponTags) {
         this(weaponName, weaponSize, weaponType);
         setTags(weaponTags);
     }
@@ -101,8 +101,8 @@ public final class Weapon extends Equipment {
      */
     public Weapon(Weapon weapon) {
         // don't need to make copies of this.tags because the mutator
-        //     (Equipment.setTags()) called by Weapon(String, int,
-        //     EquipmentTag[]) already does so
+        //     (Equipment.setTags()) called by Weapon(String, int, Tag[])
+        //     already does so
         this(weapon.name, weapon.size, weapon.type, weapon.tags);
     }
 
@@ -140,21 +140,20 @@ public final class Weapon extends Equipment {
     }
     /**
      * Sets this.tags to the provided value.
-     * @param tags an EquipmentTag[] which cannot be null, contain null
-     *     elements, or contain EquipmentTags with invalid EquipmentTag.name
-     *     values as defined by Weapon.allowedNames.
-     * @throws IllegalArgumentException if tags includes an element with an
-     *     invalid EquipmentTag.name for a Weapon, as defined by
+     * @param tags a Tag[] which cannot be null, contain null elements, or
+     *     contain Tags with invalid Tag.name values as defined by
      *     Weapon.allowedNames.
+     * @throws IllegalArgumentException if tags includes an element with an
+     *     invalid Tag.name for a Weapon, as defined by Weapon.allowedNames.
      */
     @Override
-    protected void setTags(EquipmentTag[] tags) {
+    protected void setTags(Tag[] tags) {
         boolean isValid = false;
 
         // Throws an IllegalArgumentException if tags is null or contains null
         //     elements
         checkTagsArray(tags);
-        for (EquipmentTag tag : tags) {
+        for (Tag tag : tags) {
             isValid = false;
             for (String allowedTag : Weapon.allowedNames) {
                 if (tag.getName().equals(allowedTag)) {
@@ -162,8 +161,8 @@ public final class Weapon extends Equipment {
                 }
             }
             if (! isValid) {
-                throw new IllegalArgumentException("New tags array includes an"
-                    + " EquipmentTag with an invalid tag name for a Weapon: \""
+                throw new IllegalArgumentException("New tags array includes a"
+                    + " Tag with an invalid tag name for a Weapon: \""
                     + tag.getName() + "\"");
             }
         }

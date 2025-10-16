@@ -2867,9 +2867,8 @@ public final class TestMethods {
             new Weapon("Vulture DMR", 1, 5),
             "", "Overpower Caliber"));
         original.setSystems(new MechSystem[] {
-            new MechSystem("Pattern-A Smoke Charges", new EquipmentTag[] {
-                new EquipmentTag("Limited X", 3)
-            }),
+            new MechSystem("Pattern-A Smoke Charges", new Tag[] {
+                new Tag("Limited X", 3)}),
             new MechSystem("Seismic Ripper"),
             new MechSystem("High-Stress Mag Clamps"),
             new MechSystem("ATHENA-Class NHP"),

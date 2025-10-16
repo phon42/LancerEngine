@@ -148,12 +148,12 @@ public final class Database {
             new Mount[] {
                 new Mount("integrated mount",
                     new Weapon("HHS-075 \"Flayer\" Shotgun",
-                    1, 0, new EquipmentTag[] {
+                    1, 0, new Tag[] {
                         // TODO: disentangle these two weapon profiles
-                        new EquipmentTag("Inaccurate"),
-                        new EquipmentTag("Knockback X", 2),
-                        new EquipmentTag("Accurate"),
-                        // new EquipmentTag("Knockback X", 5)
+                        new Tag("Inaccurate"),
+                        new Tag("Knockback X", 2),
+                        new Tag("Accurate"),
+                        // new Tag("Knockback X", 5)
                     })
                 ),
                 new Mount("heavy")
@@ -206,8 +206,8 @@ public final class Database {
                 // TODO: add some kind of automatic action-to-tag translation
                 new Mount("integrated mount",
                     new Weapon("Apocalypse Rail", 4,
-                    7, new EquipmentTag[] {
-                        new EquipmentTag("Full Action")
+                    7, new Tag[] {
+                        new Tag("Full Action")
                     })
                 ),
                 new Mount("main"),
