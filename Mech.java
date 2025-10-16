@@ -239,12 +239,6 @@ public final class Mech {
     private static final String[] allowedConditions = new String[] {
         "immobilized", "impaired", "jammed", "lock on", "shredded", "slowed",
         "stunned"};
-    /**
-     * Contains an array of allowed damage types. Case-insensitive and stored in
-     *     lowercase.
-     */
-    private static final String[] allowedDamageTypes = new String[] {"kinetic",
-        "explosive", "energy"};
 
     /**
      * Sets up any of Mech's properties that aren't filled in by
@@ -1197,7 +1191,8 @@ public final class Mech {
      * @param damageAmount an int containing the amount of damage to deal. Must
      *     be >= 0.
      * @param damageType a String containing the type of the damage to deal.
-     *     Must be a valid damage type as defined by Mech.allowedDamageTypes.
+     *     Must be a valid damage type as defined by
+     *     HelperMethods.allowedDamageTypes.
      * @throws IllegalArgumentException if damageAmount is < 0.
      */
     public void receiveDamage(int damageAmount, String damageType) {
@@ -1214,7 +1209,7 @@ public final class Mech {
         if (damageType == null) {
             throw new IllegalArgumentException("damageType is null");
         }
-        for (String allowedType : Mech.allowedDamageTypes) {
+        for (String allowedType : HelperMethods.allowedDamageTypes) {
             if (damageType.equals(allowedType)) {
                 isValid = true;
             }
