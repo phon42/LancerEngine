@@ -7,7 +7,7 @@
  * Used in Pilot.
  * 
  * Safety: This class does not have placeholder values and cannot be a
- *     placeholder. None of its properties can be null.
+ *     placeholder. None of its properties have allowed values of null.
  */
 public final class License {
     /**
