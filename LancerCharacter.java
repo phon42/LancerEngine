@@ -385,6 +385,215 @@ public final class LancerCharacter {
         this.mech.setSystems((MechSystem[]) mechProperties.get("systems"));
     }
     /**
+     * Calls addStatus(State, boolean) on either this.pilot or this.mech,
+     *     depending on targetMech.
+     * @param targetMech a boolean representing whether to call
+     *     addStatus(State, boolean) on this.mech.
+     */
+    public void addStatus(boolean targetMech, State newStatus,
+        boolean addDuplicate) {
+        if (targetMech) {
+            this.mech.addStatus(newStatus, addDuplicate);
+        } else {
+            this.pilot.addStatus(newStatus, addDuplicate);
+        }
+    }
+    /**
+     * Calls addStatus(State) on either this.pilot or this.mech, depending on
+     *     targetMech.
+     * @param targetMech a boolean representing whether to call addStatus(State)
+     *     on this.mech.
+     */
+    public void addStatus(boolean targetMech, State status) {
+        if (targetMech) {
+            this.mech.addStatus(status);
+        } else {
+            this.pilot.addStatus(status);
+        }
+    }
+    /**
+     * Calls removeStatus(State, boolean) on either this.pilot or this.mech,
+     *     depending on targetMech.
+     * @param targetMech a boolean representing whether to call
+     *     removeStatus(State, boolean) on this.mech.
+     */
+    public void removeStatus(boolean targetMech, State oldStatus,
+        boolean removeAll) {
+        if (targetMech) {
+            this.mech.removeStatus(oldStatus, removeAll);
+        } else {
+            this.pilot.removeStatus(oldStatus, removeAll);
+        }
+    }
+    /**
+     * Calls removeStatus(State) on either this.pilot or this.mech, depending on
+     *     targetMech.
+     * @param targetMech a boolean representing whether to call
+     *     removeStatus(State) on this.mech.
+     */
+    public void removeStatus(boolean targetMech, State oldStatus) {
+        if (targetMech) {
+            this.mech.removeStatus(oldStatus);
+        } else {
+            this.pilot.removeStatus(oldStatus);
+        }
+    }
+    /**
+     * Calls hasState() on either this.pilot or this.mech, depending on
+     *     targetMech.
+     * @param targetMech a boolean representing whether to call hasState() on
+     *     this.mech.
+     */
+    public boolean hasState(boolean targetMech, String statusType) {
+        if (targetMech) {
+            return this.mech.hasState(statusType);
+        } else {
+            return this.pilot.hasState(statusType);
+        }
+    }
+    /**
+     * Calls addCondition(State, boolean) on either this.pilot or this.mech,
+     *     depending on targetMech.
+     * @param targetMech a boolean representing whether to call
+     *     addCondition(State, boolean) on this.mech.
+     */
+    public void addCondition(boolean targetMech, State newCondition,
+        boolean addDuplicate) {
+        if (targetMech) {
+            this.mech.addCondition(newCondition, addDuplicate);
+        } else {
+            this.pilot.addCondition(newCondition, addDuplicate);
+        }
+    }
+    /**
+     * Calls addCondition(State) on either this.pilot or this.mech, depending on
+     *     targetMech.
+     * @param targetMech a boolean representing whether to call
+     *     addCondition(State) on this.mech.
+     */
+    public void addCondition(boolean targetMech, State condition) {
+        if (targetMech) {
+            this.mech.addCondition(condition);
+        } else {
+            this.pilot.addCondition(condition);
+        }
+    }
+    /**
+     * Calls removeCondition(State, boolean) on either this.pilot or this.mech,
+     *     depending on targetMech.
+     * @param targetMech a boolean representing whether to call
+     *     removeCondition(State, boolean) on this.mech.
+     */
+    public void removeCondition(boolean targetMech, State oldCondition,
+        boolean removeAll) {
+        if (targetMech) {
+            this.mech.removeCondition(oldCondition, removeAll);
+        } else {
+            this.pilot.removeCondition(oldCondition, removeAll);
+        }
+    }
+    /**
+     * Calls removeCondition(State) on either this.pilot or this.mech, depending
+     *     on targetMech.
+     * @param targetMech a boolean representing whether to call
+     *     removeCondition(State) on this.mech.
+     */
+    public void removeCondition(boolean targetMech, State oldCondition) {
+        if (targetMech) {
+            this.mech.removeCondition(oldCondition);
+        } else {
+            this.pilot.removeCondition(oldCondition);
+        }
+    }
+    /**
+     * Calls receiveDamage() on either this.pilot or this.mech, depending on
+     *     targetMech.
+     * @param targetMech a boolean representing whether to call receiveDamage()
+     *     on this.mech.
+     */
+    public void receiveDamage(boolean targetMech, int damageAmount,
+        String damageType) {
+        if (targetMech) {
+            this.mech.receiveDamage(damageAmount, damageType);
+        } else {
+            this.pilot.receiveDamage(damageAmount, damageType);
+        }
+    }
+    /**
+     * Calls receiveHeat() on either this.pilot or this.mech, depending on
+     *     targetMech.
+     * @param targetMech a boolean representing whether to call receiveHeat() on
+     *     this.mech.
+     */
+    public void receiveHeat(boolean targetMech, int heatAmount) {
+        if (targetMech) {
+            this.mech.receiveHeat(heatAmount);
+        } else {
+            this.pilot.receiveHeat(heatAmount);
+        }
+    }
+    /**
+     * Calls receiveBurn() on either this.pilot or this.mech, depending on
+     *     targetMech.
+     * @param targetMech a boolean representing whether to call receiveBurn() on
+     *     this.mech.
+     */
+    public void receiveBurn(boolean targetMech, int burnAmount) {
+        if (targetMech) {
+            this.mech.receiveBurn(burnAmount);
+        } else {
+            this.pilot.receiveBurn(burnAmount);
+        }
+    }
+    /**
+     * Calls this.mech.receiveStructureDamage(int).
+     */
+    public void mechReceiveStructureDamage(int structureDamage) {
+        this.mech.receiveStructureDamage(structureDamage);
+    }
+    /**
+     * Calls this.mech.receiveStructureDamage().
+     */
+    public void mechReceiveStructureDamage() {
+        this.mech.receiveStructureDamage();
+    }
+    /**
+     * Calls this.mech.receiveStressDamage(int).
+     */
+    public void mechReceiveStressDamage(int stressDamage) {
+        this.mech.receiveStressDamage(stressDamage);
+    }
+    /**
+     * Calls this.mech.receiveStressDamage().
+     */
+    public void mechReceiveStressDamage() {
+        this.mech.receiveStressDamage();
+    }
+    /**
+     * Calls this.mech.destroy().
+     */
+    public void mechDestroy() {
+        this.mech.destroy();
+    }
+    /**
+     * Calls this.pilot.becomeCritical().
+     */
+    public void pilotBecomeCritical() {
+        this.pilot.becomeCritical();
+    }
+    /**
+     * Calls this.pilot.down().
+     */
+    public void pilotDown() {
+        this.pilot.down();
+    }
+    /**
+     * Calls this.pilot.die().
+     */
+    public void pilotDie() {
+        this.pilot.die();
+    }
+    /**
      * Performs the "Generate Statblock" function from COMP/CON, printing out
      *     details of a pilot and their mech depending on what output is
      *     demanded
