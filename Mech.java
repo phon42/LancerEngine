@@ -1193,7 +1193,7 @@ public final class Mech {
      * @param damageType a String containing the type of the damage to deal.
      *     Must be a valid damage type as defined by
      *     HelperMethods.allowedDamageTypes.
-     * @throws IllegalArgumentException if damageAmount is < 0.
+     * @throws IllegalArgumentException if damageAmount is < 1.
      */
     public void receiveDamage(int damageAmount, String damageType) {
         // TODO: fill out with damage mitigation - armor, resistance etc
@@ -1244,7 +1244,7 @@ public final class Mech {
      * Deals (heatAmount) heat to this Mech.
      * @param heatAmount an int containing the amount of heat to deal. Must be >
      *     0.
-     * @throws IllegalArgumentException if heatAmount is < 0.
+     * @throws IllegalArgumentException if heatAmount is < 1.
      */
     public void receiveHeat(int heatAmount) {
         // TODO: fill out with mitigation, resistance etc
@@ -1283,35 +1283,72 @@ public final class Mech {
             remainingHeat -= heatToTake;
         }
     }
+    /**
+     * Deals (burnAmount) burn to this Mech.
+     * @param burnAmount an int containing the amount of burn to deal. Must be >
+     *     0.
+     * @throws IllegalArgumentException if burnAmount is < 1.
+     */
     public void receiveBurn(int burnAmount) {
         // TODO: fill out
+        if (burnAmount < 1) {
+            throw new IllegalArgumentException("burnAmount value: " + burnAmount
+                + " is < 1");
+        }
     }
+    /**
+     * Deals (structureDamage) structure damage to this Mech.
+     * @param structureDamage an int containing the number of times to deal 1
+     *     structure damage. Must be > 0.
+     * @throws IllegalArgumentException if structureDamage is < 1.
+     */
     public void receiveStructureDamage(int structureDamage) {
-        if (structureDamage <= 0) {
+        if (structureDamage < 1) {
             throw new IllegalArgumentException("structureDamage value: "
-                + structureDamage + " is <= 0");
+                + structureDamage + " is < 1");
         }
         for (int i = 0; i < structureDamage; i++) {
             receiveStructureDamage();
         }
     }
+    /**
+     * Structures this Mech once (Deals 1 structure damage to it). Automatically
+     *     sets this.currentHP back to this.maxHP, as per game rules.
+     */
     public void receiveStructureDamage() {
         setCurrentStructure(this.currentStructure - 1);
         setCurrentHP(this.maxHP);
     }
+    /**
+     * Deals (stressDamage) stress damage to this Mech.
+     * @param stressDamage an int containing the number of times to deal 1
+     *     stress damage. Must be > 0.
+     * @throws IllegalArgumentException if stressDamage is < 1.
+     */
     public void receiveStressDamage(int stressDamage) {
         if (stressDamage <= 0) {
             throw new IllegalArgumentException("stressDamage value: "
-                + stressDamage + " is <= 0");
+                + stressDamage + " is < 1");
         }
         for (int i = 0; i < stressDamage; i++) {
             receiveStressDamage();
         }
     }
+    /**
+     * Stresses this Mech once (Deals 1 stress damage to it). Automatically sets
+     *     this.currentHeat back to this.maxHeatCapacity, as per game rules.
+     */
     public void receiveStressDamage() {
         setCurrentStress(this.currentStress - 1);
         setCurrentHeat(0);
     }
+    /**
+     * Is called whenever this Mech is destroyed. Usually means that
+     *     this.currentStructure or this.currentStress has been reduced to 0,
+     *     and this.currentHP or this.currentHeat modified to 0 or
+     *     this.maxHeatCapacity, respectively, although this is not always true
+     *     - Self-Destruct, for example.
+     */
     public void destroy() {
         // TODO: fill out
         System.out.println("This Mech has been destroyed");
