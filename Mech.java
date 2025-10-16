@@ -1189,7 +1189,7 @@ public final class Mech {
     /**
      * Deals (damageAmount) damage of type (damageType) to this Mech.
      * @param damageAmount an int containing the amount of damage to deal. Must
-     *     be >= 0.
+     *     be > 0.
      * @param damageType a String containing the type of the damage to deal.
      *     Must be a valid damage type as defined by
      *     HelperMethods.allowedDamageTypes.
@@ -1202,9 +1202,9 @@ public final class Mech {
         int damageToTake;
         int newCurrentHP;
 
-        if (damageAmount < 0) {
+        if (damageAmount < 1) {
             throw new IllegalArgumentException("damageAmount value: "
-                + damageAmount + " is < 0");
+                + damageAmount + " is < 1");
         }
         if (damageType == null) {
             throw new IllegalArgumentException("damageType is null");
@@ -1240,6 +1240,12 @@ public final class Mech {
             remainingDamage -= damageToTake;
         }
     }
+    /**
+     * Deals (heatAmount) heat to this Mech.
+     * @param heatAmount an int containing the amount of heat to deal. Must be >
+     *     0.
+     * @throws IllegalArgumentException if heatAmount is < 0.
+     */
     public void receiveHeat(int heatAmount) {
         // TODO: fill out with mitigation, resistance etc
         // basically an attempt to convert this.currentHeat into something like
@@ -1250,9 +1256,9 @@ public final class Mech {
         int heatToTake;
         int newCurrentHeat;
 
-        if (heatAmount < 0) {
+        if (heatAmount < 1) {
             throw new IllegalArgumentException("heatAmount value: " + heatAmount
-                + " is < 0");
+                + " is < 1");
         }
         while (remainingHeat > 0) {
             currHeat = this.maxHeatCapacity - this.currentHeat;
@@ -1276,6 +1282,9 @@ public final class Mech {
             }
             remainingHeat -= heatToTake;
         }
+    }
+    public void receiveBurn(int burnAmount) {
+        // TODO: fill out
     }
     public void receiveStructureDamage(int structureDamage) {
         if (structureDamage <= 0) {
