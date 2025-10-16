@@ -767,6 +767,85 @@ public final class Pilot {
         }
     }
     /**
+     * Deals (damageAmount) damage of type (damageType) to this Pilot.
+     * @param damageAmount an int containing the amount of damage to deal. Must
+     *     be > 0.
+     * @param damageType a String containing the type of the damage to deal.
+     *     Must be a valid damage type as defined by
+     *     HelperMethods.allowedDamageTypes.
+     * @throws IllegalArgumentException if damageAmount is < 1.
+     */
+    public void receiveDamage(int damageAmount, String damageType) {
+        // TODO: fill out with damage mitigation - armor, resistance etc
+        boolean isValid = false;
+        int damageToTake;
+        int newCurrentHP;
+
+        if (damageAmount < 1) {
+            throw new IllegalArgumentException("damageAmount value: "
+                + damageAmount + " is < 1");
+        }
+        if (damageType == null) {
+            throw new IllegalArgumentException("damageType is null");
+        }
+        for (String allowedType : HelperMethods.allowedDamageTypes) {
+            if (damageType.equals(allowedType)) {
+                isValid = true;
+            }
+        }
+        if (! isValid) {
+            throw new IllegalArgumentException("damageType value: \""
+                + damageType + "\" is an invalid damage type");
+        }
+        damageToTake = Math.min(damageAmount, this.currentHP);
+        newCurrentHP = this.currentHP - damageToTake;
+        setCurrentHP(newCurrentHP);
+        // if the amount of damage they're taking is greater than our pilot's
+        //     maximum HP, they will be downed no matter what their current HP
+        //     is
+        if (damageAmount > this.currentHP) {
+            // we're about to be downed
+            down();
+        }
+    }
+    /**
+     * Deals (heatAmount) heat to this Pilot, converting it to Energy damage as
+     *     per the rule on biological targets receiving heat.
+     * @param heatAmount an int containing the amount of heat to deal. Must be >
+     *     0.
+     * @throws IllegalArgumentException if heatAmount is < 1.
+     */
+    public void receiveHeat(int heatAmount) {
+        // TODO: fill out with mitigation, resistance etc
+        if (heatAmount < 1) {
+            throw new IllegalArgumentException("heatAmount value: " + heatAmount
+                + " is < 1");
+        }
+        receiveDamage(heatAmount, "energy");
+    }
+    // TODO: see whether this is even necessary
+    /**
+     * Deals (burnAmount) burn to this Pilot.
+     * @param burnAmount an int containing the amount of burn to deal. Must be >
+     *     0.
+     * @throws IllegalArgumentException if burnAmount is < 1.
+     */
+    public void receiveBurn(int burnAmount) {
+        // TODO: fill out
+        if (burnAmount < 1) {
+            throw new IllegalArgumentException("burnAmount value: " + burnAmount
+                + " is < 1");
+        }
+    }
+    /**
+     * Is called whenever this Pilot is made Down And Out. Means that
+     *     this.currentHP has been reduced to 0.
+     */
+    public void down() {
+        // TODO: fill out
+        System.out.println("This Pilot has been downed");
+    }
+    /**
      * Generates the pilot portion of the COMP/CON character output function.
      * @param outputType a String which can be one of the following:
      *     "mech build", "pilot", or "full", and determines how much information
