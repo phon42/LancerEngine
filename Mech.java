@@ -83,7 +83,7 @@ public final class Mech implements Damageable {
     // health and structure
     /**
      * The mech's current structure value.
-     * Must be a minimum of 0.
+     * Must be between 0 and this.maxStructure (inclusive).
      */
     private int currentStructure;
     /**
@@ -93,7 +93,7 @@ public final class Mech implements Damageable {
     private int maxStructure;
     /**
      * The mech's current HP value.
-     * Must be a minimum of 0.
+     * Must be between 0 and this.maxHP (inclusive).
      */
     private int currentHP;
     /**
@@ -110,7 +110,7 @@ public final class Mech implements Damageable {
     // heat and stress
     /**
      * The mech's current stress value.
-     * Must be a minimum of 0.
+     * Must be between 0 and this.maxStress (inclusive).
      */
     private int currentStress;
     /**
@@ -120,7 +120,7 @@ public final class Mech implements Damageable {
     private int maxStress;
     /**
      * The mech's current heat.
-     * Must be a minimum of 0.
+     * Must be between 0 and this.maxHeatCapacity (inclusive).
      */
     private int currentHeat;
     /**
@@ -161,7 +161,7 @@ public final class Mech implements Damageable {
     private int sensors;
     /**
      * The number of repairs this mech currently has.
-     * Must be a minimum of 0.
+     * Must be between 0 and this.maxRepairCapacity (inclusive).
      */
     private int currentRepairs;
     /**
@@ -1344,10 +1344,13 @@ public final class Mech implements Damageable {
             damageToTake = Math.min(remainingDamage, this.currentHP);
             newCurrentHP = this.currentHP - damageToTake;
             setCurrentHP(newCurrentHP);
-            // if the amount of damage remaining to take is greater than our
-            //     mech's maximum HP, we will structure no matter what its
-            //     current HP is
-            if (remainingDamage > this.currentHP) {
+            // the damage has now been expended into the mech, so we can safely
+            //     decrement remainingDamage
+            remainingDamage -= damageToTake;
+            // if the mech's current HP minus the amount of damage remaining to
+            //     take is less than 0, we will structure and go on to the
+            //     next structure level with this.currentHP reset to maxHP.
+            if (newCurrentHP - remainingDamage < 0) {
                 // we're about to structure
                 if (this.currentStructure > 0) {
                     receiveStructureDamage();
@@ -1359,7 +1362,6 @@ public final class Mech implements Damageable {
                     break;
                 }
             }
-            remainingDamage -= damageToTake;
         }
     }
     /**
@@ -1387,10 +1389,14 @@ public final class Mech implements Damageable {
             heatToTake = Math.min(remainingHeat, currHeat);
             newCurrentHeat = this.currentHeat + heatToTake;
             setCurrentHeat(newCurrentHeat);
-            // if the amount of heat remaining to take is greater than our
-            //     mech's maximum heat capacity, we will stress no matter what
-            //     its current heat level is
-            if (remainingHeat > this.maxHeatCapacity) {
+            // the heat has now been expended into the mech, so we can safely
+            //     decrement remainingHeat
+            remainingHeat -= heatToTake;
+            // if the current heat level plus the amount of heat remaining to
+            //     take is greater than the mech's max heat capacity, we will
+            //     stress and go on to the next stress level with currentHeat
+            //     reset to 0.
+            if (newCurrentHeat + remainingHeat > this.maxHeatCapacity) {
                 // we're about to stress
                 if (this.currentStress > 0) {
                     receiveStressDamage();
@@ -1402,7 +1408,6 @@ public final class Mech implements Damageable {
                     break;
                 }
             }
-            remainingHeat -= heatToTake;
         }
     }
     /**
@@ -1460,7 +1465,7 @@ public final class Mech implements Damageable {
     }
     /**
      * Stresses this Mech once (Deals 1 stress damage to it). Automatically sets
-     *     this.currentHeat back to this.maxHeatCapacity, as per game rules.
+     *     this.currentHeat back to 0, as per game rules.
      */
     public void receiveStressDamage() {
         setCurrentStress(this.currentStress - 1);

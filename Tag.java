@@ -46,8 +46,8 @@ public final class Tag {
      *     defined by Tag.allowedNames.
      */
     public Tag(String tagName) {
-        this.value = 0;
         setName(tagName);
+        this.value = 0;
     }
     /**
      * Creates a copy of the provided Tag.

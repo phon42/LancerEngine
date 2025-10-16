@@ -7,25 +7,28 @@ public class TerrainUnit implements Damageable {
      *     1, 2, 4, 6, 8.
      * Use TerrainUnit.getSize() to get the raw value and
      *     TerrainUnit.outputSize() to obtain it properly formatted.
+     * Notes on size - From pg. 59: "By default, each space is equivalent to 10
+     *     feet (or 3 meters), but the scale can be changed to represent
+     *     different types of encounters."
      */
     private int size;
     /**
-     * The mech's current HP value.
+     * The terrain unit's current HP value.
      * Must be a minimum of 0.
      */
     private int currentHP;
     /**
-     * The mech's max HP value.
+     * The terrain unit's max HP value.
      * Must be a minimum of 1.
      */
     private int maxHP;
     /**
-     * The mech's armor value.
+     * The terrain unit's armor value.
      * Must be a minimum of 0.
      */
     private int armor;
     /**
-     * The mech's evasion value.
+     * The terrain unit's evasion value.
      * Must be a minimum of 0.
      */
     private int evasion;
