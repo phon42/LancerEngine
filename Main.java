@@ -17,7 +17,6 @@ import java.util.HashMap;
  *   - incl pilot weapons
  * - MechSystems need to do their actions/effects
  *   - incl pilot armor and gear
- * - checking validity for number of talents, skill triggers, and licenses
  * - checking validity for (having the licenses to) weapons and systems
  * - actions on your turns (everything on pg 61 honestly)
  *   - incl movement

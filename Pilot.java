@@ -846,6 +846,50 @@ public final class Pilot implements Damageable {
         this.conditions = conditions;
     }
 
+    @Override
+    public String toString() {
+        String outputString = "";
+
+        outputString += String.format(
+            "» %s // %s (Player: ",
+            this.name, this.callsign.toUpperCase()
+        );
+        if (player.equals("")) {
+            outputString += "N/A";
+        } else {
+            outputString += this.player;
+        }
+        outputString += ") «\n";
+        outputString += String.format(
+            "  LL%d  Status: %s\n",
+            this.licenseLevel, HelperMethods.capitalizeFirst(this.status)
+        );
+        outputString += "[ STATS ]\n";
+        outputString += String.format(
+            "  GRIT:%s // H:%s A:%s S:%s E:%s\n",
+            this.grit, this.mechSkills[0], this.mechSkills[1],
+            this.mechSkills[2], this.mechSkills[3]
+        );
+        outputString += String.format(
+            "  HP:%d/%d ARMOR:%d EDEF:%d EVA:%d SPD:%d\n",
+            this.currentHP, this.maxHP, this.armor, this.eDefense, this.evasion,
+            this.speed
+        );
+        outputString += "[ SKILL TRIGGERS ]\n";
+        outputString += this.skillTriggers.generateOutput();
+        outputString += "[ GEAR ]\n";
+        outputString += this.loadout.generateOutput();
+        outputString += "[ TALENTS ]\n";
+        outputString += outputTalents("pilot");
+        outputString += "[ LICENSES ]\n";
+        outputString += outputLicenses("pilot");
+        outputString += "[ CORE BONUSES ]\n";
+        outputString += outputCoreBonuses("pilot");
+        // TODO: add this in
+        // outputString += "[ RESERVES ]\n";
+        
+        return outputString;
+    }
     /**
      * Returns this.status, properly formatted. "active" will become "Active",
      *     and "missing in action" will become "Missing in Action".
@@ -1196,6 +1240,105 @@ public final class Pilot implements Damageable {
     public void die() {
         // TODO: fill out
         System.out.println("This Pilot has died");
+    }
+    /**
+     * Checks the validity (and number) of talents, skill triggers, licenses,
+     *     and core bonuses for this Pilot.
+     * @return a boolean containing the result of the check.
+     */
+    public boolean checkValidity() {
+        // TODO: check the validity of the number of talents, skill triggers,
+        //     licenses, and core bonuses
+        boolean skillTriggers = checkSkillTriggers();
+        boolean licenses = checkLicenses();
+        boolean coreBonuses = checkCoreBonuses();
+        boolean talents = checkTalents();
+
+        return skillTriggers && licenses && coreBonuses && talents;
+    }
+    /**
+     * Checks the validity (and number) of skill triggers for this Pilot.
+     * @return a boolean containing the result of the check.
+     */
+    public boolean checkSkillTriggers() {
+        // see pg. 18
+        // total skill trigger level should be 4 + licenseLevel
+        int totalLevel = 0;
+
+        for (SkillTrigger skillTrigger : this.skillTriggers.getSkillTriggers())
+            {
+            totalLevel += skillTrigger.getLevel() / 2;
+        }
+        // TODO: would it be helpful to have some kind of information about if
+        //     the total skill trigger level is LESS than what it could possibly
+        //     be?
+        if (totalLevel > 4 + this.licenseLevel) {
+            return false;
+        }
+        // TODO: compute whether this arrangement is possible RAW
+
+        return true;
+    }
+    /**
+     * Checks the validity (and number) of licenses for this Pilot.
+     * @return a boolean containing the result of the check.
+     */
+    public boolean checkLicenses() {
+        // see pg. 31
+        // total license level should be licenseLevel (by definition)
+        int totalLevel = 0;
+
+        for (License license : this.licenseList) {
+            totalLevel += license.getLevel();
+        }
+        // TODO: would it be helpful to have some kind of information about if
+        //     the total license level is LESS than what it could possibly be?
+        if (totalLevel > this.licenseLevel) {
+            return false;
+        }
+
+        return true;
+    }
+    /**
+     * Checks the validity (and number) of core bonuses for this Pilot.
+     * @return a boolean containing the result of the check.
+     */
+    public boolean checkCoreBonuses() {
+        // see pg. 35
+        // core bonus number should be licenseLevel / 3
+        int numCoreBonuses = this.coreBonuses.length;
+
+        // TODO: would it be helpful to have some kind of information about if
+        //     the number of core bonuses is LESS than what it could possibly
+        //     be?
+        if (numCoreBonuses > this.licenseLevel / 3) {
+            return false;
+        }
+        // TODO: compute whether this arrangement is possible RAW
+
+        return true;
+    }
+    /**
+     * Checks the validity (and number) of talents for this Pilot.
+     * @return a boolean containing the result of the check.
+     */
+    public boolean checkTalents() {
+        // see pg. 35
+        // total talent rank should be 3 + 1 per LL
+        int totalLevel = 0;
+
+        for (Talent talent : this.talents) {
+            totalLevel += talent.getLevel();
+        }
+        // TODO: would it be helpful to have some kind of information about if
+        //     the total combined talent level is LESS than what it could
+        //     possibly be?
+        if (totalLevel > 3 + this.licenseLevel) {
+            return false;
+        }
+        // TODO: compute whether this arrangement is possible RAW
+
+        return true;
     }
     /**
      * Generates the pilot portion of the COMP/CON character output function.
