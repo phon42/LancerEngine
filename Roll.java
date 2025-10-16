@@ -9,243 +9,7 @@ public final class Roll {
     // prevent user from instantiating this class
     private Roll() {}
 
-    /**
-     * At the core of many of the methods in this class. Generates a single
-     *     random double between 0 (inclusive) and 1 (exclusive).
-     * @return a double containing the randomly generated value.
-     */
-    private static double generateRandom() {
-        return randomGenerator.nextDouble();
-    }
-    /**
-     * Rolls a d(maxRoll). In other words, generates a single random int between
-     *     1 and maxRoll (inclusive). Prints a warning if anything other than a
-     *     d2, d3, d6, or d20 is requested.
-     * @param maxRoll an int containing the maximum possible value for the roll.
-     *     Must be a minimum of 2.
-     * @return an int containing the random result.
-     * @throws IllegalArgumentException if maxRoll is < 2.
-     */
-    private static int roll(int maxRoll) {
-        double randomNum;
-        int result;
-
-        if (maxRoll != 2 && maxRoll != 3 && maxRoll != 6 && maxRoll != 20) {
-            System.out.println("[ WARNING ]: Nonstandard maximum roll value: d"
-                + maxRoll + " provided. Please ensure the correct value is"
-                + " being provided.");
-        }
-        if (maxRoll < 2) {
-            throw new IllegalArgumentException("maxRoll value: " + maxRoll
-                + " is < 2");
-        }
-        randomNum = generateRandom() * maxRoll;
-        result = (int) Math.floor(randomNum);
-        result++;
-
-        return result;
-    }
     // TODO: see if any of this can be consolidated
-    /**
-     * Rolls (rollNum)d(maxRoll)s.
-     * @param rollNum an int containing the number of dice to roll. Must be a
-     *     minimum of 1.
-     * @param maxRoll an int containing the maximum roll on each die. Must be a
-     *     minimum of 2.
-     * @return an int containing the total result.
-     */
-    private static int roll(int rollNum, int maxRoll) {
-        return rollComplex(rollNum, maxRoll)[0];
-    }
-    /**
-     * Rolls (rollNum)d(maxRoll)s, keeping the highest (or lowest, based on
-     *     keep) (keepNum) rolls.
-     * @param rollNum an int containing the number of dice to roll. Must be a
-     *     minimum of 1.
-     * @param maxRoll an int containing the maximum roll on each die. Must be a
-     *     minimum of 2.
-     * @param keep an int representing whether to keep only a specified number
-     *     of the total dice rolled; must be -1, 0, or 1. -1 means
-     *     "keep lowest", 0 means "keep all", and +1 means "keep highest".
-     * @param keepNum an int containing the number of dice to keep out of the
-     *     number of dice rolled. If keep is set to anything but 0, must be a
-     *     minimum of 1.
-     * @return an int containing the total result.
-     */
-    private static int roll(int rollNum, int maxRoll, int keep, int keepNum) {
-        return rollComplex(rollNum, maxRoll, keep, keepNum)[0];
-    }
-    /**
-     * Rolls (rollNum)d(maxRoll)s, keeping the highest (or lowest, based on
-     *     keep) (keepNum) rolls.
-     * @param rollNum an int containing the number of dice to roll. Must be a
-     *     minimum of 1.
-     * @param maxRoll an int containing the maximum roll on each die. Must be a
-     *     minimum of 2.
-     * @param keep an int representing whether to keep only a specified number
-     *     of the total dice rolled; must be -1, 0, or 1. -1 means
-     *     "keep lowest", 0 means "keep all", and +1 means "keep highest".
-     * @param keepNum an int containing the number of dice to keep out of the
-     *     number of dice rolled. If keep is set to anything but 0, must be a
-     *     minimum of 1.
-     * @return an int[] containing the total result in index 0, and all the
-     *     rolls made to achieve the result in the following indices.
-     */
-    private static int[] rollComplex(int rollNum, int maxRoll, int keep,
-        int keepNum) {
-        int[] rolls;
-        int[] keptRolls;
-        int total = 0;
-
-        if (rollNum < 0) {
-            throw new IllegalArgumentException("rollNum value: " + rollNum
-                + " is < 0");
-        }
-        if (rollNum == 0) {
-            throw new IllegalArgumentException("rollNum is 0");
-        }
-        if (maxRoll < 2) {
-            throw new IllegalArgumentException("maxRoll value: " + maxRoll
-                + " is < 2");
-        }
-        if (Math.abs(keep) > 1) {
-            throw new IllegalArgumentException("keep value: " + keep + " is <"
-                + " -1 or > 1");
-        }
-        if (keepNum == rollNum) {
-            keep = 0;
-            // changing keepNum is unnecessary because it's done like 2 lines
-            //     later
-        }
-        if (keep == 0) {
-            keepNum = 0;
-        } else {
-            if (keepNum < 1) {
-                throw new IllegalArgumentException("keepNum value: " + keepNum
-                    + " is < 1");
-            }
-            if (keepNum > rollNum) {
-                throw new IllegalArgumentException("keepNum value: " + keepNum
-                    + " is > rollNum value: " + rollNum);
-            }
-        }
-        rolls = new int[rollNum];
-        keptRolls = new int[keepNum];
-        for (int i = 0; i < rollNum; i++) {
-            rolls[i] = roll(maxRoll);
-        }
-        if (keep == 0) {
-            keptRolls = rolls;
-            rolls = new int[rollNum + 1];
-        } else {
-            keptRolls = keepRolls(rolls, keep, keepNum);
-            rolls = new int[keepNum + 1];
-        }
-        for (int i = 0; i < rolls.length - 1; i++) {
-            total += keptRolls[i];
-            if (i == 0) {
-                continue;
-            }
-            rolls[i] = keptRolls[i - 1];
-        }
-        rolls[0] = total;
-
-        return rolls;
-    }
-    /**
-     * Rolls (rollNum)d(maxRoll)s.
-     * @param rollNum an int containing the number of dice to roll. Must be a
-     *     minimum of 1.
-     * @param maxRoll an int containing the maximum roll on each die. Must be a
-     *     minimum of 2.
-     * @return an int[] containing the total result in index 0, and all the
-     *     rolls made to achieve the result in the following indices.
-     */
-    private static int[] rollComplex(int rollNum, int maxRoll) {
-        return rollComplex(rollNum, maxRoll, 0, 0);
-    }
-    /**
-     * Take in some int[] and return an int[] of the (numToKeep) highest/lowest
-     *     ints, depending on (keep).
-     * @param rolls an int[] of rolls to be processed.
-     * @param keep an int which can be -1 or +1, designating "keep lowest" and
-     *     "keep highest", respectively.
-     * @param numToKeep an int containing the number of rolls to keep from the
-     *     array.
-     * @return an int[] containing the (numToKeep) highest/lowest ints,
-     *     depending on (keep).
-     */
-    private static int[] keepRolls(int[] rolls, int keep, int numToKeep) {
-        int[] keptRolls = new int[numToKeep];
-        int[] keptRoll = new int[2];
-        int[] tempRolls;
-        int numRolls;
-
-        if (keep == 0) {
-            throw new IllegalArgumentException("keep was 0");
-        }
-        if (numToKeep >= rolls.length) {
-            throw new IllegalArgumentException("numToKeep value: " + numToKeep
-                + " is > the rolls array's length: " + rolls.length);
-        }
-        if (rolls.length > numToKeep / 2.0) {
-            // something like "8dYkh2", best strategy is to go through (2 times)
-            //     and grab the ("kh" -> maximum) each time
-            // For (numToKeep) times:
-            //     Go through a modified version of rolls (for (rolls.length))
-            //         Grab the maximum/minimum value
-            for (int i = 0; i < numToKeep; i++) {
-                // find the maximum/minimum value in rolls
-                for (int j = 0; j < rolls.length; j++) {
-                    if (j == 0 || (j != 0 && keep * rolls[j] > keptRoll[1])) {
-                        keptRoll[0] = j;
-                        keptRoll[1] = rolls[j];
-                    }
-                }
-                keptRolls[i] = keptRoll[1];
-                // remove the element at that index (keptRoll[0]) from rolls
-                tempRolls = new int[rolls.length - 1];
-                for (int j = 0; j < tempRolls.length; j++) {
-                    if (j < keptRoll[0]) {
-                        tempRolls[j] = rolls[j];
-                    } else if (j >= keptRoll[0]) {
-                        tempRolls[j] = rolls[j + 1];
-                    }
-                }
-                rolls = tempRolls;
-            }
-        } else {
-            // something like "8dYkh7", best strategy is to go through and grab
-            //     the ("kh" -> MINIMUM - grab the opposite of whatever it is)
-            //     each time
-            numRolls = rolls.length;
-            for (int i = 0; i < numRolls - numToKeep; i++) {
-                // find the maximum/minimum value in rolls (OPPOSITE of what
-                //     it's supposed to be)
-                for (int j = 0; j < rolls.length; j++) {
-                    if (j == 0
-                        || (j != 0 && -1 * keep * rolls[j] > keptRoll[1])) {
-                        keptRoll[0] = j;
-                        keptRoll[1] = rolls[j];
-                    }
-                }
-                // remove the element at that index (keptRoll[0]) from rolls
-                tempRolls = new int[rolls.length - 1];
-                for (int j = 0; j < tempRolls.length; j++) {
-                    if (j < keptRoll[0]) {
-                        tempRolls[j] = rolls[j];
-                    } else if (j >= keptRoll[0]) {
-                        tempRolls[j] = rolls[j + 1];
-                    }
-                }
-                rolls = tempRolls;
-            }
-            keptRolls = rolls;
-        }
-
-
-        return keptRolls;
-    }
     /**
      * Takes in a String of almost any form, which can be filled with spaces,
      *     punctuation, and random letters and still work. Each die/dice clause
@@ -271,8 +35,8 @@ public final class Roll {
         return parseRolls(rollString);
     }
     /**
-     * A helper method for makeRolls(String, boolean). Allows users to call the
-     *     method as makeRolls(String) with a default value of true for the
+     * A helper method for roll(String, boolean). Allows users to call the
+     *     method as roll(String) with a default value of true for the
      *     boolean.
      * @param rollString a String containing the expression to evaluate.
      * @return an int containing the result of the expression.
@@ -521,5 +285,267 @@ public final class Roll {
             // String is of the form "X"
             return Integer.parseInt(rollString);
         }
+    }
+    /**
+     * Rolls (rollNum)d(maxRoll)s, keeping the highest (or lowest, based on
+     *     keep) (keepNum) rolls.
+     * @param rollNum an int containing the number of dice to roll. Must be a
+     *     minimum of 1.
+     * @param maxRoll an int containing the maximum roll on each die. Must be a
+     *     minimum of 2.
+     * @param keep an int representing whether to keep only a specified number
+     *     of the total dice rolled; must be -1, 0, or 1. -1 means
+     *     "keep lowest", 0 means "keep all", and +1 means "keep highest".
+     * @param keepNum an int containing the number of dice to keep out of the
+     *     number of dice rolled. If keep is set to anything but 0, must be a
+     *     minimum of 1.
+     * @return an int[] containing the total result in index 0, and all the
+     *     rolls made to achieve the result in the following indices.
+     */
+    private static int[] rollComplex(int rollNum, int maxRoll, int keep,
+        int keepNum) {
+        int[] rolls;
+        int[] keptRolls;
+        int total = 0;
+
+        if (rollNum < 0) {
+            throw new IllegalArgumentException("rollNum value: " + rollNum
+                + " is < 0");
+        }
+        if (rollNum == 0) {
+            throw new IllegalArgumentException("rollNum is 0");
+        }
+        if (maxRoll < 2) {
+            throw new IllegalArgumentException("maxRoll value: " + maxRoll
+                + " is < 2");
+        }
+        if (Math.abs(keep) > 1) {
+            throw new IllegalArgumentException("keep value: " + keep + " is <"
+                + " -1 or > 1");
+        }
+        if (keepNum == rollNum) {
+            keep = 0;
+            // changing keepNum is unnecessary because it's done like 2 lines
+            //     later
+        }
+        if (keep == 0) {
+            keepNum = 0;
+        } else {
+            if (keepNum < 1) {
+                throw new IllegalArgumentException("keepNum value: " + keepNum
+                    + " is < 1");
+            }
+            if (keepNum > rollNum) {
+                throw new IllegalArgumentException("keepNum value: " + keepNum
+                    + " is > rollNum value: " + rollNum);
+            }
+        }
+        rolls = new int[rollNum];
+        keptRolls = new int[keepNum];
+        for (int i = 0; i < rollNum; i++) {
+            rolls[i] = roll(maxRoll);
+        }
+        if (keep == 0) {
+            keptRolls = rolls;
+            rolls = new int[rollNum + 1];
+        } else {
+            keptRolls = keepRolls(rolls, keep, keepNum);
+            rolls = new int[keepNum + 1];
+        }
+        for (int i = 0; i < rolls.length - 1; i++) {
+            total += keptRolls[i];
+            if (i == 0) {
+                continue;
+            }
+            rolls[i] = keptRolls[i - 1];
+        }
+        rolls[0] = total;
+
+        return rolls;
+    }
+    /**
+     * Helper method for rollComplex(int, int, int, int). Allows the method to
+     *     be called with a default value of 0 for the last two ints. Rolls
+     *     (rollNum)d(maxRoll)s.
+     * @param rollNum an int containing the number of dice to roll. Must be a
+     *     minimum of 1.
+     * @param maxRoll an int containing the maximum roll on each die. Must be a
+     *     minimum of 2.
+     * @return an int[] containing the total result in index 0, and all the
+     *     rolls made to achieve the result in the following indices.
+     */
+    private static int[] rollComplex(int rollNum, int maxRoll) {
+        return rollComplex(rollNum, maxRoll, 0, 0);
+    }
+    /**
+     * Rolls a d(maxRoll). In other words, generates a single random int between
+     *     1 and maxRoll (inclusive). Prints a warning if anything other than a
+     *     d2, d3, d6, or d20 is requested.
+     * @param maxRoll an int containing the maximum possible value for the roll.
+     *     Must be a minimum of 2.
+     * @return an int containing the random result.
+     * @throws IllegalArgumentException if maxRoll is < 2.
+     */
+    private static int roll(int maxRoll) {
+        double randomNum;
+        int result;
+
+        if (maxRoll != 2 && maxRoll != 3 && maxRoll != 6 && maxRoll != 20) {
+            System.out.println("[ WARNING ]: Nonstandard maximum roll value: d"
+                + maxRoll + " provided. Please ensure the correct value is"
+                + " being provided.");
+        }
+        if (maxRoll < 2) {
+            throw new IllegalArgumentException("maxRoll value: " + maxRoll
+                + " is < 2");
+        }
+        randomNum = generateRandom() * maxRoll;
+        result = (int) Math.floor(randomNum);
+        result++;
+
+        return result;
+    }
+    /**
+     * At the core of many of the methods in this class. Generates a single
+     *     random double between 0 (inclusive) and 1 (exclusive).
+     * @return a double containing the randomly generated value.
+     */
+    private static double generateRandom() {
+        return randomGenerator.nextDouble();
+    }
+    /**
+     * Take in some int[] and return an int[] of the (numToKeep) highest/lowest
+     *     ints, depending on (keep).
+     * @param rolls an int[] of rolls to be processed.
+     * @param keep an int which can be -1 or +1, designating "keep lowest" and
+     *     "keep highest", respectively.
+     * @param numToKeep an int containing the number of rolls to keep from the
+     *     array.
+     * @return an int[] containing the (numToKeep) highest/lowest ints,
+     *     depending on (keep).
+     */
+    private static int[] keepRolls(int[] rolls, int keep, int numToKeep) {
+        int[] keptRolls = new int[numToKeep];
+        int[] keptRoll = new int[2];
+        int[] tempRolls;
+        int numRolls;
+
+        if (keep == 0) {
+            throw new IllegalArgumentException("keep was 0");
+        }
+        if (numToKeep >= rolls.length) {
+            throw new IllegalArgumentException("numToKeep value: " + numToKeep
+                + " is > the rolls array's length: " + rolls.length);
+        }
+        if (rolls.length > numToKeep / 2.0) {
+            // something like "8dYkh2", best strategy is to go through (2 times)
+            //     and grab the ("kh" -> maximum) each time
+            // For (numToKeep) times:
+            //     Go through a modified version of rolls (for (rolls.length))
+            //         Grab the maximum/minimum value
+            for (int i = 0; i < numToKeep; i++) {
+                // find the maximum/minimum value in rolls
+                for (int j = 0; j < rolls.length; j++) {
+                    if (j == 0 || (j != 0 && keep * rolls[j] > keptRoll[1])) {
+                        keptRoll[0] = j;
+                        keptRoll[1] = rolls[j];
+                    }
+                }
+                keptRolls[i] = keptRoll[1];
+                // remove the element at that index (keptRoll[0]) from rolls
+                tempRolls = new int[rolls.length - 1];
+                for (int j = 0; j < tempRolls.length; j++) {
+                    if (j < keptRoll[0]) {
+                        tempRolls[j] = rolls[j];
+                    } else if (j >= keptRoll[0]) {
+                        tempRolls[j] = rolls[j + 1];
+                    }
+                }
+                rolls = tempRolls;
+            }
+        } else {
+            // something like "8dYkh7", best strategy is to go through and grab
+            //     the ("kh" -> MINIMUM - grab the opposite of whatever it is)
+            //     each time
+            numRolls = rolls.length;
+            for (int i = 0; i < numRolls - numToKeep; i++) {
+                // find the maximum/minimum value in rolls (OPPOSITE of what
+                //     it's supposed to be)
+                for (int j = 0; j < rolls.length; j++) {
+                    if (j == 0
+                        || (j != 0 && -1 * keep * rolls[j] > keptRoll[1])) {
+                        keptRoll[0] = j;
+                        keptRoll[1] = rolls[j];
+                    }
+                }
+                // remove the element at that index (keptRoll[0]) from rolls
+                tempRolls = new int[rolls.length - 1];
+                for (int j = 0; j < tempRolls.length; j++) {
+                    if (j < keptRoll[0]) {
+                        tempRolls[j] = rolls[j];
+                    } else if (j >= keptRoll[0]) {
+                        tempRolls[j] = rolls[j + 1];
+                    }
+                }
+                rolls = tempRolls;
+            }
+            keptRolls = rolls;
+        }
+
+
+        return keptRolls;
+    }
+    /**
+     * Rolls (rollNum)d(maxRoll)s.
+     * @param rollNum an int containing the number of dice to roll. Must be a
+     *     minimum of 1.
+     * @param maxRoll an int containing the maximum roll on each die. Must be a
+     *     minimum of 2.
+     * @return an int containing the total result.
+     */
+    private static int roll(int rollNum, int maxRoll) {
+        return rollComplex(rollNum, maxRoll)[0];
+    }
+    /**
+     * Rolls (rollNum)d(maxRoll)s, keeping the highest (or lowest, based on
+     *     keep) (keepNum) rolls.
+     * @param rollNum an int containing the number of dice to roll. Must be a
+     *     minimum of 1.
+     * @param maxRoll an int containing the maximum roll on each die. Must be a
+     *     minimum of 2.
+     * @param keep an int representing whether to keep only a specified number
+     *     of the total dice rolled; must be -1, 0, or 1. -1 means
+     *     "keep lowest", 0 means "keep all", and +1 means "keep highest".
+     * @param keepNum an int containing the number of dice to keep out of the
+     *     number of dice rolled. If keep is set to anything but 0, must be a
+     *     minimum of 1.
+     * @return an int containing the total result.
+     */
+    private static int roll(int rollNum, int maxRoll, int keep, int keepNum) {
+        return rollComplex(rollNum, maxRoll, keep, keepNum)[0];
+    }
+    /**
+     * Rolls the proper number of accuracy and difficulty dice based on the
+     *     provided accuracy and difficulty values.
+     * @param accuracy an int containing the number of accuracy stacks. Must be
+     *     a minimum of 0.
+     * @param difficulty an int containing the number of difficulty stacks. Must
+     *     be a minimum of 0.
+     * @return an int containing the result of the roll.
+     */
+    public static int rollAccDiff(int accuracy, int difficulty) {
+        int totalModifier = accuracy - difficulty;
+        // we don't have to worry about totalModifier being 0 because it's taken
+        //     care of later
+        int resultSign = totalModifier > 0 ? +1 : -1;
+        int result;
+
+        if (accuracy == difficulty) {
+            return 0;
+        }
+        totalModifier = Math.abs(totalModifier);
+        result = roll(totalModifier, 6);
+
+        return result * resultSign;
     }
 }
