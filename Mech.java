@@ -216,31 +216,19 @@ public final class Mech implements Damageable {
 
     /**
      * Any statuses affecting the mech, i.e. "danger zone".
-     * Each element must be a valid status, as defined by Mech.allowedStatuses.
+     * Each element must be a valid status, as defined by
+     *     Status.allowedMechStatuses.
      * Case-insensitive and stored in lowercase. Cannot be null.
      */
     private String[] statuses;
-    /**
-     * Contains an array of allowed values for elements of Mech.statuses.
-     *     Case-insensitive and stored in lowercase.
-     */
-    private static final String[] allowedStatuses = new String[] {"danger zone",
-        "engaged", "exposed", "hidden", "invisible", "prone", "shut down"};
 
     /**
      * Any conditions affecting the mech, i.e. "immobilized".
      * Each element must be a valid condition, as defined by
-     *     Mech.allowedConditions.
+     *     Condition.allowedConditions.
      * Case-insensitive and stored in lowercase. Cannot be null.
      */
     private String[] conditions;
-    /**
-     * Contains an array of allowed values for elements of Mech.conditions.
-     *     Case-insensitive and stored in lowercase.
-     */
-    private static final String[] allowedConditions = new String[] {
-        "immobilized", "impaired", "jammed", "lock on", "shredded", "slowed",
-        "stunned"};
 
     /**
      * Sets up any of Mech's properties that aren't filled in by
@@ -688,7 +676,7 @@ public final class Mech implements Damageable {
         }
     }
     /**
-     * Helper method for setCurrentHeat(int). Allows that method to be called
+     * Helper method for setCurrentHeat(int). Allows the method to be called
      *     with a default value of true for the boolean.
      * @param currentHeat an int which cannot be < 0 or > this.maxHeatCapacity.
      */
@@ -900,9 +888,9 @@ public final class Mech implements Damageable {
     /**
      * Sets this.statuses to the provided value.
      * @param statuses a String[] which cannot be null or contain invalid
-     *     elements as defined by Mech.allowedStatuses.
+     *     elements as defined by Status.allowedMechStatuses.
      * @throws IllegalArgumentException if statuses is null or contains invalid
-     *     elements as defined by Mech.allowedStatuses.
+     *     elements as defined by Status.allowedMechStatuses.
      */
     public void setStatuses(String[] statuses) {
         boolean isValidStatus = false;
@@ -919,7 +907,7 @@ public final class Mech implements Damageable {
             statuses[i] = statuses[i].toLowerCase();
             statusString = statuses[i];
             isValidStatus = false;
-            for (String status : Mech.allowedStatuses) {
+            for (String status : Status.allowedMechStatuses) {
                 if (statusString.equals(status)) {
                     isValidStatus = true;
                 }
@@ -935,9 +923,9 @@ public final class Mech implements Damageable {
     /**
      * Sets this.conditions to the provided value.
      * @param conditions a String[] which cannot be null or contain invalid
-     *     elements as defined by Mech.allowedConditions.
+     *     elements as defined by Condition.allowedConditions.
      * @throws IllegalArgumentException if conditions is null or contains
-     *     invalid elements as defined by Mech.allowedConditions.
+     *     invalid elements as defined by Condition.allowedConditions.
      */
     public void setConditions(String[] conditions) {
         boolean isValidCondition = false;
@@ -955,7 +943,7 @@ public final class Mech implements Damageable {
             conditions[i] = conditions[i].toLowerCase();
             conditionString = conditions[i];
             isValidCondition = false;
-            for (String condition : Mech.allowedConditions) {
+            for (String condition : Condition.allowedConditions) {
                 if (conditionString.equals(condition)) {
                     isValidCondition = true;
                 }
@@ -987,18 +975,18 @@ public final class Mech implements Damageable {
     /**
      * Adds the provided status to this.statuses.
      * @param newStatus a String containing the new status. Must be a valid
-     *     status as defined by Mech.allowedStatuses.
+     *     status as defined by Status.allowedMechStatuses.
      * @param addDuplicate a boolean representing whether or not to add a second
      *     version of the same status if that status is already present in
      *     this.statuses.
      * @throws IllegalArgumentException if newStatus is an invalid status as
-     *     defined by Mech.allowedStatuses.
+     *     defined by Status.allowedMechStatuses.
      */
     public void addStatus(String newStatus, boolean addDuplicate) {
         boolean isValid = false;
         boolean containsStatus = false;
 
-        for (String status : Mech.allowedStatuses) {
+        for (String status : Status.allowedMechStatuses) {
             if (newStatus.equals(status)) {
                 isValid = true;
                 break;
@@ -1019,10 +1007,10 @@ public final class Mech implements Damageable {
         }
     }
     /**
-     * A helper method for addStatus(String, boolean). Allows that method to be
+     * A helper method for addStatus(String, boolean). Allows the method to be
      *     called with a default value of false for the boolean.
      * @param status a String containing the new status. Must be a valid
-     *     status as defined by Mech.allowedStatuses.
+     *     status as defined by Status.allowedMechStatuses.
      */
     public void addStatus(String status) {
         addStatus(status, false);
@@ -1030,18 +1018,18 @@ public final class Mech implements Damageable {
     /**
      * Removes the provided status from this.statuses.
      * @param oldStatus a String containing the status to be removed. Must be a
-     *     valid status as defined by Mech.allowedStatuses.
+     *     valid status as defined by Status.allowedMechStatuses.
      * @param removeAll a boolean representing whether to remove all instances
      *     of a status if multiple instances are present, or just the specified
      *     one.
      * @throws IllegalArgumentException if oldStatus is an invalid status as
-     *     defined by Mech.allowedStatuses.
+     *     defined by Status.allowedMechStatuses.
      */
     public void removeStatus(String oldStatus, boolean removeAll) {
         boolean isValid = false;
         String[] newStatuses;
 
-        for (String status : Mech.allowedStatuses) {
+        for (String status : Status.allowedMechStatuses) {
             if (oldStatus.equals(status)) {
                 isValid = true;
                 break;
@@ -1073,10 +1061,10 @@ public final class Mech implements Damageable {
         }
     }
     /**
-     * Helper method for removeStatus(String, boolean). Allows that method to be
+     * Helper method for removeStatus(String, boolean). Allows the method to be
      *     run with a default value of false for the boolean.
      * @param oldStatus a String containing the status to be removed. Must be a
-     *     valid status as defined by Mech.allowedStatuses.
+     *     valid status as defined by Status.allowedMechStatuses.
      */
     public void removeStatus(String oldStatus) {
         removeStatus(oldStatus, false);
@@ -1084,18 +1072,18 @@ public final class Mech implements Damageable {
     /**
      * Adds the provided condition to this.conditions.
      * @param newCondition a String containing the new condition. Must be a
-     *     valid condition as defined by Mech.allowedConditions.
+     *     valid condition as defined by Condition.allowedConditions.
      * @param addDuplicate a boolean representing whether or not to add a second
      *     version of the same condition if that condition is already present in
      *     this.conditions.
      * @throws IllegalArgumentException if newCondition is an invalid condition
-     *     as defined by Mech.allowedConditions.
+     *     as defined by Condition.allowedConditions.
      */
     public void addCondition(String newCondition, boolean addDuplicate) {
         boolean isValid = false;
         boolean containsCondition = false;
 
-        for (String condition : Mech.allowedConditions) {
+        for (String condition : Condition.allowedConditions) {
             if (newCondition.equals(condition)) {
                 isValid = true;
                 break;
@@ -1116,10 +1104,10 @@ public final class Mech implements Damageable {
         }
     }
     /**
-     * A helper method for addCondition(String, boolean). Allows that method to
+     * A helper method for addCondition(String, boolean). Allows the method to
      *     be called with a default value of false for the boolean.
      * @param condition a String containing the new condition. Must be a valid
-     *     condition as defined by Mech.allowedConditions.
+     *     condition as defined by Condition.allowedConditions.
      */
     public void addCondition(String condition) {
         addCondition(condition, false);
@@ -1127,18 +1115,18 @@ public final class Mech implements Damageable {
     /**
      * Removes the provided condition from this.conditions.
      * @param oldCondition a String containing the condition to be removed. Must
-     *     be a valid condition as defined by Mech.allowedConditions.
+     *     be a valid condition as defined by Condition.allowedConditions.
      * @param removeAll a boolean representing whether to remove all instances
      *     of a condition if multiple instances are present, or just the
      *     specified one.
      * @throws IllegalArgumentException if oldCondition is an invalid condition
-     *     as defined by Mech.allowedConditions.
+     *     as defined by Condition.allowedConditions.
      */
     public void removeCondition(String oldCondition, boolean removeAll) {
         boolean isValid = false;
         String[] newConditions;
 
-        for (String condition : Mech.allowedConditions) {
+        for (String condition : Condition.allowedConditions) {
             if (oldCondition.equals(condition)) {
                 isValid = true;
                 break;
@@ -1170,10 +1158,10 @@ public final class Mech implements Damageable {
         }
     }
     /**
-     * Helper method for removeCondition(String, boolean). Allows that method to
+     * Helper method for removeCondition(String, boolean). Allows the method to
      *     be run with a default value of false for the boolean.
      * @param oldCondition a String containing the condition to be removed. Must
-     *     be a valid condition as defined by Mech.allowedConditions.
+     *     be a valid condition as defined by Condition.allowedConditions.
      */
     public void removeCondition(String oldCondition) {
         removeCondition(oldCondition, false);

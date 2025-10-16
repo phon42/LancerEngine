@@ -43,7 +43,7 @@ public final class Pilot implements Damageable {
      */
     private String status;
     /**
-     * Contains an array of all possible allowed pilot statuses.
+     * Contains an array of valid values for this.status.
      *     Case-insensitive and stored in lowercase.
      */
     private static final String[] allowedFlavorStatuses = {
@@ -183,31 +183,19 @@ public final class Pilot implements Damageable {
     // Extra stuff
     /**
      * Any statuses affecting the pilot, i.e. "down and out".
-     * Each element must be a valid status, as defined by Pilot.allowedStatuses.
+     * Each element must be a valid status, as defined by
+     *     Status.allowedPilotStatuses.
      * Case-insensitive and stored in lowercase. Cannot be null.
      */
     private String[] statuses;
-    /**
-     * Contains an array of allowed values for elements of Pilot.statuses.
-     *     Case-insensitive and stored in lowercase.
-     */
-    private static final String[] allowedStatuses = new String[] {
-        "down and out", "engaged", "hidden", "invisible", "prone"};
 
     /**
      * Any conditions affecting the pilot, i.e. "immobilized".
      * Each element must be a valid condition, as defined by
-     *     Pilot.allowedConditions.
+     *     Condition.allowedConditions.
      * Case-insensitive and stored in lowercase. Cannot be null.
      */
     private String[] conditions;
-    /**
-     * Contains an array of allowed values for elements of Pilot.conditions.
-     *     Case-insensitive and stored in lowercase.
-     */
-    private static final String[] allowedConditions = new String[] {
-        "immobilized", "impaired", "jammed", "lock on", "shredded", "slowed",
-        "stunned"};
 
     /**
      * Creates a new Pilot from the provided pilotName and pilotCallsign.
@@ -431,12 +419,12 @@ public final class Pilot implements Damageable {
     /**
      * Sets this.status to the provided value.
      * @param status a String which cannot be null and cannot be an invalid
-     *     status, as defined by Pilot.allowedStatuses.
+     *     status, as defined by Status.allowedPilotStatuses.
      * @throws IllegalArgumentException if status is null or an invalid value,
-     *     as defined by Pilot.allowedStatuses.
+     *     as defined by Status.allowedPilotStatuses.
      */
     public void setStatus(String status) {
-        boolean isValidStatus = false;
+        boolean isValid = false;
 
         if (status == null) {
             throw new IllegalArgumentException("Invalid value provided for"
@@ -445,16 +433,15 @@ public final class Pilot implements Damageable {
         status = status.toLowerCase();
         for (String allowedStatus : Pilot.allowedFlavorStatuses) {
             if (status.equals(allowedStatus)) {
-                isValidStatus = true;
+                isValid = true;
                 break;
             }
         }
-        if (isValidStatus) {
-            this.status = status;
-        } else {
+        if (! isValid) {
             throw new IllegalArgumentException("Invalid value provided for"
                 + " pilot status: \"" + status + "\"");
         }
+        this.status = status;
     }
     public void setBackground(String background) {
         if (background == null) {
@@ -779,9 +766,9 @@ public final class Pilot implements Damageable {
     /**
      * Sets this.statuses to the provided value.
      * @param statuses a String[] which cannot be null or contain invalid
-     *     elements as defined by Pilot.allowedStatuses.
+     *     elements as defined by Status.allowedPilotStatuses.
      * @throws IllegalArgumentException if statuses is null or contains invalid
-     *     elements as defined by Pilot.allowedStatuses.
+     *     elements as defined by Status.allowedPilotStatuses.
      */
     public void setStatuses(String[] statuses) {
         boolean isValidStatus = false;
@@ -797,7 +784,7 @@ public final class Pilot implements Damageable {
             }
             statuses[i] = statuses[i].toLowerCase();
             statusString = statuses[i];
-            for (String status : Pilot.allowedStatuses) {
+            for (String status : Status.allowedPilotStatuses) {
                 if (statusString.equals(status)) {
                     isValidStatus = true;
                 }
@@ -813,9 +800,9 @@ public final class Pilot implements Damageable {
     /**
      * Sets this.conditions to the provided value.
      * @param conditions a String[] which cannot be null or contain invalid
-     *     elements as defined by Pilot.allowedConditions.
+     *     elements as defined by Condition.allowedConditions.
      * @throws IllegalArgumentException if conditions is null or contains
-     *     invalid elements as defined by Pilot.allowedConditions.
+     *     invalid elements as defined by Condition.allowedConditions.
      */
     public void setConditions(String[] conditions) {
         boolean isValidCondition = false;
@@ -832,7 +819,7 @@ public final class Pilot implements Damageable {
             }
             conditions[i] = conditions[i].toLowerCase();
             conditionString = conditions[i];
-            for (String condition : Pilot.allowedConditions) {
+            for (String condition : Condition.allowedConditions) {
                 if (conditionString.equals(condition)) {
                     isValidCondition = true;
                 }
@@ -924,18 +911,18 @@ public final class Pilot implements Damageable {
     /**
      * Adds the provided status to this.statuses.
      * @param newStatus a String containing the new status. Must be a valid
-     *     status as defined by Pilot.allowedStatuses.
+     *     status as defined by Status.allowedPilotStatuses.
      * @param addDuplicate a boolean representing whether or not to add a second
      *     version of the same status if that status is already present in
      *     this.statuses.
      * @throws IllegalArgumentException if newStatus is an invalid status as
-     *     defined by Pilot.allowedStatuses.
+     *     defined by Status.allowedPilotStatuses.
      */
     public void addStatus(String newStatus, boolean addDuplicate) {
         boolean isValid = false;
         boolean containsStatus = false;
 
-        for (String status : Pilot.allowedStatuses) {
+        for (String status : Status.allowedPilotStatuses) {
             if (newStatus.equals(status)) {
                 isValid = true;
                 break;
@@ -956,10 +943,10 @@ public final class Pilot implements Damageable {
         }
     }
     /**
-     * A helper method for addStatus(String, boolean). Allows that method to be
+     * A helper method for addStatus(String, boolean). Allows the method to be
      *     called with a default value of false for the boolean.
      * @param status a String containing the new status. Must be a valid
-     *     status as defined by Pilot.allowedStatuses.
+     *     status as defined by Status.allowedPilotStatuses.
      */
     public void addStatus(String status) {
         addStatus(status, false);
@@ -967,18 +954,18 @@ public final class Pilot implements Damageable {
     /**
      * Removes the provided status from this.statuses.
      * @param oldStatus a String containing the status to be removed. Must be a
-     *     valid status as defined by Pilot.allowedStatuses.
+     *     valid status as defined by Status.allowedPilotStatuses.
      * @param removeAll a boolean representing whether to remove all instances
      *     of a status if multiple instances are present, or just the specified
      *     one.
      * @throws IllegalArgumentException if oldStatus is an invalid status as
-     *     defined by Pilot.allowedStatuses.
+     *     defined by Status.allowedPilotStatuses.
      */
     public void removeStatus(String oldStatus, boolean removeAll) {
         boolean isValid = false;
         String[] newStatuses;
 
-        for (String status : Pilot.allowedStatuses) {
+        for (String status : Status.allowedPilotStatuses) {
             if (oldStatus.equals(status)) {
                 isValid = true;
                 break;
@@ -1010,10 +997,10 @@ public final class Pilot implements Damageable {
         }
     }
     /**
-     * Helper method for removeStatus(String, boolean). Allows that method to be
+     * Helper method for removeStatus(String, boolean). Allows the method to be
      *     run with a default value of false for the boolean.
      * @param oldStatus a String containing the status to be removed. Must be a
-     *     valid status as defined by Pilot.allowedStatuses.
+     *     valid status as defined by Status.allowedPilotStatuses.
      */
     public void removeStatus(String oldStatus) {
         removeStatus(oldStatus, false);
@@ -1021,18 +1008,18 @@ public final class Pilot implements Damageable {
     /**
      * Adds the provided condition to this.conditions.
      * @param newCondition a String containing the new condition. Must be a
-     *     valid condition as defined by Pilot.allowedConditions.
+     *     valid condition as defined by Condition.allowedConditions.
      * @param addDuplicate a boolean representing whether or not to add a second
      *     version of the same condition if that condition is already present in
      *     this.conditions.
      * @throws IllegalArgumentException if newCondition is an invalid condition
-     *     as defined by Pilot.allowedConditions.
+     *     as defined by Condition.allowedConditions.
      */
     public void addCondition(String newCondition, boolean addDuplicate) {
         boolean isValid = false;
         boolean containsCondition = false;
 
-        for (String condition : Pilot.allowedConditions) {
+        for (String condition : Condition.allowedConditions) {
             if (newCondition.equals(condition)) {
                 isValid = true;
                 break;
@@ -1053,10 +1040,10 @@ public final class Pilot implements Damageable {
         }
     }
     /**
-     * A helper method for addCondition(String, boolean). Allows that method to
+     * A helper method for addCondition(String, boolean). Allows the method to
      *     be called with a default value of false for the boolean.
      * @param condition a String containing the new condition. Must be a valid
-     *     condition as defined by Pilot.allowedConditions.
+     *     condition as defined by Condition.allowedConditions.
      */
     public void addCondition(String condition) {
         addCondition(condition, false);
@@ -1064,18 +1051,18 @@ public final class Pilot implements Damageable {
     /**
      * Removes the provided condition from this.conditions.
      * @param oldCondition a String containing the condition to be removed. Must
-     *     be a valid condition as defined by Pilot.allowedConditions.
+     *     be a valid condition as defined by Condition.allowedConditions.
      * @param removeAll a boolean representing whether to remove all instances
      *     of a condition if multiple instances are present, or just the
      *     specified one.
      * @throws IllegalArgumentException if oldCondition is an invalid condition
-     *     as defined by Pilot.allowedConditions.
+     *     as defined by Condition.allowedConditions.
      */
     public void removeCondition(String oldCondition, boolean removeAll) {
         boolean isValid = false;
         String[] newConditions;
 
-        for (String condition : Pilot.allowedConditions) {
+        for (String condition : Condition.allowedConditions) {
             if (oldCondition.equals(condition)) {
                 isValid = true;
                 break;
@@ -1107,10 +1094,10 @@ public final class Pilot implements Damageable {
         }
     }
     /**
-     * Helper method for removeCondition(String, boolean). Allows that method to
+     * Helper method for removeCondition(String, boolean). Allows the method to
      *     be run with a default value of false for the boolean.
      * @param oldCondition a String containing the condition to be removed. Must
-     *     be a valid condition as defined by Pilot.allowedConditions.
+     *     be a valid condition as defined by Condition.allowedConditions.
      */
     public void removeCondition(String oldCondition) {
         removeCondition(oldCondition, false);
