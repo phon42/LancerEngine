@@ -188,7 +188,6 @@ public final class Pilot implements Damageable {
      * Cannot be null.
      */
     private State[] statuses;
-
     /**
      * Any conditions affecting the pilot (i.e. "immobilized" as a Condition).
      * Each element must have a valid Condition.type property as defined by
@@ -960,7 +959,7 @@ public final class Pilot implements Damageable {
      * @param oldStatus a State containing the status to be removed. Must have a
      *     valid Status.type property as defined by Status.allowedPilotStatuses.
      * @param removeAll a boolean representing whether to remove all statuses
-     *     with the same Status.type parameter as oldStatus if multiple statuses
+     *     with the same Status.type property as oldStatus if multiple statuses
      *     of the same type are present, or just the specified one.
      * @throws IllegalArgumentException if oldStatus has an invalid Status.type
      *     property as defined by Status.allowedPilotStatuses.
@@ -968,7 +967,6 @@ public final class Pilot implements Damageable {
     public void removeStatus(State oldStatus, boolean removeAll) {
         boolean isValid = false;
         boolean areSame = false;
-        int chainLength;
         State[] newStatuses;
 
         for (String status : Status.allowedPilotStatuses) {
@@ -989,13 +987,6 @@ public final class Pilot implements Damageable {
                 areSame = this.statuses[i].equals(oldStatus);
             }
             if (areSame) {
-                chainLength = oldStatus.getEffects().length;
-                for (int j = 0; j < chainLength; j++) {
-                    removeStatus(oldStatus.removeEffect(j));
-                }
-                if (chainLength > 0) {
-                    removeStatus(oldStatus);
-                }
                 newStatuses = new State[this.statuses.length - 1];
                 for (int j = 0; j < this.statuses.length; j++) {
                     if (j < i) {
@@ -1009,7 +1000,7 @@ public final class Pilot implements Damageable {
                 break;
             }
         }
-        if (removeAll) {
+        if (areSame && removeAll) {
             removeStatus(oldStatus, removeAll);
         }
     }
@@ -1021,6 +1012,31 @@ public final class Pilot implements Damageable {
      */
     public void removeStatus(State oldStatus) {
         removeStatus(oldStatus, false);
+    }
+    /**
+     * Recursively checks whether any of this.conditions or this.status have a
+     *     State.type value of stateType, or whether any of the States they
+     *     caused have such a value, and so on.
+     * @param stateType a String containing a State.type value to search for.
+     *     Must be a valid type as defined by State.allowedTypes.
+     * @return a boolean containing the result of the check.
+     */
+    public boolean hasState(String stateType) {
+        boolean isPresent = false;
+
+        for (State condition : this.conditions) {
+            isPresent = isPresent || condition.getType().equals(stateType);
+            isPresent = isPresent || condition.hasState(stateType);
+        }
+        if (isPresent) {
+            return isPresent;
+        }
+        for (State status : this.statuses) {
+            isPresent = isPresent || status.getType().equals(stateType);
+            isPresent = isPresent || status.hasState(stateType);
+        }
+
+        return isPresent;
     }
     /**
      * Adds the provided condition to this.conditions.
@@ -1058,8 +1074,7 @@ public final class Pilot implements Damageable {
      *     conditions of the same type are present, or just the specified one.
      */
     public void removeCondition(State oldCondition, boolean removeAll) {
-        boolean areSame;
-        int chainLength;
+        boolean areSame = false;
         State[] newConditions;
 
         for (int i = 0; i < this.conditions.length; i++) {
@@ -1070,13 +1085,6 @@ public final class Pilot implements Damageable {
                 areSame = this.conditions[i].equals(oldCondition);
             }
             if (areSame) {
-                chainLength = oldCondition.getEffects().length;
-                for (int j = 0; j < chainLength; j++) {
-                    removeCondition(oldCondition.removeEffect(j));
-                }
-                if (chainLength > 0) {
-                    removeCondition(oldCondition);
-                }
                 newConditions = new State[this.conditions.length - 1];
                 for (int j = 0; j < this.conditions.length; j++) {
                     if (j == i) {
@@ -1092,7 +1100,7 @@ public final class Pilot implements Damageable {
                 break;
             }
         }
-        if (removeAll) {
+        if (areSame && removeAll) {
             removeCondition(oldCondition, removeAll);
         }
     }
@@ -1221,14 +1229,12 @@ public final class Pilot implements Damageable {
      *     this.currentHP has been reduced to 0.
      */
     public void down() {
-        // TODO: fill out
-        Status downed = new Status("down and out", "Pilot (self)",
+        State downed = new Status("down and out", "Pilot (self)",
             "until removed");
-        Status stun = new Status("stunned", "down and out status",
+        State stun = new Condition("stunned", "down and out status",
             "source");
         downed.addEffect(stun);
         addStatus(downed);
-        addStatus(stun);
         System.out.println("This Pilot has been downed");
     }
     /**

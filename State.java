@@ -115,7 +115,9 @@ public class State {
         this.source = source;
     }
     protected void setCausedBy(State causedBy) {
-        causedBy = new State(causedBy);
+        if (causedBy != null) {
+            causedBy = new State(causedBy);
+        }
         this.causedBy = causedBy;
     }
     /**
@@ -135,7 +137,11 @@ public class State {
                     + " a null element");
             }
         }
-        effects = HelperMethods.copyOf(effects);
+        if (effects.length > 0) {
+            effects = HelperMethods.copyOf(effects);
+        } else {
+            effects = new State[0];
+        }
         this.effects = effects;
     }
     /**
@@ -220,11 +226,11 @@ public class State {
         return true;
     }
     /**
-     * Adds a provided Status effect to this.effects.
-     * @param effect a Status which cannot be null.
+     * Adds a provided State effect to this.effects.
+     * @param effect a State which cannot be null.
      * @throws IllegalArgumentException if effect is null.
      */
-    public void addEffect(Status effect) {
+    public void addEffect(State effect) {
         if (effect == null) {
             throw new IllegalArgumentException("effect is null");
         }
@@ -257,5 +263,36 @@ public class State {
         setEffects(effects);
 
         return removedEffect;
+    }
+    /**
+     * Recursively checks whether any of the States this State has caused, or
+     *     any of the States they have caused, and so on, are of State.type
+     *     stringType.
+     * @param stateType a String containing a State.type value to search for.
+     *     Must be a valid type as defined by State.allowedTypes.
+     * @return a boolean containing the result of the check.
+     */
+    public boolean hasState(String stateType) {
+        boolean isValid = false;
+        boolean isPresent = false;
+
+        for (String allowedType : State.allowedTypes) {
+            if (stateType.equals(allowedType)) {
+                isValid = true;
+            }
+        }
+        if (! isValid) {
+            throw new IllegalArgumentException("stateType: \"" + stateType
+                + "\" is an invalid value for State.type");
+        }
+        for (State state : this.effects) {
+            if (state.getType().equals(stateType)) {
+                isPresent = true;
+                break;
+            }
+            isPresent = isPresent || state.hasState(stateType);
+        }
+
+        return isPresent;
     }
 }

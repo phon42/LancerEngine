@@ -214,21 +214,19 @@ public final class Mech implements Damageable {
      */
     private MechSystem[] systems;
 
+    // Extra stuff
     /**
-     * Any statuses affecting the mech, i.e. "danger zone".
-     * Each element must be a valid status, as defined by
+     * Any statuses affecting the mech (i.e. "down and out" as a Status).
+     * Each element must have a valid Status.type property as defined by
      *     Status.allowedMechStatuses.
-     * Case-insensitive and stored in lowercase. Cannot be null.
+     * Cannot be null.
      */
-    private String[] statuses;
-
+    private State[] statuses;
     /**
-     * Any conditions affecting the mech, i.e. "immobilized".
-     * Each element must be a valid condition, as defined by
-     *     Condition.allowedConditions.
-     * Case-insensitive and stored in lowercase. Cannot be null.
+     * Any conditions affecting the mech (i.e. "immobilized" as a Condition).
+     * Cannot be null or contain null elements.
      */
-    private String[] conditions;
+    private State[] conditions;
 
     /**
      * Sets up any of Mech's properties that aren't filled in by
@@ -268,7 +266,7 @@ public final class Mech implements Damageable {
     public Mech(String name, Frame frame, String operatorNotes,
         int currentStructure, int currentHP, int currentStress,
         int currentHeat, int currentRepairs, MechSystem[] systems,
-        String[] statuses, String[] conditions) {
+        State[] statuses, State[] conditions) {
         this();
         setName(name);
         setFrame(frame);
@@ -418,10 +416,10 @@ public final class Mech implements Damageable {
     public MechSystem[] getSystems() {
         return HelperMethods.copyOf(systems);
     }
-    public String[] getStatuses() {
+    public State[] getStatuses() {
         return statuses;
     }
-    public String[] getConditions() {
+    public State[] getConditions() {
         return conditions;
     }
     public void setName(String name) {
@@ -668,10 +666,12 @@ public final class Mech implements Damageable {
         if (modifyStatuses) {
             if (this.currentHeat * 2 >= this.maxHeatCapacity) {
                 // in danger zone
-                addStatus("danger zone");
+                addStatus(new Status("danger zone",
+                    "current heat (self)", "until removed"));
             } else {
                 // not in danger zone
-                removeStatus("danger zone");
+                removeStatus(new Status("danger zone", "N/A",
+                    "source"), true);
             }
         }
     }
@@ -887,34 +887,34 @@ public final class Mech implements Damageable {
     }
     /**
      * Sets this.statuses to the provided value.
-     * @param statuses a String[] which cannot be null or contain invalid
-     *     elements as defined by Status.allowedMechStatuses.
-     * @throws IllegalArgumentException if statuses is null or contains invalid
-     *     elements as defined by Status.allowedMechStatuses.
+     * @param statuses a State[] which cannot be null or contain elements with
+     *     invalid Status.type values as defined by Status.allowedMechStatuses.
+     * @throws IllegalArgumentException if statuses is null or contains elements
+     *     with invalid Status.type values as defined by
+     *     Status.allowedMechStatuses.
      */
-    public void setStatuses(String[] statuses) {
+    public void setStatuses(State[] statuses) {
         boolean isValidStatus = false;
         String statusString = "";
 
         if (statuses == null) {
             throw new IllegalArgumentException("New statuses value is null");
         }
-        for (int i = 0; i < statuses.length; i++) {
-            if (statuses[i] == null) {
+        for (State status : statuses) {
+            if (status == null) {
                 throw new IllegalArgumentException("New statuses array"
                     + " contains a null element");
             }
-            statuses[i] = statuses[i].toLowerCase();
-            statusString = statuses[i];
-            isValidStatus = false;
-            for (String status : Status.allowedMechStatuses) {
-                if (statusString.equals(status)) {
+            statusString = status.getType();
+            for (String allowedStatus : Status.allowedMechStatuses) {
+                if (statusString.equals(allowedStatus)) {
                     isValidStatus = true;
                 }
             }
             if (! isValidStatus) {
                 throw new IllegalArgumentException("New statuses array contains"
-                    + " an invalid element: \"" + statusString + "\"");
+                    + " an element with an invalid Status.type value: \""
+                    + statusString + "\"");
             }
         }
         statuses = HelperMethods.copyOf(statuses);
@@ -922,36 +922,20 @@ public final class Mech implements Damageable {
     }
     /**
      * Sets this.conditions to the provided value.
-     * @param conditions a String[] which cannot be null or contain invalid
-     *     elements as defined by Condition.allowedConditions.
+     * @param conditions a State[] which cannot be null or contain null
+     *     elements.
      * @throws IllegalArgumentException if conditions is null or contains
-     *     invalid elements as defined by Condition.allowedConditions.
+     *     null elements.
      */
-    public void setConditions(String[] conditions) {
-        boolean isValidCondition = false;
-        String conditionString = "";
-
+    public void setConditions(State[] conditions) {
         if (conditions == null) {
             throw new IllegalArgumentException("New conditions value is"
                 + " null");
         }
-        for (int i = 0; i < conditions.length; i++) {
-            if (conditions[i] == null) {
+        for (State condition : conditions) {
+            if (condition == null) {
                 throw new IllegalArgumentException("New conditions array"
                     + " contains a null element");
-            }
-            conditions[i] = conditions[i].toLowerCase();
-            conditionString = conditions[i];
-            isValidCondition = false;
-            for (String condition : Condition.allowedConditions) {
-                if (conditionString.equals(condition)) {
-                    isValidCondition = true;
-                }
-            }
-            if (! isValidCondition) {
-                throw new IllegalArgumentException("New conditions array"
-                    + " contains an invalid element: \"" + conditionString
-                    + "\"");
             }
         }
         conditions = HelperMethods.copyOf(conditions);
@@ -974,30 +958,31 @@ public final class Mech implements Damageable {
     }
     /**
      * Adds the provided status to this.statuses.
-     * @param newStatus a String containing the new status. Must be a valid
-     *     status as defined by Status.allowedMechStatuses.
+     * @param newStatus a State containing the new status. Must have a valid
+     *     Status.type property as defined by Status.allowedMechStatuses.
      * @param addDuplicate a boolean representing whether or not to add a second
-     *     version of the same status if that status is already present in
-     *     this.statuses.
-     * @throws IllegalArgumentException if newStatus is an invalid status as
-     *     defined by Status.allowedMechStatuses.
+     *     version of the same status if a status of the same type is already
+     *     present in this.statuses.
+     * @throws IllegalArgumentException if newStatus has a Status.type property
+     *     that is invalid as defined by Status.allowedMechStatuses.
      */
-    public void addStatus(String newStatus, boolean addDuplicate) {
+    public void addStatus(State newStatus, boolean addDuplicate) {
         boolean isValid = false;
         boolean containsStatus = false;
 
         for (String status : Status.allowedMechStatuses) {
-            if (newStatus.equals(status)) {
+            if (newStatus.getType().equals(status)) {
                 isValid = true;
                 break;
             }
         }
         if (! isValid) {
-            throw new IllegalArgumentException("newStatus value: \"" + newStatus
-                + "\" is an invalid status");
+            throw new IllegalArgumentException("newStatus' Status.type"
+                + " property: \"" + newStatus.getType() + "\" is an invalid"
+                + " status");
         }
-        for (String status : this.statuses) {
-            if (status.equals(newStatus)) {
+        for (State status : this.statuses) {
+            if (status.getType().equals(newStatus.getType())) {
                 containsStatus = true;
             }
         }
@@ -1007,48 +992,53 @@ public final class Mech implements Damageable {
         }
     }
     /**
-     * A helper method for addStatus(String, boolean). Allows the method to be
+     * A helper method for addStatus(State, boolean). Allows the method to be
      *     called with a default value of false for the boolean.
-     * @param status a String containing the new status. Must be a valid
-     *     status as defined by Status.allowedMechStatuses.
+     * @param status a State containing the new status. Must have a valid
+     *     Status.type property as defined by Status.allowedMechStatuses.
      */
-    public void addStatus(String status) {
+    public void addStatus(State status) {
         addStatus(status, false);
     }
     /**
      * Removes the provided status from this.statuses.
-     * @param oldStatus a String containing the status to be removed. Must be a
-     *     valid status as defined by Status.allowedMechStatuses.
-     * @param removeAll a boolean representing whether to remove all instances
-     *     of a status if multiple instances are present, or just the specified
-     *     one.
-     * @throws IllegalArgumentException if oldStatus is an invalid status as
-     *     defined by Status.allowedMechStatuses.
+     * @param oldStatus a State containing the status to be removed. Must have a
+     *     valid Status.type property as defined by Status.allowedMechStatuses.
+     * @param removeAll a boolean representing whether to remove all statuses
+     *     with the same Status.type property as oldStatus if multiple statuses
+     *     of the same type are present, or just the specified one.
+     * @throws IllegalArgumentException if oldStatus has an invalid Status.type
+     *     property as defined by Status.allowedMechStatuses.
      */
-    public void removeStatus(String oldStatus, boolean removeAll) {
+    public void removeStatus(State oldStatus, boolean removeAll) {
         boolean isValid = false;
-        String[] newStatuses;
+        boolean areSame = false;
+        State[] newStatuses;
 
         for (String status : Status.allowedMechStatuses) {
-            if (oldStatus.equals(status)) {
+            if (oldStatus.getType().equals(status)) {
                 isValid = true;
                 break;
             }
         }
         if (! isValid) {
-            throw new IllegalArgumentException("oldStatus value: \"" + oldStatus
-                + "\" is an invalid status");
+            throw new IllegalArgumentException("oldStatus has an invalid"
+                + " Status.type property: \"" + oldStatus.getType() + "\"");
         }
         for (int i = 0; i < this.statuses.length; i++) {
-            if (this.statuses[i].equals(oldStatus)) {
-                newStatuses = new String[this.statuses.length - 1];
+            if (removeAll) {
+                areSame = this.statuses[i].getType().equals(
+                    oldStatus.getType());
+            } else {
+                areSame = this.statuses[i].equals(oldStatus);
+            }
+            if (areSame) {
+                newStatuses = new State[this.statuses.length - 1];
                 for (int j = 0; j < this.statuses.length; j++) {
-                    if (j == i) {
-                        continue;
-                    }
                     if (j < i) {
                         newStatuses[j] = this.statuses[j];
-                    } else {
+                    } 
+                    if (j > i) {
                         newStatuses[j - 1] = this.statuses[j];
                     }
                 }
@@ -1056,45 +1046,56 @@ public final class Mech implements Damageable {
                 break;
             }
         }
-        if (removeAll) {
+        if (areSame && removeAll) {
             removeStatus(oldStatus, removeAll);
         }
     }
     /**
-     * Helper method for removeStatus(String, boolean). Allows the method to be
+     * Helper method for removeStatus(State, boolean). Allows the method to be
      *     run with a default value of false for the boolean.
-     * @param oldStatus a String containing the status to be removed. Must be a
-     *     valid status as defined by Status.allowedMechStatuses.
+     * @param oldStatus a State containing the status to be removed. Must have a
+     *     valid Status.type property as defined by Status.allowedMechStatuses.
      */
-    public void removeStatus(String oldStatus) {
+    public void removeStatus(State oldStatus) {
         removeStatus(oldStatus, false);
     }
     /**
-     * Adds the provided condition to this.conditions.
-     * @param newCondition a String containing the new condition. Must be a
-     *     valid condition as defined by Condition.allowedConditions.
-     * @param addDuplicate a boolean representing whether or not to add a second
-     *     version of the same condition if that condition is already present in
-     *     this.conditions.
-     * @throws IllegalArgumentException if newCondition is an invalid condition
-     *     as defined by Condition.allowedConditions.
+     * Recursively checks whether any of this.conditions or this.status have a
+     *     State.type value of stateType, or whether any of the States they
+     *     caused have such a value, and so on.
+     * @param stateType a String containing a State.type value to search for.
+     *     Must be a valid type as defined by State.allowedTypes.
+     * @return a boolean containing the result of the check.
      */
-    public void addCondition(String newCondition, boolean addDuplicate) {
-        boolean isValid = false;
+    public boolean hasState(String stateType) {
+        boolean isPresent = false;
+
+        for (State condition : this.conditions) {
+            isPresent = isPresent || condition.getType().equals(stateType);
+            isPresent = isPresent || condition.hasState(stateType);
+        }
+        if (isPresent) {
+            return isPresent;
+        }
+        for (State status : this.statuses) {
+            isPresent = isPresent || status.getType().equals(stateType);
+            isPresent = isPresent || status.hasState(stateType);
+        }
+
+        return isPresent;
+    }
+    /**
+     * Adds the provided condition to this.conditions.
+     * @param newCondition a Condition containing the new condition.
+     * @param addDuplicate a boolean representing whether or not to add a second
+     *     version of the same condition if a condition of the same type is
+     *     already present in this.conditions.
+     */
+    public void addCondition(State newCondition, boolean addDuplicate) {
         boolean containsCondition = false;
 
-        for (String condition : Condition.allowedConditions) {
-            if (newCondition.equals(condition)) {
-                isValid = true;
-                break;
-            }
-        }
-        if (! isValid) {
-            throw new IllegalArgumentException("newCondition value: \""
-                + newCondition + "\" is an invalid condition");
-        }
-        for (String condition : this.conditions) {
-            if (condition.equals(newCondition)) {
+        for (State condition : this.conditions) {
+            if (condition.getType().equals(newCondition.getType())) {
                 containsCondition = true;
             }
         }
@@ -1104,41 +1105,33 @@ public final class Mech implements Damageable {
         }
     }
     /**
-     * A helper method for addCondition(String, boolean). Allows the method to
+     * A helper method for addCondition(State, boolean). Allows the method to
      *     be called with a default value of false for the boolean.
-     * @param condition a String containing the new condition. Must be a valid
-     *     condition as defined by Condition.allowedConditions.
+     * @param condition a State containing the new condition.
      */
-    public void addCondition(String condition) {
+    public void addCondition(State condition) {
         addCondition(condition, false);
     }
     /**
      * Removes the provided condition from this.conditions.
-     * @param oldCondition a String containing the condition to be removed. Must
-     *     be a valid condition as defined by Condition.allowedConditions.
-     * @param removeAll a boolean representing whether to remove all instances
-     *     of a condition if multiple instances are present, or just the
-     *     specified one.
-     * @throws IllegalArgumentException if oldCondition is an invalid condition
-     *     as defined by Condition.allowedConditions.
+     * @param oldCondition a State containing the condition to be removed.
+     * @param removeAll a boolean representing whether to remove all conditions
+     *     with the same Condition.type property as oldCondition if multiple
+     *     conditions of the same type are present, or just the specified one.
      */
-    public void removeCondition(String oldCondition, boolean removeAll) {
-        boolean isValid = false;
-        String[] newConditions;
+    public void removeCondition(State oldCondition, boolean removeAll) {
+        boolean areSame = false;
+        State[] newConditions;
 
-        for (String condition : Condition.allowedConditions) {
-            if (oldCondition.equals(condition)) {
-                isValid = true;
-                break;
-            }
-        }
-        if (! isValid) {
-            throw new IllegalArgumentException("oldCondition value: \""
-                + oldCondition + "\" is an invalid condition");
-        }
         for (int i = 0; i < this.conditions.length; i++) {
-            if (this.conditions[i].equals(oldCondition)) {
-                newConditions = new String[this.conditions.length - 1];
+            if (removeAll) {
+                areSame = this.conditions[i].getType().equals(
+                    oldCondition.getType());
+            } else {
+                areSame = this.conditions[i].equals(oldCondition);
+            }
+            if (areSame) {
+                newConditions = new State[this.conditions.length - 1];
                 for (int j = 0; j < this.conditions.length; j++) {
                     if (j == i) {
                         continue;
@@ -1153,17 +1146,16 @@ public final class Mech implements Damageable {
                 break;
             }
         }
-        if (removeAll) {
+        if (areSame && removeAll) {
             removeCondition(oldCondition, removeAll);
         }
     }
     /**
-     * Helper method for removeCondition(String, boolean). Allows the method to
+     * Helper method for removeCondition(State, boolean). Allows the method to
      *     be run with a default value of false for the boolean.
-     * @param oldCondition a String containing the condition to be removed. Must
-     *     be a valid condition as defined by Condition.allowedConditions.
+     * @param oldCondition a State containing the condition to be removed.
      */
-    public void removeCondition(String oldCondition) {
+    public void removeCondition(State oldCondition) {
         removeCondition(oldCondition, false);
     }
     /**
@@ -1276,8 +1268,8 @@ public final class Mech implements Damageable {
         setSaveTarget(this.frame.getSaveTarget());
         setTraits(this.frame.getTraits());
         setMounts(mounts);
-        setStatuses(new String[0]);
-        setConditions(new String[0]);
+        setStatuses(new State[0]);
+        setConditions(new State[0]);
     }
     /**
      * Deals (damageAmount) damage of type (damageType) to this Mech.
