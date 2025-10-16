@@ -10,7 +10,7 @@
  * Safety: This class does not have placeholder values and cannot be a
  *     placeholder. None of its properties have allowed values of null.
  */
-public final class Pilot {
+public final class Pilot implements Damageable {
     // TODO: add some set of inherently available actions
     // TODO: add functions for Pilot.licenseList and Pilot.talents to check if
     //     individual items are present or to get an item with a specific name,

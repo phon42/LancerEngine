@@ -12,7 +12,7 @@
  * Safety: This class does not have placeholder values and cannot be a
  *     placeholder. None of its properties have allowed values of null.
  */
-public final class Mech {
+public final class Mech implements Damageable {
     // TODO: add some set of inherently available actions
     // TODO: add some way for all possible actions from a Mech's MechSystems and
     //     Weapons to bubble up
