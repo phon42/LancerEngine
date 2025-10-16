@@ -1,11 +1,11 @@
 import java.util.HashMap;
-// TODO: implement this whole list
 /**
  * Questions:
  * - Can pilots take burn? - yes
  * - Can the environment take heat or burn? - no and kind of (takes the damage
  *       but doesn't track burn)
  */
+// TODO: implement this whole list
 /**
  * What's Left To Add:
  * - Order of resolution (pg. 68)

@@ -1,8 +1,8 @@
 /**
  * Represents anything that can receive damage, such as a pilot, mech,
- *     deployable, or piece of terrain. Contains a list of methods such things
- *     must have in order to interact with the world and, more importantly, be
- *     interacted with.
+ *     deployable, drone, or piece of terrain. Contains a list of methods such
+ *     things must have in order to interact with the world and, more
+ *     importantly, be interacted with.
  * 
  * Cannot be instantiated by virtue of being an interface.
  * 

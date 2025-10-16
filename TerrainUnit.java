@@ -1,7 +1,7 @@
 // see pg. 68
 public class TerrainUnit implements Damageable {
     /**
-     * The mech's size.
+     * The terrain unit's size.
      * Size is stored as 2 * its value (i.e. Size 1/2 would be stored as int 1).
      * Must be one of the following values:
      *     1, 2, 4, 6, 8.

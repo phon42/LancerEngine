@@ -1205,6 +1205,7 @@ public final class Pilot implements Damageable {
      * @throws IllegalArgumentException if damageAmount is < 1.
      */
     public void receiveDamage(int damageAmount, String damageType) {
+        // See pg. 48
         // TODO: fill out with damage mitigation - armor, resistance etc
         boolean isValid = false;
         int damageToTake;
@@ -1269,9 +1270,12 @@ public final class Pilot implements Damageable {
     }
     /**
      * Represents the Pilot taking a lethal or near-lethal hit. Is called
-     *     whenever this.currentHP is reduced to 0. See pg. 49.
+     *     whenever this.currentHP is reduced to 0.
      */
     public void becomeCritical() {
+        // See pg. 49
+        // TODO: on a roll of 2–5, you can choose for your pilot to die rather
+        //     than becoming DOWN AND OUT.
         int downRoll = Roll.roll("d6");
 
         if (downRoll == 6) {
@@ -1296,10 +1300,12 @@ public final class Pilot implements Damageable {
      *     this.currentHP has been reduced to 0.
      */
     public void down() {
+        // See pg. 49
         State downed = new Status("down and out", "Pilot (self)",
             "until removed");
         State stun = new Condition("stunned", "down and out status",
             "source");
+        
         downed.addEffect(stun);
         addStatus(downed);
         System.out.println("This Pilot has been downed");
