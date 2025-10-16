@@ -959,13 +959,13 @@ public final class Pilot implements Damageable {
     }
     /**
      * Adds the provided condition to this.conditions.
-     * @param newCondition a String containing the new condition. Must be a valid
-     *     condition as defined by Pilot.allowedConditions.
+     * @param newCondition a String containing the new condition. Must be a
+     *     valid condition as defined by Pilot.allowedConditions.
      * @param addDuplicate a boolean representing whether or not to add a second
      *     version of the same condition if that condition is already present in
      *     this.conditions.
-     * @throws IllegalArgumentException if newCondition is an invalid condition as
-     *     defined by Pilot.allowedConditions.
+     * @throws IllegalArgumentException if newCondition is an invalid condition
+     *     as defined by Pilot.allowedConditions.
      */
     public void addCondition(String newCondition, boolean addDuplicate) {
         boolean isValid = false;
@@ -978,8 +978,8 @@ public final class Pilot implements Damageable {
             }
         }
         if (! isValid) {
-            throw new IllegalArgumentException("newCondition value: \"" + newCondition
-                + "\" is an invalid condition");
+            throw new IllegalArgumentException("newCondition value: \""
+                + newCondition + "\" is an invalid condition");
         }
         for (String condition : this.conditions) {
             if (condition.equals(newCondition)) {
@@ -992,8 +992,8 @@ public final class Pilot implements Damageable {
         }
     }
     /**
-     * A helper method for addCondition(String, boolean). Allows that method to be
-     *     called with a default value of false for the boolean.
+     * A helper method for addCondition(String, boolean). Allows that method to
+     *     be called with a default value of false for the boolean.
      * @param condition a String containing the new condition. Must be a valid
      *     condition as defined by Pilot.allowedConditions.
      */
@@ -1002,13 +1002,13 @@ public final class Pilot implements Damageable {
     }
     /**
      * Removes the provided condition from this.conditions.
-     * @param oldCondition a String containing the condition to be removed. Must be a
-     *     valid condition as defined by Pilot.allowedConditions.
+     * @param oldCondition a String containing the condition to be removed. Must
+     *     be a valid condition as defined by Pilot.allowedConditions.
      * @param removeAll a boolean representing whether to remove all instances
-     *     of a condition if multiple instances are present, or just the specified
-     *     one.
-     * @throws IllegalArgumentException if oldCondition is an invalid condition as
-     *     defined by Pilot.allowedConditions.
+     *     of a condition if multiple instances are present, or just the
+     *     specified one.
+     * @throws IllegalArgumentException if oldCondition is an invalid condition
+     *     as defined by Pilot.allowedConditions.
      */
     public void removeCondition(String oldCondition, boolean removeAll) {
         boolean isValid = false;
@@ -1021,8 +1021,8 @@ public final class Pilot implements Damageable {
             }
         }
         if (! isValid) {
-            throw new IllegalArgumentException("oldCondition value: \"" + oldCondition
-                + "\" is an invalid condition");
+            throw new IllegalArgumentException("oldCondition value: \""
+                + oldCondition + "\" is an invalid condition");
         }
         for (int i = 0; i < this.conditions.length; i++) {
             if (this.conditions[i].equals(oldCondition)) {
@@ -1046,10 +1046,10 @@ public final class Pilot implements Damageable {
         }
     }
     /**
-     * Helper method for removeCondition(String, boolean). Allows that method to be
-     *     run with a default value of false for the boolean.
-     * @param oldCondition a String containing the condition to be removed. Must be a
-     *     valid condition as defined by Pilot.allowedConditions.
+     * Helper method for removeCondition(String, boolean). Allows that method to
+     *     be run with a default value of false for the boolean.
+     * @param oldCondition a String containing the condition to be removed. Must
+     *     be a valid condition as defined by Pilot.allowedConditions.
      */
     public void removeCondition(String oldCondition) {
         removeCondition(oldCondition, false);
