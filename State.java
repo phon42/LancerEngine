@@ -37,7 +37,7 @@ public class State {
     protected State causedBy;
     /**
      * Any States which this State causes to exist.
-     * Can be any State[] that does not contain null elements. Can be null.
+     * Can be any State[] that does not contain null elements. Cannot be null.
      */
     protected State[] causes;
 
@@ -58,6 +58,8 @@ public class State {
     public State(String type, String source, String duration) {
         setType(type);
         setSource(source);
+        setCausedBy(null);
+        setCauses(new State[0]);
         setDuration(duration);
     }
 
@@ -118,10 +120,6 @@ public class State {
     public void setCauses(State[] causes) {
         if (causes == null) {
             throw new IllegalArgumentException("New causes value is null");
-        }
-        if (causes.length == 0) {
-            throw new IllegalArgumentException("New causes array is of length"
-                + " 0");
         }
         for (State cause : causes) {
             if (cause == null) {
