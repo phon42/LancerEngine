@@ -15,7 +15,7 @@ public final class HelperMethods {
      *     lowercase.
      */
     public static final String[] allowedDamageTypes = new String[] {"kinetic",
-        "explosive", "energy"};
+        "explosive", "energy", "burn"};
 
     // Prevent user from instantiating this class
     private HelperMethods() {}

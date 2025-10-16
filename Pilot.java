@@ -180,7 +180,7 @@ public final class Pilot implements Damageable {
      */
     private Talent[] talents;
 
-    // Extra stuff
+    // ---Extra stuff---------
     /**
      * Any statuses affecting the pilot (i.e. "down and out" as a Status).
      * Each element must have a valid Status.type property as defined by
@@ -195,6 +195,12 @@ public final class Pilot implements Damageable {
      * Cannot be null.
      */
     private State[] conditions;
+
+    /**
+     * The number of stacks of burn currently affecting the pilot (i.e. 6).
+     * Must be a minimum of 0.
+     */
+    private int burn;
 
     /**
      * Creates a new Pilot from the provided pilotName and pilotCallsign.
@@ -235,20 +241,23 @@ public final class Pilot implements Damageable {
         setMechSkills(new int[4]);
         setCoreBonuses(new String[0]);
         setTalents(new Talent[0]);
+
+        // ---Extra stuff---------
         setStatuses(new State[0]);
         setConditions(new State[0]);
+        setBurn(0);
     }
     /**
-     * Creates a new Pilot using every possible property.
+     * Creates a new Pilot using every Pilot property that isn't calculated by
+     *     the Pilot's Loadout.
      */
     public Pilot(String pilotName, String pilotCallsign, String player,
         String status, String background, String biography, String appearance,
-        String playerNotes, int size, int currentHP, int maxHP, int armor,
-        int evasion, int speed, int eDefense, SkillTriggersList skillTriggers,
+        String playerNotes, int currentHP, SkillTriggersList skillTriggers,
         String[] reserves, Loadout loadout, int licenseLevel,
         License[] licenseList, String[] specialEquipment, int[] mechSkills,
         String[] coreBonuses, Talent[] talents, State[] statuses,
-        State[] conditions) {
+        State[] conditions, int burn) {
         // ---Dossier-------------------
         setName(pilotName);
         setCallsign(pilotCallsign);
@@ -263,16 +272,12 @@ public final class Pilot implements Damageable {
         // setGrit() is unnecessary because licenseLevel is set later
         // setMaxHP() swapped with setCurrentHP() because the mutators may throw
         //     exceptions otherwise
-        setSize(size);
-        setMaxHP(maxHP);
+        setLoadout(loadout);
         setCurrentHP(currentHP);
-        setArmor(armor);
-        setEvasion(evasion);
-        setSpeed(speed);
-        setEDefense(eDefense);
         setSkillTriggers(skillTriggers);
         setReserves(reserves);
-        setLoadout(loadout);
+        // setLoadout() moved upwards so it doesn't re-set any properties that
+        //     are set above
 
         // ---Tactical Profile---------
         setLicenseLevel(licenseLevel);
@@ -283,6 +288,7 @@ public final class Pilot implements Damageable {
         setTalents(talents);
         setStatuses(statuses);
         setConditions(conditions);
+        setBurn(burn);
     }
     /**
      * Creates a deepest copy of the provided Pilot.
@@ -291,14 +297,39 @@ public final class Pilot implements Damageable {
      */
     public Pilot(Pilot pilot) {
         // don't need to make copies of these because the mutators already do so
-        this(pilot.name, pilot.callsign, pilot.player, pilot.status,
-            pilot.background, pilot.biography, pilot.appearance,
-            pilot.playerNotes, pilot.size, pilot.currentHP, pilot.maxHP,
-            pilot.armor, pilot.evasion, pilot.speed, pilot.eDefense,
-            pilot.skillTriggers, pilot.reserves, pilot.loadout,
-            pilot.licenseLevel, pilot.licenseList, pilot.specialEquipment,
-            pilot.mechSkills, pilot.coreBonuses, pilot.talents, pilot.statuses,
-            pilot.conditions);
+        // setMaxHP() swapped with setCurrentHP() because the mutators may throw
+        //     exceptions otherwise
+        setName(pilot.name);
+        setCallsign(pilot.callsign);
+        setPlayer(pilot.player);
+        setStatus(pilot.status);
+        setBackground(pilot.background);
+        setBiography(pilot.biography);
+        setAppearance(pilot.appearance);
+        setPlayerNotes(pilot.playerNotes);
+
+        setLoadout(pilot.loadout);
+
+        setSize(pilot.size);
+        setMaxHP(pilot.maxHP);
+        setCurrentHP(pilot.currentHP);
+        setArmor(pilot.armor);
+        setEvasion(pilot.evasion);
+        setSpeed(pilot.speed);
+        setEDefense(pilot.eDefense);
+        setSkillTriggers(pilot.skillTriggers);
+        setReserves(pilot.reserves);
+        // setLoadout() moved upwards so it doesn't re-set any properties that
+        //     are set above
+        setLicenseLevel(pilot.licenseLevel);
+        setLicenseList(pilot.licenseList);
+        setSpecialEquipment(pilot.specialEquipment);
+        setMechSkills(pilot.mechSkills);
+        setCoreBonuses(pilot.coreBonuses);
+        setTalents(pilot.talents);
+        setStatuses(pilot.statuses);
+        setConditions(pilot.conditions);
+        setBurn(pilot.burn);
     }
 
     // ---Dossier-------------------
@@ -384,6 +415,9 @@ public final class Pilot implements Damageable {
     }
     public State[] getConditions() {
         return HelperMethods.copyOf(conditions);
+    }
+    public int getBurn() {
+        return burn;
     }
     // ---Dossier-------------------
     public void setName(String name) {
@@ -696,8 +730,8 @@ public final class Pilot implements Damageable {
                 + " null");
         }
         if (mechSkills.length != 4) {
-            throw new IllegalArgumentException("New mech skills value is"
-                + " of invalid length");
+            throw new IllegalArgumentException("New mech skills is of length: "
+                + mechSkills.length + " which is not 4");
         }
         for (int mechSkill : mechSkills) {
             if (mechSkill < 0) {
@@ -833,6 +867,13 @@ public final class Pilot implements Damageable {
         }
         conditions = HelperMethods.copyOf(conditions);
         this.conditions = conditions;
+    }
+    public void setBurn(int burn) {
+        if (burn < 0) {
+            throw new IllegalArgumentException("burn value: " + burn + " is <"
+                + " 0");
+        }
+        this.burn = burn;
     }
 
     @Override
@@ -1105,6 +1146,24 @@ public final class Pilot implements Damageable {
         }
     }
     /**
+     * Adds the provided amount of burn to this pilot's existing burn stack.
+     * @param burnAmount an int which must be a minimum of 1.
+     * @throws IllegalArgumentException if burnAmount is < 1.
+     */
+    public void addBurn(int burnAmount) {
+        if (burnAmount < 1) {
+            throw new IllegalArgumentException("burnAmount value: " + burnAmount
+                + " is < 1");
+        }
+        setBurn(this.burn + burnAmount);
+    }
+    /**
+     * Clears all burn from this pilot.
+     */
+    public void clearBurn() {
+        setBurn(0);
+    }
+    /**
      * Helper method for removeCondition(State, boolean). Allows the method to
      *     be run with a default value of false for the boolean.
      * @param oldCondition a State containing the condition to be removed.
@@ -1122,12 +1181,18 @@ public final class Pilot implements Damageable {
                 this.loadout.getPilotArmor());
             
             // From pg. 74:
+            // setMaxHP() swapped with setCurrentHP() because the mutators may
+            //     throw exceptions otherwise
+            // add this.grit to get this.maxHP
             setMaxHP(6 + armorAttributes[0] + this.grit);
+            // add this.grit to get this.currentHP
             setCurrentHP(6 + armorAttributes[0] + this.grit);
             setArmor(0 + armorAttributes[1]);
             setEvasion(10 + armorAttributes[2]);
             setSpeed(4 + armorAttributes[3]);
             setEDefense(10 + armorAttributes[4]);
+            // TODO: fill out if it's modified by the armor
+            setSize(1);
         }
     }
     /**
@@ -1194,11 +1259,13 @@ public final class Pilot implements Damageable {
      * @throws IllegalArgumentException if burnAmount is < 1.
      */
     public void receiveBurn(int burnAmount) {
-        // TODO: fill out - pilots do in fact take burn
+        // See pg. 67
         if (burnAmount < 1) {
             throw new IllegalArgumentException("burnAmount value: " + burnAmount
                 + " is < 1");
         }
+        receiveDamage(burnAmount, "burn");
+        addBurn(burnAmount);
     }
     /**
      * Represents the Pilot taking a lethal or near-lethal hit. Is called
@@ -1243,6 +1310,17 @@ public final class Pilot implements Damageable {
     public void die() {
         // TODO: fill out
         System.out.println("This Pilot has died");
+    }
+    /**
+     * Ends this Pilot's current turn.
+     */
+    public void endTurn() {
+        // TODO: fill out
+        // burn check - see pg. 67.
+        if (! Roll.evaluateCheck(Roll.check(3, this.mechSkills))) {
+            // If the burn check fails
+            receiveBurn(this.burn);
+        }
     }
     /**
      * Checks the validity (and number) of talents, skill triggers, licenses,

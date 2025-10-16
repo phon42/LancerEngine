@@ -229,12 +229,21 @@ public final class Mech implements Damageable {
     private State[] conditions;
 
     /**
+     * The number of stacks of burn currently affecting the mech (i.e. 6).
+     * Must be a minimum of 0.
+     */
+    private int burn;
+
+    /**
      * Sets up any of Mech's properties that aren't filled in by
      *     Mech.setFrame().
      */
     private Mech() {
         setOperatorNotes("");
         setSystems(new MechSystem[0]);
+        setStatuses(new State[0]);
+        setConditions(new State[0]);
+        setBurn(0);
     }
     /**
      * Creates a Mech from a mech name and a frameID.
@@ -266,8 +275,8 @@ public final class Mech implements Damageable {
     public Mech(String name, Frame frame, String operatorNotes,
         int currentStructure, int currentHP, int currentStress,
         int currentHeat, int currentRepairs, MechSystem[] systems,
-        State[] statuses, State[] conditions) {
-        this();
+        State[] statuses, State[] conditions, int burn) {
+        this(); // added invisibly anyways
         setName(name);
         setFrame(frame);
         setOperatorNotes(operatorNotes);
@@ -279,6 +288,7 @@ public final class Mech implements Damageable {
         setSystems(systems);
         setStatuses(statuses);
         setConditions(conditions);
+        setBurn(burn);
     }
     /**
      * Creates a deepest copy of the provided Mech.
@@ -324,6 +334,7 @@ public final class Mech implements Damageable {
         setSystems(mech.systems);
         setStatuses(mech.statuses);
         setConditions(mech.conditions);
+        setBurn(mech.burn);
     }
 
     public String getName() {
@@ -421,6 +432,9 @@ public final class Mech implements Damageable {
     }
     public State[] getConditions() {
         return conditions;
+    }
+    public int getBurn() {
+        return burn;
     }
     public void setName(String name) {
         if (name == null) {
@@ -941,6 +955,13 @@ public final class Mech implements Damageable {
         conditions = HelperMethods.copyOf(conditions);
         this.conditions = conditions;
     }
+    public void setBurn(int burn) {
+        if (burn < 0) {
+            throw new IllegalArgumentException("burn value: " + burn + " is <"
+                + " 0");
+        }
+        this.burn = burn;
+    }
 
     /**
      * A helper method which outputs the mech's size, formatted properly so that
@@ -1159,6 +1180,24 @@ public final class Mech implements Damageable {
         removeCondition(oldCondition, false);
     }
     /**
+     * Adds the provided amount of burn to this mech's existing burn stack.
+     * @param burnAmount an int which must be a minimum of 1.
+     * @throws IllegalArgumentException if burnAmount is < 1.
+     */
+    public void addBurn(int burnAmount) {
+        if (burnAmount < 1) {
+            throw new IllegalArgumentException("burnAmount value: " + burnAmount
+                + " is < 1");
+        }
+        setBurn(this.burn + burnAmount);
+    }
+    /**
+     * Clears all burn from this mech.
+     */
+    public void clearBurn() {
+        setBurn(0);
+    }
+    /**
      * Sets all of this Mech object's stat properties to their correct values,
      *     calculated based off of the Mech's frame property. Called when
      *     Mech.setFrame(Frame) is called.
@@ -1257,7 +1296,7 @@ public final class Mech implements Damageable {
                     "", "", talent), 0);
             }
         }
-        
+
         setManufacturer(this.frame.getManufacturer());
         setFrameName(this.frame.getName());
         setRole(this.frame.getRole());
@@ -1268,8 +1307,6 @@ public final class Mech implements Damageable {
         setSaveTarget(this.frame.getSaveTarget());
         setTraits(this.frame.getTraits());
         setMounts(mounts);
-        setStatuses(new State[0]);
-        setConditions(new State[0]);
     }
     /**
      * Deals (damageAmount) damage of type (damageType) to this Mech.
@@ -1375,11 +1412,13 @@ public final class Mech implements Damageable {
      * @throws IllegalArgumentException if burnAmount is < 1.
      */
     public void receiveBurn(int burnAmount) {
-        // TODO: fill out
+        // See pg. 67
         if (burnAmount < 1) {
             throw new IllegalArgumentException("burnAmount value: " + burnAmount
                 + " is < 1");
         }
+        receiveDamage(burnAmount, "burn");
+        addBurn(burnAmount);
     }
     /**
      * Deals (structureDamage) structure damage to this Mech.
@@ -1438,6 +1477,20 @@ public final class Mech implements Damageable {
         // see pg. 74 - wrecks grant hard cover
         // TODO: fill out
         System.out.println("This Mech has been destroyed");
+    }
+    /**
+     * Ends this Mech's current turn.
+     * @param mechSkills an int[] containing the mech skills of the Pilot
+     *     associated with this Mech. Must be an int[] of length 4. Each
+     *     element must be between 0 and 6 (inclusive). Assumed to be valid.
+     */
+    public void endTurn(int[] mechSkills) {
+        // TODO: fill out
+        // burn check - see pg. 67.
+        if (! Roll.evaluateCheck(Roll.check(3, mechSkills))) {
+            // If the burn check fails
+            receiveBurn(this.burn);
+        }
     }
     /**
      * Generates the output associated with the mech portion of the COMP/CON
