@@ -1,20 +1,24 @@
 import java.util.HashMap;
 // TODO: implement this whole list
 /**
+ * Questions:
+ * - Can pilots take burn? - yes
+ * - Can the environment take heat or burn? - no and kind of (takes the damage
+ *       but doesn't track burn)
+ */
+/**
  * What's Left To Add:
  * - Order of resolution (pg. 68)
- * - taking damage (pg 67) for pilots
- * - pilot death and damage (remember to special case heat to Energy damage)
  * - mechs taking burn
- * - conditions
- * - statuses
- * - Roll - add "Roll with accuracy" or something like that
+ * - pilots taking burn
+ * - IMPLEMENTING conditions and statuses (the actual things themselves, not
+ *       just having them)
  * - Weapons - they have to actually attack lol
  *   - incl pilot weapons
  * - MechSystems need to do their actions/effects
  *   - incl pilot armor and gear
  * - checking validity for number of talents, skill triggers, and licenses
- * - checking validity for weapons and systems
+ * - checking validity for (having the licenses to) weapons and systems
  * - actions on your turns (everything on pg 61 honestly)
  *   - incl movement
  * - reactions

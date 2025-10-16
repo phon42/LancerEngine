@@ -75,6 +75,8 @@ public final class Mech implements Damageable {
      * Size is stored as 2 * its value (i.e. Size 1/2 would be stored as int 1).
      * Must be one of the following values:
      *     1, 2, 4, 6, 8.
+     * Use Mech.getSize() to get the raw value and Mech.outputSize() to obtain
+     *     it properly formatted.
      */
     private int size;
 
@@ -892,6 +894,7 @@ public final class Mech implements Damageable {
             }
         }
         systems = HelperMethods.copyOf(systems);
+        // TODO: systems[0].name <- why is this visible?
         this.systems = systems;
     }
     /**

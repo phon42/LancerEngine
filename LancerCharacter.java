@@ -315,6 +315,7 @@ public final class LancerCharacter {
             "coreBonuses"));
         this.pilot.setTalents((Talent[]) pilotProperties.get("talents"));
     }
+    // TODO: implement all these bracketed monitoring methods
     /*
      * Mech - set: [Bracketing requires special monitoring]
      * - Identification fields
