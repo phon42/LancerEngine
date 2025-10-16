@@ -9,8 +9,6 @@ import java.util.HashMap;
 /**
  * What's Left To Add:
  * - Order of resolution (pg. 68)
- * - mechs taking burn
- * - pilots taking burn
  * - IMPLEMENTING conditions and statuses (the actual things themselves, not
  *       just having them)
  * - Weapons - they have to actually attack lol
