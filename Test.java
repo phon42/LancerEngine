@@ -75,12 +75,7 @@ public final class Test {
     }
 
     public void setName(String name) {
-        if (name == null) {
-            throw new IllegalArgumentException("New test name is null");
-        }
-        if (name.equals("")) {
-            throw new IllegalArgumentException("New test name is \"\"");
-        }
+        HelperMethods.checkString("New test name", name);
         this.name = name;
     }
     public void setTests(Test[] tests) {

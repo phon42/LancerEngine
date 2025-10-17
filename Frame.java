@@ -317,22 +317,12 @@ public final class Frame {
         this.manufacturer = manufacturer;
     }
     private void setName(String name) {
-        if (name == null) {
-            throw new IllegalArgumentException("New frame name is null");
-        }
-        if (name.equals("")) {
-            throw new IllegalArgumentException("New frame name is \"\"");
-        }
+        HelperMethods.checkString("New frame name", name);
         name = name.toLowerCase();
         this.name = name;
     }
     private void setID(String ID) {
-        if (ID == null) {
-            throw new IllegalArgumentException("New frame ID is null");
-        }
-        if (ID.equals("")) {
-            throw new IllegalArgumentException("New frame ID is \"\"");
-        }
+        HelperMethods.checkString("New frame ID", ID);
         ID = ID.toLowerCase();
         this.ID = ID;
     }

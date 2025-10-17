@@ -81,9 +81,7 @@ public class Equipment {
             + " could not be found.");
     }
     protected void setName(String name) {
-        if (name == null) {
-            throw new IllegalArgumentException("New name is null");
-        }
+        HelperMethods.checkString("New name", name);
         if (name.equals("")) {
             throw new IllegalArgumentException("New name is \"\"");
         }

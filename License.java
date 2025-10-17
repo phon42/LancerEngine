@@ -50,12 +50,7 @@ public final class License {
         return level;
     }
     private void setName(String name) {
-        if (name == null) {
-            throw new IllegalArgumentException("New frame name is null");
-        }
-        if (name.equals("")) {
-            throw new IllegalArgumentException("New frame name is \"\"");
-        }
+        HelperMethods.checkString("New license name", name);
         name = name.toLowerCase();
         this.name = name;
     }

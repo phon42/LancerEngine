@@ -48,12 +48,7 @@ public final class Talent {
         return level;
     }
     private void setName(String name) {
-        if (name == null) {
-            throw new IllegalArgumentException("New name is null");
-        }
-        if (name.equals("")) {
-            throw new IllegalArgumentException("New name is \"\"");
-        }
+        HelperMethods.checkString("New name", name);
         name = name.toLowerCase();
         this.name = name;
     }

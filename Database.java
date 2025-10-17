@@ -269,6 +269,7 @@ public final class Database {
         String frameID;
         String originalSearch = new String(searchID);
         
+        HelperMethods.checkString("searchID", searchID);
         searchID = searchID.toLowerCase();
         for (int i = 0; i < frameList.length; i++) {
             frameID = frameList[i].getID();

@@ -437,12 +437,7 @@ public final class Mech implements Damageable {
         return burn;
     }
     public void setName(String name) {
-        if (name == null) {
-            throw new IllegalArgumentException("New name is null");
-        }
-        if (name.equals("")) {
-            throw new IllegalArgumentException("New name is \"\"");
-        }
+        HelperMethods.checkString("New name", name);
         this.name = name;
     }
     /**
@@ -471,12 +466,7 @@ public final class Mech implements Damageable {
         this.manufacturer = manufacturer;
     }
     private void setFrameName(String frameName) {
-        if (frameName == null) {
-            throw new IllegalArgumentException("New frame name is null");
-        }
-        if (frameName.equals("")) {
-            throw new IllegalArgumentException("New frame name is \"\"");
-        }
+        HelperMethods.checkString("New frame name", frameName);
         frameName = frameName.toLowerCase();
         this.frameName = frameName;
     }
@@ -1328,9 +1318,7 @@ public final class Mech implements Damageable {
             throw new IllegalArgumentException("damageAmount value: "
                 + damageAmount + " is < 1");
         }
-        if (damageType == null) {
-            throw new IllegalArgumentException("damageType is null");
-        }
+        HelperMethods.checkString("damageType", damageType);
         for (String allowedType : HelperMethods.allowedDamageTypes) {
             if (damageType.equals(allowedType)) {
                 isValid = true;

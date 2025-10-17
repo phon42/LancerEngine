@@ -63,8 +63,7 @@ public class Event {
     public void setType(String type) {
         boolean isValid = false;
 
-        if (type == null) {
-            throw new IllegalArgumentException("New duration value is null");
+        HelperMethods.checkString("New type", type);
         }
         type = type.toLowerCase();
         for (String allowedType : Event.allowedTypes) {

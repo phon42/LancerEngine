@@ -48,12 +48,7 @@ public final class SkillTrigger {
         return level;
     }
     private void setName(String name) {
-        if (name == null) {
-            throw new IllegalArgumentException("New name value is null");
-        }
-        if (name.equals("")) {
-            throw new IllegalArgumentException("New name value is \"\"");
-        }
+        HelperMethods.checkString("New name", name);
         this.name = name;
     }
     /**

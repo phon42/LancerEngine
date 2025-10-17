@@ -194,9 +194,7 @@ public final class Mount {
     public void setMountType(String mountType) {
         boolean isValidType = false;
 
-        if (mountType == null) {
-            throw new IllegalArgumentException("New mount type is null");
-        }
+        HelperMethods.checkString("New mount type", mountType);
         mountType = mountType.toLowerCase();
         for (int i = 0; i < Mount.allowedMountTypes.length; i++) {
             if (Mount.allowedMountTypes[i].equals(mountType)) {

@@ -103,6 +103,27 @@ public final class HelperMethods {
         return result;
     }
     /**
+     * Checks a provided String to see if it is null or "". Ironically, needs to
+     *     perform the same function on propertyName beforehand.
+     * @param propertyName a String which cannot be "". Cannot be null.
+     * @param input a String which cannot be "". Cannot be null.
+     * @throws IllegalArgumentException if propertyName or input are "" or null.
+     */
+    public static void checkString(String propertyName, String input) {
+        if (propertyName == null) {
+            throw new IllegalArgumentException("propertyName is null");
+        }
+        if (propertyName.equals("")) {
+            throw new IllegalArgumentException("propertyName is \"\"");
+        }
+        if (input == null) {
+            throw new IllegalArgumentException(propertyName + " is null");
+        }
+        if (input.equals("")) {
+            throw new IllegalArgumentException(propertyName + " is \"\"");
+        }
+    }
+    /**
      * Appends the given int element to the end of an existing int[].
      * @param intArray an int[] that cannot be null.
      * @param newElement an int to append to the end of intArray.

@@ -151,9 +151,7 @@ public class Deployable implements Damageable {
             throw new IllegalArgumentException("damageAmount value: "
                 + damageAmount + " is < 1");
         }
-        if (damageType == null) {
-            throw new IllegalArgumentException("damageType is null");
-        }
+        HelperMethods.checkString("damageType", damageType);
         for (String allowedType : HelperMethods.allowedDamageTypes) {
             if (damageType.equals(allowedType)) {
                 isValid = true;

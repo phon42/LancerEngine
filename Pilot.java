@@ -421,25 +421,11 @@ public final class Pilot implements Damageable {
     }
     // ---Dossier-------------------
     public void setName(String name) {
-        if (name == null) {
-            throw new IllegalArgumentException("Invalid value provided for"
-                + " pilot name: null");
-        }
-        if (name.equals("")) {
-            throw new IllegalArgumentException("Invalid value provided for"
-                + " pilot name: \"\"");
-        }
+        HelperMethods.checkString("New name", name);
         this.name = name;
     }
     public void setCallsign(String callsign) {
-        if (callsign == null) {
-            throw new IllegalArgumentException("Invalid value provided for"
-                + " pilot callsign: null");
-        }
-        if (callsign.equals("")) {
-            throw new IllegalArgumentException("Invalid value provided for"
-                + " pilot callsign: \"\"");
-        }
+        HelperMethods.checkString("New callsign", callsign);
         this.callsign = callsign;
     }
     public void setPlayer(String player) {
@@ -459,10 +445,7 @@ public final class Pilot implements Damageable {
     public void setStatus(String status) {
         boolean isValid = false;
 
-        if (status == null) {
-            throw new IllegalArgumentException("Invalid value provided for"
-                + " pilot status: null");
-        }
+        HelperMethods.checkString("New status", status);
         status = status.toLowerCase();
         for (String allowedStatus : Pilot.allowedFlavorStatuses) {
             if (status.equals(allowedStatus)) {
@@ -1215,9 +1198,7 @@ public final class Pilot implements Damageable {
             throw new IllegalArgumentException("damageAmount value: "
                 + damageAmount + " is < 1");
         }
-        if (damageType == null) {
-            throw new IllegalArgumentException("damageType is null");
-        }
+        HelperMethods.checkString("damageType", damageType);
         for (String allowedType : HelperMethods.allowedDamageTypes) {
             if (damageType.equals(allowedType)) {
                 isValid = true;

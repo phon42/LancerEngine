@@ -45,9 +45,7 @@ public class Status extends State {
     protected void setType(String type) {
         boolean isValid = false;
 
-        if (type == null) {
-            throw new IllegalArgumentException("New type value is null");
-        }
+        HelperMethods.checkString("New type", type);
         type = type.toLowerCase();
         for (String allowedType : Status.allowedStatuses) {
             if (type.equals(allowedType)) {

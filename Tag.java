@@ -99,9 +99,7 @@ public final class Tag {
     public void setName(String name) {
         boolean isAllowed = false;
 
-        if (name == null) {
-            throw new IllegalArgumentException("New name is null");
-        }
+        HelperMethods.checkString("New name", name);
         for (String allowedName : Tag.allowedNames) {
             if (name.equals(allowedName)) {
                 isAllowed = true;

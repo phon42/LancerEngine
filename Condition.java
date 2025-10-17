@@ -32,9 +32,7 @@ public class Condition extends State {
     protected void setType(String type) {
         boolean isValid = false;
 
-        if (type == null) {
-            throw new IllegalArgumentException("New type value is null");
-        }
+        HelperMethods.checkString("type", type);
         type = type.toLowerCase();
         for (String allowedType : Condition.allowedConditions) {
             if (type.equals(allowedType)) {

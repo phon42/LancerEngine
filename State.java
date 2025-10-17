@@ -95,9 +95,7 @@ public class State {
     protected void setType(String type) {
         boolean isValid = false;
 
-        if (type == null) {
-            throw new IllegalArgumentException("New type value is null");
-        }
+        HelperMethods.checkString("New type", type);
         type = type.toLowerCase();
         for (String allowedType : State.allowedTypes) {
             if (type.equals(allowedType)) {
@@ -154,9 +152,7 @@ public class State {
     protected void setDuration(String duration) {
         boolean isValid = false;
 
-        if (duration == null) {
-            throw new IllegalArgumentException("New duration value is null");
-        }
+        HelperMethods.checkString("New duration", duration);
         duration = duration.toLowerCase();
         for (String allowedDuration : State.allowedDurations) {
             if (duration.equals(allowedDuration)) {
