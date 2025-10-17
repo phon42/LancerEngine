@@ -24,6 +24,13 @@ public class Equipment {
      */
     protected String name;
     /**
+     * The manufacturer providing this equipment (i.e. "GMS").
+     * Must be a valid manufacturer as defined by Database.manufacturerList.
+     *     Cannot be null.
+     * Case-insensitive and stored in uppercase.
+     */
+    protected String manufacturer;
+    /**
      * Contains an array of all of this equipment's tags (i.e. Tag elements
      *     representing an "AI" or "Limited X" tag).
      * Can be any Tag[]. Cannot be null or contain null elements.
@@ -35,15 +42,38 @@ public class Equipment {
      *     Equipment's other properties. Used in Equipment's children's
      *     constructors as the mandatory super() constructor.
      * @param equipmentName a String containing the Equipment's name.
+     * @param equipmentManufacturer a String containing the Equipment's
+     *     manufacturer. Must be a valid manufacturer as defined by
+     *     Database.manufacturerList. Cannot be null.
      */
-    protected Equipment(String equipmentName) {
+    protected Equipment(String equipmentName, String equipmentManufacturer) {
         setName(equipmentName);
+        setManufacturer(equipmentManufacturer);
         setTags(new Tag[0]);
     }
 
     public String getName() {
         return name;
     }
+    public String getManufacturer() {
+        return manufacturer;
+    }
+    /**
+     * Sets this.manufacturer to the provided value.
+     * @param manufacturer a String which must be a valid manufacturer as
+     *     defined by Database.manufacturerList. Cannot be null.
+     * @throws IllegalArgumentException if manufacturer is an invalid
+     *     manufacturer.
+     */
+    protected void setManufacturer(String manufacturer) {
+        manufacturer = manufacturer.toUpperCase();
+        if (! Database.isValidManufacturer(manufacturer)) {
+            throw new IllegalArgumentException("New manufacturer value: "
+                + manufacturer + " is an invalid manufacturer");
+        }
+        this.manufacturer = manufacturer;
+    }
+
     /**
      * Searches for a specified tag. Returns whether the search was successful.
      * @param tagName a String containing the name of the tag to be searched
