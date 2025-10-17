@@ -34,7 +34,7 @@ public final class Mech implements Damageable {
     private Frame frame;
     /**
      * The mech's origin frame's manufacturer (i.e. "GMS").
-     * Can be any String except "". Cannot be null.
+     * Must be a valid manufacturer as defined by Database.manufacturerList.
      * Case-insensitive and stored in uppercase.
      */
     private String manufacturer;
@@ -453,16 +453,19 @@ public final class Mech implements Damageable {
         this.frame = frame;
         calculateAttributes();
     }
+    /**
+     * Sets this.manufacturer to the provided value.
+     * @param manufacturer a String which must be a valid manufacturer as
+     *     defined by Database.manufacturerList. Cannot be null.
+     * @throws IllegalArgumentException if manufacturer is an invalid
+     *     manufacturer.
+     */
     private void setManufacturer(String manufacturer) {
-        if (manufacturer == null) {
-            throw new IllegalArgumentException("New manufacturer value is"
-                + " null");
-        }
-        if (manufacturer.equals("")) {
-            throw new IllegalArgumentException("New manufacturer value is"
-                + " \"\"");
-        }
         manufacturer = manufacturer.toUpperCase();
+        if (Database.isValidManufacturer(manufacturer)) {
+            throw new IllegalArgumentException("New manufacturer value: "
+                + manufacturer + " is an invalid manufacturer");
+        }
         this.manufacturer = manufacturer;
     }
     private void setFrameName(String frameName) {

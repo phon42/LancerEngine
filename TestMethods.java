@@ -1291,8 +1291,7 @@ public final class TestMethods {
      * @return a boolean representing whether the method passed.
      */
     private static boolean runLicenseEqualsTests() {
-        License license = new License("IPS-N Blackbeard",
-            1);
+        License license = new License("Blackbeard", 1);
         boolean test1 = false;
         boolean test2 = false;
 
@@ -1312,8 +1311,7 @@ public final class TestMethods {
      * @return a boolean representing whether the method passed.
      */
     private static boolean runLicenseEqualsLicenseTests() {
-        License license = new License("IPS-N Blackbeard",
-            1);
+        License license = new License("Blackbeard", 1);
         boolean test1 = false;
         boolean test2 = false;
         boolean test3 = false;
@@ -1329,7 +1327,7 @@ public final class TestMethods {
             test2 = true;
         }
         // normal case
-        if (! license.equals(new License("IPS-N Blackbeard",
+        if (! license.equals(new License("Blackbeard",
             2))) {
             test3 = true;
         }
@@ -1347,8 +1345,7 @@ public final class TestMethods {
      * @return a boolean representing whether the method passed.
      */
     private static boolean runLicenseCopyOfTests() {
-        License original = new License("validFrameName",
-            1);
+        License original = new License("validFrame", 1);
         License copy;
         boolean test1 = false;
         boolean test2 = false;
@@ -1373,18 +1370,18 @@ public final class TestMethods {
         boolean test2 = false;
         boolean test3 = false;
 
-        license = new License("ips-n blackbeard", 1);
-        if (license.outputName().equals("IPS-N Blackbeard")) {
+        license = new License("blackbeard", 1);
+        if (license.outputName().equals("Blackbeard")) {
             test1 = true;
         }
-        license = new License("ssc death's head", 1);
-        if (license.outputName().equals("SSC Death's Head")) {
+        license = new License("death's head", 1);
+        if (license.outputName().equals("Death's Head")) {
             test2 = true;
         }
-        license = new License("ssc swallowtail (ranger variant)",
+        license = new License("swallowtail (ranger variant)",
             1);
         if (license.outputName().equals(
-            "SSC Swallowtail (Ranger Variant)")) {
+            "Swallowtail (Ranger Variant)")) {
             test3 = true;
         }
         
@@ -1750,9 +1747,9 @@ public final class TestMethods {
         boolean test7 = false;
         
         licenseList = new License[] {
-            new License("IPS-N Blackbeard", 1),
-            new License("IPS-N Drake", 2),
-            new License("IPS-N Lancaster", 3)
+            new License("Blackbeard", 1),
+            new License("Drake", 2),
+            new License("Lancaster", 3)
         };
         coreBonuses = new String[] {
             "Auto-Stabilizing Hardpoints",
@@ -1864,9 +1861,9 @@ public final class TestMethods {
         boolean test7 = false;
         
         licenseList = new License[] {
-            new License("IPS-N Blackbeard", 1),
-            new License("IPS-N Drake", 2),
-            new License("IPS-N Lancaster", 3)
+            new License("Blackbeard", 1),
+            new License("Drake", 2),
+            new License("Lancaster", 3)
         };
         coreBonuses = new String[] {
             "Auto-Stabilizing Hardpoints",
@@ -1989,9 +1986,9 @@ public final class TestMethods {
         boolean test7 = false;
         
         licenseList = new License[] {
-            new License("IPS-N Blackbeard", 1),
-            new License("IPS-N Drake", 2),
-            new License("IPS-N Lancaster", 3)
+            new License("Blackbeard", 1),
+            new License("Drake", 2),
+            new License("Lancaster", 3)
         };
         coreBonuses = new String[] {
             "Auto-Stabilizing Hardpoints",
@@ -2103,9 +2100,9 @@ public final class TestMethods {
         boolean test3 = false;
 
         licenseList = new License[] {
-            new License("IPS-N Blackbeard", 1),
-            new License("IPS-N Drake", 2),
-            new License("IPS-N Lancaster", 3)
+            new License("Blackbeard", 1),
+            new License("Drake", 2),
+            new License("Lancaster", 3)
         };
         // normal case
         pilot.setLicenseList(new License[0]);

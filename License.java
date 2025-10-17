@@ -1,8 +1,8 @@
 /**
- * Represents a single license. Contains the name of the frame to which the
+ * Represents a single license. Contains the name of the license to which the
  *     license is held, and the level of the license.
  * 
- * Requires a frame name and a license level to be instantiated.
+ * Requires a license name and a license level to be instantiated.
  * 
  * Used in Pilot.
  * 
@@ -12,8 +12,8 @@
 public final class License {
     /**
      * The name of the license to which the license is held (i.e. "everest").
-     * Can be any String except "". Cannot be null.
-     * Case-insensitive and stored in lowercase.
+     * Case-insensitive and stored in lowercase. Must be a valid license name as
+     *     defined by Database.licenseList. Cannot be null.
      * Use License.getName() to get the raw value and License.outputName() to
      *     obtain it properly formatted.
      */
@@ -26,13 +26,13 @@ public final class License {
 
     /**
      * Creates a new License.
-     * @param frameName a String containing the license name for the new
+     * @param licenseName a String containing the license name for the new
      *     License.
      * @param licenseLevel an int containing the license level for the new
      *     License.
      */
-    public License(String frameName, int licenseLevel) {
-        setName(frameName);
+    public License(String licenseName, int licenseLevel) {
+        setName(licenseName);
         setLevel(licenseLevel);
     }
     /**
@@ -53,6 +53,10 @@ public final class License {
     private void setName(String name) {
         HelperMethods.checkString("New license name", name);
         name = name.toLowerCase();
+        if (! Database.containsLicense(name)) {
+            throw new IllegalArgumentException("New license name value: " + name
+                + " is an invalid license name");
+        }
         this.name = name;
     }
     /**
@@ -116,19 +120,7 @@ public final class License {
      * @return a String containing this.name, properly formatted.
      */
     public String outputName() {
-        String formattedName = name;
-        String[] stringArr;
-
-        // stringArr will become something like
-        //     {"ssc", "swallowtail (ranger variant)"}
-        stringArr = formattedName.split(" ", 2);
-        // {"SSC", "swallowtail (ranger variant)"}
-        stringArr[0] = stringArr[0].toUpperCase();
-        // {"SSC", "Swallowtail (Ranger Variant)"}
-        stringArr[1] = HelperMethods.toProperCase(stringArr[1]);
-        formattedName = String.join(" ", stringArr);
-
-        return formattedName;
+        return HelperMethods.toProperCase(this.name);
     }
     /**
      * Generates a String output of this License.
@@ -136,6 +128,10 @@ public final class License {
      */
     public String outputLicense() {
         // Generate something of the form "IPS-N Blackbeard 1"
-        return outputName() + " " + getLevel();
+        String manufacturer = Database.getManufacturer(this.name);
+
+        manufacturer = manufacturer.toUpperCase();
+
+        return manufacturer + " " + outputName() + " " + getLevel();
     }
 }

@@ -30,6 +30,12 @@ public final class Database {
     //     of FrameLicense thingy that automatically populates systemList,
     //     weaponList, etc
     /**
+     * Contains every manufacturer for reference.
+     * Case-insensitive and stored in uppercase.
+     */
+    private static final String[] manufacturerList = new String[] {"N/A", "GMS",
+        "IPS-N", "SSC", "HORUS", "HA"};
+    /**
      * Contains every frame's data for reference.
      */
     private static final Frame[] frameList = new Frame[] {

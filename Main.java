@@ -247,10 +247,10 @@ public final class Main {
         pilotProperties.put("loadout", new Loadout());
         pilotProperties.put("licenseLevel", 9);
         pilotProperties.put("licenseList", new License[] {
-            new License("SSC Swallowtail", 3),
-            new License("SSC Death's Head", 3),
-            new License("HORUS Kobold", 3),
-            new License("HORUS Lich", 1)
+            new License("Swallowtail", 3),
+            new License("Death's Head", 3),
+            new License("Kobold", 3),
+            new License("Lich", 1)
         });
         pilotProperties.put("mechSkills", new int[] {4, 0, 5, 2});
         pilotProperties.put("coreBonuses", new String[] {
