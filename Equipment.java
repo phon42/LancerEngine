@@ -1,6 +1,7 @@
 /**
  * Represents a piece of mech equipment of any kind, such as a mech system or a
- *     mech weapon. Contains information about the equipment's name and tags.
+ *     mech weapon. Contains information about the equipment's name, origin, and
+ *     tags.
  * 
  * Requires an equipment name to be instantiated.
  * 

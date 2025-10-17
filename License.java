@@ -11,9 +11,9 @@
  */
 public final class License {
     /**
-     * The name of the frame to which the license is held (i.e. "gms everest").
-     * Case-insensitive and stored in lowercase. Can be any String except "".
-     *     Cannot be null.
+     * The name of the license to which the license is held (i.e. "everest").
+     * Can be any String except "". Cannot be null.
+     * Case-insensitive and stored in lowercase.
      * Use License.getName() to get the raw value and License.outputName() to
      *     obtain it properly formatted.
      */
@@ -26,8 +26,9 @@ public final class License {
 
     /**
      * Creates a new License.
-     * @param frameName a String containing the frameName for the new License.
-     * @param licenseLevel an int containing the licenseLevel for the new
+     * @param frameName a String containing the license name for the new
+     *     License.
+     * @param licenseLevel an int containing the license level for the new
      *     License.
      */
     public License(String frameName, int licenseLevel) {
@@ -109,9 +110,9 @@ public final class License {
     }
     /**
      * A helper method for License.outputLicense(). Returns this.name, properly
-     *     formatted. "ssc swallowtail (ranger variant)" will become
-     *     "SSC Swallowtail (Ranger Variant)", and "ssc death's head" will
-     *     become "SSC Death's Head".
+     *     formatted. "swallowtail (ranger variant)" will become
+     *     "Swallowtail (Ranger Variant)", and "death's head" will
+     *     become "Death's Head".
      * @return a String containing this.name, properly formatted.
      */
     public String outputName() {

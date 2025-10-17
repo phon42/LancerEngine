@@ -34,8 +34,8 @@ public final class Mech implements Damageable {
     private Frame frame;
     /**
      * The mech's origin frame's manufacturer (i.e. "GMS").
-     * Case-insensitive and stored in uppercase. Can be any String except "".
-     *     Cannot be null.
+     * Can be any String except "". Cannot be null.
+     * Case-insensitive and stored in uppercase.
      */
     private String manufacturer;
     /**

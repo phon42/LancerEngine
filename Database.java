@@ -15,8 +15,8 @@ enum FrameEnum {
     SIZE_4
 }
 /**
- * Contains a set array of Frames to be used by Mech(String, String) and
- *     Mech(String, FrameEnum).
+ * Represents nothing. Contains a set array of Frames to be used by
+ *     Mech(String, String) and Mech(String, FrameEnum).
  * 
  * Cannot be instantiated. All its methods are static.
  * 
@@ -26,6 +26,9 @@ enum FrameEnum {
  * Safety: N/A because this class cannot be instantiated.
  */
 public final class Database {
+    // TODO: eventually move towards adding each license's content as some kind
+    //     of FrameLicense thingy that automatically populates systemList,
+    //     weaponList, etc
     /**
      * Contains every frame's data for reference.
      */
@@ -258,12 +261,12 @@ public final class Database {
     private Database() {}
 
     /**
-     * Searches for and returns a Frame matching the given search ID
+     * Searches for and returns a Frame matching the provided search ID.
      * @param searchID a String containing the frame ID of the Frame the user
-     *     wants
-     * @return a Frame containing the Frame the user wants
-     * @throws IllegalArgumentException if no Frame is found matching the
-     *     given search ID.
+     *     wants.
+     * @return a Frame containing the Frame the user wants.
+     * @throws IllegalArgumentException if searchID is null, "", or if no Frame
+     *     is found matching the provided search ID.
      */
     public static Frame getFrame(String searchID) {
         String frameID;
@@ -281,12 +284,12 @@ public final class Database {
             + originalSearch);
     }
     /**
-     * Searches for and returns a Frame matching the given search enum
+     * Searches for and returns a Frame matching the provided search enum.
      * @param searchEnum a FrameEnum containing the FrameEnum of the Frame the
-     *     user wants
-     * @return a Frame containing the Frame the user wants
+     *     user wants.
+     * @return a Frame containing the Frame the user wants.
      * @throws IllegalArgumentException if no Frame is found matching the
-     *     given search enum.
+     *     provided search enum.
      */
     public static Frame getFrame(FrameEnum searchEnum) {
         FrameEnum frameEnum;
