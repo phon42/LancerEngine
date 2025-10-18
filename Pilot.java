@@ -430,8 +430,7 @@ public final class Pilot implements Damageable {
     }
     public void setPlayer(String player) {
         if (player == null) {
-            throw new IllegalArgumentException("Invalid value provided for"
-                + " player name: null");
+            throw new IllegalArgumentException("New player is null");
         }
         this.player = player;
     }

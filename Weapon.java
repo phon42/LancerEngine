@@ -21,7 +21,7 @@ public final class Weapon extends Equipment {
         "Inaccurate", "Arcing", "Smart", "Overkill", "Thrown X",
         "Heat X (Self)", "Knockback X", "Limited X", "Seeking", "Unique",
         "Reaction", "Drone", "Protocol", "Full Action", "Deployable",
-        "Quick Action", "X/Round", "Danger Zone", "AI"};
+        "Quick Action", "X/Round", "Danger Zone", "AI", "Free Action"};
     /**
      * The weapon's size (i.e. Main).
      * Must be between 0 and 4 (inclusive).

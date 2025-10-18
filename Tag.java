@@ -24,7 +24,7 @@ public final class Tag {
         "Quick Tech", "Invade", "Reaction", "Full Tech", "X/Round",
         "Danger Zone", "X/Turn", "Accurate", "Armor-Piercing (AP)", "Loading",
         "Ordnance", "Reliable X", "Inaccurate", "Arcing", "Smart", "Overkill",
-        "Thrown X", "Knockback X", "Seeking"};
+        "Thrown X", "Knockback X", "Seeking", "Free Action"};
     /**
      * Contains an array of values for this.name for which having a value other
      *     than 0 for this.value makes sense. Case-sensitive.

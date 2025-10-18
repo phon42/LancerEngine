@@ -462,7 +462,7 @@ public final class Mech implements Damageable {
      */
     private void setManufacturer(String manufacturer) {
         manufacturer = manufacturer.toUpperCase();
-        if (Database.isValidManufacturer(manufacturer)) {
+        if (! Database.isValidManufacturer(manufacturer)) {
             throw new IllegalArgumentException("New manufacturer value: "
                 + manufacturer + " is an invalid manufacturer");
         }
