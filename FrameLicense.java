@@ -116,8 +116,8 @@ public class FrameLicense {
         if (content == null) {
             throw new IllegalArgumentException("content is null");
         }
-        isGMS = isGMS || content.getManufacturer().equals("GMS");
-        isGMS = content.getLicense().getName().equals("GMS");
+        isGMS = content.getManufacturer().equals("GMS");
+        isGMS = isGMS || content.getLicense().getName().equals("GMS");
         if (content instanceof Equipment) {
             isEquipment = true;
         }
@@ -127,7 +127,6 @@ public class FrameLicense {
                     .equals("Integrated Weapon");
             }
         }
-        System.out.println(content.getName() + " " + isGMS);
         if (isGMS) {
             // All GMS content and integrated weapons always go to rank 0
             addContent(0, content);

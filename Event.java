@@ -18,14 +18,15 @@ public class Event {
 
     /**
      * The event's type (i.e. "damage_taken").
-     * Must be a valid value as defined by Event.allowedTypes.
+     * Must be a valid value as defined by Event.allowedTypes. Cannot be "".
      * Case-insensitive and stored in lowercase.
      */
     private String type;
     /**
      * Contains an array of valid values for this.type.
      */
-    private static final String[] allowedTypes = new String[] {"damage_taken"};
+    public static final String[] allowedTypes = new String[] {"",
+        "damage_taken"};
 
     public Event(String origin, String type) {
         setOrigin(origin);
@@ -64,7 +65,6 @@ public class Event {
         boolean isValid = false;
 
         HelperMethods.checkString("New type", type);
-        }
         type = type.toLowerCase();
         for (String allowedType : Event.allowedTypes) {
             if (type.equals(allowedType)) {

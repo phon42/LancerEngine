@@ -23,6 +23,7 @@ public final class Frame extends LicenseContent {
      * Use Frame.getName() to get the raw value and Frame.outputName() to obtain
      *     it properly formatted.
      */
+    // TODO: figure out a way to override the documentation from LicenseContent
     // private String name;
     /**
      * The frame's ID (i.e. "swallowtail_ranger").

@@ -268,7 +268,7 @@ public final class Roll {
                     keepNum = 1;
                 }
 
-                return rollComplex(rollNum, maxRoll, keep, keepNum)[0];
+                return roll(rollNum, maxRoll, keep, keepNum);
             } else if (containsX) {
                 // String is of the form "XdY"
                 rollNum = Integer.parseInt(substring[0]);
