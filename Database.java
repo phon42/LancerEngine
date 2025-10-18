@@ -263,9 +263,24 @@ public final class Database {
         new int[] {2, 2, -4, -1, -4} // TODO: has a special effect, add this
     };
 
-    // Prevent user from instantiating this class
-    private Database() {}
+    /**
+     * Returns whether a provided manufacturer name is valid.
+     * @param manufacturerName a String containing the manufacturer name of the
+     *     manufacturer the user wants to know the validity of. Case-sensitive.
+     * @return a boolean representing whether the manufacturer name was found.
+     * @throws IllegalArgumentException if manufacturerName is null or "".
+     */
+    public static boolean isValidManufacturer(String manufacturerName) {
+        HelperMethods.checkString("manufacturerName",
+            manufacturerName);
+        for (int i = 0; i < Database.manufacturerList.length; i++) {
+            if (Database.manufacturerList[i].equals(manufacturerName)) {
+                return true;
+            }
+        }
 
+        return false;
+    }
     /**
      * Searches for and returns a Frame matching the provided search ID.
      * @param searchID a String containing the frame ID of the Frame the user
@@ -276,18 +291,17 @@ public final class Database {
      */
     public static Frame getFrame(String searchID) {
         String frameID;
-        String originalSearch = new String(searchID);
-        
+    
         HelperMethods.checkString("searchID", searchID);
         searchID = searchID.toLowerCase();
-        for (int i = 0; i < frameList.length; i++) {
-            frameID = frameList[i].getID();
+        for (int i = 0; i < Database.frameList.length; i++) {
+            frameID = Database.frameList[i].getID();
             if (frameID.equals(searchID)) {
-                return new Frame(frameList[i]);
+                return new Frame(Database.frameList[i]);
             }
         }
         throw new IllegalArgumentException("No frame found for frame ID: "
-            + originalSearch);
+            + searchID);
     }
     /**
      * Searches for and returns a Frame matching the provided search enum.
@@ -300,10 +314,10 @@ public final class Database {
     public static Frame getFrame(FrameEnum searchEnum) {
         FrameEnum frameEnum;
         
-        for (int i = 0; i < frameList.length; i++) {
-            frameEnum = frameList[i].getFrameEnum();
+        for (int i = 0; i < Database.frameList.length; i++) {
+            frameEnum = Database.frameList[i].getFrameEnum();
             if (frameEnum == searchEnum) {
-                return new Frame(frameList[i]);
+                return new Frame(Database.frameList[i]);
             }
         }
         throw new IllegalArgumentException("No frame found for frame enum: "
