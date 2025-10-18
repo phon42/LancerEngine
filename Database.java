@@ -345,6 +345,42 @@ public final class Database {
             + searchEnum.toString());
     }
     /**
+     * Searches for and returns a MechSystem matching the provided search name.
+     * @param searchID a String containing the mech system name of the
+     *     MechSystem the user wants. Case-sensitive.
+     * @return a MechSystem containing the MechSystem the user wants.
+     * @throws IllegalArgumentException if systemName is null, "", or if no
+     *     MechSystem is found matching the provided mech system name.
+     */
+    public static MechSystem getSystem(String systemName) {
+        HelperMethods.checkString("systemName", systemName);
+        for (int i = 0; i < Database.systemList.length; i++) {
+            if (Database.systemList[i].getName().equals(systemName)) {
+                return Database.systemList[i];
+            }
+        }
+        throw new IllegalArgumentException("No mech system found for mech"
+            + " system name: \"" + systemName + "\"");
+    }
+    /**
+     * Searches for and returns a Weapon matching the provided search name.
+     * @param searchID a String containing the mech weapon name of the
+     *     Weapon the user wants. Case-sensitive.
+     * @return a Weapon containing the Weapon the user wants.
+     * @throws IllegalArgumentException if weaponName is null, "", or if no
+     *     Weapon is found matching the provided mech weapon name.
+     */
+    public static Weapon getWeapon(String weaponName) {
+        HelperMethods.checkString("weaponName", weaponName);
+        for (int i = 0; i < Database.weaponList.length; i++) {
+            if (Database.weaponList[i].getName().equals(weaponName)) {
+                return Database.weaponList[i];
+            }
+        }
+        throw new IllegalArgumentException("No mech weapon found for mech"
+            + " weapon name: \"" + weaponName + "\"");
+    }
+    /**
      * Searches for a piece of pilot armor given its name.
      * @param pilotArmorName a String containing the name of the pilot armor to
      *     be searched for.
