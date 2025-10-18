@@ -284,6 +284,26 @@ public final class Database {
         new int[] {2, 2, -4, -1, -4} // TODO: has a special effect, add this
     };
 
+    // Prevent user from instantiating this class
+    private Database() {}
+
+    /**
+     * Searches for a license with a name matching the provided license name.
+     *     Returns whether the license was found.
+     * @param licenseName a String containing the license name of the license
+     *     the user wants to know whether Database.licenseList contains.
+     * @return a boolean representing whether the license was found.
+     * @throws IllegalArgumentException if licenseName is null or "".
+     */
+    public static boolean containsLicense(String licenseName) {
+        HelperMethods.checkString("licenseName", licenseName);
+        for (int i = 0; i < Database.licenseList.length; i++) {
+            if (Database.licenseList[i].equals(licenseName)) {
+                return true;
+            }
+        }
+        return false;
+    }
     /**
      * Returns whether a provided manufacturer name is valid.
      * @param manufacturerName a String containing the manufacturer name of the
@@ -321,8 +341,8 @@ public final class Database {
                 return new Frame(Database.frameList[i]);
             }
         }
-        throw new IllegalArgumentException("No frame found for frame ID: "
-            + searchID);
+        throw new IllegalArgumentException("No frame found for frame ID: \""
+            + searchID + "\"");
     }
     /**
      * Searches for and returns a Frame matching the provided search enum.
@@ -343,6 +363,44 @@ public final class Database {
         }
         throw new IllegalArgumentException("No frame found for frame enum: "
             + searchEnum.toString());
+    }
+    /**
+     * Searches for a Frame with a name matching the provided frame name.
+     *     Returns whether the Frame was found.
+     * @param frameName a String containing the frame name of the Frame the user
+     *     wants to know whether Database.frameList contains.
+     * @return a boolean representing whether the Frame was found.
+     * @throws IllegalArgumentException if frameName is null or "".
+     */
+    public static boolean containsFrameName(String frameName) {
+        HelperMethods.checkString("frameName", frameName);
+        for (int i = 0; i < Database.frameList.length; i++) {
+            if (Database.frameList[i].getName().equals(frameName)) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    /**
+     * Searches for and returns the manufacturer of the Frame matching the
+     *     provided search frame name.
+     * @param frameName a String containing the name of the Frame the user wants
+     *     the manufacturer of.
+     * @return a String containing the manufacturer of the Frame matching the
+     *     provided search frame name.
+     * @throws IllegalArgumentException if frameName is null, "", or if no Frame
+     *     is found matching the provided frame name.
+     */
+    public static String getManufacturer(String frameName) {
+        HelperMethods.checkString("frameName", frameName);
+        for (int i = 0; i < Database.frameList.length; i++) {
+            if (Database.frameList[i].getName().equals(frameName)) {
+                return Database.frameList[i].getManufacturer();
+            }
+        }
+        throw new IllegalArgumentException("No frame found for frame name: \""
+            + frameName + "\"");
     }
     /**
      * Searches for and returns a MechSystem matching the provided search name.
@@ -396,6 +454,6 @@ public final class Database {
         }
 
         throw new IllegalArgumentException("No pilot armor found for pilot"
-            + " armor name: " + pilotArmorName);
+            + " armor name: \"" + pilotArmorName + "\"");
     }
 }
