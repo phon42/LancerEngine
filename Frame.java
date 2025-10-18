@@ -23,7 +23,7 @@ public final class Frame extends LicenseContent {
      * Use Frame.getName() to get the raw value and Frame.outputName() to obtain
      *     it properly formatted.
      */
-    private String name;
+    // private String name;
     /**
      * The frame's ID (i.e. "swallowtail_ranger").
      * Used for identifying it in Database.getFrame(String).
@@ -193,7 +193,6 @@ public final class Frame extends LicenseContent {
         int stress, int heatCapacity, int evasion, int speed, int eDefense,
         int techAttack, int sensors, int repairCapacity, int saveTarget,
         int systemPoints, String[] traits, Mount[] mounts) {
-        System.out.println("Point 1: " + name);
         setLicense(license);
         setManufacturer(manufacturer);
         setName(name);
@@ -299,9 +298,7 @@ public final class Frame extends LicenseContent {
     protected void setName(String name) {
         HelperMethods.checkString("New frame name", name);
         name = name.toLowerCase();
-        System.out.println("Point 2: " + name);
         this.name = name;
-        System.out.println("Point 3: " + this.name);
     }
     private void setID(String ID) {
         HelperMethods.checkString("New frame ID", ID);
