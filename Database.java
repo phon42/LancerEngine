@@ -233,6 +233,27 @@ public final class Database {
         )
     };
     /**
+     * Contains every mech system for reference.
+     */
+    private static MechSystem[] systemList = new MechSystem[] {};
+    /**
+     * Contains every mech weapon for reference.
+     */
+    private static Weapon[] weaponList = new Weapon[] {
+        new Weapon("Prototype Weapon I", "N/A",
+            new License("Integrated Weapon", 1),
+            1, 9
+        ),
+        new Weapon("Prototype Weapon II", "N/A",
+            new License("Integrated Weapon", 1),
+            1, 9
+        ),
+        new Weapon("Prototype Weapon III", "N/A",
+            new License("Integrated Weapon", 1),
+            1, 9
+        )
+    };
+    /**
      * Contains every pilot armor's name for reference. Case-sensitive.
      */
     private static final String[] pilotArmorNames = new String[] {
