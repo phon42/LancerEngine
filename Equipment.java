@@ -10,7 +10,7 @@
  * Safety: This class does not have placeholder values and cannot be a
  *     placeholder. None of its properties have allowed values of null.
  */
-public class Equipment {
+public class Equipment extends LicenseContent {
     // TODO: add some way to add actions for equipments that provide them (i.e
     //     GMS Pattern-A Jericho Deployable Cover and its Deploy Jericho
     //     Deployable Cover action for MechSystem, or IPS-N D/D 288 and its
@@ -49,7 +49,8 @@ public class Equipment {
      * Creates a new Equipment from a given equipment name and sets up all
      *     Equipment's other properties. Used in Equipment's children's
      *     constructors as the mandatory super() constructor.
-     * @param equipmentName a String containing the Equipment's name.
+     * @param equipmentName a String containing the Equipment's name. Can be any
+     *     String except "". Cannot be null.
      * @param equipmentManufacturer a String containing the Equipment's
      *     manufacturer. Must be a valid manufacturer as defined by
      *     Database.manufacturerList. Cannot be null.
@@ -72,6 +73,10 @@ public class Equipment {
     }
     public License getLicense() {
         return license;
+    }
+    protected void setName(String name) {
+        HelperMethods.checkString("New name", name);
+        this.name = name;
     }
     /**
      * Sets this.manufacturer to the provided value.
@@ -98,6 +103,17 @@ public class Equipment {
         }
         this.license = license;
     }
+    /**
+     * Is overridden in all of Equipment's children.
+     * @throws IllegalArgumentException if tags is null or includes a null
+     *     element.
+     */
+    protected void setTags(Tag[] tags) {
+        // This will throw an exception if tags is invalid
+        checkTagsArray(tags);
+        tags = HelperMethods.copyOf(tags);
+        this.tags = tags;
+    }
 
     /**
      * Searches for a specified tag. Returns whether the search was successful.
@@ -105,7 +121,7 @@ public class Equipment {
      *     for.
      * @return a boolean containing the result of the search.
      */
-    public boolean hasTag(String tagName) {
+    protected boolean hasTag(String tagName) {
         for (Tag tag : this.tags) {
             if (tag.getName().equals(tagName)) {
                 return true;
@@ -126,7 +142,7 @@ public class Equipment {
      * @return an int containing the value attached to the requested tag.
      * @throws IllegalArgumentException if the requested tag could not be found.
      */
-    public int getTag(String tagName) {
+    protected int getTag(String tagName) {
         for (Tag tag : this.tags) {
             if (tag.getName().equals(tagName)) {
                 return tag.getValue();
@@ -135,24 +151,6 @@ public class Equipment {
 
         throw new IllegalArgumentException("Requested tag: \"" + tagName + "\""
             + " could not be found.");
-    }
-    protected void setName(String name) {
-        HelperMethods.checkString("New name", name);
-        if (name.equals("")) {
-            throw new IllegalArgumentException("New name is \"\"");
-        }
-        this.name = name;
-    }
-    /**
-     * Is overridden in all of Equipment's children.
-     * @throws IllegalArgumentException if tags is null or includes a null
-     *     element.
-     */
-    protected void setTags(Tag[] tags) {
-        // This will throw an exception if tags is invalid
-        checkTagsArray(tags);
-        tags = HelperMethods.copyOf(tags);
-        this.tags = tags;
     }
     /**
      * Checks a Tag[] to see if it is a valid value for Equipment.tags. Throws
