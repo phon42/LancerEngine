@@ -2859,19 +2859,18 @@ public final class TestMethods {
         original = new Mech("Wraith", FrameEnum.SWALLOWTAIL_RANGER);
         original.setOperatorNotes("validOperatorNotes");
         original.setMount(0, new Mount("aux",
-            new Weapon("Slag Cannon", 1, 1)));
+            Database.getWeapon("Slag Cannon")));
         original.setMount(1, new Mount("aux",
-            new Weapon("Vulture DMR", 1, 5),
+            Database.getWeapon("Vulture DMR"),
             "", "Overpower Caliber"));
         original.setSystems(new MechSystem[] {
-            new MechSystem("Pattern-A Smoke Charges", new Tag[] {
-                new Tag("Limited X", 3)}),
-            new MechSystem("Seismic Ripper"),
-            new MechSystem("High-Stress Mag Clamps"),
-            new MechSystem("ATHENA-Class NHP"),
-            new MechSystem("Markerlight"),
-            new MechSystem("IMMOLATE"),
-            new MechSystem("Wandering Nightmare")
+            Database.getSystem("Pattern-A Smoke Charges"),
+            Database.getSystem("Seismic Ripper"),
+            Database.getSystem("High-Stress Mag Clamps"),
+            Database.getSystem("ATHENA-Class NHP"),
+            Database.getSystem("Markerlight"),
+            Database.getSystem("IMMOLATE"),
+            Database.getSystem("Wandering Nightmare")
         });
         copy = new Mech(original);
         if (original != copy) {

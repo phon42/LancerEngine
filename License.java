@@ -53,7 +53,9 @@ public final class License {
     private void setName(String name) {
         HelperMethods.checkString("New license name", name);
         name = name.toLowerCase();
-        if (! Database.containsLicense(name)) {
+        if (! name.equals("integrated weapon")
+            && ! name.equals("gms")
+            && ! Database.containsLicense(name)) {
             throw new IllegalArgumentException("New license name value: " + name
                 + " is an invalid license name");
         }

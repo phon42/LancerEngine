@@ -13,16 +13,9 @@
  * Used in Mech to create Mech objects. Also used in Database.
  * 
  * Safety: This class does not have placeholder values and cannot be a
- *     placeholder. None of its properties have allowed values of null.
+ *     placeholder. At least one of its properties has an allowed value of null.
  */
-public final class Frame {
-    /**
-     * The frame's manufacturer (i.e. "GMS").
-     * Must be a valid manufacturer as defined by Database.manufacturerList.
-     *     Cannot be null.
-     * Case-insensitive and stored in uppercase.
-     */
-    private String manufacturer;
+public final class Frame extends LicenseContent {
     /**
      * The frame's name (i.e. "everest").
      * Case-insensitive and stored in lowercase. Can be any String except "".
@@ -180,25 +173,28 @@ public final class Frame {
      * Creates a new Frame using every property except Structure and Stress,
      *     which it automatically sets to 4. Helpful for player frames.
      */
-    public Frame(String manufacturer, String name, String frameID,
-        FrameEnum frameEnum, String[] role, String frameDescription, int size,
-        int hp, int armor, int heatCapacity, int evasion, int speed,
-        int eDefense, int techAttack, int sensors, int repairCapacity,
-        int saveTarget, int systemPoints, String[] traits, Mount[] mounts) {
-        this(manufacturer, name, frameID, frameEnum, role, frameDescription,
-            size, 4, hp, armor, 4, heatCapacity, evasion,
-            speed, eDefense, techAttack, sensors, repairCapacity, saveTarget,
-            systemPoints, traits, mounts);
+    public Frame(License license, String manufacturer, String name,
+        String frameID, FrameEnum frameEnum, String[] role,
+        String frameDescription, int size, int hp, int armor, int heatCapacity,
+        int evasion, int speed, int eDefense, int techAttack, int sensors,
+        int repairCapacity, int saveTarget, int systemPoints, String[] traits,
+        Mount[] mounts) {
+        this(license, manufacturer, name, frameID, frameEnum, role,
+            frameDescription, size, 4, hp, armor, 4,
+            heatCapacity, evasion, speed, eDefense, techAttack, sensors,
+            repairCapacity, saveTarget, systemPoints, traits, mounts);
     }
     /**
      * Creates a new Frame using every possible property.
      */
-    public Frame(String manufacturer, String name, String frameID,
-        FrameEnum frameEnum, String[] role, String frameDescription, int size,
-        int structure, int hp, int armor, int stress, int heatCapacity,
-        int evasion, int speed, int eDefense, int techAttack, int sensors,
-        int repairCapacity, int saveTarget, int systemPoints, String[] traits,
-        Mount[] mounts) {
+    public Frame(License license, String manufacturer, String name,
+        String frameID, FrameEnum frameEnum, String[] role,
+        String frameDescription, int size, int structure, int hp, int armor,
+        int stress, int heatCapacity, int evasion, int speed, int eDefense,
+        int techAttack, int sensors, int repairCapacity, int saveTarget,
+        int systemPoints, String[] traits, Mount[] mounts) {
+        System.out.println("Point 1: " + name);
+        setLicense(license);
         setManufacturer(manufacturer);
         setName(name);
         setID(frameID);
@@ -230,21 +226,15 @@ public final class Frame {
     public Frame(Frame frame) {
         // make sure to use the proper accessor method instead of "property" if
         //     the property's type is mutable
-        this(frame.manufacturer, frame.name, frame.ID, frame.frameEnum,
-            frame.getRole(), frame.frameDescription, frame.size,
-            frame.structure, frame.HP, frame.armor, frame.stress,
+        this(frame.license, frame.manufacturer, frame.name, frame.ID,
+            frame.frameEnum, frame.getRole(), frame.frameDescription,
+            frame.size, frame.structure, frame.HP, frame.armor, frame.stress,
             frame.heatCapacity, frame.evasion, frame.speed, frame.eDefense,
             frame.techAttack, frame.sensors, frame.repairCapacity,
             frame.saveTarget, frame.systemPoints, frame.getTraits(),
             frame.getMounts());
     }
 
-    public String getManufacturer() {
-        return manufacturer;
-    }
-    public String getName() {
-        return name;
-    }
     public String getID() {
         return ID;
     }
@@ -305,25 +295,13 @@ public final class Frame {
     public Mount[] getMounts() {
         return HelperMethods.copyOf(mounts);
     }
-    /**
-     * Sets this.manufacturer to the provided value.
-     * @param manufacturer a String which must be a valid manufacturer as
-     *     defined by Database.manufacturerList. Cannot be null.
-     * @throws IllegalArgumentException if manufacturer is an invalid
-     *     manufacturer.
-     */
-    private void setManufacturer(String manufacturer) {
-        manufacturer = manufacturer.toUpperCase();
-        if (! Database.isValidManufacturer(manufacturer)) {
-            throw new IllegalArgumentException("New manufacturer value: "
-                + manufacturer + " is an invalid manufacturer");
-        }
-        this.manufacturer = manufacturer;
-    }
-    private void setName(String name) {
+    @Override
+    protected void setName(String name) {
         HelperMethods.checkString("New frame name", name);
         name = name.toLowerCase();
+        System.out.println("Point 2: " + name);
         this.name = name;
+        System.out.println("Point 3: " + this.name);
     }
     private void setID(String ID) {
         HelperMethods.checkString("New frame ID", ID);

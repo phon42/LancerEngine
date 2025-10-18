@@ -207,24 +207,21 @@ public final class Main {
         mechProperties = myCharacter.getMechProperties();
         mechProperties.put("mounts", new Mount[] {
             new Mount("aux",
-                new Weapon("Slag Cannon", 1,
-                    1)
+                Database.getWeapon("Slag Cannon")
             ),
             new Mount("aux",
-                new Weapon("Vulture DMR", 1,
-                    5),
-                "", "Overpower Caliber"
+                Database.getWeapon("Vulture DMR"), "",
+                "Overpower Caliber"
             )
         });
         mechProperties.put("systems", new MechSystem[] {
-            new MechSystem("Pattern-A Smoke Charges",
-                new Tag[] {new Tag("Limited X", 3)}),
-            new MechSystem("Seismic Ripper"),
-            new MechSystem("High-Stress Mag Clamps"),
-            new MechSystem("ATHENA-Class NHP"),
-            new MechSystem("Markerlight"),
-            new MechSystem("IMMOLATE"),
-            new MechSystem("Wandering Nightmare")
+            Database.getSystem("Pattern-A Smoke Charges"),
+            Database.getSystem("Seismic Ripper"),
+            Database.getSystem("High-Stress Mag Clamps"),
+            Database.getSystem("ATHENA-Class NHP"),
+            Database.getSystem("Markerlight"),
+            Database.getSystem("IMMOLATE"),
+            Database.getSystem("Wandering Nightmare")
         });
         myCharacter.setMechProperties(mechProperties);
 

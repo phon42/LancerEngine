@@ -1265,16 +1265,16 @@ public final class Mech implements Damageable {
             if (coreBonus.equals("improved armament")) {
                 mounts = HelperMethods.add(mounts, 
                     new Mount("improved armament core bonus",
-                    null, "",
-                    "improved armament", null), 0);
+                        null, "",
+                        "improved armament", null), 0);
             }
         }
         for (String coreBonus : coreBonuses) {
             if (coreBonus.equals("integrated weapon")) {
                 mounts = HelperMethods.add(mounts, 
                     new Mount("integrated weapon core bonus",
-                    null, "",
-                    "integrated weapon", null), 0);
+                        null, "",
+                        "integrated weapon", null), 0);
             }
         }
         for (Talent talent : talents) {
@@ -1285,8 +1285,8 @@ public final class Mech implements Damageable {
                 }
                 mounts = HelperMethods.add(mounts, 
                     new Mount("integrated weapon",
-                    new Weapon(weaponName, 1, 9),
-                    "", "", talent), 0);
+                        Database.getWeapon(weaponName), "",
+                        "", talent), 0);
             }
         }
 

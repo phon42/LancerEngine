@@ -6,8 +6,8 @@
  * 
  * Used in Mount.
  * 
- * Safety: This class has placeholder values and can be a placeholder. None of
- *     its properties have allowed values of null.
+ * Safety: This class has placeholder values and can be a placeholder. At least
+ *     one of its properties has an allowed value of null.
  */
 public final class Weapon extends Equipment {
     // TODO: fill out with some kind of way to attack

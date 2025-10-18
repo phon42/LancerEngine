@@ -182,6 +182,106 @@ public final class HelperMethods {
         return newStringArray;
     }
     /**
+     * Appends the given EventListener element to the end of an existing
+     *     EventListener[].
+     * @param array an EventListener[] that cannot be null.
+     * @param newElement an EventListener that cannot be null to append to the
+     *     end of array.
+     * @return an EventListener[] consisting of array with newElement appended
+     *     to the end of it.
+     * @throws IllegalArgumentException if array or newElement is null.
+     */
+    public static EventListener[] append(EventListener[] array,
+        EventListener newElement) {
+        if (array == null) {
+            throw new IllegalArgumentException("Called"
+                + " HelperMethods.append(EventListener[], EventListener) with"
+                + " null in the place of the EventListener[]");
+        }
+        if (newElement == null) {
+            throw new IllegalArgumentException("Called"
+                + " HelperMethods.append(EventListener[], EventListener) with"
+                + " null in the place of the EventListener");
+        }
+        EventListener[] newArray = new EventListener[array.length + 1];
+
+        for (int i = 0; i < newArray.length; i++) {
+            if (i < array.length) {
+                newArray[i] = array[i];
+                continue;
+            }
+            newArray[i] = newElement;
+        }
+        
+        return newArray;
+    }
+    /**
+     * Appends the given Frame element to the end of an existing Frame[].
+     * @param array a Frame[] that cannot be null.
+     * @param newElement a Frame that cannot be null to append to the end of
+     *     array.
+     * @return a Frame[] consisting of array with newElement appended to the end
+     *     of it.
+     * @throws IllegalArgumentException if array or newElement is null.
+     */
+    public static Frame[] append(Frame[] array, Frame newElement) {
+        if (array == null) {
+            throw new IllegalArgumentException("Called"
+                + " HelperMethods.append(Frame[], Frame) with null in the place"
+                + " of the Frame[]");
+        }
+        if (newElement == null) {
+            throw new IllegalArgumentException("Called"
+                + " HelperMethods.append(Frame[], Frame) with null in the"
+                + " place of the Frame");
+        }
+        Frame[] newArray = new Frame[array.length + 1];
+
+        for (int i = 0; i < newArray.length; i++) {
+            if (i < array.length) {
+                newArray[i] = array[i];
+                continue;
+            }
+            newArray[i] = newElement;
+        }
+        
+        return newArray;
+    }
+    /**
+     * Appends the given MechSystem element to the end of an existing
+     *     MechSystem[].
+     * @param array a MechSystem[] that cannot be null.
+     * @param newElement a MechSystem that cannot be null to append to the end
+     *     of array.
+     * @return a MechSystem[] consisting of array with newElement appended to
+     *     the end of it.
+     * @throws IllegalArgumentException if array or newElement is null.
+     */
+    public static MechSystem[] append(MechSystem[] array, MechSystem newElement)
+        {
+        if (array == null) {
+            throw new IllegalArgumentException("Called"
+                + " HelperMethods.append(MechSystem[], MechSystem) with null in"
+                + " the place of the MechSystem[]");
+        }
+        if (newElement == null) {
+            throw new IllegalArgumentException("Called"
+                + " HelperMethods.append(MechSystem[], MechSystem) with null in"
+                + " the place of the MechSystem");
+        }
+        MechSystem[] newArray = new MechSystem[array.length + 1];
+
+        for (int i = 0; i < newArray.length; i++) {
+            if (i < array.length) {
+                newArray[i] = array[i];
+                continue;
+            }
+            newArray[i] = newElement;
+        }
+        
+        return newArray;
+    }
+    /**
      * Appends the given State element to the end of an existing State[].
      * @param stateArray a State[] that cannot be null.
      * @param newElement a State that cannot be null to append to the end of
@@ -212,6 +312,38 @@ public final class HelperMethods {
         }
         
         return newStateArray;
+    }
+    /**
+     * Appends the given Weapon element to the end of an existing Weapon[].
+     * @param array a Weapon[] that cannot be null.
+     * @param newElement a Weapon that cannot be null to append to the end of
+     *     array.
+     * @return a Weapon[] consisting of array with newElement appended to the end
+     *     of it.
+     * @throws IllegalArgumentException if array or newElement is null.
+     */
+    public static Weapon[] append(Weapon[] array, Weapon newElement) {
+        if (array == null) {
+            throw new IllegalArgumentException("Called"
+                + " HelperMethods.append(Weapon[], Weapon) with null in the"
+                + " place of the Weapon[]");
+        }
+        if (newElement == null) {
+            throw new IllegalArgumentException("Called"
+                + " HelperMethods.append(Weapon[], Weapon) with null in the"
+                + " place of the Weapon");
+        }
+        Weapon[] newArray = new Weapon[array.length + 1];
+
+        for (int i = 0; i < newArray.length; i++) {
+            if (i < array.length) {
+                newArray[i] = array[i];
+                continue;
+            }
+            newArray[i] = newElement;
+        }
+        
+        return newArray;
     }
     // TODO: maybe add a HelperMethods.add(Mount[], Mount) version of this
     //     method that automatically calls either HelperMethods.add(Mount[],
