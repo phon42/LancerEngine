@@ -36,6 +36,11 @@ public final class Database {
     private static final String[] manufacturerList = new String[] {"N/A", "GMS",
         "IPS-N", "SSC", "HORUS", "HA"};
     /**
+     * Contains every license's name for reference.
+     * Case-insensitive and stored in lowercase.
+     */
+    private static String[] licenseList = new String[0];
+    /**
      * Contains every frame's data for reference.
      */
     private static final Frame[] frameList = new Frame[] {
@@ -383,26 +388,6 @@ public final class Database {
         return false;
     }
     /**
-     * Searches for and returns the manufacturer of the Frame matching the
-     *     provided search frame name.
-     * @param frameName a String containing the name of the Frame the user wants
-     *     the manufacturer of.
-     * @return a String containing the manufacturer of the Frame matching the
-     *     provided search frame name.
-     * @throws IllegalArgumentException if frameName is null, "", or if no Frame
-     *     is found matching the provided frame name.
-     */
-    public static String getManufacturer(String frameName) {
-        HelperMethods.checkString("frameName", frameName);
-        for (int i = 0; i < Database.frameList.length; i++) {
-            if (Database.frameList[i].getName().equals(frameName)) {
-                return Database.frameList[i].getManufacturer();
-            }
-        }
-        throw new IllegalArgumentException("No frame found for frame name: \""
-            + frameName + "\"");
-    }
-    /**
      * Searches for and returns a MechSystem matching the provided search name.
      * @param searchID a String containing the mech system name of the
      *     MechSystem the user wants. Case-sensitive.
@@ -455,5 +440,25 @@ public final class Database {
 
         throw new IllegalArgumentException("No pilot armor found for pilot"
             + " armor name: \"" + pilotArmorName + "\"");
+    }
+    /**
+     * Searches for and returns the manufacturer of the Frame matching the
+     *     provided search frame name.
+     * @param frameName a String containing the name of the Frame the user wants
+     *     the manufacturer of.
+     * @return a String containing the manufacturer of the Frame matching the
+     *     provided search frame name.
+     * @throws IllegalArgumentException if frameName is null, "", or if no Frame
+     *     is found matching the provided frame name.
+     */
+    public static String getManufacturer(String frameName) {
+        HelperMethods.checkString("frameName", frameName);
+        for (int i = 0; i < Database.frameList.length; i++) {
+            if (Database.frameList[i].getName().equals(frameName)) {
+                return Database.frameList[i].getManufacturer();
+            }
+        }
+        throw new IllegalArgumentException("No frame found for frame name: \""
+            + frameName + "\"");
     }
 }
