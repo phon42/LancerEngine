@@ -25,22 +25,25 @@ public final class MechSystem extends Equipment {
      * @param systemName a String which cannot be null or "".
      * @param systemManufacturer a String which must be a valid manufacturer
      *     name as defined by Database.manufacturerList. Cannot be null.
+     * @param systemLicense a License which can be any License. Cannot be null.
      */
-    public MechSystem(String systemName, String systemManufacturer) {
-        super(systemName, systemManufacturer);
+    public MechSystem(String systemName, String systemManufacturer,
+        License systemLicense) {
+        super(systemName, systemManufacturer, systemLicense);
     }
     /**
      * Creates a MechSystem given a system name and array of system tags.
      * @param systemName a String which cannot be null or "".
      * @param systemManufacturer a String which must be a valid manufacturer
      *     name as defined by Database.manufacturerList. Cannot be null.
+     * @param systemLicense a License which can be any License. Cannot be null.
      * @param systemTags a Tag[] which cannot be null, contain null elements,
      *     or contain elements with invalid Tag.name values, as defined by
      *     MechSystem.allowedNames.
      */
     public MechSystem(String systemName, String systemManufacturer,
-        Tag[] systemTags) {
-        super(systemName, systemManufacturer);
+        License systemLicense, Tag[] systemTags) {
+        super(systemName, systemManufacturer, systemLicense);
         setTags(systemTags);
     }
     /**
@@ -49,7 +52,8 @@ public final class MechSystem extends Equipment {
      * @return a MechSystem deep copy of the provided MechSystem.
      */
     public MechSystem(MechSystem mechSystem) {
-        this(mechSystem.name, mechSystem.manufacturer, mechSystem.tags);
+        this(mechSystem.name, mechSystem.manufacturer, mechSystem.license,
+            mechSystem.tags);
     }
 
     /**

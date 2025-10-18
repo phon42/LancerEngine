@@ -73,12 +73,13 @@ public final class Weapon extends Equipment {
      * @param weaponName a String which cannot be null or "".
      * @param weaponManufacturer a String which must be a valid manufacturer
      *     name as defined by Database.manufacturerList. Cannot be null.
+     * @param weaponLicense a License which can be any License. Cannot be null.
      * @param weaponSize an int which must be between 0 and 4 (inclusive).
      * @param weaponType an int which must be between 0 and 9 (inclusive).
      */
-    public Weapon(String weaponName, String weaponManufacturer, int weaponSize,
-        int weaponType) {
-        super(weaponName, weaponManufacturer);
+    public Weapon(String weaponName, String weaponManufacturer,
+        License weaponLicense, int weaponSize, int weaponType) {
+        super(weaponName, weaponManufacturer, weaponLicense);
         setSize(weaponSize);
         setType(weaponType);
     }
@@ -88,16 +89,18 @@ public final class Weapon extends Equipment {
      * @param weaponName a String which cannot be null or "".
      * @param weaponManufacturer a String which must be a valid manufacturer
      *     name as defined by Database.manufacturerList. Cannot be null.
+     * @param weaponLicense a License which can be any License. Cannot be null.
      * @param weaponSize an int which must be between 0 and 4 (inclusive).
      * @param weaponType an int which must be between 0 and 9 (inclusive).
      * @param weaponTags a Tag[] which cannot be null, contain null elements, or
      *     elements with invalid Tag.name values, as defined by
      *     Weapon.allowedNames.
      */
-    public Weapon(String weaponName, String weaponManufacturer, int weaponSize,
-        int weaponType,
+    public Weapon(String weaponName, String weaponManufacturer,
+        License weaponLicense, int weaponSize, int weaponType,
         Tag[] weaponTags) {
-        this(weaponName, weaponManufacturer, weaponSize, weaponType);
+        this(weaponName, weaponManufacturer, weaponLicense, weaponSize,
+            weaponType);
         setTags(weaponTags);
     }
     /**
@@ -109,8 +112,8 @@ public final class Weapon extends Equipment {
         // don't need to make copies of this.tags because the mutator
         //     (Equipment.setTags()) called by Weapon(String, int, Tag[])
         //     already does so
-        this(weapon.name, weapon.manufacturer, weapon.size, weapon.type,
-            weapon.tags);
+        this(weapon.name, weapon.manufacturer, weapon.license, weapon.size,
+            weapon.type, weapon.tags);
     }
 
     public int getSize() {

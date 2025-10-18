@@ -31,6 +31,14 @@ public class Equipment {
      */
     protected String manufacturer;
     /**
+     * The origin license for this equipment (i.e. a License representing
+     *     "Blackbeard, rank II"). Uses a License to represent an ACTUAL license
+     *     instead of the frame name and rank to which a pilot holds a license.
+     * For GMS equipment, is set to null.
+     * Can be any License.
+     */
+    protected License license;
+    /**
      * Contains an array of all of this equipment's tags (i.e. Tag elements
      *     representing an "AI" or "Limited X" tag).
      * Can be any Tag[]. Cannot be null or contain null elements.
@@ -45,10 +53,14 @@ public class Equipment {
      * @param equipmentManufacturer a String containing the Equipment's
      *     manufacturer. Must be a valid manufacturer as defined by
      *     Database.manufacturerList. Cannot be null.
+     * @param equipmentLicense a License containing the Equipment's license. Can
+     *     be any License. Cannot be null.
      */
-    protected Equipment(String equipmentName, String equipmentManufacturer) {
+    protected Equipment(String equipmentName, String equipmentManufacturer,
+        License equipmentLicense) {
         setName(equipmentName);
         setManufacturer(equipmentManufacturer);
+        setLicense(equipmentLicense);
         setTags(new Tag[0]);
     }
 
@@ -57,6 +69,9 @@ public class Equipment {
     }
     public String getManufacturer() {
         return manufacturer;
+    }
+    public License getLicense() {
+        return license;
     }
     /**
      * Sets this.manufacturer to the provided value.
@@ -72,6 +87,16 @@ public class Equipment {
                 + manufacturer + " is an invalid manufacturer");
         }
         this.manufacturer = manufacturer;
+    }
+    /**
+     * Sets this.license to the provided value.
+     * @param license a License which can be any License. Cannot be null.
+     */
+    protected void setLicense(License license) {
+        if (license == null) {
+            throw new IllegalArgumentException("New license is null");
+        }
+        this.license = license;
     }
 
     /**
