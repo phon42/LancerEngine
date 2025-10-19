@@ -166,7 +166,7 @@ public class Drone implements Damageable {
      *     be > 0.
      * @param damageType a String containing the type of the damage to deal.
      *     Must be a valid damage type as defined by Damage.allowedTypes. Cannot
-     *     be "heat" or "burn".
+     *     be "heat".
      * @throws IllegalArgumentException if damageAmount is < 1.
      */
     private void receiveDamage(int damageAmount, String damageType) {
@@ -183,8 +183,7 @@ public class Drone implements Damageable {
             throw new IllegalArgumentException("damageType value: \""
                 + damageType + "\" is an invalid damage type");
         }
-        if (damageType.equals("heat")
-            || damageType.equals("burn")) {
+        if (damageType.equals("heat")) {
             throw new IllegalArgumentException("damageType value: \""
                 + damageType + "\" is a non-allowed damage type");
         }
