@@ -1186,7 +1186,41 @@ public final class Pilot implements Damageable {
      *     HelperMethods.allowedDamageTypes.
      * @throws IllegalArgumentException if damageAmount is < 1.
      */
-    public void receiveDamage(int damageAmount, String damageType) {
+    public void receiveHarm(int damageAmount, String damageType) {
+        boolean isValid = false;
+
+        if (damageAmount < 1) {
+            throw new IllegalArgumentException("damageAmount value: "
+                + damageAmount + " is < 1");
+        }
+        HelperMethods.checkString("damageType", damageType);
+        for (String allowedType : HelperMethods.allowedDamageTypes) {
+            if (damageType.equals(allowedType)) {
+                isValid = true;
+            }
+        }
+        if (! isValid) {
+            throw new IllegalArgumentException("damageType value: \""
+                + damageType + "\" is an invalid damage type");
+        }
+        if (damageType.equals("heat")) {
+            receiveHeat(damageAmount);
+        } else if (damageType.equals("burn")) {
+            receiveBurn(damageAmount);
+        } else {
+            receiveDamage(damageAmount, damageType);
+        }
+    }
+    /**
+     * Deals (damageAmount) damage of type (damageType) to this Pilot.
+     * @param damageAmount an int containing the amount of damage to deal. Must
+     *     be > 0.
+     * @param damageType a String containing the type of the damage to deal.
+     *     Must be a valid damage type as defined by
+     *     HelperMethods.allowedDamageTypes. Cannot be "heat" or "burn".
+     * @throws IllegalArgumentException if damageAmount is < 1.
+     */
+    private void receiveDamage(int damageAmount, String damageType) {
         // See pg. 48
         // TODO: fill out with damage mitigation - armor, resistance etc
         boolean isValid = false;
@@ -1207,6 +1241,11 @@ public final class Pilot implements Damageable {
             throw new IllegalArgumentException("damageType value: \""
                 + damageType + "\" is an invalid damage type");
         }
+        if (damageType.equals("heat")
+            || damageType.equals("burn")) {
+            throw new IllegalArgumentException("damageType value: \""
+                + damageType + "\" is a non-allowed damage type");
+        }
         damageToTake = Math.min(damageAmount, this.currentHP);
         newCurrentHP = this.currentHP - damageToTake;
         setCurrentHP(newCurrentHP);
@@ -1225,7 +1264,7 @@ public final class Pilot implements Damageable {
      *     0.
      * @throws IllegalArgumentException if heatAmount is < 1.
      */
-    public void receiveHeat(int heatAmount) {
+    private void receiveHeat(int heatAmount) {
         // TODO: fill out with mitigation, resistance etc
         if (heatAmount < 1) {
             throw new IllegalArgumentException("heatAmount value: " + heatAmount
@@ -1239,7 +1278,7 @@ public final class Pilot implements Damageable {
      *     0.
      * @throws IllegalArgumentException if burnAmount is < 1.
      */
-    public void receiveBurn(int burnAmount) {
+    private void receiveBurn(int burnAmount) {
         // See pg. 67
         if (burnAmount < 1) {
             throw new IllegalArgumentException("burnAmount value: " + burnAmount
@@ -1264,7 +1303,7 @@ public final class Pilot implements Damageable {
             setCurrentHP(1);
         } else if (downRoll == 1) {
             // On 1, your pilot’s luck has run out – they die immediately.
-            die();
+            destroy();
         } else {
             // On 2–5, your pilot gains the DOWN AND OUT status (and the STUNNED
             //     condition) and remains at 0 HP. They are unconscious, pinned,
@@ -1293,7 +1332,7 @@ public final class Pilot implements Damageable {
     /**
      * Is called whenever this Pilot dies.
      */
-    public void die() {
+    public void destroy() {
         // TODO: fill out
         System.out.println("This Pilot has died");
     }

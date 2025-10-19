@@ -11,7 +11,7 @@
  * Safety: N/A because this class cannot be instantiated.
  */
 public interface Damageable {
-    public void receiveDamage(int damageAmount, String damageType);
-    public void receiveHeat(int heatAmount);
-    public void receiveBurn(int burnAmount);
+    // TODO: add a receiveAttack() method
+    public void receiveHarm(int damageAmount, String damageType);
+    public void destroy();
 }

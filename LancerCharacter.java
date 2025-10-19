@@ -506,43 +506,30 @@ public final class LancerCharacter {
         }
     }
     /**
-     * Calls receiveDamage() on either this.pilot or this.mech, depending on
+     * Calls receiveHarm() on either this.pilot or this.mech, depending on
      *     targetMech.
-     * @param targetMech a boolean representing whether to call receiveDamage()
+     * @param targetMech a boolean representing whether to call receiveHarm()
      *     on this.mech.
      */
-    public void receiveDamage(boolean targetMech, int damageAmount,
+    public void receiveHarm(boolean targetMech, int damageAmount,
         String damageType) {
         if (targetMech) {
-            this.mech.receiveDamage(damageAmount, damageType);
+            this.mech.receiveHarm(damageAmount, damageType);
         } else {
-            this.pilot.receiveDamage(damageAmount, damageType);
+            this.pilot.receiveHarm(damageAmount, damageType);
         }
     }
     /**
-     * Calls receiveHeat() on either this.pilot or this.mech, depending on
+     * Calls destroy() on either this.pilot or this.mech, depending on
      *     targetMech.
-     * @param targetMech a boolean representing whether to call receiveHeat() on
+     * @param targetMech a boolean representing whether to call destroy() on
      *     this.mech.
      */
-    public void receiveHeat(boolean targetMech, int heatAmount) {
+    public void destroy(boolean targetMech) {
         if (targetMech) {
-            this.mech.receiveHeat(heatAmount);
+            this.mech.destroy();
         } else {
-            this.pilot.receiveHeat(heatAmount);
-        }
-    }
-    /**
-     * Calls receiveBurn() on either this.pilot or this.mech, depending on
-     *     targetMech.
-     * @param targetMech a boolean representing whether to call receiveBurn() on
-     *     this.mech.
-     */
-    public void receiveBurn(boolean targetMech, int burnAmount) {
-        if (targetMech) {
-            this.mech.receiveBurn(burnAmount);
-        } else {
-            this.pilot.receiveBurn(burnAmount);
+            this.pilot.destroy();
         }
     }
     /**
@@ -552,28 +539,10 @@ public final class LancerCharacter {
         this.mech.receiveStructureDamage(structureDamage);
     }
     /**
-     * Calls this.mech.receiveStructureDamage().
-     */
-    public void mechReceiveStructureDamage() {
-        this.mech.receiveStructureDamage();
-    }
-    /**
      * Calls this.mech.receiveStressDamage(int).
      */
     public void mechReceiveStressDamage(int stressDamage) {
         this.mech.receiveStressDamage(stressDamage);
-    }
-    /**
-     * Calls this.mech.receiveStressDamage().
-     */
-    public void mechReceiveStressDamage() {
-        this.mech.receiveStressDamage();
-    }
-    /**
-     * Calls this.mech.destroy().
-     */
-    public void mechDestroy() {
-        this.mech.destroy();
     }
     /**
      * Calls this.pilot.becomeCritical().
@@ -586,12 +555,6 @@ public final class LancerCharacter {
      */
     public void pilotDown() {
         this.pilot.down();
-    }
-    /**
-     * Calls this.pilot.die().
-     */
-    public void pilotDie() {
-        this.pilot.die();
     }
     /**
      * Performs the "Generate Statblock" function from COMP/CON, printing out

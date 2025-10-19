@@ -1310,7 +1310,42 @@ public final class Mech implements Damageable {
      *     HelperMethods.allowedDamageTypes.
      * @throws IllegalArgumentException if damageAmount is < 1.
      */
-    public void receiveDamage(int damageAmount, String damageType) {
+    public void receiveHarm(int damageAmount, String damageType) {
+        boolean isValid = false;
+
+        if (damageAmount < 1) {
+            throw new IllegalArgumentException("damageAmount value: "
+                + damageAmount + " is < 1");
+        }
+        HelperMethods.checkString("damageType", damageType);
+        for (String allowedType : HelperMethods.allowedDamageTypes) {
+            if (damageType.equals(allowedType)) {
+                isValid = true;
+            }
+        }
+        if (! isValid) {
+            throw new IllegalArgumentException("damageType value: \""
+                + damageType + "\" is an invalid damage type");
+        }
+        if (damageType.equals("heat")) {
+            receiveHeat(damageAmount);
+        } else if (damageType.equals("burn")) {
+            receiveBurn(damageAmount);
+        } else {
+            receiveDamage(damageAmount, damageType);
+        }
+    }
+    /**
+     * Deals (damageAmount) damage of type (damageType) to this Mech.
+     * @param damageAmount an int containing the amount of damage to deal. Must
+     *     be > 0.
+     * @param damageType a String containing the type of the damage to deal.
+     *     Must be a valid damage type as defined by
+     *     HelperMethods.allowedDamageTypes. Cannot be "heat" or "burn".
+     * @throws IllegalArgumentException if damageAmount is < 1.
+     */
+    private void receiveDamage(int damageAmount, String damageType) {
+        // See pg. 80
         // TODO: fill out with damage mitigation - armor, resistance etc
         boolean isValid = false;
         int remainingDamage = damageAmount;
@@ -1331,23 +1366,29 @@ public final class Mech implements Damageable {
             throw new IllegalArgumentException("damageType value: \""
                 + damageType + "\" is an invalid damage type");
         }
+        if (damageType.equals("heat")
+            || damageType.equals("burn")) {
+            throw new IllegalArgumentException("damageType value: \""
+                + damageType + "\" is a non-allowed damage type");
+        }
         while (remainingDamage > 0) {
             damageToTake = Math.min(remainingDamage, this.currentHP);
             newCurrentHP = this.currentHP - damageToTake;
             setCurrentHP(newCurrentHP);
-            // the damage has now been expended into the mech, so we can safely
-            //     decrement remainingDamage
+            // the damage has now been expended into the mech, so we can
+            //     safely decrement remainingDamage
             remainingDamage -= damageToTake;
-            // if the mech's current HP minus the amount of damage remaining to
-            //     take is less than 0, we will structure and go on to the
-            //     next structure level with this.currentHP reset to maxHP.
+            // if the mech's current HP minus the amount of damage remaining
+            //     to take is less than 0, we will structure and go on to
+            //     the next structure level with this.currentHP reset to
+            //     maxHP.
             if (newCurrentHP - remainingDamage < 0) {
                 // we're about to structure
                 if (this.currentStructure > 0) {
                     receiveStructureDamage();
                 } else {
-                    // Structure is 0 and the mech is taking structure damage,
-                    //     automatically destroyed :(
+                    // Structure is 0 and the mech is taking structure
+                    //     damage, automatically destroyed :(
                     destroy();
                     remainingDamage = 0;
                     break;
@@ -1361,7 +1402,8 @@ public final class Mech implements Damageable {
      *     0.
      * @throws IllegalArgumentException if heatAmount is < 1.
      */
-    public void receiveHeat(int heatAmount) {
+    private void receiveHeat(int heatAmount) {
+        // See pg. 81
         // TODO: fill out with mitigation, resistance etc
         // basically an attempt to convert this.currentHeat into something like
         //     how HP works; stores how much heat this Mech can presently take
@@ -1407,7 +1449,7 @@ public final class Mech implements Damageable {
      *     0.
      * @throws IllegalArgumentException if burnAmount is < 1.
      */
-    public void receiveBurn(int burnAmount) {
+    private void receiveBurn(int burnAmount) {
         // See pg. 67
         if (burnAmount < 1) {
             throw new IllegalArgumentException("burnAmount value: " + burnAmount
@@ -1436,6 +1478,7 @@ public final class Mech implements Damageable {
      *     sets this.currentHP back to this.maxHP, as per game rules.
      */
     public void receiveStructureDamage() {
+        // See pg. 80
         setCurrentStructure(this.currentStructure - 1);
         setCurrentHP(this.maxHP);
     }
@@ -1459,6 +1502,7 @@ public final class Mech implements Damageable {
      *     this.currentHeat back to 0, as per game rules.
      */
     public void receiveStressDamage() {
+        // See pg. 81
         setCurrentStress(this.currentStress - 1);
         setCurrentHeat(0);
     }

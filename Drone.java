@@ -143,7 +143,41 @@ public class Drone implements Damageable {
      *     HelperMethods.allowedDamageTypes.
      * @throws IllegalArgumentException if damageAmount is < 1.
      */
-    public void receiveDamage(int damageAmount, String damageType) {
+    public void receiveHarm(int damageAmount, String damageType) {
+        boolean isValid = false;
+
+        if (damageAmount < 1) {
+            throw new IllegalArgumentException("damageAmount value: "
+                + damageAmount + " is < 1");
+        }
+        HelperMethods.checkString("damageType", damageType);
+        for (String allowedType : HelperMethods.allowedDamageTypes) {
+            if (damageType.equals(allowedType)) {
+                isValid = true;
+            }
+        }
+        if (! isValid) {
+            throw new IllegalArgumentException("damageType value: \""
+                + damageType + "\" is an invalid damage type");
+        }
+        if (damageType.equals("heat")) {
+            receiveHeat(damageAmount);
+        } else if (damageType.equals("burn")) {
+            receiveBurn(damageAmount);
+        } else {
+            receiveDamage(damageAmount, damageType);
+        }
+    }
+    /**
+     * Deals (damageAmount) damage of type (damageType) to this Drone.
+     * @param damageAmount an int containing the amount of damage to deal. Must
+     *     be > 0.
+     * @param damageType a String containing the type of the damage to deal.
+     *     Must be a valid damage type as defined by
+     *     HelperMethods.allowedDamageTypes. Cannot be "heat" or "burn".
+     * @throws IllegalArgumentException if damageAmount is < 1.
+     */
+    private void receiveDamage(int damageAmount, String damageType) {
         // TODO: fill out with damage mitigation - armor, resistance etc
         boolean isValid = false;
         int damageToTake;
@@ -163,6 +197,11 @@ public class Drone implements Damageable {
             throw new IllegalArgumentException("damageType value: \""
                 + damageType + "\" is an invalid damage type");
         }
+        if (damageType.equals("heat")
+            || damageType.equals("burn")) {
+            throw new IllegalArgumentException("damageType value: \""
+                + damageType + "\" is a non-allowed damage type");
+        }
         damageToTake = Math.min(damageAmount, this.currentHP);
         newCurrentHP = this.currentHP - damageToTake;
         setCurrentHP(newCurrentHP);
@@ -173,7 +212,7 @@ public class Drone implements Damageable {
             destroy();
         }
     }
-    public void receiveHeat(int heatAmount) {
+    private void receiveHeat(int heatAmount) {
         // when taking Heat, convert to Energy damage (see pg. 67)
         // TODO: fill out
     }
@@ -183,7 +222,7 @@ public class Drone implements Damageable {
      *     0.
      * @throws IllegalArgumentException if burnAmount is < 1.
      */
-    public void receiveBurn(int burnAmount) {
+    private void receiveBurn(int burnAmount) {
         // TODO: fill out - do Drones receive burn?
     }
     public void destroy() {

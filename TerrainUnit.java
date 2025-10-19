@@ -144,7 +144,41 @@ public class TerrainUnit implements Damageable {
      *     HelperMethods.allowedDamageTypes.
      * @throws IllegalArgumentException if damageAmount is < 1.
      */
-    public void receiveDamage(int damageAmount, String damageType) {
+    public void receiveHarm(int damageAmount, String damageType) {
+        boolean isValid = false;
+
+        if (damageAmount < 1) {
+            throw new IllegalArgumentException("damageAmount value: "
+                + damageAmount + " is < 1");
+        }
+        HelperMethods.checkString("damageType", damageType);
+        for (String allowedType : HelperMethods.allowedDamageTypes) {
+            if (damageType.equals(allowedType)) {
+                isValid = true;
+            }
+        }
+        if (! isValid) {
+            throw new IllegalArgumentException("damageType value: \""
+                + damageType + "\" is an invalid damage type");
+        }
+        if (damageType.equals("heat")) {
+            receiveHeat(damageAmount);
+        } else if (damageType.equals("burn")) {
+            receiveBurn(damageAmount);
+        } else {
+            receiveDamage(damageAmount, damageType);
+        }
+    }
+    /**
+     * Deals (damageAmount) damage of type (damageType) to this TerrainUnit.
+     * @param damageAmount an int containing the amount of damage to deal. Must
+     *     be > 0.
+     * @param damageType a String containing the type of the damage to deal.
+     *     Must be a valid damage type as defined by
+     *     HelperMethods.allowedDamageTypes. Cannot be "heat" or "burn".
+     * @throws IllegalArgumentException if damageAmount is < 1.
+     */
+    private void receiveDamage(int damageAmount, String damageType) {
         // TODO: fill out with damage mitigation - armor, resistance etc
         boolean isValid = false;
         int damageToTake;
@@ -164,6 +198,11 @@ public class TerrainUnit implements Damageable {
             throw new IllegalArgumentException("damageType value: \""
                 + damageType + "\" is an invalid damage type");
         }
+        if (damageType.equals("heat")
+            || damageType.equals("burn")) {
+            throw new IllegalArgumentException("damageType value: \""
+                + damageType + "\" is a non-allowed damage type");
+        }
         damageToTake = Math.min(damageAmount, this.currentHP);
         newCurrentHP = this.currentHP - damageToTake;
         setCurrentHP(newCurrentHP);
@@ -178,7 +217,7 @@ public class TerrainUnit implements Damageable {
     /**
      * Does nothing because TerrainUnits don't receive heat.
      */
-    public void receiveHeat(int heatAmount) {
+    private void receiveHeat(int heatAmount) {
         // do nothing, according to Petrichor
     }
     /**
@@ -187,7 +226,7 @@ public class TerrainUnit implements Damageable {
      *     0.
      * @throws IllegalArgumentException if burnAmount is < 1.
      */
-    public void receiveBurn(int burnAmount) {
+    private void receiveBurn(int burnAmount) {
         receiveDamage(burnAmount, "energy");
     }
     public void destroy() {
