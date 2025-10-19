@@ -601,7 +601,8 @@ public final class LancerCharacter {
                 outputString += ">> NO MECH SELECTED <<";
                 return outputString;
             }
-            outputString += this.mech.generateOutput(outputType, // TODO: see if we can split some of these things out of the method
+            // TODO: see if we can split some of these things out of the method
+            outputString += this.mech.generateOutput(outputType,
                 this.pilot.getMechSkills(), this.pilot.getGrit());
         }
 
