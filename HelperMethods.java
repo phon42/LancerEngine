@@ -10,13 +10,6 @@
  * Safety: N/A because this class cannot be instantiated.
  */
 public final class HelperMethods {
-    /**
-     * Contains an array of allowed damage types. Case-insensitive and stored in
-     *     lowercase.
-     */
-    public static final String[] allowedDamageTypes = new String[] {"kinetic",
-        "explosive", "energy", "burn"};
-
     // Prevent user from instantiating this class
     private HelperMethods() {}
 

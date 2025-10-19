@@ -1306,24 +1306,16 @@ public final class Mech implements Damageable {
      * @param damageAmount an int containing the amount of damage to deal. Must
      *     be > 0.
      * @param damageType a String containing the type of the damage to deal.
-     *     Must be a valid damage type as defined by
-     *     HelperMethods.allowedDamageTypes.
+     *     Must be a valid damage type as defined by Damage.allowedTypes.
      * @throws IllegalArgumentException if damageAmount is < 1.
      */
     public void receiveHarm(int damageAmount, String damageType) {
-        boolean isValid = false;
-
         if (damageAmount < 1) {
             throw new IllegalArgumentException("damageAmount value: "
                 + damageAmount + " is < 1");
         }
         HelperMethods.checkString("damageType", damageType);
-        for (String allowedType : HelperMethods.allowedDamageTypes) {
-            if (damageType.equals(allowedType)) {
-                isValid = true;
-            }
-        }
-        if (! isValid) {
+        if (! Damage.isValid(damageType)) {
             throw new IllegalArgumentException("damageType value: \""
                 + damageType + "\" is an invalid damage type");
         }
@@ -1340,14 +1332,13 @@ public final class Mech implements Damageable {
      * @param damageAmount an int containing the amount of damage to deal. Must
      *     be > 0.
      * @param damageType a String containing the type of the damage to deal.
-     *     Must be a valid damage type as defined by
-     *     HelperMethods.allowedDamageTypes. Cannot be "heat" or "burn".
+     *     Must be a valid damage type as defined by Damage.allowedTypes. Cannot
+     *     be "heat" or "burn".
      * @throws IllegalArgumentException if damageAmount is < 1.
      */
     private void receiveDamage(int damageAmount, String damageType) {
         // See pg. 80
         // TODO: fill out with damage mitigation - armor, resistance etc
-        boolean isValid = false;
         int remainingDamage = damageAmount;
         int damageToTake;
         int newCurrentHP;
@@ -1357,12 +1348,7 @@ public final class Mech implements Damageable {
                 + damageAmount + " is < 1");
         }
         HelperMethods.checkString("damageType", damageType);
-        for (String allowedType : HelperMethods.allowedDamageTypes) {
-            if (damageType.equals(allowedType)) {
-                isValid = true;
-            }
-        }
-        if (! isValid) {
+        if (! Damage.isValid(damageType)) {
             throw new IllegalArgumentException("damageType value: \""
                 + damageType + "\" is an invalid damage type");
         }
