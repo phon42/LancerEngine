@@ -61,12 +61,22 @@ public final class Weapon extends Equipment {
      *     9 - Special (Prototype Weapon only)
      */
     private int type;
-    
-    // TODO: add, make sure to account for multiple possible ranges
     /**
-     * The weapon's range (i.e. an Object representing Range 10).
+     * The weapon's damage, including heat and burn (i.e. a Damage[] containing
+     *     a Damage representing 10 Kinetic, 2 Heat, or 3 Burn).
+     * Can be any Damage[] that does not contain null or null elements, or
+     *     elements that have a Damage.type property of "burn_damage". Cannot be
+     *     null.
      */
-    private Object[] range;
+    private Damage[] damage;
+    // TODO: make sure to account for multiple possible ranges
+    /**
+     * The weapon's range (i.e. a RangeTag[] containing a RangeTag representing
+     *     Range 10).
+     * Can be any RangeTag[] that does not contain null or null elements. Cannot
+     *     be null.
+     */
+    private RangeTag[] range;
 
     /**
      * Creates a new Weapon given a weapon name, weapon size, and weapon type.
@@ -76,12 +86,20 @@ public final class Weapon extends Equipment {
      * @param weaponLicense a License which can be any License. Cannot be null.
      * @param weaponSize an int which must be between 0 and 4 (inclusive).
      * @param weaponType an int which must be between 0 and 9 (inclusive).
+     * @param weaponDamage a Damage[] which cannot be null, contain null
+     *     elements, or elements that have a Damage.type property of
+     *     "burn_damage".
+     * @param weaponRange a RangeTag[] which cannot be null or contain null
+     *     elements.
      */
     public Weapon(String weaponName, String weaponManufacturer,
-        License weaponLicense, int weaponSize, int weaponType) {
+        License weaponLicense, int weaponSize, int weaponType,
+        Damage[] weaponDamage, RangeTag[] weaponRange) {
         super(weaponName, weaponManufacturer, weaponLicense);
         setSize(weaponSize);
         setType(weaponType);
+        setDamage(weaponDamage);
+        setRange(weaponRange);
     }
     /**
      * Creates a new Weapon given a weapon name, weapon size, weapon type, and
@@ -92,15 +110,20 @@ public final class Weapon extends Equipment {
      * @param weaponLicense a License which can be any License. Cannot be null.
      * @param weaponSize an int which must be between 0 and 4 (inclusive).
      * @param weaponType an int which must be between 0 and 9 (inclusive).
+     * @param weaponDamage a Damage[] which cannot be null, contain null
+     *     elements, or elements that have a Damage.type property of
+     *     "burn_damage".
+     * @param weaponRange a RangeTag[] which cannot be null or contain null
+     *     elements.
      * @param weaponTags a Tag[] which cannot be null, contain null elements, or
      *     elements with invalid Tag.name values, as defined by
      *     Weapon.allowedNames.
      */
     public Weapon(String weaponName, String weaponManufacturer,
         License weaponLicense, int weaponSize, int weaponType,
-        Tag[] weaponTags) {
+        Damage[] weaponDamage, RangeTag[] weaponRange, Tag[] weaponTags) {
         this(weaponName, weaponManufacturer, weaponLicense, weaponSize,
-            weaponType);
+            weaponType, weaponDamage, weaponRange);
         setTags(weaponTags);
     }
     /**
@@ -113,7 +136,7 @@ public final class Weapon extends Equipment {
         //     (Equipment.setTags()) called by Weapon(String, int, Tag[])
         //     already does so
         this(weapon.name, weapon.manufacturer, weapon.license, weapon.size,
-            weapon.type, weapon.tags);
+            weapon.type, weapon.damage, weapon.range, weapon.tags);
     }
 
     public int getSize() {
@@ -121,6 +144,12 @@ public final class Weapon extends Equipment {
     }
     public int getType() {
         return type;
+    }
+    public Damage[] getDamage() {
+        return damage;
+    }
+    public RangeTag[] getRange() {
+        return range;
     }
     /**
      * Sets this.size to the provided value.
@@ -147,6 +176,44 @@ public final class Weapon extends Equipment {
      */
     private void setType(int type) {
         this.type = type;
+    }
+    public void setDamage(Damage[] damage) {
+        if (damage == null) {
+            throw new IllegalArgumentException("damage is null");
+        }
+        if (damage.length < 1) {
+            throw new IllegalArgumentException("damage.length value: "
+                + damage.length + " is < 1");
+        }
+        for (Damage damageTag : damage) {
+            if (damageTag == null) {
+                throw new IllegalArgumentException("damage array contains a"
+                    + " null element");
+            }
+            if (damageTag.getType().equals("burn_damage")) {
+                throw new IllegalArgumentException("damage array contains an"
+                    + " element with a Damage.type value of \"burn_damage\"");
+            }
+        }
+        damage = HelperMethods.copyOf(damage);
+        this.damage = damage;
+    }
+    public void setRange(RangeTag[] range) {
+        if (range == null) {
+            throw new IllegalArgumentException("range is null");
+        }
+        if (range.length < 1) {
+            throw new IllegalArgumentException("range.length value: "
+                + range.length + " is < 1");
+        }
+        for (RangeTag rangeTag : range) {
+            if (rangeTag == null) {
+                throw new IllegalArgumentException("range array contains a"
+                    + " null element");
+            }
+        }
+        range = HelperMethods.copyOf(range);
+        this.range = range;
     }
     /**
      * Sets this.tags to the provided value.
