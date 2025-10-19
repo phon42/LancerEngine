@@ -11,11 +11,15 @@
  */
 public class Event {
     /**
-     * The event's origin (i.e. "Main.main()").
-     * Can be any String except "". Cannot be null.
+     * Contains an array of the EventListeners for this program.
      */
-    private String origin;
+    public static EventListener[] eventListeners = new EventListener[0];
 
+    /**
+     * The event's origin as an array of StackTraceElements.
+     * Must have a length of > 0. Cannot be null.
+     */
+    private StackTraceElement[] origin;
     /**
      * The event's type (i.e. "damage_taken").
      * Must be a valid value as defined by Event.allowedTypes. Cannot be "".
@@ -28,31 +32,28 @@ public class Event {
     public static final String[] allowedTypes = new String[] {"",
         "damage_taken"};
 
-    public Event(String origin, String type) {
-        setOrigin(origin);
+    public Event(String type) {
+        setOrigin();
         setType(type);
+        emit();
     }
 
-    public String getOrigin() {
+    public StackTraceElement[] getOrigin() {
         return origin;
     }
     public String getType() {
         return type;
     }
     /**
-     * Sets this.origin to the provided value.
-     * @param origin a String which cannot be "". Cannot be null.
-     * @throws IllegalArgumentException if origin is "" or null.
+     * Sets this.origin to a new stack trace.
+     * @throws IllegalArgumentException if the stack trace has a length of 0.
      */
-    public void setOrigin(String origin) {
-        this.origin = origin;
-        if (origin == null) {
-            throw new IllegalArgumentException("New origin value is null");
+    private void setOrigin() {
+        this.origin = new Throwable().getStackTrace();
+        if (this.origin.length == 0) {
+            throw new IllegalArgumentException("New origin array's length is"
+                + " 0");
         }
-        if (origin.equals("")) {
-            throw new IllegalArgumentException("New origin value is \"\"");
-        }
-        this.origin = origin;
     }
     /**
      * Sets this.duration to the provided value.
@@ -77,5 +78,140 @@ public class Event {
                 + " value: \"" + type + "\"");
         }
         this.type = type;
+    }
+
+    public Object[] outputOrigin(int index) {
+        StackTraceElement element;
+        String fileName;
+        String fileNameShort;
+        int lineNumber;
+        String methodName;
+        boolean isNative;
+        Object[] output;
+
+        if (index < 0 || index > this.origin.length) {
+            throw new IllegalArgumentException("index: " + index + " is out of"
+                + " bounds for length: " + this.origin.length);
+        }
+        element = this.origin[index];
+        fileName = element.getFileName();
+        fileNameShort = fileName.split("\\.")[0];
+        lineNumber = element.getLineNumber();
+        methodName = element.getMethodName();
+        isNative = element.isNativeMethod();
+        output = new Object[] {
+            fileName, fileNameShort, Integer.valueOf(lineNumber), methodName,
+                Boolean.valueOf(isNative)
+        };
+
+        return output;
+    }
+    public void printOrigin() {
+        Object[] element;
+        String fileName;
+        String fileNameShort;
+        int lineNumber;
+        String methodName;
+        final String spaces = "        ";
+
+        System.out.println("Origin of event of type: \"" + this.type + "\"");
+        for (int i = 0; i < this.origin.length; i++) {
+            element = outputOrigin(i);
+            fileName = (String) element[0];
+            fileNameShort = (String) element[1];
+            lineNumber = (int) element[2];
+            methodName = (String) element[3];
+            // Example of an exception:
+            //Exception in thread "main" java.lang.ArrayIndexOutOfBoundsException: Index 2 out of bounds for length 2
+            //        at Event.outputOrigin(Event.java:107)
+            System.out.println(String.format(spaces + "at %s.%s(%s:%d)",
+                fileNameShort, methodName, fileName, lineNumber));
+        }
+    }
+    /**
+     * "Activates" the event, causing it to trigger anything within the same
+     *     level before bubbling upwards.
+     */
+    private void emit() {
+        EventListener listener;
+
+        for (int i = 0; i < Event.eventListeners.length; i++) {
+            listener = Event.eventListeners[i];
+            if (getType().equals(listener.getType())
+                || listener.getType().equals("")) {
+                listener.trigger();
+                if (listener.isDisposable()) {
+                    Event.removeListener(listener.getID());
+                }
+            }
+        }
+        printOrigin();
+    }
+    private static int addListener(EventListener eventListener) {
+        int ID = eventListener.getID();
+
+        for (int i = 0; i < Event.eventListeners.length; i++) {
+            if (Event.eventListeners[i].getID() == ID) {
+                throw new IllegalArgumentException("Attempted to add an"
+                    + " EventListener with a duplicate ID value: " + ID);
+            }
+        }
+        Event.eventListeners = HelperMethods.append(Event.eventListeners,
+            eventListener);
+        
+        return ID;
+    }
+    public static int addListener(String eventType, int ID, Callable method)
+        {
+        HelperMethods.checkString("eventType", eventType);
+        if (method == null) {
+            throw new IllegalArgumentException("method is null");
+        }
+
+        return addListener(new EventListener(eventType, ID, method));
+    }
+    public static int addListener(String eventType, boolean disposable,
+        Callable method) {
+        HelperMethods.checkString("eventType", eventType);
+        if (method == null) {
+            throw new IllegalArgumentException("method is null");
+        }
+        
+        return addListener(new EventListener(eventType, disposable, method));
+    }
+    public static int addListener(String eventType, Callable method) {
+        HelperMethods.checkString("eventType", eventType);
+        if (method == null) {
+            throw new IllegalArgumentException("method is null");
+        }
+        return addListener(new EventListener(eventType, method));
+    }
+    public static void removeListener(int ID) {
+        boolean containsID = false;
+        EventListener[] newEventListeners;
+
+        if (Event.eventListeners.length == 0) {
+            throw new IllegalArgumentException("Called Event.removeListener()"
+                + " when Event.eventListeners.length is 0");
+        }
+        newEventListeners = new EventListener[Event.eventListeners.length - 1];        
+        for (int i = 0; i < Event.eventListeners.length; i++) {
+            if (Event.eventListeners[i].getID() == ID) {
+                containsID = true;
+            }
+            if (containsID) {
+                if (i == newEventListeners.length) {
+                    break;
+                }
+                newEventListeners[i] = Event.eventListeners[i + 1];
+            } else {
+                newEventListeners[i] = Event.eventListeners[i];
+            }
+        }
+        if (! containsID) {
+            throw new IllegalArgumentException("Could not find EventListener"
+                + " with ID value: " + ID);
+        }
+        Event.eventListeners = newEventListeners;
     }
 }
