@@ -1,7 +1,7 @@
-package packages.characterTypes.pilot;
+package packages.entityTypes.pilot;
 
 import main.HelperMethods;
-import packages.characterTypes.pilot.skillTriggersList.SkillTrigger;
+import packages.entityTypes.pilot.skillTriggersList.SkillTrigger;
 
 /**
  * Represents the set of skill triggers a pilot has. Stores an array of those

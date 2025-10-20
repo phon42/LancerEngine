@@ -1,4 +1,4 @@
-package packages.characterTypes.frameLicenseSystem.frameLicense;
+package packages.entityTypes.frameLicenseSystem.frameLicense;
 
 import main.Database;
 import main.HelperMethods;

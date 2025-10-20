@@ -1,4 +1,4 @@
-package packages.characterTypes.mech.equipment;
+package packages.entityTypes.mech.equipment;
 
 import main.HelperMethods;
 

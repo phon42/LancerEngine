@@ -1,9 +1,9 @@
-package packages.characterTypes.mech;
+package packages.entityTypes.mech;
 
 import main.HelperMethods;
 import main.database.FrameEnum;
-import packages.characterTypes.frameLicenseSystem.frameLicense.LicenseContent;
 import packages.coreTypes.License;
+import packages.entityTypes.frameLicenseSystem.frameLicense.LicenseContent;
 
 /**
  * See pg. 32.

@@ -1,8 +1,8 @@
-package packages.characterTypes.mech.equipment;
+package packages.entityTypes.mech.equipment;
 
 import main.HelperMethods;
-import packages.characterTypes.mech.Equipment;
 import packages.coreTypes.License;
+import packages.entityTypes.mech.Equipment;
 
 /**
  * Represents a single system for a mech. Contains information about that system

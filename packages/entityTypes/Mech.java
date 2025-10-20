@@ -1,15 +1,15 @@
-package packages.characterTypes;
+package packages.entityTypes;
 
 import main.Database;
 import main.database.FrameEnum;
 import main.HelperMethods;
 import main.Roll;
-import packages.characterTypes.mech.Frame;
-import packages.characterTypes.mech.Mount;
-import packages.characterTypes.mech.equipment.MechSystem;
-import packages.characterTypes.pilot.Talent;
 import packages.coreTypes.Damage;
 import packages.coreTypes.Harm;
+import packages.entityTypes.mech.Frame;
+import packages.entityTypes.mech.Mount;
+import packages.entityTypes.mech.equipment.MechSystem;
+import packages.entityTypes.pilot.Talent;
 import packages.stateSystem.State;
 import packages.stateSystem.state.Status;
 

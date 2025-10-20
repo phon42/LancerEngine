@@ -1,7 +1,7 @@
 package main;
 import java.util.Random;
 
-import packages.characterTypes.pilot.skillTriggersList.SkillTrigger;
+import packages.entityTypes.pilot.skillTriggersList.SkillTrigger;
 
 /**
  * See pgs. 12 - 14 and 45 - 47.

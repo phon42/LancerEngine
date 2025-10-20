@@ -1,4 +1,4 @@
-package packages.characterTypes.pilot;
+package packages.entityTypes.pilot;
 
 import main.HelperMethods;
 /**

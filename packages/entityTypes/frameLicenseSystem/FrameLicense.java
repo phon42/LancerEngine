@@ -1,12 +1,12 @@
-package packages.characterTypes.frameLicenseSystem;
+package packages.entityTypes.frameLicenseSystem;
 
 import main.Database;
 import main.HelperMethods;
-import packages.characterTypes.frameLicenseSystem.frameLicense.LicenseContent;
-import packages.characterTypes.mech.Equipment;
-import packages.characterTypes.mech.Frame;
-import packages.characterTypes.mech.equipment.MechSystem;
-import packages.characterTypes.mech.equipment.Weapon;
+import packages.entityTypes.frameLicenseSystem.frameLicense.LicenseContent;
+import packages.entityTypes.mech.Equipment;
+import packages.entityTypes.mech.Frame;
+import packages.entityTypes.mech.equipment.MechSystem;
+import packages.entityTypes.mech.equipment.Weapon;
 
 /**
  * See pg. 31.

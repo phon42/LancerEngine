@@ -1,4 +1,4 @@
-package packages.characterTypes;
+package packages.entityTypes;
 
 /**
  * Represents anything that can receive damage, such as a pilot, mech,

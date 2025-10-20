@@ -2,16 +2,16 @@ package packages.testing;
 
 import main.Database;
 import main.database.FrameEnum;
-import packages.characterTypes.Mech;
-import packages.characterTypes.Pilot;
-import packages.characterTypes.mech.Frame;
-import packages.characterTypes.mech.Mount;
-import packages.characterTypes.mech.equipment.MechSystem;
-import packages.characterTypes.pilot.Loadout;
-import packages.characterTypes.pilot.SkillTriggersList;
-import packages.characterTypes.pilot.Talent;
-import packages.characterTypes.pilot.skillTriggersList.SkillTrigger;
 import packages.coreTypes.License;
+import packages.entityTypes.Mech;
+import packages.entityTypes.Pilot;
+import packages.entityTypes.mech.Frame;
+import packages.entityTypes.mech.Mount;
+import packages.entityTypes.mech.equipment.MechSystem;
+import packages.entityTypes.pilot.Loadout;
+import packages.entityTypes.pilot.SkillTriggersList;
+import packages.entityTypes.pilot.Talent;
+import packages.entityTypes.pilot.skillTriggersList.SkillTrigger;
 import packages.testing.testMethods.Test;
 
 /**

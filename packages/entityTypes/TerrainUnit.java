@@ -1,53 +1,59 @@
-package packages.characterTypes;
+package packages.entityTypes;
 
 import main.HelperMethods;
 import packages.coreTypes.Damage;
 import packages.coreTypes.Harm;
 
 /**
- * See pgs. 58, 67, 105 - 106
+ * See pgs. 58 - 59 and 68.
  */
-public class Drone implements Damageable {
+public class TerrainUnit implements Damageable {
     /**
-     * The drone's size.
+     * The terrain unit's size.
      * Size is stored as 2 * its value (i.e. Size 1/2 would be stored as int 1).
      * Must be one of the following values:
      *     1, 2, 4, 6, 8.
-     * Use Drone.getSize() to get the raw value and Drone.outputSize()
-     *     to obtain it properly formatted.
+     * Use TerrainUnit.getSize() to get the raw value and
+     *     TerrainUnit.outputSize() to obtain it properly formatted.
+     * 
+     * Note on size: "By default, each space is equivalent to 10 feet (or 3
+     *     meters), but the scale can be changed to represent different types of
+     *     encounters."
+     * - pg. 59
      */
     private int size;
     /**
-     * The drone's current HP value.
+     * The terrain unit's current HP value.
      * Must be a minimum of 0.
      */
     private int currentHP;
     /**
-     * The drone's max HP value.
+     * The terrain unit's max HP value.
      * Must be a minimum of 1.
      */
     private int maxHP;
     /**
-     * The drone's armor value.
+     * The terrain unit's armor value.
      * Must be a minimum of 0.
      */
     private int armor;
     /**
-     * The drone's evasion value.
+     * The terrain unit's evasion value.
      * Must be a minimum of 0.
      */
     private int evasion;
 
-    public Drone() {
-        this(1, 5, 0, 10);
+    public TerrainUnit() {
+        this(2, 0);
     }
-    public Drone(int size, int maxHP, int armor, int evasion) {
+    public TerrainUnit(int size, int armor) {
+        // default values from pg. 68
         // max always before current
         setSize(size);
-        setMaxHP(maxHP);
-        setCurrentHP(maxHP);
+        setMaxHP(10 / 2 * size);
+        setCurrentHP(10 / 2 * size);
         setArmor(armor);
-        setEvasion(evasion);
+        setEvasion(5);
     }
 
     public int getSize() {
@@ -126,8 +132,8 @@ public class Drone implements Damageable {
     }
 
     /**
-     * A helper method which outputs the drone's size, formatted properly so
-     *     that it is human-readable.
+     * A helper method which outputs the terrain unit's size, formatted properly
+     *     so that it is human-readable.
      * @return a String containing the requested output.
      */
     public String outputSize() {
@@ -141,11 +147,11 @@ public class Drone implements Damageable {
     }
 
     /**
-     * Deals (harmAmount) harm of type (harmType) to this Drone.
-     * @param harmAmount an int containing the amount of damage to deal. Must be
-     *     > 0.
-     * @param harmType a String containing the type of harm to deal. Must be a
-     *     valid harm type as defined by Harm.allowedTypes.
+     * Deals (harmAmount) harm of type (harmType) to this TerrainUnit.
+     * @param harmAmount an int containing the amount of harm to deal. Must be >
+     *     0.
+     * @param harmType a String containing the type of the harm to deal. Must be
+     *     a valid harm type as defined by Harm.allowedTypes.
      * @throws IllegalArgumentException if harmAmount is < 1.
      */
     public void receiveHarm(int harmAmount, String harmType) {
@@ -156,7 +162,7 @@ public class Drone implements Damageable {
         HelperMethods.checkString("harmType", harmType);
         if (! Harm.isValid(harmType)) {
             throw new IllegalArgumentException("harmType value: \"" + harmType
-                + "\" is an invalid damage type");
+                + "\" is an invalid harm type");
         }
         if (harmType.equals("heat")) {
             receiveHeat(harmAmount);
@@ -167,7 +173,7 @@ public class Drone implements Damageable {
         }
     }
     /**
-     * Deals (damageAmount) damage of type (damageType) to this Drone.
+     * Deals (damageAmount) damage of type (damageType) to this TerrainUnit.
      * @param damageAmount an int containing the amount of damage to deal. Must
      *     be > 0.
      * @param damageType a String containing the type of the damage to deal.
@@ -191,27 +197,30 @@ public class Drone implements Damageable {
         damageToTake = Math.min(damageAmount, this.currentHP);
         newCurrentHP = this.currentHP - damageToTake;
         setCurrentHP(newCurrentHP);
-        // if the amount of damage it's taking is greater than our drone's
-        //     maximum HP, it will be destroyed no matter what its current HP is
+        // if the amount of damage it's taking is greater than our terrain
+        //     unit's maximum HP, it will be destroyed no matter what its
+        //     current HP is
         if (damageAmount > this.currentHP) {
             // it's about to be destroyed
             destroy();
         }
     }
+    /**
+     * Does nothing because TerrainUnits don't receive heat.
+     */
     private void receiveHeat(int heatAmount) {
-        // when taking Heat, convert to Energy damage (see pg. 67)
-        // TODO: fill out
+        // do nothing, according to Petrichor
     }
     /**
-     * Deals (burnAmount) burn to this Drone.
+     * Deals (burnAmount) burn to this TerrainUnit.
      * @param burnAmount an int containing the amount of burn to deal. Must be >
      *     0.
      * @throws IllegalArgumentException if burnAmount is < 1.
      */
     private void receiveBurn(int burnAmount) {
-        // TODO: fill out - do Drones receive burn?
+        receiveDamage(burnAmount, "energy");
     }
     public void destroy() {
-        System.out.println("This Drone has been destroyed");
+        System.out.println("This TerrainUnit has been destroyed");
     }
 }

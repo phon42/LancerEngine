@@ -1,10 +1,10 @@
-package packages.characterTypes.mech.equipment;
+package packages.entityTypes.mech.equipment;
 
 import main.HelperMethods;
-import packages.characterTypes.mech.Equipment;
 import packages.coreTypes.Harm;
 import packages.coreTypes.License;
 import packages.coreTypes.RangeTag;
+import packages.entityTypes.mech.Equipment;
 
 /**
  * See pgs. 33 and 104.

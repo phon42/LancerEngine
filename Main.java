@@ -2,14 +2,14 @@ import java.util.HashMap;
 import main.Database;
 import main.LancerCharacter;
 import main.database.FrameEnum;
-import packages.characterTypes.Mech;
-import packages.characterTypes.mech.Mount;
-import packages.characterTypes.mech.equipment.MechSystem;
-import packages.characterTypes.pilot.Loadout;
-import packages.characterTypes.pilot.SkillTriggersList;
-import packages.characterTypes.pilot.Talent;
-import packages.characterTypes.pilot.skillTriggersList.SkillTrigger;
 import packages.coreTypes.License;
+import packages.entityTypes.Mech;
+import packages.entityTypes.mech.Mount;
+import packages.entityTypes.mech.equipment.MechSystem;
+import packages.entityTypes.pilot.Loadout;
+import packages.entityTypes.pilot.SkillTriggersList;
+import packages.entityTypes.pilot.Talent;
+import packages.entityTypes.pilot.skillTriggersList.SkillTrigger;
 
 /**
  * This program is intended to simulate one (or more) characters within the

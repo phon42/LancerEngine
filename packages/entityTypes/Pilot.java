@@ -1,15 +1,15 @@
-package packages.characterTypes;
+package packages.entityTypes;
 
 import main.Database;
 import main.HelperMethods;
 import main.Roll;
-import packages.characterTypes.pilot.Loadout;
-import packages.characterTypes.pilot.SkillTriggersList;
-import packages.characterTypes.pilot.Talent;
-import packages.characterTypes.pilot.skillTriggersList.SkillTrigger;
 import packages.coreTypes.Damage;
 import packages.coreTypes.Harm;
 import packages.coreTypes.License;
+import packages.entityTypes.pilot.Loadout;
+import packages.entityTypes.pilot.SkillTriggersList;
+import packages.entityTypes.pilot.Talent;
+import packages.entityTypes.pilot.skillTriggersList.SkillTrigger;
 import packages.stateSystem.State;
 import packages.stateSystem.state.Condition;
 import packages.stateSystem.state.Status;

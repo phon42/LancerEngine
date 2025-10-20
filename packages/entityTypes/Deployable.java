@@ -1,4 +1,4 @@
-package packages.characterTypes;
+package packages.entityTypes;
 
 import main.HelperMethods;
 import packages.coreTypes.Damage;

@@ -1,15 +1,15 @@
 package main;
 
 import main.database.FrameEnum;
-import packages.characterTypes.frameLicenseSystem.FrameLicense;
-import packages.characterTypes.mech.Frame;
-import packages.characterTypes.mech.Mount;
-import packages.characterTypes.mech.equipment.MechSystem;
-import packages.characterTypes.mech.equipment.Tag;
-import packages.characterTypes.mech.equipment.Weapon;
 import packages.coreTypes.Harm;
 import packages.coreTypes.License;
 import packages.coreTypes.RangeTag;
+import packages.entityTypes.frameLicenseSystem.FrameLicense;
+import packages.entityTypes.mech.Frame;
+import packages.entityTypes.mech.Mount;
+import packages.entityTypes.mech.equipment.MechSystem;
+import packages.entityTypes.mech.equipment.Tag;
+import packages.entityTypes.mech.equipment.Weapon;
 
 // TODO: let's go full crazy, add the ability to read a set of .lcp files and
 //     unzip those into as much Lancer data as we want:
