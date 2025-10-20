@@ -1,8 +1,8 @@
 package packages.eventSystem;
 
 import main.HelperMethods;
+import packages.coreTypes.Callable;
 import packages.eventSystem.event.EventListener;
-import packages.eventSystem.event.eventListener.Callable;
 
 /**
  * Represents an event of some kind. Contains information about the event's

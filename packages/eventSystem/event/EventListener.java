@@ -1,7 +1,7 @@
 package packages.eventSystem.event;
 
 import main.HelperMethods;
-import packages.eventSystem.event.eventListener.Callable;
+import packages.coreTypes.Callable;
 
 public class EventListener {
     /**
