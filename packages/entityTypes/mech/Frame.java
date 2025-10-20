@@ -30,6 +30,7 @@ import packages.entityTypes.frameLicenseSystem.frameLicense.LicenseContent;
  *     placeholder. At least one of its properties has an allowed value of null.
  */
 public final class Frame extends LicenseContent {
+    // TODO: figure out a way to override the documentation from LicenseContent
     /**
      * The frame's name (i.e. "everest").
      * Case-insensitive and stored in lowercase. Can be any String except "".
@@ -37,7 +38,6 @@ public final class Frame extends LicenseContent {
      * Use Frame.getName() to get the raw value and Frame.outputName() to obtain
      *     it properly formatted.
      */
-    // TODO: figure out a way to override the documentation from LicenseContent
     // private String name;
     /**
      * The frame's ID (i.e. "swallowtail_ranger").
