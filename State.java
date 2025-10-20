@@ -181,7 +181,7 @@ public class State {
         if (! (obj instanceof State)) {
             return false;
         }
-        return equals((Status) obj);
+        return equals((State) obj);
     }
     /**
      * Compares this State object and state. If they have the same property
