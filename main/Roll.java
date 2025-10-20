@@ -1,6 +1,6 @@
 package main;
-import java.util.Random;
 
+import java.util.Random;
 import packages.entityTypes.pilot.skillTriggersList.SkillTrigger;
 
 /**
@@ -16,6 +16,8 @@ public final class Roll {
     private Roll() {}
 
     // TODO: see if any of this can be consolidated
+    // TODO: add documentation to this to specify in more detail what rollString
+    //     can be
     /**
      * Takes in a String of almost any form, which can be filled with spaces,
      *     punctuation, and random letters and still work. Each die/dice clause
@@ -24,7 +26,8 @@ public final class Roll {
      *     representing "keep highest" or "keep lowest" respectively, and Z is
      *     mandatory if "kh" or "kl" is present, and represents the number of
      *     rolls to keep.
-     * @param rollString a String containing the expression to evaluate.
+     * @param rollString a String containing the expression to evaluate. Cannot
+     *     be "". Cannot be null.
      * @param throwOnIllegal a boolean representing whether or not to throw an
      *     IllegalArgumentException if rollString contains anything other than
      *     the digits 0-9, "k", "h", "l", "(", ")", "+", "-", "*", "/", or
@@ -32,7 +35,7 @@ public final class Roll {
      * @return an int containing the result of the expression.
      */
     public static int roll(String rollString, boolean throwOnIllegal) {
-        // Check for mismatched parentheses and a null roleString
+        // Check for mismatched parentheses and a null or "" roleString
         checkRolls(rollString);
         // remove trash like random letters and all spaces
         rollString = formatRolls(rollString, throwOnIllegal);
@@ -51,19 +54,18 @@ public final class Roll {
         return roll(rollString, true);
     }
     /**
-     * Checks rollString to ensure it makes sense syntactically and isn't null.
-     * @param rollString a String which cannot be null.
-     * @throws IllegalArgumentException if rollString is null, contains unclosed
-     *     parentheses, or at any point in the expression contains more closed
-     *     parentheses than open ones.
+     * Checks rollString to ensure it makes sense syntactically and isn't "" or
+     *     null.
+     * @param rollString a String which cannot be "" or null.
+     * @throws IllegalArgumentException if rollString is "", null, contains
+     *     unclosed parentheses, or at any point in the expression contains more
+     *     closed parentheses than open ones.
      */
     private static void checkRolls(String rollString) {
         int height = 0;
         String rollChar = "";
 
-        if (rollString == null) {
-            throw new IllegalArgumentException("rollString is null");
-        }
+        HelperMethods.checkString("rollString", rollString);
         for (int i = 0; i < rollString.length(); i++) {
             rollChar = rollString.substring(i, i + 1);
             if (rollChar.equals("(")) {
@@ -88,7 +90,8 @@ public final class Roll {
      * Formats a provided rollString, removing any invalid characters and all
      *     spaces. rollString is assumed to have been run through
      *     Roll.checkRolls().
-     * @param rollString a String which can be any String.
+     * @param rollString a String which can be any String. Is assumed to not be
+     *     "" or null.
      * @return a String containing the formatted String.
      */
     private static String formatRolls(String rollString,
@@ -125,7 +128,8 @@ public final class Roll {
      * Evaluates a provided expression containing math and dice rolls.
      *     rollString is assumed to have been run through Roll.checkRolls() and
      *     Roll.formatRolls().
-     * @param rollString a String which can be any String.
+     * @param rollString a String which can be any String. Is assumed to not be
+     *     "" or null.
      * @return an int containing the result of the expression.
      */
     private static int parseRolls(String rollString) {
@@ -148,10 +152,8 @@ public final class Roll {
 
         }
 
-        // At this point, the String is assumed to be of the form "XdYkhZ",
-        //     where X is optional and assumed to be 1 if not present, "kh" can
-        //     be "kh" or "kl" and is optional, and Z is present if and only if
-        //     the "kh" parameter is.
+        // At this point, the String is assumed to be of one of the forms
+        //     allowed by makeRoll().
         return makeRoll(rollString);
     }
     public static String removeParen(String rollString) {
@@ -192,15 +194,15 @@ public final class Roll {
     // TODO: change from int to int[] with the result in index 0 and all the
     //     rolls made trailing that to allow users to see what was rolled
     /**
-     * Takes in a String which is assumed to be of the form "XdYkhZ" or "XdYklZ"
-     *     or "dYkhZ" or "dYklZ" or "dYkh" or "dYkl" or "XdYkh" or "XdYkl"
-     *     or "XdY" or "dY" or "X" and makes the dice roll(s), if any, dictated
-     *     by that String.
+     * Takes in a String of the form "XdYkhZ" or "XdYklZ" or "dYkhZ" or "dYklZ"
+     *     or "dYkh" or "dYkl" or "XdYkh" or "XdYkl" or "XdY" or "dY" or "X" and
+     *     makes the dice roll(s), if any, dictated by that String.
      * @param rollString a String which can be any String of the forms described
-     *     above.
+     *     above. Is assumed to not be null.
      * @return an int containing the result of the expression.
      */
     private static int makeRoll(String rollString) {
+        boolean isValue = false;
         boolean containsKeepHighest = false;
         boolean containsKeepLowest = false;
         boolean containsKeep = false;
@@ -214,32 +216,53 @@ public final class Roll {
         int keep;
         int keepNum;
 
+        if (! Roll.isValidExpression(rollString)) {
+            // rollString might be of the form "X", in which case that's fine if
+            //     we can recover an int from it
+            isValue = true;
+            try {
+                Integer.parseInt(rollString);
+            } catch (NumberFormatException exception) {
+                // rollString is of some weird format, or might be ""
+                throw new IllegalArgumentException("rollString value: \""
+                    + rollString + "\" is not a valid rollString");
+            }
+            throw new IllegalArgumentException("rollString value: \""
+                + rollString + "\" is not a valid dice expression");
+        }
         // determining whether the expression contains any of several key
         //     components
-        // splitting everything into two types: 'contains "d"' (pretty much
-        //     everything) and 'doesn't contain "d"' ("X")
-        containsD = (rollString.indexOf("d") != -1);
-        if (containsD) {
-            // splitting 'contains "d"' into two types: 'contains "kh" or "kl"'
-            //     and 'doesn't contain "kh" or "kl"'
-            containsKeepHighest = (rollString.indexOf("kh") != -1);
-            containsKeepLowest = (rollString.indexOf("kl") != -1);
-            containsKeep = containsKeepHighest || containsKeepLowest;
-            // could be of the form "XdY" or "dY" (for either one, what's after
-            //     Y doesn't matter), and we need to know which
-            substring = rollString.split("d");
-            if (! substring[0].equals("")) {
-                containsX = true;
+        // (unnecessary if we've already determined earlier that rollString is
+        //     of the form "X")
+        if (! isValue) {
+            // splitting everything into two types: 'contains "d"' (pretty much
+            //     everything) and 'doesn't contain "d"' ("X")
+            containsD = (rollString.indexOf("d") != -1);
+            if (containsD) {
+                // splitting 'contains "d"' into two types: 'contains "kh" or "kl"'
+                //     and 'doesn't contain "kh" or "kl"'
+                containsKeepHighest = (rollString.indexOf("kh") != -1);
+                containsKeepLowest = (rollString.indexOf("kl") != -1);
+                containsKeep = containsKeepHighest || containsKeepLowest;
+                // could be of the form "XdY" or "dY" (for either one, what's after
+                //     Y doesn't matter), and we need to know which
+                substring = rollString.split("d");
+                if (! substring[0].equals("")) {
+                    containsX = true;
+                }
             }
-        }
-        if (containsKeepHighest) {
-            if (rollString.split("kh").length > 1) {
-                containsZ = true;
+            if (containsKeepHighest) {
+                if (rollString.split("kh").length > 1) {
+                    containsZ = true;
+                }
+            } else if (containsKeepLowest) {
+                if (rollString.split("kl").length > 1) {
+                    containsZ = true;
+                }
             }
-        } else if (containsKeepLowest) {
-            if (rollString.split("kl").length > 1) {
-                containsZ = true;
-            }
+        } else {
+            // rollString is of the form "X"
+            containsX = true;
         }
         // now to actually evaluate the expression
         if (containsD) {
@@ -872,5 +895,35 @@ public final class Roll {
         result += rollAccDiff(accuracy, difficulty);
 
         return result;
+    }
+    /**
+     * Checks whether the provided String is a valid dice expression. In other
+     *     words, if it is in one of the following forms:
+     * - "XdYkhZ"
+     * - "XdYklZ"
+     * - "dYkhZ"
+     * - "dYklZ"
+     * - "dYkh"
+     * - "dYkl"
+     * - "XdYkh"
+     * - "XdYkl"
+     * - "XdY"
+     * - "dY"
+     * Note: "X" is NOT allowed because that is a constant, not a dice
+     *     expression.
+     * @param expression a String which must be a dice expression as defined
+     *     above. Cannot be null.
+     * @return a boolean containing the result of the check.
+     */
+    public static boolean isValidExpression(String expression) {
+        if (expression == null) {
+            throw new IllegalArgumentException("expression is null");
+        }
+        expression = expression.toLowerCase();
+        if (expression.equals("")) {
+            return false;
+        }
+        // TODO: fill out
+        return true;
     }
 }
