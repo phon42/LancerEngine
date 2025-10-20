@@ -1,4 +1,16 @@
 import java.util.HashMap;
+import main.Database;
+import main.LancerCharacter;
+import main.database.FrameEnum;
+import packages.characterTypes.Mech;
+import packages.characterTypes.mech.Mount;
+import packages.characterTypes.mech.equipment.MechSystem;
+import packages.characterTypes.pilot.Loadout;
+import packages.characterTypes.pilot.SkillTriggersList;
+import packages.characterTypes.pilot.Talent;
+import packages.characterTypes.pilot.skillTriggersList.SkillTrigger;
+import packages.coreTypes.License;
+
 /**
  * Questions:
  * - Can pilots take burn? - yes
