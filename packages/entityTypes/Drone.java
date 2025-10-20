@@ -1,6 +1,6 @@
 package packages.entityTypes;
 
-import main.HelperMethods;
+import main.Roll;
 import packages.coreTypes.Damage;
 import packages.coreTypes.Harm;
 
@@ -141,53 +141,52 @@ public class Drone implements Damageable {
     }
 
     /**
-     * Deals (harmAmount) harm of type (harmType) to this Drone.
-     * @param harmAmount an int containing the amount of damage to deal. Must be
-     *     > 0.
-     * @param harmType a String containing the type of harm to deal. Must be a
-     *     valid harm type as defined by Harm.allowedTypes.
-     * @throws IllegalArgumentException if harmAmount is < 1.
+     * Deals harm to this Drone.
+     * @param harm a Harm containing the harm to deal. Must have a Harm.type
+     *     value that is not "variable". Must have a Harm.diceValue of something
+     *     other than "" OR a Harm.flatValue that is > 0. Cannot be null.
+     * @throws IllegalArgumentException if harm is null, harm's Harm.type
+     *     property is "variable", or if harm's Harm.diceValue is "" AND harm's
+     *     Harm.flatValue is < 1.
      */
-    public void receiveHarm(int harmAmount, String harmType) {
-        if (harmAmount < 1) {
-            throw new IllegalArgumentException("harmAmount value: " + harmAmount
-                + " is < 1");
+    public void receiveHarm(Harm harm) {
+        if (harm == null) {
+            throw new IllegalArgumentException("harm is null");
         }
-        HelperMethods.checkString("harmType", harmType);
-        if (! Harm.isValid(harmType)) {
-            throw new IllegalArgumentException("harmType value: \"" + harmType
-                + "\" is an invalid damage type");
+        if (harm.getType().equals("variable")) {
+            throw new IllegalArgumentException("harm value has a Harm.type"
+                + " value of \"variable\"");
         }
-        if (harmType.equals("heat")) {
-            receiveHeat(harmAmount);
-        } else if (harmType.equals("burn")) {
-            receiveBurn(harmAmount);
+        if (harm.getDiceValue().equals("") && harm.getFlatValue() == 0)
+        {
+            throw new IllegalArgumentException("harm.diceValue is \"\" and"
+                + " harm.flatValue value: " + harm.getFlatValue() + " is < 1");
+        }
+        if (harm.getType().equals("heat")) {
+            receiveHeat(harm.getDiceValue(), harm.getFlatValue());
+        } else if (harm.getType().equals("burn")) {
+            receiveBurn(harm.getDiceValue(), harm.getFlatValue());
         } else {
-            receiveDamage(harmAmount, harmType);
+            receiveDamage(new Damage(harm.getType(), harm.getDiceValue(),
+                harm.getFlatValue()));
         }
     }
     /**
-     * Deals (damageAmount) damage of type (damageType) to this Drone.
-     * @param damageAmount an int containing the amount of damage to deal. Must
-     *     be > 0.
-     * @param damageType a String containing the type of the damage to deal.
-     *     Must be a valid damage type as defined by Damage.allowedTypes.
-     * @throws IllegalArgumentException if damageAmount is < 1.
+     * Deals damage to this Drone.
+     * @param damage a Damage containing the damage to deal. Cannot be null.
      */
-    private void receiveDamage(int damageAmount, String damageType) {
+    private void receiveDamage(Damage damage) {
         // TODO: fill out with damage mitigation - armor, resistance etc
+        int damageAmount;
         int damageToTake;
         int newCurrentHP;
 
-        if (damageAmount < 1) {
-            throw new IllegalArgumentException("damageAmount value: "
-                + damageAmount + " is < 1");
+        if (damage == null) {
+            throw new IllegalArgumentException("damage is null");
         }
-        HelperMethods.checkString("damageType", damageType);
-        if (! Damage.isValid(damageType)) {
-            throw new IllegalArgumentException("damageType value: \""
-                + damageType + "\" is an invalid damage type");
-        }
+        // TODO: damage is being rolled here
+        damageAmount = Roll.roll(damage.getDiceValue());
+        damageAmount += damage.getFlatValue();
         damageToTake = Math.min(damageAmount, this.currentHP);
         newCurrentHP = this.currentHP - damageToTake;
         setCurrentHP(newCurrentHP);
@@ -198,17 +197,70 @@ public class Drone implements Damageable {
             destroy();
         }
     }
-    private void receiveHeat(int heatAmount) {
+    /**
+     * Deals heat to this Drone.
+     * @param heatDiceValue a String which must be "" or a valid dice
+     *     expression. Cannot be "" if heatFlatValue is 0.
+     * @param heatFlatValue an int containing the amount of flat heat to deal.
+     *     Must be > -1. Cannot be 0 if heatDiceValue is "".
+     * @throws IllegalArgumentException if any parameters have invalid values as
+     *     detailed above.
+     */
+    private void receiveHeat(String heatDiceValue, int heatFlatValue) {
         // when taking Heat, convert to Energy damage (see pg. 67)
-        // TODO: fill out
+        // TODO: fill out with mitigation, resistance etc
+        boolean isBlank = false;
+        boolean isValidExpression = false;
+
+        if (heatDiceValue == null) {
+            throw new IllegalArgumentException("heatDiceValue is null");
+        }
+        isBlank = heatDiceValue.equals("");
+        isValidExpression = Roll.isValidExpression(heatDiceValue);
+        if ((! isBlank) && (! isValidExpression)) {
+            throw new IllegalArgumentException("heatDiceValue value: \""
+                + heatDiceValue + "\" is neither \"\" nor a valid dice"
+                + " expression");
+        }
+        if (heatFlatValue == 0) {
+            if (isBlank) {
+                throw new IllegalArgumentException("heatDiceValue is \"\" and"
+                    + " heatFlatValue is 0");
+            }
+        }
+        receiveDamage(new Damage("energy", heatDiceValue,
+            heatFlatValue));
     }
     /**
-     * Deals (burnAmount) burn to this Drone.
-     * @param burnAmount an int containing the amount of burn to deal. Must be >
-     *     0.
-     * @throws IllegalArgumentException if burnAmount is < 1.
+     * Deals burn to this Drone.
+     * @param burnDiceValue a String which must be "" or a valid dice
+     *     expression. Cannot be "" if burnFlatValue is 0.
+     * @param burnFlatValue an int containing the amount of flat burn to deal.
+     *     Must be > -1. Cannot be 0 if burnDiceValue is "".
+     * @throws IllegalArgumentException if any parameters have invalid values as
+     *     detailed above.
      */
-    private void receiveBurn(int burnAmount) {
+    private void receiveBurn(String burnDiceValue, int burnFlatValue) {
+        // TODO: fill out with mitigation, resistance etc
+        boolean isBlank = false;
+        boolean isValidExpression = false;
+
+        if (burnDiceValue == null) {
+            throw new IllegalArgumentException("burnDiceValue is null");
+        }
+        isBlank = burnDiceValue.equals("");
+        isValidExpression = Roll.isValidExpression(burnDiceValue);
+        if ((! isBlank) && (! isValidExpression)) {
+            throw new IllegalArgumentException("burnDiceValue value: \""
+                + burnDiceValue + "\" is neither \"\" nor a valid dice"
+                + " expression");
+        }
+        if (burnFlatValue == 0) {
+            if (isBlank) {
+                throw new IllegalArgumentException("burnDiceValue is \"\" and"
+                    + " burnFlatValue is 0");
+            }
+        }
         // TODO: fill out - do Drones receive burn?
     }
     public void destroy() {

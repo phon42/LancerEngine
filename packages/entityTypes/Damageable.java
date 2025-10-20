@@ -1,5 +1,7 @@
 package packages.entityTypes;
 
+import packages.coreTypes.Harm;
+
 /**
  * Represents anything that can receive damage, such as a pilot, mech,
  *     deployable, drone, or piece of terrain. Contains a list of methods such
@@ -14,6 +16,6 @@ package packages.entityTypes;
  */
 public interface Damageable {
     // TODO: add a receiveAttack() method
-    public void receiveHarm(int damageAmount, String damageType);
+    public void receiveHarm(Harm harm);
     public void destroy();
 }

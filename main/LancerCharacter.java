@@ -2,6 +2,7 @@ package main;
 
 import java.util.HashMap;
 
+import packages.coreTypes.Harm;
 import packages.coreTypes.License;
 import packages.entityTypes.Mech;
 import packages.entityTypes.Pilot;
@@ -524,13 +525,16 @@ public final class LancerCharacter {
      *     targetMech.
      * @param targetMech a boolean representing whether to call receiveHarm()
      *     on this.mech.
+     * @param harm a Harm that cannot be null.
      */
-    public void receiveHarm(boolean targetMech, int damageAmount,
-        String damageType) {
+    public void receiveHarm(boolean targetMech, Harm harm) {
+        if (harm == null) {
+            throw new IllegalArgumentException("harm is null");
+        }
         if (targetMech) {
-            this.mech.receiveHarm(damageAmount, damageType);
+            this.mech.receiveHarm(harm);
         } else {
-            this.pilot.receiveHarm(damageAmount, damageType);
+            this.pilot.receiveHarm(harm);
         }
     }
     /**

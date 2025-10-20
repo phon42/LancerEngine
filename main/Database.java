@@ -370,7 +370,7 @@ new Weapon("Apocalypse Rail", "HA",
         // TODO: here I chose to represent "N/A" damage and range the same way I
         //     represent the Mimic Gun's "???" damage and range, as "" + 0
         //     Variable damage and -1 range
-        new Harm("Variable", "", 0)
+        new Harm("Variable", "", -1)
     }, new RangeTag[] {
         new RangeTag("Range", -1)
     }, new Tag[] {

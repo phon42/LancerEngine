@@ -1352,55 +1352,53 @@ public final class Mech implements Damageable {
         setMounts(mounts);
     }
     /**
-     * Deals (harmAmount) harm of type (harmType) to this Mech.
-     * @param harmAmount an int containing the amount of harm to deal. Must be >
-     *     0.
-     * @param harmType a String containing the type of harm to deal. Must be a
-     *     valid harm type as defined by Harm.allowedTypes.
-     * @throws IllegalArgumentException if harmAmount is < 1.
+     * Deals harm to this Mech.
+     * @param harm a Harm containing the harm to deal. Must have a Harm.type
+     *     value that is not "variable". Must have a Harm.diceValue of something
+     *     other than "" OR a Harm.flatValue that is > 0. Cannot be null.
+     * @throws IllegalArgumentException if harm is null, harm's Harm.type
+     *     property is "variable", or if harm's Harm.diceValue is "" AND harm's
+     *     Harm.flatValue is < 1.
      */
-    public void receiveHarm(int harmAmount, String harmType) {
-        if (harmAmount < 1) {
-            throw new IllegalArgumentException("harmAmount value: " + harmAmount
-                + " is < 1");
+    public void receiveHarm(Harm harm) {
+        if (harm == null) {
+            throw new IllegalArgumentException("harm is null");
         }
-        HelperMethods.checkString("harmType", harmType);
-        if (! Harm.isValid(harmType)) {
-            throw new IllegalArgumentException("harmType value: \"" + harmType
-                + "\" is an invalid harm type");
+        if (harm.getType().equals("variable")) {
+            throw new IllegalArgumentException("harm value has a Harm.type"
+                + " value of \"variable\"");
         }
-        if (harmType.equals("heat")) {
-            receiveHeat(harmAmount);
-        } else if (harmType.equals("burn")) {
-            receiveBurn(harmAmount);
+        if (harm.getDiceValue().equals("") && harm.getFlatValue() == 0)
+        {
+            throw new IllegalArgumentException("harm.diceValue is \"\" and"
+                + " harm.flatValue value: " + harm.getFlatValue() + " is < 1");
+        }
+        if (harm.getType().equals("heat")) {
+            receiveHeat(harm.getDiceValue(), harm.getFlatValue());
+        } else if (harm.getType().equals("burn")) {
+            receiveBurn(harm.getDiceValue(), harm.getFlatValue());
         } else {
-            receiveDamage(harmAmount, harmType);
+            receiveDamage(new Damage(harm.getType(), harm.getDiceValue(),
+                harm.getFlatValue()));
         }
     }
     /**
-     * Deals (damageAmount) damage of type (damageType) to this Mech.
-     * @param damageAmount an int containing the amount of damage to deal. Must
-     *     be > 0.
-     * @param damageType a String containing the type of the damage to deal.
-     *     Must be a valid damage type as defined by Damage.allowedTypes.
-     * @throws IllegalArgumentException if damageAmount is < 1.
+     * Deals damage to this Mech.
+     * @param damage a Damage containing the damage to deal. Cannot be null.
      */
-    private void receiveDamage(int damageAmount, String damageType) {
+    private void receiveDamage(Damage damage) {
         // See pg. 80
         // TODO: fill out with damage mitigation - armor, resistance etc
-        int remainingDamage = damageAmount;
+        int remainingDamage;
         int damageToTake;
         int newCurrentHP;
 
-        if (damageAmount < 1) {
-            throw new IllegalArgumentException("damageAmount value: "
-                + damageAmount + " is < 1");
+        if (damage == null) {
+            throw new IllegalArgumentException("damage is null");
         }
-        HelperMethods.checkString("damageType", damageType);
-        if (! Damage.isValid(damageType)) {
-            throw new IllegalArgumentException("damageType value: \""
-                + damageType + "\" is an invalid damage type");
-        }
+        // TODO: damage is being rolled here
+        remainingDamage = Roll.roll(damage.getDiceValue());
+        remainingDamage += damage.getFlatValue();
         while (remainingDamage > 0) {
             damageToTake = Math.min(remainingDamage, this.currentHP);
             newCurrentHP = this.currentHP - damageToTake;
@@ -1427,26 +1425,46 @@ public final class Mech implements Damageable {
         }
     }
     /**
-     * Deals (heatAmount) heat to this Mech.
-     * @param heatAmount an int containing the amount of heat to deal. Must be >
-     *     0.
-     * @throws IllegalArgumentException if heatAmount is < 1.
+     * Deals heat to this Mech.
+     * @param heatDiceValue a String which must be "" or a valid dice
+     *     expression. Cannot be "" if heatFlatValue is 0.
+     * @param heatFlatValue an int containing the amount of flat heat to deal.
+     *     Must be > -1. Cannot be 0 if heatDiceValue is "".
+     * @throws IllegalArgumentException if any parameters have invalid values as
+     *     detailed above.
      */
-    private void receiveHeat(int heatAmount) {
+    private void receiveHeat(String heatDiceValue, int heatFlatValue) {
         // See pg. 81
         // TODO: fill out with mitigation, resistance etc
+        boolean isBlank = false;
+        boolean isValidExpression = false;
         // basically an attempt to convert this.currentHeat into something like
         //     how HP works; stores how much heat this Mech can presently take
         //     before stressing
         int currHeat;
-        int remainingHeat = heatAmount;
+        int remainingHeat;
         int heatToTake;
         int newCurrentHeat;
 
-        if (heatAmount < 1) {
-            throw new IllegalArgumentException("heatAmount value: " + heatAmount
-                + " is < 1");
+        if (heatDiceValue == null) {
+            throw new IllegalArgumentException("heatDiceValue is null");
         }
+        isBlank = heatDiceValue.equals("");
+        isValidExpression = Roll.isValidExpression(heatDiceValue);
+        if ((! isBlank) && (! isValidExpression)) {
+            throw new IllegalArgumentException("heatDiceValue value: \""
+                + heatDiceValue + "\" is neither \"\" nor a valid dice"
+                + " expression");
+        }
+        if (heatFlatValue == 0) {
+            if (isBlank) {
+                throw new IllegalArgumentException("heatDiceValue is \"\" and"
+                    + " heatFlatValue is 0");
+            }
+        }
+        // TODO: heat is being rolled here
+        remainingHeat = Roll.roll(heatDiceValue);
+        remainingHeat += heatFlatValue;
         while (remainingHeat > 0) {
             currHeat = this.maxHeatCapacity - this.currentHeat;
             heatToTake = Math.min(remainingHeat, currHeat);
@@ -1474,18 +1492,41 @@ public final class Mech implements Damageable {
         }
     }
     /**
-     * Deals (burnAmount) burn to this Mech.
-     * @param burnAmount an int containing the amount of burn to deal. Must be >
-     *     0.
-     * @throws IllegalArgumentException if burnAmount is < 1.
+     * Deals burn to this Mech.
+     * @param burnDiceValue a String which must be "" or a valid dice
+     *     expression. Cannot be "" if burnFlatValue is 0.
+     * @param burnFlatValue an int containing the amount of flat burn to deal.
+     *     Must be > -1. Cannot be 0 if burnDiceValue is "".
+     * @throws IllegalArgumentException if any parameters have invalid values as
+     *     detailed above.
      */
-    private void receiveBurn(int burnAmount) {
+    private void receiveBurn(String burnDiceValue, int burnFlatValue) {
         // See pg. 67
-        if (burnAmount < 1) {
-            throw new IllegalArgumentException("burnAmount value: " + burnAmount
-                + " is < 1");
+        // TODO: fill out with mitigation, resistance etc
+        boolean isBlank = false;
+        boolean isValidExpression = false;
+        int burnAmount;
+
+        if (burnDiceValue == null) {
+            throw new IllegalArgumentException("burnDiceValue is null");
         }
-        receiveDamage(burnAmount, "burn");
+        isBlank = burnDiceValue.equals("");
+        isValidExpression = Roll.isValidExpression(burnDiceValue);
+        if ((! isBlank) && (! isValidExpression)) {
+            throw new IllegalArgumentException("burnDiceValue value: \""
+                + burnDiceValue + "\" is neither \"\" nor a valid dice"
+                + " expression");
+        }
+        if (burnFlatValue == 0) {
+            if (isBlank) {
+                throw new IllegalArgumentException("burnDiceValue is \"\" and"
+                    + " burnFlatValue is 0");
+            }
+        }
+        // TODO: burn is being rolled here
+        burnAmount = Roll.roll(burnDiceValue);
+        burnAmount += burnFlatValue;
+        receiveDamage(new Damage("burn", "", burnAmount));
         addBurn(burnAmount);
     }
     /**
@@ -1562,7 +1603,8 @@ public final class Mech implements Damageable {
         // burn check - see pg. 67.
         if (! Roll.evaluateCheck(Roll.check(3, mechSkills))) {
             // If the burn check fails
-            receiveDamage(this.burn, "burn");
+            receiveDamage(new Damage("burn", "",
+                this.burn));
         }
     }
     /**
