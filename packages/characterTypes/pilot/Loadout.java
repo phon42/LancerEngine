@@ -3,6 +3,9 @@ package packages.characterTypes.pilot;
 import main.HelperMethods;
 
 /**
+ * See pgs. 108 - 114.
+ */
+/**
  * Represents a pilot gear loadout. Contains information about what gear items
  *     the pilot has chosen.
  * 
@@ -14,20 +17,26 @@ import main.HelperMethods;
  *     placeholder. None of its properties have allowed values of null.
  */
 public final class Loadout {
-// TODO: have a pilot's Loadout actually affect their stats
+    // TODO: add checks to make sure the pilot's armor is an allowed value
     /**
      * The loadout's pilot armor (i.e. "Light Hardsuit").
      * Can be any String. Cannot be null.
+     * 
+     * See pgs. 108 - 109.
      */
     private String pilotArmor;
     /**
      * The loadout's pilot weapons (i.e. {"Archaic Melee", "Archaic Ranged"}).
      * Must be a String[] of length 2. Cannot be null or contain null elements.
+     * 
+     * See pg. 110.
      */
     private String[] pilotWeapons;
     /**
      * The loadout's pilot gear (i.e. {"Corrective", "Frag Grenades", "Patch"}).
      * Must be a String[] of length 3. Cannot be null or contain null elements.
+     * 
+     * See pgs. 112 - 114.
      */
     private String[] pilotGear;
 
@@ -68,6 +77,7 @@ public final class Loadout {
     public String[] getPilotGear() {
         return HelperMethods.copyOf(pilotGear);
     }
+    // TODO: add checks to make sure the pilot's armor is an allowed value
     public void setPilotArmor(String pilotArmor) {
         if (pilotArmor == null) {
             throw new IllegalArgumentException("New pilot armor value is"

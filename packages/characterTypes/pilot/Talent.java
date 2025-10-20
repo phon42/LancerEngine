@@ -1,7 +1,9 @@
 package packages.characterTypes.pilot;
 
 import main.HelperMethods;
-
+/**
+ * See pgs. 35 and 90 - 103.
+ */
 /**
  * Represents a single talent of the pilot. Contains the talent's name, as well
  *     as the level at which it is held.

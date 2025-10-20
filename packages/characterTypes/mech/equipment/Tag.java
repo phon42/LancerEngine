@@ -3,6 +3,9 @@ package packages.characterTypes.mech.equipment;
 import main.HelperMethods;
 
 /**
+ * See pgs. 104 - 106.
+ */
+/**
  * Represents a tag for a mech system or weapon, like the tags "AI" or "Limited
  *     X". Contains information about the tag's name and value (if it has one).
  * 

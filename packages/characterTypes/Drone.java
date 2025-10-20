@@ -4,7 +4,7 @@ import main.HelperMethods;
 import packages.coreTypes.Damage;
 
 /**
- * See pgs. 67, 105 - 106
+ * See pgs. 58, 67, 105 - 106
  */
 public class Drone implements Damageable {
     /**

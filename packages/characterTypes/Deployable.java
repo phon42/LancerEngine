@@ -3,7 +3,9 @@ package packages.characterTypes;
 import main.HelperMethods;
 import packages.coreTypes.Damage;
 
-// see pg. 68
+/**
+ * See pgs. 58 and 68.
+ */
 public class Deployable implements Damageable {
     /**
      * The deployable's size.
@@ -39,6 +41,7 @@ public class Deployable implements Damageable {
         this(2, 0);
     }
     public Deployable(int size, int armor) {
+        // default values from pg. 68
         // max always before current
         setSize(size);
         setMaxHP(10 / 2 * size);

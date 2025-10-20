@@ -13,6 +13,9 @@ import packages.stateSystem.State;
 import packages.stateSystem.state.Status;
 
 /**
+ * See pg. 58.
+ */
+/**
  * Represents a single mech. Contains information about that mech's origin frame
  *     (the stat block after which it is patterned), its stats, its mounts, and
  *     its systems, among other statistics.
@@ -68,6 +71,8 @@ public final class Mech implements Damageable {
      * Must be of length 1 at minimum. Each element must be a valid role, as
      *     defined by Frame.allowedRoles.
      * Case-insensitive and stored in lowercase. Cannot be null.
+     * 
+     * See pg. 116.
      */
     private String[] role;
     /**
@@ -83,7 +88,7 @@ public final class Mech implements Damageable {
      */
     private String operatorNotes;
     
-    // frame attributes - size, structure, HP, etc.
+    // frame attributes - size, structure, HP, etc. - see pgs. 33 - 34.
     /**
      * The mech's size.
      * Size is stored as 2 * its value (i.e. Size 1/2 would be stored as int 1).
@@ -91,6 +96,17 @@ public final class Mech implements Damageable {
      *     1, 2, 4, 6, 8.
      * Use Mech.getSize() to get the raw value and Mech.outputSize() to obtain
      *     it properly formatted.
+     * 
+     * "Depending on their chassis, mechs stand anything from 3 to 15 meters
+     *     tall."
+     * - pg. 30
+     * "SIZE doesn’t always represent a precise height and width – it describes
+     *     an area of influence. Not all characters are physically as tall as
+     *     the space they can control around them. For example, most SIZE 1
+     *     mechs are taller than 10 feet."
+     * - pg. 59
+     * 
+     * See pgs. 30, 32, 59.
      */
     private int size;
 
@@ -98,11 +114,15 @@ public final class Mech implements Damageable {
     /**
      * The mech's current structure value.
      * Must be between 0 and this.maxStructure (inclusive).
+     * 
+     * See pg. 80.
      */
     private int currentStructure;
     /**
      * The mech's max structure value.
      * Must be a minimum of 1.
+     * 
+     * See pg. 80.
      */
     private int maxStructure;
     /**
@@ -125,11 +145,15 @@ public final class Mech implements Damageable {
     /**
      * The mech's current stress value.
      * Must be between 0 and this.maxStress (inclusive).
+     * 
+     * See pg. 81.
      */
     private int currentStress;
     /**
      * The mech's max stress value.
      * Must be a minimum of 1.
+     * 
+     * See pg. 81.
      */
     private int maxStress;
     /**
@@ -176,11 +200,15 @@ public final class Mech implements Damageable {
     /**
      * The number of repairs this mech currently has.
      * Must be between 0 and this.maxRepairCapacity (inclusive).
+     * 
+     * See pg. 82.
      */
     private int currentRepairs;
     /**
      * The mech's max repair capacity value.
      * Must be a minimum of 0.
+     * 
+     * See pg. 82.
      */
     private int maxRepairCapacity;
 
@@ -193,6 +221,8 @@ public final class Mech implements Damageable {
     /**
      * The mech's system points value.
      * Must be a minimum of 0.
+     * 
+     * See pg. 33.
      */
     private int systemPoints;
 
@@ -216,7 +246,7 @@ public final class Mech implements Damageable {
      */
     private Mount[] mounts;
 
-    // TODO: fill out core system section
+    // TODO: fill out core system section - see pg. 33
     // core system
     // core system description
     // core system passive
@@ -1477,7 +1507,8 @@ public final class Mech implements Damageable {
      *     sets this.currentHP back to this.maxHP, as per game rules.
      */
     public void receiveStructureDamage() {
-        // See pg. 80
+        // See pgs. 80 and 107.
+        // TODO: remember to add cascade checks - see pg. 107
         setCurrentStructure(this.currentStructure - 1);
         setCurrentHP(this.maxHP);
     }
@@ -1501,7 +1532,8 @@ public final class Mech implements Damageable {
      *     this.currentHeat back to 0, as per game rules.
      */
     public void receiveStressDamage() {
-        // See pg. 81
+        // See pgs. 81 and 107.
+        // TODO: remember to add cascade checks - see pg. 107
         setCurrentStress(this.currentStress - 1);
         setCurrentHeat(0);
     }
@@ -1519,6 +1551,7 @@ public final class Mech implements Damageable {
     }
     /**
      * Ends this Mech's current turn.
+     * See pgs. 60 and 67 - 68.
      * @param mechSkills an int[] containing the mech skills of the Pilot
      *     associated with this Mech. Must be an int[] of length 4. Each
      *     element must be between 0 and 6 (inclusive). Assumed to be valid.

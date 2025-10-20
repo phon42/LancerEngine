@@ -4,6 +4,9 @@ import main.Database;
 import main.HelperMethods;
 
 /**
+ * See pg. 31.
+ */
+/**
  * Represents a single license. Contains the name of the license to which the
  *     license is held, and the level of the license.
  * 

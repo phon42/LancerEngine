@@ -6,6 +6,13 @@ import packages.characterTypes.frameLicenseSystem.frameLicense.LicenseContent;
 import packages.coreTypes.License;
 
 /**
+ * See pg. 32.
+ * 
+ * "In game terms, a FRAME is a mech’s modular base. It determines your mech’s
+ *     SIZE, ARMOR, and other specifications, as well as its available weapon
+ *     mounts and capacity for additional systems."
+ * - pg. 32
+ * 
  * A Frame object is needed to create a Mech object. Its stats,
  *     traits, and mounts serve as the base on top of which mech skills,
  *     weapons, systems, and other modifications are added.
@@ -52,6 +59,8 @@ public final class Frame extends LicenseContent {
      *     values:
      *     "artillery", "balanced", "controller", "striker", "support".
      * Case-insensitive and stored in lowercase. Cannot be null.
+     * 
+     * See pg. 116.
      */
     private String[] role;
     /**
@@ -68,12 +77,23 @@ public final class Frame extends LicenseContent {
      */
     private String frameDescription;
 
-    // frame attributes - size, structure, HP, etc.
+    // frame attributes - size, structure, HP, etc. - see pgs. 33 - 34.
     /**
      * The frame's size.
      * Size is stored as 2 * its value (i.e. Size 1/2 would be stored as int 1).
      * Must be one of the following values:
      *     1, 2, 4, 6, 8.
+     * 
+     * "Depending on their chassis, mechs stand anything from 3 to 15 meters
+     *     tall."
+     * - pg. 30
+     * "SIZE doesn’t always represent a precise height and width – it describes
+     *     an area of influence. Not all characters are physically as tall as
+     *     the space they can control around them. For example, most SIZE 1
+     *     mechs are taller than 10 feet."
+     * - pg. 59
+     * 
+     * See pgs. 30, 32, 59.
      */
     private int size;
 
@@ -151,6 +171,8 @@ public final class Frame extends LicenseContent {
     /**
      * The frame's system points value.
      * Must be a minimum of 0.
+     * 
+     * See pg. 33.
      */
     private int systemPoints;
 
@@ -171,7 +193,7 @@ public final class Frame extends LicenseContent {
      */
     private Mount[] mounts;
 
-    // TODO: fill out core system section
+    // TODO: fill out core system section - see pg. 33
     // core system
     // core system description
     // core system passive

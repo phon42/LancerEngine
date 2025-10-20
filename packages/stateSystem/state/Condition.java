@@ -4,6 +4,13 @@ import main.HelperMethods;
 import packages.stateSystem.State;
 
 /**
+ * See pg. 78.
+ * "Conditions are temporary effects caused by things like damage and electronic
+ *     warfare, whereas statuses are usually effects that can’t easily be
+ *     cleared."
+ * - pg. 77
+ */
+/**
  * Represents a single condition on a mech or pilot. Contains information about
  *     the condition's type, origin, duration, and effects.
  * 

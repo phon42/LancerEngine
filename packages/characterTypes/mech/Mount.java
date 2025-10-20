@@ -4,6 +4,9 @@ import packages.characterTypes.mech.equipment.Weapon;
 import packages.characterTypes.pilot.Talent;
 import main.HelperMethods;
 
+/**
+ * See pg. 32.
+ */
 // TODO: change Mount.weapon to allow null and alter documentation to compensate
 /**
  * Represents a single mount on a mech. Contains information such as what type

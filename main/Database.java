@@ -27,9 +27,6 @@ import packages.coreTypes.RangeTag;
  * Safety: N/A because this class cannot be instantiated.
  */
 public final class Database {
-    // TODO: eventually move towards adding each license's content as some kind
-    //     of FrameLicense thingy that automatically populates systemList,
-    //     weaponList, etc
     /**
      * Contains every manufacturer for reference.
      * Case-insensitive and stored in uppercase.
@@ -130,6 +127,7 @@ public final class Database {
         license = Database.createLicense("GMS",
             "GMS Content");
         license.addContent(
+// aka the GMS-SP1 Everest
 new Frame(new License("GMS", 1), "GMS",
     "Everest", "everest", FrameEnum.EVEREST,
     new String[] {"Balanced"}, "Most humans don’t"

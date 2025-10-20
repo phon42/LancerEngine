@@ -14,6 +14,9 @@ import packages.stateSystem.state.Condition;
 import packages.stateSystem.state.Status;
 
 /**
+ * See pgs. 58 and 74.
+ */
+/**
  * Represents the pilot portion of a Lancer character, i.e. the non-mech items.
  *     Contains various pieces of information such as the pilot's name,
  *     callsign, stats, licenses, and so on.
@@ -108,11 +111,15 @@ public final class Pilot implements Damageable {
     /**
      * The pilot's current HP value.
      * Must be between 0 and maxHP (inclusive).
+     * 
+     * See pg. 48.
      */
     private int currentHP;
     /**
      * The pilot's max HP value.
      * Must be >= 1.
+     * 
+     * See pg. 48.
      */
     private int maxHP;
     /**
@@ -146,6 +153,8 @@ public final class Pilot implements Damageable {
      * The pilot's reserves and bonuses.
      * Can be any String[]. Cannot be null or contain null elements or elements
      *     that are "". Case-insensitive and stored in lowercase.
+     * 
+     * See pgs. 50 - 52.
     */
     private String[] reserves;
 
@@ -179,6 +188,8 @@ public final class Pilot implements Damageable {
      * The pilot's mech skills (Hull, Agility, Systems, Engineering).
      * Must be an int[] of length 4. Each element must be between 0 and 6
      *     (inclusive).
+     * 
+     * See pg. 30 for descriptions on what each one might do.
      */
     private int[] mechSkills;
 
@@ -186,6 +197,8 @@ public final class Pilot implements Damageable {
      * The pilot's core bonuses.
      * Can be any String[] that is not null, contains null elements, or elements
      *     that are "". Case-insensitive and stored in lowercase.
+     * 
+     * See pg. 35.
      */
     private String[] coreBonuses;
 
@@ -235,7 +248,7 @@ public final class Pilot implements Damageable {
         // setGrit() is unnecessary because licenseLevel is set later
         // setMaxHP() swapped with setCurrentHP() because the mutators may throw
         //     exceptions otherwise
-        // From pg. 74:
+        // From pgs. 28 and 74:
         setSize(1);
         // add this.grit to get this.maxHP
         setMaxHP(6 + 0);
@@ -1229,7 +1242,11 @@ public final class Pilot implements Damageable {
      */
     private void receiveDamage(int damageAmount, String damageType) {
         // See pg. 48
-        // TODO: fill out with damage mitigation - armor, resistance etc
+        // TODO: fill out with damage mitigation - armor, resistance etc - see
+        //     pg. 49 - "Armor is subtracted from any damage they take, unless
+        //     it’s dealt by an armor-piercing weapon (i.e. a weapon with the AP
+        //     tag) or is caused by something particularly dramatic, like a long
+        //     fall, immersion in lava, or exposure to a vacuum."
         int damageToTake;
         int newCurrentHP;
 
@@ -1331,6 +1348,12 @@ public final class Pilot implements Damageable {
     }
     /**
      * Is called whenever this Pilot dies.
+     * 
+     * "If your pilot dies, it might not be the end for them. [See pgs. 83 -
+     *     84]"
+     * - pg. 49
+     * 
+     * See pgs. 49, 83 - 84.
      */
     public void destroy() {
         // TODO: fill out
@@ -1338,6 +1361,7 @@ public final class Pilot implements Damageable {
     }
     /**
      * Ends this Pilot's current turn.
+     * See pgs. 60 and 67 - 68.
      */
     public void endTurn() {
         // TODO: fill out

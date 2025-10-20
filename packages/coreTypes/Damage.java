@@ -2,6 +2,9 @@ package packages.coreTypes;
 
 import main.HelperMethods;
 
+/**
+ * See pgs. 67 and 104.
+ */
 public class Damage {
     /**
      * The Damage's type (i.e. "Blast").
@@ -12,6 +15,7 @@ public class Damage {
     /**
      * Contains an array of allowed damage types.
      * Case-insensitive and stored in lowercase.
+     * See pgs. 67 and 104.
      */
     public static final String[] allowedTypes = new String[] {"kinetic",
         "explosive", "energy", "variable", "heat", "burn"};

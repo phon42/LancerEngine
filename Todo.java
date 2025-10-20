@@ -3,22 +3,27 @@
  * - Can pilots take burn? - yes
  * - Can the environment take heat or burn? - no and kind of (takes the damage
  *       but doesn't track burn)
+ * - pg. 73 - "Unless specified otherwise, all weapons default to 1 THREAT."
+ *     Does this mean ALL weapons have 1 threat automatically? Or just when they
+ *     don't have a range value specified?
  */
 // TODO: implement this whole list
 /**
  * What's Left To Add:
  * - Order of resolution (pg. 68)
  * - IMPLEMENTING conditions and statuses (the actual things themselves, not
- *       just having them)
+ *       just having them) (pgs. 77 - 78)
  * - Weapons - they have to actually attack lol
  *   - incl pilot weapons
  * - MechSystems need to do their actions/effects
  *   - incl pilot armor and gear
  * - checking validity for (having the licenses to) weapons and systems
- * - actions on your turns (everything on pg 61 honestly)
+ * - actions on your turns (everything on pgs. 69 - 73, honestly)
  *   - incl movement
  * - reactions
- * - downtime actions and reserves I guess..
+ * - implement reallocation of licenses on levelup (pg. 18)
+ * - implement full repairs - see pgs. 33, 49, 71, 73 and 81 - 82
+ * - downtime actions and reserves I guess.. - pgs. 53 - 55 for downtime
  * 
  * Probably best saved for next level of abstraction:
  * - track engagement (check page 74)? (doesn't make any sense to do until we're

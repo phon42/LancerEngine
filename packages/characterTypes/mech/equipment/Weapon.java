@@ -7,6 +7,9 @@ import packages.coreTypes.License;
 import packages.coreTypes.RangeTag;
 
 /**
+ * See pgs. 33 and 104.
+ */
+/**
  * Represents a single weapon to be mounted on a mount. Contains information
  *     about that weapon such as its name, size, and tags.
  * 
@@ -51,6 +54,8 @@ public final class Weapon extends Equipment {
      *         still hold an additional weapon.
      *     4 - a ship-class weapon. This can go in a Mount of Mount.mountType:
      *         "integrated mount"
+     * 
+     * See pg. 33.
      */
     private int size;
     /**
@@ -67,6 +72,8 @@ public final class Weapon extends Equipment {
      *     7 - Spool Weapon (Barbarossa integrated weapon only)
      *     8 - ??? (Mimic Gun only)
      *     9 - Special (Prototype Weapon only)
+     * 
+     * See pg. 33.
      */
     private int type;
     /**
@@ -87,16 +94,16 @@ public final class Weapon extends Equipment {
     private RangeTag[] range;
 
     /**
-     * Creates a new Weapon given a weapon name, weapon size, and weapon type.
+     * Creates a new Weapon given a weapon name, weapon size, weapon type,
+     *     weapon damage, and weapon range.
      * @param weaponName a String which cannot be null or "".
      * @param weaponManufacturer a String which must be a valid manufacturer
      *     name as defined by Database.manufacturerList. Cannot be null.
      * @param weaponLicense a License which can be any License. Cannot be null.
      * @param weaponSize an int which must be between 0 and 4 (inclusive).
      * @param weaponType an int which must be between 0 and 9 (inclusive).
-     * @param weaponDamage a Damage[] which cannot be null, contain null
-     *     elements, or elements that have a Damage.type property of
-     *     "burn_damage".
+     * @param weaponDamage a Damage[] which cannot be null or contain null
+     *     elements.
      * @param weaponRange a RangeTag[] which cannot be null or contain null
      *     elements.
      */
@@ -110,17 +117,16 @@ public final class Weapon extends Equipment {
         setRange(weaponRange);
     }
     /**
-     * Creates a new Weapon given a weapon name, weapon size, weapon type, and
-     *     an array of weapon tags.
+     * Creates a new Weapon given a weapon name, weapon size, weapon type,
+     *     weapon damage, weapon range, and an array of weapon tags.
      * @param weaponName a String which cannot be null or "".
      * @param weaponManufacturer a String which must be a valid manufacturer
      *     name as defined by Database.manufacturerList. Cannot be null.
      * @param weaponLicense a License which can be any License. Cannot be null.
      * @param weaponSize an int which must be between 0 and 4 (inclusive).
      * @param weaponType an int which must be between 0 and 9 (inclusive).
-     * @param weaponDamage a Damage[] which cannot be null, contain null
-     *     elements, or elements that have a Damage.type property of
-     *     "burn_damage".
+     * @param weaponDamage a Damage[] which cannot be null or contain null
+     *     elements.
      * @param weaponRange a RangeTag[] which cannot be null or contain null
      *     elements.
      * @param weaponTags a Tag[] which cannot be null, contain null elements, or

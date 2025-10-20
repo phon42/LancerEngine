@@ -3,6 +3,9 @@ package packages.characterTypes.pilot.skillTriggersList;
 import main.HelperMethods;
 
 /**
+ * See pg. 24 - 27.
+ */
+/**
  * Represents a single skill trigger. Contains the skill trigger's name and the
  *     level at which it is held.
  * 

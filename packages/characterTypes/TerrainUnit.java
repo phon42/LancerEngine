@@ -3,7 +3,9 @@ package packages.characterTypes;
 import main.HelperMethods;
 import packages.coreTypes.Damage;
 
-// see pg. 68
+/**
+ * See pgs. 58 - 59 and 68.
+ */
 public class TerrainUnit implements Damageable {
     /**
      * The terrain unit's size.
@@ -12,9 +14,11 @@ public class TerrainUnit implements Damageable {
      *     1, 2, 4, 6, 8.
      * Use TerrainUnit.getSize() to get the raw value and
      *     TerrainUnit.outputSize() to obtain it properly formatted.
-     * Notes on size - From pg. 59: "By default, each space is equivalent to 10
-     *     feet (or 3 meters), but the scale can be changed to represent
-     *     different types of encounters."
+     * 
+     * Note on size: "By default, each space is equivalent to 10 feet (or 3
+     *     meters), but the scale can be changed to represent different types of
+     *     encounters."
+     * - pg. 59
      */
     private int size;
     /**
@@ -42,6 +46,7 @@ public class TerrainUnit implements Damageable {
         this(2, 0);
     }
     public TerrainUnit(int size, int armor) {
+        // default values from pg. 68
         // max always before current
         setSize(size);
         setMaxHP(10 / 2 * size);

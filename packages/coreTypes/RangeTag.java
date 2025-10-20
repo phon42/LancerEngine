@@ -2,6 +2,9 @@ package packages.coreTypes;
 
 import main.HelperMethods;
 
+/**
+ * See pgs. 64, 104, and 116.
+ */
 public class RangeTag {
     /**
      * The RangeTag's type (i.e. "Blast").

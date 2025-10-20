@@ -9,6 +9,9 @@ import packages.characterTypes.mech.equipment.MechSystem;
 import packages.characterTypes.mech.equipment.Weapon;
 
 /**
+ * See pg. 31.
+ */
+/**
  * Represents a license (the actual thing that contains frames, mech systems,
  *     etc, not the licenses and ranks to which a pilot has access, which is
  *     represented by the License class). Contains information about what lies

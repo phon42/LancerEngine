@@ -3,6 +3,9 @@ import java.util.Random;
 
 import packages.characterTypes.pilot.skillTriggersList.SkillTrigger;
 
+/**
+ * See pgs. 12 - 14 and 45 - 47.
+ */
 public final class Roll {
     /**
      * Contains the random number generator for this class.
@@ -530,6 +533,7 @@ public final class Roll {
     /**
      * Rolls the proper number of accuracy and difficulty dice based on the
      *     provided accuracy and difficulty values.
+     * See pg. 13.
      * @param accuracy an int containing the number of accuracy stacks. Must be
      *     a minimum of 0.
      * @param difficulty an int containing the number of difficulty stacks. Must
