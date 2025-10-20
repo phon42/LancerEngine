@@ -37,17 +37,14 @@ public class EventListener {
         setID(ID);
         setMethod(method);
         setDisposable(disposable);
-        numCreated++;
+        EventListener.numCreated++;
     }
     public EventListener(String eventType, boolean disposable, Callable method)
         {
-        this(eventType, numCreated, method, disposable);
-    }
-    public EventListener(String eventType, int ID, Callable method) {
-        this(eventType, ID, method, false);
+        this(eventType, EventListener.numCreated, method, disposable);
     }
     public EventListener(String eventType, Callable method) {
-        this(eventType, numCreated, method, false);
+        this(eventType, EventListener.numCreated, method, false);
     }
     
     public String getType() {
@@ -69,7 +66,7 @@ public class EventListener {
     }
     private void setMethod(Callable method) {
         Callable copy;
-        
+
         if (method == null) {
             throw new IllegalArgumentException("method is null");
         }

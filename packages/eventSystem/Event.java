@@ -134,9 +134,11 @@ public class Event {
                 fileNameShort, methodName, fileName, lineNumber));
         }
     }
+    // TODO: add activation order of EventListeners - they should activate
+    //     events on the same level before "bubbling" upwards
     /**
-     * "Activates" the event, causing it to trigger anything within the same
-     *     level before bubbling upwards.
+     * "Activates" the event, causing it to trigger any EventListeners listening
+     *     for an Event of this.type.
      */
     private void emit() {
         EventListener listener;
@@ -166,15 +168,6 @@ public class Event {
             eventListener);
         
         return ID;
-    }
-    public static int addListener(String eventType, int ID, Callable method)
-        {
-        HelperMethods.checkString("eventType", eventType);
-        if (method == null) {
-            throw new IllegalArgumentException("method is null");
-        }
-
-        return addListener(new EventListener(eventType, ID, method));
     }
     public static int addListener(String eventType, boolean disposable,
         Callable method) {
