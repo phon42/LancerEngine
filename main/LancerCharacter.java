@@ -91,8 +91,9 @@ public final class LancerCharacter {
      */
     public void setMech(Mech mech) {
         if (mech != null) {
-            mech.calculateAttributes(this.pilot.getMechSkills(),
-                this.pilot.getCoreBonuses(), this.pilot.getTalents());
+            mech.calculateAttributes(this.pilot.getGrit(),
+                this.pilot.getMechSkills(), this.pilot.getCoreBonuses(),
+                this.pilot.getTalents());
             mech = new Mech(mech);
         }
         this.mech = mech;

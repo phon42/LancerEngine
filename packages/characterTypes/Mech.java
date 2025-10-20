@@ -1241,7 +1241,7 @@ public final class Mech implements Damageable {
      *     Mech.setFrame(Frame) is called.
      */
     public void calculateAttributes() {
-        calculateAttributes(new int[4], new String[0], new Talent[0]);
+        calculateAttributes(0, new int[4], new String[0], new Talent[0]);
     }
     /**
      * Sets all of this Mech object's stat properties to their correct values,
@@ -1249,6 +1249,8 @@ public final class Mech implements Damageable {
      *     provided int[]. Called when LancerCharacter.setMech(Mech) is called
      *     using a non-placeholder Mech as well as when Mech.setFrame(Frame) is
      *     called through calculateAttributes().
+     * @param an int containing the grit score of the Pilot associated with this
+     *     Mech through the parent LancerCharacter.
      * @param mechSkills an int[4] containing the mech skills of the Pilot
      *     associated with this Mech through the parent LancerCharacter.
      * @param coreBonuses a String[] containing the core bonuses of the Pilot
@@ -1257,8 +1259,8 @@ public final class Mech implements Damageable {
      *     with this Mech through the parent LancerCharacter.
      * @throws IllegalArgumentException if this.frame is null.
      */
-    public void calculateAttributes(int[] mechSkills, String[] coreBonuses,
-        Talent[] talents) {
+    public void calculateAttributes(int grit, int[] mechSkills,
+        String[] coreBonuses, Talent[] talents) {
         // TODO: add possibility for multiple core bonuses (because any of the
         //     mount core bonuses can be layered on top of something like
         //     Auto-Stabilizing Hardpoints or Overpower Caliber)
@@ -1287,7 +1289,9 @@ public final class Mech implements Damageable {
         // Systems
         setEDefense(this.frame.getEDefense() + mechSkills[2]);
         setTechAttack(this.frame.getTechAttack() + mechSkills[2]);
-        setSystemPoints(this.frame.getSystemPoints() + (mechSkills[2] / 2));
+        // Add grit to system points - see pg. 37
+        setSystemPoints(this.frame.getSystemPoints() + (mechSkills[2] / 2)
+            + grit);
 
         // Engineering
         // setMaxHeatCapacity() swapped with setCurrentHeat() because the
