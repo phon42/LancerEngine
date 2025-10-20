@@ -66,7 +66,7 @@ public class Damage {
         diceValue = diceValue.toLowerCase();
         // TODO: add some way of making sure diceValue is a valid dice
         //     expression
-        if (diceValue.equals("") || false) {
+        if (diceValue.equals("") || true) {
             this.diceValue = diceValue;
         }
     }
