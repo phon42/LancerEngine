@@ -6,6 +6,7 @@ import main.HelperMethods;
 import main.Roll;
 import packages.coreTypes.Damage;
 import packages.coreTypes.Harm;
+import packages.coreTypes.License;
 import packages.entityTypes.mech.Frame;
 import packages.entityTypes.mech.Mount;
 import packages.entityTypes.mech.equipment.MechSystem;
@@ -1563,6 +1564,56 @@ public final class Mech implements Damageable {
             // If the burn check fails
             receiveDamage(this.burn, "burn");
         }
+    }
+    /**
+     * Checks to see that the right number of Licenses are owned, and that the
+     *     frame and all systems and weapons are properly licensed.
+     * @param licenses a License[] containing the Licenses of the Pilot
+     *     associated with this Mech through the parent LancerCharacter.
+     * @return a boolean containing the result of the check.
+     */
+    public boolean checkLicenses(License[] licenses) {
+        boolean licenseCheck = false;
+        boolean frameCheck = false;
+        boolean systemsCheck = false;
+        boolean weaponsCheck = false;
+
+        // TODO: check to see that the right number of Licenses are owned
+        frameCheck = checkFrameLicense(licenses);
+        systemsCheck = checkSystemLicenses(licenses);
+        weaponsCheck = checkWeaponLicenses(licenses);
+
+        return licenseCheck && frameCheck && systemsCheck && weaponsCheck;
+    }
+    /**
+     * Checks to see that the mech's frame is properly licensed.
+     * @param licenses a License[] containing the Licenses of the Pilot
+     *     associated with this Mech through the parent LancerCharacter.
+     * @return a boolean containing the result of the check.
+     */
+    public boolean checkFrameLicense(License[] licenses) {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Checks to see that the mech's systems are properly licensed.
+     * @param licenses a License[] containing the Licenses of the Pilot
+     *     associated with this Mech through the parent LancerCharacter.
+     * @return a boolean containing the result of the check.
+     */
+    public boolean checkSystemLicenses(License[] licenses) {
+        // TODO: fill out
+        return false;
+    }
+    /**
+     * Checks to see that the mech's weapons are properly licensed.
+     * @param licenses a License[] containing the Licenses of the Pilot
+     *     associated with this Mech through the parent LancerCharacter.
+     * @return a boolean containing the result of the check.
+     */
+    public boolean checkWeaponLicenses(License[] licenses) {
+        // TODO: fill out
+        return false;
     }
     /**
      * Generates the output associated with the mech portion of the COMP/CON

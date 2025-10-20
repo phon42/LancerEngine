@@ -27,6 +27,7 @@
  * - MechSystems need to do their actions/effects
  *   - incl pilot armor and gear
  * - checking validity for (having the licenses to) weapons and systems
+ *   - same for core bonuses
  * - actions on your turns (everything on pgs. 69 - 73, honestly)
  *   - incl movement
  * - reactions
