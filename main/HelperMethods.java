@@ -1,15 +1,16 @@
 package main;
 
-import packages.characterTypes.mech.Frame;
-import packages.characterTypes.mech.Mount;
-import packages.characterTypes.mech.equipment.MechSystem;
-import packages.characterTypes.mech.equipment.Tag;
-import packages.characterTypes.mech.equipment.Weapon;
-import packages.characterTypes.pilot.Talent;
-import packages.characterTypes.pilot.skillTriggersList.SkillTrigger;
 import packages.coreTypes.Damage;
+import packages.coreTypes.Harm;
 import packages.coreTypes.License;
 import packages.coreTypes.RangeTag;
+import packages.entityTypes.mech.Frame;
+import packages.entityTypes.mech.Mount;
+import packages.entityTypes.mech.equipment.MechSystem;
+import packages.entityTypes.mech.equipment.Tag;
+import packages.entityTypes.mech.equipment.Weapon;
+import packages.entityTypes.pilot.Talent;
+import packages.entityTypes.pilot.skillTriggersList.SkillTrigger;
 import packages.eventSystem.event.EventListener;
 import packages.stateSystem.State;
 
@@ -142,8 +143,8 @@ public final class HelperMethods {
     public static int[] append(int[] intArray, int newElement) {
         if (intArray == null) {
             throw new IllegalArgumentException("Called"
-                + " HelperMethods.append(int[], int) with null in the place"
-                + " of the int[]");
+                + " HelperMethods.append(int[], int) with null in the place of"
+                + " the int[]");
         }
         int[] newIntArray = new int[intArray.length + 1];
 
@@ -240,8 +241,8 @@ public final class HelperMethods {
         }
         if (newElement == null) {
             throw new IllegalArgumentException("Called"
-                + " HelperMethods.append(Frame[], Frame) with null in the"
-                + " place of the Frame");
+                + " HelperMethods.append(Frame[], Frame) with null in the place"
+                + " of the Frame");
         }
         Frame[] newArray = new Frame[array.length + 1];
 
@@ -368,13 +369,13 @@ public final class HelperMethods {
     public static Mount[] add(Mount[] mountArray, Mount newElement, int index) {
         if (mountArray == null) {
             throw new IllegalArgumentException("Called"
-                + " HelperMethods.add(Mount[], Mount) with null in the"
-                + " place of the Mount[]");
+                + " HelperMethods.add(Mount[], Mount) with null in the place of"
+                + " the Mount[]");
         }
         if (newElement == null) {
             throw new IllegalArgumentException("Called"
-                + " HelperMethods.add(Mount[], Mount) with null in the"
-                + " place of the Mount");
+                + " HelperMethods.add(Mount[], Mount) with null in the place of"
+                + " the Mount");
         }
         Mount[] newMountArray = new Mount[mountArray.length + 1];
 
@@ -401,8 +402,8 @@ public final class HelperMethods {
     public static int[] copyOf(int[] original) {
         if (original == null) {
             throw new IllegalArgumentException("Called"
-                + " HelperMethods.copyOf(int[]) with null in the place of"
-                + " the int[]");
+                + " HelperMethods.copyOf(int[]) with null in the place of the"
+                + " int[]");
         }
         int[] copy = new int[original.length];
         for (int i = 0; i < original.length; i++) {
@@ -439,8 +440,8 @@ public final class HelperMethods {
     public static Damage[] copyOf(Damage[] original) {
         if (original == null) {
             throw new IllegalArgumentException("Called"
-                + " HelperMethods.copyOf(Damage[]) with null in the place"
-                + " of the Damage[]");
+                + " HelperMethods.copyOf(Damage[]) with null in the place of"
+                + " the Damage[]");
         }
         Damage[] copy = new Damage[original.length];
         for (int i = 0; i < original.length; i++) {
@@ -449,6 +450,29 @@ public final class HelperMethods {
                 continue;
             }
             copy[i] = new Damage(original[i]);
+        }
+
+        return copy;
+    }
+    /**
+     * Returns a deepest copy of original.
+     * @param original a Harm[] that cannot be null.
+     * @return a Harm[] deepest copy of original.
+     * @throws IllegalArgumentException if original is null.
+     */
+    public static Harm[] copyOf(Harm[] original) {
+        if (original == null) {
+            throw new IllegalArgumentException("Called"
+                + " HelperMethods.copyOf(Harm[]) with null in the place of the"
+                + " Harm[]");
+        }
+        Harm[] copy = new Harm[original.length];
+        for (int i = 0; i < original.length; i++) {
+            if (original[i] == null) {
+                copy[i] = original[i];
+                continue;
+            }
+            copy[i] = new Harm(original[i]);
         }
 
         return copy;
@@ -508,8 +532,8 @@ public final class HelperMethods {
     public static Mount[] copyOf(Mount[] original) {
         if (original == null) {
             throw new IllegalArgumentException("Called"
-                + " HelperMethods.copyOf(Mount[]) with null in the place of"
-                + " the Mount[]");
+                + " HelperMethods.copyOf(Mount[]) with null in the place of the"
+                + " Mount[]");
         }
         Mount[] copy = new Mount[original.length];
         for (int i = 0; i < original.length; i++) {
@@ -554,8 +578,8 @@ public final class HelperMethods {
     public static SkillTrigger[] copyOf(SkillTrigger[] original) {
         if (original == null) {
             throw new IllegalArgumentException("Called"
-                + " HelperMethods.copyOf(SkillTrigger[]) with null in the"
-                + " place of the SkillTrigger[]");
+                + " HelperMethods.copyOf(SkillTrigger[]) with null in the place"
+                + " of the SkillTrigger[]");
         }
         SkillTrigger[] copy = new SkillTrigger[original.length];
         for (int i = 0; i < original.length; i++) {
