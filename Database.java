@@ -3,18 +3,6 @@
 //         https://www.w3schools.com/java/java_files_read.asp
 //         https://www.baeldung.com/java-compress-and-uncompress#unzip
 /**
- * Contains a set of values that can be used to reference or obtain a specific
- *     frame.
- */
-enum FrameEnum {
-    EVEREST,
-    SAGARMATHA,
-    CALIBAN,
-    SWALLOWTAIL_RANGER,
-    BARBAROSSA,
-    SIZE_4
-}
-/**
  * Represents nothing. Contains a set array of Frames to be used by
  *     Mech(String, String) and Mech(String, FrameEnum).
  * 

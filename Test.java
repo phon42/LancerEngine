@@ -1,13 +1,4 @@
 /**
- * Contains a set of possible test statuses that a Test can return or contain.
- */
-enum TestStatus {
-    PASS,
-    MIXED,
-    FAIL,
-    ERROR
-}
-/**
  * A class representing a single test. May have an empty Test[] as its tests
  *     property, or a battery of tests which might themselves have their own
  *     tests.
