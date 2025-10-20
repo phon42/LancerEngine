@@ -1,6 +1,7 @@
 package packages.coreTypes;
 
 import main.HelperMethods;
+import packages.eventSystem.event.eventListener.Callable;
 
 /**
  * See pgs. 61 - 64, 68 - 76, and 107 for more information.
@@ -93,6 +94,18 @@ public class Action {
      */
     private static final String[] allowedSpeeds = {"full", "quick", "free",
         "reaction"};
+    /**
+     * Whether or not this Action can be used by a Mech.
+     */
+    private boolean mechUseable;
+    /**
+     * Whether or not this Action can be used by a Pilot.
+     */
+    private boolean pilotUseable;
+    /**
+     * The method associated with this Action.
+     */
+    private Callable method;
     // TODO: "Unlike other quick actions, QUICK TECH can be taken more than once
     //     per turn; however, a different option must be chosen every time,
     //     unless specified otherwise or granted as a free action."
@@ -118,78 +131,97 @@ public class Action {
      * Contains an array of base actions.
      */
     private static final Action[] baseActions = {
+        // TODO: can you boost as a mech, eject, overcharge, then boost as a
+        //     pilot?
+        // TODO: if so, different mech- and pilot-exclusive actions need to be
+        //     created
         new Action("boost", "quick", "boost",
-            "quick"),
+            "quick", true, true),
         new Action("continue boost", "move", "boost",
-            "free"),
+            "free", true, true),
         new Action("grapple", "quick", "quick",
-            "quick"),
+            "quick", true, false),
         new Action("hide", "quick", "quick",
-            "quick"),
+            "quick", true, true),
         new Action("quick tech", "quick", "quick tech",
-            "quick"),
+            "quick", true, false),
         new Action("ram", "quick", "quick",
-            "quick"),
+            "quick", true, false),
         new Action("search", "quick", "quick",
-            "quick"),
+            "quick", true, true),
         new Action("skirmish", "quick", "quick",
-            "quick"),
+            "quick", true, false),
         new Action("barrage", "full", "full",
-            "full"),
+            "full", true, false),
         new Action("disengage", "full", "full",
-            "full"),
+            "full", true, true),
         new Action("full tech", "full", "full",
-            "full"),
+            "full", true, false),
         new Action("improvised attack", "full", "full",
-            "full"),
+            "full", true, false),
         new Action("stabilize", "full", "full",
-            "full"),
+            "full", true, false),
         new Action("activate (quick)", "quick", "quick",
-            "quick"),
+            "quick", true, true),
         new Action("activate (full)", "full", "full",
-            "full"),
+            "full", true, true),
         new Action("boot up", "full", "full",
-            "full"),
+            "full", true, false),
+        // TODO: you can mount or dismount willing allied mechs or vehicles, add
+        //     this
         new Action("mount", "full", "full",
-            "full"),
+            "full", false, true),
         new Action("dismount", "full", "full",
-            "full"),
+            "full", true, false),
         new Action("eject", "quick", "quick", 
-            "quick"),
+            "quick", true, false),
+        // TODO: can you Prepare a full action? a movement? a free action? a
+        //     reaction, even? (lmao)
+        // TODO: cannot take reactions while holding a prepared action,
+        //     implement this
         new Action("prepare", "quick", "quick",
-            "quick"),
+            "quick", true, true),
         new Action("drop prepare", "free", "free",
-            "free"),
+            "free", true, true),
         new Action("self-destruct", "quick", "quick",
-            "quick"),
+            "quick", true, false),
         new Action("shut down", "quick", "quick",
-            "quick"),
+            "quick", true, false),
         new Action("skill check", "full", "full",
-            "full"),
+            "full", true, true),
         new Action("overcharge", "free", "free",
-            "free"),
+            "free", true, false),
         // TODO: what speed are reactions?
         new Action("reaction", "reaction", "reaction",
-            "reaction"),
+            "reaction", true, false),
         new Action("brace", "reaction", "reaction",
-            "reaction"),
+            "reaction", true, false),
+        // TODO: uses the fight action instead for pilots, add this
         new Action("overwatch", "reaction", "reaction",
-            "reaction"),
+            "reaction", true, true),
         new Action("fight", "full", "full",
-            "full"),
+            "full", false, true),
         new Action("jockey", "full", "full",
-            "full"),
+            "full", false, true),
         new Action("reload", "quick", "quick",
-            "quick"),
+            "quick", false, true),
         new Action("transfer control", "protocol",
-            "protocol", "free"),
+            "protocol", "free", true,
+            false),
     };
-    
-    public Action(String name, String type, String detailedType, String speed) {
+
+    public Action(String name, String type, String detailedType, String speed,
+        boolean mechUseable, boolean pilotUseable) {
         setName(name);
         setType(type);
         setDetailedType(detailedType);
         setSpeed(speed);
+        setMechUseable(mechUseable);
+        setPilotUseable(pilotUseable);
+    }
+    public Action(String name, String type, String detailedType, String speed) {
+        this(name, type, detailedType, speed, true,
+            true);
     }
     /**
      * Creates one of the 34 total base actions detailed within pgs. 69 - 75 (30
@@ -211,6 +243,8 @@ public class Action {
                 setType(action.type);
                 setDetailedType(action.detailedType);
                 setSpeed(action.speed);
+                setMechUseable(action.mechUseable);
+                setPilotUseable(action.pilotUseable);
                 break;
             }
         }
@@ -220,6 +254,8 @@ public class Action {
         setType(action.type);
         setDetailedType(action.detailedType);
         setSpeed(action.speed);
+        setMechUseable(action.mechUseable);
+        setPilotUseable(action.pilotUseable);
     }
 
     public String getName() {
@@ -233,6 +269,15 @@ public class Action {
     }
     public String getSpeed() {
         return speed;
+    }
+    public boolean isMechUseable() {
+        return mechUseable;
+    }
+    public boolean isPilotUseable() {
+        return pilotUseable;
+    }
+    public Callable getMethod() {
+        return method;
     }
     /**
      * Sets this.type to the provided value.
@@ -283,6 +328,30 @@ public class Action {
                 + " is an invalid type");
         }
         this.speed = speed;
+    }
+    public void setPilotUseable(boolean pilotUseable) {
+        this.pilotUseable = pilotUseable;
+    }
+    public void setMechUseable(boolean mechUseable) {
+        this.mechUseable = mechUseable;
+    }
+    /**
+     * Sets this.method to the provided value.
+     * @param method a Callable which cannot be null.
+     */
+    public void setMethod(Callable method) {
+        Callable copy;
+
+        if (method == null) {
+            throw new IllegalArgumentException("method is null");
+        }
+        copy = new Callable() {
+            @Override
+            public void run() {
+                method.run();
+            }
+        };
+        this.method = copy;
     }
 
     public static boolean isValidType(String type) {

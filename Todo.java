@@ -12,6 +12,9 @@
  * - when you seperate Boost into several movements, does the second+ movement
  *       also trigger systems or traits that work off of Boosting?
  * - What speed are reactions?
+ * - can you boost as a mech, eject, overcharge, then boost as a pilot?
+ * - can you Prepare a full action? a movement? a free action? a reaction, even?
+ *       (lmao)
  */
 // TODO: implement this whole list
 /**
