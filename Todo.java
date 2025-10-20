@@ -26,7 +26,8 @@
  * - involuntary movement
  * - difficult/dangerous terrain
  * - adjacency
- * - lifting, dragging, jumping, climbing, flying, gravity, teleportation, hovering
+ * - lifting, dragging, jumping, climbing, flying, gravity, teleportation,
+ *       hovering
  * - cover
  * - damaging the environment
  */
