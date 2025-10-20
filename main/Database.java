@@ -698,4 +698,20 @@ new Frame(new License("Lich", 2), "HORUS",
     public static void addWeapon(Weapon weapon) {
         Database.weaponList = HelperMethods.append(Database.weaponList, weapon);
     }
+    /**
+     * Checks whether the provided pilot armor is a valid pilot armor.
+     * @param pilotArmor a String that cannot be null.
+     * @return a boolean containing the result of the check.
+     */
+    public static boolean isValidPilotArmor(String pilotArmor) {
+        if (pilotArmor == null) {
+            throw new IllegalArgumentException("pilotArmor is null");
+        }
+        for (String validName : Database.pilotArmorNames) {
+            if (pilotArmor.equals(validName)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

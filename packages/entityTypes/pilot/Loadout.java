@@ -1,5 +1,6 @@
 package packages.entityTypes.pilot;
 
+import main.Database;
 import main.HelperMethods;
 
 /**
@@ -17,7 +18,6 @@ import main.HelperMethods;
  *     placeholder. None of its properties have allowed values of null.
  */
 public final class Loadout {
-    // TODO: add checks to make sure the pilot's armor is an allowed value
     /**
      * The loadout's pilot armor (i.e. "Light Hardsuit").
      * Can be any String. Cannot be null.
@@ -77,11 +77,14 @@ public final class Loadout {
     public String[] getPilotGear() {
         return HelperMethods.copyOf(pilotGear);
     }
-    // TODO: add checks to make sure the pilot's armor is an allowed value
     public void setPilotArmor(String pilotArmor) {
         if (pilotArmor == null) {
             throw new IllegalArgumentException("New pilot armor value is"
                 + " null");
+        }
+        if (! Database.isValidPilotArmor(pilotArmor)) {
+            throw new IllegalArgumentException("Pilot armor value: \""
+                + pilotArmor + "\" is an invalid value for Loadout.pilotArmor");
         }
         this.pilotArmor = pilotArmor;
     }
