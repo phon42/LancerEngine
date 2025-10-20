@@ -3,8 +3,9 @@ package packages.stateSystem;
 import main.HelperMethods;
 
 /**
- * Represents a single state on a mech or pilot. Contains information about the
- *     state's type, origin, duration, and effects.
+ * Represents a single status or condition on a mech or pilot. Contains
+ *     information about the status or condition's type, origin, duration, and
+ *     effects.
  * 
  * Requires a type, source, and duration to be instantiated.
  * 

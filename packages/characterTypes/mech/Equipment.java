@@ -69,7 +69,7 @@ public class Equipment extends LicenseContent {
      *     for.
      * @return a boolean containing the result of the search.
      */
-    protected boolean hasTag(String tagName) {
+    public boolean hasTag(String tagName) {
         for (Tag tag : this.tags) {
             if (tag.getName().equals(tagName)) {
                 return true;

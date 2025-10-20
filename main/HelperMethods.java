@@ -7,7 +7,9 @@ import packages.characterTypes.mech.equipment.Tag;
 import packages.characterTypes.mech.equipment.Weapon;
 import packages.characterTypes.pilot.Talent;
 import packages.characterTypes.pilot.skillTriggersList.SkillTrigger;
+import packages.coreTypes.Damage;
 import packages.coreTypes.License;
+import packages.coreTypes.RangeTag;
 import packages.eventSystem.event.EventListener;
 import packages.stateSystem.State;
 
@@ -430,6 +432,29 @@ public final class HelperMethods {
     }
     /**
      * Returns a deepest copy of original.
+     * @param original a Damage[] that cannot be null.
+     * @return a Damage[] deepest copy of original.
+     * @throws IllegalArgumentException if original is null.
+     */
+    public static Damage[] copyOf(Damage[] original) {
+        if (original == null) {
+            throw new IllegalArgumentException("Called"
+                + " HelperMethods.copyOf(Damage[]) with null in the place"
+                + " of the Damage[]");
+        }
+        Damage[] copy = new Damage[original.length];
+        for (int i = 0; i < original.length; i++) {
+            if (original[i] == null) {
+                copy[i] = original[i];
+                continue;
+            }
+            copy[i] = new Damage(original[i]);
+        }
+
+        return copy;
+    }
+    /**
+     * Returns a deepest copy of original.
      * @param original a License[] that cannot be null.
      * @return a License[] deepest copy of original.
      * @throws IllegalArgumentException if original is null.
@@ -493,6 +518,29 @@ public final class HelperMethods {
                 continue;
             }
             copy[i] = new Mount(original[i]);
+        }
+
+        return copy;
+    }
+    /**
+     * Returns a deepest copy of original.
+     * @param original a RangeTag[] that cannot be null.
+     * @return a RangeTag[] deepest copy of original.
+     * @throws IllegalArgumentException if original is null.
+     */
+    public static RangeTag[] copyOf(RangeTag[] original) {
+        if (original == null) {
+            throw new IllegalArgumentException("Called"
+                + " HelperMethods.copyOf(RangeTag[]) with null in the place of"
+                + " the RangeTag[]");
+        }
+        RangeTag[] copy = new RangeTag[original.length];
+        for (int i = 0; i < original.length; i++) {
+            if (original[i] == null) {
+                copy[i] = original[i];
+                continue;
+            }
+            copy[i] = new RangeTag(original[i]);
         }
 
         return copy;
