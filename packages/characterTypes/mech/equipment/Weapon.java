@@ -2,7 +2,7 @@ package packages.characterTypes.mech.equipment;
 
 import main.HelperMethods;
 import packages.characterTypes.mech.Equipment;
-import packages.coreTypes.Damage;
+import packages.coreTypes.Harm;
 import packages.coreTypes.License;
 import packages.coreTypes.RangeTag;
 
@@ -77,13 +77,12 @@ public final class Weapon extends Equipment {
      */
     private int type;
     /**
-     * The weapon's damage, including heat and burn (i.e. a Damage[] containing
-     *     a Damage representing 10 Kinetic, 2 Heat, or 3 Burn).
-     * Can be any Damage[] that does not contain null or null elements, or
-     *     elements that have a Damage.type property of "burn_damage". Cannot be
+     * The weapon's damage, including heat and burn (i.e. a Harm[] containing
+     *     a Harm representing 10 Kinetic, 2 Heat, or 3 Burn).
+     * Can be any Harm[] that does not contain null or null elements. Cannot be
      *     null.
      */
-    private Damage[] damage;
+    private Harm[] harm;
     // TODO: make sure to account for multiple possible ranges
     /**
      * The weapon's range (i.e. a RangeTag[] containing a RangeTag representing
@@ -95,60 +94,59 @@ public final class Weapon extends Equipment {
 
     /**
      * Creates a new Weapon given a weapon name, weapon size, weapon type, and
-     *     weapon damage.
+     *     weapon harm.
      * @param weaponName a String which cannot be null or "".
      * @param weaponManufacturer a String which must be a valid manufacturer
      *     name as defined by Database.manufacturerList. Cannot be null.
      * @param weaponLicense a License which can be any License. Cannot be null.
      * @param weaponSize an int which must be between 0 and 4 (inclusive).
      * @param weaponType an int which must be between 0 and 9 (inclusive).
-     * @param weaponDamage a Damage[] which cannot be null or contain null
+     * @param weaponHarm a Harm[] which cannot be null or contain null
      *     elements.
      */
     public Weapon(String weaponName, String weaponManufacturer,
         License weaponLicense, int weaponSize, int weaponType,
-        Damage[] weaponDamage) {
+        Harm[] weaponHarm) {
         super(weaponName, weaponManufacturer, weaponLicense);
         setSize(weaponSize);
         setType(weaponType);
-        setDamage(weaponDamage);
+        setHarm(weaponHarm);
         setRange(new RangeTag[] {
             new RangeTag("threat", 1)
         });
     }
     /**
      * Creates a new Weapon given a weapon name, weapon size, weapon type,
-     *     weapon damage, and weapon range.
+     *     weapon harm, and weapon range.
      * @param weaponName a String which cannot be null or "".
      * @param weaponManufacturer a String which must be a valid manufacturer
      *     name as defined by Database.manufacturerList. Cannot be null.
      * @param weaponLicense a License which can be any License. Cannot be null.
      * @param weaponSize an int which must be between 0 and 4 (inclusive).
      * @param weaponType an int which must be between 0 and 9 (inclusive).
-     * @param weaponDamage a Damage[] which cannot be null or contain null
-     *     elements.
+     * @param weaponHarm a Harm[] which cannot be null or contain null elements.
      * @param weaponRange a RangeTag[] which cannot be null or contain null
      *     elements.
      */
     public Weapon(String weaponName, String weaponManufacturer,
         License weaponLicense, int weaponSize, int weaponType,
-        Damage[] weaponDamage, RangeTag[] weaponRange) {
+        Harm[] weaponHarm, RangeTag[] weaponRange) {
         super(weaponName, weaponManufacturer, weaponLicense);
         setSize(weaponSize);
         setType(weaponType);
-        setDamage(weaponDamage);
+        setHarm(weaponHarm);
         setRange(weaponRange);
     }
     /**
      * Creates a new Weapon given a weapon name, weapon size, weapon type,
-     *     weapon damage, weapon range, and an array of weapon tags.
+     *     weapon harm, weapon range, and an array of weapon tags.
      * @param weaponName a String which cannot be null or "".
      * @param weaponManufacturer a String which must be a valid manufacturer
      *     name as defined by Database.manufacturerList. Cannot be null.
      * @param weaponLicense a License which can be any License. Cannot be null.
      * @param weaponSize an int which must be between 0 and 4 (inclusive).
      * @param weaponType an int which must be between 0 and 9 (inclusive).
-     * @param weaponDamage a Damage[] which cannot be null or contain null
+     * @param weaponHarm a Harm[] which cannot be null or contain null
      *     elements.
      * @param weaponRange a RangeTag[] which cannot be null or contain null
      *     elements.
@@ -158,9 +156,9 @@ public final class Weapon extends Equipment {
      */
     public Weapon(String weaponName, String weaponManufacturer,
         License weaponLicense, int weaponSize, int weaponType,
-        Damage[] weaponDamage, RangeTag[] weaponRange, Tag[] weaponTags) {
+        Harm[] weaponHarm, RangeTag[] weaponRange, Tag[] weaponTags) {
         this(weaponName, weaponManufacturer, weaponLicense, weaponSize,
-            weaponType, weaponDamage, weaponRange);
+            weaponType, weaponHarm, weaponRange);
         setTags(weaponTags);
     }
     /**
@@ -173,7 +171,7 @@ public final class Weapon extends Equipment {
         //     (Equipment.setTags()) called by Weapon(String, int, Tag[])
         //     already does so
         this(weapon.name, weapon.manufacturer, weapon.license, weapon.size,
-            weapon.type, weapon.damage, weapon.range, weapon.tags);
+            weapon.type, weapon.harm, weapon.range, weapon.tags);
     }
 
     public int getSize() {
@@ -182,8 +180,8 @@ public final class Weapon extends Equipment {
     public int getType() {
         return type;
     }
-    public Damage[] getDamage() {
-        return damage;
+    public Harm[] getHarm() {
+        return harm;
     }
     public RangeTag[] getRange() {
         return range;
@@ -214,26 +212,22 @@ public final class Weapon extends Equipment {
     private void setType(int type) {
         this.type = type;
     }
-    public void setDamage(Damage[] damage) {
-        if (damage == null) {
-            throw new IllegalArgumentException("damage is null");
+    public void setHarm(Harm[] harm) {
+        if (harm == null) {
+            throw new IllegalArgumentException("harm is null");
         }
-        if (damage.length < 1) {
-            throw new IllegalArgumentException("damage.length value: "
-                + damage.length + " is < 1");
+        if (harm.length < 1) {
+            throw new IllegalArgumentException("harm.length value: "
+                + harm.length + " is < 1");
         }
-        for (Damage damageTag : damage) {
-            if (damageTag == null) {
-                throw new IllegalArgumentException("damage array contains a"
+        for (Harm harmTag : harm) {
+            if (harmTag == null) {
+                throw new IllegalArgumentException("harm array contains a"
                     + " null element");
             }
-            if (damageTag.getType().equals("burn_damage")) {
-                throw new IllegalArgumentException("damage array contains an"
-                    + " element with a Damage.type value of \"burn_damage\"");
-            }
         }
-        damage = HelperMethods.copyOf(damage);
-        this.damage = damage;
+        harm = HelperMethods.copyOf(harm);
+        this.harm = harm;
     }
     public void setRange(RangeTag[] range) {
         if (range == null) {

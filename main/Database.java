@@ -7,7 +7,7 @@ import packages.characterTypes.mech.Mount;
 import packages.characterTypes.mech.equipment.MechSystem;
 import packages.characterTypes.mech.equipment.Tag;
 import packages.characterTypes.mech.equipment.Weapon;
-import packages.coreTypes.Damage;
+import packages.coreTypes.Harm;
 import packages.coreTypes.License;
 import packages.coreTypes.RangeTag;
 
@@ -61,8 +61,8 @@ public final class Database {
     private static Weapon[] weaponList = new Weapon[] {
         new Weapon("Prototype Weapon I", "N/A",
             new License("Integrated Weapon", 1),
-            1, 9, new Damage[] {
-                new Damage("variable", "1d6",
+            1, 9, new Harm[] {
+                new Harm("variable", "1d6",
                     2),
             }, new RangeTag[] {
                 new RangeTag("Threat", 1),
@@ -71,8 +71,8 @@ public final class Database {
         ),
         new Weapon("Prototype Weapon II", "N/A",
             new License("Integrated Weapon", 1),
-            1, 9, new Damage[] {
-                new Damage("variable", "1d6",
+            1, 9, new Harm[] {
+                new Harm("variable", "1d6",
                     2),
             }, new RangeTag[] {
                 new RangeTag("Threat", 1),
@@ -81,8 +81,8 @@ public final class Database {
         ),
         new Weapon("Prototype Weapon III", "N/A",
             new License("Integrated Weapon", 1),
-            1, 9, new Damage[] {
-                new Damage("variable", "1d6",
+            1, 9, new Harm[] {
+                new Harm("variable", "1d6",
                     4),
             }, new RangeTag[] {
                 new RangeTag("Threat", 1),
@@ -220,9 +220,9 @@ new MechSystem("Pattern-A Smoke Charges", "GMS",
 new Weapon("HHS-075 \"Flayer\" Shotgun",
     "IPS-N",
     new License("Integrated Weapon", 1),
-    1, 0, new Damage[] {
+    1, 0, new Harm[] {
         // TODO: allow seperate values for the two weapon profiles
-        new Damage("Kinetic", "1d6", 1)
+        new Harm("Kinetic", "1d6", 1)
     }, new RangeTag[] {
         // TODO: allow seperate values for the two weapon profiles
         new RangeTag("Range", 3),
@@ -341,8 +341,8 @@ new Frame(new License("Swallowtail", 2),
         license.addContent(
 new Weapon("Vulture DMR", "SSC",
     new License("Swallowtail", 2), 1,
-    5, new Damage[] {
-        new Damage("Kinetic", "1d6", 1)
+    5, new Harm[] {
+        new Harm("Kinetic", "1d6", 1)
     }, new RangeTag[] {
         new RangeTag("Range", 15)
     }, new Tag[] {
@@ -365,12 +365,12 @@ new MechSystem("ATHENA-Class NHP", "SSC",
         license.addContent(
 new Weapon("Apocalypse Rail", "HA",
     new License("Integrated Weapon", 1),
-    4, 7, new Damage[] {
+    4, 7, new Harm[] {
         // TODO: add different values for all the weapon profiles
         // TODO: here I chose to represent "N/A" damage and range the same way I
         //     represent the Mimic Gun's "???" damage and range, as "" + 0
         //     Variable damage and -1 range
-        new Damage("Variable", "", 0)
+        new Harm("Variable", "", 0)
     }, new RangeTag[] {
         new RangeTag("Range", -1)
     }, new Tag[] {
@@ -441,8 +441,8 @@ new Frame(new License("Kobold", 2),
         license.addContent(
 new Weapon("Slag Cannon", "HORUS",
     new License("Kobold", 2), 1,
-    1, new Damage[] {
-        new Damage("Energy", "1d6", 0)
+    1, new Harm[] {
+        new Harm("Energy", "1d6", 0)
     }, new RangeTag[] {
         new RangeTag("Range", 8)
     }, new Tag[] {
