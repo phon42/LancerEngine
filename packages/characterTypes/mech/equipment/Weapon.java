@@ -94,6 +94,29 @@ public final class Weapon extends Equipment {
     private RangeTag[] range;
 
     /**
+     * Creates a new Weapon given a weapon name, weapon size, weapon type, and
+     *     weapon damage.
+     * @param weaponName a String which cannot be null or "".
+     * @param weaponManufacturer a String which must be a valid manufacturer
+     *     name as defined by Database.manufacturerList. Cannot be null.
+     * @param weaponLicense a License which can be any License. Cannot be null.
+     * @param weaponSize an int which must be between 0 and 4 (inclusive).
+     * @param weaponType an int which must be between 0 and 9 (inclusive).
+     * @param weaponDamage a Damage[] which cannot be null or contain null
+     *     elements.
+     */
+    public Weapon(String weaponName, String weaponManufacturer,
+        License weaponLicense, int weaponSize, int weaponType,
+        Damage[] weaponDamage) {
+        super(weaponName, weaponManufacturer, weaponLicense);
+        setSize(weaponSize);
+        setType(weaponType);
+        setDamage(weaponDamage);
+        setRange(new RangeTag[] {
+            new RangeTag("threat", 1)
+        });
+    }
+    /**
      * Creates a new Weapon given a weapon name, weapon size, weapon type,
      *     weapon damage, and weapon range.
      * @param weaponName a String which cannot be null or "".

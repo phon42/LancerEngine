@@ -60,8 +60,8 @@ public class State {
      * - "source" - The life time of the source 
      * Case-insensitive and stored in lowercase.
      */
-    protected static final String[] allowedDurations = new String[] {"round",
-        "turn", "permanent", "until removed", "source"};
+    protected static final String[] allowedDurations = new String[] {"1 round",
+        "1 turn", "permanent", "until removed", "source"};
 
     public State(String type, String source, String duration) {
         setType(type);

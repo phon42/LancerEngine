@@ -1,8 +1,8 @@
 package packages.characterTypes.mech;
 
+import main.HelperMethods;
 import packages.characterTypes.mech.equipment.Weapon;
 import packages.characterTypes.pilot.Talent;
-import main.HelperMethods;
 
 /**
  * See pg. 32.
