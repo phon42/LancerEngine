@@ -4,8 +4,14 @@
  * - Can the environment take heat or burn? - no and kind of (takes the damage
  *       but doesn't track burn)
  * - pg. 73 - "Unless specified otherwise, all weapons default to 1 THREAT."
- *     Does this mean ALL weapons have 1 threat automatically? Or just when they
- *     don't have a range value specified?
+ *       Does this mean ALL weapons have 1 threat automatically? Or just when
+ *       they don't have a range value specified?
+ * - Can you Invade multiple times in one turn, choosing different options each
+ *       time?
+ * - same for activate (quick)?
+ * - when you seperate Boost into several movements, does the second+ movement
+ *       also trigger systems or traits that work off of Boosting?
+ * - What speed are reactions?
  */
 // TODO: implement this whole list
 /**
