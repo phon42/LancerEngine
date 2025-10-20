@@ -18,7 +18,7 @@ public class Damage {
      * See pgs. 67 and 104.
      */
     public static final String[] allowedTypes = new String[] {"kinetic",
-        "explosive", "energy", "variable", "heat", "burn"};
+        "explosive", "energy", "burn"};
     /**
      * The amount of dice damage dealt (i.e. "1d6", representing the "1d6" in
      *     "1d6+2").
@@ -53,7 +53,7 @@ public class Damage {
     public int getFlatValue() {
         return flatValue;
     }
-    private void setType(String type) {
+    protected void setType(String type) {
         HelperMethods.checkString("type", type);
         type = type.toLowerCase();
         // TODO: create methods like this for all the checkable final arrays
@@ -63,7 +63,7 @@ public class Damage {
         }
         this.type = type;
     }
-    private void setDiceValue(String diceValue) {
+    protected void setDiceValue(String diceValue) {
         if (diceValue == null) {
             throw new IllegalArgumentException("diceValue is null");
         }
@@ -74,7 +74,7 @@ public class Damage {
             this.diceValue = diceValue;
         }
     }
-    private void setFlatValue(int flatValue) {
+    protected void setFlatValue(int flatValue) {
         if (flatValue < -1) {
             throw new IllegalArgumentException("flat value value: " + flatValue
                 + " is < -1");
