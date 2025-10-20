@@ -1395,7 +1395,7 @@ public final class Mech implements Damageable {
         if (damage == null) {
             throw new IllegalArgumentException("damage is null");
         }
-        // TODO: damage is being rolled here
+        // damage is being rolled here
         remainingDamage = Roll.roll(damage.getDiceValue());
         remainingDamage += damage.getFlatValue();
         while (remainingDamage > 0) {
@@ -1461,7 +1461,7 @@ public final class Mech implements Damageable {
                     + " heatFlatValue is 0");
             }
         }
-        // TODO: heat is being rolled here
+        // heat is being rolled here
         remainingHeat = Roll.roll(heatDiceValue);
         remainingHeat += heatFlatValue;
         while (remainingHeat > 0) {
@@ -1522,7 +1522,7 @@ public final class Mech implements Damageable {
                     + " burnFlatValue is 0");
             }
         }
-        // TODO: burn is being rolled here
+        // burn is being rolled here
         burnAmount = Roll.roll(burnDiceValue);
         burnAmount += burnFlatValue;
         receiveDamage(new Damage("burn", "", burnAmount));

@@ -1255,7 +1255,7 @@ public final class Pilot implements Damageable {
         if (damage == null) {
             throw new IllegalArgumentException("damage is null");
         }
-        // TODO: damage is being rolled here
+        // damage is being rolled here
         remainingDamage = Roll.roll(damage.getDiceValue());
         remainingDamage += damage.getFlatValue();
         damageToTake = Math.min(remainingDamage, this.currentHP);
@@ -1301,7 +1301,7 @@ public final class Pilot implements Damageable {
                     + " heatFlatValue is 0");
             }
         }
-        // TODO: heat is being rolled here
+        // heat is being rolled here
         remainingHeat = Roll.roll(heatDiceValue);
         remainingHeat += heatFlatValue;
         receiveDamage(new Damage("energy", "",
@@ -1339,7 +1339,7 @@ public final class Pilot implements Damageable {
                     + " burnFlatValue is 0");
             }
         }
-        // TODO: burn is being rolled here
+        // burn is being rolled here
         burnAmount = Roll.roll(burnDiceValue);
         burnAmount += burnFlatValue;
         receiveDamage(new Damage("burn", "", burnAmount));

@@ -190,7 +190,7 @@ public class TerrainUnit implements Damageable {
         if (damage == null) {
             throw new IllegalArgumentException("damage is null");
         }
-        // TODO: damage is being rolled here
+        // damage is being rolled here
         damageAmount = Roll.roll(damage.getDiceValue());
         damageAmount += damage.getFlatValue();
         damageToTake = Math.min(damageAmount, this.currentHP);
@@ -267,7 +267,7 @@ public class TerrainUnit implements Damageable {
                     + " burnFlatValue is 0");
             }
         }
-        // TODO: burn is being rolled here
+        // burn is being rolled here
         burnAmount = Roll.roll(burnDiceValue);
         burnAmount += burnFlatValue;
         receiveDamage(new Damage("energy", "",

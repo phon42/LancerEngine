@@ -19,7 +19,6 @@ import main.HelperMethods;
  *     placeholder. None of its properties have allowed values of null.
  */
 public class Action {
-    // TODO: reminder to add handing over control (see pg. 107)
     // TODO: remember that pilots in cascading mechs can only use the SHUT DOWN
     //     action (see pg. 107)
     // TODO: fill out
@@ -118,6 +117,7 @@ public class Action {
     // TODO: what speed are reactions?
     /**
      * Contains an array of valid names of base actions.
+     * See pgs. 68 - 76 and 107.
      */
     private static final String[] baseActionNames = {"boost", "continue boost",
         "grapple", "hide", "quick tech", "ram", "search", "skirmish", "barrage",
