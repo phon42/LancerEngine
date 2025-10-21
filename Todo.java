@@ -33,6 +33,14 @@
  * - reactions
  * - implement reallocation of licenses on levelup (pg. 18)
  * - implement full repairs - see pgs. 33, 49, 71, 73 and 81 - 82
+ * - add downloading of data from online and .lcps given to the program:
+ *   - https://github.com/massif-press/lancer-data/tree/master
+ *   - https://github.com/massif-press/compcon
+ *   - https://github.com/massif-press/cc-lcp-editor
+ *   - https://cc-lcp-editor.netlify.app/#/
+ *   - https://stackoverflow.com/questions/2591098/how-to-parse-json-in-java
+ *   - https://github.com/stleary/JSON-java
+ *   - https://www.json.org/json-en.html
  * - downtime actions and reserves I guess.. - pgs. 53 - 55 for downtime
  * 
  * Probably best saved for next level of abstraction:
