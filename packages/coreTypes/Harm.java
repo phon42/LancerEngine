@@ -173,4 +173,31 @@ public class Harm extends Damage {
         }
         return true;
     }
+    /**
+     * Evaluates the amount of harm listed to be dealt by this Harm object.
+     * @return an int containing the result.
+     */
+    public int roll() {
+        if (this.type.equals("variable")) {
+            throw new IllegalArgumentException("Cannot deal Variable damage."
+                + " Call Harm.toDamage() on this instead or create a Damage"
+                + "object with this Harm object's properties");
+        }
+        try {
+            return this.toDamage().roll();
+        } catch (IllegalArgumentException exception) {
+            throw new IllegalArgumentException("Could not convert to a Damage"
+                + " object. Harm.roll() cannot be called on a Harm object with"
+                + " these values");
+        }
+    }
+    /**
+     * Converts this Harm object to a Damage object.
+     * @return a Damage object containing this Harm object's values.
+     * @throws IllegalArgumentExpression if this Harm object's values are
+     *     invalid for a Damage object.
+     */
+    public Damage toDamage() {
+        return new Damage(this.type, this.diceValue, this.flatValue);
+    }
 }

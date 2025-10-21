@@ -169,4 +169,12 @@ public class Damage {
         }
         return true;
     }
+    /**
+     * Evaluates the amount of damage listed to be dealt by this Damage object.
+     * @return an int containing the result.
+     */
+    public int roll() {
+        // damage is being rolled here
+        return Roll.roll(this.diceValue) + Roll.roll(this.flatValue);
+    }
 }

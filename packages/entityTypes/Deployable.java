@@ -150,6 +150,8 @@ public class Deployable implements Damageable {
      *     Harm.flatValue is < 1.
      */
     public void receiveHarm(Harm harm) {
+        Damage damage;
+
         if (harm == null) {
             throw new IllegalArgumentException("harm is null");
         }
@@ -162,18 +164,20 @@ public class Deployable implements Damageable {
             throw new IllegalArgumentException("harm.diceValue is \"\" and"
                 + " harm.flatValue value: " + harm.getFlatValue() + " is < 1");
         }
+        damage = harm.toDamage();
         if (harm.getType().equals("heat")) {
-            receiveHeat(harm.getDiceValue(), harm.getFlatValue());
+            receiveHeat(damage);
         } else if (harm.getType().equals("burn")) {
-            receiveBurn(harm.getDiceValue(), harm.getFlatValue());
+            receiveBurn(damage);
         } else {
-            receiveDamage(new Damage(harm.getType(), harm.getDiceValue(),
-                harm.getFlatValue()));
+            receiveDamage(damage);
         }
     }
     /**
      * Deals damage to this Deployable.
      * @param damage a Damage containing the damage to deal. Cannot be null.
+     * @throws IllegalArgumentException if any parameters have invalid values as
+     *     detailed above.
      */
     private void receiveDamage(Damage damage) {
         // TODO: fill out with damage mitigation - armor, resistance etc
@@ -185,8 +189,7 @@ public class Deployable implements Damageable {
             throw new IllegalArgumentException("damage is null");
         }
         // damage is being rolled here
-        damageAmount = Roll.roll(damage.getDiceValue());
-        damageAmount += damage.getFlatValue();
+        damageAmount = damage.roll();
         damageToTake = Math.min(damageAmount, this.currentHP);
         newCurrentHP = this.currentHP - damageToTake;
         setCurrentHP(newCurrentHP);
@@ -199,70 +202,46 @@ public class Deployable implements Damageable {
     }
     /**
      * Does nothing because Deployables don't receive heat.
-     * @param heatDiceValue a String which must be "" or a valid dice
-     *     expression. Cannot be "" if heatFlatValue is 0.
-     * @param heatFlatValue an int containing the amount of flat heat to deal.
-     *     Must be > -1. Cannot be 0 if heatDiceValue is "".
+     * @param heat a Damage containing the heat to deal which must have a
+     *     Damage.type value of "heat". Cannot be null.
      * @throws IllegalArgumentException if any parameters have invalid values as
      *     detailed above.
      */
-    private void receiveHeat(String heatDiceValue, int heatFlatValue) {
+    private void receiveHeat(Damage heat) {
         // TODO: fill out with mitigation, resistance etc
-        boolean isBlank = false;
-        boolean isValidExpression = false;
+        int heatAmount;
 
-        if (heatDiceValue == null) {
-            throw new IllegalArgumentException("heatDiceValue is null");
+        if (heat == null) {
+            throw new IllegalArgumentException("heat is null");
         }
-        isBlank = heatDiceValue.equals("");
-        isValidExpression = Roll.isValidExpression(heatDiceValue);
-        if ((! isBlank) && (! isValidExpression)) {
-            throw new IllegalArgumentException("heatDiceValue value: \""
-                + heatDiceValue + "\" is neither \"\" nor a valid dice"
-                + " expression");
+        if (! heat.getType().equals("heat")) {
+            throw new IllegalArgumentException("heat has a Damage.type value"
+                + " of: \"" + heat.getType() + "\"");
         }
-        if (heatFlatValue == 0) {
-            if (isBlank) {
-                throw new IllegalArgumentException("heatDiceValue is \"\" and"
-                    + " heatFlatValue is 0");
-            }
-        }
+        // heat is being rolled here
+        heatAmount = heat.roll();
         // do nothing, according to Petrichor
     }
     /**
      * Deals burn to this Deployable.
-     * @param burnDiceValue a String which must be "" or a valid dice
-     *     expression. Cannot be "" if burnFlatValue is 0.
-     * @param burnFlatValue an int containing the amount of flat burn to deal.
-     *     Must be > -1. Cannot be 0 if burnDiceValue is "".
+     * @param burn a Damage containing the burn to deal which must have a
+     *     Damage.type value of "burn". Cannot be null.
      * @throws IllegalArgumentException if any parameters have invalid values as
      *     detailed above.
      */
-    private void receiveBurn(String burnDiceValue, int burnFlatValue) {
+    private void receiveBurn(Damage burn) {
         // TODO: fill out with mitigation, resistance etc
-        boolean isBlank = false;
-        boolean isValidExpression = false;
         int burnAmount;
 
-        if (burnDiceValue == null) {
-            throw new IllegalArgumentException("burnDiceValue is null");
+        if (burn == null) {
+            throw new IllegalArgumentException("burn is null");
         }
-        isBlank = burnDiceValue.equals("");
-        isValidExpression = Roll.isValidExpression(burnDiceValue);
-        if ((! isBlank) && (! isValidExpression)) {
-            throw new IllegalArgumentException("burnDiceValue value: \""
-                + burnDiceValue + "\" is neither \"\" nor a valid dice"
-                + " expression");
-        }
-        if (burnFlatValue == 0) {
-            if (isBlank) {
-                throw new IllegalArgumentException("burnDiceValue is \"\" and"
-                    + " burnFlatValue is 0");
-            }
+        if (! burn.getType().equals("burn")) {
+            throw new IllegalArgumentException("burn has a Damage.type value"
+                + " of: \"" + burn.getType() + "\"");
         }
         // burn is being rolled here
-        burnAmount = Roll.roll(burnDiceValue);
-        burnAmount += burnFlatValue;
+        burnAmount = burn.roll();
         // TODO: fill out - Deployables do in fact receive burn
     }
     public void destroy() {
