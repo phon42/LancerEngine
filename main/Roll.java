@@ -2,6 +2,7 @@ package main;
 
 import java.util.Random;
 import packages.entityTypes.pilot.skillTriggersList.SkillTrigger;
+import main.roll.Expression;
 
 /**
  * See pgs. 12 - 14 and 45 - 47.
@@ -61,7 +62,7 @@ public final class Roll {
      *     unclosed parentheses, or at any point in the expression contains more
      *     closed parentheses than open ones.
      */
-    private static void checkRolls(String rollString) {
+    public static void checkRolls(String rollString) {
         int height = 0;
         String rollChar = "";
 
@@ -216,7 +217,7 @@ public final class Roll {
         int keep;
         int keepNum;
 
-        if (! Roll.isValidExpression(rollString)) {
+        if (! Expression.isValid(rollString)) {
             // rollString might be of the form "X", in which case that's fine if
             //     we can recover an int from it
             isValue = true;
@@ -415,7 +416,7 @@ public final class Roll {
      * @return an int containing the random result.
      * @throws IllegalArgumentException if maxRoll is < 2.
      */
-    private static int roll(int maxRoll) {
+    public static int roll(int maxRoll) {
         double randomNum;
         int result;
 
@@ -550,7 +551,7 @@ public final class Roll {
      *     minimum of 1.
      * @return an int containing the total result.
      */
-    private static int roll(int rollNum, int maxRoll, int keep, int keepNum) {
+    public static int roll(int rollNum, int maxRoll, int keep, int keepNum) {
         return rollComplex(rollNum, maxRoll, keep, keepNum)[0];
     }
     /**
@@ -897,33 +898,50 @@ public final class Roll {
         return result;
     }
     /**
-     * Checks whether the provided String is a valid dice expression. In other
-     *     words, if it is in one of the following forms:
-     * - "XdYkhZ"
-     * - "XdYklZ"
-     * - "dYkhZ"
-     * - "dYklZ"
-     * - "dYkh"
-     * - "dYkl"
-     * - "XdYkh"
-     * - "XdYkl"
-     * - "XdY"
-     * - "dY"
-     * Note: "X" is NOT allowed because that is a constant, not a dice
-     *     expression.
-     * @param expression a String which must be a dice expression as defined
-     *     above. Cannot be null.
-     * @return a boolean containing the result of the check.
+     * Formats a provided expression, cleaning out any unnecessary characters.
+     *     expression is assumed to have been run through Roll.checkRolls(),
+     *     then Roll.formatRolls(), then Roll.removeParen(), then
+     *     Roll.parseRolls().
+     * Therefore, it is assumed to not contain any characters other than the
+     *     digits 0 - 9, the letters "d", "k", "h", and "l", and parentheses. At
+     *     this point, characters such as spaces, operators ("+", "-", "*",
+     *     "/"), and other junk characters have been removed. Additionally,
+     *     expression is entirely in lowercase.
+     * @param expression a String which can be any String. Is assumed to not be
+     *     "" or null. Is assumed to be entirely in lowercase.
+     * @return a String containing the formatted String.
      */
-    public static boolean isValidExpression(String expression) {
-        if (expression == null) {
-            throw new IllegalArgumentException("expression is null");
-        }
-        expression = expression.toLowerCase();
-        if (expression.equals("")) {
-            return false;
-        }
+    public static String formatExpression(String expression) {
         // TODO: fill out
-        return true;
+        // TODO: have it replace any combination of "d", "k", "h", and "l"
+        //     that isn't "d", "kh", and "kl" exactly (i.e. "dd")
+        final String[] allowedLetters = {"d", "k", "h", "l"};
+        String rollChar = "";
+        String newRollString = "";
+
+        // At this point, newRollString does not contain any characters that
+        //     aren't listed in allowedChars. rollString is unchanged.
+        // Now, we will attempt to strip any combinations of "d", "k", "h", and
+        //     "l" that lead to an irregular pattern (for example, "dd", or
+        //     "dkd"). These Strings are technically composed of allowed
+        //     characters, but the characters are used in a syntactically
+        //     nonsensical way.
+        // We will begin by sectioning the String into runs of letters and
+        //     digits. Letters will be left as-is, and digits will be replaced
+        //     with a "#" symbol.
+        for (int i = 0; i < allowedLetters.length; i++) {
+            for (int j = 0; j < allowedLetters.length; j++) {
+                rollChar = allowedLetters[i];
+                rollChar += allowedLetters[j];
+                if (rollChar.equals("kh")
+                    || rollChar.equals("kl")) {
+                    continue;
+                }
+                newRollString = newRollString.replaceAll(rollChar,
+                    allowedLetters[i]);
+            }
+        }
+
+        return expression;
     }
 }

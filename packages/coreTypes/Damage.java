@@ -2,6 +2,7 @@ package packages.coreTypes;
 
 import main.HelperMethods;
 import main.Roll;
+import main.roll.DiceExpression;
 
 /**
  * See pgs. 67 and 104.
@@ -24,7 +25,7 @@ public class Damage {
      * The amount of dice damage dealt (i.e. "1d6", representing the "1d6" in
      *     "1d6+2").
      * Can be any String that contains a valid dice expression as defined by
-     *     Roll.isValidExpression(). Can be "" as long as this.flatValue is not
+     *     DiceExpression.isValid(). Can be "" as long as this.flatValue is not
      *     0. Cannot be null.
      * Case-insensitive and stored in lowercase.
      */
@@ -33,7 +34,7 @@ public class Damage {
      * The amount of flat damage dealt (i.e. 2, representing the "2" in
      *     "1d6+2").
      * Must be a minimum of 1. Can be 0 as long as this.diceValue is a valid
-     *     dice expression as defined by Roll.isValidExpression().
+     *     dice expression as defined by DiceExpression.isValid().
      */
     protected int flatValue;
 
@@ -75,7 +76,7 @@ public class Damage {
      *     taken care of in Damage() by calling Damage.checkValidity()
      *     immediately after everything has been set.
      * @param diceValue a String which must be "" or a valid dice expression as
-     *     defined by Roll.isValidExpression().
+     *     defined by DiceExpression.isValid().
      */
     protected void setDiceValue(String diceValue) {
         boolean isBlank = false;
@@ -86,7 +87,7 @@ public class Damage {
         }
         diceValue = diceValue.toLowerCase();
         isBlank = diceValue.equals("");
-        isValidExpression = Roll.isValidExpression(diceValue);
+        isValidExpression = DiceExpression.isValid(diceValue);
         if ((! isBlank) && (! isValidExpression)) {
             // diceValue is neither "" nor a valid dice expression - not allowed
             throw new IllegalArgumentException("Cannot set diceValue to a value"
@@ -102,7 +103,7 @@ public class Damage {
         }
         if (flatValue == 0) {
             // diceValue must be a valid dice expression
-            if (! Roll.isValidExpression(this.diceValue)) {
+            if (! DiceExpression.isValid(this.diceValue)) {
                 throw new IllegalArgumentException("Cannot set flatValue to a"
                     + " value of 0 while Damage.diceValue is: \""
                     + this.diceValue + "\" (an invalid dice expression)");
@@ -152,7 +153,7 @@ public class Damage {
     private boolean isValid() {
         boolean isValidExpression = false;
 
-        isValidExpression = Roll.isValidExpression(this.diceValue);
+        isValidExpression = DiceExpression.isValid(this.diceValue);
         // this.diceValue must be a valid dice expression OR this.flatValue must
         //     not be 0 (in which case this.diceValue can be "").
         if (this.flatValue == 0) {

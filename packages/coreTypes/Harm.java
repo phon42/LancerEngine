@@ -1,7 +1,7 @@
 package packages.coreTypes;
 
 import main.HelperMethods;
-import main.Roll;
+import main.roll.DiceExpression;
 
 /**
  * See pgs. 67 and 104.
@@ -25,7 +25,7 @@ public class Harm extends Damage {
      * The amount of dice harm dealt (i.e. "1d6", representing the "1d6" in
      *     "1d6+2").
      * Can be any String that is "" or a valid dice expression as defined by
-     *     Roll.isValidExpression(). Cannot be null.
+     *     DiceExpression.isValid(). Cannot be null.
      * Case-insensitive and stored in lowercase.
      */
     // private String diceValue;
@@ -35,7 +35,7 @@ public class Harm extends Damage {
      *     "1d6+2").
      * Must be a minimum of 1. Can be -1 if this.diceValue is "". Can be 0 if
      *     this.diceValue is a valid dice expression as defined by
-     *     Roll.isValidExpression().
+     *     DiceExpression.isValid().
      */
     // private int flatValue;
 
@@ -71,7 +71,7 @@ public class Harm extends Damage {
      *     assumed that this will be taken care of in Harm() by calling
      *     Harm.checkValidity() immediately after everything has been set.
      * @param diceValue a String which must be "" or a valid dice expression as
-     *     defined by Roll.isValidExpression(). Cannot be null.
+     *     defined by DiceExpression.isValid(). Cannot be null.
      */
     @Override
     protected void setDiceValue(String diceValue) {
@@ -83,7 +83,7 @@ public class Harm extends Damage {
         }
         diceValue = diceValue.toLowerCase();
         isBlank = diceValue.equals("");
-        isValidExpression = Roll.isValidExpression(diceValue);
+        isValidExpression = DiceExpression.isValid(diceValue);
         // (! isBlank) && (! isValidExpression) is equivalent to the below
         //     expression
         if (! (isBlank || isValidExpression)) {
@@ -154,7 +154,7 @@ public class Harm extends Damage {
         // Therefore we will only be using isValidExpression in this method to
         //     determine whether this.diceValue and this.flatValue are set to a
         //     valid combination of values.
-        isValidExpression = Roll.isValidExpression(this.diceValue);
+        isValidExpression = DiceExpression.isValid(this.diceValue);
         if (! isValidExpression) {
             // isValidExpression is false; therefore this.diceValue is ""
             // this.flatValue is allowed to be -1 or any int > 0 in this case
