@@ -1,6 +1,7 @@
 package main;
 
 import main.database.FrameEnum;
+import main.roll.DiceExpression;
 import packages.coreTypes.Harm;
 import packages.coreTypes.License;
 import packages.coreTypes.RangeTag;
@@ -62,7 +63,7 @@ public final class Database {
         new Weapon("Prototype Weapon I", "N/A",
             new License("Integrated Weapon", 1),
             1, 9, new Harm[] {
-                new Harm("variable", "1d6",
+                new Harm("variable", new DiceExpression("1d6"),
                     2),
             }, new RangeTag[] {
                 new RangeTag("Threat", 1),
@@ -72,7 +73,7 @@ public final class Database {
         new Weapon("Prototype Weapon II", "N/A",
             new License("Integrated Weapon", 1),
             1, 9, new Harm[] {
-                new Harm("variable", "1d6",
+                new Harm("variable", new DiceExpression("1d6"),
                     2),
             }, new RangeTag[] {
                 new RangeTag("Threat", 1),
@@ -82,7 +83,7 @@ public final class Database {
         new Weapon("Prototype Weapon III", "N/A",
             new License("Integrated Weapon", 1),
             1, 9, new Harm[] {
-                new Harm("variable", "1d6",
+                new Harm("variable", new DiceExpression("1d6"),
                     4),
             }, new RangeTag[] {
                 new RangeTag("Threat", 1),
@@ -222,7 +223,8 @@ new Weapon("HHS-075 \"Flayer\" Shotgun",
     new License("Integrated Weapon", 1),
     1, 0, new Harm[] {
         // TODO: allow seperate values for the two weapon profiles
-        new Harm("Kinetic", "1d6", 1)
+        new Harm("Kinetic", new DiceExpression("1d6"),
+            1)
     }, new RangeTag[] {
         // TODO: allow seperate values for the two weapon profiles
         new RangeTag("Range", 3),
@@ -342,7 +344,7 @@ new Frame(new License("Swallowtail", 2),
 new Weapon("Vulture DMR", "SSC",
     new License("Swallowtail", 2), 1,
     5, new Harm[] {
-        new Harm("Kinetic", "1d6", 1)
+        new Harm("Kinetic", new DiceExpression("1d6"), 1)
     }, new RangeTag[] {
         new RangeTag("Range", 15)
     }, new Tag[] {
@@ -370,7 +372,7 @@ new Weapon("Apocalypse Rail", "HA",
         // TODO: here I chose to represent "N/A" damage and range the same way I
         //     represent the Mimic Gun's "???" damage and range, as "" + 0
         //     Variable damage and -1 range
-        new Harm("Variable", "", -1)
+        new Harm("Variable", null, -1)
     }, new RangeTag[] {
         new RangeTag("Range", -1)
     }, new Tag[] {
@@ -442,7 +444,8 @@ new Frame(new License("Kobold", 2),
 new Weapon("Slag Cannon", "HORUS",
     new License("Kobold", 2), 1,
     1, new Harm[] {
-        new Harm("Energy", "1d6", 0)
+        new Harm("Energy", new DiceExpression("1d6"),
+            0)
     }, new RangeTag[] {
         new RangeTag("Range", 8)
     }, new Tag[] {

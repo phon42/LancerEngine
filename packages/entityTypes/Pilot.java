@@ -1294,7 +1294,7 @@ public final class Pilot implements Damageable {
         }
         // heat is being rolled here
         remainingHeat = heat.roll();
-        receiveDamage(new Damage("energy", "",
+        receiveDamage(new Damage("energy", null,
             remainingHeat));
     }
     /**
@@ -1317,7 +1317,7 @@ public final class Pilot implements Damageable {
         }
         // burn is being rolled here
         burnAmount = burn.roll();
-        receiveDamage(new Damage(burn.getType(), "", burnAmount));
+        receiveDamage(new Damage(burn.getType(), null, burnAmount));
         addBurn(burnAmount);
     }
     /**
@@ -1384,7 +1384,7 @@ public final class Pilot implements Damageable {
         // burn check - see pg. 67.
         if (! Roll.evaluateCheck(Roll.check(3, this.mechSkills))) {
             // If the burn check fails
-            receiveDamage(new Damage("burn", "",
+            receiveDamage(new Damage("burn", null,
                 this.burn));
         }
     }

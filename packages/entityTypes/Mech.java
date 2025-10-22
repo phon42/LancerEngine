@@ -1500,7 +1500,7 @@ public final class Mech implements Damageable {
         }
         // burn is being rolled here
         burnAmount = burn.roll();
-        receiveDamage(new Damage(burn.getType(), "", burnAmount));
+        receiveDamage(new Damage(burn.getType(), null, burnAmount));
         addBurn(burnAmount);
     }
     /**
@@ -1577,7 +1577,7 @@ public final class Mech implements Damageable {
         // burn check - see pg. 67.
         if (! Roll.evaluateCheck(Roll.check(3, mechSkills))) {
             // If the burn check fails
-            receiveDamage(new Damage("burn", "",
+            receiveDamage(new Damage("burn", null,
                 this.burn));
         }
     }

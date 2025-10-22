@@ -249,7 +249,7 @@ public class TerrainUnit implements Damageable {
         }
         // burn is being rolled here
         burnAmount = burn.roll();
-        receiveDamage(new Damage("energy", "",
+        receiveDamage(new Damage("energy", null,
             burnAmount));
     }
     public void destroy() {

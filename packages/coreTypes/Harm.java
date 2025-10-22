@@ -24,30 +24,27 @@ public class Harm extends Damage {
     /**
      * The amount of dice harm dealt (i.e. "1d6", representing the "1d6" in
      *     "1d6+2").
-     * Can be any String that is "" or a valid dice expression as defined by
-     *     DiceExpression.isValid(). Cannot be null.
-     * Case-insensitive and stored in lowercase.
+     * Can be any DiceExpression. Can be null.
      */
     // private String diceValue;
     // TODO: figure out a way to override the documentation from Damage
     /**
      * The amount of flat harm dealt (i.e. 2, representing the "2" in
      *     "1d6+2").
-     * Must be a minimum of 1. Can be -1 if this.diceValue is "". Can be 0 if
-     *     this.diceValue is a valid dice expression as defined by
-     *     DiceExpression.isValid().
+     * Must be a minimum of 1. Can be -1 if this.diceValue is null. Can be 0 if
+     *     this.diceValue is a DiceExpression.
      */
     // private int flatValue;
 
-    public Harm(String harmType, String harmDice, int harmFlatAmount) {
-        super("kinetic", "", 1);
+    public Harm(String harmType, DiceExpression harmDice, int harmFlatAmount) {
+        super("kinetic", null, 1);
         setType(harmType);
         setDiceValue(harmDice);
         setFlatValue(harmFlatAmount);
         checkValidity();
     }
     public Harm(Harm harm) {
-        super(new Damage("kinetic", "",
+        super(new Damage("kinetic", null,
             1));
         setType(harm.type);
         setDiceValue(harm.diceValue);
@@ -70,28 +67,11 @@ public class Harm extends Damage {
      * Warning: this mutator DOES NOT protect any number of invalid cases. It is
      *     assumed that this will be taken care of in Harm() by calling
      *     Harm.checkValidity() immediately after everything has been set.
-     * @param diceValue a String which must be "" or a valid dice expression as
-     *     defined by DiceExpression.isValid(). Cannot be null.
+     * @param diceValue a DiceExpression which can be any DiceExpression. Can be
+     *     null.
      */
     @Override
-    protected void setDiceValue(String diceValue) {
-        boolean isBlank = false;
-        boolean isValidExpression = false;
-
-        if (diceValue == null) {
-            throw new IllegalArgumentException("diceValue is null");
-        }
-        diceValue = diceValue.toLowerCase();
-        isBlank = diceValue.equals("");
-        isValidExpression = DiceExpression.isValid(diceValue);
-        // (! isBlank) && (! isValidExpression) is equivalent to the below
-        //     expression
-        if (! (isBlank || isValidExpression)) {
-            // diceValue is neither "" nor a valid dice expression - not allowed
-            throw new IllegalArgumentException("Cannot set diceValue to a value"
-                + " of: \"" + diceValue + "\" (neither \"\" nor a valid dice"
-                + " expression)");
-        }
+    protected void setDiceValue(DiceExpression diceValue) {
         this.diceValue = diceValue;
     }
     /**
@@ -134,8 +114,8 @@ public class Harm extends Damage {
     private void checkValidity() {
         if (! isValid()) {
             throw new IllegalArgumentException("Cannot create a Harm object"
-                + " with a Harm.diceValue value of: \"" + this.diceValue + "\""
-                + " and a Harm.flatValue of: " + this.flatValue);
+                + " with a Harm.diceValue value of: " + this.diceValue + " and"
+                + " a Harm.flatValue of: " + this.flatValue);
         }
     }
     /**
@@ -144,33 +124,22 @@ public class Harm extends Damage {
      * @return a boolean containing the result of the check.
      */
     private boolean isValid() {
-        boolean isValidExpression = false;
+        boolean isNull = this.diceValue == null;
 
-        // isBlank must be (! isValidExpression) because (isBlank = false,
-        //     isValidExpression = false) is not possible because it is guarded
-        //     against in Harm.setDiceValue(), and (isBlank = true,
-        //     isValidExpression = true) is not possible because a blank String
-        //     is not a valid dice expression.
-        // Therefore we will only be using isValidExpression in this method to
-        //     determine whether this.diceValue and this.flatValue are set to a
-        //     valid combination of values.
-        isValidExpression = DiceExpression.isValid(this.diceValue);
-        if (! isValidExpression) {
-            // isValidExpression is false; therefore this.diceValue is ""
+        if (isNull) {
             // this.flatValue is allowed to be -1 or any int > 0 in this case
             if (this.flatValue == 0) {
                 // it is neither of those values
                 return false;
             }
         } else {
-            // isValidExpression is true; therefore this.diceValue is something
-            //     like "1d6"
             // this.flatValue is allowed to be any int > 0
             if (this.flatValue == -1) {
                 // it is not
                 return false;
             }
         }
+
         return true;
     }
     /**

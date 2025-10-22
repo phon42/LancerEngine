@@ -22,23 +22,21 @@ public class Damage {
     public static final String[] allowedTypes = new String[] {"kinetic",
         "explosive", "energy", "burn"};
     /**
-     * The amount of dice damage dealt (i.e. "1d6", representing the "1d6" in
-     *     "1d6+2").
-     * Can be any String that contains a valid dice expression as defined by
-     *     DiceExpression.isValid(). Can be "" as long as this.flatValue is not
-     *     0. Cannot be null.
-     * Case-insensitive and stored in lowercase.
+     * The amount of dice damage dealt (i.e. a DiceExpression representing
+     *     "1d6", representing the "1d6" in "1d6+2").
+     * Can be any DiceExpression. Can be null as long as this.flatValue is not
+     *     0.
      */
-    protected String diceValue;
+    protected DiceExpression diceValue;
     /**
      * The amount of flat damage dealt (i.e. 2, representing the "2" in
      *     "1d6+2").
-     * Must be a minimum of 1. Can be 0 as long as this.diceValue is a valid
-     *     dice expression as defined by DiceExpression.isValid().
+     * Must be a minimum of 1. Can be 0 as long as this.diceValue isn't null.
      */
     protected int flatValue;
 
-    public Damage(String damageType, String damageDice, int damageFlatAmount) {
+    public Damage(String damageType, DiceExpression damageDice,
+        int damageFlatAmount) {
         setType(damageType);
         setDiceValue(damageDice);
         setFlatValue(damageFlatAmount);
@@ -54,7 +52,7 @@ public class Damage {
     public String getType() {
         return type;
     }
-    public String getDiceValue() {
+    public DiceExpression getDiceValue() {
         return diceValue;
     }
     public int getFlatValue() {
@@ -72,28 +70,13 @@ public class Damage {
     }
     /**
      * Warning: this mutator DOES NOT protect against this.diceValue being set
-     *     to "" while this.flatValue is 0. It is assumed that this will be
+     *     to null while this.flatValue is 0. It is assumed that this will be
      *     taken care of in Damage() by calling Damage.checkValidity()
      *     immediately after everything has been set.
-     * @param diceValue a String which must be "" or a valid dice expression as
-     *     defined by DiceExpression.isValid().
+     * @param diceValue a DiceExpression which can be any DiceExpression. Can be
+     *     null.
      */
-    protected void setDiceValue(String diceValue) {
-        boolean isBlank = false;
-        boolean isValidExpression = false;
-
-        if (diceValue == null) {
-            throw new IllegalArgumentException("diceValue is null");
-        }
-        diceValue = diceValue.toLowerCase();
-        isBlank = diceValue.equals("");
-        isValidExpression = DiceExpression.isValid(diceValue);
-        if ((! isBlank) && (! isValidExpression)) {
-            // diceValue is neither "" nor a valid dice expression - not allowed
-            throw new IllegalArgumentException("Cannot set diceValue to a value"
-                + " of: \"" + diceValue + "\" (neither \"\" nor a valid dice"
-                + " expression)");
-        }
+    protected void setDiceValue(DiceExpression diceValue) {
         this.diceValue = diceValue;
     }
     protected void setFlatValue(int flatValue) {
@@ -102,16 +85,11 @@ public class Damage {
                 + " is < 0");
         }
         if (flatValue == 0) {
-            // diceValue must be a valid dice expression
-            if (! DiceExpression.isValid(this.diceValue)) {
+            // diceValue must be a DiceExpression
+            if (this.diceValue == null) {
                 throw new IllegalArgumentException("Cannot set flatValue to a"
-                    + " value of 0 while Damage.diceValue is: \""
-                    + this.diceValue + "\" (an invalid dice expression)");
+                    + " value of 0 while Damage.diceValue is null");
             }
-        } else {
-            // diceValue must be "" or a valid dice expression, which we have
-            //     already taken care of through Damage.setDiceValue()'s filters
-            // so no checking is necessary
         }
         this.flatValue = flatValue;
     }
@@ -153,21 +131,16 @@ public class Damage {
     private boolean isValid() {
         boolean isValidExpression = false;
 
-        isValidExpression = DiceExpression.isValid(this.diceValue);
-        // this.diceValue must be a valid dice expression OR this.flatValue must
-        //     not be 0 (in which case this.diceValue can be "").
+        isValidExpression = this.diceValue == null;
+        // this.diceValue must be a DiceExpression OR this.flatValue must not be
+        //     0 (in which case this.diceValue can be null).
         if (this.flatValue == 0) {
-            // this.diceValue must be a valid dice expression
+            // this.diceValue must be a DiceExpression
             if (! isValidExpression) {
                 return false;
             }
-        } else {
-            // this.diceValue must be "" or a valid dice expression
-            // any in-between cases are taken care of by Damage.setDiceValue
-            // therefore we know that this.diceValue is EITHER "" or a valid
-            //     dice expression
-            // so no checking is necessary
         }
+
         return true;
     }
     /**
@@ -176,6 +149,10 @@ public class Damage {
      */
     public int roll() {
         // damage is being rolled here
-        return Roll.roll(this.diceValue) + Roll.roll(this.flatValue);
+        if (this.diceValue == null) {
+            return Roll.roll(this.flatValue);
+        }
+
+        return this.diceValue.roll() + Roll.roll(this.flatValue);
     }
 }

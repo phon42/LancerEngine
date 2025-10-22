@@ -189,7 +189,7 @@ public class Drone implements Damageable {
             throw new IllegalArgumentException("damage is null");
         }
         // damage is being rolled here
-        damageAmount = Roll.roll(damage.getDiceValue());
+        damageAmount = damage.getDiceValue().roll();
         damageAmount += damage.getFlatValue();
         damageToTake = Math.min(damageAmount, this.currentHP);
         newCurrentHP = this.currentHP - damageToTake;
