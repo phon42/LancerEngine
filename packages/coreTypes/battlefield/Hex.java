@@ -108,6 +108,57 @@ package packages.coreTypes.battlefield;
  *     and s as parameter names instead of i, j, and k to avoid confusion. All
  *     computation will be done in the q, r, s or cube/axial system as much as
  *     possible.
+ * =============================================================================
+ * It is possible to calculate a "direction" for a Hex's position based on two
+ *     different methods, detailed at
+ *     https://www.redblobgames.com/grids/hexagons/directions.html.
+ * 
+ * The second of these methods calculates the Hex's "diagonal direction"; in
+ *     other words, the axis along which the Hex's position lies with respect to
+ *     the origin.
+ * 
+ * The absolute value of the direction varies with the relative values of |i|,
+ *     |j|, and |k|.
+ * - For a |direction| of 2, in which |i| is the maximum of the three, the Hex's
+ *       position lies directly along the i axis.
+ * - For a |direction| of 4, in which |j| is the maximum of the three, the Hex's
+ *       position lies directly along the j axis.
+ * - For a |direction| of 6, in which |k| is the maximum of the three, the Hex's
+ *       position lies directly along the k axis.
+ * The above values are used when the Hex's coordinates consist of one value
+ *     whose absolute value is unequivocally larger than those of the others,
+ *     and two values that are exactly the same.
+ * - More specifically, the sign of the direction value is dependant on the sign
+ *       of the coordinate involved. For i and j, the sign of the direction
+ *       value is the same as the sign of the coordinate value. For example, a
+ *       positive i value leads to a direction value of +2, while a negative i
+ *       value leads to a direction value of -2. However, for k (in other words,
+ *       for directions whose absolute value is 6), the sign of the direction
+ *       value is the opposite of the sign of the coordinate value.
+ * 
+ * However, it is also possible for two coordinate values to tie for the spot of
+ *     maximum, or for all three coordinates to have completely different
+ *     absolute values. This is true whenever the Hex lies between two axes
+ *     instead of directly along one. We will denote this situation by using a
+ *     value that is halfway between the two directions as follows:
+ * - Between diagonal directions 2 and 4, direction is 3, adopting the sign
+ *       that is common to the two direction values. In this case, the Hex lies
+ *       between the i and k axes; whether in the positive or negative direction
+ *       of the i axis is communicated by the sign of the direction value.
+ * - Between diagonal directions 4 and 6, direction is 5, adopting the sign that
+ *       is common to the two direction values. In this case, the Hex lies
+ *       between the j and k axes; whether in the positive or negative direction
+ *       of the j axis is communicated by the sign of the direction value.
+ * - Between diagonal directions 6 and 2, direction is 1, adopting the sign of
+ *       the direction with an absolute value of 2. In this case, the Hex lies
+ *       between the i and j axes; whether in the positive or negative direction
+ *       of the i axis is communicated by the sign of the direction value.
+ * 
+ * Finally, all three values are equal if the Hex's coordinates are (0, 0, 0);
+ *     in other words, at the origin. This will be represented by a diagonal
+ *     direction value of 0.
+ * 
+ * This diagonal direction value is calculated by the method Hex.getDirection().
  */
 /**
  * Represents a single hex cell on a grid. Contains coordinates specifying a
@@ -237,5 +288,27 @@ public class Hex {
      */
     public int getDist(Hex hex) {
         return this.getDist(hex.getI(), hex.getJ());
+    }
+    /**
+     * Returns the "diagonal direction" the Hex lies in, represented as an int
+     *     from -6 to 6 (inclusive). See the header documentation for Hex for
+     *     more information.
+     * @return an int from -6 to 6 (inclusive) containing the diagonal direction
+     *     of this Hex.
+     */
+    public int getDirection() {
+        int aI = Math.abs(this.i);
+        int aJ = Math.abs(this.j);
+        int k;
+        int aK;
+
+        if (aI == aJ) {
+            // only happens in one place - at the origin
+            return 0;
+        }
+        k = this.getK();
+        aK = Math.abs(k);
+
+        return 0;
     }
 }
