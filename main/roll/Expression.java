@@ -1,7 +1,5 @@
 package main.roll;
 
-import main.Roll;
-
 public class Expression extends DiceExpression {
     private boolean containsD = false;
 
@@ -45,10 +43,16 @@ public class Expression extends DiceExpression {
         if (this.containsD) {
             toDiceExpression(expression);
         } else {
-            // String is of the form "X"
-            this.rollNum = Integer.parseInt(expression);
+            // String is of the form "X" (hopefully)
+            try {
+                this.rollNum = Integer.parseInt(expression);
+            } catch (NumberFormatException exception) {
+                throw new IllegalArgumentException("Unable to extract a rollNum"
+                    + " value from value: \"" + expression + "\"");
+            }
         }
     }
+
     /**
      * Checks whether the provided String is a valid expression. In other words,
      *     if it is in one of the following forms:
@@ -68,40 +72,13 @@ public class Expression extends DiceExpression {
      * @return a boolean containing the result of the check.
      */
     public static boolean isValid(String expression) {
-        boolean isDiceExpression;
-        int result;
-
-        if (expression == null) {
-            throw new IllegalArgumentException("expression is null");
-        }
-        expression = expression.toLowerCase();
-        if (expression.equals("")) {
+        try {
+            new Expression(expression);
+            return true;
+        } catch (IllegalArgumentException exception) {
             return false;
         }
-        Roll.checkRolls(expression);
-        expression = Roll.formatExpression(expression);
-        expression = Roll.removeParen(expression);
-        isDiceExpression = DiceExpression.isValid(expression);
-        if (! isDiceExpression) {
-            // last chance for redemption - expression could be of the form "X"
-            try {
-                result = Integer.parseInt(expression);
-                if (result < 0) {
-                    // expressions of the form "X" where X < 0 are not allowed
-                    return false;
-                }
-                // X >= 0 so this is allowed
-                return true;
-            } catch (NumberFormatException e) {
-                // expression is of some weird format
-                return false;
-            }
-        }
-
-        // expression is a valid expression
-        return true;
     }
-
     public int roll() {
         if (containsD) {
             return super.roll();
