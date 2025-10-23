@@ -1,9 +1,9 @@
 package packages.entityTypes.mech.equipment;
 
 import main.HelperMethods;
-import packages.coreTypes.Harm;
-import packages.coreTypes.License;
-import packages.coreTypes.RangeTag;
+import packages.coreTypes.mechanics.Harm;
+import packages.coreTypes.mechanics.License;
+import packages.coreTypes.mechanics.RangeTag;
 import packages.entityTypes.mech.Equipment;
 
 /**

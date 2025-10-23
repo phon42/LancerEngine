@@ -1,7 +1,7 @@
 package packages.entityTypes.mech;
 
 import main.HelperMethods;
-import packages.coreTypes.License;
+import packages.coreTypes.mechanics.License;
 import packages.entityTypes.frameLicenseSystem.frameLicense.LicenseContent;
 import packages.entityTypes.mech.equipment.Tag;
 

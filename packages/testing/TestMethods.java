@@ -2,7 +2,7 @@ package packages.testing;
 
 import main.Database;
 import main.database.FrameEnum;
-import packages.coreTypes.License;
+import packages.coreTypes.mechanics.License;
 import packages.entityTypes.Mech;
 import packages.entityTypes.Pilot;
 import packages.entityTypes.mech.Frame;

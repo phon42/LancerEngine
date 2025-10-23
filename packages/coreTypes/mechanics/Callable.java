@@ -1,4 +1,4 @@
-package packages.coreTypes;
+package packages.coreTypes.mechanics;
 
 public class Callable {
     public void run() {}

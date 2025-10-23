@@ -1,4 +1,4 @@
-package packages.coreTypes;
+package packages.coreTypes.mechanics;
 
 import main.HelperMethods;
 import main.Roll;

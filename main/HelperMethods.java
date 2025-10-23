@@ -1,9 +1,9 @@
 package main;
 
-import packages.coreTypes.Damage;
-import packages.coreTypes.Harm;
-import packages.coreTypes.License;
-import packages.coreTypes.RangeTag;
+import packages.coreTypes.mechanics.Damage;
+import packages.coreTypes.mechanics.Harm;
+import packages.coreTypes.mechanics.License;
+import packages.coreTypes.mechanics.RangeTag;
 import packages.entityTypes.mech.Frame;
 import packages.entityTypes.mech.Mount;
 import packages.entityTypes.mech.equipment.MechSystem;

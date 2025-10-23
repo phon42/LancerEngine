@@ -2,8 +2,8 @@ package main;
 
 import java.util.HashMap;
 
-import packages.coreTypes.Harm;
-import packages.coreTypes.License;
+import packages.coreTypes.mechanics.Harm;
+import packages.coreTypes.mechanics.License;
 import packages.entityTypes.Mech;
 import packages.entityTypes.Pilot;
 import packages.entityTypes.mech.Frame;

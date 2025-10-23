@@ -1,7 +1,7 @@
 package packages.entityTypes.mech.equipment;
 
 import main.HelperMethods;
-import packages.coreTypes.License;
+import packages.coreTypes.mechanics.License;
 import packages.entityTypes.mech.Equipment;
 
 /**

@@ -91,21 +91,25 @@ public final class Roll {
      * Formats a provided rollString, removing any invalid characters and all
      *     spaces. rollString is assumed to have been run through
      *     Roll.checkRolls().
+     * rollString is a roll string, meaning that it can be of a form such as
+     *     "1d6 + 3"; in other words, multiple single expressions joined by any
+     *     number of operators, with parentheses and junk characters sprinkled
+     *     throughout.
      * @param rollString a String which can be any String. Is assumed to not be
      *     "" or null.
      * @return a String containing the formatted String.
      */
-    private static String formatRolls(String rollString,
-        boolean throwOnIllegal) {
-        // TODO: have it replace any combination of "d", "k", "h", and "l"
-        //     that isn't "d", "kh", and "kl" exactly (i.e. "dd")
-        String[] allowedChars = {"0", "1", "2", "3", "4", "5", "6", "7",
+    private static String formatRolls(String rollString, boolean throwOnIllegal)
+    {
+        final String[] allowedChars = {"0", "1", "2", "3", "4", "5", "6", "7",
             "8", "9", "d", "k", "h", "l", "(", ")", "+", "-", "*", "/"};
-        String newRollString = "";
-        String rollChar = "";
         boolean isAllowed = false;
+        String rollChar = "";
+        String newRollString = "";
 
         rollString = rollString.toLowerCase();
+        // Clear every character that isn't present within allowedChars (spaces,
+        //     for example)
         for (int i = 0; i < rollString.length(); i++) {
             isAllowed = false;
             for (int j = 0; j < allowedChars.length; j++) {
@@ -121,9 +125,8 @@ public final class Roll {
                     + rollChar + "'");
             }
         }
-        rollString = newRollString;
 
-        return rollString;
+        return newRollString;
     }
     /**
      * Evaluates a provided expression containing math and dice rolls.
@@ -155,19 +158,36 @@ public final class Roll {
 
         // At this point, the String is assumed to be of one of the forms
         //     allowed by makeRoll().
-        return makeRoll(rollString);
+        return new Expression(rollString).roll();
     }
     public static String removeParen(String rollString) {
         // convert "(((9)))" to "9" and "((2) ((2)))" to "(2) ((2))"
+        // Additionally, remove empty parentheses (i.e. "()")
         int minLevel = -1;
         int localMinimum = 0;
         int height = 0;
         String rollChar = "";
 
+        // if there are no parentheses to remove do nothing
         if (rollString.indexOf("(") == -1
             && rollString.indexOf(")") == -1) {
             return rollString;
         }
+        // Remove any double parentheses (something of the form "abcd()efg")
+        rollString = rollString.replaceAll("\\(\\)", "");
+
+        // Track the level of nesting throughout the String
+        // For example:
+        // (abcde(fghijk))
+        //       ^
+        // ^     Nesting level at this point is +2
+        // Nesting level at this point is +1
+        // If there is a minimum level of nesting that is greater than 0, that
+        //     signifies that there is some number of parentheses that are
+        //     layered around some inner section of text like this:
+        //     "((abcd(efg)))"
+        // Therefore, there is some number of parentheses on each side that can
+        //     be removed without changing meaning
         for (int i = 0; i < rollString.length(); i++) {
             rollChar = rollString.substring(i, i + 1);
             if (rollChar.equals("(")) {
@@ -184,138 +204,23 @@ public final class Roll {
             }
         }
         if (minLevel == 0) {
+            // For example, something of the form "((abcde))fghi"
             return rollString;
         }
+        // minLevel cannot be < 0 because this was already checked for in
+        //     Roll.checkRolls()
+        // Therefore, minLevel must be > 0 at this point
+        // So there is some number of parentheses (minLevel) on each side which
+        //     can be removed
+        // Remove them
         rollString = rollString.substring(minLevel);
-        rollString = rollString.substring(rollString.length() - minLevel,
-            rollString.length());
+        rollString = rollString.substring(0, rollString.length()
+            - minLevel);
 
         return rollString;
     }
     // TODO: change from int to int[] with the result in index 0 and all the
     //     rolls made trailing that to allow users to see what was rolled
-    /**
-     * Takes in a String of the form "XdYkhZ" or "XdYklZ" or "dYkhZ" or "dYklZ"
-     *     or "dYkh" or "dYkl" or "XdYkh" or "XdYkl" or "XdY" or "dY" or "X" and
-     *     makes the dice roll(s), if any, dictated by that String.
-     * @param rollString a String which can be any String of the forms described
-     *     above. Is assumed to not be null.
-     * @return an int containing the result of the expression.
-     */
-    private static int makeRoll(String rollString) {
-        boolean isValue = false;
-        boolean containsKeepHighest = false;
-        boolean containsKeepLowest = false;
-        boolean containsKeep = false;
-        boolean containsX = false;
-        boolean containsZ = false;
-        boolean containsD = false;
-        String[] substring;
-        String[] substring2 = new String[0];
-        int rollNum;
-        int maxRoll;
-        int keep;
-        int keepNum;
-
-        if (! Expression.isValid(rollString)) {
-            // rollString might be of the form "X", in which case that's fine if
-            //     we can recover an int from it
-            isValue = true;
-            try {
-                Integer.parseInt(rollString);
-            } catch (NumberFormatException exception) {
-                // rollString is of some weird format, or might be ""
-                throw new IllegalArgumentException("rollString value: \""
-                    + rollString + "\" is not a valid rollString");
-            }
-            throw new IllegalArgumentException("rollString value: \""
-                + rollString + "\" is not a valid dice expression");
-        }
-        // determining whether the expression contains any of several key
-        //     components
-        // (unnecessary if we've already determined earlier that rollString is
-        //     of the form "X")
-        if (! isValue) {
-            // splitting everything into two types: 'contains "d"' (pretty much
-            //     everything) and 'doesn't contain "d"' ("X")
-            containsD = (rollString.indexOf("d") != -1);
-            if (containsD) {
-                // splitting 'contains "d"' into two types: 'contains "kh" or "kl"'
-                //     and 'doesn't contain "kh" or "kl"'
-                containsKeepHighest = (rollString.indexOf("kh") != -1);
-                containsKeepLowest = (rollString.indexOf("kl") != -1);
-                containsKeep = containsKeepHighest || containsKeepLowest;
-                // could be of the form "XdY" or "dY" (for either one, what's after
-                //     Y doesn't matter), and we need to know which
-                substring = rollString.split("d");
-                if (! substring[0].equals("")) {
-                    containsX = true;
-                }
-            }
-            if (containsKeepHighest) {
-                if (rollString.split("kh").length > 1) {
-                    containsZ = true;
-                }
-            } else if (containsKeepLowest) {
-                if (rollString.split("kl").length > 1) {
-                    containsZ = true;
-                }
-            }
-        } else {
-            // rollString is of the form "X"
-            containsX = true;
-        }
-        // now to actually evaluate the expression
-        if (containsD) {
-            // String is of the form "XdYkhZ" or "XdYklZ" or "dYkhZ" or "dYklZ"
-            //     or "dYkh" or "dYkl" or "XdYkh" or "XdYkl" or "XdY" or "dY"
-            substring = rollString.split("d");
-            if (containsKeep) {
-                // String is of the form "XdYkhZ" or "XdYklZ" or "dYkhZ" or
-                //     "dYklZ" or "dYkh" or "dYkl" or "XdYkh" or "XdYkl"
-                if (containsX) {
-                    // String is of the form "XdYkhZ" or "XdYklZ" or "XdYkh" or
-                    //     "XdYkl"
-                    rollNum = Integer.parseInt(substring[0]);
-                } else {
-                    // String is of the form "dYkhZ" or "dYklZ" or "dYkh" or
-                    //     "dYkl"
-                    rollNum = 1;
-                }
-                if (containsKeepHighest) {
-                    substring2 = substring[1].split("kh");
-                    keep = +1;
-                } else if (containsKeepLowest) {
-                    substring2 = substring[1].split("kl");
-                    keep = -1;
-                } else {
-                    throw new IllegalArgumentException();
-                }
-                maxRoll = Integer.parseInt(substring2[0]);
-                if (containsZ) {
-                    keepNum = Integer.parseInt(substring2[1]);
-                } else {
-                    keepNum = 1;
-                }
-
-                return roll(rollNum, maxRoll, keep, keepNum);
-            } else if (containsX) {
-                // String is of the form "XdY"
-                rollNum = Integer.parseInt(substring[0]);
-                maxRoll = Integer.parseInt(substring[1]);
-
-                return roll(rollNum, maxRoll);
-            } else {
-                // String is of the form "dY"
-                maxRoll = Integer.parseInt(substring[substring.length - 1]);
-
-                return roll(maxRoll);
-            }
-        } else {
-            // String is of the form "X"
-            return Integer.parseInt(rollString);
-        }
-    }
     /**
      * Rolls (rollNum)d(maxRoll)s, keeping the highest (or lowest, based on
      *     keep) (keepNum) rolls.

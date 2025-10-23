@@ -2,9 +2,9 @@ package main;
 
 import main.database.FrameEnum;
 import main.roll.DiceExpression;
-import packages.coreTypes.Harm;
-import packages.coreTypes.License;
-import packages.coreTypes.RangeTag;
+import packages.coreTypes.mechanics.Harm;
+import packages.coreTypes.mechanics.License;
+import packages.coreTypes.mechanics.RangeTag;
 import packages.entityTypes.frameLicenseSystem.FrameLicense;
 import packages.entityTypes.mech.Frame;
 import packages.entityTypes.mech.Mount;

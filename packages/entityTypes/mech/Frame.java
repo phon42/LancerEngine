@@ -2,7 +2,7 @@ package packages.entityTypes.mech;
 
 import main.HelperMethods;
 import main.database.FrameEnum;
-import packages.coreTypes.License;
+import packages.coreTypes.mechanics.License;
 import packages.entityTypes.frameLicenseSystem.frameLicense.LicenseContent;
 
 /**
