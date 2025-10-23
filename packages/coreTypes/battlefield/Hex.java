@@ -1,17 +1,24 @@
 package packages.coreTypes.battlefield;
 
 /**
+ * See pg. 65.
+ */
+/**
  * Hexes in this project are "pointy" as defined by
  *     https://www.redblobgames.com/grids/hexagons/#coordinates-cube; in other
  *     words, they are aligned such that two vertices face along the vertical
  *     axis; two of their sides lie parallel to the vertical axis, as opposed to
  *     the "flat" alignment in which two vertices face the horizontal axis and
  *     two sides lie parallel to the horizontal axis.
- * Uses a combination of the cube/axial coordinate system from
+ * This decision was made based on pg. 65, in which a battlefield area is
+ *     depicted using hexes that are in the "pointy" orientation.
+ * 
+ * This class uses a combination of the cube/axial coordinate system from
  *     https://www.redblobgames.com/grids/hexagons/#coordinates-cube and the
  *     coordinate system specified on
  *     https://h3geo.org/docs/core-library/coordsystems/, specifically within
  *     this image: https://h3geo.org/images/ijkp.png.
+ * 
  * The two coordinates stored by the Hex, i and j, respectively represent the q
  *     and r coordinates defined on
  *     https://www.redblobgames.com/grids/hexagons/#coordinates-cube. Therefore,
