@@ -191,6 +191,10 @@ public class Area {
         int iVal = 0;
         int jVal = 0;
         int kVal;
+        // For Lines and Cones, represents whether the two control points lie in
+        //     a manner such that a line can be drawn between them that is
+        //     perpendicular to one of a "pointy"-orientated hexagon's six
+        //     sides.
         boolean isAxial = false;
         int[] dirArray;
         int hexIndex;
@@ -207,7 +211,7 @@ public class Area {
             if (isAxial) {
                 // if any one axis is 0 that means that controlPoints[0] to
                 //     controlPoints[1] forms a line that is perpendicular to
-                //     one of a hexagon's 6 sides
+                //     one of a "pointy"-orientated hexagon's 6 sides
                 // this makes the resulting area easier to calculate
                 iVal /= this.value;
                 jVal /= this.value;
@@ -229,24 +233,46 @@ public class Area {
                     + " in yet sorry");
             }
         } else if (this.type.equals("cone")) {
-            // there are two types of cone that lie on one of the 6 diagonal
+            // There are two types of cone that lie on one of the 6 diagonal
             //     direction axes defined in Hex:
-            // - edge-on, where the line passes through an edge of each
-            //       hexagonal cell - something like (0, 0, 0) to (1, 1, -2).
-            //       See the rightmost cone diagrammed on pg. 65.
-            // - corner-on, where the line passes through a corner of each
-            //       hexagonal cell - something like (0, 0, 0) to (0, 2, -2).
-            //       See the leftmost cone diagrammed on pg. 65.
+            // - edge-on, where the line drawn between the cone's control points
+            //       passes through an edge of each hexagonal cell - something
+            //       like (0, 0, 0) to (0, 2, -2). See the leftmost cone
+            //       diagrammed on pg. 65.
+            // - corner-on, where the line drawn between the cone's control
+            //       points passes through a vertex of each hexagonal cell -
+            //       something like (0, 0, 0) to (1, 1, -2). See the rightmost
+            //       cone diagrammed on pg. 65.
+            // However, cones exist whose line drawn between control points does
+            //     NOT lie directly along any of the 6 diagonal axes. For
+            //     example, a cone from (0, 0, 0) to (1, 2, -3). In this case,
+            //     it is much more difficult to calculate the spaces occupied.
             // isAxial being true automatically tells us that the cone is
-            //     edge-on and lies on an axial line. however, if it is false,
-            //     it is still entirely possible to get an easy-to-calculate
-            //     cone pattern if the cone is a corner-on cone that lies on one
-            //     of the diagonal direction axes with an odd absolute value.
-            // we will distinguish these cases first.
+            //     edge-on. however, if it is false, it is still entirely
+            //     possible to get an easy-to-calculate cone pattern if the cone
+            //     is a corner-on cone, and therefore lies on one of the
+            //     diagonal direction axes with an odd absolute value.
+            // We will distinguish these cases first.
             if (isAxial) {
-                // edge-on cone that lies axially
+                // edge-on cone
+                throw new IllegalArgumentException("haven't programmed this"
+                    + " in yet sorry");
+            } else {
+                // could be a corner-on cone or a regular old cone
+                hexIndex = new Hex(this.controlPoints[1].getI()
+                    - this.controlPoints[0].getI(), this.controlPoints[1].getJ()
+                    - this.controlPoints[0].getJ()).getDirection();
+                if (hexIndex % 2 == 0) {
+                    // this is a corner-on cone
+                    throw new IllegalArgumentException("haven't programmed this"
+                        + " in yet sorry");
+                } else {
+                    // this is just a regular old cone. much more difficult to
+                    //     calculate
+                    throw new IllegalArgumentException("haven't programmed this"
+                        + " in yet sorry");
+                }
             }
-            // TODO: fix
         } else if (this.type.equals("blast")) {
             // A hexagonal formula of my own making; h0 is 1, h1 is 7, h2 is 19,
             //     etc.. following the formula h_n = 3n(n - 1) + 1
@@ -254,9 +280,12 @@ public class Area {
             output = new Hex[hexIndex];
             dirArray = new int[] {5, -1, -3, -5, 1, 3};
             hexIndex = 0;
+            // we will iteratively create larger and larger rings around the
+            //     center which we then add to the array
             for (int i = 0; i < this.value + 1; i++) {
                 // actually do the work of the i loop
-                output[hexIndex] = new Hex(i, - i);
+                output[hexIndex] = new Hex(this.controlPoints[0].getI() + i,
+                    this.controlPoints[0].getJ() - i);
                 // for a ring of size 0 you only need one space
                 // so skip doing each side
                 if (i == 0) {
@@ -275,7 +304,8 @@ public class Area {
                         output[hexIndex] = new Hex(output[hexIndex - 1]);
                         if (k == 0) {
                             // the hex being created this iteration lies
-                            //     perpendicular to one of the center's sides
+                            //     perpendicular to one of the
+                            //     ("pointy"-orientated) center's sides
                             // in other words, this ring forms a giant,
                             //     "flat"-orientated hexagon, and this hex lies
                             //     at one of that hexagon's vertices
@@ -283,7 +313,7 @@ public class Area {
                         } else {
                             // the hex being created this iteration lies between
                             //     the axes created by the lines perpendicular
-                            //     to the center's sides
+                            //     to the ("pointy"-orientated) center's sides
                             // in other words, this ring forms a giant,
                             //     "flat"-orientated hexagon, and this hex lies
                             //     along the middle of one of that hexagon's
@@ -295,6 +325,8 @@ public class Area {
                 }
             }
         } else { // this.type is "burst"
+            throw new IllegalArgumentException("haven't programmed this in"
+                + " yet sorry");
         }
 
         setSpaces(output);
