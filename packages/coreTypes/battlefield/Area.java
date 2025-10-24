@@ -253,6 +253,9 @@ public class Area {
             //     is a corner-on cone, and therefore lies on one of the
             //     diagonal direction axes with an odd absolute value.
             // We will distinguish these cases first.
+            // See https://www.reddit.com/r/LancerRPG/comments/1cci18l/comment/l15kdil/,
+            //     https://www.reddit.com/r/LancerRPG/comments/1cci18l/comment/l15qoa2/,
+            //     and https://www.reddit.com/r/LancerRPG/comments/15vtvrp/lancer_area_of_effect_tokens_for_vtt_files_in/
             if (isAxial) {
                 // edge-on cone
                 throw new IllegalArgumentException("haven't programmed this"
