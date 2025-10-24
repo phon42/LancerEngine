@@ -230,7 +230,68 @@ public class Hex {
     public void move(int dI, int dJ, int dK) {
         move(dI - dK, dK - dJ);
     }
+    /**
+     * Moves this Hex (distance) spaces in the provided diagonal direction.
+     * @param direction an int which must be between -6 and +6 (inclusive).
+     * @param distance an int which must be >= 0.
+     * @throws IllegalArgumentException if direction is not between -6 and +6
+     *     (inclusive), or if distance is < 0.
+     */
+    public void moveDir(int direction, int distance) {
+        int newI;
+        int newJ;
+        int absD;
 
+        if (direction < -6) {
+            throw new IllegalArgumentException("direction value: " + direction
+                + " is < -6");
+        }
+        if (direction > 6) {
+            throw new IllegalArgumentException("direction value: " + direction
+                + " is > 6");
+        }
+        if (distance < 0) {
+            throw new IllegalArgumentException("distance value: " + distance
+                + " is < 0");
+        }
+        if (direction == 0 || distance == 0) {
+            return;
+        }
+        absD = Math.abs(direction);
+        if (absD == 1) {
+            newI = 1;
+            newJ = 1;
+        } else if (absD == 2) {
+            newI = 2;
+            newJ = -1;
+        } else if (absD == 3) {
+            newI = 1;
+            newJ = 0;
+        } else if (absD == 4) {
+            newI = 1;
+            newJ = 1;
+        } else if (absD == 5) {
+            newI = 0;
+            newJ = 1;
+        } else {
+            newI = -1;
+            newJ = 2;
+        }
+        if (direction < 0) {
+            newI *= -1;
+            newJ *= -1;
+        }
+        move(newI, newJ);
+
+    }
+    /**
+     * Helper method for Hex.moveDir(int, int). Allows it to be called with a
+     *     default value of 1 for the second int.
+     * @param direction an int which must be between -6 and +6 (inclusive).
+     */
+    public void moveDir(int direction) {
+        moveDir(direction, 1);
+    }
     /**
      * Calculates the distance between two Hexes given the coordinates that
      *     define them.
