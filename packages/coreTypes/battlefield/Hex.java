@@ -185,6 +185,14 @@ public class Hex {
         setI(i);
         setJ(j);
     }
+    /**
+     * Creates a deep copy of the provided Hex.
+     * @param hex a Hex to be copied.
+     */
+    public Hex(Hex hex) {
+        setI(hex.i);
+        setJ(hex.j);
+    }
 
     public int getI() {
         return i;
@@ -207,6 +215,28 @@ public class Hex {
         this.j = j;
     }
 
+    /**
+     * Generates a String output representing this Hex object, consisting of its
+     *     i and j coordinate values.
+     * @return a String containing a representation of this Hex object.
+     */
+    @Override
+    public String toString() {
+        return String.format("(%d, %d)", this.i, this.j);
+    }
+    /**
+     * Generates a String output representing this Hex object, consisting of its
+     *     i, j, and optionally, k, coordinate values.
+     * @param includeDetail a boolean representing whether or not to include the
+     *     k coordinate in the output.
+     * @return a String containing a representation of this Hex object.
+     */
+    public String toString(boolean includeDetail) {
+        if (includeDetail) {
+            return String.format("(%d, %d, %d)", this.i, this.j, getK());
+        }
+        return toString();
+    }
     /**
      * Moves this Hex some number of spaces dQ along the q or i axis, and some
      *     number of spaces dR along the r or j axis.
@@ -260,7 +290,7 @@ public class Hex {
         absD = Math.abs(direction);
         if (absD == 1) {
             newI = 1;
-            newJ = 1;
+            newJ = -1;
         } else if (absD == 2) {
             newI = 2;
             newJ = -1;
