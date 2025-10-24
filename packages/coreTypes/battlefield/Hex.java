@@ -324,22 +324,35 @@ public class Hex {
         // 6: j > i = k
         if (aI > aJ) {
             // |direction| is 1, 2, or 3
-            if (aJ == aK) {
-                result = 2;
-            } else if (aJ > aK) {
+            if (aJ > aK) {
                 result = 1;
-            } else {
+            } else if (aK > aJ) {
                 result = 3;
+            } else {
+                result = 2;
             }
         } else if (aJ > aI) {
-            // |direction| is 5 or 6
-            if (aI == aK) {
+            // |direction| is 1, 5, or 6
+            if (aI > aK) {
+                result = 1;
+            } else if (aK > aI) {
+                result = 5;
+            } else {
                 result = 6;
+            }
+        } else if (aK > aI) {
+            // |direction| is 4 or 5
+            if (aI == aJ) {
+                result = 4;
             } else {
                 result = 5;
             }
+        } else if (aK > aJ) {
+            // |direction| is 3
+            result = 3;
         } else {
-            result = 4;
+            // |direction| is 1
+            result = 1;
         }
         if (result < 4) {
             // |direction| is 1, 2, or 3
