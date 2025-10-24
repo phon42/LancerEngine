@@ -271,12 +271,7 @@ public class Hex {
      *     Hex.
      */
     public int getDist(int iVal, int jVal) {
-        iVal -= this.i;
-        jVal -= this.j;
-        iVal = Math.abs(iVal);
-        jVal = Math.abs(jVal);
-
-        return Math.max(iVal, jVal);
+        return new Hex(iVal - this.i,  jVal - this.j).getDist();
     }
     /**
      * Helper method for Hex.getDist(int, int), allowing it to be called with a
@@ -287,7 +282,18 @@ public class Hex {
      * @throws IllegalArgumentException if hex is null.
      */
     public int getDist(Hex hex) {
-        return this.getDist(hex.getI(), hex.getJ());
+        if (hex == null) {
+            throw new IllegalArgumentException("hex is null");
+        }
+
+        return new Hex(hex.getI() - this.i, hex.getJ() - this.j).getDist();
+    }
+    /**
+     * Calculates the distance between this Hex and the origin.
+     * @return an int containing the distance between this Hex and the origin.
+     */
+    public int getDist() {
+        return Math.max(this.i, this.j);
     }
     /**
      * Returns the "diagonal direction" the Hex lies in, represented as an int
@@ -297,18 +303,55 @@ public class Hex {
      *     of this Hex.
      */
     public int getDirection() {
-        int aI = Math.abs(this.i);
-        int aJ = Math.abs(this.j);
-        int k;
+        int aI;
+        int aJ;
         int aK;
+        int result;
 
-        if (aI == aJ) {
+        if (this.i == 0 && this.j == 0) {
             // only happens in one place - at the origin
             return 0;
         }
-        k = this.getK();
-        aK = Math.abs(k);
+        aI = Math.abs(this.i);
+        aJ = Math.abs(this.j);
+        aK = Math.abs(this.getK());
+        // Possible values for |direction| and their meanings:
+        // 1: i > j > k OR j > i > k OR i = j > k
+        // 2: i > j = k
+        // 3: i > k > j OR k > i > j OR i = k > j
+        // 4: k > i = j
+        // 5: j > k > i OR k > j > i OR j = k > i
+        // 6: j > i = k
+        if (aI > aJ) {
+            // |direction| is 1, 2, or 3
+            if (aJ == aK) {
+                result = 2;
+            } else if (aJ > aK) {
+                result = 1;
+            } else {
+                result = 3;
+            }
+        } else if (aJ > aI) {
+            // |direction| is 5 or 6
+            if (aI == aK) {
+                result = 6;
+            } else {
+                result = 5;
+            }
+        } else {
+            result = 4;
+        }
+        if (result < 4) {
+            // |direction| is 1, 2, or 3
+            result *= this.i > 0 ? 1 : -1;
+        } else if (result < 5) {
+            // |direction| is 4
+            result *= this.getK() > 0 ? -1 : 1;
+        } else {
+            // |direction| is 5 or 6
+            result *= this.j > 0 ? 1 : -1;
+        }
 
-        return 0;
+        return result;
     }
 }
