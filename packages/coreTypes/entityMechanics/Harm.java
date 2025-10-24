@@ -1,4 +1,4 @@
-package packages.coreTypes.mechanics;
+package packages.coreTypes.entityMechanics;
 
 import main.HelperMethods;
 import main.roll.DiceExpression;

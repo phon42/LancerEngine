@@ -2,7 +2,7 @@ import java.util.HashMap;
 import main.Database;
 import main.LancerCharacter;
 import main.database.FrameEnum;
-import packages.coreTypes.mechanics.License;
+import packages.coreTypes.entityMechanics.License;
 import packages.entityTypes.Mech;
 import packages.entityTypes.mech.Mount;
 import packages.entityTypes.mech.equipment.MechSystem;

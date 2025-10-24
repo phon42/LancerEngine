@@ -1,4 +1,4 @@
-package packages.coreTypes.mechanics;
+package packages.coreTypes.entityMechanics;
 
 import main.Database;
 import main.HelperMethods;

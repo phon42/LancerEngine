@@ -2,7 +2,7 @@ package packages.entityTypes.frameLicenseSystem.frameLicense;
 
 import main.Database;
 import main.HelperMethods;
-import packages.coreTypes.mechanics.License;
+import packages.coreTypes.entityMechanics.License;
 
 /**
  * Represents anything that can be put into a FrameLicense, such as a frame,

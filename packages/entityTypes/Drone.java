@@ -1,8 +1,8 @@
 package packages.entityTypes;
 
 import main.Roll;
-import packages.coreTypes.mechanics.Damage;
-import packages.coreTypes.mechanics.Harm;
+import packages.coreTypes.entityMechanics.Damage;
+import packages.coreTypes.entityMechanics.Harm;
 
 /**
  * See pgs. 58, 67, 105 - 106
