@@ -1,15 +1,15 @@
 import java.util.HashMap;
 import main.Database;
-import main.LancerCharacter;
 import main.database.FrameEnum;
+import packages.coreTypes.entityMechanics.LancerCharacter;
 import packages.coreTypes.entityMechanics.License;
-import packages.coreTypes.entityMechanics.mech.Mount;
-import packages.coreTypes.entityMechanics.mech.equipment.MechSystem;
-import packages.coreTypes.entityMechanics.pilot.Loadout;
-import packages.coreTypes.entityMechanics.pilot.SkillTriggersList;
-import packages.coreTypes.entityMechanics.pilot.Talent;
-import packages.coreTypes.entityMechanics.pilot.skillTriggersList.Skill;
-import packages.entityTypes.Mech;
+import packages.coreTypes.entityMechanics.entityTypes.Mech;
+import packages.coreTypes.entityMechanics.entityTypes.mech.Mount;
+import packages.coreTypes.entityMechanics.entityTypes.mech.equipment.MechSystem;
+import packages.coreTypes.entityMechanics.entityTypes.pilot.Loadout;
+import packages.coreTypes.entityMechanics.entityTypes.pilot.SkillTriggersList;
+import packages.coreTypes.entityMechanics.entityTypes.pilot.Talent;
+import packages.coreTypes.entityMechanics.entityTypes.pilot.skillTriggersList.Skill;
 
 /**
  * This program is intended to simulate one (or more) characters within the

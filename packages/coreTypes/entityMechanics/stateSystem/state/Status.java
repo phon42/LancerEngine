@@ -1,0 +1,69 @@
+package packages.coreTypes.entityMechanics.stateSystem.state;
+
+import main.HelperMethods;
+import packages.coreTypes.entityMechanics.stateSystem.State;
+
+/**
+ * See pg. 77.
+ * "Conditions are temporary effects caused by things like damage and electronic
+ *     warfare, whereas statuses are usually effects that can’t easily be
+ *     cleared."
+ * - pg. 77
+ */
+/**
+ * Represents a single status on a mech or pilot. Contains information about the
+ *     status' type, origin, duration, and effects.
+ * 
+ * Requires a type, source, and duration to be instantiated.
+ * 
+ * Used in Mech and Pilot.
+ * 
+ * Safety: This class does not have placeholder values and cannot be a
+ *     placeholder. At least one of its properties has an allowed value of null.
+ */
+public class Status extends State {
+    /**
+     * Contains an array of valid values for a Status.
+     */
+    private static final String[] allowedStatuses = new String[] {
+        "danger zone", "engaged", "exposed", "hidden", "invisible", "prone",
+        "shut down", "down and out"};
+    /**
+     * Contains an array of valid values for elements of Mech.statuses.
+     *     Case-insensitive and stored in lowercase.
+     */
+    public static final String[] allowedMechStatuses = new String[] {
+        "danger zone", "engaged", "exposed", "hidden", "invisible", "prone",
+        "shut down"};
+    /**
+     * Contains an array of valid values for elements of Pilot.statuses.
+     *     Case-insensitive and stored in lowercase.
+     */
+    public static final String[] allowedPilotStatuses = new String[] {
+        "down and out", "engaged", "hidden", "invisible", "prone"};
+
+    public Status(String type, String source, String duration) {
+        super(type, source, duration);
+    }
+
+    /**
+     * Sets this.type to the provided value.
+     * @param type a String which cannot be null and cannot be an invalid type,
+     *     as defined by Status.allowedStatuses.
+     * @throws IllegalArgumentException if type is null or an invalid value as
+     *     defined by Status.allowedStatuses.
+     */
+    @Override
+    protected void setType(String type) {
+        HelperMethods.checkString("New type", type);
+        type = type.toLowerCase();
+        for (String allowedType : Status.allowedStatuses) {
+            if (type.equals(allowedType)) {
+                this.type = type;
+                return;
+            }
+        }
+        throw new IllegalArgumentException("New type value is an invalid value:"
+            + " \"" + type + "\"");
+    }
+}

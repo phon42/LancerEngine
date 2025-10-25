@@ -1,18 +1,18 @@
 package main;
 
-import packages.coreTypes.entityMechanics.Damage;
-import packages.coreTypes.entityMechanics.Harm;
 import packages.coreTypes.entityMechanics.License;
 import packages.coreTypes.entityMechanics.RangeTag;
-import packages.coreTypes.entityMechanics.mech.Frame;
-import packages.coreTypes.entityMechanics.mech.Mount;
-import packages.coreTypes.entityMechanics.mech.equipment.MechSystem;
-import packages.coreTypes.entityMechanics.mech.equipment.Weapon;
-import packages.coreTypes.entityMechanics.mech.equipment.tagSystem.Tag;
-import packages.coreTypes.entityMechanics.pilot.Talent;
-import packages.coreTypes.entityMechanics.pilot.skillTriggersList.Skill;
+import packages.coreTypes.entityMechanics.entityTypes.mech.Frame;
+import packages.coreTypes.entityMechanics.entityTypes.mech.Mount;
+import packages.coreTypes.entityMechanics.entityTypes.mech.equipment.MechSystem;
+import packages.coreTypes.entityMechanics.entityTypes.mech.equipment.Weapon;
+import packages.coreTypes.entityMechanics.entityTypes.mech.equipment.tagSystem.Tag;
+import packages.coreTypes.entityMechanics.entityTypes.pilot.Talent;
+import packages.coreTypes.entityMechanics.entityTypes.pilot.skillTriggersList.Skill;
+import packages.coreTypes.entityMechanics.harmSystem.Damage;
+import packages.coreTypes.entityMechanics.harmSystem.Harm;
+import packages.coreTypes.entityMechanics.stateSystem.State;
 import packages.eventSystem.event.EventListener;
-import packages.stateSystem.State;
 
 // TODO: Use polymorphic methods or generic types or something to combine all
 //     these methods together
