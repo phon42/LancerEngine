@@ -74,7 +74,15 @@ public final class Talent {
         }
         this.level = level;
     }
-    
+
+    /**
+     * Generates a String representation of this Talent.
+     * @return a String containing a representation of this Talent.
+     */
+    @Override
+    public String toString() {
+        return outputName() + " " + getLevel();
+    }
     /**
      * Compares this Talent object and obj. If they are the same class, returns
      *     true.

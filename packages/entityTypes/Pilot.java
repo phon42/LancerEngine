@@ -1622,8 +1622,7 @@ public final class Pilot implements Damageable {
             //     "  Ace 1, Brawler 1, Bonded 1\n"
             outputString += "  ";
             for (int i = 0; i < this.talents.length; i++) {
-                outputString += this.talents[i].outputName() + " "
-                    + this.talents[i].getLevel();
+                outputString += this.talents[i].toString();
                 if (i < this.talents.length - 1) {
                     outputString += ", ";
                 }
@@ -1637,8 +1636,7 @@ public final class Pilot implements Damageable {
             for (int i = 0; i < this.talents.length; i += 2) {
                 outputString += "  ";
                 for (int j = i; j < Math.min(i + 2, this.talents.length); j++) {
-                    outputString += this.talents[j].outputName() + " "
-                        + this.talents[j].getLevel();
+                    outputString += this.talents[i].toString();
                     if (j == i && i < this.talents.length + 1) {
                         outputString += ", ";
                     }
