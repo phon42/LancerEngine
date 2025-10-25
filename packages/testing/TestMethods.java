@@ -3,15 +3,15 @@ package packages.testing;
 import main.Database;
 import main.database.FrameEnum;
 import packages.coreTypes.entityMechanics.License;
+import packages.coreTypes.entityMechanics.mech.Frame;
+import packages.coreTypes.entityMechanics.mech.Mount;
+import packages.coreTypes.entityMechanics.mech.equipment.MechSystem;
+import packages.coreTypes.entityMechanics.pilot.Loadout;
+import packages.coreTypes.entityMechanics.pilot.SkillTriggersList;
+import packages.coreTypes.entityMechanics.pilot.Talent;
+import packages.coreTypes.entityMechanics.pilot.skillTriggersList.Skill;
 import packages.entityTypes.Mech;
 import packages.entityTypes.Pilot;
-import packages.entityTypes.mech.Frame;
-import packages.entityTypes.mech.Mount;
-import packages.entityTypes.mech.equipment.MechSystem;
-import packages.entityTypes.pilot.Loadout;
-import packages.entityTypes.pilot.SkillTriggersList;
-import packages.entityTypes.pilot.Talent;
-import packages.entityTypes.pilot.skillTriggersList.Skill;
 import packages.testing.testMethods.Test;
 
 /**

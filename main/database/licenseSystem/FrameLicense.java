@@ -3,10 +3,10 @@ package main.database.licenseSystem;
 import main.Database;
 import main.HelperMethods;
 import main.database.licenseSystem.frameLicense.LicenseContent;
-import packages.entityTypes.mech.Equipment;
-import packages.entityTypes.mech.Frame;
-import packages.entityTypes.mech.equipment.MechSystem;
-import packages.entityTypes.mech.equipment.Weapon;
+import packages.coreTypes.entityMechanics.mech.Equipment;
+import packages.coreTypes.entityMechanics.mech.Frame;
+import packages.coreTypes.entityMechanics.mech.equipment.MechSystem;
+import packages.coreTypes.entityMechanics.mech.equipment.Weapon;
 
 /**
  * See pg. 31.

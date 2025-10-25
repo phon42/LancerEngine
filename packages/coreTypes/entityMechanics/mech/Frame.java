@@ -1,4 +1,4 @@
-package packages.entityTypes.mech;
+package packages.coreTypes.entityMechanics.mech;
 
 import main.HelperMethods;
 import main.database.FrameEnum;

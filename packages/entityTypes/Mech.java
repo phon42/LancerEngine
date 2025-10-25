@@ -7,10 +7,10 @@ import main.Roll;
 import packages.coreTypes.entityMechanics.Damage;
 import packages.coreTypes.entityMechanics.Harm;
 import packages.coreTypes.entityMechanics.License;
-import packages.entityTypes.mech.Frame;
-import packages.entityTypes.mech.Mount;
-import packages.entityTypes.mech.equipment.MechSystem;
-import packages.entityTypes.pilot.Talent;
+import packages.coreTypes.entityMechanics.mech.Frame;
+import packages.coreTypes.entityMechanics.mech.Mount;
+import packages.coreTypes.entityMechanics.mech.equipment.MechSystem;
+import packages.coreTypes.entityMechanics.pilot.Talent;
 import packages.stateSystem.State;
 import packages.stateSystem.state.Status;
 
