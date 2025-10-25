@@ -1576,7 +1576,7 @@ public final class Pilot implements Damageable {
                 if (i != 0) {
                     outputString += ", ";
                 }
-                outputString += this.licenseList[i].outputLicense();
+                outputString += this.licenseList[i].toString();
             }
             outputString += "\n";
         } else if (outputType.equals("pilot")
@@ -1588,7 +1588,7 @@ public final class Pilot implements Damageable {
                 outputString += "  ";
                 for (int j = i; j < Math.min(i + 2, this.licenseList.length);
                     j++) {
-                    outputString += this.licenseList[j].outputLicense();
+                    outputString += this.licenseList[j].toString();
                     if (j == i && i < this.licenseList.length + 1) {
                         outputString += ", ";
                     }

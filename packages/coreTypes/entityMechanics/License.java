@@ -88,6 +88,19 @@ public final class License {
     }
 
     /**
+     * Generates a String representation of this License.
+     * @return a String containing a representation of this License.
+     */
+    @Override
+    public String toString() {
+        // Generate something of the form "IPS-N Blackbeard 1"
+        String manufacturer = Database.getManufacturer(this.name);
+
+        manufacturer = manufacturer.toUpperCase();
+
+        return manufacturer + " " + outputName() + " " + getLevel();
+    }
+    /**
      * Compares this License object and obj. If they are the same class, returns
      *     true.
      * @param obj an Object to be compared to.
@@ -131,17 +144,5 @@ public final class License {
      */
     public String outputName() {
         return HelperMethods.toProperCase(this.name);
-    }
-    /**
-     * Generates a String output of this License.
-     * @return a String containing an output of this License.
-     */
-    public String outputLicense() {
-        // Generate something of the form "IPS-N Blackbeard 1"
-        String manufacturer = Database.getManufacturer(this.name);
-
-        manufacturer = manufacturer.toUpperCase();
-
-        return manufacturer + " " + outputName() + " " + getLevel();
     }
 }
