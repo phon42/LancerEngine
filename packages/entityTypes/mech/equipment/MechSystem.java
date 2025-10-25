@@ -73,7 +73,7 @@ public final class MechSystem extends Equipment {
      */
     @Override
     protected void setTags(Tag[] tags) {
-        boolean isValid = false;
+        boolean isValid;
 
         // Throws an IllegalArgumentException if tags is null or contains null
         //     elements
@@ -83,6 +83,7 @@ public final class MechSystem extends Equipment {
             for (String allowedTag : MechSystem.allowedNames) {
                 if (tag.getName().equals(allowedTag)) {
                     isValid = true;
+                    break;
                 }
             }
             if (! isValid) {

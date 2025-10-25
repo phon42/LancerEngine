@@ -78,16 +78,12 @@ public final class Loadout {
         return HelperMethods.copyOf(pilotGear);
     }
     public void setPilotArmor(String pilotArmor) {
-        boolean isEmpty;
-        boolean isValid;
-
         if (pilotArmor == null) {
             throw new IllegalArgumentException("New pilot armor value is"
                 + " null");
         }
-        isEmpty = ! pilotArmor.equals("");
-        isValid = Database.isValidPilotArmor(pilotArmor);
-        if (isEmpty && (! isValid)) {
+        if (! (pilotArmor.equals("")
+            || Database.isValidPilotArmor(pilotArmor))) {
             throw new IllegalArgumentException("Pilot armor value: \""
                 + pilotArmor + "\" is an invalid value for Loadout.pilotArmor");
         }

@@ -387,23 +387,16 @@ public final class Tag extends DataTag {
      */
     @Override
     protected void setValue(int value) {
-        boolean isValid = false;
-        
         for (String valueID : Tag.valueIDs) {
             if (this.id.equals(valueID)) {
-                isValid = true;
-                break;
+                if (value < 1) {
+                    throw new IllegalArgumentException("Name is: \"" + this.name
+                    + "\" and new value: " + value + " is < 1");
+                }
+                this.value = value;
             }
         }
-        if (isValid) {
-            if (value < 1) {
-                throw new IllegalArgumentException("Name is: \""
-                    + this.name + "\" and new value: " + value + " is < 1");
-            }
-            this.value = value;
-        } else {
-            throw new IllegalArgumentException("Attempted to call"
-                + " Tag.setValue() when name is \"" + this.name + "\"");
-        }
+        throw new IllegalArgumentException("Attempted to call Tag.setValue()"
+            + " when name is \"" + this.name + "\"");
     }
 }

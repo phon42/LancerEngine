@@ -425,24 +425,17 @@ public class DataTag {
      *     having a value makes sense, or if it is and value is < 1.
      */
     protected void setValue(int value) {
-        boolean isValid = false;
-        
         for (String valueID : DataTag.valueIDs) {
             if (this.id.equals(valueID)) {
-                isValid = true;
-                break;
+                if (value < 1) {
+                    throw new IllegalArgumentException("Name is: \"" + this.name
+                        + "\" and new value: " + value + " is < 1");
+                }
+                this.value = value;
             }
         }
-        if (isValid) {
-            if (value < 1) {
-                throw new IllegalArgumentException("Name is: \""
-                    + this.name + "\" and new value: " + value + " is < 1");
-            }
-            this.value = value;
-        } else {
-            throw new IllegalArgumentException("Attempted to call"
-                + " DataTag.setValue() when name is \"" + this.name + "\"");
-        }
+        throw new IllegalArgumentException("Attempted to call"
+            + " DataTag.setValue() when name is \"" + this.name + "\"");
     }
     protected void setFilterIgnore(boolean filterIgnore) {
         this.filterIgnore = filterIgnore;

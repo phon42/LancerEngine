@@ -101,21 +101,16 @@ public class State {
      *     defined by State.allowedTypes.
      */
     protected void setType(String type) {
-        boolean isValid = false;
-
         HelperMethods.checkString("New type", type);
         type = type.toLowerCase();
         for (String allowedType : State.allowedTypes) {
             if (type.equals(allowedType)) {
-                isValid = true;
-                break;
+                this.type = type;
+                return;
             }
         }
-        if (! isValid) {
-            throw new IllegalArgumentException("New type value is \"" + type
-                + "\"");
-        }
-        this.type = type;
+        throw new IllegalArgumentException("New type value is \"" + type
+            + "\"");
     }
     protected void setSource(String source) {
         this.source = source;
@@ -158,21 +153,16 @@ public class State {
      *     value as defined by State.allowedDurations.
      */
     protected void setDuration(String duration) {
-        boolean isValid = false;
-
         HelperMethods.checkString("New duration", duration);
         duration = duration.toLowerCase();
         for (String allowedDuration : State.allowedDurations) {
             if (duration.equals(allowedDuration)) {
-                isValid = true;
-                break;
+                this.duration = duration;
+                return;
             }
         }
-        if (! isValid) {
-            throw new IllegalArgumentException("New duration value is an"
-                + " invalid value: \"" + type + "\"");
-        }
-        this.duration = duration;
+        throw new IllegalArgumentException("New duration value is an invalid"
+            + " value: \"" + type + "\"");
     }
 
     /**
@@ -283,12 +273,14 @@ public class State {
         for (String allowedType : State.allowedTypes) {
             if (stateType.equals(allowedType)) {
                 isValid = true;
+                break;
             }
         }
         if (! isValid) {
             throw new IllegalArgumentException("stateType: \"" + stateType
                 + "\" is an invalid value for State.type");
         }
+        // stateType is a valid State
         for (State state : this.effects) {
             if (state.getType().equals(stateType)) {
                 isPresent = true;

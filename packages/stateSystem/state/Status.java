@@ -55,20 +55,15 @@ public class Status extends State {
      */
     @Override
     protected void setType(String type) {
-        boolean isValid = false;
-
         HelperMethods.checkString("New type", type);
         type = type.toLowerCase();
         for (String allowedType : Status.allowedStatuses) {
             if (type.equals(allowedType)) {
-                isValid = true;
-                break;
+                this.type = type;
+                return;
             }
         }
-        if (! isValid) {
-            throw new IllegalArgumentException("New type value is an invalid"
-                + " value: \"" + type + "\"");
-        }
-        this.type = type;
+        throw new IllegalArgumentException("New type value is an invalid value:"
+            + " \"" + type + "\"");
     }
 }

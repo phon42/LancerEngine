@@ -256,7 +256,7 @@ public final class Weapon extends Equipment {
      */
     @Override
     protected void setTags(Tag[] tags) {
-        boolean isValid = false;
+        boolean isValid;
 
         // Throws an IllegalArgumentException if tags is null or contains null
         //     elements
@@ -266,6 +266,7 @@ public final class Weapon extends Equipment {
             for (String allowedTag : Weapon.allowedNames) {
                 if (tag.getName().equals(allowedTag)) {
                     isValid = true;
+                    break;
                 }
             }
             if (! isValid) {

@@ -69,21 +69,16 @@ public class Event {
      *     value as defined by Event.allowedTypes.
      */
     public void setType(String type) {
-        boolean isValid = false;
-
         HelperMethods.checkString("New type", type);
         type = type.toLowerCase();
         for (String allowedType : Event.allowedTypes) {
             if (type.equals(allowedType)) {
-                isValid = true;
-                break;
+                this.type = type;
+                return;
             }
         }
-        if (! isValid) {
-            throw new IllegalArgumentException("New type value is an invalid"
-                + " value: \"" + type + "\"");
-        }
-        this.type = type;
+        throw new IllegalArgumentException("New type value is an invalid value:"
+            + " \"" + type + "\"");
     }
 
     public Object[] outputOrigin(int index) {

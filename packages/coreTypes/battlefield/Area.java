@@ -89,22 +89,17 @@ public class Area {
         return controlPoints;
     }
     private void setType(String type) {
-        boolean isValid = false;
-
         HelperMethods.checkString("type", type);
         type = type.toLowerCase();
         for (String allowedType : Area.allowedTypes) {
             if (type.equals(allowedType)) {
-                isValid = true;
-                break;
+                this.type = type;
+                this.isSpacesCurrent = false;
+                return;
             }
         }
-        if (! isValid) {
-            throw new IllegalArgumentException("type value: \"" + type + "\" is"
-                + " not a valid value for Area.type");
-        }
-        this.type = type;
-        this.isSpacesCurrent = false;
+        throw new IllegalArgumentException("type value: \"" + type + "\" is"
+            + " not a valid value for Area.type");
     }
     public void setValue(int value) {
         if (value < 0) {
