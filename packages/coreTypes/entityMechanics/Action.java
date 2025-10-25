@@ -1,6 +1,7 @@
 package packages.coreTypes.entityMechanics;
 
 import main.HelperMethods;
+import packages.coreTypes.Callable;
 
 /**
  * See pgs. 61 - 64, 68 - 76, and 107 for more information.

@@ -1,4 +1,4 @@
-package packages.coreTypes.entityMechanics;
+package packages.coreTypes;
 
 public class Callable {
     public void run() {}
