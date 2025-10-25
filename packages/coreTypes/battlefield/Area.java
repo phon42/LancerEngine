@@ -289,7 +289,7 @@ public class Area {
             } else {
                 // controlPoints[1] is NOT on an axial line from
                 //     controlPoints[0]. yikes. things are about to get hairy
-                // TODO: add
+                // TODO: add calculation for weird Line patterns
                 throw new IllegalArgumentException("haven't programmed this"
                     + " in yet sorry");
             }
@@ -396,7 +396,7 @@ public class Area {
         setSpaces(output);
         return output;
     }
-    // TODO: add methods:
+    // TODO: add the following methods:
     // - getBorderSpaces() which performs getSpaces() if this.type is "line";
     //       otherwise, generates the array of spaces which have direct contact
     //       with the outside environment. Create an Area.borderSpaces property

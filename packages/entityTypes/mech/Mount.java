@@ -7,7 +7,6 @@ import packages.entityTypes.pilot.Talent;
 /**
  * See pg. 32.
  */
-// TODO: change Mount.weapon to allow null and alter documentation to compensate
 /**
  * Represents a single mount on a mech. Contains information such as what type
  *     this mount is, what weapon is mounted on it (if there is one), and its

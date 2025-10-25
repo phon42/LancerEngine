@@ -19,9 +19,9 @@ import main.HelperMethods;
  *     placeholder. None of its properties have allowed values of null.
  */
 public class Action {
+    // TODO: fill out
     // TODO: remember that pilots in cascading mechs can only use the SHUT DOWN
     //     action (see pg. 107)
-    // TODO: fill out
     /**
      * The name of the action (i.e. "Turret Attack").
      * Can be any String except "". Cannot be null.
