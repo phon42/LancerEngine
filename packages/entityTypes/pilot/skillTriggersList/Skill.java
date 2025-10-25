@@ -72,8 +72,8 @@ public final class Skill {
     }
 
     /**
-     * Generates a String output of this Skill.
-     * @return a String containing an output of this Skill.
+     * Generates a String representation of this Skill.
+     * @return a String containing a representation of this Skill.
      */
     @Override
     public String toString() {
