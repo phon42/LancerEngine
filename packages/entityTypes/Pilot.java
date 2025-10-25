@@ -9,7 +9,7 @@ import packages.coreTypes.entityMechanics.License;
 import packages.entityTypes.pilot.Loadout;
 import packages.entityTypes.pilot.SkillTriggersList;
 import packages.entityTypes.pilot.Talent;
-import packages.entityTypes.pilot.skillTriggersList.SkillTrigger;
+import packages.entityTypes.pilot.skillTriggersList.Skill;
 import packages.stateSystem.State;
 import packages.stateSystem.state.Condition;
 import packages.stateSystem.state.Status;
@@ -1412,7 +1412,7 @@ public final class Pilot implements Damageable {
         // total skill trigger level should be 4 + licenseLevel
         int totalLevel = 0;
 
-        for (SkillTrigger skillTrigger : this.skillTriggers.getSkillTriggers())
+        for (Skill skillTrigger : this.skillTriggers.getSkillTriggers())
             {
             totalLevel += skillTrigger.getLevel() / 2;
         }

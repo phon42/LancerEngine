@@ -16,7 +16,7 @@ import main.HelperMethods;
  * Safety: This class does not have placeholder values and cannot be a
  *     placeholder. None of its properties have allowed values of null.
  */
-public final class SkillTrigger {
+public final class Skill {
     /**
      * The name of the skill trigger (i.e. "Apply Fists to Faces").
      * Can be any String except "". Cannot be null.
@@ -30,22 +30,22 @@ public final class SkillTrigger {
     private int level;
 
     /**
-     * Creates a new SkillTrigger with the provided skill trigger name and skill
+     * Creates a new Skill with the provided skill trigger name and skill
      *     trigger level.
-     * @param skillTriggerName a String which cannot be null or "".
-     * @param skillTriggerLevel an int which must be 2, 4, or 6.
+     * @param skillName a String which cannot be null or "".
+     * @param skillLevel an int which must be 2, 4, or 6.
      */
-    public SkillTrigger(String skillTriggerName, int skillTriggerLevel) {
-        setName(skillTriggerName);
-        setLevel(skillTriggerLevel);
+    public Skill(String skillName, int skillLevel) {
+        setName(skillName);
+        setLevel(skillLevel);
     }
     /**
-     * Creates a copy of the provided SkillTrigger.
-     * @param skillTrigger a SkillTrigger to be copied.
-     * @return a SkillTrigger copy of the provided SkillTrigger.
+     * Creates a copy of the provided Skill.
+     * @param skill a Skill to be copied.
+     * @return a Skill copy of the provided Skill.
      */
-    public SkillTrigger(SkillTrigger skillTrigger) {
-        this(skillTrigger.name, skillTrigger.level);
+    public Skill(Skill skill) {
+        this(skill.name, skill.level);
     }
 
     public String getName() {
@@ -72,8 +72,8 @@ public final class SkillTrigger {
     }
 
     /**
-     * Compares this SkillTrigger object and obj. If they are the same class,
-     *     returns true.
+     * Compares this Skill object and obj. If they are the same class, returns
+     *     true.
      * @param obj an Object to be compared to.
      * @return a boolean representing whether the two Objects are the same.
      */
@@ -88,30 +88,29 @@ public final class SkillTrigger {
         return true;
     }
     /**
-     * Compares this SkillTrigger object and skillTrigger. If they have the same
-     *     property values, returns true.
-     * @param skillTrigger a SkillTrigger to be compared to.
-     * @return a boolean representing whether the two SkillTriggers are the
-     *     same.
+     * Compares this Skill object and skill. If they have the same property
+     *     values, returns true.
+     * @param skill a Skill to be compared to.
+     * @return a boolean representing whether the two Skills are the same.
      */
-    public boolean equals(SkillTrigger skillTrigger) {
-        if (skillTrigger == null) {
+    public boolean equals(Skill skill) {
+        if (skill == null) {
             return false;
         }
-        if (! skillTrigger.getName().equals(this.name)) {
+        if (! skill.getName().equals(this.name)) {
             return false;
         }
-        if (skillTrigger.getLevel() != this.level) {
+        if (skill.getLevel() != this.level) {
             return false;
         }
         
         return true;
     }
     /**
-     * Generates a String output of this SkillTrigger.
-     * @return a String containing an output of this SkillTrigger.
+     * Generates a String output of this Skill.
+     * @return a String containing an output of this Skill.
      */
-    public String outputSkillTrigger() {
+    public String outputSkill() {
         return getName() + " (+" + getLevel() + ")";
     }
 }

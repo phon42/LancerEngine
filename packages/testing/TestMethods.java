@@ -11,7 +11,7 @@ import packages.entityTypes.mech.equipment.MechSystem;
 import packages.entityTypes.pilot.Loadout;
 import packages.entityTypes.pilot.SkillTriggersList;
 import packages.entityTypes.pilot.Talent;
-import packages.entityTypes.pilot.skillTriggersList.SkillTrigger;
+import packages.entityTypes.pilot.skillTriggersList.Skill;
 import packages.testing.testMethods.Test;
 
 /**
@@ -484,7 +484,7 @@ public final class TestMethods {
         Pilot pilot = new Pilot("validName",
             "validCallsign");
         SkillTriggersList skillTriggersList = new SkillTriggersList();
-        SkillTrigger skillTrigger;
+        Skill skillTrigger;
         boolean test1 = false;
         boolean test2 = false;
         boolean test3 = false;
@@ -501,8 +501,8 @@ public final class TestMethods {
             test2 = true;
         }
         // normal case
-        skillTrigger = new SkillTrigger("validSkillTrigger", 2);
-        skillTriggersList.setSkillTriggers(new SkillTrigger[] {
+        skillTrigger = new Skill("validSkillTrigger", 2);
+        skillTriggersList.setSkillTriggers(new Skill[] {
             skillTrigger
         });
         pilot.setSkillTriggers(skillTriggersList);
@@ -535,7 +535,7 @@ public final class TestMethods {
      */
     private static boolean runSetSkillTriggersTests() {
         SkillTriggersList skillTriggers = new SkillTriggersList();
-        SkillTrigger skillTrigger;
+        Skill skillTrigger;
         boolean test1 = false;
         boolean test2 = false;
         boolean test3 = false;
@@ -548,21 +548,21 @@ public final class TestMethods {
             test1 = true;
         }
         // normal case
-        skillTriggers.setSkillTriggers(new SkillTrigger[0]);
-        if (skillTriggers.getSkillTriggers().getClass() == SkillTrigger[].class
+        skillTriggers.setSkillTriggers(new Skill[0]);
+        if (skillTriggers.getSkillTriggers().getClass() == Skill[].class
             && skillTriggers.getSkillTriggers().length == 0) {
             test2 = true;
         }
         // normal case
         try {
             // = SkillTrigger[] {null}
-            skillTriggers.setSkillTriggers(new SkillTrigger[1]);
+            skillTriggers.setSkillTriggers(new Skill[1]);
         } catch (IllegalArgumentException exception) {
             test3 = true;
         }
         // normal case
-        skillTrigger = new SkillTrigger("Apply Fists to Faces", 2);
-        skillTriggers.setSkillTriggers(new SkillTrigger[] {
+        skillTrigger = new Skill("Apply Fists to Faces", 2);
+        skillTriggers.setSkillTriggers(new Skill[] {
             skillTrigger
         });
         if (skillTriggers.getSkillTriggers()[0].equals(skillTrigger)) {
@@ -576,7 +576,7 @@ public final class TestMethods {
      * @return a boolean representing whether the class passed.
      */
     private static boolean runSkillTriggerTests() {
-        SkillTrigger skillTrigger = new SkillTrigger(
+        Skill skillTrigger = new Skill(
             "Apply Fists to Faces", 2);
         boolean test1 = false;
         boolean test2 = false;
@@ -590,58 +590,58 @@ public final class TestMethods {
 
         // normal case
         try {
-            skillTrigger = new SkillTrigger(null, 2);
+            skillTrigger = new Skill(null, 2);
         } catch (IllegalArgumentException exception) {
             test1 = true;
         }
         // normal case
-        skillTrigger = new SkillTrigger("validName", 2);
+        skillTrigger = new Skill("validName", 2);
         if (skillTrigger.getName().equals("validName")) {
             test2 = true;
         }
         // normal case
         try {
-            skillTrigger = new SkillTrigger("Apply Fists to Faces", -2);
+            skillTrigger = new Skill("Apply Fists to Faces", -2);
         } catch (IllegalArgumentException exception) {
             test3 = true;
         }
         // normal case
         try {
-            skillTrigger = new SkillTrigger("Apply Fists to Faces",
+            skillTrigger = new Skill("Apply Fists to Faces",
                 7);
         } catch (IllegalArgumentException exception) {
             test4 = true;
         }
         // normal case
         try {
-            skillTrigger = new SkillTrigger("Apply Fists to Faces",
+            skillTrigger = new Skill("Apply Fists to Faces",
                 0);
         } catch (IllegalArgumentException exception) {
             test5 = true;
         }
         // normal case
         try {
-            skillTrigger = new SkillTrigger("Apply Fists to Faces",
+            skillTrigger = new Skill("Apply Fists to Faces",
                 1);
         } catch (IllegalArgumentException exception) {
             test6 = true;
         }
         // normal case
         try {
-            skillTrigger = new SkillTrigger("Apply Fists to Faces",
+            skillTrigger = new Skill("Apply Fists to Faces",
                 3);
         } catch (IllegalArgumentException exception) {
             test7 = true;
         }
         // normal case
         try {
-            skillTrigger = new SkillTrigger("Apply Fists to Faces",
+            skillTrigger = new Skill("Apply Fists to Faces",
                 5);
         } catch (IllegalArgumentException exception) {
             test8 = true;
         }
         // normal case
-            skillTrigger = new SkillTrigger("Apply Fists to Faces",
+            skillTrigger = new Skill("Apply Fists to Faces",
                 2);
         if (skillTrigger.getLevel() == 2) {
             test9 = true;
@@ -655,7 +655,7 @@ public final class TestMethods {
      * @return a boolean representing whether the method passed.
      */
     private static boolean runSkillTriggerEqualsTests() {
-        SkillTrigger skillTrigger = new SkillTrigger(
+        Skill skillTrigger = new Skill(
             "Apply Fists to Faces", 2);
         boolean test1 = false;
         boolean test2 = false;
@@ -676,9 +676,9 @@ public final class TestMethods {
      * @return a boolean representing whether the method passed.
      */
     private static boolean runSkillTriggerEqualsSkillTriggerTests() {
-        SkillTrigger skillTrigger = new SkillTrigger(
+        Skill skillTrigger = new Skill(
             "Apply Fists to Faces", 4);
-        SkillTrigger testSkillTrigger = new SkillTrigger("validName",
+        Skill testSkillTrigger = new Skill("validName",
             2);
         boolean test1 = false;
         boolean test2 = false;
@@ -690,17 +690,17 @@ public final class TestMethods {
             test1 = true;
         }
         // normal case
-        skillTrigger = new SkillTrigger("Apply Fists to Faces", 2);
+        skillTrigger = new Skill("Apply Fists to Faces", 2);
         if (! skillTrigger.equals(testSkillTrigger)) {
             test2 = true;
         }
         // normal case
-        skillTrigger = new SkillTrigger("validName", 4);
+        skillTrigger = new Skill("validName", 4);
         if (! skillTrigger.equals(testSkillTrigger)) {
             test3 = true;
         }
         // normal case
-        skillTrigger = new SkillTrigger("validName", 2);
+        skillTrigger = new Skill("validName", 2);
         if (skillTrigger.equals(testSkillTrigger)) {
             test4 = true;
         }
@@ -712,13 +712,13 @@ public final class TestMethods {
      * @return a boolean representing whether the method passed.
      */
     private static boolean runSkillTriggerCopyOfTests() {
-        SkillTrigger original = new SkillTrigger("validName", 2);
-        SkillTrigger copy;
+        Skill original = new Skill("validName", 2);
+        Skill copy;
         boolean test1 = false;
         boolean test2 = false;
 
         // normal case
-        copy = new SkillTrigger(original);
+        copy = new Skill(original);
         if (original != copy) {
             test1 = true;
         }
@@ -775,8 +775,8 @@ public final class TestMethods {
      * @return a boolean representing whether the method passed.
      */
     private static boolean runSkillTriggersListCopyOfTests() {
-        SkillTrigger skillTrigger = new SkillTrigger("validName", 2);
-        SkillTriggersList original = new SkillTriggersList(new SkillTrigger[] {
+        Skill skillTrigger = new Skill("validName", 2);
+        SkillTriggersList original = new SkillTriggersList(new Skill[] {
             skillTrigger
         });
         SkillTriggersList copy;
@@ -806,32 +806,32 @@ public final class TestMethods {
         boolean test4 = false;
 
         // normal case
-        skillTriggers.setSkillTriggers(new SkillTrigger[0]);
+        skillTriggers.setSkillTriggers(new Skill[0]);
         if (skillTriggers.toString().equals("  N/A\n")) {
             test1 = true;
         }
         // normal case
-        skillTriggers.setSkillTriggers(new SkillTrigger[] {
-            new SkillTrigger("Apply Fists to Faces", 2)
+        skillTriggers.setSkillTriggers(new Skill[] {
+            new Skill("Apply Fists to Faces", 2)
         });
         String testString1 = "  Apply Fists to Faces (+2)\n";
         if (skillTriggers.toString().equals(testString1)) {
             test2 = true;
         }
         // normal case
-        skillTriggers.setSkillTriggers(new SkillTrigger[] {
-            new SkillTrigger("Apply Fists to Faces", 2),
-            new SkillTrigger("Assault", 4)
+        skillTriggers.setSkillTriggers(new Skill[] {
+            new Skill("Apply Fists to Faces", 2),
+            new Skill("Assault", 4)
         });
         String testString2 = "  Apply Fists to Faces (+2), Assault (+4)\n";
         if (skillTriggers.toString().equals(testString2)) {
             test3 = true;
         }
         // normal case
-        skillTriggers.setSkillTriggers(new SkillTrigger[] {
-            new SkillTrigger("Apply Fists to Faces", 2),
-            new SkillTrigger("Assault", 4),
-            new SkillTrigger("Blow Something Up", 6)
+        skillTriggers.setSkillTriggers(new Skill[] {
+            new Skill("Apply Fists to Faces", 2),
+            new Skill("Assault", 4),
+            new Skill("Blow Something Up", 6)
         });
         String testString3 = "  Apply Fists to Faces (+2), Assault (+4),\n"
             + "  Blow Something Up (+6)\n";

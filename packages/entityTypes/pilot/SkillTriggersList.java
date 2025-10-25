@@ -1,7 +1,7 @@
 package packages.entityTypes.pilot;
 
 import main.HelperMethods;
-import packages.entityTypes.pilot.skillTriggersList.SkillTrigger;
+import packages.entityTypes.pilot.skillTriggersList.Skill;
 
 /**
  * Represents the set of skill triggers a pilot has. Stores an array of those
@@ -18,20 +18,20 @@ public final class SkillTriggersList {
     /**
      * Can be any SkillTrigger[]. Cannot be null or contain null elements.
      */
-    private SkillTrigger[] skillTriggers;
+    private Skill[] skillTriggers;
 
     /**
      * Creates an empty SkillTriggersList.
      */
     public SkillTriggersList() {
-        setSkillTriggers(new SkillTrigger[0]);
+        setSkillTriggers(new Skill[0]);
     }
     /**
      * Creates a new SkillTriggersList with the provided list of skill triggers.
      * @param skillTriggers a SkillTrigger[] that cannot be null or contain null
      *     elements.
      */
-    public SkillTriggersList(SkillTrigger[] skillTriggers) {
+    public SkillTriggersList(Skill[] skillTriggers) {
         setSkillTriggers(skillTriggers);
     }
     /**
@@ -45,7 +45,7 @@ public final class SkillTriggersList {
         this(skillTriggersList.skillTriggers);
     }
 
-    public SkillTrigger[] getSkillTriggers() {
+    public Skill[] getSkillTriggers() {
         return HelperMethods.copyOf(skillTriggers);
     }
     /**
@@ -56,7 +56,7 @@ public final class SkillTriggersList {
      * @return a boolean containing the result of the search.
      */
     public boolean hasSkillTrigger(String skillTriggerName) {
-        for (SkillTrigger skillTrigger : this.skillTriggers) {
+        for (Skill skillTrigger : this.skillTriggers) {
             if (skillTrigger.getName().equals(skillTriggerName)) {
                 return true;
             }
@@ -74,10 +74,10 @@ public final class SkillTriggersList {
      * @throws IllegalArgumentException if the requested skill trigger could not
      *     be found.
      */
-    public SkillTrigger getSkillTrigger(String skillTriggerName) {
-        for (SkillTrigger skillTrigger : this.skillTriggers) {
+    public Skill getSkillTrigger(String skillTriggerName) {
+        for (Skill skillTrigger : this.skillTriggers) {
             if (skillTrigger.getName().equals(skillTriggerName)) {
-                return new SkillTrigger(skillTrigger);
+                return new Skill(skillTrigger);
             }
         }
 
@@ -91,12 +91,12 @@ public final class SkillTriggersList {
      * @throws IllegalArgumentException if skillTriggers is null or contains
      *     null elements.
      */
-    public void setSkillTriggers(SkillTrigger[] skillTriggers) {
+    public void setSkillTriggers(Skill[] skillTriggers) {
         if (skillTriggers == null) {
             throw new IllegalArgumentException("New skill triggers value is"
                 + " null");
         }
-        for (SkillTrigger skillTrigger : skillTriggers) {
+        for (Skill skillTrigger : skillTriggers) {
             if (skillTrigger == null) {
                 throw new IllegalArgumentException("New skill triggers"
                     + " value includes a null element");
@@ -171,7 +171,7 @@ public final class SkillTriggersList {
                 if (j != i) {
                     outputString += " ";
                 }
-                outputString += this.skillTriggers[j].outputSkillTrigger();
+                outputString += this.skillTriggers[j].outputSkill();
                 if (j + 1 < this.skillTriggers.length) {
                     outputString += ",";
                 }

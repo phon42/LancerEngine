@@ -10,7 +10,7 @@ import packages.entityTypes.mech.equipment.MechSystem;
 import packages.entityTypes.mech.equipment.Tag;
 import packages.entityTypes.mech.equipment.Weapon;
 import packages.entityTypes.pilot.Talent;
-import packages.entityTypes.pilot.skillTriggersList.SkillTrigger;
+import packages.entityTypes.pilot.skillTriggersList.Skill;
 import packages.eventSystem.event.EventListener;
 import packages.stateSystem.State;
 
@@ -575,19 +575,19 @@ public final class HelperMethods {
      * @return a SkillTrigger[] deepest copy of original.
      * @throws IllegalArgumentException if original is null.
      */
-    public static SkillTrigger[] copyOf(SkillTrigger[] original) {
+    public static Skill[] copyOf(Skill[] original) {
         if (original == null) {
             throw new IllegalArgumentException("Called"
                 + " HelperMethods.copyOf(SkillTrigger[]) with null in the place"
                 + " of the SkillTrigger[]");
         }
-        SkillTrigger[] copy = new SkillTrigger[original.length];
+        Skill[] copy = new Skill[original.length];
         for (int i = 0; i < original.length; i++) {
             if (original[i] == null) {
                 copy[i] = original[i];
                 continue;
             }
-            copy[i] = new SkillTrigger(original[i]);
+            copy[i] = new Skill(original[i]);
         }
 
         return copy;
