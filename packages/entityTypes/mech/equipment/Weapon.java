@@ -5,6 +5,7 @@ import packages.coreTypes.entityMechanics.Harm;
 import packages.coreTypes.entityMechanics.License;
 import packages.coreTypes.entityMechanics.RangeTag;
 import packages.entityTypes.mech.Equipment;
+import packages.entityTypes.mech.equipment.tagSystem.Tag;
 
 /**
  * See pgs. 33 and 104.

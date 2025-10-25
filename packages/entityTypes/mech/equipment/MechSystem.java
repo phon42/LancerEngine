@@ -3,6 +3,7 @@ package packages.entityTypes.mech.equipment;
 import main.HelperMethods;
 import packages.coreTypes.entityMechanics.License;
 import packages.entityTypes.mech.Equipment;
+import packages.entityTypes.mech.equipment.tagSystem.Tag;
 
 /**
  * Represents a single system for a mech. Contains information about that system

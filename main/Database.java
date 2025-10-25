@@ -9,8 +9,8 @@ import packages.coreTypes.entityMechanics.RangeTag;
 import packages.entityTypes.mech.Frame;
 import packages.entityTypes.mech.Mount;
 import packages.entityTypes.mech.equipment.MechSystem;
-import packages.entityTypes.mech.equipment.Tag;
 import packages.entityTypes.mech.equipment.Weapon;
+import packages.entityTypes.mech.equipment.tagSystem.Tag;
 
 // TODO: let's go full crazy, add the ability to read a set of .lcp files and
 //     unzip those into as much Lancer data as we want:

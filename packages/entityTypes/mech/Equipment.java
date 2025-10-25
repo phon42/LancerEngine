@@ -3,7 +3,7 @@ package packages.entityTypes.mech;
 import main.HelperMethods;
 import main.database.licenseSystem.frameLicense.LicenseContent;
 import packages.coreTypes.entityMechanics.License;
-import packages.entityTypes.mech.equipment.Tag;
+import packages.entityTypes.mech.equipment.tagSystem.Tag;
 
 /**
  * Represents a piece of mech equipment of any kind, such as a mech system or a
