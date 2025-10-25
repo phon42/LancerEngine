@@ -30,7 +30,7 @@ import packages.entityTypes.mech.equipment.Weapon;
 public final class Database {
     // private static final Action[] actions = new Action[0];
     // private static final Condition[] conditions = new Condition[0];
-    // private static final DataTags[] dataTags = new DataTags[0];
+    // private static final DataTag[] dataTags = new DataTag[0];
     // private static final Frame[] frames = new Frame[0];
     // private static final FrameLicense[] licenses = new FrameLicense[0];
     // private static final Manufacturer[] manufacturers = new Manufacturer[0];
