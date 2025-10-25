@@ -171,7 +171,7 @@ public final class SkillTriggersList {
                 if (j != i) {
                     outputString += " ";
                 }
-                outputString += this.skillTriggers[j].outputSkill();
+                outputString += this.skillTriggers[j].toString();
                 if (j + 1 < this.skillTriggers.length) {
                     outputString += ",";
                 }

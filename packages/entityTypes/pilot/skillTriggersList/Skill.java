@@ -72,6 +72,14 @@ public final class Skill {
     }
 
     /**
+     * Generates a String output of this Skill.
+     * @return a String containing an output of this Skill.
+     */
+    @Override
+    public String toString() {
+        return getName() + " (+" + getLevel() + ")";
+    }
+    /**
      * Compares this Skill object and obj. If they are the same class, returns
      *     true.
      * @param obj an Object to be compared to.
@@ -105,12 +113,5 @@ public final class Skill {
         }
         
         return true;
-    }
-    /**
-     * Generates a String output of this Skill.
-     * @return a String containing an output of this Skill.
-     */
-    public String outputSkill() {
-        return getName() + " (+" + getLevel() + ")";
     }
 }
