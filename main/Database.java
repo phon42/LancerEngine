@@ -1,7 +1,7 @@
 package main;
 
 import main.database.FrameEnum;
-import main.database.frameLicenseSystem.FrameLicense;
+import main.database.licenseSystem.FrameLicense;
 import main.roll.DiceExpression;
 import packages.coreTypes.entityMechanics.Harm;
 import packages.coreTypes.entityMechanics.License;

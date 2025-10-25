@@ -1,4 +1,4 @@
-package main.database.frameLicenseSystem.frameLicense;
+package main.database.licenseSystem.frameLicense;
 
 import main.Database;
 import main.HelperMethods;
