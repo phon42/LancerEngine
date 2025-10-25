@@ -182,6 +182,72 @@ public class Area {
     }
 
     /**
+     * Generates a String representation of this Area.
+     * @return a String containing a representation of this Area.
+     */
+    @Override
+    public String toString() {
+        // Generate something of the form "Line 3\n"
+        //                              + "Control Points:\n"
+        //                              + "  (0, 0), (0, 3)"
+        String output;
+
+        // "Line 3"
+        output = outputType();
+        output += "\nControl Points:\n  ";
+        // "(0, 0), (0, 3)"
+        for (int i = 0; i < this.controlPoints.length; i++) {
+            output += this.controlPoints[i].toString();
+            if (i < this.controlPoints.length - 1) {
+                output += ", ";
+            }
+        }
+
+        return output;
+    }
+    /**
+     * Generates a String representation of this Area at varying detail levels.
+     * @param detailLevel an int which must be between 0 and 2 (inclusive).
+     *     Controls the level of detail of the generated String.
+     * @return a String containing a representation of this Area at varying
+     *     detail levels.
+     * @throws IllegalArgumentException if detailLevel is not between 0 and 2
+     *     (inclusive).
+     */
+    public String toString(int detailLevel) {
+        String output;
+
+        if (detailLevel < 0) {
+            throw new IllegalArgumentException("detailLevel value: "
+                + detailLevel + " is < 0");
+        }
+        if (detailLevel > 2) {
+            throw new IllegalArgumentException("detailLevel value: "
+                + detailLevel + " is > 2");
+        }
+        if (detailLevel == 0) {
+            return outputType();
+        } else if (detailLevel == 1) {
+            return toString();
+        } else {
+            output = toString();
+            output += "\nSpaces Covered:\n  ";
+            // "(0, 0), (0, 1), (0, 2), (0, 3)"
+            if (! this.isSpacesCurrent) {
+                // if this.spaces isn't current, update it
+                getSpaces();
+            }
+            for (int i = 0; i < this.spaces.length; i++) {
+                output += this.spaces[i].toString();
+                if (i < this.spaces.length - 1) {
+                    output += ", ";
+                }
+            }
+
+            return output;
+        }
+    }
+    /**
      * Constructs and returns an array of every space covered by this Area
      *     object.
      * @return a Hex[] containing the Area's spaces.
@@ -348,4 +414,12 @@ public class Area {
     //       this.value and makes adjustments accordingly.
     // TODO: create a class EntityArea which extends Area and uses expand() to
     //     store a representation of an entity of any given size
+    /**
+     * Generates a very simple String representation of this Area.
+     * @return a String containing a very simple representation of this Area.
+     */
+    public String outputType() {
+        // Generate something of the form "Blast 1"
+        return HelperMethods.capitalizeFirst(this.type) + " " + this.value;
+    }
 }
