@@ -403,6 +403,7 @@ public class DataTag {
                 setDescription((String) ID[2]);
                 setFilterIgnore((boolean) ID[3]);
                 setHidden((boolean) ID[4]);
+                return;
             }
         }
         throw new IllegalArgumentException("ID: \"" + id + "\" is not a valid"
@@ -432,6 +433,7 @@ public class DataTag {
                         + "\" and new value: " + value + " is < 1");
                 }
                 this.value = value;
+                return;
             }
         }
         throw new IllegalArgumentException("Attempted to call"

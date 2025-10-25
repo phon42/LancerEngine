@@ -394,6 +394,7 @@ public final class Tag extends DataTag {
                     + "\" and new value: " + value + " is < 1");
                 }
                 this.value = value;
+                return;
             }
         }
         throw new IllegalArgumentException("Attempted to call Tag.setValue()"
