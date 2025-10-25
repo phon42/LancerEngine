@@ -36,7 +36,6 @@ public final class HelperMethods {
     //         Mech.outputSystems(), Pilot.outputLicenses() line 860
     //         Pilot.outputCoreBonuses() line 961, Pilot.outputTalents() line
     //         910, SkillTriggersList.generateOutput()
-    // TODO: add null checks to all the HelperMethods methods
     /**
      * Computes (dividend) divided by (divisor), or dividend / divisor, rounded
      *     up (according to the second golden rule of Lancer - pg. 12).
@@ -98,6 +97,14 @@ public final class HelperMethods {
         int roundedResult;
         int result;
 
+        if (divisor == 0) {
+            throw new IllegalArgumentException("divisor is 0. Cannot compute"
+                + " because x / 0 is undefined according to the laws of math."
+                + " Also it would throw an ArithmeticException");
+        }
+        if (dividend == 0) {
+            return 0;
+        }
         if (resultSign != 1 && resultSign != -1) {
             throw new IllegalArgumentException("resultSign: " + resultSign
                 + " is not +1 or -1");
@@ -292,15 +299,15 @@ public final class HelperMethods {
     }
     /**
      * Appends the given State element to the end of an existing State[].
-     * @param stateArray a State[] that cannot be null.
+     * @param array a State[] that cannot be null.
      * @param newElement a State that cannot be null to append to the end of
-     *     stateArray.
-     * @return a State[] consisting of stateArray with newElement appended to
-     *     the end of it.
-     * @throws IllegalArgumentException if stateArray or newElement is null.
+     *     array.
+     * @return a State[] consisting of array with newElement appended to the end
+     *     of it.
+     * @throws IllegalArgumentException if array or newElement is null.
      */
-    public static State[] append(State[] stateArray, State newElement) {
-        if (stateArray == null) {
+    public static State[] append(State[] array, State newElement) {
+        if (array == null) {
             throw new IllegalArgumentException("Called"
                 + " HelperMethods.append(String[], String) with null in the"
                 + " place of the String[]");
@@ -310,17 +317,17 @@ public final class HelperMethods {
                 + " HelperMethods.append(String[], String) with null in the"
                 + " place of the String");
         }
-        State[] newStateArray = new State[stateArray.length + 1];
+        State[] newArray = new State[array.length + 1];
 
-        for (int i = 0; i < newStateArray.length; i++) {
-            if (i < stateArray.length) {
-                newStateArray[i] = stateArray[i];
+        for (int i = 0; i < newArray.length; i++) {
+            if (i < array.length) {
+                newArray[i] = array[i];
                 continue;
             }
-            newStateArray[i] = newElement;
+            newArray[i] = newElement;
         }
         
-        return newStateArray;
+        return newArray;
     }
     /**
      * Appends the given Weapon element to the end of an existing Weapon[].
@@ -379,6 +386,11 @@ public final class HelperMethods {
         }
         Mount[] newMountArray = new Mount[mountArray.length + 1];
 
+        if (index < 0 || index > mountArray.length) {
+            throw new IllegalArgumentException("index value: " + index + " is"
+                + " out of range for an array of length: "
+                + newMountArray.length);
+        }
         for (int i = 0; i < newMountArray.length; i++) {
             if (i < index) {
                 newMountArray[i] = mountArray[i];
@@ -669,7 +681,10 @@ public final class HelperMethods {
         boolean lastIsLetter;
         // had to add an entire variable just because of one singular mech. fml
         char lastLetter = ' ';
-        
+
+        if (input == null) {
+            throw new IllegalArgumentException("input is null");
+        }
         if (input.length() <= 1) {
             return input.toUpperCase();
         }
@@ -710,9 +725,15 @@ public final class HelperMethods {
      * @return a String containing the formatted String.
      */
     public static String capitalizeFirst(String input) {
-        String outputString = "";
+        String outputString;
 
-        outputString += input.substring(0, 1);
+        if (input == null) {
+            throw new IllegalArgumentException("input is null");
+        }
+        if (input.length() <= 1) {
+            return input.toUpperCase();
+        }
+        outputString = input.substring(0, 1);
         outputString = outputString.toUpperCase();
         outputString += input.substring(1);
 
