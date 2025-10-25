@@ -2,8 +2,6 @@ import java.util.HashMap;
 import main.Database;
 import main.LancerCharacter;
 import main.database.FrameEnum;
-import packages.coreTypes.battlefield.Area;
-import packages.coreTypes.battlefield.Hex;
 import packages.coreTypes.entityMechanics.License;
 import packages.entityTypes.Mech;
 import packages.entityTypes.mech.Mount;
@@ -151,7 +149,5 @@ public final class Main {
 
         System.out.print(myCharacter.generateStatblock(
             "mech build"));
-        System.out.println(new Area("Line", 3, new Hex(0, 0),
-            new Hex(0, 3)));
     }
 }
