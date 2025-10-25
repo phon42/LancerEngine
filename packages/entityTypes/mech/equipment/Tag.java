@@ -330,7 +330,7 @@ public final class Tag extends DataTag {
      * @param tagValue an int which must be > 1.
      */
     public Tag(String tagName, int tagValue) {
-        super("tg_heat_self", 1);
+        super("tg_inaccurate");
         setName(tagName);
         setValue(tagValue);
     }
@@ -340,7 +340,7 @@ public final class Tag extends DataTag {
      * @return a Tag copy of the provided Tag.
      */
     public Tag(Tag tag) {
-        super(tag);
+        super("tg_inaccurate");
         if (tag == null) {
             throw new IllegalArgumentException("tag is null");
         }
@@ -397,7 +397,9 @@ public final class Tag extends DataTag {
                 return;
             }
         }
-        throw new IllegalArgumentException("Attempted to call Tag.setValue()"
-            + " when name is \"" + this.name + "\"");
+        if (value != 0) {
+            throw new IllegalArgumentException("Attempted to change a Tag's"
+                + " value when its Tag.name value is: \"" + this.name + "\"");
+        }
     }
 }

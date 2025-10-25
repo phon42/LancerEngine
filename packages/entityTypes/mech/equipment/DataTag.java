@@ -436,8 +436,11 @@ public class DataTag {
                 return;
             }
         }
-        throw new IllegalArgumentException("Attempted to call"
-            + " DataTag.setValue() when name is \"" + this.name + "\"");
+        if (value != 0) {
+            throw new IllegalArgumentException("Attempted to change a DataTag's"
+                + " value when its DataTag.name value is: \"" + this.name
+                + "\"");
+        }
     }
     protected void setFilterIgnore(boolean filterIgnore) {
         this.filterIgnore = filterIgnore;
