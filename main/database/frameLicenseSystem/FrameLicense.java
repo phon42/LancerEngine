@@ -1,8 +1,8 @@
-package packages.entityTypes.frameLicenseSystem;
+package main.database.frameLicenseSystem;
 
 import main.Database;
 import main.HelperMethods;
-import packages.entityTypes.frameLicenseSystem.frameLicense.LicenseContent;
+import main.database.frameLicenseSystem.frameLicense.LicenseContent;
 import packages.entityTypes.mech.Equipment;
 import packages.entityTypes.mech.Frame;
 import packages.entityTypes.mech.equipment.MechSystem;

@@ -1,11 +1,11 @@
 package main;
 
 import main.database.FrameEnum;
+import main.database.frameLicenseSystem.FrameLicense;
 import main.roll.DiceExpression;
 import packages.coreTypes.entityMechanics.Harm;
 import packages.coreTypes.entityMechanics.License;
 import packages.coreTypes.entityMechanics.RangeTag;
-import packages.entityTypes.frameLicenseSystem.FrameLicense;
 import packages.entityTypes.mech.Frame;
 import packages.entityTypes.mech.Mount;
 import packages.entityTypes.mech.equipment.MechSystem;
