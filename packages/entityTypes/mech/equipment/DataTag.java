@@ -3,26 +3,28 @@ package packages.entityTypes.mech.equipment;
 import main.HelperMethods;
 
 /**
- * See pgs. 104 - 106.
+ * See the tags within the files under
+ *     https://github.com/massif-press/lancer-data/tree/master/lib.
  */
 /**
- * Represents a tag for a mech system or weapon, like the tags "AI" or "Limited
- *     X". Contains information about the tag's name and value (if it has one).
+ * Represents a tag on a JSON file for a mech system or weapon (i.e. the tags
+ *     "AI" or "Grenade"). These tags are not always publicly visible. Contains
+ *     information about the data tag's name and value (if it has one).
  * 
- * Requires a tag name to be instantiated.
+ * Requires a data tag name to be instantiated.
  * 
- * Used in Equipment, MechSystem, and Weapon.
+ * Used in Database.
  * 
  * Safety: This class does not have placeholder values and cannot be a
  *     placeholder. None of its properties have allowed values of null.
  */
-public final class Tag extends DataTag {
-    // TODO: find a way to override DataTag's documentation
+public class DataTag {
     /**
-     * The name for this equipment tag (i.e. "AI").
-     * Must be a valid value (as defined by Tag.allowedNames). Cannot be null.
+     * The name for this data tag (i.e. "AI").
+     * Must be a valid value (as defined by DataTag.allowedNames). Cannot be
+     *     null.
      */
-    // private String name;
+    protected String name;
     /**
      * Contains an array of allowed values for this.name. Case-sensitive.
      */
@@ -40,66 +42,65 @@ public final class Tag extends DataTag {
     private static final String[] valueNames = new String[] {"Limited X",
         "Heat X (Self)", "X/Round", "X/Turn", "Reliable X", "Thrown X",
         "Knockback X"};
-    // TODO: find a way to override DataTag's documentation
     /**
-     * The value for this equipment tag if it has one (i.e. the "X" in
-     *     "Limited X").
-     * Must be a minimum of 0. If this.name is one of Tag.valueNames, must be a
-     *     minimum of 1. Set to 0 on construction.
+     * The value for this data tag if it has one (i.e. the "X" in "Limited X").
+     * Must be a minimum of 0. If this.name is one of DataTag.valueNames, must
+     *     be a minimum of 1. Set to 0 on construction.
      */
-    // private int value;
+    protected int value;
 
     /**
-     * Creates a new Tag given an equipment tag name.
-     * @param tagName a String which cannot be null or an invalid value, as
-     *     defined by Tag.allowedNames.
+     * Creates a new DataTag given a data tag name.
+     * @param dataTagName a String which cannot be null or an invalid value, as
+     *     defined by DataTag.allowedNames.
      */
-    public Tag(String tagName) {
-        super(tagName);
-        setName(tagName);
+    public DataTag(String dataTagName) {
+        setName(dataTagName);
         this.value = 0;
     }
     /**
-     * Creates a copy of the provided Tag.
-     * @param tag a Tag to be copied.
-     * @return a Tag copy of the provided Tag.
+     * Creates a copy of the provided DataTag.
+     * @param dataTag a DataTag to be copied.
+     * @return a DataTag copy of the provided DataTag.
      */
-    public Tag(Tag tag) {
-        super(tag);
-
-        if (tag == null) {
-            throw new IllegalArgumentException("tag is null");
+    public DataTag(DataTag dataTag) {
+        if (dataTag == null) {
+            throw new IllegalArgumentException("dataTag is null");
         }
-        setName(tag.name);
-        setValue(tag.value);
+        setName(dataTag.name);
+        setValue(dataTag.value);
     }
     /**
-     * Creates a new Tag such as the "Limited X" tag, given an equipment tag
+     * Creates a new DataTag such as the "Limited X" data tag, given a data tag
      *     name for which having a value other than 0 for this.value makes
-     *     sense, and a tag value.
-     * @param tagName a String which cannot be null or an invalid value, as
-     *     defined by Tag.valueNames.
-     * @param tagValue an int which must be > 1.
+     *     sense, and a data tag value.
+     * @param dataTagName a String which cannot be null or an invalid value, as
+     *     defined by DataTag.valueNames.
+     * @param dataTagValue an int which must be > 1.
      */
-    public Tag(String tagName, int tagValue) {
-        super(tagName, tagValue);
-        setName(tagName);
-        setValue(tagValue);
+    public DataTag(String dataTagName, int dataTagValue) {
+        setName(dataTagName);
+        setValue(dataTagValue);
     }
 
+    public String getName() {
+        return name;
+    }
+    public int getValue() {
+        return value;
+    }
     /**
      * Sets this.name to the provided value.
      * @param name a String which must be a valid value (as defined by
-     *     Tag.allowedNames). Cannot be null.
+     *     DataTag.allowedNames). Cannot be null.
      * @throws IllegalArgumentException if name is null or an invalid value, as
-     *     defined by Tag.allowedNames.
+     *     defined by DataTag.allowedNames.
      */
-    @Override
     public void setName(String name) {
         boolean isAllowed = false;
 
         HelperMethods.checkString("New name", name);
-        for (String allowedName : Tag.allowedNames) {
+        for (String allowedName : DataTag.allowedNames) {
             if (name.equals(allowedName)) {
                 isAllowed = true;
             }
@@ -111,17 +112,16 @@ public final class Tag extends DataTag {
         this.name = name;
     }
     /**
-     * Sets this.value to the provided value. If this.name is a tag for which
-     *     having a value makes sense, checks whether value is < 1.
+     * Sets this.value to the provided value. If this.name is a data tag for
+     *     which having a value makes sense, checks whether value is < 1.
      * @param value an int containing the new value.
-     * @throws IllegalArgumentException if this.name is not a tag for which
+     * @throws IllegalArgumentException if this.name is not a data tag for which
      *     having a value makes sense, or if it is and value is < 1.
      */
-    @Override
     public void setValue(int value) {
         boolean isValid = false;
         
-        for (String valueName : Tag.valueNames) {
+        for (String valueName : DataTag.valueNames) {
             if (this.name.equals(valueName)) {
                 isValid = true;
                 break;
@@ -135,7 +135,7 @@ public final class Tag extends DataTag {
             this.value = value;
         } else {
             throw new IllegalArgumentException("Attempted to call"
-                + " Tag.setValue() when name is \"" + this.name
+                + " DataTag.setValue() when name is \"" + this.name
                 + "\"");
         }
     }
