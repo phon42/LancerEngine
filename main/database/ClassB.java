@@ -1,5 +1,6 @@
 package main.database;
 
+import main.database.json.JSONObject;
 import packages.coreTypes.Environment;
 import packages.coreTypes.Rule;
 import packages.coreTypes.Sitrep;
@@ -14,6 +15,7 @@ import packages.coreTypes.entityMechanics.entityTypes.mech.equipment.MechSystem;
 import packages.coreTypes.entityMechanics.entityTypes.mech.equipment.Modification;
 import packages.coreTypes.entityMechanics.entityTypes.mech.equipment.Weapon;
 import packages.coreTypes.entityMechanics.entityTypes.mech.equipment.tagSystem.DataTag;
+import packages.coreTypes.entityMechanics.entityTypes.mech.equipment.tagSystem.Tag;
 import packages.coreTypes.entityMechanics.entityTypes.pilot.Background;
 import packages.coreTypes.entityMechanics.entityTypes.pilot.Bond;
 import packages.coreTypes.entityMechanics.entityTypes.pilot.CoreBonus;
@@ -23,10 +25,47 @@ import packages.coreTypes.entityMechanics.entityTypes.pilot.loadout.pilotEquipme
 import packages.coreTypes.entityMechanics.entityTypes.pilot.loadout.pilotEquipment.PilotGear;
 import packages.coreTypes.entityMechanics.entityTypes.pilot.loadout.pilotEquipment.PilotWeapon;
 import packages.coreTypes.entityMechanics.entityTypes.pilot.skillTriggersList.Skill;
+import packages.coreTypes.entityMechanics.stateSystem.state.Condition;
+import packages.coreTypes.entityMechanics.stateSystem.state.Status;
 
-public class ClassB { // possible name DatabaseReader
-    // calls open() on Class C, calls Class C with all JSONObjects read and then
-    //     some kind of add(), save(), or close() method
+public class ClassB {
+    // receive JSON data as an Object[] containing JSONObject[]s and JSONObjects
+    //     from ClassA
+    // transform it into the appropriate data type
+    // - remember to split apart the DataTag data into Tag
+    // then pass it on to ClassC
+    // - first open ClassC
+    // - then send the data
+    // - then close ClassC
+    // then flush the data afterwards
+
+    // all the data being held at the moment
+    // ----some critical data types:
+    private static JSONObject[] frameData = new JSONObject[0];
+    private static JSONObject[] systemData = new JSONObject[0];
+    private static JSONObject[] modificationData = new JSONObject[0];
+    private static JSONObject[] weaponData = new JSONObject[0];
+    // ----the rest of the critical data types:
+    private static JSONObject[] actionData = new JSONObject[0];
+    private static JSONObject[] dataTagData = new JSONObject[0];
+    private static JSONObject[] manufacturerData = new JSONObject[0];
+    private static JSONObject[] npcFeatureData = new JSONObject[0];
+    private static JSONObject[] npcTemplateData = new JSONObject[0];
+    private static JSONObject[] pilotEquipmentData = new JSONObject[0];
+    private static JSONObject[] reserveData = new JSONObject[0];
+    private static JSONObject[] skillData = new JSONObject[0];
+    private static JSONObject[] stateData = new JSONObject[0];
+    private static JSONObject[] talentData = new JSONObject[0];
+    // ----less important
+    private static JSONObject[] environmentData = new JSONObject[0];
+    private static JSONObject[] sitrepData = new JSONObject[0];
+    // ----almost unimportant
+    private static JSONObject[] backgroundData = new JSONObject[0];
+    private static JSONObject[] bondData = new JSONObject[0];
+    // ----just for reference
+    private static JSONObject ruleData = null;
+    private static JSONObject[] termData = new JSONObject[0];
+    private static JSONObject tableData = null;
 
     // Prevent user from instantiating this class
     private ClassB() {}
@@ -59,7 +98,28 @@ public class ClassB { // possible name DatabaseReader
     // talents
     // terms (glossary)
     // weapons
-    private static Action[] processActions(JSONArray actionsData) {
+    public static void receiveData(Object[] data) {
+        Object[] newData;
+
+        // TODO: fill out, using all the ClassB.processX() methods
+        // unpack the Object[] into an array of data
+        // TODO: fill out
+        // then process that data
+        // TODO: fill out
+        // each Object is actually a JSONObject[] or JSONObject
+        // convert those JSONObject[]s and JSONObjects to Action[],
+        //     Background[], etc. etc.
+        // once done, pass that data on to ClassC
+        // - first open ClassC so it can receive
+        ClassC.open();
+        // - pass the data on
+        ClassC.receiveData(newData);
+        // - and then close ClassC
+        ClassC.close();
+        // and tell ClassC to upload it
+        ClassC.uploadData();
+    }
+    private static Action[] processActions(JSONObject[] actionsData) {
         Action[] actions = new Action[actionsData.length()];
 
         for (int i = 0; i < actions.length; i++) {
@@ -86,61 +146,61 @@ public class ClassB { // possible name DatabaseReader
 
         return new Action(id, name, activation, terse, detail);
     }
-    private static Background[] processBackgrounds(JSONArray backgroundsData) {
+    private static Background[] processBackgrounds(JSONObject[] backgroundsData) {
         // TODO: fill out
     }
     private static Background toBackground(JSONObject backgroundData) {
         // TODO: fill out
     }
-    private static Bond[] processBonds(JSONArray bondsData) {
+    private static Bond[] processBonds(JSONObject[] bondsData) {
         // TODO: fill out
     }
     private static Bond toBond(JSONObject bondData) {
         // TODO: fill out
     }
-    private static CoreBonus[] processCoreBonuses(JSONArray coreBonusesData) {
+    private static CoreBonus[] processCoreBonuses(JSONObject[] coreBonusesData) {
         // TODO: fill out
     }
     private static CoreBonus toCoreBonus(JSONObject coreBonusData) {
         // TODO: fill out
     }
-    private static Environment[] processEnvironments(JSONArray environmentsData) {
+    private static Environment[] processEnvironments(JSONObject[] environmentsData) {
         // TODO: fill out
     }
     private static Environment toEnvironment(JSONObject environmentData) {
         // TODO: fill out
     }
-    private static Frame[] processFrames(JSONArray framesData) {
+    private static Frame[] processFrames(JSONObject[] framesData) {
         // TODO: fill out
     }
     private static Frame toFrame(JSONObject frameData) {
         // TODO: fill out
     }
-    private static Manufacturer[] processManufacturers(JSONArray manufacturersData) {
+    private static Manufacturer[] processManufacturers(JSONObject[] manufacturersData) {
         // TODO: fill out
     }
     private static Manufacturer toManufacturer(JSONObject manufacturerData) {
         // TODO: fill out
     }
-    private static Modification[] processModifications(JSONArray modificationsData) {
+    private static Modification[] processModifications(JSONObject[] modificationsData) {
         // TODO: fill out
     }
     private static Modification toModification(JSONObject modificationData) {
         // TODO: fill out
     }
-    private static NPCFeature[] processNPCFeatures(JSONArray npcfeaturesData) {
+    private static NPCFeature[] processNPCFeatures(JSONObject[] npcfeaturesData) {
         // TODO: fill out
     }
     private static NPCFeature toNPCFeature(JSONObject npcfeatureData) {
         // TODO: fill out
     }
-    private static NPCTemplate[] processNPCTemplates(JSONArray npctemplatesData) {
+    private static NPCTemplate[] processNPCTemplates(JSONObject[] npctemplatesData) {
         // TODO: fill out
     }
     private static NPCTemplate toNPCTemplate(JSONObject npctemplateData) {
         // TODO: fill out
     }
-    private static void processPilotEquipment(JSONArray pilotEquipmentData) {
+    private static void processPilotEquipment(JSONObject[] pilotEquipmentData) {
         // TODO: fill out
         JSONObject[] pilotArmorData = new JSONObject[pilotEquipmentData.length()];
         JSONObject[] pilotWeaponData = new JSONObject[pilotEquipmentData.length()];
@@ -162,82 +222,83 @@ public class ClassB { // possible name DatabaseReader
         ClassB.processPilotWeapons(pilotWeaponData);
         ClassB.processPilotGear(pilotGearData);
     }
-    private static PilotArmor[] processPilotArmor(JSONArray pilotArmorsData) {
+    private static PilotArmor[] processPilotArmor(JSONObject[] pilotArmorsData) {
         // TODO: fill out
     }
     private static PilotArmor toPilotArmor(JSONObject pilotArmorData) {
         // TODO: fill out
     }
-    private static PilotGear[] processPilotGear(JSONArray pilotGearsData) {
+    private static PilotGear[] processPilotGear(JSONObject[] pilotGearsData) {
         // TODO: fill out
     }
     private static PilotGear toPilotGear(JSONObject pilotGearData) {
         // TODO: fill out
     }
-    private static PilotWeapon[] processPilotWeapons(JSONArray pilotArmorsData) {
+    private static PilotWeapon[] processPilotWeapons(JSONObject[] pilotArmorsData) {
         // TODO: fill out
     }
     private static PilotWeapon toPilotWeapons(JSONObject pilotWeaponsData) {
         // TODO: fill out
     }
-    private static Reserve[] processReserves(JSONArray reservesData) {
+    private static Reserve[] processReserves(JSONObject[] reservesData) {
         // TODO: fill out
     }
     private static Reserve toReserve(JSONObject reserveData) {
         // TODO: fill out
     }
-    private static Rule[] processRules(JSONArray rulesData) {
+    private static Rule[] processRules(JSONObject[] rulesData) {
         // TODO: fill out
     }
     private static Rule toRule(JSONObject ruleData) {
         // TODO: fill out
     }
-    private static Sitrep[] processSitreps(JSONArray sitrepsData) {
+    private static Sitrep[] processSitreps(JSONObject[] sitrepsData) {
         // TODO: fill out
     }
     private static Sitrep toSitrep(JSONObject sitrepData) {
         // TODO: fill out
     }
-    private static Skill[] processSkills(JSONArray skillsData) {
+    private static Skill[] processSkills(JSONObject[] skillsData) {
         // TODO: fill out
     }
     private static Skill toSkill(JSONObject skillData) {
         // TODO: fill out
     }
-    private static void processStates(JSONArray statesData) {
+    private static void processStates(JSONObject[] statesData) {
         // TODO: fill out
         ClassB.processConditions(statesData);
         ClassB.processStatuses(statesData);
     }
-    private static Condition[] processConditions(JSONArray conditionsData) {
+    private static Condition[] processConditions(JSONObject[] conditionsData) {
         // TODO: fill out
     }
     private static Condition toCondition(JSONObject conditionData) {
         // TODO: fill out
     }
-    private static Status[] processStatuses(JSONArray StatusesData) {
+    private static Status[] processStatuses(JSONObject[] StatusesData) {
         // TODO: fill out
     }
     private static Status toStatus(JSONObject statusData) {
         // TODO: fill out
     }
-    private static MechSystem[] processMechSystems(JSONArray mechsystemsData) {
+    private static MechSystem[] processMechSystems(JSONObject[] mechsystemsData) {
         // TODO: fill out
     }
     private static MechSystem toMechSystem(JSONObject mechsystemData) {
         // TODO: fill out
     }
-    private static Table[] processTables(JSONArray tablesData) {
+    private static Table[] processTables(JSONObject[] tablesData) {
         // TODO: fill out
     }
     private static Table toTable(JSONObject tableData) {
         // TODO: fill out
     }
-    private static void processLCPTags(JSONObject lcpTagsData) {
+    private static void processLCPTags(JSONObject[] lcpTagsData) {
         // TODO: fill out
-        DataTag[] dataTags = ClassB.processDataTags(lcpTagsData);
+        DataTag[] dataTags = processDataTags(lcpTagsData);
+        Tag tags = processTags(dataTags);
     }
-    private static DataTag[] processDataTags(JSONArray dataTagsData) {
+    private static DataTag[] processDataTags(JSONObject[] dataTagsData) {
         // TODO: fill out
     }
     private static DataTag toDataTag(JSONObject datatagData) {
@@ -251,21 +312,21 @@ public class ClassB { // possible name DatabaseReader
         if (tagData.isHidden()) {
             return null;
         }
-        return tagData;
+        return tagData.toTag();
     }
-    private static Talent[] processTalents(JSONArray talentsData) {
+    private static Talent[] processTalents(JSONObject[] talentsData) {
         // TODO: fill out
     }
     private static Talent toTalent(JSONObject talentData) {
         // TODO: fill out
     }
-    private static Term[] processTerms(JSONArray termsData) {
+    private static Term[] processTerms(JSONObject[] termsData) {
         // TODO: fill out
     }
     private static Term toTerm(JSONObject termData) {
         // TODO: fill out
     }
-    private static Weapon[] processWeapons(JSONArray weaponsData) {
+    private static Weapon[] processWeapons(JSONObject[] weaponsData) {
         // TODO: fill out
     }
     private static Weapon toWeapon(JSONObject weaponData) {
