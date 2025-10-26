@@ -39,12 +39,14 @@ public class ClassA { // possible name DatabaseReader
     //     getInt(), etc
     // Actions is an array of Actions
     // Backgrounds is an array of Backgrounds
+    // bonds
     // CB is an array of CB
     // env
     // frames is arr
-    // glossary
     // manufac
     // mods
+    // npc features
+    // npc templates
     // pilot gear - they're all together, mind
     // reserves
     // rules is one object with properties that could be int, an object, an array, an array of objects
@@ -55,10 +57,8 @@ public class ClassA { // possible name DatabaseReader
     // tables is one object with properties that are all arrays
     // tags
     // talents
+    // terms (glossary)
     // weapons
-    // bonds
-    // npc features
-    // npc templates
     private static Action[] processActions(JSONArray actionsData) {
         Action[] actions = new Action[actionsData.length()];
 
