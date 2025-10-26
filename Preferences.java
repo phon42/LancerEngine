@@ -1,5 +1,3 @@
-package main;
-
 /**
  * Contains a set of preferences/settings for the program.
  */
