@@ -1,4 +1,4 @@
-package main.database;
+package main.database.classA;
 
 import main.Database;
 import packages.coreTypes.entityMechanics.Action;

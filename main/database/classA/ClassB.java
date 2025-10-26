@@ -1,6 +1,6 @@
-package main.database;
+package main.database.classA;
 
-import main.database.json.JSONObject;
+import main.database.classA.json.JSONObject;
 import packages.coreTypes.Environment;
 import packages.coreTypes.Rule;
 import packages.coreTypes.Sitrep;

@@ -1,8 +1,9 @@
 package main.database;
 
-import main.database.JSON;
-import main.database.json.JSONArray;
-import main.database.json.JSONObject;
+import main.database.classA.ClassB;
+import main.database.classA.JSON;
+import main.database.classA.json.JSONArray;
+import main.database.classA.json.JSONObject;
 
 public class ClassA { // possible name DatabaseReader
     // database calls ClassA.read(whatever)

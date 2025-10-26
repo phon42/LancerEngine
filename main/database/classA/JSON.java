@@ -1,7 +1,7 @@
-package main.database;
+package main.database.classA;
 
-import main.database.json.JSONArray;
-import main.database.json.JSONObject;
+import main.database.classA.json.JSONArray;
+import main.database.classA.json.JSONObject;
 
 public class JSON {
     // black box that reads JSON, converts to JSONObject, JSONArray, some mix
