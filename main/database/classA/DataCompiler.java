@@ -33,7 +33,7 @@ import packages.coreTypes.Term;
 public class DataCompiler {
     // some kind of method for every possible type of data, each with a method
     //     signature that includes a JSONObject parameter
-    // some kind of add() or save() method for Class B to call once all
+    // some kind of add() or save() method for DataCaster to call once all
     //     JSONObjects are loaded
     // compile all JSONObjects into licenses and collections of data, for
     //     non-license content, and add everything to Database

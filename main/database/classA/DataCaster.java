@@ -28,7 +28,7 @@ import packages.coreTypes.entityMechanics.entityTypes.pilot.skillTriggersList.Sk
 import packages.coreTypes.entityMechanics.stateSystem.state.Condition;
 import packages.coreTypes.entityMechanics.stateSystem.state.Status;
 
-public class ClassB {
+public class DataCaster {
     // receive JSON data as an Object[] containing JSONObject[]s and JSONObjects
     //     from ClassA
     // transform it into the appropriate data type
@@ -68,7 +68,7 @@ public class ClassB {
     private static JSONObject tableData = null;
 
     // Prevent user from instantiating this class
-    private ClassB() {}
+    private DataCaster() {}
 
     // use a class called JSON
     // Check Iterable for documentation on JSONArray - supposedly you can use
@@ -101,7 +101,7 @@ public class ClassB {
     public static void receiveData(Object[] data) {
         Object[] newData;
 
-        // TODO: fill out, using all the ClassB.processX() methods
+        // TODO: fill out, using all the DataCaster.processX() methods
         // unpack the Object[] into an array of data
         // TODO: fill out
         // then process that data
@@ -218,9 +218,9 @@ public class ClassB {
             }
         }
         // TODO: remove null elements
-        ClassB.processPilotArmor(pilotArmorData);
-        ClassB.processPilotWeapons(pilotWeaponData);
-        ClassB.processPilotGear(pilotGearData);
+        DataCaster.processPilotArmor(pilotArmorData);
+        DataCaster.processPilotWeapons(pilotWeaponData);
+        DataCaster.processPilotGear(pilotGearData);
     }
     private static PilotArmor[] processPilotArmor(JSONObject[] pilotArmorsData) {
         // TODO: fill out
@@ -266,8 +266,8 @@ public class ClassB {
     }
     private static void processStates(JSONObject[] statesData) {
         // TODO: fill out
-        ClassB.processConditions(statesData);
-        ClassB.processStatuses(statesData);
+        DataCaster.processConditions(statesData);
+        DataCaster.processStatuses(statesData);
     }
     private static Condition[] processConditions(JSONObject[] conditionsData) {
         // TODO: fill out

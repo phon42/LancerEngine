@@ -1,6 +1,6 @@
 package main.database;
 
-import main.database.classA.ClassB;
+import main.database.classA.DataCaster;
 import main.database.classA.JSON;
 import main.database.classA.json.JSONArray;
 import main.database.classA.json.JSONObject;
@@ -17,7 +17,7 @@ public class ClassA { // possible name DatabaseReader
     //    a. If it's a JSONObject, convert it to a JSONObject[1]
     //    a. If it's a JSONArray, convert it to a JSONObject[]
     // 5. Collect all those JSONObject[]s into one giant Object[]
-    // 6. Feed that Object[] to ClassB and thus eventually to DataCompiler
+    // 6. Feed that Object[] to DataCaster and thus eventually to DataCompiler
     // 7. Flush all the stored data from ClassA
 
     // All the data being held at the moment, as JSONObject[]s:
@@ -53,14 +53,14 @@ public class ClassA { // possible name DatabaseReader
 
     /**
      * Reads the provided file and saves all its contents before sending the
-     *     saved data onwards to ClassB. Can read .lcp, .zip, or individual
+     *     saved data onwards to DataCaster. Can read .lcp, .zip, or individual
      *     .json files.
      * @param filePath a String which must contain a valid file path.
      */
     public static void read(String filePath) {
         // read the data
         readData(filePath);
-        // once you're done, send that data along to ClassB, which sends it
+        // once you're done, send that data along to DataCaster, which sends it
         //     along to DataCompiler
         sendData();
     }
@@ -146,7 +146,7 @@ public class ClassA { // possible name DatabaseReader
         // TODO: complete
         // Parse the .json file
         // TODO: complete
-        // Send the data on to ClassB.parseJSONFile()
+        // Send the data on to DataCaster.parseJSONFile()
         parseJSONFile(jsonPath, data);
     }
     /**
@@ -279,7 +279,7 @@ public class ClassA { // possible name DatabaseReader
             ClassA.termData,
             ClassA.tableData
         };
-        ClassB.receiveData(data);
+        DataCaster.receiveData(data);
         flushData();
     }
     private static void flushData() {
