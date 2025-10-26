@@ -98,12 +98,6 @@ public class ClassA { // possible name DatabaseReader
     private static Bond toBond(JSONObject bondData) {
         // TODO: fill out
     }
-    private static Bond[] processBonds(JSONArray bondsData) {
-        // TODO: fill out
-    }
-    private static Bond toBond(JSONObject bondData) {
-        // TODO: fill out
-    }
     private static CoreBonus[] processCoreBonuses(JSONArray coreBonusesData) {
         // TODO: fill out
     }
