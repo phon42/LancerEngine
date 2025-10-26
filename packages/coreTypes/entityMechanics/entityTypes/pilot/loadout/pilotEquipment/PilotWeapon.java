@@ -18,6 +18,7 @@ import packages.coreTypes.entityMechanics.RangeTag;
  *     placeholder. At least one of its properties has an allowed value of null.
  */
 public class PilotWeapon extends PilotEquipment {
+    // TODO: fill out
     private RangeTag[] range;
     private Harm[] damage;
 }

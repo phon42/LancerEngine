@@ -15,6 +15,7 @@ import packages.coreTypes.entityMechanics.entityTypes.pilot.skillTriggersList.Sk
  *     placeholder. None of its properties have allowed values of null.
  */
 public class Background {
+    // TODO: fill out
     private String id;
     private String name;
     private String description;

@@ -13,6 +13,7 @@ package packages.coreTypes.entityMechanics;
  *     placeholder. None of its properties have allowed values of null.
  */
 public class NPCTemplate {
+    // TODO: fill out
     private String id;
     private String name;
     private String description;

@@ -13,6 +13,7 @@ package packages.coreTypes.entityMechanics.entityTypes.pilot;
  *     placeholder. None of its properties have allowed values of null.
  */
 public class Bond {
+    // TODO: fill out
     private String id;
     private String name;
     private String[] majorIdeals;

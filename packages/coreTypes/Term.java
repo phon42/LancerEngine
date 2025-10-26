@@ -15,6 +15,7 @@ package packages.coreTypes;
  *     placeholder. None of its properties have allowed values of null.
  */
 public class Term {
+    // TODO: fill out
     private String name;
     private String description;
 }

@@ -14,4 +14,6 @@ import packages.coreTypes.entityMechanics.entityTypes.pilot.loadout.PilotEquipme
  * Safety: This class does not have placeholder values and cannot be a
  *     placeholder. At least one of its properties has an allowed value of null.
  */
-public class PilotGear extends PilotEquipment {}
+public class PilotGear extends PilotEquipment {
+    // TODO: fill out
+}

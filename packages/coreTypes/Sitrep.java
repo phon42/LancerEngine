@@ -14,6 +14,7 @@ package packages.coreTypes;
  *     placeholder. At least one of its properties has an allowed value of null.
  */
 public class Sitrep {
+    // TODO: fill out
     private String id;
     private String name;
     private String pcVictory;

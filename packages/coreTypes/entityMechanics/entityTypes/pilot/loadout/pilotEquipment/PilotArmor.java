@@ -15,5 +15,5 @@ import packages.coreTypes.entityMechanics.entityTypes.pilot.loadout.PilotEquipme
  *     placeholder. At least one of its properties has an allowed value of null.
  */
 public class PilotArmor extends PilotEquipment {
-    
+    // TODO: fill out
 }

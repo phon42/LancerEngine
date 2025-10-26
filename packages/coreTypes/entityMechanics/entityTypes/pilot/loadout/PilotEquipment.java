@@ -15,6 +15,7 @@ import packages.coreTypes.entityMechanics.entityTypes.mech.equipment.tagSystem.T
  * Safety: N/A because this class cannot be instantiated.
  */
 public class PilotEquipment {
+    // TODO: fill out
     private String id;
     private String name;
     private String type;

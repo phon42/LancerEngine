@@ -20,6 +20,7 @@ import packages.coreTypes.entityMechanics.License;
  *     placeholder. At least one of its properties has an allowed value of null.
  */
 public class Modification extends Equipment {
+    // TODO: fill out
     private String id; // add to parent
     private String spCost;
     private String[] allowedTypes;

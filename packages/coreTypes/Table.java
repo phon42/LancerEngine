@@ -12,6 +12,7 @@ package packages.coreTypes;
  *     placeholder. None of its properties have allowed values of null.
  */
 public class Table {
+    // TODO: fill out
     private String name;
     private Object[] data;
 }
