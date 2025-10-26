@@ -45,7 +45,47 @@ public class ClassB {
     // addRule which adds Rule
     // addTerm which adds Term
     // addTable which adds Table
+    private static boolean open;
+    private static boolean hasData;
 
     // Prevent user from instantiating this class
     private ClassB() {}
+
+    public static void open() { // could also be named add() or save()
+        if (ClassB.open) {
+            if (ClassB.hasData) {
+                // means the user had already added some data but didn't upload
+                //     it
+                // throw an exception if you hate your user
+                // throw new IllegalArgumentException("Attempted to call"
+                //     + " ClassB.open() when ClassB is already open. Either close"
+                //     + " ClassB or flush the data before closing it");
+            } else {
+                // means the user just opened ClassB twice by accident lol
+                // throw an exception if you REALLY hate your user
+                // throw new IllegalArgumentException("Attempted to call"
+                //     + " ClassB.open() when ClassB is already open");
+            }
+            ClassB.close();
+        }
+        ClassB.open = true;
+    }
+    public static void close() {
+        if (! ClassB.open) {
+            // throw an exception if you hate your user
+            // throw new IllegalArgumentException("Attempted to call"
+            //     + " ClassB.close() when ClassB is already closed");
+        }
+        ClassB.open = false;
+        ClassB.uploadData();
+    }
+    private static void uploadData() { // TODO: find a better name
+        // push all the data that's been collected over to Database
+        // then flush it
+        flushData();
+    }
+    public static void flushData() {
+        // delete all the data that's been collected
+        ClassB.hasData = false;
+    }
 }
