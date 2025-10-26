@@ -516,6 +516,7 @@ new Frame(new License("Lich", 2), "HORUS",
 )
         );
     }
+
     // Prevent user from instantiating this class
     private Database() {}
 

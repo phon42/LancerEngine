@@ -45,4 +45,7 @@ public class ClassB {
     // addRule which adds Rule
     // addTerm which adds Term
     // addTable which adds Table
+
+    // Prevent user from instantiating this class
+    private ClassB() {}
 }
