@@ -1,5 +1,6 @@
 package main.database;
 
+import main.Database;
 import packages.coreTypes.entityMechanics.Action;
 import packages.coreTypes.entityMechanics.License;
 import packages.coreTypes.entityMechanics.entityTypes.mech.equipment.MechSystem;
@@ -32,7 +33,7 @@ import packages.coreTypes.Term;
 public class ClassC {
     // some kind of method for every possible type of data, each with a method
     //     signature that includes a JSONObject parameter
-    // some kind of add() or save() method for Class A to call once all
+    // some kind of add() or save() method for Class B to call once all
     //     JSONObjects are loaded
     // compile all JSONObjects into licenses and collections of data, for
     //     non-license content, and add everything to Database
@@ -74,9 +75,10 @@ public class ClassC {
     // addRule which adds Rule
     // addTerm which adds Term
     // addTable which adds Table
-    private static boolean open;
-    private static boolean hasData;
+    private static boolean open = false;
+    private static boolean hasData = false;
     // all the data being held at the moment
+    // ----some critical data types:
     private static FrameLicense[] frameLicenseData = new FrameLicense[0];
     private static LicenseContent[] licenseContentData = new LicenseContent[0];
     private static Frame[] frameData = new Frame[0];
@@ -118,16 +120,20 @@ public class ClassC {
                 // means the user had already added some data but didn't upload
                 //     it
                 // throw an exception if you hate your user
-                // throw new IllegalArgumentException("Attempted to call"
+                // throw new IllegalStateException("Attempted to call"
                 //     + " ClassC.open() when ClassC is already open. Either close"
                 //     + " ClassC or flush the data before closing it");
             } else {
                 // means the user just opened ClassC twice by accident lol
                 // throw an exception if you REALLY hate your user
-                // throw new IllegalArgumentException("Attempted to call"
+                // throw new IllegalStateException("Attempted to call"
                 //     + " ClassC.open() when ClassC is already open");
             }
             close();
+        } else if (ClassC.hasData) {
+            throw new IllegalStateException("Attempted to call ClassC.open()"
+                + " when ClassC still has some data remaining. Call"
+                + " ClassC.uploadData() or ClassC.flushData() first");
         }
         ClassC.open = true;
     }
@@ -138,9 +144,13 @@ public class ClassC {
             //     + " ClassC.close() when ClassC is already closed");
         }
         ClassC.open = false;
-        uploadData();
     }
-    private static void uploadData() { // TODO: find a better name
+    public static void uploadData() { // TODO: find a better name
+        if (ClassC.open) {
+            throw new IllegalStateException("Attempted to call"
+                + " ClassC.uploadData() while ClassC was still open. Call"
+                + " ClassC.close() first");
+        }
         // push all the data that's been collected over to Database
         compileLicenseContent();
         compileLicenses();
@@ -150,7 +160,7 @@ public class ClassC {
     }
     public static void flushData() {
         // delete all the data that's been collected
-        // ----plus individual mutators for those types:
+        // ----some critical data types:
         ClassC.frameLicenseData = new FrameLicense[0];
         ClassC.licenseContentData = new LicenseContent[0];
         ClassC.frameData = new Frame[0];
@@ -179,10 +189,52 @@ public class ClassC {
         ClassC.backgroundData = new Background[0];
         ClassC.bondData = new Bond[0];
         // ----just for reference
-        ClassC.ruleData = Rule[0];
+        ClassC.ruleData = new Rule[0];
         ClassC.termData = new Term[0];
         ClassC.tableData = new Table[0];
         ClassC.hasData = false;
+        // TODO: remove?
+        System.out.println("DATA FLUSHED SUCCESSFULLY");
+    }
+    public static void receiveData(Object[] data) {
+        // TODO: fill out
+        if (! ClassC.open) {
+            throw new IllegalStateException("Attempted to call"
+                + " ClassC.receiveData() while ClassC was still closed. Call"
+                + " ClassC.open() first");
+        }
+        // ----some critical data types:
+        ClassC.frameData = (Frame[]) data[0];
+        ClassC.systemData = (MechSystem[]) data[1];
+        ClassC.modificationData = (Modification[]) data[1];
+        ClassC.weaponData = (Weapon[]) data[2];
+        // ----the rest of the critical data types:
+        ClassC.actionData = (Action[]) data[3];
+        ClassC.conditionData = (Condition[]) data[4];
+        ClassC.dataTagData = (DataTag[]) data[5];
+        ClassC.tagData = (Tag[]) data[6];
+        ClassC.manufacturerData = (Manufacturer[]) data[7];
+        ClassC.npcFeatureData = (NPCFeature[]) data[8];
+        ClassC.npcTemplateData = (NPCTemplate[]) data[9];
+        ClassC.pilotArmorData = (PilotArmor[]) data[10];
+        ClassC.pilotGearData = (PilotGear[]) data[11];
+        ClassC.pilotWeapon = (PilotWeapon[]) data[12];
+        ClassC.reserveData = (Reserve[]) data[13];
+        ClassC.skillData = (Skill[]) data[14];
+        ClassC.statusData = (Status[]) data[15];
+        ClassC.talentData = (Talent[]) data[16];
+        // ----less important
+        ClassC.environmentData = (Environment[]) data[16];
+        ClassC.sitrepData = (Sitrep[]) data[17];
+        // ----almost unimportant
+        ClassC.backgroundData = (Background[]) data[18];
+        ClassC.bondData = (Bond[]) data[19];
+        // ----just for reference
+        ClassC.ruleData = (Rule[]) data[20];
+        ClassC.termData = (Term[]) data[21];
+        ClassC.tableData = (Table[]) data[22];
+        // remember to mark that we have data now
+        ClassC.hasData = true;
     }
     private static void compileLicenseContent() {
         // compile all the LicenseContent you have
@@ -217,7 +269,7 @@ public class ClassC {
         // TODO: fill out
         // take the LicenseContent that you have and organize them into
         //     discrete licenses
-        ClassC.frameLicenseData = newLicenseContent;
+        ClassC.frameLicenseData = ClassC.licenseContentData;
     }
     private static void addLicenses() {
         for (int i = 0; i < ClassC.frameLicenseData.length; i++) {
