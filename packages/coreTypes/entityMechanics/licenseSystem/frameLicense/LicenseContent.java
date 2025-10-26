@@ -39,6 +39,8 @@ public class LicenseContent {
      */
     protected String manufacturer;
 
+    protected LicenseContent() {}
+
     public String getName() {
         return name;
     }

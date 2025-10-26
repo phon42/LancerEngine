@@ -8,13 +8,11 @@ import packages.coreTypes.entityMechanics.entityTypes.mech.equipment.tagSystem.T
  *     weapon, or gear). Contains information about that pilot equipment's id,
  *     name, type, data tags, and tags.
  * 
- * Requires a pilot equipment id, name, type, and array of data tags to be
- *     instantiated.
+ * Cannot be instantiated.
  * 
  * Unused at present.
  * 
- * Safety: This class does not have placeholder values and cannot be a
- *     placeholder. None of its properties have allowed values of null.
+ * Safety: N/A because this class cannot be instantiated.
  */
 public class PilotEquipment {
     private String id;
@@ -22,4 +20,6 @@ public class PilotEquipment {
     private String type;
     private DataTag[] dataTags;
     private Tag[] tags;
+
+    protected PilotEquipment() {}
 }
