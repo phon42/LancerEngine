@@ -1,13 +1,17 @@
 package main.database;
 
+import main.database.json.JSONArray;
+import main.database.json.JSONObject;
+
 public class JSON {
     // black box that reads JSON, converts to JSONObject, JSONArray, some mix
     //     thereof, etc
-    // needs to be able to read an entire LCP or just individual .json files
-    public static void readLCP(String lcpName) {
-        // TODO: complete
+    // just needs to be able to read a String of JSON data and convert to
+    //     JSONArray or JSONObject
+    public static JSONArray toJSONArray(String jsonData) {
+        return new JSONArray(jsonData);
     }
-    public static void readJSON(String jsonName) {
-        // TODO: complete
+    public static JSONObject toJSONObject(String jsonData) {
+        return new JSONObject(jsonData);
     }
 }
