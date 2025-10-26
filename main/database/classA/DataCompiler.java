@@ -30,7 +30,7 @@ import packages.coreTypes.Sitrep;
 import packages.coreTypes.Table;
 import packages.coreTypes.Term;
 
-public class ClassC {
+public class DataCompiler {
     // some kind of method for every possible type of data, each with a method
     //     signature that includes a JSONObject parameter
     // some kind of add() or save() method for Class B to call once all
@@ -112,44 +112,46 @@ public class ClassC {
     private static Table[] tableData = new Table[0];
 
     // Prevent user from instantiating this class
-    private ClassC() {}
+    private DataCompiler() {}
 
     public static void open() { // could also be named add()
-        if (ClassC.open) {
-            if (ClassC.hasData) {
+        if (DataCompiler.open) {
+            if (DataCompiler.hasData) {
                 // means the user had already added some data but didn't upload
                 //     it
                 // throw an exception if you hate your user
                 // throw new IllegalStateException("Attempted to call"
-                //     + " ClassC.open() when ClassC is already open. Either close"
-                //     + " ClassC or flush the data before closing it");
+                //     + " DataCompiler.open() when DataCompiler is already open."
+                //     + " Either close DataCompiler or flush the data before"
+                //     + " closing it");
             } else {
-                // means the user just opened ClassC twice by accident lol
+                // means the user just opened DataCompiler twice by accident lol
                 // throw an exception if you REALLY hate your user
                 // throw new IllegalStateException("Attempted to call"
-                //     + " ClassC.open() when ClassC is already open");
+                //     + " DataCompiler.open() when DataCompiler is already open");
             }
             close();
-        } else if (ClassC.hasData) {
-            throw new IllegalStateException("Attempted to call ClassC.open()"
-                + " when ClassC still has some data remaining. Call"
-                + " ClassC.uploadData() or ClassC.flushData() first");
+        } else if (DataCompiler.hasData) {
+            throw new IllegalStateException("Attempted to call"
+                + " DataCompiler.open() when DataCompiler still has some data"
+                + " remaining. Call DataCompiler.uploadData() or"
+                + " DataCompiler.flushData() first");
         }
-        ClassC.open = true;
+        DataCompiler.open = true;
     }
     public static void close() { // could also be named add() or save()
-        if (! ClassC.open) {
+        if (! DataCompiler.open) {
             // throw an exception if you hate your user
             // throw new IllegalArgumentException("Attempted to call"
-            //     + " ClassC.close() when ClassC is already closed");
+            //     + " DataCompiler.close() when DataCompiler is already closed");
         }
-        ClassC.open = false;
+        DataCompiler.open = false;
     }
     public static void uploadData() { // TODO: find a better name
-        if (ClassC.open) {
+        if (DataCompiler.open) {
             throw new IllegalStateException("Attempted to call"
-                + " ClassC.uploadData() while ClassC was still open. Call"
-                + " ClassC.close() first");
+                + " DataCompiler.uploadData() while DataCompiler was still"
+                + " open. Call DataCompiler.close() first");
         }
         // push all the data that's been collected over to Database
         compileLicenseContent();
@@ -161,92 +163,94 @@ public class ClassC {
     public static void flushData() {
         // delete all the data that's been collected
         // ----some critical data types:
-        ClassC.frameLicenseData = new FrameLicense[0];
-        ClassC.licenseContentData = new LicenseContent[0];
-        ClassC.frameData = new Frame[0];
-        ClassC.systemData = new MechSystem[0];
-        ClassC.modificationData = new Modification[0];
-        ClassC.weaponData = new Weapon[0];
+        DataCompiler.frameLicenseData = new FrameLicense[0];
+        DataCompiler.licenseContentData = new LicenseContent[0];
+        DataCompiler.frameData = new Frame[0];
+        DataCompiler.systemData = new MechSystem[0];
+        DataCompiler.modificationData = new Modification[0];
+        DataCompiler.weaponData = new Weapon[0];
         // ----the rest of the critical data types:
-        ClassC.actionData = new Action[0];
-        ClassC.conditionData = new Condition[0];
-        ClassC.dataTagData = new DataTag[0];
-        ClassC.tagData = new Tag[0];
-        ClassC.manufacturerData = new Manufacturer[0];
-        ClassC.npcFeatureData = new NPCFeature[0];
-        ClassC.npcTemplateData = new NPCTemplate[0];
-        ClassC.pilotArmorData = new PilotArmor[0];
-        ClassC.pilotGearData = new PilotGear[0];
-        ClassC.pilotWeapon = new PilotWeapon[0];
-        ClassC.reserveData = new Reserve[0];
-        ClassC.skillData = new Skill[0];
-        ClassC.statusData = new Status[0];
-        ClassC.talentData = new Talent[0];
+        DataCompiler.actionData = new Action[0];
+        DataCompiler.conditionData = new Condition[0];
+        DataCompiler.dataTagData = new DataTag[0];
+        DataCompiler.tagData = new Tag[0];
+        DataCompiler.manufacturerData = new Manufacturer[0];
+        DataCompiler.npcFeatureData = new NPCFeature[0];
+        DataCompiler.npcTemplateData = new NPCTemplate[0];
+        DataCompiler.pilotArmorData = new PilotArmor[0];
+        DataCompiler.pilotGearData = new PilotGear[0];
+        DataCompiler.pilotWeapon = new PilotWeapon[0];
+        DataCompiler.reserveData = new Reserve[0];
+        DataCompiler.skillData = new Skill[0];
+        DataCompiler.statusData = new Status[0];
+        DataCompiler.talentData = new Talent[0];
         // ----less important
-        ClassC.environmentData = new Environment[0];
-        ClassC.sitrepData = new Sitrep[0];
+        DataCompiler.environmentData = new Environment[0];
+        DataCompiler.sitrepData = new Sitrep[0];
         // ----almost unimportant
-        ClassC.backgroundData = new Background[0];
-        ClassC.bondData = new Bond[0];
+        DataCompiler.backgroundData = new Background[0];
+        DataCompiler.bondData = new Bond[0];
         // ----just for reference
-        ClassC.ruleData = new Rule[0];
-        ClassC.termData = new Term[0];
-        ClassC.tableData = new Table[0];
-        ClassC.hasData = false;
+        DataCompiler.ruleData = new Rule[0];
+        DataCompiler.termData = new Term[0];
+        DataCompiler.tableData = new Table[0];
+        DataCompiler.hasData = false;
         // TODO: remove?
         System.out.println("DATA FLUSHED SUCCESSFULLY");
     }
     public static void receiveData(Object[] data) {
         // TODO: fill out
-        if (! ClassC.open) {
+        if (! DataCompiler.open) {
             throw new IllegalStateException("Attempted to call"
-                + " ClassC.receiveData() while ClassC was still closed. Call"
-                + " ClassC.open() first");
+                + " DataCompiler.receiveData() while DataCompiler was still"
+                + " closed. Call DataCompiler.open() first");
         }
         // ----some critical data types:
-        ClassC.frameData = (Frame[]) data[0];
-        ClassC.systemData = (MechSystem[]) data[1];
-        ClassC.modificationData = (Modification[]) data[1];
-        ClassC.weaponData = (Weapon[]) data[2];
+        DataCompiler.frameData = (Frame[]) data[0];
+        DataCompiler.systemData = (MechSystem[]) data[1];
+        DataCompiler.modificationData = (Modification[]) data[1];
+        DataCompiler.weaponData = (Weapon[]) data[2];
         // ----the rest of the critical data types:
-        ClassC.actionData = (Action[]) data[3];
-        ClassC.conditionData = (Condition[]) data[4];
-        ClassC.dataTagData = (DataTag[]) data[5];
-        ClassC.tagData = (Tag[]) data[6];
-        ClassC.manufacturerData = (Manufacturer[]) data[7];
-        ClassC.npcFeatureData = (NPCFeature[]) data[8];
-        ClassC.npcTemplateData = (NPCTemplate[]) data[9];
-        ClassC.pilotArmorData = (PilotArmor[]) data[10];
-        ClassC.pilotGearData = (PilotGear[]) data[11];
-        ClassC.pilotWeapon = (PilotWeapon[]) data[12];
-        ClassC.reserveData = (Reserve[]) data[13];
-        ClassC.skillData = (Skill[]) data[14];
-        ClassC.statusData = (Status[]) data[15];
-        ClassC.talentData = (Talent[]) data[16];
+        DataCompiler.actionData = (Action[]) data[3];
+        DataCompiler.conditionData = (Condition[]) data[4];
+        DataCompiler.dataTagData = (DataTag[]) data[5];
+        DataCompiler.tagData = (Tag[]) data[6];
+        DataCompiler.manufacturerData = (Manufacturer[]) data[7];
+        DataCompiler.npcFeatureData = (NPCFeature[]) data[8];
+        DataCompiler.npcTemplateData = (NPCTemplate[]) data[9];
+        DataCompiler.pilotArmorData = (PilotArmor[]) data[10];
+        DataCompiler.pilotGearData = (PilotGear[]) data[11];
+        DataCompiler.pilotWeapon = (PilotWeapon[]) data[12];
+        DataCompiler.reserveData = (Reserve[]) data[13];
+        DataCompiler.skillData = (Skill[]) data[14];
+        DataCompiler.statusData = (Status[]) data[15];
+        DataCompiler.talentData = (Talent[]) data[16];
         // ----less important
-        ClassC.environmentData = (Environment[]) data[16];
-        ClassC.sitrepData = (Sitrep[]) data[17];
+        DataCompiler.environmentData = (Environment[]) data[16];
+        DataCompiler.sitrepData = (Sitrep[]) data[17];
         // ----almost unimportant
-        ClassC.backgroundData = (Background[]) data[18];
-        ClassC.bondData = (Bond[]) data[19];
+        DataCompiler.backgroundData = (Background[]) data[18];
+        DataCompiler.bondData = (Bond[]) data[19];
         // ----just for reference
-        ClassC.ruleData = (Rule[]) data[20];
-        ClassC.termData = (Term[]) data[21];
-        ClassC.tableData = (Table[]) data[22];
+        DataCompiler.ruleData = (Rule[]) data[20];
+        DataCompiler.termData = (Term[]) data[21];
+        DataCompiler.tableData = (Table[]) data[22];
         // remember to mark that we have data now
-        ClassC.hasData = true;
+        DataCompiler.hasData = true;
     }
     private static void compileLicenseContent() {
         // compile all the LicenseContent you have
         LicenseContent[] licenseContent;
         LicenseContent[] newLicenseContent;
-        int numEquipment = ClassC.frameData.length + ClassC.systemData.length
-            + ClassC.modificationData.length + ClassC.weaponData.length;
+        int numEquipment = DataCompiler.frameData.length
+            + DataCompiler.systemData.length
+            + DataCompiler.modificationData.length
+            + DataCompiler.weaponData.length;
         int numValid = 0;
 
         licenseContent = new LicenseContent[numEquipment];
         newLicenseContent = new LicenseContent[numEquipment];
-        numEquipment = ClassC.frameData.length;
+        numEquipment = DataCompiler.frameData.length;
         for (int i = 0; i < numEquipment; i++) {
             if (licenseContent[i].hasLicense()) {
                 newLicenseContent[i] = licenseContent[i];
@@ -263,17 +267,17 @@ public class ClassC {
             newLicenseContent[numValid] = licenseContent[i];
             numValid++;
         }
-        ClassC.licenseContentData = newLicenseContent;
+        DataCompiler.licenseContentData = newLicenseContent;
     }
     private static void compileLicenses() {
         // TODO: fill out
         // take the LicenseContent that you have and organize them into
         //     discrete licenses
-        ClassC.frameLicenseData = ClassC.licenseContentData;
+        DataCompiler.frameLicenseData = DataCompiler.licenseContentData;
     }
     private static void addLicenses() {
-        for (int i = 0; i < ClassC.frameLicenseData.length; i++) {
-            Database.addLicense(ClassC.frameLicenseData[i]);
+        for (int i = 0; i < DataCompiler.frameLicenseData.length; i++) {
+            Database.addLicense(DataCompiler.frameLicenseData[i]);
         }
     }
 }

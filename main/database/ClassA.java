@@ -17,7 +17,7 @@ public class ClassA { // possible name DatabaseReader
     //    a. If it's a JSONObject, convert it to a JSONObject[1]
     //    a. If it's a JSONArray, convert it to a JSONObject[]
     // 5. Collect all those JSONObject[]s into one giant Object[]
-    // 6. Feed that Object[] to ClassB and thus eventually to ClassC
+    // 6. Feed that Object[] to ClassB and thus eventually to DataCompiler
     // 7. Flush all the stored data from ClassA
 
     // All the data being held at the moment, as JSONObject[]s:
@@ -61,7 +61,7 @@ public class ClassA { // possible name DatabaseReader
         // read the data
         readData(filePath);
         // once you're done, send that data along to ClassB, which sends it
-        //     along to ClassC
+        //     along to DataCompiler
         sendData();
     }
     /**

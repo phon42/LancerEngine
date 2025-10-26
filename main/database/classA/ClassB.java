@@ -33,10 +33,10 @@ public class ClassB {
     //     from ClassA
     // transform it into the appropriate data type
     // - remember to split apart the DataTag data into Tag
-    // then pass it on to ClassC
-    // - first open ClassC
+    // then pass it on to DataCompiler
+    // - first open DataCompiler
     // - then send the data
-    // - then close ClassC
+    // - then close DataCompiler
     // then flush the data afterwards
 
     // all the data being held at the moment
@@ -109,15 +109,15 @@ public class ClassB {
         // each Object is actually a JSONObject[] or JSONObject
         // convert those JSONObject[]s and JSONObjects to Action[],
         //     Background[], etc. etc.
-        // once done, pass that data on to ClassC
-        // - first open ClassC so it can receive
-        ClassC.open();
+        // once done, pass that data on to DataCompiler
+        // - first open DataCompiler so it can receive
+        DataCompiler.open();
         // - pass the data on
-        ClassC.receiveData(newData);
-        // - and then close ClassC
-        ClassC.close();
-        // and tell ClassC to upload it
-        ClassC.uploadData();
+        DataCompiler.receiveData(newData);
+        // - and then close DataCompiler
+        DataCompiler.close();
+        // and tell DataCompiler to upload it
+        DataCompiler.uploadData();
     }
     private static Action[] processActions(JSONObject[] actionsData) {
         Action[] actions = new Action[actionsData.length()];
