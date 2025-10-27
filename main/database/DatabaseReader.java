@@ -1,9 +1,9 @@
 package main.database;
 
-import main.database.DatabaseReader.DataCaster;
-import main.database.DatabaseReader.JSON;
-import main.database.DatabaseReader.json.JSONArray;
-import main.database.DatabaseReader.json.JSONObject;
+import main.database.databaseReader.DataCaster;
+import main.database.databaseReader.JSON;
+import main.database.databaseReader.json.JSONArray;
+import main.database.databaseReader.json.JSONObject;
 
 public class DatabaseReader {
     // 1. DatabaseReader's DatabaseReader.read() method is called by Database,
@@ -135,7 +135,7 @@ public class DatabaseReader {
      *     .json file. Cannot be null.
      */
     private static void readJSON(String jsonPath) {
-        String data;
+        String data = null;
 
         // Check whether jsonPath is null
         if (jsonPath == null) {
