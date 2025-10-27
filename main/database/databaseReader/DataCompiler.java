@@ -119,18 +119,19 @@ public class DataCompiler {
             if (DataCompiler.hasData) {
                 // means the user had already added some data but didn't upload
                 //     it
-                // throw an exception if you hate your user
-                // throw new IllegalStateException("Attempted to call"
-                //     + " DataCompiler.open() when DataCompiler is already open."
-                //     + " Either close DataCompiler or flush the data before"
-                //     + " closing it");
+                // throw an exception if you hate your user, otherwise
+                //     just call close()
+                throw new IllegalStateException("Attempted to call"
+                    + " DataCompiler.open() when DataCompiler is already open."
+                    + " Either close DataCompiler or flush the data before"
+                    + " closing it");
             } else {
                 // means the user just opened DataCompiler twice by accident lol
-                // throw an exception if you REALLY hate your user
-                // throw new IllegalStateException("Attempted to call"
-                //     + " DataCompiler.open() when DataCompiler is already open");
+                // throw an exception if you REALLY hate your user, otherwise
+                //     just call close()
+                throw new IllegalStateException("Attempted to call"
+                    + " DataCompiler.open() when DataCompiler is already open");
             }
-            close();
         } else if (DataCompiler.hasData) {
             throw new IllegalStateException("Attempted to call"
                 + " DataCompiler.open() when DataCompiler still has some data"
@@ -141,9 +142,10 @@ public class DataCompiler {
     }
     public static void close() { // could also be named add() or save()
         if (! DataCompiler.open) {
+            // user called close() when DataCompiler was already closed
             // throw an exception if you hate your user
-            // throw new IllegalArgumentException("Attempted to call"
-            //     + " DataCompiler.close() when DataCompiler is already closed");
+            throw new IllegalArgumentException("Attempted to call"
+                + " DataCompiler.close() when DataCompiler is already closed");
         }
         DataCompiler.open = false;
     }
@@ -157,6 +159,7 @@ public class DataCompiler {
         compileLicenseContent();
         compileLicenses();
         addLicenses();
+        addContent();
         // then flush it
         flushData();
     }
@@ -279,5 +282,9 @@ public class DataCompiler {
         for (int i = 0; i < DataCompiler.frameLicenseData.length; i++) {
             Database.addLicense(DataCompiler.frameLicenseData[i]);
         }
+    }
+    private static void addContent() {
+        // TODO: fill out
+        // add anything that wasn't added in a batch through addLicenses
     }
 }
