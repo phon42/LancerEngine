@@ -88,7 +88,8 @@ public class DataCaster {
     // npc templates
     // pilot gear - they're all together, mind
     // reserves
-    // rules is one object with properties that could be int, an object, an array, an array of objects
+    // rules is one object with properties that could be int, an object, an
+    //     array, an array of objects
     // sitreps
     // skills
     // statuses - all mixed together
@@ -99,31 +100,40 @@ public class DataCaster {
     // terms (glossary)
     // weapons
     public static void receiveData(Object[] data) {
-        Object[] newData;
-
-        // TODO: fill out, using all the DataCaster.processX() methods
-        // unpack the Object[] into an array of data
-        // TODO: fill out
+        // unpack the Object[], transforming each element from Object to a
+        //     JSONObject[] or JSONObject, then putting it in its respective
+        //     property (i.e. DataCaster.frameData).
+        unpackData(data);
         // then process that data
+        processData();
+        // now pack that data back up
+        data = packData();
+        // once done, pass that data on to DataCompiler
+        passData(data);
+        // now flush the data
+        flushData();
+    }
+    private static void unpackData(Object[] data) {
         // TODO: fill out
+        // unpack the Object[], transforming each element from Object to a
+        //     JSONObject[] or JSONObject, then putting it in its respective
+        //     property (i.e. DataCaster.frameData).
+    }
+    private static void processData() {
+        // TODO: fill out, using all the DataCaster.processX() methods
+        // then process that data
         // each Object is actually a JSONObject[] or JSONObject
         // convert those JSONObject[]s and JSONObjects to Action[],
         //     Background[], etc. etc.
-        // once done, pass that data on to DataCompiler
-        // - first open DataCompiler so it can receive
-        DataCompiler.open();
-        // - pass the data on
-        DataCompiler.receiveData(newData);
-        // - and then close DataCompiler
-        DataCompiler.close();
-        // and tell DataCompiler to upload it
-        DataCompiler.uploadData();
+        // Remember to take stuff like JSONObject[] pilotEquipmentData and split
+        //     it into its constituent types while it's being casted
+        // Same for stateData
     }
     private static Action[] processActions(JSONObject[] actionsData) {
-        Action[] actions = new Action[actionsData.length()];
+        Action[] actions = new Action[actionsData.length];
 
         for (int i = 0; i < actions.length; i++) {
-            actions[i] = toAction(actionsData.getJSONObject(i));
+            actions[i] = toAction(actionsData[i]);
         }
 
         return actions;
@@ -131,11 +141,11 @@ public class DataCaster {
     private static Action toAction(JSONObject actionData) {
         // TODO: fill out
         // Required properties
-        String id = (String) actionData.get("id");
-        String name = (String) actionData.get("name");
-        String activation = (String) actionData.get("activation");
-        String terse = (String) actionData.get("terse");
-        String detail = (String) actionData.get("detail");
+        String id = actionData.getString("id");
+        String name = actionData.getString("name");
+        String activation = actionData.getString("activation");
+        String terse = actionData.getString("terse");
+        String detail = actionData.getString("detail");
         // Optional properties
     private boolean pilot;
     private boolean mech;
@@ -207,8 +217,8 @@ public class DataCaster {
         JSONObject[] pilotGearData = new JSONObject[pilotEquipmentData.length()];
         String type;
 
-        for (int i = 0; i < pilotEquipmentData.length(); i++) {
-            type = pilotEquipmentData[i].get("type");
+        for (int i = 0; i < pilotEquipmentData.length; i++) {
+            type = pilotEquipmentData[i].getString("type");
             if (type.equals("Armor")) {
                 pilotArmorData[i] = pilotEquipmentData[i];
             } else if (type.equals("Weapon")) {
@@ -330,6 +340,55 @@ public class DataCaster {
         // TODO: fill out
     }
     private static Weapon toWeapon(JSONObject weaponData) {
+        // TODO: fill out
+    }
+    private static Object[] packData() {
+        Object[] data = new Object[] {
+            // ----some critical data types:
+            DataCaster.frameProcessed,
+            DataCaster.systemProcessed,
+            DataCaster.modificationProcessed,
+            DataCaster.weaponProcessed,
+            // ----the rest of the critical data types:
+            DataCaster.actionProcessed,
+            DataCaster.conditionProcessed,
+            DataCaster.dataTagProcessed,
+            DataCaster.tagProcessed,
+            DataCaster.manufacturerProcessed,
+            DataCaster.npcFeatureProcessed,
+            DataCaster.npcTemplateProcessed,
+            DataCaster.pilotArmorProcessed,
+            DataCaster.pilotGearProcessed,
+            DataCaster.pilotWeaponProcessed,
+            DataCaster.reserveProcessed,
+            DataCaster.skillProcessed,
+            DataCaster.statusProcessed,
+            DataCaster.talentProcessed,
+            // ----less important
+            DataCaster.environmentProcessed,
+            DataCaster.sitrepProcessed,
+            // ----almost unimportant
+            DataCaster.backgroundProcessed,
+            DataCaster.bondProcessed,
+            // ----just for reference
+            DataCaster.ruleProcessed,
+            DataCaster.termProcessed,
+            DataCaster.tableProcessed
+        };
+
+        return data;
+    }
+    private static void passData(Object[] data) {
+        // - first open DataCompiler so it can receive
+        DataCompiler.open();
+        // - pass the data on
+        DataCompiler.receiveData(data);
+        // - and then close DataCompiler
+        DataCompiler.close();
+        // and tell DataCompiler to upload it
+        DataCompiler.uploadData();
+    }
+    private static void flushData() {
         // TODO: fill out
     }
 }
