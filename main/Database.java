@@ -28,35 +28,10 @@ import packages.coreTypes.entityMechanics.licenseSystem.FrameLicense;
  * Safety: N/A because this class cannot be instantiated.
  */
 public final class Database {
-    // private static Action[] actions = new Action[0];
-    // private static Condition[] conditions = new Condition[0];
-    // private static DataTag[] dataTags = new DataTag[0];
-    // private static Frame[] frames = new Frame[0];
-    // private static FrameLicense[] licenses = new FrameLicense[0];
-    // private static Manufacturer[] manufacturers = new Manufacturer[0];
-    // // does not include mods
-    // private static MechSystem[] systems = new MechSystem[0];
-    // private static Modification[] modifications = new Modification[0];
-    // private static NPCFeature[] npcFeatures = new NPCFeature[0];
-    // private static PilotArmor[] pilotArmor = new PilotArmor[0];
-    // private static PilotGear[] pilotGear = new PilotGear[0];
-    // private static PilotWeapon[] pilotWeapons = new PilotWeapon[0];
-    // private static Reserve[] reserves = new Reserve[0];
-    // private static Skill[] skills = new Skill[0];
-    // private static Status[] statuses = new Status[0];
-    // private static Tag[] tags = new Tag[0];
-    // private static Talent[] talents = new Talent[0];
-    // private static Weapon[] weapons = new Weapon[0];
-    // // less important
-    // private static Environment[] environments = new Environment[0];
-    // private static Sitrep[] sitreps = new Sitrep[0];
-    // // almost unimportant
-    // private static Background[] backgrounds = new Background[0];
-    // private static Bond[] bonds = new Bond[0];
-    // // just for reference
-    // private static Rule[] rules = new Rule[0];
-    // private static Term[] terms = new Term[0];
-    // private static Table[] tables = new Table[0];
+    /**
+     * Represents whether the database is currently being edited.
+     */
+    private static boolean open = false;
     /**
      * Contains every manufacturer for reference.
      * Case-insensitive and stored in uppercase.
@@ -520,6 +495,28 @@ new Frame(new License("Lich", 2), "HORUS",
     // Prevent user from instantiating this class
     private Database() {}
 
+    public static boolean isOpen() {
+        return Database.open;
+    }
+    public static void open() {
+        if (Database.open) {
+            // means the user just opened Database twice by accident lol
+            // throw an exception if you REALLY hate your user, otherwise just
+            //     call close()
+            throw new IllegalStateException("Attempted to call"
+                + " Database.open() when Database is already open");
+        }
+        Database.open = true;
+    }
+    public static void close() {
+        if (! Database.open) {
+            // user called close() when Database was already closed
+            // throw an exception if you hate your user
+            throw new IllegalArgumentException("Attempted to call"
+                + " Database.close() when Database is already closed");
+        }
+        Database.open = false;
+    }
     /**
      * Begins the process of adding a new license to the database by creating a
      *     FrameLicense object and returning it.
