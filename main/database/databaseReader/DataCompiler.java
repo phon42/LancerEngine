@@ -1,6 +1,7 @@
 package main.database.databaseReader;
 
 import main.Database;
+import main.HelperMethods;
 import packages.coreTypes.entityMechanics.Action;
 import packages.coreTypes.entityMechanics.License;
 import packages.coreTypes.entityMechanics.entityTypes.mech.equipment.MechSystem;
@@ -286,5 +287,47 @@ public class DataCompiler {
     private static void addContent() {
         // TODO: fill out
         // add anything that wasn't added in a batch through addLicenses
+    }
+    public static void flushData() {
+        // delete all the data that's been collected
+        // ----some critical data types:
+        DataCompiler.frameLicenseData = new FrameLicense[0];
+        DataCompiler.licenseContentData = new LicenseContent[0];
+        DataCompiler.frameData = new Frame[0];
+        DataCompiler.systemData = new MechSystem[0];
+        DataCompiler.modificationData = new Modification[0];
+        DataCompiler.weaponData = new Weapon[0];
+        // ----the rest of the critical data types:
+        DataCompiler.actionData = new Action[0];
+        DataCompiler.conditionData = new Condition[0];
+        DataCompiler.coreBonusData = new CoreBonus[0];
+        DataCompiler.dataTagData = new DataTag[0];
+        DataCompiler.tagData = new Tag[0];
+        DataCompiler.manufacturerData = new Manufacturer[0];
+        DataCompiler.npcFeatureData = new NPCFeature[0];
+        DataCompiler.npcTemplateData = new NPCTemplate[0];
+        DataCompiler.pilotArmorData = new PilotArmor[0];
+        DataCompiler.pilotGearData = new PilotGear[0];
+        DataCompiler.pilotWeapon = new PilotWeapon[0];
+        DataCompiler.reserveData = new Reserve[0];
+        DataCompiler.skillData = new Skill[0];
+        DataCompiler.stateData = new State[0];
+        DataCompiler.statusData = new Status[0];
+        DataCompiler.talentData = new Talent[0];
+        // ----less important
+        DataCompiler.environmentData = new Environment[0];
+        DataCompiler.sitrepData = new Sitrep[0];
+        // ----almost unimportant
+        DataCompiler.backgroundData = new Background[0];
+        DataCompiler.bondData = new Bond[0];
+        // ----just for reference
+        DataCompiler.ruleData = new Rule[0];
+        DataCompiler.termData = new Term[0];
+        DataCompiler.tableData = new Table[0];
+
+        DataCompiler.hasData = false;
+
+        // TODO: remove?
+        HelperMethods.alert("DATA FLUSHED SUCCESSFULLY");
     }
 }
