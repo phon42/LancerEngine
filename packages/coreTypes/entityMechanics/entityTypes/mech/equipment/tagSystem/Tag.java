@@ -316,10 +316,15 @@ public final class Tag extends DataTag {
      * @param tagName a String which cannot be null or an invalid value, as
      *     defined by Tag.allowedTags.
      */
-    public Tag(String tagName) {
+    public Tag(String tagID, String tagName, String tagDescription,
+        boolean filterIgnore) {
         super("tg_inaccurate");
+        setID(tagID);
         setName(tagName);
+        setDescription(tagDescription);
         this.value = 0;
+        setFilterIgnore(filterIgnore);
+        setHidden(false);
     }
     /**
      * Creates a new Tag such as the "Limited X" tag, given an equipment tag
@@ -329,10 +334,15 @@ public final class Tag extends DataTag {
      *     other than 0 makes sense as defined by Tag.valueIDs. Cannot be null.
      * @param tagValue an int which must be > 1.
      */
-    public Tag(String tagName, int tagValue) {
+    public Tag(String tagID, String tagName, String tagDescription,
+        int tagValue, boolean filterIgnore) {
         super("tg_inaccurate");
+        setID(tagID);
         setName(tagName);
+        setDescription(tagDescription);
         setValue(tagValue);
+        setFilterIgnore(filterIgnore);
+        setHidden(false);
     }
     /**
      * Creates a copy of the provided Tag.
@@ -344,8 +354,12 @@ public final class Tag extends DataTag {
         if (tag == null) {
             throw new IllegalArgumentException("tag is null");
         }
+        setID(tag.id);
         setName(tag.name);
+        setDescription(tag.description);
         setValue(tag.value);
+        setFilterIgnore(tag.filterIgnore);
+        setHidden(tag.hidden);
     }
 
     @Override

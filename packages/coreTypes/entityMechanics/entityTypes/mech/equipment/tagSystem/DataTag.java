@@ -448,4 +448,39 @@ public class DataTag {
     protected void setHidden(boolean hidden) {
         this.hidden = hidden;
     }
+
+    public Tag toTag() {
+        if (this.hidden) {
+            throw new IllegalArgumentException("Unable to convert a DataTag"
+                + " with a DataTag.hidden value of true to a Tag");
+        }
+
+        return new Tag(this.id, this.name, this.description, this.value,
+            this.filterIgnore);
+    }
+    public static Tag[] toTags(DataTag[] dataTags) {
+        int numValidTags = 0;
+        Tag[] tags;
+
+        if (dataTags == null) {
+            throw new IllegalArgumentException("dataTags is null");
+        }
+        for (int i = 0; i < dataTags.length; i++) {
+            if (dataTags[i] == null) {
+                continue;
+            }
+            numValidTags++;
+        }
+        tags = new Tag[numValidTags];
+        numValidTags = 0;
+        for (int i = 0; i < dataTags.length; i++) {
+            if (dataTags[i] == null) {
+                continue;
+            }
+            tags[numValidTags] = dataTags[i].toTag();
+            numValidTags++;
+        }
+
+        return tags;
+    }
 }
