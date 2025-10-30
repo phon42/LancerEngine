@@ -314,22 +314,168 @@ public class DataCaster {
         return actions;
     }
     private static Action toAction(JSONObject actionData) {
-        // TODO: fill out
         // Required properties
-        String id = actionData.getString("id");
-        String name = actionData.getString("name");
-        String activation = actionData.getString("activation");
-        String terse = actionData.getString("terse");
-        String detail = actionData.getString("detail");
+        String id;
+        String name;
+        String activation;
+        String terse;
+        String detail;
         // Optional properties
-    private boolean pilot;
-    private boolean mech;
-    private boolean hideActive;
-    private String[] synergyLocations;
-    private String[] confirm;
-    private boolean ignoreUsed;
+        boolean containsPilot = false;
+        boolean containsMech = false;
+        boolean pilot = false;
+        boolean mech;
+        boolean hideActive = false;
+        JSONArray synergyLocationsJSON = null;
+        String[] synergyLocations;
+        JSONArray confirmJSON = null;
+        String[] confirm;
+        boolean ignoreUsed = false;
+        int heatCost = 0;
+        boolean techAttack = false;
+        Frequency frequency;
+        RangeTag[] range = null;
+        JSONArray rangeJSON;
+        JSONObject rangeObject;
+        Damage[] damage = null;
+        JSONArray damageJSON;
+        JSONObject damageObject;
+        Object[] damageVals;
+        String trigger = null;
+        String init = null;
 
-        return new Action(id, name, activation, terse, detail);
+        id = actionData.getString("id");
+        name = actionData.getString("name");
+        activation = actionData.getString("activation");
+        terse = actionData.getString("terse");
+        detail = actionData.getString("detail");
+        // Get pilot and mech:
+        // The possible states for "pilot" or "mech" being present:
+        // A. Neither - means either "activation" is "Downtime" or (false, true)
+        // B. "pilot" only - means (true, false)
+        // C. "pilot" and "mech" - means (true, true)
+        // Notice that as long as the "activation" case and neither property
+        //     being present are filtered out, we can just use containsPilot for
+        //     pilot and containsMech for mech
+        // Don't need to check for properties if "activation" is "Downtime"
+        //     because we know neither is present
+        if (activation.equals("Downtime")) {
+            pilot = true;
+            mech = false;
+        } else {
+            // Otherwise
+            // Get containsPilot and containsMech
+            try {
+                actionData.getBoolean("pilot");
+                containsPilot = true;
+            } catch (JSONException exception) {}
+            try {
+                actionData.getBoolean("mech");
+                containsMech = true;
+            } catch (JSONException exception) {}
+            // Filter out the case where neither property is present
+            if (! (containsPilot || containsMech)) {
+                mech = true;
+            } else {
+                // Otherwise we can use containsPilot for pilot and containsMech
+                //     for mech
+                pilot = containsPilot;
+                mech = containsMech;
+            }
+        }
+        // Get hideActive
+        // It's only true if it's present, and it's always true when it's
+        //     present
+        try {
+            actionData.getBoolean("hide_active");
+            hideActive = true;
+        } catch (JSONException exception) {}
+        // Get synergyLocations
+        synergyLocations = new String[0];
+        try {
+            synergyLocationsJSON =
+                actionData.getJSONArray("synergy_locations");
+        } catch (JSONException exception) {}
+        if (synergyLocationsJSON != null) {
+            synergyLocations = new String[synergyLocationsJSON.length()];
+            for (int i = 0; i < synergyLocations.length; i++) {
+                synergyLocations[i] = synergyLocationsJSON.getString(i);
+            }
+        }
+        // Get confirm
+        confirm = new String[0];
+        try {
+            confirmJSON = actionData.getJSONArray("confirm");
+        } catch (JSONException exception) {}
+        if (confirmJSON != null) {
+            confirm = new String[confirmJSON.length()];
+            for (int i = 0; i < confirm.length; i++) {
+                confirm[i] = confirmJSON.getString(i);
+            }
+        }
+        // Get ignoreUsed
+        try {
+            actionData.getBoolean("ignore_used");
+            ignoreUsed = true;
+        } catch (JSONException exception) {}
+        // Get heatCost
+        try {
+            heatCost = actionData.getInt("heat_cost");
+        } catch (JSONException exception) {}
+        // Get techAttack
+        if (activation.equals("quick tech")
+            || activation.equals("full tech")) {
+            try {
+                actionData.getBoolean("tech_attack");
+                techAttack = true;
+            } catch (JSONException exception) {
+                throw new IllegalArgumentException();
+            }
+        }
+        // Get frequency
+        try {
+            frequency = new Frequency(actionData.getString("frequency"));
+        } catch (JSONException exception) {
+            if (ignoreUsed) {
+                frequency = new Frequency("unlimited");
+            } else {
+                frequency = new Frequency("1/round");
+            }
+        }
+        // Get range
+        try {
+            rangeJSON = actionData.getJSONArray("range");
+            range = new RangeTag[rangeJSON.length()];
+            for (int i = 0; i < range.length; i++) {
+                rangeObject = rangeJSON.getJSONObject(i);
+                range[i] = new RangeTag(rangeObject.getString("type"),
+                    rangeObject.getInt("value"));
+            }
+        } catch (JSONException exception) {}
+        // Get damage
+        try {
+            damageJSON = actionData.getJSONArray("damage");
+            damage = new Damage[damageJSON.length()];
+            for (int i = 0; i < damage.length; i++) {
+                damageObject = damageJSON.getJSONObject(i);
+                damageVals = Damage.splitDamageString(
+                    damageObject.getString("val"));
+                damage[i] = new Damage(damageObject.getString("type"),
+                    (DiceExpression) damageVals[0], (int) damageVals[1]);
+            }
+        } catch (JSONException exception) {}
+        // Get trigger
+        try {
+            trigger = actionData.getString("trigger");
+        } catch (JSONException exception) {}
+        // Get init
+        try {
+            init = actionData.getString("init");
+        } catch (JSONException exception) {}
+
+        return new Action(id, name, activation, terse, detail, pilot, mech,
+            hideActive, synergyLocations, confirm, ignoreUsed, heatCost,
+            techAttack, frequency, range, damage, trigger, init);
     }
     private static Background[] processBackgrounds(
         JSONObject[] backgroundsData) {
@@ -458,7 +604,6 @@ public class DataCaster {
         return null;
     }
     private static void processPilotEquipment(JSONObject[] pilotEquipmentData) {
-        // TODO: fill out
         JSONObject[] pilotArmorData = new JSONObject[pilotEquipmentData.length];
         JSONObject[] pilotWeaponData = new JSONObject[
             pilotEquipmentData.length];
@@ -586,8 +731,17 @@ public class DataCaster {
         // TODO: fill out
         return null;
     }
-    private static Rule[] processRules(JSONObject[] rulesData) {
-        // TODO: fill out
+    private static Rule[] processRules(JSONObject rulesData) {
+        Set<String> keys = rulesData.keySet();
+        Rule[] rules = new Rule[keys.size()];
+        int i = 0;
+
+        for (String key : keys) {
+            rules[i] = toRule(key, (JSONArray) rulesData.get(key));
+            i++;
+        }
+
+        return rules;
     }
     private static Rule toRule(String name, JSONArray value) {
         // TODO: fill out
@@ -625,7 +779,13 @@ public class DataCaster {
         DataCaster.processStatuses(statesData);
     }
     private static Condition[] processConditions(JSONObject[] conditionsData) {
-        // TODO: fill out
+        Condition[] conditions = new Condition[conditionsData.length];
+
+        for (int i = 0; i < conditions.length; i++) {
+            conditions[i] = toCondition(conditionsData[i]);
+        }
+
+        return conditions;
     }
     private static Condition toCondition(JSONObject conditionData) {
         // TODO: fill out
@@ -670,8 +830,14 @@ public class DataCaster {
 
         return tables;
     }
-    private static Table toTable(JSONObject tableData) {
-        // TODO: fill out
+    private static Table toTable(String key, JSONArray value) {
+        String[] data = new String[value.length()];
+
+        for (int i = 0; i < value.length(); i++) {
+            data[i] = value.getString(i);
+        }
+
+        return new Table(key, data);
     }
     private static void processLCPTags(JSONObject[] lcpTagsData) {
         // TODO: fill out
@@ -735,7 +901,8 @@ public class DataCaster {
         return terms;
     }
     private static Term toTerm(JSONObject termData) {
-        // TODO: fill out
+        return new Term(termData.getString("name"),
+            termData.getString("description"));
     }
     private static Weapon[] processWeapons(JSONObject[] weaponsData) {
         Weapon[] weapons = new Weapon[weaponsData.length];
