@@ -17,12 +17,26 @@ import main.HelperMethods;
  *     placeholder. None of its properties have allowed values of null.
  */
 public class Term {
+    /**
+     * The term's name (i.e. "Armor").
+     * Can be any String except "". Cannot be null.
+     */
     private String name;
+    /**
+     * The term's description (i.e. "A mech’s ARMOR reduces all incoming damage"
+     *     " by that amount, excluding some special types of damage. ARMOR"
+     *     " mostly depends on your mech’s FRAME, and never goes above four.").
+     * Can be any String except "". Cannot be null.
+     */
     private String description;
 
     public Term(String name, String description) {
         setName(name);
         setDescription(description);
+    }
+    public Term(Term term) {
+        setName(term.name);
+        setDescription(term.description);
     }
 
     public String getName() {
