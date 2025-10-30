@@ -480,6 +480,29 @@ public final class HelperMethods {
     }
     /**
      * Returns a deepest copy of original.
+     * @param original an Action[] that cannot be null.
+     * @return an Action[] deepest copy of original.
+     * @throws IllegalArgumentException if original is null.
+     */
+    public static Action[] copyOf(Action[] original) {
+        if (original == null) {
+            throw new IllegalArgumentException("Called"
+                + " HelperMethods.copyOf(Action[]) with null in the place of"
+                + " the Action[]");
+        }
+        Action[] copy = new Action[original.length];
+        for (int i = 0; i < original.length; i++) {
+            if (original[i] == null) {
+                copy[i] = original[i];
+                continue;
+            }
+            copy[i] = new Action(original[i]);
+        }
+
+        return copy;
+    }
+    /**
+     * Returns a deepest copy of original.
      * @param original a Damage[] that cannot be null.
      * @return a Damage[] deepest copy of original.
      * @throws IllegalArgumentException if original is null.
@@ -589,6 +612,52 @@ public final class HelperMethods {
                 continue;
             }
             copy[i] = new Mount(original[i]);
+        }
+
+        return copy;
+    }
+    /**
+     * Returns a deepest copy of original.
+     * @param original a PilotGear[] that cannot be null.
+     * @return a PilotGear[] deepest copy of original.
+     * @throws IllegalArgumentException if original is null.
+     */
+    public static PilotGear[] copyOf(PilotGear[] original) {
+        if (original == null) {
+            throw new IllegalArgumentException("Called"
+                + " HelperMethods.copyOf(PilotGear[]) with null in the place of"
+                + " the PilotGear[]");
+        }
+        PilotGear[] copy = new PilotGear[original.length];
+        for (int i = 0; i < original.length; i++) {
+            if (original[i] == null) {
+                copy[i] = original[i];
+                continue;
+            }
+            copy[i] = new PilotGear(original[i]);
+        }
+
+        return copy;
+    }
+    /**
+     * Returns a deepest copy of original.
+     * @param original a PilotWeapon[] that cannot be null.
+     * @return a PilotWeapon[] deepest copy of original.
+     * @throws IllegalArgumentException if original is null.
+     */
+    public static PilotWeapon[] copyOf(PilotWeapon[] original) {
+        if (original == null) {
+            throw new IllegalArgumentException("Called"
+                + " HelperMethods.copyOf(PilotWeapon[]) with null in the place"
+                + " of the PilotWeapon[]");
+        }
+        PilotWeapon[] copy = new PilotWeapon[original.length];
+        for (int i = 0; i < original.length; i++) {
+            if (original[i] == null) {
+                copy[i] = original[i];
+                continue;
+            }
+            copy[i] = new PilotWeapon(original[i]);
         }
 
         return copy;
