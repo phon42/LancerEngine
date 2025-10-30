@@ -19,6 +19,7 @@ import packages.coreTypes.entityMechanics.harmSystem.Damage;
 import packages.coreTypes.entityMechanics.harmSystem.Harm;
 import packages.coreTypes.entityMechanics.stateSystem.State;
 import packages.coreTypes.entityMechanics.stateSystem.state.Condition;
+import packages.coreTypes.entityMechanics.stateSystem.state.Status;
 import packages.eventSystem.event.EventListener;
 
 // TODO: Use polymorphic methods or generic types or something to combine all
@@ -790,6 +791,23 @@ public final class HelperMethods {
                 continue;
             }
             copy[i] = new State(original[i]);
+        }
+
+        return copy;
+    }
+    public static Status[] copyOf(Status[] original) {
+        if (original == null) {
+            throw new IllegalArgumentException("Called"
+                + " HelperMethods.copyOf(Status[]) with null in the place of"
+                + " the Status[]");
+        }
+        Status[] copy = new Status[original.length];
+        for (int i = 0; i < original.length; i++) {
+            if (original[i] == null) {
+                copy[i] = original[i];
+                continue;
+            }
+            copy[i] = new Status(original[i]);
         }
 
         return copy;

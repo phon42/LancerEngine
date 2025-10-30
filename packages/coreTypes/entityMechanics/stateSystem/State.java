@@ -7,10 +7,10 @@ import main.HelperMethods;
  */
 /**
  * Represents a single status or condition on a mech or pilot. Contains
- *     information about the status or condition's type, origin, duration, and
+ *     information about the status or condition's name, origin, duration, and
  *     effects.
  * 
- * Requires a type, source, and duration to be instantiated.
+ * Requires a name, source, and duration to be instantiated.
  * 
  * Used in and extended by Condition and Status.
  * 
@@ -19,18 +19,11 @@ import main.HelperMethods;
  */
 public class State {
     /**
-     * This State's type (i.e. "immobilized" or "danger zone").
-     * Must be a valid String as defined by State.allowedTypes.
-     * Case-insensitive and stored in lowercase.
+     * This State's name (i.e. "Immobilized" or "Danger Zone").
+     * Can be any String except "". Cannot be null.
+     * Case-sensitive.
      */
-    protected String type;
-    /**
-     * Contains an array of valid values for this.type.
-     */
-    private static final String[] allowedTypes = new String[] {
-        "immobilized", "impaired", "jammed", "lock on", "shredded", "slowed",
-        "stunned", "danger zone", "engaged", "exposed", "hidden", "invisible",
-        "prone", "shut down", "down and out"};
+    protected String name;
 
     /**
      * The source of this state (i.e. "Taro's mech").
@@ -63,23 +56,23 @@ public class State {
     protected static final String[] allowedDurations = new String[] {"1 round",
         "1 turn", "permanent", "until removed", "source"};
 
-    public State(String type, String source, String duration) {
-        setType(type);
+    public State(String name, String source, String duration) {
+        setName(name);
         setSource(source);
         setCausedBy(null);
         setEffects(new State[0]);
         setDuration(duration);
     }
     public State(State state) {
-        setType(state.type);
+        setName(state.name);
         setSource(state.source);
         setCausedBy(state.causedBy);
         setEffects(state.effects);
         setDuration(state.duration);
     }
 
-    public String getType() {
-        return type;
+    public String getName() {
+        return name;
     }
     public String getSource() {
         return source;
@@ -93,26 +86,12 @@ public class State {
     public String getDuration() {
         return duration;
     }
-    /**
-     * Sets this.type to the provided value.
-     * @param type a String which cannot be null and cannot be an invalid type,
-     *     as defined by State.allowedTypes.
-     * @throws IllegalArgumentException if type is null or an invalid value as
-     *     defined by State.allowedTypes.
-     */
-    protected void setType(String type) {
-        HelperMethods.checkString("New type", type);
-        type = type.toLowerCase();
-        for (String allowedType : State.allowedTypes) {
-            if (type.equals(allowedType)) {
-                this.type = type;
-                return;
-            }
-        }
-        throw new IllegalArgumentException("New type value is \"" + type
-            + "\"");
+    protected void setName(String name) {
+        HelperMethods.checkString("New name", name);
+        this.name = name;
     }
     protected void setSource(String source) {
+        HelperMethods.checkString("source", source);
         this.source = source;
     }
     protected void setCausedBy(State causedBy) {
@@ -162,7 +141,7 @@ public class State {
             }
         }
         throw new IllegalArgumentException("New duration value is an invalid"
-            + " value: \"" + type + "\"");
+            + " value: \"" + name + "\"");
     }
 
     /**
@@ -191,7 +170,7 @@ public class State {
         if (state == null) {
             return false;
         }
-        if (! this.type.equals(state.getType())) {
+        if (! this.name.equals(state.getName())) {
             return false;
         }
         if (! this.source.equals(state.getSource())) {
@@ -260,33 +239,26 @@ public class State {
     }
     /**
      * Recursively checks whether any of the States this State has caused, or
-     *     any of the States they have caused, and so on, are of State.type
-     *     stringType.
-     * @param stateType a String containing a State.type value to search for.
-     *     Must be a valid type as defined by State.allowedTypes.
+     *     any of the States they have caused, and so on, are of State.name
+     *     stateName.
+     * @param stateName a String containing a State.name value to search for.
+     *     Cannot be "" or null.
      * @return a boolean containing the result of the check.
      */
-    public boolean hasState(String stateType) {
-        boolean isValid = false;
+    public boolean hasState(String stateName) {
         boolean isPresent = false;
 
-        for (String allowedType : State.allowedTypes) {
-            if (stateType.equals(allowedType)) {
-                isValid = true;
-                break;
-            }
+        if (stateName == null) {
+            throw new IllegalArgumentException("stateName is null");
         }
-        if (! isValid) {
-            throw new IllegalArgumentException("stateType: \"" + stateType
-                + "\" is an invalid value for State.type");
-        }
-        // stateType is a valid State
+        // TODO: fill out once Database has an array of States set up
+        // stateName is a valid State
         for (State state : this.effects) {
-            if (state.getType().equals(stateType)) {
+            if (state.getName().equals(stateName)) {
                 isPresent = true;
                 break;
             }
-            isPresent = isPresent || state.hasState(stateType);
+            isPresent = isPresent || state.hasState(stateName);
         }
 
         return isPresent;
