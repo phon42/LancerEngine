@@ -16,6 +16,9 @@ public class Bonus {
     public Bonus(String id, int val) {
         this(id, val, false);
     }
+    public Bonus(Bonus bonus) {
+        this(bonus.id, bonus.val, bonus.replace);
+    }
 
     public String getID() {
         return id;

@@ -508,6 +508,29 @@ public final class HelperMethods {
     }
     /**
      * Returns a deepest copy of original.
+     * @param original a Bonus[] that cannot be null.
+     * @return a Bonus[] deepest copy of original.
+     * @throws IllegalArgumentException if original is null.
+     */
+    public static Bonus[] copyOf(Bonus[] original) {
+        if (original == null) {
+            throw new IllegalArgumentException("Called"
+                + " HelperMethods.copyOf(Bonus[]) with null in the place of"
+                + " the Bonus[]");
+        }
+        Bonus[] copy = new Bonus[original.length];
+        for (int i = 0; i < original.length; i++) {
+            if (original[i] == null) {
+                copy[i] = original[i];
+                continue;
+            }
+            copy[i] = new Bonus(original[i]);
+        }
+
+        return copy;
+    }
+    /**
+     * Returns a deepest copy of original.
      * @param original a Damage[] that cannot be null.
      * @return a Damage[] deepest copy of original.
      * @throws IllegalArgumentException if original is null.
