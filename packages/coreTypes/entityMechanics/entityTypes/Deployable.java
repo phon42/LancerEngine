@@ -50,6 +50,9 @@ public class Deployable implements Damageable {
         setArmor(armor);
         setEvasion(5);
     }
+    public Deployable(Deployable deployable) {
+        this(deployable.size, deployable.armor);
+    }
 
     public int getSize() {
         return size;

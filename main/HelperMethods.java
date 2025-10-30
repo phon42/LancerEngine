@@ -531,6 +531,29 @@ public final class HelperMethods {
     }
     /**
      * Returns a deepest copy of original.
+     * @param original a Deployable[] that cannot be null.
+     * @return a Deployable[] deepest copy of original.
+     * @throws IllegalArgumentException if original is null.
+     */
+    public static Deployable[] copyOf(Deployable[] original) {
+        if (original == null) {
+            throw new IllegalArgumentException("Called"
+                + " HelperMethods.copyOf(Deployable[]) with null in the place"
+                + " of the Deployable[]");
+        }
+        Deployable[] copy = new Deployable[original.length];
+        for (int i = 0; i < original.length; i++) {
+            if (original[i] == null) {
+                copy[i] = original[i];
+                continue;
+            }
+            copy[i] = new Deployable(original[i]);
+        }
+
+        return copy;
+    }
+    /**
+     * Returns a deepest copy of original.
      * @param original a Harm[] that cannot be null.
      * @return a Harm[] deepest copy of original.
      * @throws IllegalArgumentException if original is null.
