@@ -61,8 +61,8 @@ public class Status extends State {
     protected void setName(String name) {
         HelperMethods.checkString("New name", name);
         name = name.toLowerCase();
-        for (String allowedType : Status.allowedStatuses) {
-            if (name.equals(allowedType)) {
+        for (String allowedName : Status.allowedStatuses) {
+            if (name.equals(allowedName)) {
                 this.name = name;
                 return;
             }

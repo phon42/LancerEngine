@@ -12,9 +12,9 @@ import packages.coreTypes.entityMechanics.stateSystem.State;
  */
 /**
  * Represents a single condition on a mech or pilot. Contains information about
- *     the condition's type, origin, duration, and effects.
+ *     the condition's name, origin, duration, and effects.
  * 
- * Requires a type, source, and duration to be instantiated.
+ * Requires a name, source, and duration to be instantiated.
  * 
  * Used in Mech and Pilot.
  * 
@@ -29,8 +29,8 @@ public class Condition extends State {
         "immobilized", "impaired", "jammed", "lock on", "shredded", "slowed",
         "stunned"};
 
-    public Condition(String type, String source, String duration) {
-        super(type, source, duration);
+    public Condition(String name, String source, String duration) {
+        super(name, source, duration);
     }
     public Condition(Condition condition) {
         // TODO: update
