@@ -22,11 +22,12 @@ import packages.coreTypes.entityMechanics.RangeTag;
 public class PilotWeapon extends PilotEquipment {
     // TODO: fill out
     /**
-     * Optional
+     * Can be any RangeTag[] that does not contain null elements. Cannot be
+     *     null.
      */
     private RangeTag[] range;
     /**
-     * Optional
+     * Can be any Harm[] that does not contain null elements. Cannot be null.
      */
     private Harm[] damage;
 
