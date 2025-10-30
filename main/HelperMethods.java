@@ -140,6 +140,17 @@ public final class HelperMethods {
         }
     }
     /**
+     * Checks to make sure the current code is being called while Database is
+     *     open. Throws an Exception otherwise. Used in several constructors.
+     * @throws IllegalStateException if Database.isOpen() returns false.
+     */
+    public static void verifyConstructor() {
+        if (! Database.isOpen()) {
+            throw new IllegalStateException("Cannot call this constructor"
+                + " while Database is closed");
+        }
+    }
+    /**
      * Appends the given int element to the end of an existing int[].
      * @param intArray an int[] that cannot be null.
      * @param newElement an int to append to the end of intArray.
