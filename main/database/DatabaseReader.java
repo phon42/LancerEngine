@@ -2,6 +2,7 @@ package main.database;
 
 import main.database.databaseReader.DataCaster;
 import main.database.databaseReader.JSON;
+import main.database.databaseReader.FileReading.FileProcessor;
 import main.database.databaseReader.FileReading.json.JSONArray;
 import main.database.databaseReader.FileReading.json.JSONObject;
 
@@ -160,7 +161,8 @@ public class DatabaseReader {
         // 2. A valid *JSON* file path.
         // TODO: complete
         // Parse the .json file
-        // TODO: complete
+        // TODO: change to  .readFile()
+        data = FileProcessor.readFile2(jsonPath);
         // Send the data on to DataCaster.parseJSONFile()
         parseJSONFile(jsonPath, data);
     }
