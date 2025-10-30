@@ -1,8 +1,8 @@
 package main.database;
 
 import main.database.databaseReader.DataCaster;
-import main.database.databaseReader.JSON;
 import main.database.databaseReader.FileReading.FileProcessor;
+import main.database.databaseReader.FileReading.JSON;
 import main.database.databaseReader.FileReading.json.JSONArray;
 import main.database.databaseReader.FileReading.json.JSONObject;
 

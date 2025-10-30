@@ -1,4 +1,4 @@
-package main.database.databaseReader;
+package main.database.databaseReader.FileReading;
 
 import main.database.databaseReader.FileReading.json.JSONArray;
 import main.database.databaseReader.FileReading.json.JSONObject;
