@@ -6,12 +6,20 @@ import main.roll.DiceExpression;
 
 /**
  * See pgs. 67 and 104.
+ * 
+ * Represents a much more concrete version of representing damage or harm than
+ *     Harm. diceValue and flatValue have much stricter allowed values.
  */
 public class Damage {
     /**
      * The Damage's type (i.e. "kinetic").
      * Must be an allowed type as defined by Damage.allowedTypes. Cannot be
      *     null.
+     * Depending on the context, a value of "burn" may represent receiving Burn
+     *     (in other words, a type of harm which involves incrementing the
+     *     number of Burn stacks on the target) or receiving Burn damage (a type
+     *     of damage that is caused by Burn and does NOT increment the number of
+     *     Burn stacks on the target).
      */
     protected String type;
     /**
@@ -154,5 +162,20 @@ public class Damage {
         }
 
         return this.diceValue.roll() + Roll.roll(this.flatValue);
+    }
+    public static Object[] splitDamageString(String input) {
+        String[] damageParameters;
+        DiceExpression diceInfo = null;
+        int flatInput = 0;
+
+        damageParameters = input.split("+");
+        if (! damageParameters[0].isBlank()) {
+            diceInfo = new DiceExpression(damageParameters[0]);
+        }
+        if (damageParameters.length > 1) {
+            flatInput = Integer.parseInt(damageParameters[1]);
+        }
+
+        return new Object[] {diceInfo, flatInput};
     }
 }
