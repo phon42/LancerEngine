@@ -33,6 +33,13 @@ public class ColorData {
         parseString(colorString);
         addColor(this);
     }
+    public ColorData(ColorData colorData) {
+        setRed(colorData.red);
+        setGreen(colorData.green);
+        setBlue(colorData.blue);
+        setAlpha(colorData.alpha);
+        addColor(this);
+    }
 
     public int getRed() {
         return red;
