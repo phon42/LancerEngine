@@ -1,4 +1,4 @@
-package main.database.databaseReader.json;
+package main.database.databaseReader.FileReading.json;
 
 import java.io.IOException;
 import java.io.Writer;

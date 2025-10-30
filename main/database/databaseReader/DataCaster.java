@@ -2,9 +2,9 @@ package main.database.databaseReader;
 
 import java.util.Set;
 import main.Database;
-import main.database.databaseReader.json.JSONArray;
-import main.database.databaseReader.json.JSONException;
-import main.database.databaseReader.json.JSONObject;
+import main.database.databaseReader.FileReading.json.JSONArray;
+import main.database.databaseReader.FileReading.json.JSONException;
+import main.database.databaseReader.FileReading.json.JSONObject;
 import main.roll.DiceExpression;
 import packages.coreTypes.Environment;
 import packages.coreTypes.Rule;

@@ -1,7 +1,7 @@
 package main.database.databaseReader;
 
-import main.database.databaseReader.json.JSONArray;
-import main.database.databaseReader.json.JSONObject;
+import main.database.databaseReader.FileReading.json.JSONArray;
+import main.database.databaseReader.FileReading.json.JSONObject;
 
 public class JSON {
     // black box that reads JSON, converts to JSONObject, JSONArray, some mix

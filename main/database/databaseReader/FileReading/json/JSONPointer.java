@@ -1,4 +1,4 @@
-package main.database.databaseReader.json;
+package main.database.databaseReader.FileReading.json;
 
 import static java.lang.String.format;
 

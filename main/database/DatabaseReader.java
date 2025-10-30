@@ -2,8 +2,8 @@ package main.database;
 
 import main.database.databaseReader.DataCaster;
 import main.database.databaseReader.JSON;
-import main.database.databaseReader.json.JSONArray;
-import main.database.databaseReader.json.JSONObject;
+import main.database.databaseReader.FileReading.json.JSONArray;
+import main.database.databaseReader.FileReading.json.JSONObject;
 
 public class DatabaseReader {
     // 1. DatabaseReader's DatabaseReader.read() method is called by Database,
