@@ -1,7 +1,9 @@
 package packages.coreTypes.entityMechanics.entityTypes.pilot.loadout.pilotEquipment;
 
+import packages.coreTypes.entityMechanics.entityTypes.mech.equipment.tagSystem.DataTag;
 import packages.coreTypes.entityMechanics.entityTypes.pilot.loadout.PilotEquipment;
 import packages.coreTypes.entityMechanics.harmSystem.Harm;
+import main.HelperMethods;
 import packages.coreTypes.entityMechanics.RangeTag;
 
 /**
@@ -19,6 +21,57 @@ import packages.coreTypes.entityMechanics.RangeTag;
  */
 public class PilotWeapon extends PilotEquipment {
     // TODO: fill out
+    /**
+     * Optional
+     */
     private RangeTag[] range;
+    /**
+     * Optional
+     */
     private Harm[] damage;
+
+    public PilotWeapon(String id, String name, DataTag[] dataTags,
+        String description, String effect, RangeTag[] range, Harm[] damage) {
+        super(id, name, "weapon", dataTags, description, effect);
+        setRange(range);
+        setDamage(damage);
+    }
+    public PilotWeapon(PilotWeapon pilotWeapon) {
+        this(pilotWeapon.id, pilotWeapon.name, pilotWeapon.dataTags,
+            pilotWeapon.description, pilotWeapon.effect, pilotWeapon.range,
+            pilotWeapon.damage);
+    }
+
+    public RangeTag[] getRange() {
+        return HelperMethods.copyOf(range);
+    }
+    public Harm[] getDamage() {
+        return HelperMethods.copyOf(damage);
+    }
+    public void setRange(RangeTag[] range) {
+        if (range == null) {
+            throw new IllegalArgumentException("range is null");
+        }
+        for (RangeTag rangeTag : range) {
+            if (rangeTag == null) {
+                throw new IllegalArgumentException("range array contains a"
+                    + " null element");
+            }
+        }
+        range = HelperMethods.copyOf(range);
+        this.range = range;
+    }
+    public void setDamage(Harm[] damage) {
+        if (damage == null) {
+            throw new IllegalArgumentException("damage is null");
+        }
+        for (Harm harm : damage) {
+            if (harm == null) {
+                throw new IllegalArgumentException("damage array contains a"
+                    + " null element");
+            }
+        }
+        damage = HelperMethods.copyOf(damage);
+        this.damage = damage;
+    }
 }
