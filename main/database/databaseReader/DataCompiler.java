@@ -12,6 +12,7 @@ import packages.coreTypes.entityMechanics.entityTypes.mech.equipment.Weapon;
 import packages.coreTypes.entityMechanics.entityTypes.mech.Frame;
 import packages.coreTypes.entityMechanics.entityTypes.pilot.Background;
 import packages.coreTypes.entityMechanics.entityTypes.pilot.Bond;
+import packages.coreTypes.entityMechanics.entityTypes.pilot.CoreBonus;
 import packages.coreTypes.entityMechanics.entityTypes.pilot.loadout.pilotEquipment.PilotArmor;
 import packages.coreTypes.entityMechanics.entityTypes.pilot.loadout.pilotEquipment.PilotGear;
 import packages.coreTypes.entityMechanics.entityTypes.pilot.loadout.pilotEquipment.PilotWeapon;
@@ -23,6 +24,7 @@ import packages.coreTypes.entityMechanics.licenseSystem.frameLicense.LicenseCont
 import packages.coreTypes.entityMechanics.Manufacturer;
 import packages.coreTypes.entityMechanics.NPCFeature;
 import packages.coreTypes.entityMechanics.NPCTemplate;
+import packages.coreTypes.entityMechanics.stateSystem.State;
 import packages.coreTypes.entityMechanics.stateSystem.state.Condition;
 import packages.coreTypes.entityMechanics.stateSystem.state.Status;
 import packages.coreTypes.Environment;

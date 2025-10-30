@@ -2,15 +2,35 @@ package main;
 
 import main.database.FrameEnum;
 import main.roll.DiceExpression;
+import packages.coreTypes.Environment;
+import packages.coreTypes.Rule;
+import packages.coreTypes.Sitrep;
+import packages.coreTypes.Table;
+import packages.coreTypes.Term;
+import packages.coreTypes.entityMechanics.Action;
 import packages.coreTypes.entityMechanics.License;
+import packages.coreTypes.entityMechanics.Manufacturer;
 import packages.coreTypes.entityMechanics.RangeTag;
 import packages.coreTypes.entityMechanics.entityTypes.mech.Frame;
 import packages.coreTypes.entityMechanics.entityTypes.mech.Mount;
+import packages.coreTypes.entityMechanics.entityTypes.mech.equipment.tagSystem.DataTag;
 import packages.coreTypes.entityMechanics.entityTypes.mech.equipment.MechSystem;
+import packages.coreTypes.entityMechanics.entityTypes.mech.equipment.Modification;
 import packages.coreTypes.entityMechanics.entityTypes.mech.equipment.Weapon;
 import packages.coreTypes.entityMechanics.entityTypes.mech.equipment.tagSystem.Tag;
+import packages.coreTypes.entityMechanics.entityTypes.pilot.Background;
+import packages.coreTypes.entityMechanics.entityTypes.pilot.CoreBonus;
+import packages.coreTypes.entityMechanics.entityTypes.pilot.Reserve;
+import packages.coreTypes.entityMechanics.entityTypes.pilot.Talent;
+import packages.coreTypes.entityMechanics.entityTypes.pilot.loadout.pilotEquipment.PilotArmor;
+import packages.coreTypes.entityMechanics.entityTypes.pilot.loadout.pilotEquipment.PilotGear;
+import packages.coreTypes.entityMechanics.entityTypes.pilot.loadout.pilotEquipment.PilotWeapon;
+import packages.coreTypes.entityMechanics.entityTypes.pilot.skillTriggersList.Skill;
 import packages.coreTypes.entityMechanics.harmSystem.Harm;
 import packages.coreTypes.entityMechanics.licenseSystem.FrameLicense;
+import packages.coreTypes.entityMechanics.stateSystem.State;
+import packages.coreTypes.entityMechanics.stateSystem.state.Condition;
+import packages.coreTypes.entityMechanics.stateSystem.state.Status;
 
 // TODO: let's go full crazy, add the ability to read a set of .lcp files and
 //     unzip those into as much Lancer data as we want:
