@@ -1,5 +1,9 @@
 package packages.coreTypes.entityMechanics.entityTypes.pilot.loadout.pilotEquipment;
 
+import main.HelperMethods;
+import packages.coreTypes.entityMechanics.Action;
+import packages.coreTypes.entityMechanics.entityTypes.Deployable;
+import packages.coreTypes.entityMechanics.entityTypes.mech.equipment.tagSystem.DataTag;
 import packages.coreTypes.entityMechanics.entityTypes.pilot.loadout.PilotEquipment;
 
 /**
@@ -16,4 +20,64 @@ import packages.coreTypes.entityMechanics.entityTypes.pilot.loadout.PilotEquipme
  */
 public class PilotGear extends PilotEquipment {
     // TODO: fill out
+    /**
+     * Optional
+     */
+    private Action[] actions;
+    /**
+     * Optional
+     */
+    private Deployable[] deployables;
+
+    public PilotGear(String id, String name, DataTag[] dataTags,
+        String description, String effect, Action[] actions,
+        Deployable[] deployables) {
+        super(id, name, "gear", dataTags, description, effect);
+        setActions(actions);
+        setDeployables(deployables);
+    }
+    public PilotGear(PilotGear pilotGear) {
+        this(pilotGear.id, pilotGear.name, pilotGear.dataTags,
+            pilotGear.description, pilotGear.effect, pilotGear.actions,
+            pilotGear.deployables);
+    }
+
+    public Action[] getActions() {
+        if (actions != null) {
+            return HelperMethods.copyOf(actions);
+        }
+
+        return actions;
+    }
+    public Deployable[] getDeployables() {
+        if (deployables != null) {
+            return HelperMethods.copyOf(deployables);
+        }
+
+        return deployables;
+    }
+    private void setActions(Action[] actions) {
+        if (actions != null) {
+            for (Action action : actions) {
+                if (action == null) {
+                    throw new IllegalArgumentException("actions array"
+                        + " contains a null element");
+                }
+            }
+            actions = HelperMethods.copyOf(actions);
+        }
+        this.actions = actions;
+    }
+    private void setDeployables(Deployable[] deployables) {
+        if (deployables != null) {
+            for (Deployable deployable : deployables) {
+                if (deployable == null) {
+                    throw new IllegalArgumentException("deployables array"
+                        + " contains a null element");
+                }
+            }
+            deployables = HelperMethods.copyOf(deployables);
+        }
+        this.deployables = deployables;
+    }
 }
