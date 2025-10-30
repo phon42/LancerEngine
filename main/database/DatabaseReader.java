@@ -239,11 +239,9 @@ public class DatabaseReader {
             DatabaseReader.dataTagData = data;
         } else if (fileName.equals("manufacturers")) {
             DatabaseReader.manufacturerData = data;
-        // TODO: fill out
-        } else if (fileName.equals("frames")) {
+        } else if (fileName.equals("npc_feature")) {
             DatabaseReader.npcFeatureData = data;
-        // TODO: fill out
-        } else if (fileName.equals("frames")) {
+        } else if (fileName.equals("npc_template")) {
             DatabaseReader.npcTemplateData = data;
         } else if (fileName.equals("pilot_gear")) {
             DatabaseReader.pilotEquipmentData = data;

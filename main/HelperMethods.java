@@ -286,7 +286,7 @@ public final class HelperMethods {
      * @throws IllegalArgumentException if array or newElement is null.
      */
     public static MechSystem[] append(MechSystem[] array, MechSystem newElement)
-        {
+    {
         if (array == null) {
             throw new IllegalArgumentException("Called"
                 + " HelperMethods.append(MechSystem[], MechSystem) with null in"
