@@ -1,3 +1,5 @@
+package main;
+
 import packages.coreTypes.Color;
 
 /**
