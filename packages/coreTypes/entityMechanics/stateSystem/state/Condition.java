@@ -32,25 +32,29 @@ public class Condition extends State {
     public Condition(String type, String source, String duration) {
         super(type, source, duration);
     }
+    public Condition(Condition condition) {
+        // TODO: update
+        super(condition);
+    }
 
     /**
-     * Sets this.type to the provided value.
-     * @param type a String which cannot be null and cannot be an invalid type,
+     * Sets this.name to the provided value.
+     * @param name a String which cannot be null and cannot be an invalid name,
      *     as defined by Condition.allowedConditions.
-     * @throws IllegalArgumentException if type is null or an invalid value as
+     * @throws IllegalArgumentException if name is null or an invalid value as
      *     defined by Condition.allowedConditions.
      */
     @Override
-    protected void setType(String type) {
-        HelperMethods.checkString("type", type);
-        type = type.toLowerCase();
-        for (String allowedType : Condition.allowedConditions) {
-            if (type.equals(allowedType)) {
-                this.type = type;
+    protected void setName(String name) {
+        HelperMethods.checkString("name", name);
+        name = name.toLowerCase();
+        for (String allowedName : Condition.allowedConditions) {
+            if (name.equals(allowedName)) {
+                this.name = name;
                 return;
             }
         }
-        throw new IllegalArgumentException("New type value is an invalid value:"
-            + " \"" + type + "\"");
+        throw new IllegalArgumentException("New name value is an invalid value:"
+            + " \"" + name + "\"");
     }
 }

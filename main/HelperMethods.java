@@ -18,6 +18,7 @@ import packages.coreTypes.entityMechanics.entityTypes.pilot.skillTriggersList.Sk
 import packages.coreTypes.entityMechanics.harmSystem.Damage;
 import packages.coreTypes.entityMechanics.harmSystem.Harm;
 import packages.coreTypes.entityMechanics.stateSystem.State;
+import packages.coreTypes.entityMechanics.stateSystem.state.Condition;
 import packages.eventSystem.event.EventListener;
 
 // TODO: Use polymorphic methods or generic types or something to combine all
@@ -525,6 +526,23 @@ public final class HelperMethods {
                 continue;
             }
             copy[i] = new Bonus(original[i]);
+        }
+
+        return copy;
+    }
+    public static Condition[] copyOf(Condition[] original) {
+        if (original == null) {
+            throw new IllegalArgumentException("Called"
+                + " HelperMethods.copyOf(Condition[]) with null in the place of"
+                + " the Condition[]");
+        }
+        Condition[] copy = new Condition[original.length];
+        for (int i = 0; i < original.length; i++) {
+            if (original[i] == null) {
+                copy[i] = original[i];
+                continue;
+            }
+            copy[i] = new Condition(original[i]);
         }
 
         return copy;
