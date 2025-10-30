@@ -28,6 +28,7 @@ public class DatabaseReader {
     private static JSONObject[] weaponData = new JSONObject[0];
     // ----critical data:
     private static JSONObject[] actionData = new JSONObject[0];
+    private static JSONObject[] coreBonusData = new JSONObject[0];
     private static JSONObject[] dataTagData = new JSONObject[0];
     private static JSONObject[] manufacturerData = new JSONObject[0];
     private static JSONObject[] npcFeatureData = new JSONObject[0];
@@ -78,10 +79,18 @@ public class DatabaseReader {
 
         // extract the file extension
         // TODO: check to make sure these actually work as expected
-        fileStrings = filePath.split("/");
-        fileExtension = fileStrings[fileStrings.length - 1];
-        fileStrings = fileExtension.split(".");
-        fileExtension = fileStrings[1];
+        if (filePath.indexOf("/") != -1) {
+            fileStrings = filePath.split("/");
+            fileExtension = fileStrings[fileStrings.length - 1];
+        } else {
+            fileExtension = filePath;
+        }
+        if (fileExtension.indexOf(".") != -1) {
+            fileStrings = fileExtension.split("\\.");
+            fileExtension = fileStrings[1];
+        } else {
+            fileExtension = "";
+        }
         // decide whether to use readLCP, readZIP, or readJSON directly
         if (fileExtension.equals("lcp")) {
             readLCP(filePath);
@@ -90,8 +99,13 @@ public class DatabaseReader {
         } else if (fileExtension.equals("json")) {
             readJSON(filePath);
         } else {
-            throw new IllegalArgumentException("Cannot read a file with the"
-                + " following file extension: \"." + fileExtension + "\"");
+            if (fileExtension.equals("")) {
+                throw new IllegalArgumentException("Unable to find a file"
+                    + " extension in the file path: \"" + filePath + "\"");
+            } else {
+                throw new IllegalArgumentException("Cannot read a file with the"
+                    + " following file extension: \"." + fileExtension + "\"");
+            }
         }
     }
     /**
@@ -172,10 +186,18 @@ public class DatabaseReader {
         }
         // Extract the file name
         // TODO: check to make sure these actually work as expected
-        fileStrings = jsonPath.split("/");
-        fileName = fileStrings[fileStrings.length - 1];
-        fileStrings = fileName.split(".");
-        fileName = fileStrings[0];
+        if (jsonPath.indexOf("/") != -1) {
+            fileStrings = jsonPath.split("/");
+            fileName = fileStrings[Math.max(0, fileStrings.length - 2)];
+        } else {
+            fileName = jsonPath;
+        }
+        if (fileName.indexOf(".") != -1) {
+            fileStrings = fileName.split("\\.");
+            fileName = fileStrings[0];
+        } else {
+            fileName = "";
+        }
         // Convert the file data to an object and then to a JSONObject[]
         if (fileName.equals("rules")
             || fileName.equals("tables")) {
@@ -209,6 +231,8 @@ public class DatabaseReader {
         // ----the rest of the critical data types:
         else if (fileName.equals("actions")) {
             DatabaseReader.actionData = data;
+        } else if (fileName.equals("core_bonuses")) {
+            DatabaseReader.coreBonusData = data;
         } else if (fileName.equals("tags")) {
             DatabaseReader.dataTagData = data;
         } else if (fileName.equals("manufacturers")) {
@@ -260,6 +284,7 @@ public class DatabaseReader {
             DatabaseReader.modificationData,
             DatabaseReader.weaponData,
             DatabaseReader.actionData,
+            DatabaseReader.coreBonusData,
             DatabaseReader.dataTagData,
             DatabaseReader.manufacturerData,
             DatabaseReader.npcFeatureData,
@@ -280,8 +305,8 @@ public class DatabaseReader {
             DatabaseReader.termData,
             DatabaseReader.tableData
         };
-        DataCaster.receiveData(data);
         flushData();
+        DataCaster.receiveData(data);
     }
     private static void flushData() {
         // ----some of the critical data types:
@@ -291,6 +316,7 @@ public class DatabaseReader {
         DatabaseReader.weaponData = new JSONObject[0];
         // ----the rest of the critical data types:
         DatabaseReader.actionData = new JSONObject[0];
+        DatabaseReader.coreBonusData = new JSONObject[0];
         DatabaseReader.dataTagData = new JSONObject[0];
         DatabaseReader.manufacturerData = new JSONObject[0];
         DatabaseReader.npcFeatureData = new JSONObject[0];
