@@ -162,7 +162,7 @@ public final class Test {
                 + " Test.append(TestStatus[], TestStatus) with null in the"
                 + " place of the TestStatus[]");
         }
-        if (result == null)  {
+        if (result == null) {
             throw new IllegalArgumentException("Called"
                 + " Test.append(TestStatus[], TestStatus) with null in the"
                 + " place of the TestStatus");
