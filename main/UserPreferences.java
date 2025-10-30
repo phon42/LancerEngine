@@ -1,6 +1,6 @@
 package main;
 
-import packages.coreTypes.Color;
+import packages.coreTypes.ColorData;
 
 /**
  * Contains a set of preferences/settings for the program.
@@ -46,6 +46,8 @@ public class UserPreferences {
             throw new IllegalArgumentException("colorResolution value: "
                 + colorResolution + " is < 1");
         }
+        ColorData.changeResolution(UserPreferences.colorResolution,
+            colorResolution);
         UserPreferences.colorResolution = colorResolution;
     }
 }
