@@ -42,17 +42,41 @@ public class PilotArmor extends PilotEquipment {
     }
 
     public Bonus[] getBonuses() {
-        return HelperMethods.copyOf(bonuses);
+        if (bonuses != null) {
+            return HelperMethods.copyOf(bonuses);
+        }
+
+        return bonuses;
     }
     public Action[] getActions() {
-        return HelperMethods.copyOf(actions);
+        if (actions != null) {
+            return HelperMethods.copyOf(actions);
+        }
+
+        return actions;
     }
     private void setBonuses(Bonus[] bonuses) {
-        bonuses = HelperMethods.copyOf(bonuses);
+        if (bonuses != null) {
+            for (Bonus bonus : bonuses) {
+                if (bonus == null) {
+                    throw new IllegalArgumentException("bonuses array"
+                        + " contains a null element");
+                }
+            }
+            bonuses = HelperMethods.copyOf(bonuses);
+        }
         this.bonuses = bonuses;
     }
     private void setActions(Action[] actions) {
-        actions = HelperMethods.copyOf(actions);
+        if (actions != null) {
+            for (Action action : actions) {
+                if (action == null) {
+                    throw new IllegalArgumentException("actions array"
+                        + " contains a null element");
+                }
+            }
+            actions = HelperMethods.copyOf(actions);
+        }
         this.actions = actions;
     }
 }
