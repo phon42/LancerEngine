@@ -22,51 +22,30 @@ public class PilotArmor extends PilotEquipment {
     // TODO: fill out
     /**
      * Optional
-     * Case-sensitive.
-     */
-    private String description;
-    /**
-     * Optional
      */
     private Bonus[] bonuses;
-    /**
-     * Optional
-     * Case-sensitive.
-     */
-    private String effect;
     /**
      * Optional
      */
     private Action[] actions;
 
     public PilotArmor(String id, String name, DataTag[] dataTags,
-        String description, Bonus[] bonuses, String effect, Action[] actions) {
-        super(id, name, "armor", dataTags);
-        setDescription(description);
+        String description, String effect, Bonus[] bonuses, Action[] actions) {
+        super(id, name, "armor", dataTags, description, effect);
         setBonuses(bonuses);
-        setEffect(effect);
         setActions(actions);
     }
     public PilotArmor(PilotArmor pilotArmor) {
         this(pilotArmor.id, pilotArmor.name, pilotArmor.dataTags,
-            pilotArmor.description, pilotArmor.bonuses, pilotArmor.effect,
+            pilotArmor.description, pilotArmor.effect, pilotArmor.bonuses,
             pilotArmor.actions);
     }
 
-    public String getDescription() {
-        return description;
-    }
     public Bonus[] getBonuses() {
         return HelperMethods.copyOf(bonuses);
     }
     public Action[] getActions() {
         return HelperMethods.copyOf(actions);
-    }
-    public String getEffect() {
-        return effect;
-    }
-    private void setDescription(String description) {
-        this.description = description;
     }
     private void setBonuses(Bonus[] bonuses) {
         bonuses = HelperMethods.copyOf(bonuses);
@@ -75,8 +54,5 @@ public class PilotArmor extends PilotEquipment {
     private void setActions(Action[] actions) {
         actions = HelperMethods.copyOf(actions);
         this.actions = actions;
-    }
-    private void setEffect(String effect) {
-        this.effect = effect;
     }
 }
