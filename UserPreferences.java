@@ -1,7 +1,7 @@
 /**
  * Contains a set of preferences/settings for the program.
  */
-public class Preferences {
+public class UserPreferences {
     /**
      * Whether all rolls should be given to the user to make with physical dice.
      */
