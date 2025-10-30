@@ -32,6 +32,7 @@ import packages.coreTypes.entityMechanics.entityTypes.pilot.loadout.pilotEquipme
 import packages.coreTypes.entityMechanics.entityTypes.pilot.loadout.pilotEquipment.PilotGear;
 import packages.coreTypes.entityMechanics.entityTypes.pilot.loadout.pilotEquipment.PilotWeapon;
 import packages.coreTypes.entityMechanics.entityTypes.pilot.skillTriggersList.Skill;
+import packages.coreTypes.entityMechanics.harmSystem.Damage;
 import packages.coreTypes.entityMechanics.stateSystem.state.Condition;
 import packages.coreTypes.entityMechanics.stateSystem.state.Status;
 
@@ -342,6 +343,7 @@ public class DataCaster {
     }
     private static Background toBackground(JSONObject backgroundData) {
         // TODO: fill out
+        return null;
     }
     private static Bond[] processBonds(JSONObject[] bondsData) {
         Bond[] bonds = new Bond[bondsData.length];
@@ -354,6 +356,7 @@ public class DataCaster {
     }
     private static Bond toBond(JSONObject bondData) {
         // TODO: fill out
+        return null;
     }
     private static CoreBonus[] processCoreBonuses(
         JSONObject[] coreBonusesData) {
@@ -367,6 +370,7 @@ public class DataCaster {
     }
     private static CoreBonus toCoreBonus(JSONObject coreBonusData) {
         // TODO: fill out
+        return null;
     }
     private static Environment[] processEnvironments(
         JSONObject[] environmentsData) {
@@ -380,6 +384,7 @@ public class DataCaster {
     }
     private static Environment toEnvironment(JSONObject environmentData) {
         // TODO: fill out
+        return null;
     }
     private static Frame[] processFrames(JSONObject[] framesData) {
         Frame[] frames = new Frame[framesData.length];
@@ -392,6 +397,7 @@ public class DataCaster {
     }
     private static Frame toFrame(JSONObject frameData) {
         // TODO: fill out
+        return null;
     }
     private static Manufacturer[] processManufacturers(
         JSONObject[] manufacturersData) {
@@ -406,6 +412,7 @@ public class DataCaster {
     }
     private static Manufacturer toManufacturer(JSONObject manufacturerData) {
         // TODO: fill out
+        return null;
     }
     private static Modification[] processModifications(
         JSONObject[] modificationsData) {
@@ -420,6 +427,7 @@ public class DataCaster {
     }
     private static Modification toModification(JSONObject modificationData) {
         // TODO: fill out
+        return null;
     }
     private static NPCFeature[] processNPCFeatures(JSONObject[] npcFeaturesData)
     {
@@ -433,6 +441,7 @@ public class DataCaster {
     }
     private static NPCFeature toNPCFeature(JSONObject npcFeatureData) {
         // TODO: fill out
+        return null;
     }
     private static NPCTemplate[] processNPCTemplates(
         JSONObject[] npcTemplatesData) {
@@ -446,6 +455,7 @@ public class DataCaster {
     }
     private static NPCTemplate toNPCTemplate(JSONObject npcTemplateData) {
         // TODO: fill out
+        return null;
     }
     private static void processPilotEquipment(JSONObject[] pilotEquipmentData) {
         // TODO: fill out
@@ -502,6 +512,7 @@ public class DataCaster {
     }
     private static PilotArmor toPilotArmor(JSONObject pilotArmorData) {
         // TODO: fill out
+        return null;
     }
     private static PilotGear[] processPilotGear(JSONObject[] pilotGearData) {
         PilotGear[] pilotGear;
@@ -530,6 +541,7 @@ public class DataCaster {
     }
     private static PilotGear toPilotGear(JSONObject pilotGearData) {
         // TODO: fill out
+        return null;
     }
     private static PilotWeapon[] processPilotWeapons(
         JSONObject[] pilotWeaponsData) {
@@ -559,6 +571,7 @@ public class DataCaster {
     }
     private static PilotWeapon toPilotWeapon(JSONObject pilotWeaponData) {
         // TODO: fill out
+        return null;
     }
     private static Reserve[] processReserves(JSONObject[] reservesData) {
         Reserve[] reserves = new Reserve[reservesData.length];
@@ -571,12 +584,14 @@ public class DataCaster {
     }
     private static Reserve toReserve(JSONObject reserveData) {
         // TODO: fill out
+        return null;
     }
     private static Rule[] processRules(JSONObject[] rulesData) {
         // TODO: fill out
     }
     private static Rule toRule(String name, JSONArray value) {
         // TODO: fill out
+        return null;
     }
     private static Sitrep[] processSitreps(JSONObject[] sitrepsData) {
         Sitrep[] sitreps = new Sitrep[sitrepsData.length];
@@ -589,6 +604,7 @@ public class DataCaster {
     }
     private static Sitrep toSitrep(JSONObject sitrepData) {
         // TODO: fill out
+        return null;
     }
     private static Skill[] processSkills(JSONObject[] skillsData) {
         Skill[] skills = new Skill[skillsData.length];
@@ -601,6 +617,7 @@ public class DataCaster {
     }
     private static Skill toSkill(JSONObject skillData) {
         // TODO: fill out
+        return null;
     }
     private static void processStates(JSONObject[] statesData) {
         // TODO: fill out
@@ -612,6 +629,7 @@ public class DataCaster {
     }
     private static Condition toCondition(JSONObject conditionData) {
         // TODO: fill out
+        return null;
     }
     private static Status[] processStatuses(JSONObject[] statusesData) {
         Status[] statuses = new Status[statusesData.length];
@@ -624,6 +642,7 @@ public class DataCaster {
     }
     private static Status toStatus(JSONObject statusData) {
         // TODO: fill out
+        return null;
     }
     private static MechSystem[] processMechSystems(JSONObject[] mechSystemsData)
     {
@@ -637,6 +656,7 @@ public class DataCaster {
     }
     private static MechSystem toMechSystem(JSONObject mechSystemData) {
         // TODO: fill out
+        return null;
     }
     private static Table[] processTables(JSONObject tablesData) {
         Set<String> keys = tablesData.keySet();
@@ -671,6 +691,7 @@ public class DataCaster {
     }
     private static DataTag toDataTag(JSONObject datatagData) {
         // TODO: fill out
+        return null;
     }
     private static Tag[] processTags(DataTag[] tagsData) {
         int numTags = 0;
@@ -702,6 +723,7 @@ public class DataCaster {
     }
     private static Talent toTalent(JSONObject talentData) {
         // TODO: fill out
+        return null;
     }
     private static Term[] processTerms(JSONObject[] termsData) {
         Term[] terms = new Term[termsData.length];
@@ -726,6 +748,7 @@ public class DataCaster {
     }
     private static Weapon toWeapon(JSONObject weaponData) {
         // TODO: fill out
+        return null;
     }
     private static Object[] packData() {
         Object[] data = new Object[] {
