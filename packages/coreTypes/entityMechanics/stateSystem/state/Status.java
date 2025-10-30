@@ -12,9 +12,9 @@ import packages.coreTypes.entityMechanics.stateSystem.State;
  */
 /**
  * Represents a single status on a mech or pilot. Contains information about the
- *     status' type, origin, duration, and effects.
+ *     status' name, origin, duration, and effects.
  * 
- * Requires a type, source, and duration to be instantiated.
+ * Requires a name, source, and duration to be instantiated.
  * 
  * Used in Mech and Pilot.
  * 
@@ -42,28 +42,32 @@ public class Status extends State {
     public static final String[] allowedPilotStatuses = new String[] {
         "down and out", "engaged", "hidden", "invisible", "prone"};
 
-    public Status(String type, String source, String duration) {
-        super(type, source, duration);
+    public Status(String name, String source, String duration) {
+        super(name, source, duration);
+    }
+    public Status(Status status) {
+        // TODO: update
+        super(status);
     }
 
     /**
-     * Sets this.type to the provided value.
-     * @param type a String which cannot be null and cannot be an invalid type,
+     * Sets this.name to the provided value.
+     * @param name a String which cannot be null and cannot be an invalid name,
      *     as defined by Status.allowedStatuses.
-     * @throws IllegalArgumentException if type is null or an invalid value as
+     * @throws IllegalArgumentException if name is null or an invalid value as
      *     defined by Status.allowedStatuses.
      */
     @Override
-    protected void setType(String type) {
-        HelperMethods.checkString("New type", type);
-        type = type.toLowerCase();
+    protected void setName(String name) {
+        HelperMethods.checkString("New name", name);
+        name = name.toLowerCase();
         for (String allowedType : Status.allowedStatuses) {
-            if (type.equals(allowedType)) {
-                this.type = type;
+            if (name.equals(allowedType)) {
+                this.name = name;
                 return;
             }
         }
-        throw new IllegalArgumentException("New type value is an invalid value:"
-            + " \"" + type + "\"");
+        throw new IllegalArgumentException("New name value is an invalid value:"
+            + " \"" + name + "\"");
     }
 }
