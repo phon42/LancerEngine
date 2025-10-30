@@ -593,7 +593,7 @@ public final class LancerCharacter {
         String frameName = "";
         int licenseLevel = this.pilot.getLicenseLevel();
         if (hasMech) {
-            manufacturer = this.mech.getFrame().getManufacturer();
+            manufacturer = this.mech.getFrame().getSource().getID();
             frameName = this.mech.getFrame().outputName();
         }
 
