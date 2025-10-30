@@ -1,5 +1,6 @@
 package main;
 
+import packages.coreTypes.Callable;
 import packages.coreTypes.entityMechanics.License;
 import packages.coreTypes.entityMechanics.RangeTag;
 import packages.coreTypes.entityMechanics.entityTypes.mech.Frame;
@@ -415,6 +416,29 @@ public final class HelperMethods {
         }
 
         return newMountArray;
+    }
+    /**
+     * Returns a deep copy of original.
+     * @param original a Callable that cannot be null.
+     * @return a Callable deep copy of original.
+     * @throws IllegalArgumentException if original is null.
+     */
+    public static Callable copyOf(Callable original) {
+        Callable copy;
+
+        if (original == null) {
+            throw new IllegalArgumentException("Called"
+                + " HelperMethods.copyOf(Callable) with null in the place of"
+                + " the Callable");
+        }
+        copy = new Callable() {
+            @Override
+            public void run() {
+                original.run();
+            }
+        };
+
+        return copy;
     }
     /**
      * Returns a deep copy of original.
