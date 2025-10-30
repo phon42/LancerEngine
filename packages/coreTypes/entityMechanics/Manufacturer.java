@@ -1,5 +1,7 @@
 package packages.coreTypes.entityMechanics;
 
+import packages.coreTypes.ColorData;
+
 /**
  * Represents a single manufacturer. Contains information about the
  *     manufacturer's id, name, logo, light color, dark color, slogan, and
@@ -18,8 +20,8 @@ public class Manufacturer {
     private String id;
     private String name;
     private String logo;
-    private String light;
-    private String dark;
+    private ColorData light;
+    private ColorData dark;
     private String quote;
     private String description;
 }
