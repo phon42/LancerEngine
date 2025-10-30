@@ -452,25 +452,40 @@ public final class Database {
             + weaponID);
     }
     /**
-     * Adds the provided Frame to Database.frameList.
+     * Adds the provided Frame to Database.frames.
      * @param frame a Frame which cannot be null.
+     * @throws IllegalArgumentException if frame is null.
      */
     public static void addFrame(Frame frame) {
-        Database.frameList = HelperMethods.append(Database.frameList, frame);
+        checkOpen();
+        if (frame == null) {
+            throw new IllegalArgumentException("frame is null");
+        }
+        Database.frames = HelperMethods.append(Database.frames, frame);
     }
     /**
-     * Adds the provided MechSystem to Database.systemList.
+     * Adds the provided MechSystem to Database.systems.
      * @param system a MechSystem which cannot be null.
+     * @throws IllegalArgumentException if system is null.
      */
     public static void addSystem(MechSystem system) {
-        Database.systemList = HelperMethods.append(Database.systemList, system);
+        checkOpen();
+        if (system == null) {
+            throw new IllegalArgumentException("system is null");
+        }
+        Database.systems = HelperMethods.append(Database.systems, system);
     }
     /**
-     * Adds the provided Weapon to Database.frameList.
-     * @param frame a Weapon which cannot be null.
+     * Adds the provided Weapon to Database.weapons.
+     * @param weapon a Weapon which cannot be null.
+     * @throws IllegalArgumentException if weapon is null.
      */
     public static void addWeapon(Weapon weapon) {
-        Database.weaponList = HelperMethods.append(Database.weaponList, weapon);
+        checkOpen();
+        if (weapon == null) {
+            throw new IllegalArgumentException("weapon is null");
+        }
+        Database.weapons = HelperMethods.append(Database.weapons, weapon);
     }
     /**
      * Checks whether the provided pilot armor is a valid pilot armor.
