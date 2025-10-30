@@ -1,7 +1,6 @@
 package packages.coreTypes.entityMechanics.entityTypes;
 
 import main.HelperMethods;
-import main.Roll;
 import packages.coreTypes.entityMechanics.harmSystem.Damage;
 import packages.coreTypes.entityMechanics.harmSystem.Harm;
 
