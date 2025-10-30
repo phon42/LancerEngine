@@ -703,8 +703,7 @@ public final class Mech implements Damageable {
      * @throws IllegalArgumentException if currentHeat is < 0 or >
      *     this.maxHeatCapacity.
      */
-    private void setCurrentHeat(int currentHeat, boolean modifyStatuses)
-        {
+    private void setCurrentHeat(int currentHeat, boolean modifyStatuses) {
         if (currentHeat < 0) {
             throw new IllegalArgumentException("New currentHeat value: "
                 + currentHeat + " is < 0");
@@ -1369,8 +1368,7 @@ public final class Mech implements Damageable {
             throw new IllegalArgumentException("harm value has a Harm.type"
                 + " value of \"variable\"");
         }
-        if (harm.getDiceValue() == null && harm.getFlatValue() == 0)
-        {
+        if (harm.getDiceValue() == null && harm.getFlatValue() == 0) {
             throw new IllegalArgumentException("harm.diceValue is \"\" and"
                 + " harm.flatValue value: " + harm.getFlatValue() + " is < 1");
         }

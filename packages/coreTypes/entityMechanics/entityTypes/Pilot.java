@@ -1225,8 +1225,7 @@ public final class Pilot implements Damageable {
             throw new IllegalArgumentException("harm value has a Harm.type"
                 + " value of \"variable\"");
         }
-        if (harm.getDiceValue() == null && harm.getFlatValue() == 0)
-        {
+        if (harm.getDiceValue() == null && harm.getFlatValue() == 0) {
             throw new IllegalArgumentException("harm.diceValue is \"\" and"
                 + " harm.flatValue value: " + harm.getFlatValue() + " is < 1");
         }
@@ -1412,8 +1411,7 @@ public final class Pilot implements Damageable {
         // total skill trigger level should be 4 + licenseLevel
         int totalLevel = 0;
 
-        for (Skill skillTrigger : this.skillTriggers.getSkillTriggers())
-            {
+        for (Skill skillTrigger : this.skillTriggers.getSkillTriggers()) {
             totalLevel += skillTrigger.getLevel() / 2;
         }
         // TODO: would it be helpful to have some kind of information about if
