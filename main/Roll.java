@@ -327,7 +327,7 @@ public final class Roll {
         int result;
 
         if (maxRoll != 2 && maxRoll != 3 && maxRoll != 6 && maxRoll != 20) {
-            System.out.println("[ WARNING ]: Nonstandard maximum roll value: d"
+            HelperMethods.warn("[ WARNING ]: Nonstandard maximum roll value: d"
                 + maxRoll + " provided. Please ensure the correct value is"
                 + " being provided.");
         }

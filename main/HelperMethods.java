@@ -774,4 +774,7 @@ public final class HelperMethods {
 
         return outputString;
     }
+    public static void warn(String warningText) {
+        System.out.println(warningText);
+    }
 }

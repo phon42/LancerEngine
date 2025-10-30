@@ -1,5 +1,6 @@
 package packages.coreTypes.entityMechanics.entityTypes;
 
+import main.HelperMethods;
 import main.Roll;
 import packages.coreTypes.entityMechanics.harmSystem.Damage;
 import packages.coreTypes.entityMechanics.harmSystem.Harm;
@@ -105,7 +106,7 @@ public class Drone implements Damageable {
                 + " is < 1");
         }
         if (maxHP < this.currentHP) {
-            System.out.println("[ WARNING ] maxHP value provided: " + maxHP
+            HelperMethods.warn("[ WARNING ] maxHP value provided: " + maxHP
                 + " is < currentHP value: " + this.currentHP);
         }
         this.maxHP = maxHP;

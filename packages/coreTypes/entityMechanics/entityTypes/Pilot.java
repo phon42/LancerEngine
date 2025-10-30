@@ -574,7 +574,7 @@ public final class Pilot implements Damageable {
                 + " is < 1");
         }
         if (maxHP < this.currentHP) {
-            System.out.println("[ WARNING ] maxHP value provided: " + maxHP
+            HelperMethods.warn("[ WARNING ] maxHP value provided: " + maxHP
                 + " is < currentHP value: " + this.currentHP);
         }
         this.maxHP = maxHP;

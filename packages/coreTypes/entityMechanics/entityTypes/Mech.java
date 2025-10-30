@@ -613,7 +613,7 @@ public final class Mech implements Damageable {
                 + maxStructure + " is < 1");
         }
         if (maxStructure < this.currentStructure) {
-            System.out.println("[ WARNING ] maxStructure value provided: "
+            HelperMethods.warn("[ WARNING ] maxStructure value provided: "
                 + maxStructure + " is < currentStructure value: "
                 + this.currentStructure);
         }
@@ -647,7 +647,7 @@ public final class Mech implements Damageable {
                 + " is < 1");
         }
         if (maxHP < this.currentHP) {
-            System.out.println("[ WARNING ] maxHP value provided: " + maxHP
+            HelperMethods.warn("[ WARNING ] maxHP value provided: " + maxHP
                 + " is < currentHP value: " + this.currentHP);
         }
         this.maxHP = maxHP;
@@ -688,7 +688,7 @@ public final class Mech implements Damageable {
                 + maxStress + " is < 1");
         }
         if (maxStress < this.currentStress) {
-            System.out.println("[ WARNING ] maxStress value provided: "
+            HelperMethods.warn("[ WARNING ] maxStress value provided: "
                 + maxStress + " is < currentStress value: "
                 + this.currentStress);
         }
@@ -746,7 +746,7 @@ public final class Mech implements Damageable {
                 + maxHeatCapacity + " is < 1");
         }
         if (maxHeatCapacity < this.currentHeat) {
-            System.out.println("[ WARNING ] maxHeatCapacity value provided: "
+            HelperMethods.warn("[ WARNING ] maxHeatCapacity value provided: "
                 + maxHeatCapacity + " is < currentHeat value: "
                 + this.currentHeat);
         }
@@ -814,7 +814,7 @@ public final class Mech implements Damageable {
                 + maxRepairCapacity + " is < 0");
         }
         if (maxRepairCapacity < this.currentRepairs) {
-            System.out.println("[ WARNING ] maxRepairCapacity value provided: "
+            HelperMethods.warn("[ WARNING ] maxRepairCapacity value provided: "
                 + maxRepairCapacity + " is < currentRepairs value: "
                 + this.currentRepairs);
         }
