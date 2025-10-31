@@ -499,9 +499,8 @@ public class Action {
      * @param synergyLocations
      */
     private void setSynergyLocations(String[] synergyLocations) {
-        if (synergyLocations == null) {
-            throw new IllegalArgumentException("synergyLocations is null");
-        }
+        HelperMethods.checkObject("synergyLocations",
+            synergyLocations);
         for (int i = 0; i < synergyLocations.length; i++) {
             if (synergyLocations[i] == null) {
                 throw new IllegalArgumentException("synergyLocations array"
@@ -521,9 +520,7 @@ public class Action {
      * @param confirm
      */
     private void setConfirm(String[] confirm) {
-        if (confirm == null) {
-            throw new IllegalArgumentException("confirm is null");
-        }
+        HelperMethods.checkObject("confirm", confirm);
         for (int i = 0; i < confirm.length; i++) {
             if (confirm[i] == null) {
                 throw new IllegalArgumentException("confirm array contains a"
