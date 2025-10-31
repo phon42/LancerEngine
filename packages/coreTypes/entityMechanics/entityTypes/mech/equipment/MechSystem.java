@@ -2,6 +2,7 @@ package packages.coreTypes.entityMechanics.entityTypes.mech.equipment;
 
 import main.HelperMethods;
 import packages.coreTypes.entityMechanics.License;
+import packages.coreTypes.entityMechanics.Manufacturer;
 import packages.coreTypes.entityMechanics.entityTypes.mech.Equipment;
 import packages.coreTypes.entityMechanics.entityTypes.mech.equipment.tagSystem.Tag;
 
@@ -30,25 +31,25 @@ public final class MechSystem extends Equipment {
     /**
      * Creates a MechSystem given a system name.
      * @param systemName a String which cannot be null or "".
-     * @param systemManufacturer a String which must be a valid manufacturer
-     *     name as defined by Database.manufacturerList. Cannot be null.
+     * @param systemManufacturer a Manufacturer which can be any Manufacturer.
+     *     Cannot be null.
      * @param systemLicense a License which can be any License. Cannot be null.
      */
-    public MechSystem(String systemName, String systemManufacturer,
+    public MechSystem(String systemName, Manufacturer systemManufacturer,
         License systemLicense) {
         super(systemName, systemManufacturer, systemLicense);
     }
     /**
      * Creates a MechSystem given a system name and array of system tags.
      * @param systemName a String which cannot be null or "".
-     * @param systemManufacturer a String which must be a valid manufacturer
-     *     name as defined by Database.manufacturerList. Cannot be null.
+     * @param systemManufacturer a Manufacturer which can be any Manufacturer.
+     *     Cannot be null.
      * @param systemLicense a License which can be any License. Cannot be null.
      * @param systemTags a Tag[] which cannot be null, contain null elements,
      *     or contain elements with invalid Tag.name values, as defined by
      *     MechSystem.allowedNames.
      */
-    public MechSystem(String systemName, String systemManufacturer,
+    public MechSystem(String systemName, Manufacturer systemManufacturer,
         License systemLicense, Tag[] systemTags) {
         super(systemName, systemManufacturer, systemLicense);
         setTags(systemTags);
@@ -59,7 +60,7 @@ public final class MechSystem extends Equipment {
      * @return a MechSystem deep copy of the provided MechSystem.
      */
     public MechSystem(MechSystem mechSystem) {
-        this(mechSystem.name, mechSystem.manufacturer, mechSystem.license,
+        this(mechSystem.name, mechSystem.source, mechSystem.originLicense,
             mechSystem.tags);
     }
 
