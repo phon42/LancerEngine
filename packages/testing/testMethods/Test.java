@@ -88,9 +88,7 @@ public final class Test {
         this.tests = tests;
     }
     public void setResult(TestStatus result) {
-        if (result == null) {
-            throw new IllegalArgumentException("New test result is null");
-        }
+        HelperMethods.checkObject("New test result", result);
         this.result = result;
     }
 

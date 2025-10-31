@@ -56,9 +56,7 @@ public class FrameLicense {
      * @throws IllegalArgumentException if manufacturer is null.
      */
     private void setManufacturer(Manufacturer manufacturer) {
-        if (manufacturer == null) {
-            throw new IllegalArgumentException("manufacturer is null");
-        }
+        HelperMethods.checkObject("manufacturer", manufacturer);
         this.manufacturer = manufacturer;
     }
     /**
@@ -85,9 +83,7 @@ public class FrameLicense {
         if (rank > 3) {
             throw new IllegalArgumentException("rank is > 3");
         }
-        if (content == null) {
-            throw new IllegalArgumentException("content is null");
-        }
+        HelperMethods.checkObject("content", content);
         if (this.manufacturer.getID().equals("GMS")
             || this.name.equals("GMS Content")) {
             if (rank != 0) {
@@ -122,9 +118,7 @@ public class FrameLicense {
         // Is true if (content instanceof Equipment)
         boolean isEquipment = false;
 
-        if (content == null) {
-            throw new IllegalArgumentException("content is null");
-        }
+        HelperMethods.checkObject("content", content);
         isGMS = content.getSource().getID().equals("GMS");
         isGMS = isGMS || content.getOriginLicense() == null;
         if (content instanceof Equipment) {

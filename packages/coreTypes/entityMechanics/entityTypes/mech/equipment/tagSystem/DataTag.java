@@ -361,9 +361,7 @@ public class DataTag {
      * @return a DataTag copy of the provided DataTag.
      */
     public DataTag(DataTag dataTag) {
-        if (dataTag == null) {
-            throw new IllegalArgumentException("dataTag is null");
-        }
+        HelperMethods.checkObject("dataTag", dataTag);
         setID(dataTag.id);
         setValue(dataTag.value);
     }
@@ -462,9 +460,7 @@ public class DataTag {
         int numValidTags = 0;
         Tag[] tags;
 
-        if (dataTags == null) {
-            throw new IllegalArgumentException("dataTags is null");
-        }
+        HelperMethods.checkObject("dataTags", dataTags);
         for (int i = 0; i < dataTags.length; i++) {
             if (dataTags[i] == null) {
                 continue;

@@ -127,6 +127,19 @@ public final class HelperMethods {
         return result;
     }
     /**
+     * Checks a provided Object to see if it is null.
+     * @param propertyName a String which cannot be "". Cannot be null.
+     * @param input an Object which cannot be null.
+     * @throws IllegalArgumentException if propertyName or input are null or
+     *     propertyName is "".
+     */
+    public static void checkObject(String propertyName, Object input) {
+        checkString("propertyName", propertyName);
+        if (input == null) {
+            throw new IllegalArgumentException(propertyName + " is null");
+        }
+    }
+    /**
      * Checks a provided String to see if it is null or "". Ironically, needs to
      *     perform the same function on propertyName beforehand.
      * @param propertyName a String which cannot be "". Cannot be null.
@@ -167,11 +180,7 @@ public final class HelperMethods {
      * @throws IllegalArgumentException if intArray is null.
      */
     public static int[] append(int[] intArray, int newElement) {
-        if (intArray == null) {
-            throw new IllegalArgumentException("Called"
-                + " HelperMethods.append(int[], int) with null in the place of"
-                + " the int[]");
-        }
+        checkObject("intArray", intArray);
         int[] newIntArray = new int[intArray.length + 1];
 
         for (int i = 0; i < newIntArray.length; i++) {
@@ -194,16 +203,8 @@ public final class HelperMethods {
      * @throws IllegalArgumentException if stringArray or newElement is null.
      */
     public static String[] append(String[] stringArray, String newElement) {
-        if (stringArray == null) {
-            throw new IllegalArgumentException("Called"
-                + " HelperMethods.append(String[], String) with null in the"
-                + " place of the String[]");
-        }
-        if (newElement == null) {
-            throw new IllegalArgumentException("Called"
-                + " HelperMethods.append(String[], String) with null in the"
-                + " place of the String");
-        }
+        HelperMethods.checkObject("stringArray", stringArray);
+        HelperMethods.checkObject("newElement", newElement);
         String[] newStringArray = new String[stringArray.length + 1];
 
         for (int i = 0; i < newStringArray.length; i++) {
@@ -228,16 +229,8 @@ public final class HelperMethods {
      */
     public static EventListener[] append(EventListener[] array,
         EventListener newElement) {
-        if (array == null) {
-            throw new IllegalArgumentException("Called"
-                + " HelperMethods.append(EventListener[], EventListener) with"
-                + " null in the place of the EventListener[]");
-        }
-        if (newElement == null) {
-            throw new IllegalArgumentException("Called"
-                + " HelperMethods.append(EventListener[], EventListener) with"
-                + " null in the place of the EventListener");
-        }
+        HelperMethods.checkObject("array", array);
+        HelperMethods.checkObject("newElement", newElement);
         EventListener[] newArray = new EventListener[array.length + 1];
 
         for (int i = 0; i < newArray.length; i++) {
@@ -260,16 +253,8 @@ public final class HelperMethods {
      * @throws IllegalArgumentException if array or newElement is null.
      */
     public static Frame[] append(Frame[] array, Frame newElement) {
-        if (array == null) {
-            throw new IllegalArgumentException("Called"
-                + " HelperMethods.append(Frame[], Frame) with null in the place"
-                + " of the Frame[]");
-        }
-        if (newElement == null) {
-            throw new IllegalArgumentException("Called"
-                + " HelperMethods.append(Frame[], Frame) with null in the place"
-                + " of the Frame");
-        }
+        HelperMethods.checkObject("array", array);
+        HelperMethods.checkObject("newElement", newElement);
         Frame[] newArray = new Frame[array.length + 1];
 
         for (int i = 0; i < newArray.length; i++) {
@@ -294,16 +279,8 @@ public final class HelperMethods {
      */
     public static MechSystem[] append(MechSystem[] array, MechSystem newElement)
     {
-        if (array == null) {
-            throw new IllegalArgumentException("Called"
-                + " HelperMethods.append(MechSystem[], MechSystem) with null in"
-                + " the place of the MechSystem[]");
-        }
-        if (newElement == null) {
-            throw new IllegalArgumentException("Called"
-                + " HelperMethods.append(MechSystem[], MechSystem) with null in"
-                + " the place of the MechSystem");
-        }
+        HelperMethods.checkObject("array", array);
+        HelperMethods.checkObject("newElement", newElement);
         MechSystem[] newArray = new MechSystem[array.length + 1];
 
         for (int i = 0; i < newArray.length; i++) {
@@ -326,16 +303,8 @@ public final class HelperMethods {
      * @throws IllegalArgumentException if array or newElement is null.
      */
     public static State[] append(State[] array, State newElement) {
-        if (array == null) {
-            throw new IllegalArgumentException("Called"
-                + " HelperMethods.append(String[], String) with null in the"
-                + " place of the String[]");
-        }
-        if (newElement == null) {
-            throw new IllegalArgumentException("Called"
-                + " HelperMethods.append(String[], String) with null in the"
-                + " place of the String");
-        }
+        HelperMethods.checkObject("array", array);
+        HelperMethods.checkObject("newElement", newElement);
         State[] newArray = new State[array.length + 1];
 
         for (int i = 0; i < newArray.length; i++) {
@@ -358,16 +327,8 @@ public final class HelperMethods {
      * @throws IllegalArgumentException if array or newElement is null.
      */
     public static Weapon[] append(Weapon[] array, Weapon newElement) {
-        if (array == null) {
-            throw new IllegalArgumentException("Called"
-                + " HelperMethods.append(Weapon[], Weapon) with null in the"
-                + " place of the Weapon[]");
-        }
-        if (newElement == null) {
-            throw new IllegalArgumentException("Called"
-                + " HelperMethods.append(Weapon[], Weapon) with null in the"
-                + " place of the Weapon");
-        }
+        HelperMethods.checkObject("array", array);
+        HelperMethods.checkObject("newElement", newElement);
         Weapon[] newArray = new Weapon[array.length + 1];
 
         for (int i = 0; i < newArray.length; i++) {
@@ -393,16 +354,8 @@ public final class HelperMethods {
      * @throws IllegalArgumentException if mountArray or newElement is null.
      */
     public static Mount[] add(Mount[] mountArray, Mount newElement, int index) {
-        if (mountArray == null) {
-            throw new IllegalArgumentException("Called"
-                + " HelperMethods.add(Mount[], Mount) with null in the place of"
-                + " the Mount[]");
-        }
-        if (newElement == null) {
-            throw new IllegalArgumentException("Called"
-                + " HelperMethods.add(Mount[], Mount) with null in the place of"
-                + " the Mount");
-        }
+        HelperMethods.checkObject("mountArray", mountArray);
+        HelperMethods.checkObject("newElement", newElement);
         Mount[] newMountArray = new Mount[mountArray.length + 1];
 
         if (index < 0 || index > mountArray.length) {
@@ -433,11 +386,7 @@ public final class HelperMethods {
     public static Callable copyOf(Callable original) {
         Callable copy;
 
-        if (original == null) {
-            throw new IllegalArgumentException("Called"
-                + " HelperMethods.copyOf(Callable) with null in the place of"
-                + " the Callable");
-        }
+        checkObject("original", original);
         copy = new Callable() {
             @Override
             public void run() {
@@ -454,11 +403,7 @@ public final class HelperMethods {
      * @throws IllegalArgumentException if original is null.
      */
     public static int[] copyOf(int[] original) {
-        if (original == null) {
-            throw new IllegalArgumentException("Called"
-                + " HelperMethods.copyOf(int[]) with null in the place of the"
-                + " int[]");
-        }
+        checkObject("original", original);
         int[] copy = new int[original.length];
         for (int i = 0; i < original.length; i++) {
             copy[i] = original[i];
@@ -473,11 +418,7 @@ public final class HelperMethods {
      * @throws IllegalArgumentException if original is null.
      */
     public static String[] copyOf(String[] original) {
-        if (original == null) {
-            throw new IllegalArgumentException("Called"
-                + " HelperMethods.copyOf(String[]) with null in the place of"
-                + " the String[]");
-        }
+        checkObject("original", original);
         String[] copy = new String[original.length];
         for (int i = 0; i < original.length; i++) {
             copy[i] = original[i];
@@ -492,11 +433,7 @@ public final class HelperMethods {
      * @throws IllegalArgumentException if original is null.
      */
     public static Action[] copyOf(Action[] original) {
-        if (original == null) {
-            throw new IllegalArgumentException("Called"
-                + " HelperMethods.copyOf(Action[]) with null in the place of"
-                + " the Action[]");
-        }
+        checkObject("original", original);
         Action[] copy = new Action[original.length];
         for (int i = 0; i < original.length; i++) {
             if (original[i] == null) {
@@ -515,11 +452,7 @@ public final class HelperMethods {
      * @throws IllegalArgumentException if original is null.
      */
     public static Bonus[] copyOf(Bonus[] original) {
-        if (original == null) {
-            throw new IllegalArgumentException("Called"
-                + " HelperMethods.copyOf(Bonus[]) with null in the place of"
-                + " the Bonus[]");
-        }
+        checkObject("original", original);
         Bonus[] copy = new Bonus[original.length];
         for (int i = 0; i < original.length; i++) {
             if (original[i] == null) {
@@ -532,11 +465,7 @@ public final class HelperMethods {
         return copy;
     }
     public static Condition[] copyOf(Condition[] original) {
-        if (original == null) {
-            throw new IllegalArgumentException("Called"
-                + " HelperMethods.copyOf(Condition[]) with null in the place of"
-                + " the Condition[]");
-        }
+        checkObject("original", original);
         Condition[] copy = new Condition[original.length];
         for (int i = 0; i < original.length; i++) {
             if (original[i] == null) {
@@ -555,11 +484,7 @@ public final class HelperMethods {
      * @throws IllegalArgumentException if original is null.
      */
     public static Damage[] copyOf(Damage[] original) {
-        if (original == null) {
-            throw new IllegalArgumentException("Called"
-                + " HelperMethods.copyOf(Damage[]) with null in the place of"
-                + " the Damage[]");
-        }
+        checkObject("original", original);
         Damage[] copy = new Damage[original.length];
         for (int i = 0; i < original.length; i++) {
             if (original[i] == null) {
@@ -578,11 +503,7 @@ public final class HelperMethods {
      * @throws IllegalArgumentException if original is null.
      */
     public static Deployable[] copyOf(Deployable[] original) {
-        if (original == null) {
-            throw new IllegalArgumentException("Called"
-                + " HelperMethods.copyOf(Deployable[]) with null in the place"
-                + " of the Deployable[]");
-        }
+        checkObject("original", original);
         Deployable[] copy = new Deployable[original.length];
         for (int i = 0; i < original.length; i++) {
             if (original[i] == null) {
@@ -601,11 +522,7 @@ public final class HelperMethods {
      * @throws IllegalArgumentException if original is null.
      */
     public static Harm[] copyOf(Harm[] original) {
-        if (original == null) {
-            throw new IllegalArgumentException("Called"
-                + " HelperMethods.copyOf(Harm[]) with null in the place of the"
-                + " Harm[]");
-        }
+        checkObject("original", original);
         Harm[] copy = new Harm[original.length];
         for (int i = 0; i < original.length; i++) {
             if (original[i] == null) {
@@ -624,11 +541,7 @@ public final class HelperMethods {
      * @throws IllegalArgumentException if original is null.
      */
     public static License[] copyOf(License[] original) {
-        if (original == null) {
-            throw new IllegalArgumentException("Called"
-                + " HelperMethods.copyOf(License[]) with null in the place of"
-                + " the License[]");
-        }
+        checkObject("original", original);
         License[] copy = new License[original.length];
         for (int i = 0; i < original.length; i++) {
             if (original[i] == null) {
@@ -647,11 +560,7 @@ public final class HelperMethods {
      * @throws IllegalArgumentException if original is null.
      */
     public static MechSystem[] copyOf(MechSystem[] original) {
-        if (original == null) {
-            throw new IllegalArgumentException("Called"
-                + " HelperMethods.copyOf(MechSystem[]) with null in the place"
-                + " of the MechSystem[]");
-        }
+        checkObject("original", original);
         MechSystem[] copy = new MechSystem[original.length];
         for (int i = 0; i < original.length; i++) {
             if (original[i] == null) {
@@ -670,11 +579,7 @@ public final class HelperMethods {
      * @throws IllegalArgumentException if original is null.
      */
     public static Mount[] copyOf(Mount[] original) {
-        if (original == null) {
-            throw new IllegalArgumentException("Called"
-                + " HelperMethods.copyOf(Mount[]) with null in the place of the"
-                + " Mount[]");
-        }
+        checkObject("original", original);
         Mount[] copy = new Mount[original.length];
         for (int i = 0; i < original.length; i++) {
             if (original[i] == null) {
@@ -693,11 +598,7 @@ public final class HelperMethods {
      * @throws IllegalArgumentException if original is null.
      */
     public static PilotGear[] copyOf(PilotGear[] original) {
-        if (original == null) {
-            throw new IllegalArgumentException("Called"
-                + " HelperMethods.copyOf(PilotGear[]) with null in the place of"
-                + " the PilotGear[]");
-        }
+        checkObject("original", original);
         PilotGear[] copy = new PilotGear[original.length];
         for (int i = 0; i < original.length; i++) {
             if (original[i] == null) {
@@ -716,11 +617,7 @@ public final class HelperMethods {
      * @throws IllegalArgumentException if original is null.
      */
     public static PilotWeapon[] copyOf(PilotWeapon[] original) {
-        if (original == null) {
-            throw new IllegalArgumentException("Called"
-                + " HelperMethods.copyOf(PilotWeapon[]) with null in the place"
-                + " of the PilotWeapon[]");
-        }
+        checkObject("original", original);
         PilotWeapon[] copy = new PilotWeapon[original.length];
         for (int i = 0; i < original.length; i++) {
             if (original[i] == null) {
@@ -739,11 +636,7 @@ public final class HelperMethods {
      * @throws IllegalArgumentException if original is null.
      */
     public static RangeTag[] copyOf(RangeTag[] original) {
-        if (original == null) {
-            throw new IllegalArgumentException("Called"
-                + " HelperMethods.copyOf(RangeTag[]) with null in the place of"
-                + " the RangeTag[]");
-        }
+        checkObject("original", original);
         RangeTag[] copy = new RangeTag[original.length];
         for (int i = 0; i < original.length; i++) {
             if (original[i] == null) {
@@ -762,11 +655,7 @@ public final class HelperMethods {
      * @throws IllegalArgumentException if original is null.
      */
     public static Skill[] copyOf(Skill[] original) {
-        if (original == null) {
-            throw new IllegalArgumentException("Called"
-                + " HelperMethods.copyOf(SkillTrigger[]) with null in the place"
-                + " of the SkillTrigger[]");
-        }
+        checkObject("original", original);
         Skill[] copy = new Skill[original.length];
         for (int i = 0; i < original.length; i++) {
             if (original[i] == null) {
@@ -779,11 +668,7 @@ public final class HelperMethods {
         return copy;
     }
     public static State[] copyOf(State[] original) {
-        if (original == null) {
-            throw new IllegalArgumentException("Called"
-                + " HelperMethods.copyOf(State[]) with null in the place of the"
-                + " State[]");
-        }
+        checkObject("original", original);
         State[] copy = new State[original.length];
         for (int i = 0; i < original.length; i++) {
             if (original[i] == null) {
@@ -796,11 +681,7 @@ public final class HelperMethods {
         return copy;
     }
     public static Status[] copyOf(Status[] original) {
-        if (original == null) {
-            throw new IllegalArgumentException("Called"
-                + " HelperMethods.copyOf(Status[]) with null in the place of"
-                + " the Status[]");
-        }
+        checkObject("original", original);
         Status[] copy = new Status[original.length];
         for (int i = 0; i < original.length; i++) {
             if (original[i] == null) {
@@ -819,11 +700,7 @@ public final class HelperMethods {
      * @throws IllegalArgumentException if original is null.
      */
     public static Talent[] copyOf(Talent[] original) {
-        if (original == null) {
-            throw new IllegalArgumentException("Called"
-                + " HelperMethods.copyOf(Talent[]) with null in the place of"
-                + " the Talent[]");
-        }
+        checkObject("original", original);
         Talent[] copy = new Talent[original.length];
         for (int i = 0; i < original.length; i++) {
             if (original[i] == null) {
@@ -842,11 +719,7 @@ public final class HelperMethods {
      * @throws IllegalArgumentException if original is null.
      */
     public static Tag[] copyOf(Tag[] original) {
-        if (original == null) {
-            throw new IllegalArgumentException("Called"
-                + " HelperMethods.copyOf(Tag[]) with null in the place of the"
-                + " Tag[]");
-        }
+        checkObject("original", original);
         Tag[] copy = new Tag[original.length];
         for (int i = 0; i < original.length; i++) {
             if (original[i] == null) {
@@ -873,9 +746,7 @@ public final class HelperMethods {
         // had to add an entire variable just because of one singular mech. fml
         char lastLetter = ' ';
 
-        if (input == null) {
-            throw new IllegalArgumentException("input is null");
-        }
+        checkObject("input", input);
         if (input.length() <= 1) {
             return input.toUpperCase();
         }
@@ -918,9 +789,7 @@ public final class HelperMethods {
     public static String capitalizeFirst(String input) {
         String outputString;
 
-        if (input == null) {
-            throw new IllegalArgumentException("input is null");
-        }
+        checkObject("input", input);
         if (input.length() <= 1) {
             return input.toUpperCase();
         }

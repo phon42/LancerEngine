@@ -159,9 +159,7 @@ public class BaseArea {
         this.isSpacesCurrent = false;
     }
     protected void setSpaces(Hex[] spaces) {
-        if (spaces == null) {
-            throw new IllegalArgumentException("spaces is null");
-        }
+        HelperMethods.checkObject("spaces", spaces);
         this.isSpacesCurrent = true;
     }
 

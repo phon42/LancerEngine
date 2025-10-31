@@ -155,9 +155,7 @@ public class Deployable implements Damageable {
     public void receiveHarm(Harm harm) {
         Damage damage;
 
-        if (harm == null) {
-            throw new IllegalArgumentException("harm is null");
-        }
+        HelperMethods.checkObject("harm", harm);
         if (harm.getType().equals("variable")) {
             throw new IllegalArgumentException("harm value has a Harm.type"
                 + " value of \"variable\"");
@@ -187,9 +185,7 @@ public class Deployable implements Damageable {
         int damageToTake;
         int newCurrentHP;
 
-        if (damage == null) {
-            throw new IllegalArgumentException("damage is null");
-        }
+        HelperMethods.checkObject("damage", damage);
         // damage is being rolled here
         damageAmount = damage.roll();
         damageToTake = Math.min(damageAmount, this.currentHP);
@@ -213,9 +209,7 @@ public class Deployable implements Damageable {
         // TODO: fill out with mitigation, resistance etc
         int heatAmount;
 
-        if (heat == null) {
-            throw new IllegalArgumentException("heat is null");
-        }
+        HelperMethods.checkObject("heat", heat);
         if (! heat.getType().equals("heat")) {
             throw new IllegalArgumentException("heat has a Damage.type value"
                 + " of: \"" + heat.getType() + "\"");
@@ -235,9 +229,7 @@ public class Deployable implements Damageable {
         // TODO: fill out with mitigation, resistance etc
         int burnAmount;
 
-        if (burn == null) {
-            throw new IllegalArgumentException("burn is null");
-        }
+        HelperMethods.checkObject("burn", burn);
         if (! burn.getType().equals("burn")) {
             throw new IllegalArgumentException("burn has a Damage.type value"
                 + " of: \"" + burn.getType() + "\"");

@@ -167,17 +167,14 @@ public class Event {
     public static int addListener(String eventType, boolean disposable,
         Callable method) {
         HelperMethods.checkString("eventType", eventType);
-        if (method == null) {
-            throw new IllegalArgumentException("method is null");
-        }
+        HelperMethods.checkObject("method", method);
         
         return addListener(new EventListener(eventType, disposable, method));
     }
     public static int addListener(String eventType, Callable method) {
         HelperMethods.checkString("eventType", eventType);
-        if (method == null) {
-            throw new IllegalArgumentException("method is null");
-        }
+        HelperMethods.checkObject("method", method);
+
         return addListener(new EventListener(eventType, method));
     }
     public static void removeListener(int ID) {

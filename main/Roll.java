@@ -513,9 +513,7 @@ public final class Roll {
         // See pgs. 13, 45 - 47
         int bonus;
 
-        if (skillTrigger == null) {
-            throw new IllegalArgumentException("skillTrigger is null");
-        }
+        HelperMethods.checkObject("skillTrigger", skillTrigger);
         if (accuracy < 0) {
             throw new IllegalArgumentException("accuracy value: " + accuracy
                 + " is < 0");
@@ -614,9 +612,7 @@ public final class Roll {
             throw new IllegalArgumentException("skillIndex value: " + skillIndex
                 + " is > 3");
         }
-        if (mechSkills == null) {
-            throw new IllegalArgumentException("mechSkills is null");
-        }
+        HelperMethods.checkObject("mechSkills", mechSkills);
         if (mechSkills.length != 4) {
             throw new IllegalArgumentException("mechSkills is of length: "
                 + mechSkills.length + " which is not 4");
@@ -755,9 +751,7 @@ public final class Roll {
             throw new IllegalArgumentException("skillIndex value: " + skillIndex
                 + " is > 3");
         }
-        if (mechSkills == null) {
-            throw new IllegalArgumentException("mechSkills is null");
-        }
+        HelperMethods.checkObject("mechSkills", mechSkills);
         if (mechSkills.length != 4) {
             throw new IllegalArgumentException("mechSkills is of length: "
                 + mechSkills.length + " which is not 4");

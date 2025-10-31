@@ -101,22 +101,16 @@ public class Manufacturer {
         this.name = name;
     }
     public void setLogo(String logo) {
-        if (logo == null) {
-            throw new IllegalArgumentException("logo is null");
-        }
+        HelperMethods.checkObject("logo", logo);
         this.logo = logo;
     }
     public void setLight(ColorData light) {
-        if (light == null) {
-            throw new IllegalArgumentException("light is null");
-        }
+        HelperMethods.checkObject("light", light);
         light = new ColorData(light);
         this.light = light;
     }
     public void setDark(ColorData dark) {
-        if (dark == null) {
-            throw new IllegalArgumentException("dark is null");
-        }
+        HelperMethods.checkObject("dark", dark);
         dark = new ColorData(dark);
         this.dark = dark;
     }

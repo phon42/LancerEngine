@@ -219,9 +219,7 @@ public final class Database {
         Database.open = false;
     }
     public static Action getAction(String actionName) {
-        if (actionName == null) {
-            throw new IllegalArgumentException("actionName is null");
-        }
+        HelperMethods.checkObject("actionName", actionName);
         for (Action action : Database.actions) {
             if (actionName.equals(action.getName())) {
                 return new Action(action);
@@ -231,9 +229,7 @@ public final class Database {
             + actionName);
     }
     public static Background getBackground(String backgroundID) {
-        if (backgroundID == null) {
-            throw new IllegalArgumentException("backgroundID is null");
-        }
+        HelperMethods.checkObject("backgroundID", backgroundID);
         for (Background background : Database.backgrounds) {
             if (backgroundID.equals(background.getID())) {
                 return new Background(background);
@@ -259,9 +255,7 @@ public final class Database {
      * @throws IllegalArgumentException if licenseName is null or "".
      */
     public static DataTag getDataTag(String dataTagID) {
-        if (dataTagID == null) {
-            throw new IllegalArgumentException("dataTagID is null");
-        }
+        HelperMethods.checkObject("dataTagID", dataTagID);
         for (DataTag dataTag : Database.dataTags) {
             if (dataTagID.equals(dataTag.getID())) {
                 return new DataTag(dataTag);
@@ -271,9 +265,7 @@ public final class Database {
             + dataTagID);
     }
     public static Environment getEnvironment(String environmentID) {
-        if (environmentID == null) {
-            throw new IllegalArgumentException("environmentID is null");
-        }
+        HelperMethods.checkObject("environmentID", environmentID);
         for (Environment environment : Database.environments) {
             if (environmentID.equals(environment.getID())) {
                 return new Environment(environment);
@@ -283,9 +275,7 @@ public final class Database {
             + " environment ID: " + environmentID);
     }
     public static Frame getFrame(String frameID) {
-        if (frameID == null) {
-            throw new IllegalArgumentException("frameID is null");
-        }
+        HelperMethods.checkObject("frameID", frameID);
         for (Frame frame : Database.frames) {
             if (frameID.equals(frame.getID())) {
                 return new Frame(frame);
@@ -386,9 +376,7 @@ public final class Database {
             + " system name: \"" + systemName + "\"");
     }
     public static Table getTable(String tableName) {
-        if (tableName == null) {
-            throw new IllegalArgumentException("tableName is null");
-        }
+        HelperMethods.checkObject("tableName", tableName);
         for (Table table : Database.tables) {
             if (tableName.equals(table.getName())) {
                 return new Table(table);
@@ -398,9 +386,7 @@ public final class Database {
             + tableName);
     }
     public static Tag getTag(String tagID) {
-        if (tagID == null) {
-            throw new IllegalArgumentException("tagID is null");
-        }
+        HelperMethods.checkObject("tagID", tagID);
         for (Tag tag : Database.tags) {
             if (tagID.equals(tag.getID())) {
                 return new Tag(tag);
@@ -428,9 +414,7 @@ public final class Database {
             + " armor name: \"" + pilotArmorName + "\"");
     }
     public static Term getTerm(String termName) {
-        if (termName == null) {
-            throw new IllegalArgumentException("termName is null");
-        }
+        HelperMethods.checkObject("termName", termName);
         for (Term term : Database.terms) {
             if (termName.equals(term.getName())) {
                 return new Term(term);
@@ -440,9 +424,7 @@ public final class Database {
             + termName);
     }
     public static Weapon getWeapon(String weaponID) {
-        if (weaponID == null) {
-            throw new IllegalArgumentException("weaponID is null");
-        }
+        HelperMethods.checkObject("weaponID", weaponID);
         for (Weapon weapon : Database.weapons) {
             if (weaponID.equals(weapon.getID())) {
                 return new Weapon(weapon);
@@ -458,9 +440,7 @@ public final class Database {
      */
     public static void addFrame(Frame frame) {
         checkOpen();
-        if (frame == null) {
-            throw new IllegalArgumentException("frame is null");
-        }
+        HelperMethods.checkObject("frame", frame);
         Database.frames = HelperMethods.append(Database.frames, frame);
     }
     /**
@@ -470,9 +450,7 @@ public final class Database {
      */
     public static void addSystem(MechSystem system) {
         checkOpen();
-        if (system == null) {
-            throw new IllegalArgumentException("system is null");
-        }
+        HelperMethods.checkObject("system", system);
         Database.systems = HelperMethods.append(Database.systems, system);
     }
     /**
@@ -482,9 +460,7 @@ public final class Database {
      */
     public static void addWeapon(Weapon weapon) {
         checkOpen();
-        if (weapon == null) {
-            throw new IllegalArgumentException("weapon is null");
-        }
+        HelperMethods.checkObject("weapon", weapon);
         Database.weapons = HelperMethods.append(Database.weapons, weapon);
     }
     /**

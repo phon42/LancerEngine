@@ -1,5 +1,7 @@
 package packages.coreTypes.battlefield;
 
+import main.HelperMethods;
+
 /**
  * See pg. 65.
  */
@@ -344,12 +346,8 @@ public class Hex {
      * @throws IllegalArgumentException if hex1 or hex2 is null.
      */
     public static int getDist(Hex hex1, Hex hex2) {
-        if (hex1 == null) {
-            throw new IllegalArgumentException("hex1 is null");
-        }
-        if (hex2 == null) {
-            throw new IllegalArgumentException("hex2 is null");
-        }
+        HelperMethods.checkObject("hex1", hex1);
+        HelperMethods.checkObject("hex2", hex2);
 
         return hex1.getDist(hex2);
     }
@@ -373,9 +371,7 @@ public class Hex {
      * @throws IllegalArgumentException if hex is null.
      */
     public int getDist(Hex hex) {
-        if (hex == null) {
-            throw new IllegalArgumentException("hex is null");
-        }
+        HelperMethods.checkObject("hex", hex);
 
         return new Hex(hex.getI() - this.i, hex.getJ() - this.j).getDist();
     }

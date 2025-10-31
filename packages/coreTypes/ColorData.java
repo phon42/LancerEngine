@@ -90,9 +90,7 @@ public class ColorData {
     private static void addColor(ColorData newColor) {
         ColorData[] newColors = new ColorData[ColorData.colors.length + 1];
 
-        if (newColor == null) {
-            throw new IllegalArgumentException("newColor is null");
-        }
+        HelperMethods.checkObject("newColor", newColor);
         for (int i = 0; i < newColors.length; i++) {
             if (i == ColorData.colors.length) {
                 newColors[i] = newColor;
@@ -110,9 +108,7 @@ public class ColorData {
         String newColorString = null;
         int colorProperty = -1;
 
-        if (colorString == null) {
-            throw new IllegalArgumentException("colorString is null");
-        }
+        HelperMethods.checkObject("colorString", colorString);
         containsHashtag = colorString.indexOf("#") != -1 ? 1 : 0;
         containsRGB = colorString.indexOf("rgb(") != -1 ? 1 : 0;
         containsRGBA = colorString.indexOf("rgba") != -1 ? 1 : 0;

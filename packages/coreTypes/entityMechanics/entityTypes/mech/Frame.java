@@ -341,9 +341,7 @@ public final class Frame extends LicenseContent {
      * @throws IllegalArgumentException if frameEnum is null.
      */
     private void setFrameEnum(FrameEnum frameEnum) {
-        if (frameEnum == null) {
-            throw new IllegalArgumentException("New frame enum is null");
-        }
+        HelperMethods.checkObject("New frame enum", frameEnum);
         this.frameEnum = frameEnum;
     }
     /**

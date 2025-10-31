@@ -2,6 +2,7 @@ package packages.coreTypes.entityMechanics;
 
 import java.util.HashMap;
 
+import main.HelperMethods;
 import packages.coreTypes.entityMechanics.entityTypes.Mech;
 import packages.coreTypes.entityMechanics.entityTypes.Pilot;
 import packages.coreTypes.entityMechanics.entityTypes.mech.Frame;
@@ -79,9 +80,7 @@ public final class LancerCharacter {
     //     necessary over an indirect method like
     //     LancerCharacter.setPilotProperties()
     private void setPilot(Pilot pilot) {
-        if (pilot == null) {
-            throw new IllegalArgumentException("New pilot value is null");
-        }
+        HelperMethods.checkObject("New pilot value", pilot);
         pilot = new Pilot(pilot);
         this.pilot = pilot;
     }
@@ -281,9 +280,8 @@ public final class LancerCharacter {
             "talents"};
         boolean isAllowed = false;
 
-        if (pilotProperties == null) {
-            throw new IllegalArgumentException("pilotProperties is null");
-        }
+        HelperMethods.checkObject("pilotProperties",
+            pilotProperties);
         for (String propertyName : propertyNames) {
             if (! pilotProperties.containsKey(propertyName)) {
                 throw new IllegalArgumentException("pilotProperties did not"
@@ -359,9 +357,8 @@ public final class LancerCharacter {
         boolean isAllowed = false;
         Mount[] mounts;
 
-        if (mechProperties == null) {
-            throw new IllegalArgumentException("mechProperties is null");
-        }
+        HelperMethods.checkObject("mechProperties",
+            mechProperties);
         for (String propertyName : propertyNames) {
             if (! mechProperties.containsKey(propertyName)) {
                 throw new IllegalArgumentException("mechProperties did not"
@@ -527,9 +524,7 @@ public final class LancerCharacter {
      * @param harm a Harm that cannot be null.
      */
     public void receiveHarm(boolean targetMech, Harm harm) {
-        if (harm == null) {
-            throw new IllegalArgumentException("harm is null");
-        }
+        HelperMethods.checkObject("harm", harm);
         if (targetMech) {
             this.mech.receiveHarm(harm);
         } else {

@@ -96,10 +96,8 @@ public final class Loadout {
      *     than 2, or contains a null element.
      */
     public void setPilotWeapons(PilotWeapon[] pilotWeapons) {
-        if (pilotWeapons == null) {
-            throw new IllegalArgumentException("New pilot weapon value is"
-                + " null");
-        }
+        HelperMethods.checkObject("New pilot weapons value",
+            pilotWeapons);
         if (pilotWeapons.length != 2) {
             throw new IllegalArgumentException("New pilot weapon value is"
                 + " of invalid length: " + pilotWeapons.length);
@@ -115,10 +113,8 @@ public final class Loadout {
      *     than 3, or contains a null element.
      */
     public void setPilotGear(PilotGear[] pilotGear) {
-        if (pilotGear == null) {
-            throw new IllegalArgumentException("New pilot gear value is"
-                + " null");
-        }
+        HelperMethods.checkObject("New pilot gear value",
+            pilotGear);
         if (pilotGear.length != 3) {
             throw new IllegalArgumentException("New pilot gear value is"
                 + " of invalid length: " + pilotGear.length);

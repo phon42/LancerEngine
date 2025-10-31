@@ -351,9 +351,7 @@ public final class Tag extends DataTag {
      */
     public Tag(Tag tag) {
         super("tg_inaccurate");
-        if (tag == null) {
-            throw new IllegalArgumentException("tag is null");
-        }
+        HelperMethods.checkObject("tag", tag);
         setID(tag.id);
         setName(tag.name);
         setDescription(tag.description);

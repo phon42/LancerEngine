@@ -108,9 +108,7 @@ public class Damage {
      * @return a boolean containing the result of the check.
      */
     public static boolean isValidType(String type) {
-        if (type == null) {
-            throw new IllegalArgumentException("type is null");
-        }
+        HelperMethods.checkObject("type", type);
         for (int i = 0; i < Damage.allowedTypes.length; i++) {
             if (type.equals(Damage.allowedTypes[i])) {
                 return true;

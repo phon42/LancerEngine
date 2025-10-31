@@ -491,9 +491,7 @@ public final class Mech implements Damageable {
      * @throws IllegalArgumentException if frame is null.
      */
     public void setFrame(Frame frame) {
-        if (frame == null) {
-            throw new IllegalArgumentException("New frame is null");
-        }
+        HelperMethods.checkObject("New frame", frame);
         frame = new Frame(frame);
         this.frame = frame;
         calculateAttributes();
@@ -558,10 +556,8 @@ public final class Mech implements Damageable {
         this.role = role;
     }
     private void setFrameDescription(String frameDescription) {
-        if (frameDescription == null) {
-            throw new IllegalArgumentException("New frame description is"
-                + " null");
-        }
+        HelperMethods.checkObject("New frame description",
+            frameDescription);
         this.frameDescription = frameDescription;
     }
     public void setOperatorNotes(String operatorNotes) {
@@ -901,9 +897,7 @@ public final class Mech implements Damageable {
             throw new IllegalArgumentException("mountIndex:" + mountIndex
                 + " is out of bounds for length " + this.mounts.length);
         }
-        if (mount == null) {
-            throw new IllegalArgumentException("New mount is null");
-        }
+        HelperMethods.checkObject("New mount", mount);
         if (! mount.getMountType().equals(
             this.mounts[mountIndex].getMountType())) {
             // the user was lazy and used new Mount(Weapon) instead of
@@ -1361,9 +1355,7 @@ public final class Mech implements Damageable {
     public void receiveHarm(Harm harm) {
         Damage damage;
 
-        if (harm == null) {
-            throw new IllegalArgumentException("harm is null");
-        }
+        HelperMethods.checkObject("harm", harm);
         if (harm.getType().equals("variable")) {
             throw new IllegalArgumentException("harm value has a Harm.type"
                 + " value of \"variable\"");
@@ -1394,9 +1386,7 @@ public final class Mech implements Damageable {
         int damageToTake;
         int newCurrentHP;
 
-        if (damage == null) {
-            throw new IllegalArgumentException("damage is null");
-        }
+        HelperMethods.checkObject("damage", damage);
         // damage is being rolled here
         remainingDamage = damage.roll();
         while (remainingDamage > 0) {
@@ -1442,9 +1432,7 @@ public final class Mech implements Damageable {
         int heatToTake;
         int newCurrentHeat;
 
-        if (heat == null) {
-            throw new IllegalArgumentException("heat is null");
-        }
+        HelperMethods.checkObject("heat", heat);
         if (! heat.getType().equals("heat")) {
             throw new IllegalArgumentException("heat has a Damage.type value"
                 + " of: \"" + heat.getType() + "\"");
@@ -1489,9 +1477,7 @@ public final class Mech implements Damageable {
         // TODO: fill out with mitigation, resistance etc
         int burnAmount;
 
-        if (burn == null) {
-            throw new IllegalArgumentException("heat is null");
-        }
+        HelperMethods.checkObject("burn", burn);
         if (! burn.getType().equals("burn")) {
             throw new IllegalArgumentException("burn has a Damage.type value"
                 + " of: \"" + burn.getType() + "\"");

@@ -49,9 +49,7 @@ public class Table {
         this.name = name;
     }
     private void setData(String[] data) {
-        if (data == null) {
-            throw new IllegalArgumentException("data is null");
-        }
+        HelperMethods.checkObject("data", data);
         for (String value : data) {
             if (value == null) {
                 throw new IllegalArgumentException("data array contains a"

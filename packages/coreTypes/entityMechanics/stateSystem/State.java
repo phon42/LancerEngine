@@ -204,9 +204,7 @@ public class State {
      * @throws IllegalArgumentException if effect is null.
      */
     public void addEffect(State effect) {
-        if (effect == null) {
-            throw new IllegalArgumentException("effect is null");
-        }
+        HelperMethods.checkObject("effect", effect);
         setEffects(HelperMethods.append(this.effects, effect));
     }
     public State removeEffect(int index) {
@@ -248,9 +246,7 @@ public class State {
     public boolean hasState(String stateName) {
         boolean isPresent = false;
 
-        if (stateName == null) {
-            throw new IllegalArgumentException("stateName is null");
-        }
+        HelperMethods.checkObject("stateName", stateName);
         // TODO: fill out once Database has an array of States set up
         // stateName is a valid State
         for (State state : this.effects) {

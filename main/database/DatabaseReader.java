@@ -1,5 +1,6 @@
 package main.database;
 
+import main.HelperMethods;
 import main.database.databaseReader.DataCaster;
 import main.database.databaseReader.FileReading.FileProcessor;
 import main.database.databaseReader.FileReading.JSON;
@@ -153,9 +154,7 @@ public class DatabaseReader {
         String data = null;
 
         // Check whether jsonPath is null
-        if (jsonPath == null) {
-            throw new IllegalArgumentException("jsonPath is null");
-        }
+        HelperMethods.checkObject("jsonPath", jsonPath);
         // Check whether jsonPath actually corresponds to:
         // 1. A valid file path
         // 2. A valid *JSON* file path.
@@ -180,12 +179,8 @@ public class DatabaseReader {
         JSONArray jsonArray;
 
         // Check whether jsonPath or fileData is null
-        if (jsonPath == null) {
-            throw new IllegalArgumentException("jsonPath is null");
-        }
-        if (fileData == null) {
-            throw new IllegalArgumentException("fileData is null");
-        }
+        HelperMethods.checkObject("jsonPath", jsonPath);
+        HelperMethods.checkObject("fileData", fileData);
         // Extract the file name
         // TODO: check to make sure these actually work as expected
         if (jsonPath.indexOf("/") != -1) {

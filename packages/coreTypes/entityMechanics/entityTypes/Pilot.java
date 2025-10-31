@@ -458,9 +458,7 @@ public final class Pilot implements Damageable {
         this.callsign = callsign;
     }
     public void setPlayer(String player) {
-        if (player == null) {
-            throw new IllegalArgumentException("New player is null");
-        }
+        HelperMethods.checkObject("New player", player);
         this.player = player;
     }
     /**
@@ -613,10 +611,8 @@ public final class Pilot implements Damageable {
      * @throws IllegalArgumentException if skillTriggers is null.
      */
     public void setSkillTriggers(SkillTriggersList skillTriggers) {
-        if (skillTriggers == null) {
-            throw new IllegalArgumentException("New skill triggers list value"
-                + " is null");
-        }
+        HelperMethods.checkObject("New skill triggers list value",
+            skillTriggers);
         skillTriggers = new SkillTriggersList(skillTriggers);
         this.skillTriggers = skillTriggers;
     }
@@ -736,10 +732,8 @@ public final class Pilot implements Damageable {
      *     than 4, or contains elements that are < 0 or > 6.
      */
     public void setMechSkills(int[] mechSkills) {
-        if (mechSkills == null) {
-            throw new IllegalArgumentException("New mech skills value is"
-                + " null");
-        }
+        HelperMethods.checkObject("New mech skills value",
+            mechSkills);
         if (mechSkills.length != 4) {
             throw new IllegalArgumentException("New mech skills is of length: "
                 + mechSkills.length + " which is not 4");
@@ -1218,9 +1212,7 @@ public final class Pilot implements Damageable {
     public void receiveHarm(Harm harm) {
         Damage damage;
 
-        if (harm == null) {
-            throw new IllegalArgumentException("harm is null");
-        }
+        HelperMethods.checkObject("harm", harm);
         if (harm.getType().equals("variable")) {
             throw new IllegalArgumentException("harm value has a Harm.type"
                 + " value of \"variable\"");
@@ -1255,9 +1247,7 @@ public final class Pilot implements Damageable {
         int damageToTake;
         int newCurrentHP;
 
-        if (damage == null) {
-            throw new IllegalArgumentException("damage is null");
-        }
+        HelperMethods.checkObject("damage", damage);
         // damage is being rolled here
         remainingDamage = damage.roll();
         damageToTake = Math.min(remainingDamage, this.currentHP);
@@ -1284,9 +1274,7 @@ public final class Pilot implements Damageable {
         // TODO: fill out with mitigation, resistance etc
         int remainingHeat;
 
-        if (heat == null) {
-            throw new IllegalArgumentException("heat is null");
-        }
+        HelperMethods.checkObject("heat", heat);
         if (! heat.getType().equals("heat")) {
             throw new IllegalArgumentException("heat has a Damage.type value"
                 + " of: \"" + heat.getType() + "\"");
@@ -1307,9 +1295,7 @@ public final class Pilot implements Damageable {
         // TODO: fill out with mitigation, resistance etc
         int burnAmount;
 
-        if (burn == null) {
-            throw new IllegalArgumentException("burn is null");
-        }
+        HelperMethods.checkObject("burn", burn);
         if (! burn.getType().equals("burn")) {
             throw new IllegalArgumentException("burn has a Damage.type value"
                 + " of: \"" + burn.getType() + "\"");
