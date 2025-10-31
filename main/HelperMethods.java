@@ -10,6 +10,7 @@ import packages.coreTypes.entityMechanics.entityTypes.mech.Frame;
 import packages.coreTypes.entityMechanics.entityTypes.mech.Mount;
 import packages.coreTypes.entityMechanics.entityTypes.mech.equipment.MechSystem;
 import packages.coreTypes.entityMechanics.entityTypes.mech.equipment.Weapon;
+import packages.coreTypes.entityMechanics.entityTypes.mech.equipment.tagSystem.DataTag;
 import packages.coreTypes.entityMechanics.entityTypes.mech.equipment.tagSystem.Tag;
 import packages.coreTypes.entityMechanics.entityTypes.pilot.Talent;
 import packages.coreTypes.entityMechanics.entityTypes.pilot.loadout.pilotEquipment.PilotGear;
@@ -561,6 +562,25 @@ public final class HelperMethods {
                 continue;
             }
             copy[i] = new Damage(original[i]);
+        }
+
+        return copy;
+    }
+    /**
+     * Returns a deepest copy of original.
+     * @param original a DataTag[] that cannot be null.
+     * @return a DataTag[] deepest copy of original.
+     * @throws IllegalArgumentException if original is null.
+     */
+    public static DataTag[] copyOf(DataTag[] original) {
+        checkObject("original", original);
+        DataTag[] copy = new DataTag[original.length];
+        for (int i = 0; i < original.length; i++) {
+            if (original[i] == null) {
+                copy[i] = original[i];
+                continue;
+            }
+            copy[i] = new DataTag(original[i]);
         }
 
         return copy;
