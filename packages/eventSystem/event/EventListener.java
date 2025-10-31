@@ -67,9 +67,7 @@ public class EventListener {
     private void setMethod(Callable method) {
         Callable copy;
 
-        if (method == null) {
-            throw new IllegalArgumentException("method is null");
-        }
+        HelperMethods.checkObject("method", method);
         copy = new Callable() {
             @Override
             public void run() {
