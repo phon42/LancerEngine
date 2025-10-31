@@ -357,18 +357,12 @@ public final class Frame extends LicenseContent {
         boolean isValidRole = false;
         String roleString;
 
-        if (role == null) {
-            throw new IllegalArgumentException("New role value is null");
-        }
+        HelperMethods.checkObjectArray("New role", role);
         if (role.length == 0) {
             throw new IllegalArgumentException("New role value has a length"
                 + " of 0");
         }
         for (int i = 0; i < role.length; i++) {
-            if (role[i] == null) {
-                throw new IllegalArgumentException("New role array contains"
-                    + " a null element");
-            }
             role[i] = role[i].toLowerCase();
             roleString = role[i];
             isValidRole = false;

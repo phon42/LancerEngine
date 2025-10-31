@@ -974,6 +974,7 @@ public final class Mech implements Damageable {
         boolean isValid = false;
         boolean containsStatus = false;
 
+        HelperMethods.checkObject("newStatus", newStatus);
         for (String status : Status.allowedMechStatuses) {
             if (newStatus.getType().equals(status)) {
                 isValid = true;
