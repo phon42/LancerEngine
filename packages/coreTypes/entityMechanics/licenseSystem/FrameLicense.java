@@ -2,6 +2,7 @@ package packages.coreTypes.entityMechanics.licenseSystem;
 
 import main.Database;
 import main.HelperMethods;
+import packages.coreTypes.entityMechanics.Manufacturer;
 import packages.coreTypes.entityMechanics.entityTypes.mech.Equipment;
 import packages.coreTypes.entityMechanics.entityTypes.mech.Frame;
 import packages.coreTypes.entityMechanics.entityTypes.mech.equipment.MechSystem;
@@ -26,12 +27,10 @@ import packages.coreTypes.entityMechanics.licenseSystem.frameLicense.LicenseCont
  */
 public class FrameLicense {
     /**
-     * The license's manufacturer (i.e. "GMS").
-     * Must be a valid manufacturer as defined by Database.manufacturerList.
-     *     Cannot be null.
-     * Case-insensitive and stored in uppercase.
+     * The license's manufacturer (i.e. a Manufacturer representing GMS).
+     * Cannot be null.
      */
-    private String manufacturer;
+    private Manufacturer manufacturer;
     /**
      * The license's name (i.e. "blackbeard").
      * Can be any String except "". Cannot be null.
@@ -39,12 +38,12 @@ public class FrameLicense {
      */
     private String name;
     
-    public FrameLicense(String manufacturer, String name) {
+    public FrameLicense(Manufacturer manufacturer, String name) {
         setName(name);
         setManufacturer(manufacturer);
     }
 
-    public String getManufacturer() {
+    public Manufacturer getManufacturer() {
         return manufacturer;
     }
     public String getName() {
@@ -52,16 +51,13 @@ public class FrameLicense {
     }
     /**
      * Sets this.manufacturer to the provided value.
-     * @param manufacturer a String which must be a valid manufacturer as
-     *     defined by Database.manufacturerList. Cannot be null.
-     * @throws IllegalArgumentException if manufacturer is an invalid
-     *     manufacturer.
+     * @param manufacturer a Manufacturer which can be any Manufacturer. Cannot
+     *     be null.
+     * @throws IllegalArgumentException if manufacturer is null.
      */
-    private void setManufacturer(String manufacturer) {
-        manufacturer = manufacturer.toUpperCase();
-        if (! Database.isValidManufacturer(manufacturer)) {
-            throw new IllegalArgumentException("New manufacturer value: "
-                + manufacturer + " is an invalid manufacturer");
+    private void setManufacturer(Manufacturer manufacturer) {
+        if (manufacturer == null) {
+            throw new IllegalArgumentException("manufacturer is null");
         }
         this.manufacturer = manufacturer;
     }
@@ -92,7 +88,7 @@ public class FrameLicense {
         if (content == null) {
             throw new IllegalArgumentException("content is null");
         }
-        if (this.manufacturer.equals("GMS")
+        if (this.manufacturer.getID().equals("GMS")
             || this.name.equals("GMS Content")) {
             if (rank != 0) {
                 throw new IllegalArgumentException("License is for a GMS"
@@ -129,15 +125,15 @@ public class FrameLicense {
         if (content == null) {
             throw new IllegalArgumentException("content is null");
         }
-        isGMS = content.getManufacturer().equals("GMS");
-        isGMS = isGMS || content.getLicense().getName().equals("GMS");
+        isGMS = content.getSource().getID().equals("GMS");
+        isGMS = isGMS || content.getOriginLicense() == null;
         if (content instanceof Equipment) {
             isEquipment = true;
         }
         if (isEquipment) {
             if (content instanceof Weapon) {
-                isGMS = isGMS || ((Weapon) content).getLicense().getName()
-                    .equals("Integrated Weapon");
+                isGMS = isGMS || ((Weapon) content).getLicense().equals(
+                    "Integrated Weapon");
             }
         }
         if (isGMS) {
@@ -146,7 +142,7 @@ public class FrameLicense {
         } else {
             if (isEquipment) {
                 // Equipment goes to its proper place
-                addContent(content.getLicense().getLevel(), content);
+                addContent(content.getLicenseLevel(), content);
             } else {
                 // All non-GMS frames are on rank 2
                 addContent(2, content);
