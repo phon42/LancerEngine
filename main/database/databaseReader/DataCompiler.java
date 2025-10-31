@@ -3,7 +3,6 @@ package main.database.databaseReader;
 import main.Database;
 import main.HelperMethods;
 import packages.coreTypes.entityMechanics.Action;
-import packages.coreTypes.entityMechanics.License;
 import packages.coreTypes.entityMechanics.entityTypes.mech.equipment.MechSystem;
 import packages.coreTypes.entityMechanics.entityTypes.mech.equipment.Modification;
 import packages.coreTypes.entityMechanics.entityTypes.mech.equipment.tagSystem.DataTag;
@@ -82,37 +81,43 @@ public class DataCompiler {
     private static boolean hasData = false;
     // all the data being held at the moment
     // ----some critical data types:
-    private static FrameLicense[] frameLicenseData = new FrameLicense[0];
-    private static LicenseContent[] licenseContentData = new LicenseContent[0];
-    private static Frame[] frameData = new Frame[0];
-    private static MechSystem[] systemData = new MechSystem[0];
-    private static Modification[] modificationData = new Modification[0];
-    private static Weapon[] weaponData = new Weapon[0];
+    private static FrameLicense[] frameLicenseData;
+    private static LicenseContent[] licenseContentData;
+    private static Frame[] frameData;
+    private static MechSystem[] systemData;
+    private static Modification[] modificationData;
+    private static Weapon[] weaponData;
     // ----the rest of the critical data types:
-    private static Action[] actionData = new Action[0];
-    private static Condition[] conditionData = new Condition[0];
-    private static DataTag[] dataTagData = new DataTag[0];
-    private static Tag[] tagData = new Tag[0];
-    private static Manufacturer[] manufacturerData = new Manufacturer[0];
-    private static NPCFeature[] npcFeatureData = new NPCFeature[0];
-    private static NPCTemplate[] npcTemplateData = new NPCTemplate[0];
-    private static PilotArmor[] pilotArmorData = new PilotArmor[0];
-    private static PilotGear[] pilotGearData = new PilotGear[0];
-    private static PilotWeapon[] pilotWeapon = new PilotWeapon[0];
-    private static Reserve[] reserveData = new Reserve[0];
-    private static Skill[] skillData = new Skill[0];
-    private static Status[] statusData = new Status[0];
-    private static Talent[] talentData = new Talent[0];
+    private static Action[] actionData;
+    private static Condition[] conditionData;
+    private static CoreBonus[] coreBonusData;
+    private static DataTag[] dataTagData;
+    private static Tag[] tagData;
+    private static Manufacturer[] manufacturerData;
+    private static NPCFeature[] npcFeatureData;
+    private static NPCTemplate[] npcTemplateData;
+    private static PilotArmor[] pilotArmorData;
+    private static PilotGear[] pilotGearData;
+    private static PilotWeapon[] pilotWeapon;
+    private static Reserve[] reserveData;
+    private static Skill[] skillData;
+    private static State[] stateData;
+    private static Status[] statusData;
+    private static Talent[] talentData;
     // ----less important
-    private static Environment[] environmentData = new Environment[0];
-    private static Sitrep[] sitrepData = new Sitrep[0];
+    private static Environment[] environmentData;
+    private static Sitrep[] sitrepData;
     // ----almost unimportant
-    private static Background[] backgroundData = new Background[0];
-    private static Bond[] bondData = new Bond[0];
+    private static Background[] backgroundData;
+    private static Bond[] bondData;
     // ----just for reference
-    private static Rule[] ruleData = new Rule[0];
-    private static Term[] termData = new Term[0];
-    private static Table[] tableData = new Table[0];
+    private static Rule[] ruleData;
+    private static Term[] termData;
+    private static Table[] tableData;
+
+    static {
+        flushData();
+    }
 
     // Prevent user from instantiating this class
     private DataCompiler() {}
@@ -152,60 +157,7 @@ public class DataCompiler {
         }
         DataCompiler.open = false;
     }
-    public static void uploadData() { // TODO: find a better name
-        if (DataCompiler.open) {
-            throw new IllegalStateException("Attempted to call"
-                + " DataCompiler.uploadData() while DataCompiler was still"
-                + " open. Call DataCompiler.close() first");
-        }
-        // push all the data that's been collected over to Database
-        compileLicenseContent();
-        compileLicenses();
-        addLicenses();
-        addContent();
-        // then flush it
-        flushData();
-    }
-    public static void flushData() {
-        // delete all the data that's been collected
-        // ----some critical data types:
-        DataCompiler.frameLicenseData = new FrameLicense[0];
-        DataCompiler.licenseContentData = new LicenseContent[0];
-        DataCompiler.frameData = new Frame[0];
-        DataCompiler.systemData = new MechSystem[0];
-        DataCompiler.modificationData = new Modification[0];
-        DataCompiler.weaponData = new Weapon[0];
-        // ----the rest of the critical data types:
-        DataCompiler.actionData = new Action[0];
-        DataCompiler.conditionData = new Condition[0];
-        DataCompiler.dataTagData = new DataTag[0];
-        DataCompiler.tagData = new Tag[0];
-        DataCompiler.manufacturerData = new Manufacturer[0];
-        DataCompiler.npcFeatureData = new NPCFeature[0];
-        DataCompiler.npcTemplateData = new NPCTemplate[0];
-        DataCompiler.pilotArmorData = new PilotArmor[0];
-        DataCompiler.pilotGearData = new PilotGear[0];
-        DataCompiler.pilotWeapon = new PilotWeapon[0];
-        DataCompiler.reserveData = new Reserve[0];
-        DataCompiler.skillData = new Skill[0];
-        DataCompiler.statusData = new Status[0];
-        DataCompiler.talentData = new Talent[0];
-        // ----less important
-        DataCompiler.environmentData = new Environment[0];
-        DataCompiler.sitrepData = new Sitrep[0];
-        // ----almost unimportant
-        DataCompiler.backgroundData = new Background[0];
-        DataCompiler.bondData = new Bond[0];
-        // ----just for reference
-        DataCompiler.ruleData = new Rule[0];
-        DataCompiler.termData = new Term[0];
-        DataCompiler.tableData = new Table[0];
-        DataCompiler.hasData = false;
-        // TODO: remove?
-        System.out.println("DATA FLUSHED SUCCESSFULLY");
-    }
     public static void receiveData(Object[] data) {
-        // TODO: fill out
         if (! DataCompiler.open) {
             throw new IllegalStateException("Attempted to call"
                 + " DataCompiler.receiveData() while DataCompiler was still"
@@ -214,35 +166,52 @@ public class DataCompiler {
         // ----some critical data types:
         DataCompiler.frameData = (Frame[]) data[0];
         DataCompiler.systemData = (MechSystem[]) data[1];
-        DataCompiler.modificationData = (Modification[]) data[1];
-        DataCompiler.weaponData = (Weapon[]) data[2];
+        DataCompiler.modificationData = (Modification[]) data[2];
+        DataCompiler.weaponData = (Weapon[]) data[3];
         // ----the rest of the critical data types:
-        DataCompiler.actionData = (Action[]) data[3];
-        DataCompiler.conditionData = (Condition[]) data[4];
-        DataCompiler.dataTagData = (DataTag[]) data[5];
-        DataCompiler.tagData = (Tag[]) data[6];
-        DataCompiler.manufacturerData = (Manufacturer[]) data[7];
-        DataCompiler.npcFeatureData = (NPCFeature[]) data[8];
-        DataCompiler.npcTemplateData = (NPCTemplate[]) data[9];
-        DataCompiler.pilotArmorData = (PilotArmor[]) data[10];
-        DataCompiler.pilotGearData = (PilotGear[]) data[11];
-        DataCompiler.pilotWeapon = (PilotWeapon[]) data[12];
-        DataCompiler.reserveData = (Reserve[]) data[13];
-        DataCompiler.skillData = (Skill[]) data[14];
-        DataCompiler.statusData = (Status[]) data[15];
-        DataCompiler.talentData = (Talent[]) data[16];
+        DataCompiler.actionData = (Action[]) data[4];
+        DataCompiler.conditionData = (Condition[]) data[5];
+        DataCompiler.coreBonusData = (CoreBonus[]) data[6];
+        DataCompiler.dataTagData = (DataTag[]) data[7];
+        DataCompiler.tagData = (Tag[]) data[8];
+        DataCompiler.manufacturerData = (Manufacturer[]) data[9];
+        DataCompiler.npcFeatureData = (NPCFeature[]) data[10];
+        DataCompiler.npcTemplateData = (NPCTemplate[]) data[11];
+        DataCompiler.pilotArmorData = (PilotArmor[]) data[12];
+        DataCompiler.pilotGearData = (PilotGear[]) data[13];
+        DataCompiler.pilotWeapon = (PilotWeapon[]) data[14];
+        DataCompiler.reserveData = (Reserve[]) data[15];
+        DataCompiler.skillData = (Skill[]) data[16];
+        DataCompiler.stateData = (State[]) data[17];
+        DataCompiler.statusData = (Status[]) data[18];
+        DataCompiler.talentData = (Talent[]) data[19];
         // ----less important
-        DataCompiler.environmentData = (Environment[]) data[16];
-        DataCompiler.sitrepData = (Sitrep[]) data[17];
+        DataCompiler.environmentData = (Environment[]) data[20];
+        DataCompiler.sitrepData = (Sitrep[]) data[21];
         // ----almost unimportant
-        DataCompiler.backgroundData = (Background[]) data[18];
-        DataCompiler.bondData = (Bond[]) data[19];
+        DataCompiler.backgroundData = (Background[]) data[22];
+        DataCompiler.bondData = (Bond[]) data[23];
         // ----just for reference
-        DataCompiler.ruleData = (Rule[]) data[20];
-        DataCompiler.termData = (Term[]) data[21];
-        DataCompiler.tableData = (Table[]) data[22];
+        DataCompiler.ruleData = (Rule[]) data[24];
+        DataCompiler.termData = (Term[]) data[25];
+        DataCompiler.tableData = (Table[]) data[26];
+
         // remember to mark that we have data now
         DataCompiler.hasData = true;
+    }
+    public static void uploadData() { // TODO: find a better name
+        if (DataCompiler.open) {
+            throw new IllegalStateException("Attempted to call"
+                + " DataCompiler.uploadData() while DataCompiler was still"
+                + " open. Call DataCompiler.close() first");
+        }
+        // push all the data that's been collected over to Database
+        compileLicenseContent();
+        compileFrameLicenses();
+        addFrameLicenses();
+        addContent();
+        // then flush it
+        flushData();
     }
     private static void compileLicenseContent() {
         // compile all the LicenseContent you have
@@ -258,7 +227,7 @@ public class DataCompiler {
         newLicenseContent = new LicenseContent[numEquipment];
         numEquipment = DataCompiler.frameData.length;
         for (int i = 0; i < numEquipment; i++) {
-            if (licenseContent[i].hasLicense()) {
+            if (licenseContent[i] != null) {
                 newLicenseContent[i] = licenseContent[i];
                 numValid++;
             }
@@ -275,20 +244,147 @@ public class DataCompiler {
         }
         DataCompiler.licenseContentData = newLicenseContent;
     }
-    private static void compileLicenses() {
+    private static void compileFrameLicenses() {
         // TODO: fill out
         // take the LicenseContent that you have and organize them into
         //     discrete licenses
-        DataCompiler.frameLicenseData = DataCompiler.licenseContentData;
+        FrameLicense[] frameLicenses =
+            new FrameLicense[licenseContentData.length];
+        LicenseContent[] content = DataCompiler.licenseContentData;
+        // Whether the license that the current LicenseContent element belongs
+        //     to is already in frameLicenses
+        FrameLicense frameLicense;
+        int numLicenses = 0;
+        boolean isGMS = false;
+        boolean licenseFound = false;
+
+        for (int i = 0; i < content.length; i++) {
+            if (content[i] == null) {
+                continue;
+            }
+            isGMS = content[i].getLicense() == null;
+            licenseFound = false;
+            for (int j = 0; j < frameLicenses.length; j++) {
+                frameLicense = frameLicenses[j];
+                if (isGMS) {
+                    // GMS content
+                    licenseFound = frameLicense.getManufacturer()
+                        .equals("GMS")
+                        && frameLicense.getName()
+                        .equals("gms content");
+                } else {
+                    // non-GMS content
+                    licenseFound = frameLicense.getManufacturer()
+                        .equals(content[i].getSource())
+                        && frameLicense.getName()
+                        .equals(content[i].getLicense());
+                }
+                if (licenseFound) {
+                    frameLicense.addContent(content[i]);
+                    break;
+                }
+                if (j == frameLicenses.length - 1) {
+                    if (isGMS) {
+                        // GMS content
+                        frameLicenses[numLicenses] =
+                            new FrameLicense(
+                                Database.getManufacturer("GMS"),
+                                "gms content"
+                            );
+                    } else {
+                        // non-GMS content
+                        frameLicenses[numLicenses] = new FrameLicense(
+                            content[i].getSource(), content[i].getLicense());
+                    }
+                    numLicenses++;
+                }
+            }
+        }
+        DataCompiler.frameLicenseData = frameLicenses;
     }
-    private static void addLicenses() {
+    private static void addFrameLicenses() {
         for (int i = 0; i < DataCompiler.frameLicenseData.length; i++) {
-            Database.addLicense(DataCompiler.frameLicenseData[i]);
+            Database.addFrameLicense(DataCompiler.frameLicenseData[i]);
         }
     }
     private static void addContent() {
         // TODO: fill out
         // add anything that wasn't added in a batch through addLicenses
+        // in other words, anything except the contents of frameLicenseData,
+        //     licenseContentData, and all data types contained therein
+        // ----the rest of the critical data types:
+        for (int i = 0; i < DataCompiler.actionData.length; i++) {
+            Database.addAction(DataCompiler.actionData[i]);
+        }
+        for (int i = 0; i < DataCompiler.conditionData.length; i++) {
+            Database.addCondition(DataCompiler.conditionData[i]);
+        }
+        for (int i = 0; i < DataCompiler.coreBonusData.length; i++) {
+            Database.addCoreBonus(DataCompiler.coreBonusData[i]);
+        }
+        for (int i = 0; i < DataCompiler.dataTagData.length; i++) {
+            Database.addDataTag(DataCompiler.dataTagData[i]);
+        }
+        for (int i = 0; i < DataCompiler.tagData.length; i++) {
+            Database.addTag(DataCompiler.tagData[i]);
+        }
+        for (int i = 0; i < DataCompiler.manufacturerData.length; i++) {
+            Database.addManufacturer(DataCompiler.manufacturerData[i]);
+        }
+        for (int i = 0; i < DataCompiler.npcFeatureData.length; i++) {
+            Database.addNPCFeature(DataCompiler.npcFeatureData[i]);
+        }
+        for (int i = 0; i < DataCompiler.npcTemplateData.length; i++) {
+            Database.addNPCTemplate(DataCompiler.npcTemplateData[i]);
+        }
+        for (int i = 0; i < DataCompiler.pilotArmorData.length; i++) {
+            Database.addPilotArmor(DataCompiler.pilotArmorData[i]);
+        }
+        for (int i = 0; i < DataCompiler.pilotGearData.length; i++) {
+            Database.addPilotGear(DataCompiler.pilotGearData[i]);
+        }
+        for (int i = 0; i < DataCompiler.pilotWeapon.length; i++) {
+            Database.addPilotWeapon(DataCompiler.pilotWeapon[i]);
+        }
+        for (int i = 0; i < DataCompiler.reserveData.length; i++) {
+            Database.addReserve(DataCompiler.reserveData[i]);
+        }
+        for (int i = 0; i < DataCompiler.skillData.length; i++) {
+            Database.addSkill(DataCompiler.skillData[i]);
+        }
+        for (int i = 0; i < DataCompiler.stateData.length; i++) {
+            Database.addState(DataCompiler.stateData[i]);
+        }
+        for (int i = 0; i < DataCompiler.statusData.length; i++) {
+            Database.addStatus(DataCompiler.statusData[i]);
+        }
+        for (int i = 0; i < DataCompiler.talentData.length; i++) {
+            Database.addTalent(DataCompiler.talentData[i]);
+        }
+        // ----less important
+        for (int i = 0; i < DataCompiler.environmentData.length; i++) {
+            Database.addEnvironment(DataCompiler.environmentData[i]);
+        }
+        for (int i = 0; i < DataCompiler.sitrepData.length; i++) {
+            Database.addSitrep(DataCompiler.sitrepData[i]);
+        }
+        // ----almost unimportant
+        for (int i = 0; i < DataCompiler.backgroundData.length; i++) {
+            Database.addBackground(DataCompiler.backgroundData[i]);
+        }
+        for (int i = 0; i < DataCompiler.bondData.length; i++) {
+            Database.addBond(DataCompiler.bondData[i]);
+        }
+        // ----just for reference
+        for (int i = 0; i < DataCompiler.ruleData.length; i++) {
+            Database.addRule(DataCompiler.ruleData[i]);
+        }
+        for (int i = 0; i < DataCompiler.tableData.length; i++) {
+            Database.addTable(DataCompiler.tableData[i]);
+        }
+        for (int i = 0; i < DataCompiler.termData.length; i++) {
+            Database.addTerm(DataCompiler.termData[i]);
+        }
     }
     public static void flushData() {
         // delete all the data that's been collected
