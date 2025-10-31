@@ -1,4 +1,4 @@
-package main.database;
+package packages.coreTypes.entityMechanics.entityTypes.mech.frame;
 
 /**
  * Contains a set of values that can be used to reference or obtain a specific

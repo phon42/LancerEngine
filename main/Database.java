@@ -1,6 +1,5 @@
 package main;
 
-import main.database.FrameEnum;
 import main.roll.DiceExpression;
 import packages.coreTypes.Environment;
 import packages.coreTypes.Rule;
@@ -18,6 +17,7 @@ import packages.coreTypes.entityMechanics.entityTypes.mech.equipment.MechSystem;
 import packages.coreTypes.entityMechanics.entityTypes.mech.equipment.Modification;
 import packages.coreTypes.entityMechanics.entityTypes.mech.equipment.Weapon;
 import packages.coreTypes.entityMechanics.entityTypes.mech.equipment.tagSystem.Tag;
+import packages.coreTypes.entityMechanics.entityTypes.mech.frame.FrameEnum;
 import packages.coreTypes.entityMechanics.entityTypes.pilot.Background;
 import packages.coreTypes.entityMechanics.entityTypes.pilot.CoreBonus;
 import packages.coreTypes.entityMechanics.entityTypes.pilot.Reserve;

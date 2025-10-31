@@ -1,13 +1,13 @@
 package packages.coreTypes.entityMechanics.entityTypes;
 
 import main.Database;
-import main.database.FrameEnum;
 import main.HelperMethods;
 import main.Roll;
 import packages.coreTypes.entityMechanics.License;
 import packages.coreTypes.entityMechanics.entityTypes.mech.Frame;
 import packages.coreTypes.entityMechanics.entityTypes.mech.Mount;
 import packages.coreTypes.entityMechanics.entityTypes.mech.equipment.MechSystem;
+import packages.coreTypes.entityMechanics.entityTypes.mech.frame.FrameEnum;
 import packages.coreTypes.entityMechanics.entityTypes.pilot.Talent;
 import packages.coreTypes.entityMechanics.harmSystem.Damage;
 import packages.coreTypes.entityMechanics.harmSystem.Harm;
