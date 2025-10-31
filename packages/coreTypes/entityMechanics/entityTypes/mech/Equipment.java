@@ -2,6 +2,7 @@ package packages.coreTypes.entityMechanics.entityTypes.mech;
 
 import main.HelperMethods;
 import packages.coreTypes.entityMechanics.License;
+import packages.coreTypes.entityMechanics.Manufacturer;
 import packages.coreTypes.entityMechanics.entityTypes.mech.equipment.tagSystem.Tag;
 import packages.coreTypes.entityMechanics.licenseSystem.frameLicense.LicenseContent;
 
@@ -35,19 +36,18 @@ public class Equipment extends LicenseContent {
      * Creates a new Equipment from a given equipment name and sets up all
      *     Equipment's other properties. Used in Equipment's children's
      *     constructors as the mandatory super() constructor.
-     * @param equipmentName a String containing the Equipment's name. Can be any
-     *     String except "". Cannot be null.
-     * @param equipmentManufacturer a String containing the Equipment's
-     *     manufacturer. Must be a valid manufacturer as defined by
-     *     Database.manufacturerList. Cannot be null.
-     * @param equipmentLicense a License containing the Equipment's license. Can
-     *     be any License. Cannot be null.
+     * @param equipmentName a String which can be any String except "". Cannot
+     *     be null.
+     * @param equipmentManufacturer a Manufacturer which can be any
+     *     Manufacturer. Cannot be null.
+     * @param equipmentLicense a License which can be any License. Cannot be
+     *     null.
      */
-    protected Equipment(String equipmentName, String equipmentManufacturer,
-        License equipmentLicense) {
+    protected Equipment(String equipmentName,
+        Manufacturer equipmentManufacturer, License equipmentLicense) {
         setName(equipmentName);
-        setManufacturer(equipmentManufacturer);
-        setLicense(equipmentLicense);
+        setSource(equipmentManufacturer);
+        setOriginLicense(equipmentLicense);
         setTags(new Tag[0]);
     }
 
