@@ -1,8 +1,7 @@
 package packages.coreTypes.entityMechanics.licenseSystem.frameLicense;
 
-import main.Database;
-import main.HelperMethods;
 import packages.coreTypes.entityMechanics.License;
+import packages.coreTypes.entityMechanics.Manufacturer;
 
 /**
  * Represents anything that can be put into a FrameLicense, such as a frame,
@@ -17,6 +16,7 @@ import packages.coreTypes.entityMechanics.License;
  *     placeholder. At least one of its properties has an allowed value of null.
  */
 public class LicenseContent {
+    protected String id;
     /**
      * The license content's name (i.e. "everest" or "Armament Redundancy" or
      *     "Anti-Materiel Rifle").
@@ -24,59 +24,79 @@ public class LicenseContent {
      */
     protected String name;
     /**
+     * The manufacturer providing this license content (i.e. a Manufacturer that
+     *     represents "GMS").
+     * Can be any Manufacturer. Cannot be null.
+     */
+    protected Manufacturer source;
+    /**
+     * The name of the license that this license content originates from (i.e.
+     *     "Nelson").
+     * Can be any String. Cannot be null.
+     */
+    protected String license;
+    protected int licenseLevel;
+    protected String licenseID;
+    /**
      * The origin license for this license content (i.e. a License representing
      *     "Blackbeard, rank II"). Uses a License to represent an ACTUAL license
      *     instead of the frame name and rank to which a pilot holds a license.
      * For GMS license content, is set to null.
      * Can be any License.
      */
-    protected License license;
-    /**
-     * The manufacturer providing this license content (i.e. "GMS").
-     * Must be a valid manufacturer as defined by Database.manufacturerList.
-     *     Cannot be null.
-     * Case-insensitive and stored in uppercase.
-     */
-    protected String manufacturer;
+    protected License originLicense;
+    protected String description;
 
     protected LicenseContent() {}
 
+    public String getID() {
+        return id;
+    }
     public String getName() {
         return name;
     }
-    public License getLicense() {
+    public Manufacturer getSource() {
+        return source;
+    }
+    public String getLicense() {
         return license;
     }
-    public String getManufacturer() {
-        return manufacturer;
+    public int getLicenseLevel() {
+        return licenseLevel;
     }
-    protected void setName(String name) {
-        HelperMethods.checkString("New name", name);
+    public String getLicenseID() {
+        return licenseID;
+    }
+    public License getOriginLicense() {
+        return originLicense;
+    }
+    public void setID(String id) {
+        this.id = id;
+    }
+    public void setName(String name) {
         this.name = name;
     }
-    /**
-     * Sets this.license to the provided value.
-     * @param license a License which can be any License. Cannot be null.
-     */
-    protected void setLicense(License license) {
-        if (license == null) {
-            throw new IllegalArgumentException("New license is null");
-        }
+    public void setSource(Manufacturer source) {
+        this.source = source;
+    }
+    public void setLicense(String license) {
         this.license = license;
     }
-    /**
-     * Sets this.manufacturer to the provided value.
-     * @param manufacturer a String which must be a valid manufacturer as
-     *     defined by Database.manufacturerList. Cannot be null.
-     * @throws IllegalArgumentException if manufacturer is an invalid
-     *     manufacturer.
-     */
-    protected void setManufacturer(String manufacturer) {
-        manufacturer = manufacturer.toUpperCase();
-        if (! Database.isValidManufacturer(manufacturer)) {
-            throw new IllegalArgumentException("New manufacturer value: "
-                + manufacturer + " is an invalid manufacturer");
+    public void setLicenseLevel(int licenseLevel) {
+        this.licenseLevel = licenseLevel;
+    }
+    public void setLicenseID(String licenseID) {
+        this.licenseID = licenseID;
+    }
+    public void setOriginLicense(License originLicense) {
+        if (license == null && ! this.source.getName().equals("GMS")) {
+            throw new IllegalArgumentException("New license is null and"
+                + " this.source is the Manufacturer: \"" + this.source.getName()
+                + "\"");
         }
-        this.manufacturer = manufacturer;
+        if (originLicense != null) {
+            originLicense = new License(originLicense);
+        }
+        this.originLicense = originLicense;
     }
 }
