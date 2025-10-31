@@ -530,14 +530,8 @@ public final class Frame extends LicenseContent {
      *     construction value.
      */
     private void setMounts(Mount[] mounts) {
-        if (mounts == null) {
-            throw new IllegalArgumentException("New mounts value is null");
-        }
+        HelperMethods.checkObjectArray("New mounts", mounts);
         for (Mount mount : mounts) {
-            if (mount == null) {
-                throw new IllegalArgumentException("New mounts array contains"
-                    + " a null element");
-            }
             if (mount.getWeapon() != null) {
                 if (! mount.getMountType().equals(
                     "integrated mount")) {

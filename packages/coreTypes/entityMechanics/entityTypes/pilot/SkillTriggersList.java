@@ -92,16 +92,8 @@ public final class SkillTriggersList {
      *     null elements.
      */
     public void setSkillTriggers(Skill[] skillTriggers) {
-        if (skillTriggers == null) {
-            throw new IllegalArgumentException("New skill triggers value is"
-                + " null");
-        }
-        for (Skill skillTrigger : skillTriggers) {
-            if (skillTrigger == null) {
-                throw new IllegalArgumentException("New skill triggers"
-                    + " value includes a null element");
-            }
-        }
+        HelperMethods.checkObjectArray("New skill triggers",
+            skillTriggers);
         skillTriggers = HelperMethods.copyOf(skillTriggers);
         this.skillTriggers = skillTriggers;
     }

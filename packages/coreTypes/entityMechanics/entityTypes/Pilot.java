@@ -684,16 +684,8 @@ public final class Pilot implements Damageable {
      *     elements.
      */
     public void setLicenseList(License[] licenseList) {
-        if (licenseList == null) {
-            throw new IllegalArgumentException("New license list value is"
-                + " null");
-        }
-        for (License license : licenseList) {
-            if (license == null) {
-                throw new IllegalArgumentException("New license list"
-                    + " value includes a null element");
-            }
-        }
+        HelperMethods.checkObjectArray("New license list",
+            licenseList);
         licenseList = HelperMethods.copyOf(licenseList);
         this.licenseList = licenseList;
     }
@@ -786,16 +778,8 @@ public final class Pilot implements Damageable {
      *     elements.
      */
     public void setTalents(Talent[] talents) {
-        if (talents == null) {
-            throw new IllegalArgumentException("New talents value is"
-                + " invalid");
-        }
-        for (Talent talent : talents) {
-            if (talent == null) {
-                throw new IllegalArgumentException("New talents value"
-                    + " includes a null element");
-            }
-        }
+        HelperMethods.checkObjectArray("New talents value",
+            talents);
         talents = HelperMethods.copyOf(talents);
         this.talents = talents;
     }
@@ -811,14 +795,8 @@ public final class Pilot implements Damageable {
         boolean isValidStatus = false;
         String statusString = "";
 
-        if (statuses == null) {
-            throw new IllegalArgumentException("New statuses value is null");
-        }
+        HelperMethods.checkObjectArray("New statuses", statuses);
         for (State status : statuses) {
-            if (status == null) {
-                throw new IllegalArgumentException("New statuses array"
-                    + " contains a null element");
-            }
             statusString = status.getType();
             for (String allowedStatus : Status.allowedPilotStatuses) {
                 if (statusString.equals(allowedStatus)) {
@@ -847,15 +825,9 @@ public final class Pilot implements Damageable {
         boolean isValidCondition = false;
         String conditionString = "";
 
-        if (conditions == null) {
-            throw new IllegalArgumentException("New conditions value is"
-                + " null");
-        }
+        HelperMethods.checkObjectArray("New conditions",
+            conditions);
         for (State condition : conditions) {
-            if (condition == null) {
-                throw new IllegalArgumentException("New conditions array"
-                    + " contains a null element");
-            }
             conditionString = condition.getType();
             for (String allowedCondition : Condition.allowedConditions) {
                 if (conditionString.equals(allowedCondition)) {

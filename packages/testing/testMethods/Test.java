@@ -76,15 +76,7 @@ public final class Test {
         this.name = name;
     }
     public void setTests(Test[] tests) {
-        if (tests == null) {
-            throw new IllegalArgumentException("New tests array is null");
-        }
-        for (Test test : tests) {
-            if (test == null) {
-                throw new IllegalArgumentException("New tests array contains"
-                    + " a null element");
-            }
-        }
+        HelperMethods.checkObjectArray("New tests", tests);
         this.tests = tests;
     }
     public void setResult(TestStatus result) {

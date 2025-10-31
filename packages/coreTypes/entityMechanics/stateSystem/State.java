@@ -108,15 +108,7 @@ public class State {
      *     contains null elements.
      */
     protected void setEffects(State[] effects) {
-        if (effects == null) {
-            throw new IllegalArgumentException("New effects value is null");
-        }
-        for (State effect : effects) {
-            if (effect == null) {
-                throw new IllegalArgumentException("New effects array includes"
-                    + " a null element");
-            }
-        }
+        HelperMethods.checkObjectArray("New effects", effects);
         if (effects.length > 0) {
             effects = HelperMethods.copyOf(effects);
         } else {

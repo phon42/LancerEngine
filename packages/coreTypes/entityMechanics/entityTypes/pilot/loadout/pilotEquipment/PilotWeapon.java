@@ -50,28 +50,12 @@ public class PilotWeapon extends PilotEquipment {
         return HelperMethods.copyOf(damage);
     }
     public void setRange(RangeTag[] range) {
-        if (range == null) {
-            throw new IllegalArgumentException("range is null");
-        }
-        for (RangeTag rangeTag : range) {
-            if (rangeTag == null) {
-                throw new IllegalArgumentException("range array contains a"
-                    + " null element");
-            }
-        }
+        HelperMethods.checkObjectArray("range", range);
         range = HelperMethods.copyOf(range);
         this.range = range;
     }
     public void setDamage(Harm[] damage) {
-        if (damage == null) {
-            throw new IllegalArgumentException("damage is null");
-        }
-        for (Harm harm : damage) {
-            if (harm == null) {
-                throw new IllegalArgumentException("damage array contains a"
-                    + " null element");
-            }
-        }
+        HelperMethods.checkObjectArray("damage", damage);
         damage = HelperMethods.copyOf(damage);
         this.damage = damage;
     }

@@ -107,15 +107,8 @@ public class BaseArea {
     public void setControlPoints(Hex[] controlPoints) {
         int numRequired;
 
-        if (controlPoints == null) {
-            throw new IllegalArgumentException("controlPoints is null");
-        }
-        for (Hex hex : controlPoints) {
-            if (hex == null) {
-                throw new IllegalArgumentException("controlPoints array"
-                    + " contains a null element");
-            }
-        }
+        HelperMethods.checkObjectArray("controlPoints",
+            controlPoints);
         if (this.type.equals("line")) {
             // Two control points needed to define a line
             numRequired = 2;

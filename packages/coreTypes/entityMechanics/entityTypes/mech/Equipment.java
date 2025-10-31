@@ -110,16 +110,6 @@ public class Equipment extends LicenseContent {
      *     invalid value for any number of reasons.
      */
     protected void checkTagsArray(Tag[] tags) {
-        if (tags == null) {
-            throw new IllegalArgumentException("New tags value is null");
-        }
-        for (Tag tag : tags) {
-            if (tag == null) {
-                throw new IllegalArgumentException("New tags array includes a"
-                    + " null element");
-            }
-            // Checking for tag.name being valid isn't necessary because it's
-            //     already done in Tag's constructors
-        }
+        HelperMethods.checkObjectArray("New tags", tags);
     }
 }

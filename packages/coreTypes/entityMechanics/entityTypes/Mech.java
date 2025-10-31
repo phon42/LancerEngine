@@ -868,15 +868,7 @@ public final class Mech implements Damageable {
      *     elements.
      */
     private void setMounts(Mount[] mounts) {
-        if (mounts == null) {
-            throw new IllegalArgumentException("New mounts value is null");
-        }
-        for (Mount mount : mounts) {
-            if (mount == null) {
-                throw new IllegalArgumentException("New mounts array contains"
-                    + " a null element");
-            }
-        }
+        HelperMethods.checkObjectArray("New mounts", mounts);
         mounts = HelperMethods.copyOf(mounts);
         this.mounts = mounts;
     }
@@ -916,16 +908,8 @@ public final class Mech implements Damageable {
      *     elements.
      */
     public void setSystems(MechSystem[] systems) {
-        if (systems == null) {
-            throw new IllegalArgumentException("New mech systems value is"
-                + " null");
-        }
-        for (MechSystem system : systems) {
-            if (system == null) {
-                throw new IllegalArgumentException("New mech systems array"
-                    + " contains a null element");
-            }
-        }
+        HelperMethods.checkObjectArray("New mech systems",
+            systems);
         systems = HelperMethods.copyOf(systems);
         // TODO: systems[0].name <- why is this visible?
         this.systems = systems;
@@ -942,14 +926,8 @@ public final class Mech implements Damageable {
         boolean isValidStatus = false;
         String statusString = "";
 
-        if (statuses == null) {
-            throw new IllegalArgumentException("New statuses value is null");
-        }
+        HelperMethods.checkObjectArray("New statuses", statuses);
         for (State status : statuses) {
-            if (status == null) {
-                throw new IllegalArgumentException("New statuses array"
-                    + " contains a null element");
-            }
             statusString = status.getType();
             for (String allowedStatus : Status.allowedMechStatuses) {
                 if (statusString.equals(allowedStatus)) {
@@ -973,16 +951,8 @@ public final class Mech implements Damageable {
      *     null elements.
      */
     public void setConditions(State[] conditions) {
-        if (conditions == null) {
-            throw new IllegalArgumentException("New conditions value is"
-                + " null");
-        }
-        for (State condition : conditions) {
-            if (condition == null) {
-                throw new IllegalArgumentException("New conditions array"
-                    + " contains a null element");
-            }
-        }
+        HelperMethods.checkObjectArray("New conditions",
+            conditions);
         conditions = HelperMethods.copyOf(conditions);
         this.conditions = conditions;
     }

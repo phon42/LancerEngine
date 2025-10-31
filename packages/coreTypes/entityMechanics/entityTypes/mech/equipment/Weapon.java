@@ -214,35 +214,19 @@ public final class Weapon extends Equipment {
         this.type = type;
     }
     public void setHarm(Harm[] harm) {
-        if (harm == null) {
-            throw new IllegalArgumentException("harm is null");
-        }
+        HelperMethods.checkObjectArray("harm", harm);
         if (harm.length < 1) {
             throw new IllegalArgumentException("harm.length value: "
                 + harm.length + " is < 1");
-        }
-        for (Harm harmTag : harm) {
-            if (harmTag == null) {
-                throw new IllegalArgumentException("harm array contains a"
-                    + " null element");
-            }
         }
         harm = HelperMethods.copyOf(harm);
         this.harm = harm;
     }
     public void setRange(RangeTag[] range) {
-        if (range == null) {
-            throw new IllegalArgumentException("range is null");
-        }
+        HelperMethods.checkObjectArray("range", range);
         if (range.length < 1) {
             throw new IllegalArgumentException("range.length value: "
                 + range.length + " is < 1");
-        }
-        for (RangeTag rangeTag : range) {
-            if (rangeTag == null) {
-                throw new IllegalArgumentException("range array contains a"
-                    + " null element");
-            }
         }
         range = HelperMethods.copyOf(range);
         this.range = range;
