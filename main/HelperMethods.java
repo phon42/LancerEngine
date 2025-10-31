@@ -127,6 +127,25 @@ public final class HelperMethods {
         return result;
     }
     /**
+     * Checks a provided String[] to see if it is null, contains null elements,
+     *     or elements that are "".
+     * @param propertyName a String which cannot be "". Cannot be null.
+     * @param input a String[] which cannot be null, contain null elements, or
+     *     elements that are "".
+     * @throws IllegalArgumentException if propertyName or input are null,
+     *     propertyName is "", or input contains null elements or elements that
+     *     are "".
+     */
+    public static void checkStringArray(String propertyName, String[] input) {
+        checkObjectArray(propertyName, input);
+        for (String string : input) {
+            if (string.equals("")) {
+                throw new IllegalArgumentException(propertyName + " array"
+                    + " contains an element that is \"\"");
+            }
+        }
+    }
+    /**
      * Checks a provided Object[] to see if it is null or contains null
      *     elements.
      * @param propertyName a String which cannot be "". Cannot be null.

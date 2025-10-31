@@ -624,19 +624,7 @@ public final class Pilot implements Damageable {
      *     values, or elements that are "".
      */
     public void setReserves(String[] reserves) {
-        if (reserves == null) {
-            throw new IllegalArgumentException("New reserves value is null");
-        }
-        for (String reserve : reserves) {
-            if (reserve == null) {
-                throw new IllegalArgumentException("New reserves value"
-                    + " includes an element with a value of null");
-            }
-            if (reserve.equals("")) {
-                throw new IllegalArgumentException("New reserves value"
-                    + " includes an element with a value of \"\"");
-            }
-        }
+        HelperMethods.checkStringArray("New reserves", reserves);
         reserves = HelperMethods.copyOf(reserves);
         for (int i = 0; i < reserves.length; i++) {
             reserves[i] = reserves[i].toLowerCase();
@@ -697,20 +685,8 @@ public final class Pilot implements Damageable {
      *     null elements, or elements that are "".
      */
     public void setSpecialEquipment(String[] specialEquipment) {
-        if (specialEquipment == null) {
-            throw new IllegalArgumentException("New special equipment value"
-                + " is null");
-        }
-        for (String equipment : specialEquipment) {
-            if (equipment == null) {
-                throw new IllegalArgumentException("New special equipment"
-                    + " value includes an element with a value of null");
-            }
-            if (equipment.equals("")) {
-                throw new IllegalArgumentException("New special equipment"
-                    + " value includes an element with a value of \"\"");
-            }
-        }
+        HelperMethods.checkStringArray("New special equipment",
+            specialEquipment);
         specialEquipment = HelperMethods.copyOf(specialEquipment);
         this.specialEquipment = specialEquipment;
     }
@@ -751,20 +727,8 @@ public final class Pilot implements Damageable {
      *     elements, or elements that are "".
      */
     public void setCoreBonuses(String[] coreBonuses) {
-        if (coreBonuses == null) {
-            throw new IllegalArgumentException("New core bonuses value is"
-                + " invalid");
-        }
-        for (String coreBonus : coreBonuses) {
-            if (coreBonus == null) {
-                throw new IllegalArgumentException("New core bonuses"
-                    + " value includes an element with a value of null");
-            }
-            if (coreBonus.equals("")) {
-                throw new IllegalArgumentException("New core bonuses"
-                    + " value includes an element with a value of \"\"");
-            }
-        }
+        HelperMethods.checkStringArray("New core bonuses",
+            coreBonuses);
         coreBonuses = HelperMethods.copyOf(coreBonuses);
         for (int i = 0; i < coreBonuses.length; i++) {
             coreBonuses[i] = coreBonuses[i].toLowerCase();

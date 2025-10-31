@@ -527,18 +527,12 @@ public final class Mech implements Damageable {
         boolean isValidRole = false;
         String roleString;
 
-        if (role == null) {
-            throw new IllegalArgumentException("New role value is null");
-        }
+        HelperMethods.checkStringArray("New role", role);
         if (role.length == 0) {
             throw new IllegalArgumentException("New role array has a length"
                 + " of 0");
         }
         for (int i = 0; i < role.length; i++) {
-            if (role[i] == null) {
-                throw new IllegalArgumentException("New role array contains"
-                    + " a null element");
-            }
             role[i] = role[i].toLowerCase();
             roleString = role[i];
             isValidRole = false;
@@ -845,19 +839,7 @@ public final class Mech implements Damageable {
      *     elements, or elements that are "".
      */
     private void setTraits(String[] traits) {
-        if (traits == null) {
-            throw new IllegalArgumentException("New traits value is null");
-        }
-        for (String trait : traits) {
-            if (trait == null) {
-                throw new IllegalArgumentException("New traits array contains"
-                    + " a null element");
-            }
-            if (trait.equals("")) {
-                throw new IllegalArgumentException("New traits array contains"
-                    + " an element that is \"\"");
-            }
-        }
+        HelperMethods.checkStringArray("New traits", traits);
         traits = HelperMethods.copyOf(traits);
         this.traits = traits;
     }

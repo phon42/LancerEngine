@@ -501,19 +501,7 @@ public final class Frame extends LicenseContent {
      *     elements, or elements that are "".
      */
     private void setTraits(String[] traits) {
-        if (traits == null) {
-            throw new IllegalArgumentException("New traits value is null");
-        }
-        for (String trait : traits) {
-            if (trait == null) {
-                throw new IllegalArgumentException("New traits value contains"
-                    + " a null element");
-            }
-            if (trait.equals("")) {
-                throw new IllegalArgumentException("New traits value contains"
-                    + " element that is \"\"");
-            }
-        }
+        HelperMethods.checkStringArray("New traits", traits);
         traits = HelperMethods.copyOf(traits);
         this.traits = traits;
     }
