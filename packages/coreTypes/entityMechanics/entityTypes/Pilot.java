@@ -649,9 +649,7 @@ public final class Pilot implements Damageable {
      * @throws IllegalArgumentException if loadout is null.
      */
     public void setLoadout(Loadout loadout) {
-        if (loadout == null) {
-            throw new IllegalArgumentException("New loadout value is null");
-        }
+        HelperMethods.checkObject("loadout", loadout);
         loadout = new Loadout(loadout);
         this.loadout = loadout;
         calculateAttributes();
