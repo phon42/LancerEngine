@@ -1,5 +1,6 @@
 package packages.coreTypes.entityMechanics.licenseSystem.frameLicense;
 
+import main.HelperMethods;
 import packages.coreTypes.entityMechanics.License;
 import packages.coreTypes.entityMechanics.Manufacturer;
 
@@ -30,24 +31,28 @@ public class LicenseContent {
      */
     protected Manufacturer source;
     /**
+     * The origin license for this license content (i.e. a License representing
+     *     "Blackbeard, rank II"). Uses a License to represent an ACTUAL license
+     *     instead of the frame name and rank to which a pilot holds a license.
+     * For GMS license content, is set to null.
+     * Can be any License. Can be null.
+     */
+    protected License originLicense;
+    /**
      * The name of the license that this license content originates from (i.e.
      *     "Nelson").
      * Can be any String. Cannot be null.
      */
     protected String license;
-    protected int licenseLevel;
     protected String licenseID;
-    /**
-     * The origin license for this license content (i.e. a License representing
-     *     "Blackbeard, rank II"). Uses a License to represent an ACTUAL license
-     *     instead of the frame name and rank to which a pilot holds a license.
-     * For GMS license content, is set to null.
-     * Can be any License.
-     */
-    protected License originLicense;
+    protected int licenseLevel;
     protected String description;
 
-    protected LicenseContent() {}
+    protected LicenseContent(String id, String name, Manufacturer source,
+        String license, int licenseLevel, String licenseID,
+        License originLicense, String description) {
+        // TODO: fill out
+    }
 
     public String getID() {
         return id;
@@ -58,6 +63,10 @@ public class LicenseContent {
     public Manufacturer getSource() {
         return source;
     }
+    /**
+     * Can be "GMS"
+     * Case-sensitive.
+     */
     public String getLicense() {
         return license;
     }
@@ -70,25 +79,26 @@ public class LicenseContent {
     public License getOriginLicense() {
         return originLicense;
     }
-    public void setID(String id) {
+    protected void setID(String id) {
         this.id = id;
     }
-    public void setName(String name) {
+    protected void setName(String name) {
         this.name = name;
     }
-    public void setSource(Manufacturer source) {
+    protected void setSource(Manufacturer source) {
         this.source = source;
     }
-    public void setLicense(String license) {
+    protected void setLicense(String license) {
         this.license = license;
     }
-    public void setLicenseLevel(int licenseLevel) {
+    protected void setLicenseLevel(int licenseLevel) {
         this.licenseLevel = licenseLevel;
     }
-    public void setLicenseID(String licenseID) {
+    protected void setLicenseID(String licenseID) {
+        HelperMethods.checkString("licenseID", licenseID);
         this.licenseID = licenseID;
     }
-    public void setOriginLicense(License originLicense) {
+    protected void setOriginLicense(License originLicense) {
         if (license == null && ! this.source.getName().equals("GMS")) {
             throw new IllegalArgumentException("New license is null and"
                 + " this.source is the Manufacturer: \"" + this.source.getName()
