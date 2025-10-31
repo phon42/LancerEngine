@@ -232,27 +232,27 @@ public final class HelperMethods {
     }
     /**
      * Appends the given String element to the end of an existing String[].
-     * @param stringArray a String[] that cannot be null.
+     * @param array a String[] that cannot be null.
      * @param newElement a String that cannot be null to append to the end of
-     *     stringArray.
-     * @return a String[] consisting of stringArray with newElement appended to
-     *     the end of it.
-     * @throws IllegalArgumentException if stringArray or newElement is null.
+     *     array.
+     * @return a String[] consisting of array with newElement appended to the
+     *     end of it.
+     * @throws IllegalArgumentException if array or newElement is null.
      */
-    public static String[] append(String[] stringArray, String newElement) {
-        HelperMethods.checkObject("stringArray", stringArray);
+    public static String[] append(String[] array, String newElement) {
+        HelperMethods.checkObject("array", array);
         HelperMethods.checkObject("newElement", newElement);
-        String[] newStringArray = new String[stringArray.length + 1];
+        String[] newArray = new String[array.length + 1];
 
-        for (int i = 0; i < newStringArray.length; i++) {
-            if (i < stringArray.length) {
-                newStringArray[i] = stringArray[i];
+        for (int i = 0; i < newArray.length; i++) {
+            if (i < array.length) {
+                newArray[i] = array[i];
                 continue;
             }
-            newStringArray[i] = newElement;
+            newArray[i] = newElement;
         }
         
-        return newStringArray;
+        return newArray;
     }
     /**
      * Appends the given EventListener element to the end of an existing
@@ -384,35 +384,35 @@ public final class HelperMethods {
     /**
      * Adds the given Mount element to an existing Mount[] at some specified
      *     index.
-     * @param mountArray a Mount[] that cannot be null.
-     * @param newElement a Mount that cannot be null to add to mountArray.
+     * @param array a Mount[] that cannot be null.
+     * @param newElement a Mount that cannot be null to add to array.
      * @param index an int containing the index at which to insert newElement.
-     * @return a Mount[] consisting of mountArray with newElement added to it.
-     * @throws IllegalArgumentException if mountArray or newElement is null.
+     * @return a Mount[] consisting of array with newElement added to it.
+     * @throws IllegalArgumentException if array or newElement is null.
      */
-    public static Mount[] add(Mount[] mountArray, Mount newElement, int index) {
-        HelperMethods.checkObject("mountArray", mountArray);
-        HelperMethods.checkObject("newElement", newElement);
-        Mount[] newMountArray = new Mount[mountArray.length + 1];
+    public static Mount[] add(Mount[] array, Mount newElement, int index) {
+        Mount[] newArray;
 
-        if (index < 0 || index > mountArray.length) {
+        HelperMethods.checkObject("array", array);
+        HelperMethods.checkObject("newElement", newElement);
+        newArray = new Mount[array.length + 1];
+        if (index < 0 || index > array.length) {
             throw new IllegalArgumentException("index value: " + index + " is"
-                + " out of range for an array of length: "
-                + newMountArray.length);
+                + " out of range for an array of length: " + newArray.length);
         }
-        for (int i = 0; i < newMountArray.length; i++) {
+        for (int i = 0; i < newArray.length; i++) {
             if (i < index) {
-                newMountArray[i] = mountArray[i];
+                newArray[i] = array[i];
                 continue;
             }
             if (i == index) {
-                newMountArray[i] = newElement;
+                newArray[i] = newElement;
                 continue;
             }
-            newMountArray[i] = mountArray[i - 1];
+            newArray[i] = array[i - 1];
         }
 
-        return newMountArray;
+        return newArray;
     }
     /**
      * Returns a deep copy of original.
@@ -501,6 +501,13 @@ public final class HelperMethods {
 
         return copy;
     }
+    // TODO: check if this is needed, delete if not
+    /**
+     * Returns a deepest copy of original.
+     * @param original a Condition[] that cannot be null.
+     * @return a Condition[] deepest copy of original.
+     * @throws IllegalArgumentException if original is null.
+     */
     public static Condition[] copyOf(Condition[] original) {
         checkObject("original", original);
         Condition[] copy = new Condition[original.length];
