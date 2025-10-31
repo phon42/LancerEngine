@@ -255,6 +255,31 @@ public final class HelperMethods {
         return newArray;
     }
     /**
+     * Appends the given Condition element to the end of an existing
+     *     Condition[].
+     * @param array a Condition[] that cannot be null.
+     * @param newElement a Condition that cannot be null to append to the end of
+     *     array.
+     * @return a Condition[] consisting of array with newElement appended to the
+     *     end of it.
+     * @throws IllegalArgumentException if array or newElement is null.
+     */
+    public static Condition[] append(Condition[] array, Condition newElement) {
+        HelperMethods.checkObject("array", array);
+        HelperMethods.checkObject("newElement", newElement);
+        Condition[] newArray = new Condition[array.length + 1];
+
+        for (int i = 0; i < newArray.length; i++) {
+            if (i < array.length) {
+                newArray[i] = array[i];
+                continue;
+            }
+            newArray[i] = newElement;
+        }
+        
+        return newArray;
+    }
+    /**
      * Appends the given EventListener element to the end of an existing
      *     EventListener[].
      * @param array an EventListener[] that cannot be null.
