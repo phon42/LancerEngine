@@ -21,15 +21,9 @@ import packages.coreTypes.entityMechanics.License;
  */
 public class Modification extends Equipment {
     // TODO: fill out
-    private String id; // add to parent
-    private String spCost;
+    private int spCost;
     private String[] allowedTypes;
-    // already present in parent, update version present in parent
-    private Manufacturer manufacturer;
-    // already present in parent, update version present in parent
-    private License license;
     private String effect;
-    private String description;
 
     public Modification() {
         // TODO: fill out
