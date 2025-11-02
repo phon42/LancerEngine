@@ -13,7 +13,7 @@ import packages.CoreTypes.EntityMechanics.Manufacturer;
 import packages.CoreTypes.EntityMechanics.NPCFeature;
 import packages.CoreTypes.EntityMechanics.NPCTemplate;
 import packages.CoreTypes.EntityMechanics.RangeTag;
-import packages.CoreTypes.EntityMechanics.EntityTypes.Deployable;
+import packages.CoreTypes.EntityMechanics.EntityTypes.damageable.Deployable;
 import packages.CoreTypes.EntityMechanics.EntityTypes.mech.Frame;
 import packages.CoreTypes.EntityMechanics.EntityTypes.mech.Mount;
 import packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.MechSystem;

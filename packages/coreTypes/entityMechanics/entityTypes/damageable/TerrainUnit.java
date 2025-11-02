@@ -1,47 +1,53 @@
-package packages.CoreTypes.EntityMechanics.EntityTypes;
+package packages.CoreTypes.EntityMechanics.EntityTypes.damageable;
 
 import main.HelperMethods;
+import packages.CoreTypes.EntityMechanics.EntityTypes.Damageable;
 import packages.CoreTypes.EntityMechanics.HarmSystem.Damage;
 import packages.CoreTypes.EntityMechanics.HarmSystem.Harm;
 
 /**
- * See pgs. 58 and 68.
+ * See pgs. 58 - 59 and 68.
  */
-public class Deployable implements Damageable {
+public class TerrainUnit implements Damageable {
     /**
-     * The deployable's size.
+     * The terrain unit's size.
      * Size is stored as 2 * its value (i.e. Size 1/2 would be stored as int 1).
      * Must be one of the following values:
      *     1, 2, 4, 6, 8.
-     * Use Deployable.getSize() to get the raw value and Deployable.outputSize()
-     *     to obtain it properly formatted.
+     * Use TerrainUnit.getSize() to get the raw value and
+     *     TerrainUnit.outputSize() to obtain it properly formatted.
+     * 
+     * Note on size: "By default, each space is equivalent to 10 feet (or 3
+     *     meters), but the scale can be changed to represent different types of
+     *     encounters."
+     * - pg. 59
      */
     private int size;
     /**
-     * The deployable's current HP value.
+     * The terrain unit's current HP value.
      * Must be a minimum of 0.
      */
     private int currentHP;
     /**
-     * The deployable's max HP value.
+     * The terrain unit's max HP value.
      * Must be a minimum of 1.
      */
     private int maxHP;
     /**
-     * The deployable's armor value.
+     * The terrain unit's armor value.
      * Must be a minimum of 0.
      */
     private int armor;
     /**
-     * The deployable's evasion value.
+     * The terrain unit's evasion value.
      * Must be a minimum of 0.
      */
     private int evasion;
 
-    public Deployable() {
+    public TerrainUnit() {
         this(2, 0);
     }
-    public Deployable(int size, int armor) {
+    public TerrainUnit(int size, int armor) {
         // default values from pg. 68
         // max always before current
         setSize(size);
@@ -49,9 +55,6 @@ public class Deployable implements Damageable {
         setCurrentHP(10 / 2 * size);
         setArmor(armor);
         setEvasion(5);
-    }
-    public Deployable(Deployable deployable) {
-        this(deployable.size, deployable.armor);
     }
 
     public int getSize() {
@@ -130,7 +133,7 @@ public class Deployable implements Damageable {
     }
 
     /**
-     * A helper method which outputs the deployable's size, formatted properly
+     * A helper method which outputs the terrain unit's size, formatted properly
      *     so that it is human-readable.
      * @return a String containing the requested output.
      */
@@ -143,8 +146,9 @@ public class Deployable implements Damageable {
         }
         return Integer.toString(size);
     }
+
     /**
-     * Deals harm to this Deployable.
+     * Deals harm to this TerrainUnit.
      * @param harm a Harm containing the harm to deal. Must have a Harm.type
      *     value that is not "variable". Must have a Harm.diceValue of something
      *     other than "" OR a Harm.flatValue that is > 0. Cannot be null.
@@ -174,7 +178,7 @@ public class Deployable implements Damageable {
         }
     }
     /**
-     * Deals damage to this Deployable.
+     * Deals damage to this TerrainUnit.
      * @param damage a Damage containing the damage to deal. Cannot be null.
      * @throws IllegalArgumentException if any parameters have invalid values as
      *     detailed above.
@@ -191,15 +195,16 @@ public class Deployable implements Damageable {
         damageToTake = Math.min(damageAmount, this.currentHP);
         newCurrentHP = this.currentHP - damageToTake;
         setCurrentHP(newCurrentHP);
-        // if the amount of damage it's taking is greater than our deployable's
-        //     maximum HP, it will be destroyed no matter what its current HP is
+        // if the amount of damage it's taking is greater than our terrain
+        //     unit's maximum HP, it will be destroyed no matter what its
+        //     current HP is
         if (damageAmount > this.currentHP) {
             // it's about to be destroyed
             destroy();
         }
     }
     /**
-     * Does nothing because Deployables don't receive heat.
+     * Does nothing because TerrainUnits don't receive heat.
      * @param heat a Damage containing the heat to deal which must have a
      *     Damage.type value of "heat". Cannot be null.
      * @throws IllegalArgumentException if any parameters have invalid values as
@@ -236,9 +241,10 @@ public class Deployable implements Damageable {
         }
         // burn is being rolled here
         burnAmount = burn.roll();
-        // TODO: fill out - Deployables do in fact receive burn
+        receiveDamage(new Damage("energy", null,
+            burnAmount));
     }
     public void destroy() {
-        System.out.println("This Deployable has been destroyed");
+        System.out.println("This TerrainUnit has been destroyed");
     }
 }

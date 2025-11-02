@@ -1,53 +1,58 @@
-package packages.CoreTypes.EntityMechanics.EntityTypes;
+package packages.CoreTypes.EntityMechanics.EntityTypes.damageable;
 
 import main.HelperMethods;
+import packages.CoreTypes.EntityMechanics.EntityTypes.Damageable;
 import packages.CoreTypes.EntityMechanics.HarmSystem.Damage;
 import packages.CoreTypes.EntityMechanics.HarmSystem.Harm;
 
 /**
- * See pgs. 58, 67, 105 - 106
+ * See pgs. 58 and 68.
  */
-public class Drone implements Damageable {
+public class Deployable implements Damageable {
     /**
-     * The drone's size.
+     * The deployable's size.
      * Size is stored as 2 * its value (i.e. Size 1/2 would be stored as int 1).
      * Must be one of the following values:
      *     1, 2, 4, 6, 8.
-     * Use Drone.getSize() to get the raw value and Drone.outputSize()
+     * Use Deployable.getSize() to get the raw value and Deployable.outputSize()
      *     to obtain it properly formatted.
      */
     private int size;
     /**
-     * The drone's current HP value.
+     * The deployable's current HP value.
      * Must be a minimum of 0.
      */
     private int currentHP;
     /**
-     * The drone's max HP value.
+     * The deployable's max HP value.
      * Must be a minimum of 1.
      */
     private int maxHP;
     /**
-     * The drone's armor value.
+     * The deployable's armor value.
      * Must be a minimum of 0.
      */
     private int armor;
     /**
-     * The drone's evasion value.
+     * The deployable's evasion value.
      * Must be a minimum of 0.
      */
     private int evasion;
 
-    public Drone() {
-        this(1, 5, 0, 10);
+    public Deployable() {
+        this(2, 0);
     }
-    public Drone(int size, int maxHP, int armor, int evasion) {
+    public Deployable(int size, int armor) {
+        // default values from pg. 68
         // max always before current
         setSize(size);
-        setMaxHP(maxHP);
-        setCurrentHP(maxHP);
+        setMaxHP(10 / 2 * size);
+        setCurrentHP(10 / 2 * size);
         setArmor(armor);
-        setEvasion(evasion);
+        setEvasion(5);
+    }
+    public Deployable(Deployable deployable) {
+        this(deployable.size, deployable.armor);
     }
 
     public int getSize() {
@@ -126,8 +131,8 @@ public class Drone implements Damageable {
     }
 
     /**
-     * A helper method which outputs the drone's size, formatted properly so
-     *     that it is human-readable.
+     * A helper method which outputs the deployable's size, formatted properly
+     *     so that it is human-readable.
      * @return a String containing the requested output.
      */
     public String outputSize() {
@@ -139,9 +144,8 @@ public class Drone implements Damageable {
         }
         return Integer.toString(size);
     }
-
     /**
-     * Deals harm to this Drone.
+     * Deals harm to this Deployable.
      * @param harm a Harm containing the harm to deal. Must have a Harm.type
      *     value that is not "variable". Must have a Harm.diceValue of something
      *     other than "" OR a Harm.flatValue that is > 0. Cannot be null.
@@ -171,7 +175,7 @@ public class Drone implements Damageable {
         }
     }
     /**
-     * Deals damage to this Drone.
+     * Deals damage to this Deployable.
      * @param damage a Damage containing the damage to deal. Cannot be null.
      * @throws IllegalArgumentException if any parameters have invalid values as
      *     detailed above.
@@ -184,12 +188,11 @@ public class Drone implements Damageable {
 
         HelperMethods.checkObject("damage", damage);
         // damage is being rolled here
-        damageAmount = damage.getDiceValue().roll();
-        damageAmount += damage.getFlatValue();
+        damageAmount = damage.roll();
         damageToTake = Math.min(damageAmount, this.currentHP);
         newCurrentHP = this.currentHP - damageToTake;
         setCurrentHP(newCurrentHP);
-        // if the amount of damage it's taking is greater than our drone's
+        // if the amount of damage it's taking is greater than our deployable's
         //     maximum HP, it will be destroyed no matter what its current HP is
         if (damageAmount > this.currentHP) {
             // it's about to be destroyed
@@ -197,30 +200,29 @@ public class Drone implements Damageable {
         }
     }
     /**
-     * Deals heat to this Drone.
-     * @param heat a Damage containing the heat to deal. Cannot be null. Must
-     *     have a Damage.type value of "heat".
+     * Does nothing because Deployables don't receive heat.
+     * @param heat a Damage containing the heat to deal which must have a
+     *     Damage.type value of "heat". Cannot be null.
      * @throws IllegalArgumentException if any parameters have invalid values as
      *     detailed above.
      */
     private void receiveHeat(Damage heat) {
         // TODO: fill out with mitigation, resistance etc
-        // when taking Heat, convert to Energy damage (see pg. 67)
-        Damage damage;
+        int heatAmount;
 
         HelperMethods.checkObject("heat", heat);
         if (! heat.getType().equals("heat")) {
             throw new IllegalArgumentException("heat has a Damage.type value"
                 + " of: \"" + heat.getType() + "\"");
         }
-        damage = new Damage(heat.getType(), heat.getDiceValue(),
-            heat.getFlatValue());
-        receiveDamage(damage);
+        // heat is being rolled here
+        heatAmount = heat.roll();
+        // do nothing, according to Petrichor
     }
     /**
-     * Deals burn to this Drone.
-     * @param burn a Damage containing the burn to deal. Cannot be null. Must
-     *     have a Damage.type value of "burn".
+     * Deals burn to this Deployable.
+     * @param burn a Damage containing the burn to deal which must have a
+     *     Damage.type value of "burn". Cannot be null.
      * @throws IllegalArgumentException if any parameters have invalid values as
      *     detailed above.
      */
@@ -235,9 +237,9 @@ public class Drone implements Damageable {
         }
         // burn is being rolled here
         burnAmount = burn.roll();
-        // TODO: fill out - do Drones receive burn?
+        // TODO: fill out - Deployables do in fact receive burn
     }
     public void destroy() {
-        System.out.println("This Drone has been destroyed");
+        System.out.println("This Deployable has been destroyed");
     }
 }

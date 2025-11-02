@@ -2,7 +2,7 @@ package packages.CoreTypes.EntityMechanics.EntityTypes.pilot.loadout.pilotEquipm
 
 import main.HelperMethods;
 import packages.CoreTypes.EntityMechanics.Action;
-import packages.CoreTypes.EntityMechanics.EntityTypes.Deployable;
+import packages.CoreTypes.EntityMechanics.EntityTypes.damageable.Deployable;
 import packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.TagSystem.DataTag;
 import packages.CoreTypes.EntityMechanics.EntityTypes.pilot.loadout.PilotEquipment;
 

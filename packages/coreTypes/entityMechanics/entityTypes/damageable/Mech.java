@@ -1,9 +1,10 @@
-package packages.CoreTypes.EntityMechanics.EntityTypes;
+package packages.CoreTypes.EntityMechanics.EntityTypes.damageable;
 
 import main.Database;
 import main.HelperMethods;
 import main.Roll;
 import packages.CoreTypes.EntityMechanics.License;
+import packages.CoreTypes.EntityMechanics.EntityTypes.Damageable;
 import packages.CoreTypes.EntityMechanics.EntityTypes.mech.Frame;
 import packages.CoreTypes.EntityMechanics.EntityTypes.mech.Mount;
 import packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.MechSystem;

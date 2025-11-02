@@ -3,8 +3,8 @@ package packages.CoreTypes.EntityMechanics;
 import java.util.HashMap;
 
 import main.HelperMethods;
-import packages.CoreTypes.EntityMechanics.EntityTypes.Mech;
-import packages.CoreTypes.EntityMechanics.EntityTypes.Pilot;
+import packages.CoreTypes.EntityMechanics.EntityTypes.damageable.Mech;
+import packages.CoreTypes.EntityMechanics.EntityTypes.damageable.Pilot;
 import packages.CoreTypes.EntityMechanics.EntityTypes.mech.Frame;
 import packages.CoreTypes.EntityMechanics.EntityTypes.mech.Mount;
 import packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.MechSystem;

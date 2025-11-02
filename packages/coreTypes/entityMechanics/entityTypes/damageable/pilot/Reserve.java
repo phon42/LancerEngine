@@ -3,7 +3,7 @@ package packages.CoreTypes.EntityMechanics.EntityTypes.pilot;
 import main.HelperMethods;
 import packages.CoreTypes.EntityMechanics.Action;
 import packages.CoreTypes.EntityMechanics.Bonus;
-import packages.CoreTypes.EntityMechanics.EntityTypes.Deployable;
+import packages.CoreTypes.EntityMechanics.EntityTypes.damageable.Deployable;
 
 /**
  * Represents a single reserve. Contains information about the reserve's id,
