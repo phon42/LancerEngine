@@ -1,6 +1,7 @@
 package packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.TagSystem;
 
 import main.HelperMethods;
+import packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.TagSystem.dataTag.Tag;
 
 /**
  * See the tags within the files under

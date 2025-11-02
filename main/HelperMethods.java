@@ -19,7 +19,7 @@ import packages.CoreTypes.EntityMechanics.EntityTypes.mech.Mount;
 import packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.MechSystem;
 import packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.Weapon;
 import packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.TagSystem.DataTag;
-import packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.TagSystem.Tag;
+import packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.TagSystem.dataTag.Tag;
 import packages.CoreTypes.EntityMechanics.EntityTypes.pilot.Background;
 import packages.CoreTypes.EntityMechanics.EntityTypes.pilot.Bond;
 import packages.CoreTypes.EntityMechanics.EntityTypes.pilot.CoreBonus;

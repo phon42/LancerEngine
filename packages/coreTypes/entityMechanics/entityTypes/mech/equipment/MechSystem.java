@@ -4,7 +4,7 @@ import main.HelperMethods;
 import packages.CoreTypes.EntityMechanics.License;
 import packages.CoreTypes.EntityMechanics.Manufacturer;
 import packages.CoreTypes.EntityMechanics.EntityTypes.mech.Equipment;
-import packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.TagSystem.Tag;
+import packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.TagSystem.dataTag.Tag;
 
 /**
  * Represents a single system for a mech. Contains information about that system

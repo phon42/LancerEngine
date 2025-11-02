@@ -7,7 +7,7 @@ import packages.CoreTypes.EntityMechanics.Manufacturer;
 import packages.CoreTypes.EntityMechanics.RangeTag;
 import packages.CoreTypes.EntityMechanics.EntityTypes.mech.Equipment;
 import packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.TagSystem.DataTag;
-import packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.TagSystem.Tag;
+import packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.TagSystem.dataTag.Tag;
 import packages.CoreTypes.EntityMechanics.harmSystem.Damage;
 
 /**

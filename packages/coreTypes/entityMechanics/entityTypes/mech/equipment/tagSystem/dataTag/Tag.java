@@ -1,6 +1,7 @@
-package packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.TagSystem;
+package packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.TagSystem.dataTag;
 
 import main.HelperMethods;
+import packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.TagSystem.DataTag;
 
 /**
  * See pgs. 104 - 106.
