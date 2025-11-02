@@ -464,6 +464,17 @@ public final class Database {
         throw new IllegalArgumentException("No weapon found for weapon ID: "
             + weaponID);
     }
+    public static FrameLicense getFrameLicense(String frameLicenseID) {
+        HelperMethods.checkObject("frameLicenseID",
+            frameLicenseID);
+        for (FrameLicense frameLicense : Database.frameLicenses) {
+            if (frameLicenseID.equals(frameLicense.getID())) {
+                return new FrameLicense(frameLicense);
+            }
+        }
+        throw new IllegalArgumentException("No frame license found for frame"
+            + " license ID: " + frameLicenseID);
+    }
     // TODO: add "add" methods for all these data types - use checkOpen
     /**
      * Adds the provided Action to Database.actions.

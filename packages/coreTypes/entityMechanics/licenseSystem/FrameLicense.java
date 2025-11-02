@@ -27,27 +27,54 @@ import packages.coreTypes.entityMechanics.licenseSystem.frameLicense.LicenseCont
  */
 public class FrameLicense {
     /**
-     * The license's manufacturer (i.e. a Manufacturer representing GMS).
-     * Cannot be null.
+     * The license's id, stolen from the frame it contains (i.e.
+     *     "mf_blackbeard").
+     * Can be any String except "". Cannot be null.
+     * Case-insensitive and stored in lowercase.
      */
-    private Manufacturer manufacturer;
+    private String id;
     /**
      * The license's name (i.e. "blackbeard").
      * Can be any String except "". Cannot be null.
      * Case-insensitive and stored in lowercase.
      */
     private String name;
+    /**
+     * The license's manufacturer (i.e. a Manufacturer representing GMS).
+     * Can be any Manufacturer. Cannot be null.
+     */
+    private Manufacturer manufacturer;
     
-    public FrameLicense(Manufacturer manufacturer, String name) {
+    public FrameLicense(String id, String name, Manufacturer manufacturer) {
+        HelperMethods.verifyConstructor();
+        setID(id);
         setName(name);
         setManufacturer(manufacturer);
     }
+    public FrameLicense(FrameLicense frameLicense) {
+        setID(frameLicense.id);
+        setName(frameLicense.name);
+        setManufacturer(frameLicense.manufacturer);
+    }
 
-    public Manufacturer getManufacturer() {
-        return manufacturer;
+    public String getID() {
+        return id;
     }
     public String getName() {
         return name;
+    }
+    public Manufacturer getManufacturer() {
+        return new Manufacturer(manufacturer);
+    }
+    private void setID(String id) {
+        HelperMethods.checkString("New id", id);
+        id = id.toLowerCase();
+        this.id = id;
+    }
+    private void setName(String name) {
+        HelperMethods.checkString("New name", name);
+        name = name.toLowerCase();
+        this.name = name;
     }
     /**
      * Sets this.manufacturer to the provided value.
@@ -57,17 +84,8 @@ public class FrameLicense {
      */
     private void setManufacturer(Manufacturer manufacturer) {
         HelperMethods.checkObject("manufacturer", manufacturer);
+        manufacturer = new Manufacturer(manufacturer);
         this.manufacturer = manufacturer;
-    }
-    /**
-     * Sets this.name to the provided value.
-     * @param name a String which cannot be "". Cannot be null.
-     * @throws IllegalArgumentException if name is "" or null.
-     */
-    private void setName(String name) {
-        HelperMethods.checkString("New name", name);
-        name = name.toLowerCase();
-        this.name = name;
     }
 
     /**
