@@ -4,7 +4,7 @@ import main.HelperMethods;
 import packages.CoreTypes.EntityMechanics.RangeTag;
 import packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.TagSystem.DataTag;
 import packages.CoreTypes.EntityMechanics.EntityTypes.pilot.loadout.PilotEquipment;
-import packages.CoreTypes.EntityMechanics.harmSystem.Harm;
+import packages.CoreTypes.EntityMechanics.HarmSystem.Harm;
 
 /**
  * Represents a single pilot weapon. Contains information about that weapon's

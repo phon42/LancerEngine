@@ -5,7 +5,7 @@ import packages.CoreTypes.EntityMechanics.License;
 import packages.CoreTypes.EntityMechanics.RangeTag;
 import packages.CoreTypes.EntityMechanics.EntityTypes.mech.Equipment;
 import packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.TagSystem.dataTag.Tag;
-import packages.CoreTypes.EntityMechanics.harmSystem.Harm;
+import packages.CoreTypes.EntityMechanics.HarmSystem.Harm;
 
 /**
  * See pgs. 33 and 104.
