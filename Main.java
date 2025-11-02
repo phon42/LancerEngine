@@ -7,6 +7,8 @@ import packages.coreTypes.entityMechanics.entityTypes.mech.Mount;
 import packages.coreTypes.entityMechanics.entityTypes.mech.equipment.MechSystem;
 import packages.coreTypes.entityMechanics.entityTypes.mech.frame.FrameEnum;
 import packages.coreTypes.entityMechanics.entityTypes.pilot.Loadout;
+import packages.coreTypes.entityMechanics.entityTypes.pilot.loadout.pilotEquipment.PilotGear;
+import packages.coreTypes.entityMechanics.entityTypes.pilot.loadout.pilotEquipment.PilotWeapon;
 import packages.coreTypes.entityMechanics.entityTypes.pilot.SkillTriggersList;
 import packages.coreTypes.entityMechanics.entityTypes.pilot.Talent;
 import packages.coreTypes.entityMechanics.entityTypes.pilot.skillTriggersList.Skill;
