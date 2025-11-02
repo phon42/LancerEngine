@@ -4,6 +4,7 @@ import MainBranch.Database;
 import MainBranch.HelperMethods;
 import MainBranch.Roll;
 import Packages.CoreTypes.EntityMechanics.License;
+import Packages.CoreTypes.EntityMechanics.Manufacturer;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.Damageable;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Frame;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Mount;
@@ -53,11 +54,11 @@ public final class Mech implements Damageable {
      */
     private Frame frame;
     /**
-     * The mech's origin frame's manufacturer (i.e. "GMS").
-     * Must be a valid manufacturer as defined by Database.manufacturerList.
-     * Case-insensitive and stored in uppercase.
+     * The mech's origin frame's manufacturer (i.e. a Manufacturer representing
+     *     GMS).
+     * Cannot be null.
      */
-    private String manufacturer;
+    private Manufacturer manufacturer;
     /**
      * The mech's origin frame's name (i.e. "everest").
      * Case-insensitive and stored in lowercase. Can be any String except "".
@@ -390,7 +391,7 @@ public final class Mech implements Damageable {
     public Frame getFrame() {
         return new Frame(frame);
     }
-    public String getManufacturer() {
+    public Manufacturer getManufacturer() {
         return manufacturer;
     }
     public String getFrameName() {
@@ -500,17 +501,13 @@ public final class Mech implements Damageable {
     }
     /**
      * Sets this.manufacturer to the provided value.
-     * @param manufacturer a String which must be a valid manufacturer as
-     *     defined by Database.manufacturerList. Cannot be null.
-     * @throws IllegalArgumentException if manufacturer is an invalid
-     *     manufacturer.
+     * @param manufacturer a Manufacturer which cannot be null.
+     * @throws IllegalArgumentException if manufacturer is null.
      */
-    private void setManufacturer(String manufacturer) {
-        manufacturer = manufacturer.toUpperCase();
-        if (! Database.isValidManufacturer(manufacturer)) {
-            throw new IllegalArgumentException("New manufacturer value: "
-                + manufacturer + " is an invalid manufacturer");
-        }
+    private void setManufacturer(Manufacturer manufacturer) {
+        HelperMethods.checkObject("New manufacturer",
+            manufacturer);
+        manufacturer = new Manufacturer(manufacturer);
         this.manufacturer = manufacturer;
     }
     private void setFrameName(String frameName) {
