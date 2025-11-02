@@ -12,7 +12,8 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Loadout;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.SkillTriggersList;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Talent;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.damage.Harm;
-import Packages.CoreTypes.EntityMechanics.StateSystem.State;
+import Packages.CoreTypes.EntityMechanics.StateSystem.state.Condition;
+import Packages.CoreTypes.EntityMechanics.StateSystem.state.Status;
 
 // TODO: add some kind of way for Pilot and Mech's actions to bubble up
 /**
@@ -396,12 +397,12 @@ public final class LancerCharacter {
         this.mech.setSystems((MechSystem[]) mechProperties.get("systems"));
     }
     /**
-     * Calls addStatus(State, boolean) on either this.pilot or this.mech,
+     * Calls addStatus(Status, boolean) on either this.pilot or this.mech,
      *     depending on targetMech.
      * @param targetMech a boolean representing whether to call
-     *     addStatus(State, boolean) on this.mech.
+     *     addStatus(Status, boolean) on this.mech.
      */
-    public void addStatus(boolean targetMech, State newStatus,
+    public void addStatus(boolean targetMech, Status newStatus,
         boolean addDuplicate) {
         if (targetMech) {
             this.mech.addStatus(newStatus, addDuplicate);
@@ -410,12 +411,12 @@ public final class LancerCharacter {
         }
     }
     /**
-     * Calls addStatus(State) on either this.pilot or this.mech, depending on
+     * Calls addStatus(Status) on either this.pilot or this.mech, depending on
      *     targetMech.
-     * @param targetMech a boolean representing whether to call addStatus(State)
-     *     on this.mech.
+     * @param targetMech a boolean representing whether to call
+     *     addStatus(Status) on this.mech.
      */
-    public void addStatus(boolean targetMech, State status) {
+    public void addStatus(boolean targetMech, Status status) {
         if (targetMech) {
             this.mech.addStatus(status);
         } else {
@@ -423,12 +424,12 @@ public final class LancerCharacter {
         }
     }
     /**
-     * Calls removeStatus(State, boolean) on either this.pilot or this.mech,
+     * Calls removeStatus(Status, boolean) on either this.pilot or this.mech,
      *     depending on targetMech.
      * @param targetMech a boolean representing whether to call
-     *     removeStatus(State, boolean) on this.mech.
+     *     removeStatus(Status, boolean) on this.mech.
      */
-    public void removeStatus(boolean targetMech, State oldStatus,
+    public void removeStatus(boolean targetMech, Status oldStatus,
         boolean removeAll) {
         if (targetMech) {
             this.mech.removeStatus(oldStatus, removeAll);
@@ -437,16 +438,70 @@ public final class LancerCharacter {
         }
     }
     /**
-     * Calls removeStatus(State) on either this.pilot or this.mech, depending on
-     *     targetMech.
+     * Calls removeStatus(Status) on either this.pilot or this.mech, depending
+     *     on targetMech.
      * @param targetMech a boolean representing whether to call
-     *     removeStatus(State) on this.mech.
+     *     removeStatus(Status) on this.mech.
      */
-    public void removeStatus(boolean targetMech, State oldStatus) {
+    public void removeStatus(boolean targetMech, Status oldStatus) {
         if (targetMech) {
             this.mech.removeStatus(oldStatus);
         } else {
             this.pilot.removeStatus(oldStatus);
+        }
+    }
+    /**
+     * Calls addCondition(Condition, boolean) on either this.pilot or this.mech,
+     *     depending on targetMech.
+     * @param targetMech a boolean representing whether to call
+     *     addCondition(Condition, boolean) on this.mech.
+     */
+    public void addCondition(boolean targetMech, Condition newCondition,
+        boolean addDuplicate) {
+        if (targetMech) {
+            this.mech.addCondition(newCondition, addDuplicate);
+        } else {
+            this.pilot.addCondition(newCondition, addDuplicate);
+        }
+    }
+    /**
+     * Calls addCondition(Condition) on either this.pilot or this.mech,
+     *     depending on targetMech.
+     * @param targetMech a boolean representing whether to call
+     *     addCondition(Condition) on this.mech.
+     */
+    public void addCondition(boolean targetMech, Condition condition) {
+        if (targetMech) {
+            this.mech.addCondition(condition);
+        } else {
+            this.pilot.addCondition(condition);
+        }
+    }
+    /**
+     * Calls removeCondition(Condition, boolean) on either this.pilot or
+     *     this.mech, depending on targetMech.
+     * @param targetMech a boolean representing whether to call
+     *     removeCondition(Condition, boolean) on this.mech.
+     */
+    public void removeCondition(boolean targetMech, Condition oldCondition,
+        boolean removeAll) {
+        if (targetMech) {
+            this.mech.removeCondition(oldCondition, removeAll);
+        } else {
+            this.pilot.removeCondition(oldCondition, removeAll);
+        }
+    }
+    /**
+     * Calls removeCondition(Condition) on either this.pilot or this.mech,
+     *     depending on targetMech.
+     * @param targetMech a boolean representing whether to call
+     *     removeCondition(Condition) on this.mech.
+     */
+    public void removeCondition(boolean targetMech, Condition oldCondition) {
+        if (targetMech) {
+            this.mech.removeCondition(oldCondition);
+        } else {
+            this.pilot.removeCondition(oldCondition);
         }
     }
     /**
@@ -460,60 +515,6 @@ public final class LancerCharacter {
             return this.mech.hasState(statusType);
         } else {
             return this.pilot.hasState(statusType);
-        }
-    }
-    /**
-     * Calls addCondition(State, boolean) on either this.pilot or this.mech,
-     *     depending on targetMech.
-     * @param targetMech a boolean representing whether to call
-     *     addCondition(State, boolean) on this.mech.
-     */
-    public void addCondition(boolean targetMech, State newCondition,
-        boolean addDuplicate) {
-        if (targetMech) {
-            this.mech.addCondition(newCondition, addDuplicate);
-        } else {
-            this.pilot.addCondition(newCondition, addDuplicate);
-        }
-    }
-    /**
-     * Calls addCondition(State) on either this.pilot or this.mech, depending on
-     *     targetMech.
-     * @param targetMech a boolean representing whether to call
-     *     addCondition(State) on this.mech.
-     */
-    public void addCondition(boolean targetMech, State condition) {
-        if (targetMech) {
-            this.mech.addCondition(condition);
-        } else {
-            this.pilot.addCondition(condition);
-        }
-    }
-    /**
-     * Calls removeCondition(State, boolean) on either this.pilot or this.mech,
-     *     depending on targetMech.
-     * @param targetMech a boolean representing whether to call
-     *     removeCondition(State, boolean) on this.mech.
-     */
-    public void removeCondition(boolean targetMech, State oldCondition,
-        boolean removeAll) {
-        if (targetMech) {
-            this.mech.removeCondition(oldCondition, removeAll);
-        } else {
-            this.pilot.removeCondition(oldCondition, removeAll);
-        }
-    }
-    /**
-     * Calls removeCondition(State) on either this.pilot or this.mech, depending
-     *     on targetMech.
-     * @param targetMech a boolean representing whether to call
-     *     removeCondition(State) on this.mech.
-     */
-    public void removeCondition(boolean targetMech, State oldCondition) {
-        if (targetMech) {
-            this.mech.removeCondition(oldCondition);
-        } else {
-            this.pilot.removeCondition(oldCondition);
         }
     }
     /**
