@@ -1,8 +1,8 @@
-package packages.CoreTypes.battlefield.baseArea;
+package packages.CoreTypes.Battlefield.baseArea;
 
 import main.HelperMethods;
-import packages.CoreTypes.battlefield.BaseArea;
-import packages.CoreTypes.battlefield.Hex;
+import packages.CoreTypes.Battlefield.BaseArea;
+import packages.CoreTypes.Battlefield.Hex;
 
 /**
  * Represents a line, cone, blast, or burst-type pattern and the spaces on the
