@@ -67,7 +67,7 @@ public class Drone implements Damageable {
     }
     /**
      * Sets this.size to the provided value.
-     * @param size a Size which can be any Size. Cannot be null.
+     * @param size a Size which cannot be null.
      * @throws IllegalArgumentException if size is null.
      */
     private void setSize(Size size) {

@@ -390,7 +390,7 @@ public final class Frame extends LicenseContent {
     }
     /**
      * Sets this.size to the value provided.
-     * @param size a Size which can be any Size. Cannot be null.
+     * @param size a Size which cannot be null.
      * @throws IllegalArgumentException if size is null.
      */
     private void setSize(Size size) {
