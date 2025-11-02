@@ -1,10 +1,10 @@
-package packages.CoreTypes.EntityMechanics.entityTypes.pilot.loadout.pilotEquipment;
+package packages.CoreTypes.EntityMechanics.EntityTypes.pilot.loadout.pilotEquipment;
 
 import main.HelperMethods;
 import packages.CoreTypes.EntityMechanics.Action;
 import packages.CoreTypes.EntityMechanics.Bonus;
-import packages.CoreTypes.EntityMechanics.entityTypes.mech.equipment.tagSystem.DataTag;
-import packages.CoreTypes.EntityMechanics.entityTypes.pilot.loadout.PilotEquipment;
+import packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.tagSystem.DataTag;
+import packages.CoreTypes.EntityMechanics.EntityTypes.pilot.loadout.PilotEquipment;
 
 /**
  * Represents a single piece of pilot armor. Contains several optional

@@ -3,10 +3,10 @@ package packages.CoreTypes.EntityMechanics.licenseSystem;
 import main.Database;
 import main.HelperMethods;
 import packages.CoreTypes.EntityMechanics.Manufacturer;
-import packages.CoreTypes.EntityMechanics.entityTypes.mech.Equipment;
-import packages.CoreTypes.EntityMechanics.entityTypes.mech.Frame;
-import packages.CoreTypes.EntityMechanics.entityTypes.mech.equipment.MechSystem;
-import packages.CoreTypes.EntityMechanics.entityTypes.mech.equipment.Weapon;
+import packages.CoreTypes.EntityMechanics.EntityTypes.mech.Equipment;
+import packages.CoreTypes.EntityMechanics.EntityTypes.mech.Frame;
+import packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.MechSystem;
+import packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.Weapon;
 import packages.CoreTypes.EntityMechanics.licenseSystem.frameLicense.LicenseContent;
 
 /**

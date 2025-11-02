@@ -1,9 +1,9 @@
-package packages.CoreTypes.EntityMechanics.entityTypes.mech;
+package packages.CoreTypes.EntityMechanics.EntityTypes.mech;
 
 import main.Database;
 import main.HelperMethods;
 import packages.CoreTypes.EntityMechanics.License;
-import packages.CoreTypes.EntityMechanics.entityTypes.mech.frame.FrameEnum;
+import packages.CoreTypes.EntityMechanics.EntityTypes.mech.frame.FrameEnum;
 import packages.CoreTypes.EntityMechanics.licenseSystem.frameLicense.LicenseContent;
 
 /**

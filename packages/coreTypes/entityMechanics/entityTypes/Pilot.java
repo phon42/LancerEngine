@@ -1,13 +1,13 @@
-package packages.CoreTypes.EntityMechanics.entityTypes;
+package packages.CoreTypes.EntityMechanics.EntityTypes;
 
 import main.Database;
 import main.HelperMethods;
 import main.Roll;
 import packages.CoreTypes.EntityMechanics.License;
-import packages.CoreTypes.EntityMechanics.entityTypes.pilot.Loadout;
-import packages.CoreTypes.EntityMechanics.entityTypes.pilot.SkillTriggersList;
-import packages.CoreTypes.EntityMechanics.entityTypes.pilot.Talent;
-import packages.CoreTypes.EntityMechanics.entityTypes.pilot.skillTriggersList.skillTrigger.Skill;
+import packages.CoreTypes.EntityMechanics.EntityTypes.pilot.Loadout;
+import packages.CoreTypes.EntityMechanics.EntityTypes.pilot.SkillTriggersList;
+import packages.CoreTypes.EntityMechanics.EntityTypes.pilot.Talent;
+import packages.CoreTypes.EntityMechanics.EntityTypes.pilot.skillTriggersList.skillTrigger.Skill;
 import packages.CoreTypes.EntityMechanics.harmSystem.Damage;
 import packages.CoreTypes.EntityMechanics.harmSystem.Harm;
 import packages.CoreTypes.EntityMechanics.stateSystem.state.Condition;

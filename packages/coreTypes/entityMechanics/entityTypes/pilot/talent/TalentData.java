@@ -1,7 +1,7 @@
-package packages.CoreTypes.EntityMechanics.entityTypes.pilot.talent;
+package packages.CoreTypes.EntityMechanics.EntityTypes.pilot.talent;
 
 import main.HelperMethods;
-import packages.CoreTypes.EntityMechanics.entityTypes.pilot.Talent;
+import packages.CoreTypes.EntityMechanics.EntityTypes.pilot.Talent;
 /**
  * See pgs. 35 and 90 - 103.
  */

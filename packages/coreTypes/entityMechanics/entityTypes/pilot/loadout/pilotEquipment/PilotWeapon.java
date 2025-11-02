@@ -1,9 +1,9 @@
-package packages.CoreTypes.EntityMechanics.entityTypes.pilot.loadout.pilotEquipment;
+package packages.CoreTypes.EntityMechanics.EntityTypes.pilot.loadout.pilotEquipment;
 
 import main.HelperMethods;
 import packages.CoreTypes.EntityMechanics.RangeTag;
-import packages.CoreTypes.EntityMechanics.entityTypes.mech.equipment.tagSystem.DataTag;
-import packages.CoreTypes.EntityMechanics.entityTypes.pilot.loadout.PilotEquipment;
+import packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.tagSystem.DataTag;
+import packages.CoreTypes.EntityMechanics.EntityTypes.pilot.loadout.PilotEquipment;
 import packages.CoreTypes.EntityMechanics.harmSystem.Harm;
 
 /**

@@ -1,14 +1,14 @@
-package packages.CoreTypes.EntityMechanics.entityTypes;
+package packages.CoreTypes.EntityMechanics.EntityTypes;
 
 import main.Database;
 import main.HelperMethods;
 import main.Roll;
 import packages.CoreTypes.EntityMechanics.License;
-import packages.CoreTypes.EntityMechanics.entityTypes.mech.Frame;
-import packages.CoreTypes.EntityMechanics.entityTypes.mech.Mount;
-import packages.CoreTypes.EntityMechanics.entityTypes.mech.equipment.MechSystem;
-import packages.CoreTypes.EntityMechanics.entityTypes.mech.frame.FrameEnum;
-import packages.CoreTypes.EntityMechanics.entityTypes.pilot.Talent;
+import packages.CoreTypes.EntityMechanics.EntityTypes.mech.Frame;
+import packages.CoreTypes.EntityMechanics.EntityTypes.mech.Mount;
+import packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.MechSystem;
+import packages.CoreTypes.EntityMechanics.EntityTypes.mech.frame.FrameEnum;
+import packages.CoreTypes.EntityMechanics.EntityTypes.pilot.Talent;
 import packages.CoreTypes.EntityMechanics.harmSystem.Damage;
 import packages.CoreTypes.EntityMechanics.harmSystem.Harm;
 import packages.CoreTypes.EntityMechanics.stateSystem.State;

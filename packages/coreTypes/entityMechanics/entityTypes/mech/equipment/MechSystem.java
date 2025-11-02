@@ -1,10 +1,10 @@
-package packages.CoreTypes.EntityMechanics.entityTypes.mech.equipment;
+package packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment;
 
 import main.HelperMethods;
 import packages.CoreTypes.EntityMechanics.License;
 import packages.CoreTypes.EntityMechanics.Manufacturer;
-import packages.CoreTypes.EntityMechanics.entityTypes.mech.Equipment;
-import packages.CoreTypes.EntityMechanics.entityTypes.mech.equipment.tagSystem.Tag;
+import packages.CoreTypes.EntityMechanics.EntityTypes.mech.Equipment;
+import packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.tagSystem.Tag;
 
 /**
  * Represents a single system for a mech. Contains information about that system

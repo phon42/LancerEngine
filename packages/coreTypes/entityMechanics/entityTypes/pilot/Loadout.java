@@ -1,9 +1,9 @@
-package packages.CoreTypes.EntityMechanics.entityTypes.pilot;
+package packages.CoreTypes.EntityMechanics.EntityTypes.pilot;
 
 import main.HelperMethods;
-import packages.CoreTypes.EntityMechanics.entityTypes.pilot.loadout.pilotEquipment.PilotArmor;
-import packages.CoreTypes.EntityMechanics.entityTypes.pilot.loadout.pilotEquipment.PilotGear;
-import packages.CoreTypes.EntityMechanics.entityTypes.pilot.loadout.pilotEquipment.PilotWeapon;
+import packages.CoreTypes.EntityMechanics.EntityTypes.pilot.loadout.pilotEquipment.PilotArmor;
+import packages.CoreTypes.EntityMechanics.EntityTypes.pilot.loadout.pilotEquipment.PilotGear;
+import packages.CoreTypes.EntityMechanics.EntityTypes.pilot.loadout.pilotEquipment.PilotWeapon;
 
 /**
  * See pgs. 108 - 114.

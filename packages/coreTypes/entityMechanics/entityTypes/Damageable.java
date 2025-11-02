@@ -1,4 +1,4 @@
-package packages.CoreTypes.EntityMechanics.entityTypes;
+package packages.CoreTypes.EntityMechanics.EntityTypes;
 
 import packages.CoreTypes.EntityMechanics.harmSystem.Harm;
 
