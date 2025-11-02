@@ -7,10 +7,10 @@ import main.HelperMethods;
  * See pg. 31.
  */
 /**
- * Represents a single license. Contains the name of the license to which the
+ * Represents a single license. Contains the ID of the license to which the
  *     license is held, and the level of the license.
  * 
- * Requires a license name and a license level to be instantiated.
+ * Requires a license ID and a license level to be instantiated.
  * 
  * Used in Pilot.
  * 
@@ -19,13 +19,12 @@ import main.HelperMethods;
  */
 public final class License {
     /**
-     * The name of the license to which the license is held (i.e. "everest").
-     * Case-insensitive and stored in lowercase. Must be a valid license name as
+     * The ID of the frame to which the license is held (i.e.
+     *     "mf_standard_pattern_i_everest").
+     * Case-insensitive and stored in lowercase. Must be a valid license ID as
      *     defined by Database.licenseList. Cannot be null.
-     * Use License.getName() to get the raw value and License.outputName() to
-     *     obtain it properly formatted.
      */
-    private String name;
+    private String id;
     /**
      * The license's level.
      * Must be between 1 and 3 (inclusive).
@@ -34,13 +33,12 @@ public final class License {
 
     /**
      * Creates a new License.
-     * @param licenseName a String containing the license name for the new
-     *     License.
+     * @param licenseID a String containing the license ID for the new License.
      * @param licenseLevel an int containing the license level for the new
      *     License.
      */
-    public License(String licenseName, int licenseLevel) {
-        setName(licenseName);
+    public License(String licenseID, int licenseLevel) {
+        setID(licenseID);
         setLevel(licenseLevel);
     }
     /**
@@ -49,25 +47,25 @@ public final class License {
      * @return a License deep copy of the provided License.
      */
     public License(License license) {
-        this(license.name, license.level);
+        this(license.id, license.level);
     }
 
-    public String getName() {
-        return name;
+    public String getID() {
+        return id;
     }
     public int getLevel() {
         return level;
     }
-    private void setName(String name) {
-        HelperMethods.checkString("New license name", name);
-        name = name.toLowerCase();
-        if (! name.equals("integrated weapon")
-            && ! name.equals("gms")
-            && ! Database.containsLicense(name)) {
-            throw new IllegalArgumentException("New license name value: " + name
-                + " is an invalid license name");
+    private void setID(String id) {
+        HelperMethods.checkString("New license ID", id);
+        id = id.toLowerCase();
+        if (! id.equals("integrated weapon")
+            && ! id.equals("gms")
+            && ! Database.isValidLicense(id)) {
+            throw new IllegalArgumentException("New license ID value: " + id
+                + " is an invalid license ID");
         }
-        this.name = name;
+        this.id = id;
     }
     /**
      * Sets this.level to the value provided.
@@ -94,11 +92,11 @@ public final class License {
     @Override
     public String toString() {
         // Generate something of the form "IPS-N Blackbeard 1"
-        String manufacturer = Database.getManufacturer(this.name);
+        String manufacturer = Database.getManufacturerOfFrame(this.id);
 
         manufacturer = manufacturer.toUpperCase();
 
-        return manufacturer + " " + outputName() + " " + getLevel();
+        return manufacturer + " " + outputID() + " " + getLevel();
     }
     /**
      * Compares this License object and obj. If they are the same class, returns
@@ -126,7 +124,7 @@ public final class License {
         if (license == null) {
             return false;
         }
-        if (! license.getName().equals(this.name)) {
+        if (! license.getID().equals(this.id)) {
             return false;
         }
         if (license.getLevel() != this.level) {
@@ -134,15 +132,5 @@ public final class License {
         }
         
         return true;
-    }
-    /**
-     * A helper method for License.outputLicense(). Returns this.name, properly
-     *     formatted. "swallowtail (ranger variant)" will become
-     *     "Swallowtail (Ranger Variant)", and "death's head" will
-     *     become "Death's Head".
-     * @return a String containing this.name, properly formatted.
-     */
-    public String outputName() {
-        return HelperMethods.toProperCase(this.name);
     }
 }
