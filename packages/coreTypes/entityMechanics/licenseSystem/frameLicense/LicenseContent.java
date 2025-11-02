@@ -17,6 +17,7 @@ import packages.coreTypes.entityMechanics.Manufacturer;
  *     placeholder. At least one of its properties has an allowed value of null.
  */
 public class LicenseContent {
+    // TODO: fill out
     protected String id;
     /**
      * The license content's name (i.e. "everest" or "Armament Redundancy" or
@@ -34,24 +35,61 @@ public class LicenseContent {
      * The origin license for this license content (i.e. a License representing
      *     "Blackbeard, rank II"). Uses a License to represent an ACTUAL license
      *     instead of the frame name and rank to which a pilot holds a license.
-     * For GMS license content, is set to null.
-     * Can be any License. Can be null.
+     * For GMS license content, is set to GMS 0.
+     * Can be any License. Cannot be null.
      */
     protected License originLicense;
     /**
      * The name of the license that this license content originates from (i.e.
-     *     "Nelson").
-     * Can be any String. Cannot be null.
+     *     "Blackbeard").
+     * For GMS content, is set to "GMS".
+     * Can be any String except "". Cannot be null.
      */
     protected String license;
+    /**
+     * The ID of the license that this license content originates from (i.e.
+     *     "mf_blackbeard").
+     * For GMS content, is set to null.
+     * Can be any String except "". Can be null.
+     */
     protected String licenseID;
+    /**
+     * The license level for this license content (i.e. 1).
+     * For GMS license content, is set to 0. For non-GMS license content, must
+     *     be a minimum of 1.
+     * Must be a minimum of 0.
+     */
     protected int licenseLevel;
+    /**
+     * The description for this license content (too large to provide an
+     *     example).
+     * Can be any String except "". Cannot be null.
+     */
     protected String description;
 
     protected LicenseContent(String id, String name, Manufacturer source,
-        String license, int licenseLevel, String licenseID,
-        License originLicense, String description) {
-        // TODO: fill out
+        License originLicense, String license, int licenseLevel,
+        String licenseID, String description) {
+        setID(id);
+        setName(name);
+        setSource(source);
+        if (source.getName().equals("GMS")) {
+            setOriginLicense(new License(null, 0));
+            setLicense("GMS");
+            setLicenseLevel(0);
+            setLicenseID(null);
+        } else {
+            setOriginLicense(originLicense);
+            setLicense(license);
+            setLicenseLevel(licenseLevel);
+            setLicenseID(licenseID);
+        }
+        setDescription(description);
+    }
+    protected LicenseContent(String id, String name, Manufacturer source,
+        String description) {
+        this(id, name, source, null, null,
+            0, null, null);
     }
 
     public String getID() {
@@ -61,7 +99,7 @@ public class LicenseContent {
         return name;
     }
     public Manufacturer getSource() {
-        return source;
+        return new Manufacturer(source);
     }
     /**
      * Can be "GMS"
@@ -79,6 +117,9 @@ public class LicenseContent {
     public License getOriginLicense() {
         return originLicense;
     }
+    public String getDescription() {
+        return description;
+    }
     protected void setID(String id) {
         this.id = id;
     }
@@ -95,7 +136,17 @@ public class LicenseContent {
         this.licenseLevel = licenseLevel;
     }
     protected void setLicenseID(String licenseID) {
-        HelperMethods.checkString("licenseID", licenseID);
+        if (this.source.getID().equals("GMS")) {
+            // licenseID must be null
+            if (licenseID != null) {
+                throw new IllegalArgumentException("this.source is GMS and"
+                    + " licenseID value is: \"" + licenseID + "\" which is not"
+                    + " the null value it's required to be");
+            }
+        } else {
+            // licenseID cannot be null or ""
+            HelperMethods.checkString("licenseID", licenseID);
+        }
         this.licenseID = licenseID;
     }
     protected void setOriginLicense(License originLicense) {
@@ -108,5 +159,8 @@ public class LicenseContent {
             originLicense = new License(originLicense);
         }
         this.originLicense = originLicense;
+    }
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
