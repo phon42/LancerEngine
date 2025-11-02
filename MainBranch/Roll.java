@@ -3,7 +3,7 @@ package MainBranch;
 import java.util.Random;
 
 import MainBranch.roll.diceExpression.Expression;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skillTrigger.Skill;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.SkillTrigger;
 
 /**
  * See pgs. 12 - 14 and 45 - 47.
@@ -507,7 +507,7 @@ public final class Roll {
      * @return an int containing the result of the check.
      * @throws IllegalArgumentException if any parameters are invalid.
      */
-    public static int check(Skill skillTrigger, int accuracy,
+    public static int check(SkillTrigger skillTrigger, int accuracy,
         int difficulty, boolean isDifficult, int backgroundInvoked,
         boolean teamwork) {
         // See pgs. 13, 45 - 47
@@ -540,7 +540,7 @@ public final class Roll {
      *     for the fourth parameter onward.
      * @return an int containing the result of the check.
      */
-    public static int check(Skill skillTrigger, int accuracy,
+    public static int check(SkillTrigger skillTrigger, int accuracy,
         int difficulty) {
             return check(skillTrigger, accuracy, difficulty, false,
                 0, false);
@@ -662,8 +662,8 @@ public final class Roll {
      *     (Participant #2) won.
      * @return an int containing the identity of the winner.
      */
-    public static int contestedCheck(Skill skillTrigger1,
-        Skill skillTrigger2, int accuracy1, int difficulty1,
+    public static int contestedCheck(SkillTrigger skillTrigger1,
+        SkillTrigger skillTrigger2, int accuracy1, int difficulty1,
         int accuracy2, int difficulty2) {
         // See pg. 13
         int result1 = check(skillTrigger1, accuracy1, difficulty1);
@@ -672,8 +672,8 @@ public final class Roll {
         // If it's a tie (result1 == result2), the result is +1
         return result1 >= result2 ? +1 : -1;
     }
-    public static int contestedCheck(Skill skillTrigger1,
-        Skill skillTrigger2) {
+    public static int contestedCheck(SkillTrigger skillTrigger1,
+        SkillTrigger skillTrigger2) {
         return contestedCheck(skillTrigger1, skillTrigger2, 0,
             0, 0, 0);
     }
