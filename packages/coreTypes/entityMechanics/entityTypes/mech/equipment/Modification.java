@@ -95,15 +95,23 @@ public class Modification extends Equipment {
         DataTag[] addedDataTags) {
         super(id, name, manufacturer, originLicense, license, licenseLevel,
             licenseID, description, tags);
+        setSpCost(spCost);
+        setAllowedTypes(allowedTypes);
+        setEffect(effect);
+        setAddedDamage(addedDamage);
+        setRestrictedSizes(restrictedSizes);
+        setActions(actions);
+        setAddedRange(addedRange);
+        setAddedDataTags(addedDataTags);
     }
     protected Modification(String id, String name, Manufacturer manufacturer,
-        String description, Tag[] tags, int spCost, String[] allowedTypes,
-        String effect, Damage[] addedDamage, String[] restrictedSizes,
-        Action[] actions, RangeTag[] addedRange, DataTag[] addedDataTags) {
+        String description, int spCost, String[] allowedTypes, String effect,
+        Damage[] addedDamage, String[] restrictedSizes, Action[] actions,
+        RangeTag[] addedRange, DataTag[] addedDataTags) {
             this(id, name, manufacturer, null, null,
-                0, null, description, tags, spCost,
-                allowedTypes, effect, addedDamage, restrictedSizes, actions,
-                addedRange, addedDataTags);
+                0, null, description, null,
+                spCost, allowedTypes, effect, addedDamage, restrictedSizes,
+                actions, addedRange, addedDataTags);
     }
 
     // Required properties
