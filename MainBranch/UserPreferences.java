@@ -1,6 +1,6 @@
 package MainBranch;
 
-import PackageSystemQ.CoreTypes.ColorData;
+import Packages.CoreTypes.ColorData;
 
 /**
  * Contains a set of preferences/settings for the program.
