@@ -1,5 +1,10 @@
 package packages.coreTypes.entityMechanics.entityTypes.pilot;
 
+import main.HelperMethods;
+import packages.coreTypes.entityMechanics.Action;
+import packages.coreTypes.entityMechanics.Bonus;
+import packages.coreTypes.entityMechanics.entityTypes.Deployable;
+
 /**
  * Represents a single reserve. Contains information about the reserve's id,
  *     name, type, label, and description, with other optional properties.
@@ -13,9 +18,63 @@ package packages.coreTypes.entityMechanics.entityTypes.pilot;
  */
 public class Reserve {
     // TODO: fill out
+    // Required properties
     private String id;
     private String name;
     private String type;
     private String label;
     private String description;
+    // Optional properties
+    private Bonus[] bonuses;
+    private Deployable[] deployables;
+    private Action[] actions;
+    private Synergy[] synergies;
+
+    public Reserve(String id, String name, String type, String label,
+        String description, Bonus[] bonuses, Deployable[] deployables,
+        Action[] actions, Synergy[] synergies) {
+        HelperMethods.verifyConstructor();
+        // Required properties
+        setID(id);
+        setName(name);
+        setType(type);
+        setLabel(label);
+        setDescription(description);
+        // Optional properties
+        setBonuses(bonuses);
+        setDeployables(deployables);
+        setActions(actions);
+        setSynergies(synergies);
+    }
+    public Reserve(String id, String name, String type, String label,
+        String description) {
+        this(id, name, type, label, description, null,
+            null, null, null);
+    }
+    public Reserve(Reserve reserve) {
+        // Required properties
+        setID(reserve.id);
+        setName(reserve.name);
+        setType(reserve.type);
+        setLabel(reserve.label);
+        setDescription(reserve.description);
+        // Optional properties
+        setBonuses(reserve.bonuses);
+        setDeployables(reserve.deployables);
+        setActions(reserve.actions);
+        setSynergies(reserve.synergies);
+    }
+
+    public String getID() {
+        return id;
+    }
+    public String getName() {
+        return name;
+    }
+    private void setID(String id) {
+        this.id = id;
+    }
+    private void setName(String name) {
+        this.name = name;
+    }
 }

@@ -356,6 +356,16 @@ public final class Database {
         throw new IllegalArgumentException("No pilot weapon found for pilot"
             + " weapon ID: " + pilotWeaponID);
     }
+    public static Reserve getReserve(String reserveID) {
+        HelperMethods.checkObject("reserveID", reserveID);
+        for (Reserve reserve : Database.reserves) {
+            if (reserveID.equals(reserve.getID())) {
+                return new Reserve(reserve);
+            }
+        }
+        throw new IllegalArgumentException("No reserve found for reserve ID: "
+            + reserveID);
+    }
     public static Rule getRule(String ruleName) {
         HelperMethods.checkObject("ruleName", ruleName);
         for (Rule rule : Database.rules) {
