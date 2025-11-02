@@ -475,7 +475,6 @@ public final class Database {
         throw new IllegalArgumentException("No frame license found for frame"
             + " license ID: " + frameLicenseID);
     }
-    // TODO: add "add" methods for all these data types - use checkOpen
     /**
      * Adds the provided Action to Database.actions.
      * @param action a Action which cannot be null.
