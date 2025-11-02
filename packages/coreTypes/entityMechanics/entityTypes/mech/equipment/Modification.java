@@ -104,7 +104,7 @@ public class Modification extends Equipment {
         setAddedRange(addedRange);
         setAddedDataTags(addedDataTags);
     }
-    protected Modification(String id, String name, Manufacturer manufacturer,
+    public Modification(String id, String name, Manufacturer manufacturer,
         String description, int spCost, String[] allowedTypes, String effect,
         Damage[] addedDamage, String[] restrictedSizes, Action[] actions,
         RangeTag[] addedRange, DataTag[] addedDataTags) {
@@ -112,6 +112,20 @@ public class Modification extends Equipment {
                 0, null, description, null,
                 spCost, allowedTypes, effect, addedDamage, restrictedSizes,
                 actions, addedRange, addedDataTags);
+    }
+    public Modification(Modification modification) {
+        super(modification.id, modification.name, modification.source,
+            modification.originLicense, modification.license,
+            modification.licenseLevel, modification.licenseID,
+            modification.description, modification.tags);
+        setSpCost(modification.spCost);
+        setAllowedTypes(modification.allowedTypes);
+        setEffect(modification.effect);
+        setAddedDamage(modification.addedDamage);
+        setRestrictedSizes(modification.restrictedSizes);
+        setActions(modification.actions);
+        setAddedRange(modification.addedRange);
+        setAddedDataTags(modification.addedDataTags);
     }
 
     // Required properties

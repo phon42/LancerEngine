@@ -315,6 +315,17 @@ public final class Database {
         throw new IllegalArgumentException("No manufacturer found for"
             + " manufacturer ID: " + manufacturerID);
     }
+    public static Modification getModification(String modificationID) {
+        HelperMethods.checkObject("modificationID",
+            modificationID);
+        for (Modification modification : Database.modifications) {
+            if (modificationID.equals(modification.getID())) {
+                return new Modification(modification);
+            }
+        }
+        throw new IllegalArgumentException("No modification found for"
+            + " modification ID: " + modificationID);
+    }
     public static PilotArmor getPilotArmor(String pilotArmorID) {
         HelperMethods.checkObject("pilotArmorID", pilotArmorID);
         for (PilotArmor pilotArmor : Database.pilotArmor) {
