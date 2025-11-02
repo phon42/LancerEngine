@@ -1,6 +1,7 @@
-package packages.testing;
+package packages.Testing;
 
 import main.Database;
+import packages.Testing.testMethods.Test;
 import packages.coreTypes.entityMechanics.License;
 import packages.coreTypes.entityMechanics.entityTypes.Mech;
 import packages.coreTypes.entityMechanics.entityTypes.Pilot;
@@ -12,7 +13,6 @@ import packages.coreTypes.entityMechanics.entityTypes.pilot.Loadout;
 import packages.coreTypes.entityMechanics.entityTypes.pilot.SkillTriggersList;
 import packages.coreTypes.entityMechanics.entityTypes.pilot.Talent;
 import packages.coreTypes.entityMechanics.entityTypes.pilot.skillTriggersList.skillTrigger.Skill;
-import packages.testing.testMethods.Test;
 
 /**
  * Tests every class and every method under every class. Yes, I'm serious.

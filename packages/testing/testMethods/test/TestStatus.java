@@ -1,4 +1,4 @@
-package packages.testing.testMethods.test;
+package packages.Testing.testMethods.test;
 
 /**
  * Contains a set of possible test statuses that a Test can return or contain.
