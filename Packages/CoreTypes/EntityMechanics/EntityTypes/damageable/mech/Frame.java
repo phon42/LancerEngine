@@ -5,6 +5,7 @@ import MainBranch.HelperMethods;
 import Packages.CoreTypes.EntityMechanics.License;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frame.FrameEnum;
 import Packages.CoreTypes.EntityMechanics.LicenseSystem.frameLicense.LicenseContent;
+import Packages.CoreTypes.Size;
 
 /**
  * See pg. 32.
@@ -81,9 +82,7 @@ public final class Frame extends LicenseContent {
     // frame attributes - size, structure, HP, etc. - see pgs. 33 - 34.
     /**
      * The frame's size.
-     * Size is stored as 2 * its value (i.e. Size 1/2 would be stored as int 1).
-     * Must be one of the following values:
-     *     1, 2, 4, 6, 8.
+     * Can be any Size. Cannot be null.
      * 
      * "Depending on their chassis, mechs stand anything from 3 to 15 meters
      *     tall."
@@ -96,7 +95,7 @@ public final class Frame extends LicenseContent {
      * 
      * See pgs. 30, 32, 59.
      */
-    private int size;
+    private Size size;
 
     // health and structure
     /**
@@ -201,26 +200,11 @@ public final class Frame extends LicenseContent {
     // core system active
 
     /**
-     * Creates a new Frame using every property except Structure and Stress,
-     *     which it automatically sets to 4. Helpful for player frames.
-     */
-    public Frame(License license, String manufacturer, String name,
-        String frameID, FrameEnum frameEnum, String[] role,
-        String frameDescription, int size, int hp, int armor, int heatCapacity,
-        int evasion, int speed, int eDefense, int techAttack, int sensors,
-        int repairCapacity, int saveTarget, int systemPoints, String[] traits,
-        Mount[] mounts) {
-        this(license, manufacturer, name, frameID, frameEnum, role,
-            frameDescription, size, 4, hp, armor, 4,
-            heatCapacity, evasion, speed, eDefense, techAttack, sensors,
-            repairCapacity, saveTarget, systemPoints, traits, mounts);
-    }
-    /**
      * Creates a new Frame using every possible property.
      */
     public Frame(License license, String manufacturer, String name,
         String frameID, FrameEnum frameEnum, String[] role,
-        String frameDescription, int size, int structure, int hp, int armor,
+        String frameDescription, Size size, int structure, int hp, int armor,
         int stress, int heatCapacity, int evasion, int speed, int eDefense,
         int techAttack, int sensors, int repairCapacity, int saveTarget,
         int systemPoints, String[] traits, Mount[] mounts) {
@@ -248,6 +232,21 @@ public final class Frame extends LicenseContent {
         setSystemPoints(systemPoints);
         setTraits(traits);
         setMounts(mounts);
+    }
+    /**
+     * Creates a new Frame using every property except Structure and Stress,
+     *     which it automatically sets to 4. Helpful for player frames.
+     */
+    public Frame(License license, String manufacturer, String name,
+        String frameID, FrameEnum frameEnum, String[] role,
+        String frameDescription, Size size, int hp, int armor, int heatCapacity,
+        int evasion, int speed, int eDefense, int techAttack, int sensors,
+        int repairCapacity, int saveTarget, int systemPoints, String[] traits,
+        Mount[] mounts) {
+        this(license, manufacturer, name, frameID, frameEnum, role,
+            frameDescription, size, 4, hp, armor, 4,
+            heatCapacity, evasion, speed, eDefense, techAttack, sensors,
+            repairCapacity, saveTarget, systemPoints, traits, mounts);
     }
     /**
      * Creates a deepest copy of the provided Frame.
@@ -278,8 +277,8 @@ public final class Frame extends LicenseContent {
     public String getFrameDescription() {
         return frameDescription;
     }
-    public int getSize() {
-        return size;
+    public Size getSize() {
+        return new Size(size);
     }
     public int getStructure() {
         return structure;
@@ -332,7 +331,7 @@ public final class Frame extends LicenseContent {
         name = name.toLowerCase();
         this.name = name;
     }
-    private void setID(String ID) {
+    protected void setID(String ID) {
         HelperMethods.checkString("New frame ID", ID);
         ID = ID.toLowerCase();
         this.ID = ID;
@@ -391,15 +390,12 @@ public final class Frame extends LicenseContent {
     }
     /**
      * Sets this.size to the value provided.
-     * @param size an int which must be 1, 2, 4, 6, or 8.
-     * @throws IllegalArgumentException if size is anything other than 1, 2, 4,
-     *     6, or 8.
+     * @param size a Size which can be any Size. Cannot be null.
+     * @throws IllegalArgumentException if size is null.
      */
-    private void setSize(int size) {
-        if (size != 1 && size != 2 && size != 4 && size != 6 && size != 8) {
-            throw new IllegalArgumentException("New frame size: " + size + " is"
-                + " not one of the following valid values: 1, 2, 4, 6, 8");
-        }
+    private void setSize(Size size) {
+        HelperMethods.checkObject("New size", size);
+        size = new Size(size);
         this.size = size;
     }
     private void setStructure(int structure) {

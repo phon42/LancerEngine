@@ -16,6 +16,7 @@ import Packages.CoreTypes.EntityMechanics.HarmSystem.damage.Harm;
 import Packages.CoreTypes.EntityMechanics.StateSystem.State;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.Status;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.Condition;
+import Packages.CoreTypes.Size;
 
 /**
  * See pg. 58.
@@ -95,9 +96,7 @@ public final class Mech implements Damageable {
     // frame attributes - size, structure, HP, etc. - see pgs. 33 - 34.
     /**
      * The mech's size.
-     * Size is stored as 2 * its value (i.e. Size 1/2 would be stored as int 1).
-     * Must be one of the following values:
-     *     1, 2, 4, 6, 8.
+     * Can be any Size. Cannot be null.
      * Use Mech.getSize() to get the raw value and Mech.outputSize() to obtain
      *     it properly formatted.
      * 
@@ -112,7 +111,7 @@ public final class Mech implements Damageable {
      * 
      * See pgs. 30, 32, 59.
      */
-    private int size;
+    private Size size;
 
     // health and structure
     /**
@@ -406,8 +405,8 @@ public final class Mech implements Damageable {
     public String getOperatorNotes() {
         return operatorNotes;
     }
-    public int getSize() {
-        return size;
+    public Size getSize() {
+        return new Size(size);
     }
     public int getCurrentStructure() {
         return currentStructure;
@@ -561,14 +560,12 @@ public final class Mech implements Damageable {
     }
     /**
      * Sets this.size to the provided value.
-     * @param size an int which must be 1, 2, 4, 6, or 8.
-     * @throws IllegalArgumentException if size is not 1, 2, 4, 6, or 8.
+     * @param size a Size which can be any Size. Cannot be null.
+     * @throws IllegalArgumentException if size is null.
      */
-    private void setSize(int size) {
-        if (size != 1 && size != 2 && size != 4 && size != 6 && size != 8) {
-            throw new IllegalArgumentException("New size: " + size + " is not"
-                + " one of the following valid values: 1, 2, 4, 6, or 8");
-        }
+    private void setSize(Size size) {
+        HelperMethods.checkObject("New size", size);
+        size = new Size(size);
         this.size = size;
     }
     /**
@@ -952,13 +949,7 @@ public final class Mech implements Damageable {
      * @return a String containing the requested output.
      */
     public String outputSize() {
-        if (size == 1) {
-            return "1/2";
-        }
-        if (size > 1) {
-            return Integer.toString(size / 2);
-        }
-        return Integer.toString(size);
+        return size.output();
     }
     /**
      * Adds the provided status to this.statuses.

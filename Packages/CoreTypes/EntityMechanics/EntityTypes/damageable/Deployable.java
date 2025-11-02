@@ -4,6 +4,7 @@ import MainBranch.HelperMethods;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.Damageable;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.Damage;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.damage.Harm;
+import Packages.CoreTypes.Size;
 
 /**
  * See pgs. 58 and 68.
@@ -11,13 +12,11 @@ import Packages.CoreTypes.EntityMechanics.HarmSystem.damage.Harm;
 public class Deployable implements Damageable {
     /**
      * The deployable's size.
-     * Size is stored as 2 * its value (i.e. Size 1/2 would be stored as int 1).
-     * Must be one of the following values:
-     *     1, 2, 4, 6, 8.
+     * Can be any Size. Cannot be null.
      * Use Deployable.getSize() to get the raw value and Deployable.outputSize()
      *     to obtain it properly formatted.
      */
-    private int size;
+    private Size size;
     /**
      * The deployable's current HP value.
      * Must be a minimum of 0.
@@ -40,14 +39,14 @@ public class Deployable implements Damageable {
     private int evasion;
 
     public Deployable() {
-        this(2, 0);
+        this(new Size(2), 0);
     }
-    public Deployable(int size, int armor) {
+    public Deployable(Size size, int armor) {
         // default values from pg. 68
         // max always before current
         setSize(size);
-        setMaxHP(10 / 2 * size);
-        setCurrentHP(10 / 2 * size);
+        setMaxHP(10 / 2 * size.getValue());
+        setCurrentHP(10 / 2 * size.getValue());
         setArmor(armor);
         setEvasion(5);
     }
@@ -55,8 +54,8 @@ public class Deployable implements Damageable {
         this(deployable.size, deployable.armor);
     }
 
-    public int getSize() {
-        return size;
+    public Size getSize() {
+        return new Size(size);
     }
     public int getCurrentHP() {
         return currentHP;
@@ -72,14 +71,12 @@ public class Deployable implements Damageable {
     }
     /**
      * Sets this.size to the provided value.
-     * @param size an int which must be 1, 2, 4, 6, or 8.
+     * @param size a Size which cannot be null.
      * @throws IllegalArgumentException if size is not 1, 2, 4, 6, or 8.
      */
-    private void setSize(int size) {
-        if (size != 1 && size != 2 && size != 4 && size != 6 && size != 8) {
-            throw new IllegalArgumentException("New size: " + size + " is not"
-                + " one of the following valid values: 1, 2, 4, 6, or 8");
-        }
+    private void setSize(Size size) {
+        HelperMethods.checkObject("New size", size);
+        size = new Size(size);
         this.size = size;
     }
     /**
@@ -136,13 +133,7 @@ public class Deployable implements Damageable {
      * @return a String containing the requested output.
      */
     public String outputSize() {
-        if (size == 1) {
-            return "1/2";
-        }
-        if (size > 1) {
-            return Integer.toString(size / 2);
-        }
-        return Integer.toString(size);
+        return size.output();
     }
     /**
      * Deals harm to this Deployable.

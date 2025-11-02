@@ -4,6 +4,7 @@ import MainBranch.HelperMethods;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.Damageable;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.Damage;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.damage.Harm;
+import Packages.CoreTypes.Size;
 
 /**
  * See pgs. 58 - 59 and 68.
@@ -11,9 +12,7 @@ import Packages.CoreTypes.EntityMechanics.HarmSystem.damage.Harm;
 public class TerrainUnit implements Damageable {
     /**
      * The terrain unit's size.
-     * Size is stored as 2 * its value (i.e. Size 1/2 would be stored as int 1).
-     * Must be one of the following values:
-     *     1, 2, 4, 6, 8.
+     * Can be any Size. Cannot be null.
      * Use TerrainUnit.getSize() to get the raw value and
      *     TerrainUnit.outputSize() to obtain it properly formatted.
      * 
@@ -22,7 +21,7 @@ public class TerrainUnit implements Damageable {
      *     encounters."
      * - pg. 59
      */
-    private int size;
+    private Size size;
     /**
      * The terrain unit's current HP value.
      * Must be a minimum of 0.
@@ -57,8 +56,8 @@ public class TerrainUnit implements Damageable {
         setEvasion(5);
     }
 
-    public int getSize() {
-        return size;
+    public Size getSize() {
+        return new Size(size);
     }
     public int getCurrentHP() {
         return currentHP;
@@ -82,7 +81,7 @@ public class TerrainUnit implements Damageable {
             throw new IllegalArgumentException("New size: " + size + " is not"
                 + " one of the following valid values: 1, 2, 4, 6, or 8");
         }
-        this.size = size;
+        this.size = new Size(size);
     }
     /**
      * Sets this.currentHP to the provided value.
@@ -138,13 +137,15 @@ public class TerrainUnit implements Damageable {
      * @return a String containing the requested output.
      */
     public String outputSize() {
-        if (size == 1) {
+        int value = this.size.getValue();
+
+        if (value == 1) {
             return "1/2";
         }
-        if (size > 1) {
-            return Integer.toString(size / 2);
+        if (value > 1) {
+            return Integer.toString(value / 2);
         }
-        return Integer.toString(size);
+        return Integer.toString(value);
     }
 
     /**
