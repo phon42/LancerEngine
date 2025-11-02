@@ -11,7 +11,7 @@ import packages.coreTypes.entityMechanics.entityTypes.mech.frame.FrameEnum;
 import packages.coreTypes.entityMechanics.entityTypes.pilot.Loadout;
 import packages.coreTypes.entityMechanics.entityTypes.pilot.SkillTriggersList;
 import packages.coreTypes.entityMechanics.entityTypes.pilot.Talent;
-import packages.coreTypes.entityMechanics.entityTypes.pilot.skillTriggersList.Skill;
+import packages.coreTypes.entityMechanics.entityTypes.pilot.skillTriggersList.skillTrigger.Skill;
 import packages.testing.testMethods.Test;
 
 /**

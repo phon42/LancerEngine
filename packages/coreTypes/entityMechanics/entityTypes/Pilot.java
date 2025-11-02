@@ -7,7 +7,7 @@ import packages.coreTypes.entityMechanics.License;
 import packages.coreTypes.entityMechanics.entityTypes.pilot.Loadout;
 import packages.coreTypes.entityMechanics.entityTypes.pilot.SkillTriggersList;
 import packages.coreTypes.entityMechanics.entityTypes.pilot.Talent;
-import packages.coreTypes.entityMechanics.entityTypes.pilot.skillTriggersList.Skill;
+import packages.coreTypes.entityMechanics.entityTypes.pilot.skillTriggersList.skillTrigger.Skill;
 import packages.coreTypes.entityMechanics.harmSystem.Damage;
 import packages.coreTypes.entityMechanics.harmSystem.Harm;
 import packages.coreTypes.entityMechanics.stateSystem.state.Condition;
