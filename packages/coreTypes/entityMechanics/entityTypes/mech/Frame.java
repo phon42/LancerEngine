@@ -1,5 +1,6 @@
 package packages.coreTypes.entityMechanics.entityTypes.mech;
 
+import main.Database;
 import main.HelperMethods;
 import packages.coreTypes.entityMechanics.License;
 import packages.coreTypes.entityMechanics.entityTypes.mech.frame.FrameEnum;
@@ -223,8 +224,9 @@ public final class Frame extends LicenseContent {
         int stress, int heatCapacity, int evasion, int speed, int eDefense,
         int techAttack, int sensors, int repairCapacity, int saveTarget,
         int systemPoints, String[] traits, Mount[] mounts) {
-        setLicense(license);
-        setManufacturer(manufacturer);
+        setSource(Database.getManufacturer(manufacturer));
+        setOriginLicense(license);
+        // setManufacturer moved above setLicense to avoid throwing Exceptions
         setName(name);
         setID(frameID);
         setFrameEnum(frameEnum);
@@ -255,7 +257,7 @@ public final class Frame extends LicenseContent {
     public Frame(Frame frame) {
         // make sure to use the proper accessor method instead of "property" if
         //     the property's type is mutable
-        this(frame.license, frame.manufacturer, frame.name, frame.ID,
+        this(frame.license, frame.source, frame.name, frame.ID,
             frame.frameEnum, frame.getRole(), frame.frameDescription,
             frame.size, frame.structure, frame.HP, frame.armor, frame.stress,
             frame.heatCapacity, frame.evasion, frame.speed, frame.eDefense,
