@@ -1,8 +1,8 @@
-package packages.CoreTypes.entityMechanics.entityTypes;
+package packages.CoreTypes.EntityMechanics.entityTypes;
 
 import main.HelperMethods;
-import packages.CoreTypes.entityMechanics.harmSystem.Damage;
-import packages.CoreTypes.entityMechanics.harmSystem.Harm;
+import packages.CoreTypes.EntityMechanics.harmSystem.Damage;
+import packages.CoreTypes.EntityMechanics.harmSystem.Harm;
 
 /**
  * See pgs. 58, 67, 105 - 106

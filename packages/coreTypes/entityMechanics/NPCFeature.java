@@ -1,4 +1,4 @@
-package packages.CoreTypes.entityMechanics;
+package packages.CoreTypes.EntityMechanics;
 
 /**
  * Represents a single NPC feature. Contains information about the feature's

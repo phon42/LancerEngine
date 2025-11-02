@@ -1,4 +1,4 @@
-package packages.CoreTypes.entityMechanics;
+package packages.CoreTypes.EntityMechanics;
 
 import main.HelperMethods;
 import packages.CoreTypes.ColorData;

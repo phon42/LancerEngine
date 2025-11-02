@@ -3,7 +3,7 @@ package main;
 import java.util.Random;
 
 import main.roll.Expression;
-import packages.CoreTypes.entityMechanics.entityTypes.pilot.skillTriggersList.skillTrigger.Skill;
+import packages.CoreTypes.EntityMechanics.entityTypes.pilot.skillTriggersList.skillTrigger.Skill;
 
 /**
  * See pgs. 12 - 14 and 45 - 47.

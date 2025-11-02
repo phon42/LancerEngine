@@ -1,18 +1,18 @@
-package packages.CoreTypes.entityMechanics;
+package packages.CoreTypes.EntityMechanics;
 
 import java.util.HashMap;
 
 import main.HelperMethods;
-import packages.CoreTypes.entityMechanics.entityTypes.Mech;
-import packages.CoreTypes.entityMechanics.entityTypes.Pilot;
-import packages.CoreTypes.entityMechanics.entityTypes.mech.Frame;
-import packages.CoreTypes.entityMechanics.entityTypes.mech.Mount;
-import packages.CoreTypes.entityMechanics.entityTypes.mech.equipment.MechSystem;
-import packages.CoreTypes.entityMechanics.entityTypes.pilot.Loadout;
-import packages.CoreTypes.entityMechanics.entityTypes.pilot.SkillTriggersList;
-import packages.CoreTypes.entityMechanics.entityTypes.pilot.Talent;
-import packages.CoreTypes.entityMechanics.harmSystem.Harm;
-import packages.CoreTypes.entityMechanics.stateSystem.State;
+import packages.CoreTypes.EntityMechanics.entityTypes.Mech;
+import packages.CoreTypes.EntityMechanics.entityTypes.Pilot;
+import packages.CoreTypes.EntityMechanics.entityTypes.mech.Frame;
+import packages.CoreTypes.EntityMechanics.entityTypes.mech.Mount;
+import packages.CoreTypes.EntityMechanics.entityTypes.mech.equipment.MechSystem;
+import packages.CoreTypes.EntityMechanics.entityTypes.pilot.Loadout;
+import packages.CoreTypes.EntityMechanics.entityTypes.pilot.SkillTriggersList;
+import packages.CoreTypes.EntityMechanics.entityTypes.pilot.Talent;
+import packages.CoreTypes.EntityMechanics.harmSystem.Harm;
+import packages.CoreTypes.EntityMechanics.stateSystem.State;
 
 // TODO: add some kind of way for Pilot and Mech's actions to bubble up
 /**

@@ -1,4 +1,4 @@
-package packages.CoreTypes.entityMechanics.entityTypes.pilot;
+package packages.CoreTypes.EntityMechanics.entityTypes.pilot;
 
 /**
  * Represents a single bond. Contains information about the bond's id, name,

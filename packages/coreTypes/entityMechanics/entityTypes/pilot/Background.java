@@ -1,7 +1,7 @@
-package packages.CoreTypes.entityMechanics.entityTypes.pilot;
+package packages.CoreTypes.EntityMechanics.entityTypes.pilot;
 
 import main.HelperMethods;
-import packages.CoreTypes.entityMechanics.entityTypes.pilot.skillTriggersList.skillTrigger.Skill;
+import packages.CoreTypes.EntityMechanics.entityTypes.pilot.skillTriggersList.skillTrigger.Skill;
 
 /**
  * Represents a single background. Contains information about that background's

@@ -1,4 +1,4 @@
-package packages.CoreTypes.entityMechanics.harmSystem;
+package packages.CoreTypes.EntityMechanics.harmSystem;
 
 import main.HelperMethods;
 import main.roll.DiceExpression;
