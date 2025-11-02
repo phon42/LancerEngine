@@ -90,10 +90,10 @@ public final class Loadout {
     }
     /**
      * Sets this.pilotWeapons to the provided value.
-     * @param pilotWeapons a String[] which cannot be null, must be of length 2,
-     *     and cannot contain a null element.
-     * @throws IllegalArgumentException if pilotWeapons is null, of length other
-     *     than 2, or contains a null element.
+     * @param pilotWeapons a String[] which cannot be null and must be of length
+     *     2.
+     * @throws IllegalArgumentException if pilotWeapons is null or of length
+     *     other than 2.
      */
     public void setPilotWeapons(PilotWeapon[] pilotWeapons) {
         HelperMethods.checkObject("New pilot weapons value",
@@ -107,10 +107,9 @@ public final class Loadout {
     }
     /**
      * Sets this.pilotGear to the provided value.
-     * @param pilotGear a String[] which cannot be null, must be of length 3,
-     *     and cannot contain a null element.
-     * @throws IllegalArgumentException if pilotGear is null, of length other
-     *     than 3, or contains a null element.
+     * @param pilotGear a String[] which cannot be null and must be of length 3.
+     * @throws IllegalArgumentException if pilotGear is null or of length other
+     *     than 3.
      */
     public void setPilotGear(PilotGear[] pilotGear) {
         HelperMethods.checkObject("New pilot gear value",
