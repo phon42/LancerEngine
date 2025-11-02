@@ -355,6 +355,16 @@ public final class Database {
         throw new IllegalArgumentException("No rule found for rule name: "
             + ruleName);
     }
+    public static Sitrep getSitrep(String sitrepID) {
+        HelperMethods.checkObject("sitrepID", sitrepID);
+        for (Sitrep sitrep : Database.sitreps) {
+            if (sitrepID.equals(sitrep.getID())) {
+                return new Sitrep(sitrep);
+            }
+        }
+        throw new IllegalArgumentException("No sitrep found for sitrep ID: "
+            + sitrepID);
+    }
     public static State getState(String stateName) {
         HelperMethods.checkObject("stateName", stateName);
         for (State state : Database.states) {
