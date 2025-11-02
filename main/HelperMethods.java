@@ -55,14 +55,17 @@ public final class HelperMethods {
      * @throws IllegalArgumentException if divisor is 0.
      */
     public static int div(int dividend, int divisor) {
+        // can remove the "int"s from the return type, parameter types, the
+        //     casts of abs(dividend) and divisor, and finally, the return
+        //     statement at the bottom, if you want to divide long variables
         int dividendSign;
         int divisorSign;
         int resultSign;
 
         if (divisor == 0) {
             throw new IllegalArgumentException("divisor is 0. Cannot compute"
-                + " because x / 0 is undefined according to the laws of math."
-                + " Also it would throw an ArithmeticException");
+                + " because " + dividend + " / 0 is undefined according to the"
+                + " laws of math. Also it would throw an ArithmeticException");
         }
         if (dividend == 0) {
             return 0;
@@ -85,11 +88,14 @@ public final class HelperMethods {
 
         // this is part of step (2) - we convert dividend and divisor to
         //     |dividend| and |divisor|, then feed that to div(int, int, int)
-        dividend = Math.abs(dividend);
-        divisor = Math.abs(divisor);
+        dividend = (int) abs(dividend);
+        divisor = (int) abs(divisor);
 
         // this is the rest of step (2) as well as step (3)
-        return div(dividend, divisor, resultSign);
+        return (int) div(dividend, divisor, resultSign);
+    }
+    private static long abs(long input) {
+        return input >= 0 ? input : -input;
     }
     /**
      * A helper method for div(int, int). Computes (dividend) divided by
@@ -101,31 +107,81 @@ public final class HelperMethods {
      * @param resultSign an int which must be +1 or -1.
      * @return an int containing the result of the operation.
      */
-    private static int div(int dividend, int divisor, int resultSign) {
-        double divisionResult;
-        int roundedResult;
-        int result;
+    private static long div(long dividend, long divisor, int resultSign) {
+        long newDividend = dividend;
+        long result = 0;
+        long[] stepResult;
+        long powerOf10 = 0;
 
-        if (divisor == 0) {
-            throw new IllegalArgumentException("divisor is 0. Cannot compute"
-                + " because x / 0 is undefined according to the laws of math."
-                + " Also it would throw an ArithmeticException");
+        // this is the rest of step (2) as defined in HelperMethods.div(int,
+        //     int)
+        if (dividend == divisor) {
+            return 1;
         }
-        if (dividend == 0) {
-            return 0;
+        while (powerOf10 < 2) {
+            if (newDividend < 0) {
+                throw new IllegalArgumentException("something went wrong");
+            } else if (newDividend == 0) {
+                powerOf10 += 1;
+                newDividend *= 10;
+                result *= 10;
+                result += 0;
+                continue;
+            }
+            stepResult = divisionStep(newDividend, divisor);
+            powerOf10 += stepResult[1];
+            newDividend *= pow10(log10(stepResult[0]) + stepResult[1]);
+            newDividend -= divisor * stepResult[0];
+            result *= pow10(log10(stepResult[0]) + stepResult[1]);
+            result += stepResult[0];
         }
-        if (resultSign != 1 && resultSign != -1) {
-            throw new IllegalArgumentException("resultSign: " + resultSign
-                + " is not +1 or -1");
-        }
-        // these next two lines are the rest of step (2) as defined in
-        //     HelperMethods.div(int, int)
-        divisionResult = dividend / (double) divisor;
-        roundedResult = (int) Math.round(divisionResult);
+        result = (result / 100) + (result % 100 >= 50 ? 1 : 0);
         // this is step (3) as defined in HelperMethods.div(int, int)
-        result = resultSign * roundedResult;
+        result *= resultSign;
 
         return result;
+    }
+    private static long[] divisionStep(long dividend, long divisor) {
+        long scale = 0;
+        long result;
+        
+        while (dividend < divisor) {
+            // i.e. 4 / 6
+            dividend *= 10;
+            scale++;
+        }
+        result = dividend / divisor;
+
+        return new long[] {result, scale};
+    }
+    private static long pow10(long exponent) {
+        long result = 1;
+
+        if (exponent < 0) {
+            throw new IllegalArgumentException("exponent value: " + exponent
+                + " is < 0");
+        }
+        for (int i = 0; i < exponent; i++) {
+            result *= 10;
+        }
+
+        return result;
+    }
+    private static long log10(long input) {
+        // returns Math.floor(Math.log10(input)), assuming input is >= 1
+        long log = 1;
+        long num = 0;
+
+        if (input <= 0) {
+            throw new IllegalArgumentException("input value: " + input
+                + " <= 0");
+        }
+        while (log <= input) {
+            log *= 10;
+            num++;
+        }
+        
+        return num - 1;
     }
     /**
      * Checks a provided String[] to see if it is null, contains null elements,
