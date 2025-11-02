@@ -21,7 +21,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Backgroun
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Bond;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.CoreBonus;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Reserve;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Talent;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.talent.TalentData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment.PilotArmor;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment.PilotGear;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment.PilotWeapon;
@@ -103,7 +103,7 @@ public class DataCompiler {
     private static Skill[] skillData;
     private static State[] stateData;
     private static Status[] statusData;
-    private static Talent[] talentData;
+    private static TalentData[] talentData;
     // ----less important
     private static Environment[] environmentData;
     private static Sitrep[] sitrepData;
@@ -184,7 +184,7 @@ public class DataCompiler {
         DataCompiler.skillData = (Skill[]) data[16];
         DataCompiler.stateData = (State[]) data[17];
         DataCompiler.statusData = (Status[]) data[18];
-        DataCompiler.talentData = (Talent[]) data[19];
+        DataCompiler.talentData = (TalentData[]) data[19];
         // ----less important
         DataCompiler.environmentData = (Environment[]) data[20];
         DataCompiler.sitrepData = (Sitrep[]) data[21];
@@ -288,13 +288,15 @@ public class DataCompiler {
                         // GMS content
                         frameLicenses[numLicenses] =
                             new FrameLicense(
-                                Database.getManufacturer("GMS"),
-                                "gms content"
+                                "gms",
+                                "gms content",
+                                Database.getManufacturer("GMS")
                             );
                     } else {
                         // non-GMS content
                         frameLicenses[numLicenses] = new FrameLicense(
-                            content[i].getSource(), content[i].getLicense());
+                            content[i].getLicenseID(), content[i].getLicense(),
+                            content[i].getSource());
                     }
                     numLicenses++;
                 }
@@ -411,7 +413,7 @@ public class DataCompiler {
         DataCompiler.skillData = new Skill[0];
         DataCompiler.stateData = new State[0];
         DataCompiler.statusData = new Status[0];
-        DataCompiler.talentData = new Talent[0];
+        DataCompiler.talentData = new TalentData[0];
         // ----less important
         DataCompiler.environmentData = new Environment[0];
         DataCompiler.sitrepData = new Sitrep[0];
