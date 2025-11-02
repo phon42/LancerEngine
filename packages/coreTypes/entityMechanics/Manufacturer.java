@@ -68,6 +68,15 @@ public class Manufacturer {
         setQuote(quote);
         setDescription(description);
     }
+    public Manufacturer(Manufacturer manufacturer) {
+        setID(manufacturer.id);
+        setName(manufacturer.name);
+        setLogo(manufacturer.logo);
+        setLight(manufacturer.light);
+        setDark(manufacturer.dark);
+        setQuote(manufacturer.quote);
+        setDescription(manufacturer.description);
+    }
 
     public String getID() {
         return id;
