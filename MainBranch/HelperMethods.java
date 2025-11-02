@@ -29,6 +29,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.talent.Ta
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment.PilotArmor;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment.PilotGear;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment.PilotWeapon;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.SkillTrigger;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skillTrigger.Skill;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.Damage;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.damage.Harm;
@@ -1382,8 +1383,8 @@ public final class HelperMethods {
     }
     /**
      * Returns a deepest copy of original.
-     * @param original a SkillTrigger[] that cannot be null.
-     * @return a SkillTrigger[] deepest copy of original.
+     * @param original a Skill[] that cannot be null.
+     * @return a Skill[] deepest copy of original.
      * @throws IllegalArgumentException if original is null.
      */
     public static Skill[] copyOf(Skill[] original) {
@@ -1395,6 +1396,25 @@ public final class HelperMethods {
                 continue;
             }
             copy[i] = new Skill(original[i]);
+        }
+
+        return copy;
+    }
+    /**
+     * Returns a deepest copy of original.
+     * @param original a SkillTrigger[] that cannot be null.
+     * @return a SkillTrigger[] deepest copy of original.
+     * @throws IllegalArgumentException if original is null.
+     */
+    public static SkillTrigger[] copyOf(SkillTrigger[] original) {
+        checkObject("original", original);
+        SkillTrigger[] copy = new SkillTrigger[original.length];
+        for (int i = 0; i < original.length; i++) {
+            if (original[i] == null) {
+                copy[i] = original[i];
+                continue;
+            }
+            copy[i] = new SkillTrigger(original[i]);
         }
 
         return copy;
