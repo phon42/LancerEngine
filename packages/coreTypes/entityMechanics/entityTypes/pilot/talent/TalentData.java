@@ -17,6 +17,7 @@ import packages.coreTypes.entityMechanics.entityTypes.pilot.Talent;
  *     placeholder. None of its properties have allowed values of null.
  */
 public final class TalentData {
+    private String id;
     /**
      * The name of the talent (i.e. "ace").
      * Case-insensitive and stored in lowercase. Can be any String except "".
@@ -24,11 +25,11 @@ public final class TalentData {
      * Use Talent.getName() to get the raw value and Talent.outputName() to
      *     obtain it properly formatted.
      */
-    public String name;
-    /**
-     * Must be between 1 and 3 (inclusive).
-     */
-    public int level;
+    private String name;
+    private String icon;
+    private String terse;
+    private String description;
+    private TalentRank[] ranks;
 
     /**
      * Creates a new Talent with the provided talent name and talent level.
@@ -48,32 +49,19 @@ public final class TalentData {
         this(talent.name, talent.level);
     }
 
+    public String getID() {
+        return id;
+    }
     public String getName() {
         return name;
     }
-    public int getLevel() {
-        return level;
+    public void setID(String id) {
+        this.id = id;
     }
     private void setName(String name) {
         HelperMethods.checkString("New name", name);
         name = name.toLowerCase();
         this.name = name;
-    }
-    /**
-     * Sets this.level to the provided value.
-     * @param level an int which must be 1, 2, or 3.
-     * @throws IllegalArgumentException if level is not 1, 2, or 3.
-     */
-    private void setLevel(int level) {
-        if (level < 1) {
-            throw new IllegalArgumentException("New level value: " + level
-                + " is < 1");
-        }
-        if (level > 3) {
-            throw new IllegalArgumentException("New level value: " + level
-                + " is > 3");
-        }
-        this.level = level;
     }
 
     /**

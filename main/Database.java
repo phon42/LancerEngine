@@ -24,7 +24,7 @@ import packages.coreTypes.entityMechanics.entityTypes.pilot.Background;
 import packages.coreTypes.entityMechanics.entityTypes.pilot.Bond;
 import packages.coreTypes.entityMechanics.entityTypes.pilot.CoreBonus;
 import packages.coreTypes.entityMechanics.entityTypes.pilot.Reserve;
-import packages.coreTypes.entityMechanics.entityTypes.pilot.Talent;
+import packages.coreTypes.entityMechanics.entityTypes.pilot.talent.TalentData;
 import packages.coreTypes.entityMechanics.entityTypes.pilot.loadout.pilotEquipment.PilotArmor;
 import packages.coreTypes.entityMechanics.entityTypes.pilot.loadout.pilotEquipment.PilotGear;
 import packages.coreTypes.entityMechanics.entityTypes.pilot.loadout.pilotEquipment.PilotWeapon;
@@ -154,7 +154,7 @@ public final class Database {
     /**
      * add documentation
      */
-    private static Talent[] talents;
+    private static TalentData[] talents;
     /**
      * add documentation
      */
@@ -202,7 +202,7 @@ public final class Database {
         Database.systems = new MechSystem[0];
         Database.tables = new Table[0];
         Database.tags = new Tag[0];
-        Database.talents = new Talent[0];
+        Database.talents = new TalentData[0];
         Database.terms = new Term[0];
         Database.weapons = new Weapon[0];
         Database.frameLicenses = new FrameLicense[0];
@@ -446,23 +446,15 @@ public final class Database {
         throw new IllegalArgumentException("No tag found for tag ID: "
             + tagID);
     }
-    /**
-     * Searches for a piece of pilot armor given its name.
-     * @param pilotArmorName a String containing the name of the pilot armor to
-     *     be searched for.
-     * @return an int[] of the requested pilot armor's stats.
-     * @throws IllegalArgumentException if the requested pilot armor was not
-     *     found.
-     */
-    public static int[] getPilotArmorStats(String pilotArmorName) {
-        for (int i = 0; i < Database.pilotArmorNames.length; i++) {
-            if (Database.pilotArmorNames[i].equals(pilotArmorName)) {
-                return HelperMethods.copyOf(Database.pilotArmorStats[i]);
+    public static TalentData getTalent(String talentID) {
+        HelperMethods.checkObject("talentID", talentID);
+        for (TalentData talent : Database.talents) {
+            if (talentID.equals(talent.getID())) {
+                return new TalentData(talent);
             }
         }
-
-        throw new IllegalArgumentException("No pilot armor found for pilot"
-            + " armor name: \"" + pilotArmorName + "\"");
+        throw new IllegalArgumentException("No talent found for talent ID: "
+            + talentID);
     }
     public static Term getTerm(String termName) {
         HelperMethods.checkObject("termName", termName);
@@ -736,11 +728,11 @@ public final class Database {
         Database.tags = HelperMethods.append(Database.tags, tag);
     }
     /**
-     * Adds the provided Talent to Database.talents.
-     * @param talent a Talent which cannot be null.
+     * Adds the provided TalentData to Database.talents.
+     * @param talent a TalentData which cannot be null.
      * @throws IllegalArgumentException if talent is null.
      */
-    public static void addTalent(Talent talent) {
+    public static void addTalent(TalentData talent) {
         checkOpen();
         HelperMethods.checkObject("talent", talent);
         Database.talents = HelperMethods.append(Database.talents, talent);
