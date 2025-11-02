@@ -10,7 +10,6 @@ import packages.coreTypes.entityMechanics.entityTypes.pilot.Talent;
 import packages.coreTypes.entityMechanics.entityTypes.pilot.skillTriggersList.Skill;
 import packages.coreTypes.entityMechanics.harmSystem.Damage;
 import packages.coreTypes.entityMechanics.harmSystem.Harm;
-import packages.coreTypes.entityMechanics.stateSystem.State;
 import packages.coreTypes.entityMechanics.stateSystem.state.Condition;
 import packages.coreTypes.entityMechanics.stateSystem.state.Status;
 
@@ -216,14 +215,14 @@ public final class Pilot implements Damageable {
      *     Status.allowedPilotStatuses.
      * Cannot be null.
      */
-    private State[] statuses;
+    private Status[] statuses;
     /**
      * Any conditions affecting the pilot (i.e. "immobilized" as a Condition).
      * Each element must have a valid Condition.type property as defined by
      *     Condition.allowedConditions.
      * Cannot be null.
      */
-    private State[] conditions;
+    private Condition[] conditions;
 
     /**
      * The number of stacks of burn currently affecting the pilot (i.e. 6).
@@ -272,8 +271,8 @@ public final class Pilot implements Damageable {
         setTalents(new Talent[0]);
 
         // ---Extra stuff---------
-        setStatuses(new State[0]);
-        setConditions(new State[0]);
+        setStatuses(new Status[0]);
+        setConditions(new Condition[0]);
         setBurn(0);
     }
     /**
@@ -285,8 +284,8 @@ public final class Pilot implements Damageable {
         String playerNotes, int currentHP, SkillTriggersList skillTriggers,
         String[] reserves, Loadout loadout, int licenseLevel,
         License[] licenseList, String[] specialEquipment, int[] mechSkills,
-        String[] coreBonuses, Talent[] talents, State[] statuses,
-        State[] conditions, int burn) {
+        String[] coreBonuses, Talent[] talents, Status[] statuses,
+        Condition[] conditions, int burn) {
         // ---Dossier-------------------
         setName(pilotName);
         setCallsign(pilotCallsign);
@@ -439,10 +438,10 @@ public final class Pilot implements Damageable {
     public Talent[] getTalents() {
         return HelperMethods.copyOf(talents);
     }
-    public State[] getStatuses() {
+    public Status[] getStatuses() {
         return HelperMethods.copyOf(statuses);
     }
-    public State[] getConditions() {
+    public Condition[] getConditions() {
         return HelperMethods.copyOf(conditions);
     }
     public int getBurn() {
@@ -749,19 +748,19 @@ public final class Pilot implements Damageable {
     }
     /**
      * Sets this.statuses to the provided value.
-     * @param statuses a State[] which cannot be null or contain elements with
-     *     invalid Status.type values as defined by Status.allowedPilotStatuses.
+     * @param statuses a Status[] which cannot be null or contain elements with
+     *     invalid Status.name values as defined by Status.allowedPilotStatuses.
      * @throws IllegalArgumentException if statuses is null or contains elements
-     *     with invalid Status.type values as defined by
+     *     with invalid Status.name values as defined by
      *     Status.allowedPilotStatuses.
      */
-    public void setStatuses(State[] statuses) {
+    public void setStatuses(Status[] statuses) {
         boolean isValidStatus = false;
         String statusString = "";
 
         HelperMethods.checkObjectArray("New statuses", statuses);
-        for (State status : statuses) {
-            statusString = status.getType();
+        for (Status status : statuses) {
+            statusString = status.getName();
             for (String allowedStatus : Status.allowedPilotStatuses) {
                 if (statusString.equals(allowedStatus)) {
                     isValidStatus = true;
@@ -769,7 +768,7 @@ public final class Pilot implements Damageable {
             }
             if (! isValidStatus) {
                 throw new IllegalArgumentException("New statuses array contains"
-                    + " an element with an invalid Status.type value: \""
+                    + " an element with an invalid Status.name value: \""
                     + statusString + "\"");
             }
         }
@@ -778,21 +777,21 @@ public final class Pilot implements Damageable {
     }
     /**
      * Sets this.conditions to the provided value.
-     * @param conditions a State[] which cannot be null or contain elements with
-     *     invalid Condition.type values as defined by
+     * @param conditions a Condition[] which cannot be null or contain elements
+     *     with invalid Condition.name values as defined by
      *     Condition.allowedConditions.
      * @throws IllegalArgumentException if conditions is null or contains
-     *     elements with invalid Condition.type values as defined by
+     *     elements with invalid Condition.name values as defined by
      *     Condition.allowedConditions.
      */
-    public void setConditions(State[] conditions) {
+    public void setConditions(Condition[] conditions) {
         boolean isValidCondition = false;
         String conditionString = "";
 
         HelperMethods.checkObjectArray("New conditions",
             conditions);
-        for (State condition : conditions) {
-            conditionString = condition.getType();
+        for (Condition condition : conditions) {
+            conditionString = condition.getName();
             for (String allowedCondition : Condition.allowedConditions) {
                 if (conditionString.equals(allowedCondition)) {
                     isValidCondition = true;
@@ -800,7 +799,7 @@ public final class Pilot implements Damageable {
             }
             if (! isValidCondition) {
                 throw new IllegalArgumentException("New conditions array"
-                    + " contains an element with an invalid Condition.type"
+                    + " contains an element with an invalid Condition.name"
                     + " property: \"" + conditionString + "\"");
             }
         }
@@ -892,31 +891,31 @@ public final class Pilot implements Damageable {
     }
     /**
      * Adds the provided status to this.statuses.
-     * @param newStatus a State containing the new status. Must have a valid
-     *     Status.type property as defined by Status.allowedPilotStatuses.
+     * @param newStatus a Status containing the new status. Must have a valid
+     *     Status.name property as defined by Status.allowedPilotStatuses.
      * @param addDuplicate a boolean representing whether or not to add a second
-     *     version of the same status if a status of the same type is already
+     *     version of the same status if a status of the same name is already
      *     present in this.statuses.
-     * @throws IllegalArgumentException if newStatus has a Status.type property
+     * @throws IllegalArgumentException if newStatus has a Status.name property
      *     that is invalid as defined by Status.allowedPilotStatuses.
      */
-    public void addStatus(State newStatus, boolean addDuplicate) {
+    public void addStatus(Status newStatus, boolean addDuplicate) {
         boolean isValid = false;
         boolean containsStatus = false;
 
         for (String status : Status.allowedPilotStatuses) {
-            if (newStatus.getType().equals(status)) {
+            if (newStatus.getName().equals(status)) {
                 isValid = true;
                 break;
             }
         }
         if (! isValid) {
-            throw new IllegalArgumentException("newStatus' Status.type"
-                + " property: \"" + newStatus.getType() + "\" is an invalid"
+            throw new IllegalArgumentException("newStatus' Status.name"
+                + " property: \"" + newStatus.getName() + "\" is an invalid"
                 + " status");
         }
-        for (State status : this.statuses) {
-            if (status.getType().equals(newStatus.getType())) {
+        for (Status status : this.statuses) {
+            if (status.getName().equals(newStatus.getName())) {
                 containsStatus = true;
             }
         }
@@ -926,48 +925,49 @@ public final class Pilot implements Damageable {
         }
     }
     /**
-     * A helper method for addStatus(State, boolean). Allows the method to be
+     * A helper method for addStatus(Status, boolean). Allows the method to be
      *     called with a default value of false for the boolean.
-     * @param status a State containing the new status. Must have a valid
-     *     Status.type property as defined by Status.allowedPilotStatuses.
+     * @param status a Status containing the new status. Must have a valid
+     *     Status.name property as defined by Status.allowedPilotStatuses.
      */
-    public void addStatus(State status) {
+    public void addStatus(Status status) {
         addStatus(status, false);
     }
     /**
      * Removes the provided status from this.statuses.
-     * @param oldStatus a State containing the status to be removed. Must have a
-     *     valid Status.type property as defined by Status.allowedPilotStatuses.
+     * @param oldStatus a Status containing the status to be removed. Must have
+     *     a valid Status.name property as defined by
+     *     Status.allowedPilotStatuses.
      * @param removeAll a boolean representing whether to remove all statuses
-     *     with the same Status.type property as oldStatus if multiple statuses
+     *     with the same Status.name property as oldStatus if multiple statuses
      *     of the same type are present, or just the specified one.
-     * @throws IllegalArgumentException if oldStatus has an invalid Status.type
+     * @throws IllegalArgumentException if oldStatus has an invalid Status.name
      *     property as defined by Status.allowedPilotStatuses.
      */
-    public void removeStatus(State oldStatus, boolean removeAll) {
+    public void removeStatus(Status oldStatus, boolean removeAll) {
         boolean isValid = false;
         boolean areSame = false;
-        State[] newStatuses;
+        Status[] newStatuses;
 
         for (String status : Status.allowedPilotStatuses) {
-            if (oldStatus.getType().equals(status)) {
+            if (oldStatus.getName().equals(status)) {
                 isValid = true;
                 break;
             }
         }
         if (! isValid) {
             throw new IllegalArgumentException("oldStatus has an invalid"
-                + " Status.type property: \"" + oldStatus.getType() + "\"");
+                + " Status.name property: \"" + oldStatus.getName() + "\"");
         }
         for (int i = 0; i < this.statuses.length; i++) {
             if (removeAll) {
-                areSame = this.statuses[i].getType().equals(
-                    oldStatus.getType());
+                areSame = this.statuses[i].getName().equals(
+                    oldStatus.getName());
             } else {
                 areSame = this.statuses[i].equals(oldStatus);
             }
             if (areSame) {
-                newStatuses = new State[this.statuses.length - 1];
+                newStatuses = new Status[this.statuses.length - 1];
                 for (int j = 0; j < this.statuses.length; j++) {
                     if (j < i) {
                         newStatuses[j] = this.statuses[j];
@@ -985,34 +985,37 @@ public final class Pilot implements Damageable {
         }
     }
     /**
-     * Helper method for removeStatus(State, boolean). Allows the method to be
+     * Helper method for removeStatus(Status, boolean). Allows the method to be
      *     run with a default value of false for the boolean.
-     * @param oldStatus a State containing the status to be removed. Must have a
-     *     valid Status.type property as defined by Status.allowedPilotStatuses.
+     * @param oldStatus a Status containing the status to be removed. Must have
+     *     a valid Status.name property as defined by
+     *     Status.allowedPilotStatuses.
      */
-    public void removeStatus(State oldStatus) {
+    public void removeStatus(Status oldStatus) {
         removeStatus(oldStatus, false);
     }
     /**
      * Recursively checks whether any of this.conditions or this.status have a
-     *     State.type value of stateType, or whether any of the States they
+     *     State.name value of stateType, or whether any of the States they
      *     caused have such a value, and so on.
-     * @param stateType a String containing a State.type value to search for.
+     * @param stateType a String containing a State.name value to search for.
      *     Must be a valid type as defined by State.allowedTypes.
      * @return a boolean containing the result of the check.
      */
     public boolean hasState(String stateType) {
         boolean isPresent = false;
 
-        for (State condition : this.conditions) {
-            isPresent = isPresent || condition.getType().equals(stateType);
+        HelperMethods.checkObject("stateType", stateType);
+        // TODO: check for stateType being valid
+        for (Condition condition : this.conditions) {
+            isPresent = isPresent || condition.getName().equals(stateType);
             isPresent = isPresent || condition.hasState(stateType);
         }
         if (isPresent) {
             return isPresent;
         }
-        for (State status : this.statuses) {
-            isPresent = isPresent || status.getType().equals(stateType);
+        for (Status status : this.statuses) {
+            isPresent = isPresent || status.getName().equals(stateType);
             isPresent = isPresent || status.hasState(stateType);
         }
 
@@ -1025,11 +1028,11 @@ public final class Pilot implements Damageable {
      *     version of the same condition if a condition of the same type is
      *     already present in this.conditions.
      */
-    public void addCondition(State newCondition, boolean addDuplicate) {
+    public void addCondition(Condition newCondition, boolean addDuplicate) {
         boolean containsCondition = false;
 
-        for (State condition : this.conditions) {
-            if (condition.getType().equals(newCondition.getType())) {
+        for (Condition condition : this.conditions) {
+            if (condition.getName().equals(newCondition.getName())) {
                 containsCondition = true;
             }
         }
@@ -1039,33 +1042,33 @@ public final class Pilot implements Damageable {
         }
     }
     /**
-     * A helper method for addCondition(State, boolean). Allows the method to
-     *     be called with a default value of false for the boolean.
-     * @param condition a State containing the new condition.
+     * A helper method for addCondition(Condition, boolean). Allows the method
+     *     to be called with a default value of false for the boolean.
+     * @param condition a Condition containing the new condition.
      */
-    public void addCondition(State condition) {
+    public void addCondition(Condition condition) {
         addCondition(condition, false);
     }
     /**
      * Removes the provided condition from this.conditions.
-     * @param oldCondition a State containing the condition to be removed.
+     * @param oldCondition a Condition containing the condition to be removed.
      * @param removeAll a boolean representing whether to remove all conditions
-     *     with the same Condition.type property as oldCondition if multiple
+     *     with the same Condition.name property as oldCondition if multiple
      *     conditions of the same type are present, or just the specified one.
      */
-    public void removeCondition(State oldCondition, boolean removeAll) {
+    public void removeCondition(Condition oldCondition, boolean removeAll) {
         boolean areSame = false;
-        State[] newConditions;
+        Condition[] newConditions;
 
         for (int i = 0; i < this.conditions.length; i++) {
             if (removeAll) {
-                areSame = this.conditions[i].getType().equals(
-                    oldCondition.getType());
+                areSame = this.conditions[i].getName().equals(
+                    oldCondition.getName());
             } else {
                 areSame = this.conditions[i].equals(oldCondition);
             }
             if (areSame) {
-                newConditions = new State[this.conditions.length - 1];
+                newConditions = new Condition[this.conditions.length - 1];
                 for (int j = 0; j < this.conditions.length; j++) {
                     if (j == i) {
                         continue;
@@ -1103,11 +1106,11 @@ public final class Pilot implements Damageable {
         setBurn(0);
     }
     /**
-     * Helper method for removeCondition(State, boolean). Allows the method to
-     *     be run with a default value of false for the boolean.
-     * @param oldCondition a State containing the condition to be removed.
+     * Helper method for removeCondition(Condition, boolean). Allows the method
+     *     to be run with a default value of false for the boolean.
+     * @param oldCondition a Condition containing the condition to be removed.
      */
-    public void removeCondition(State oldCondition) {
+    public void removeCondition(Condition oldCondition) {
         removeCondition(oldCondition, false);
     }
     /**
@@ -1272,10 +1275,10 @@ public final class Pilot implements Damageable {
      */
     public void down() {
         // See pg. 49
-        State downed = new Status("down and out", "Pilot (self)",
+        Status downed = new Status("down and out", "Pilot (self)",
             "until removed");
-        State stun = new Condition("stunned", "down and out status",
-            "source");
+        Condition stun = new Condition("stunned",
+            "down and out status", "source");
         
         downed.addEffect(stun);
         addStatus(downed);
