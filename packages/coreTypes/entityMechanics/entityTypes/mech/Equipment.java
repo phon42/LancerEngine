@@ -3,7 +3,7 @@ package packages.CoreTypes.EntityMechanics.EntityTypes.mech;
 import main.HelperMethods;
 import packages.CoreTypes.EntityMechanics.License;
 import packages.CoreTypes.EntityMechanics.Manufacturer;
-import packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.tagSystem.Tag;
+import packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.TagSystem.Tag;
 import packages.CoreTypes.EntityMechanics.licenseSystem.frameLicense.LicenseContent;
 
 /**

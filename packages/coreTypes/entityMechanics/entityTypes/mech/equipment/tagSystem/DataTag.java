@@ -1,4 +1,4 @@
-package packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.tagSystem;
+package packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.TagSystem;
 
 import main.HelperMethods;
 

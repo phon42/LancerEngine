@@ -1,7 +1,7 @@
 package packages.CoreTypes.EntityMechanics.EntityTypes.pilot.loadout;
 
-import packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.tagSystem.DataTag;
-import packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.tagSystem.Tag;
+import packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.TagSystem.DataTag;
+import packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.TagSystem.Tag;
 
 /**
  * Represents a single piece of pilot equipment of any kind (be that armor,
