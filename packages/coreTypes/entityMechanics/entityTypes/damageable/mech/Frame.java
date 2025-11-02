@@ -4,7 +4,7 @@ import main.Database;
 import main.HelperMethods;
 import packages.CoreTypes.EntityMechanics.License;
 import packages.CoreTypes.EntityMechanics.EntityTypes.mech.frame.FrameEnum;
-import packages.CoreTypes.EntityMechanics.licenseSystem.frameLicense.LicenseContent;
+import packages.CoreTypes.EntityMechanics.LicenseSystem.frameLicense.LicenseContent;
 
 /**
  * See pg. 32.

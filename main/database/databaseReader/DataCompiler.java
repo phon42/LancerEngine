@@ -26,8 +26,8 @@ import packages.CoreTypes.EntityMechanics.EntityTypes.pilot.loadout.pilotEquipme
 import packages.CoreTypes.EntityMechanics.EntityTypes.pilot.loadout.pilotEquipment.PilotGear;
 import packages.CoreTypes.EntityMechanics.EntityTypes.pilot.loadout.pilotEquipment.PilotWeapon;
 import packages.CoreTypes.EntityMechanics.EntityTypes.pilot.skillTriggersList.skillTrigger.Skill;
-import packages.CoreTypes.EntityMechanics.licenseSystem.FrameLicense;
-import packages.CoreTypes.EntityMechanics.licenseSystem.frameLicense.LicenseContent;
+import packages.CoreTypes.EntityMechanics.LicenseSystem.FrameLicense;
+import packages.CoreTypes.EntityMechanics.LicenseSystem.frameLicense.LicenseContent;
 import packages.CoreTypes.EntityMechanics.stateSystem.State;
 import packages.CoreTypes.EntityMechanics.stateSystem.state.Condition;
 import packages.CoreTypes.EntityMechanics.stateSystem.state.Status;

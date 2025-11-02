@@ -30,7 +30,7 @@ import packages.CoreTypes.EntityMechanics.EntityTypes.pilot.loadout.pilotEquipme
 import packages.CoreTypes.EntityMechanics.EntityTypes.pilot.skillTriggersList.skillTrigger.Skill;
 import packages.CoreTypes.EntityMechanics.EntityTypes.pilot.talent.TalentData;
 import packages.CoreTypes.EntityMechanics.HarmSystem.damage.Harm;
-import packages.CoreTypes.EntityMechanics.licenseSystem.FrameLicense;
+import packages.CoreTypes.EntityMechanics.LicenseSystem.FrameLicense;
 import packages.CoreTypes.EntityMechanics.stateSystem.State;
 import packages.CoreTypes.EntityMechanics.stateSystem.state.Condition;
 import packages.CoreTypes.EntityMechanics.stateSystem.state.Status;

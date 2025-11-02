@@ -1,4 +1,4 @@
-package packages.CoreTypes.EntityMechanics.licenseSystem.frameLicense;
+package packages.CoreTypes.EntityMechanics.LicenseSystem.frameLicense;
 
 import main.HelperMethods;
 import packages.CoreTypes.EntityMechanics.License;
