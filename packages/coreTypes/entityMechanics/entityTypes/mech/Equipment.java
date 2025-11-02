@@ -43,12 +43,26 @@ public class Equipment extends LicenseContent {
      * @param equipmentLicense a License which can be any License. Cannot be
      *     null.
      */
-    protected Equipment(String equipmentName,
-        Manufacturer equipmentManufacturer, License equipmentLicense) {
-        setName(equipmentName);
-        setSource(equipmentManufacturer);
-        setOriginLicense(equipmentLicense);
-        setTags(new Tag[0]);
+    protected Equipment(String equipmentID, String equipmentName,
+        Manufacturer equipmentManufacturer, License equipmentOriginLicense,
+        String equipmentLicense, int equipmentLicenseLevel,
+        String equipmentLicenseID, String equipmentDescription,
+        Tag[] equipmentTags) {
+        super(equipmentID, equipmentName, equipmentManufacturer,
+            equipmentOriginLicense, equipmentLicense, equipmentLicenseLevel,
+            equipmentLicenseID, equipmentDescription);
+        if (this.source.getID().equals("GMS")) {
+            setTags(new Tag[0]);
+        } else {
+            setTags(equipmentTags);
+        }
+    }
+    protected Equipment(String equipmentID, String equipmentName,
+        Manufacturer equipmentManufacturer, String equipmentDescription) {
+        this(equipmentID, equipmentName, equipmentManufacturer,
+            null, null,
+            0, null,
+            null, null);
     }
 
     /**
