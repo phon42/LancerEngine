@@ -140,10 +140,15 @@ public final class Main {
             new Talent("Leader", 2)
         });
         pilotProperties.put("loadout", new Loadout(
-            "Mobility Hardsuit", new String[] {"Heavy Signature",
-                "Archaic Melee"}, new String[] {"Wilderness Survival Kit",
-                    "Flexsuit", "Personal Drone"
-                }
+            Database.getPilotArmor("pg_mobility_hardsuit"),
+            new PilotWeapon[] {
+                Database.getPilotWeapon("pg_heavy_signature"),
+                Database.getPilotWeapon("pg_archaic_melee")
+            }, new PilotGear[] {
+                Database.getPilotGear("pg_wilderness_survival_kit"),
+                Database.getPilotGear("pg_flexsuit"),
+                Database.getPilotGear("pg_personal_drone")
+            }
         ));
         myCharacter.setPilotProperties(pilotProperties);
 
