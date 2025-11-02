@@ -23,11 +23,11 @@ public final class Talent {
      * Use Talent.getName() to get the raw value and Talent.outputName() to
      *     obtain it properly formatted.
      */
-    public String name;
+    private String name;
     /**
      * Must be between 1 and 3 (inclusive).
      */
-    public int level;
+    private int level;
 
     /**
      * Creates a new Talent with the provided talent name and talent level.
