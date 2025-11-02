@@ -9,6 +9,8 @@ import packages.coreTypes.Term;
 import packages.coreTypes.entityMechanics.Action;
 import packages.coreTypes.entityMechanics.License;
 import packages.coreTypes.entityMechanics.Manufacturer;
+import packages.coreTypes.entityMechanics.NPCFeature;
+import packages.coreTypes.entityMechanics.NPCTemplate;
 import packages.coreTypes.entityMechanics.RangeTag;
 import packages.coreTypes.entityMechanics.entityTypes.mech.Frame;
 import packages.coreTypes.entityMechanics.entityTypes.mech.Mount;
@@ -19,6 +21,7 @@ import packages.coreTypes.entityMechanics.entityTypes.mech.equipment.Weapon;
 import packages.coreTypes.entityMechanics.entityTypes.mech.equipment.tagSystem.Tag;
 import packages.coreTypes.entityMechanics.entityTypes.mech.frame.FrameEnum;
 import packages.coreTypes.entityMechanics.entityTypes.pilot.Background;
+import packages.coreTypes.entityMechanics.entityTypes.pilot.Bond;
 import packages.coreTypes.entityMechanics.entityTypes.pilot.CoreBonus;
 import packages.coreTypes.entityMechanics.entityTypes.pilot.Reserve;
 import packages.coreTypes.entityMechanics.entityTypes.pilot.Talent;
@@ -63,6 +66,10 @@ public final class Database {
     /**
      * add documentation
      */
+    private static Bond[] bonds;
+    /**
+     * add documentation
+     */
     private static Condition[] conditions;
     /**
      * add documentation
@@ -88,6 +95,14 @@ public final class Database {
      * add documentation
      */
     private static Modification[] modifications;
+    /**
+     * add documentation
+     */
+    private static NPCFeature[] npcFeatures;
+    /**
+     * add documentation
+     */
+    private static NPCTemplate[] npcTemplates;
     /**
      * add documentation
      */
@@ -238,22 +253,26 @@ public final class Database {
         throw new IllegalArgumentException("No background found for background"
             + " ID: " + backgroundID);
     }
-        // name being "" is dealt with by HelperMethods.append()
-        // manufacturer being "" or null is dealt with by FrameLicense()
-        // so checking those is not necessary
-        name = name.toLowerCase();
-        Database.licenseList = HelperMethods.append(Database.licenseList, name);
-
-        return new FrameLicense(manufacturer, name);
+    public static Condition getCondition(String conditionName) {
+        HelperMethods.checkObject("conditionName", conditionName);
+        for (Condition condition : Database.conditions) {
+            if (conditionName.equals(condition.getName())) {
+                return new Condition(condition);
+            }
+        }
+        throw new IllegalArgumentException("No condition found for condition"
+            + " name: " + conditionName);
     }
-    /**
-     * Searches for a license with a name matching the provided license name.
-     *     Returns whether the license was found.
-     * @param licenseName a String containing the license name of the license
-     *     the user wants to know whether Database.licenseList contains.
-     * @return a boolean representing whether the license was found.
-     * @throws IllegalArgumentException if licenseName is null or "".
-     */
+    public static CoreBonus getCoreBonus(String coreBonusID) {
+        HelperMethods.checkObject("coreBonusID", coreBonusID);
+        for (CoreBonus coreBonus : Database.coreBonuses) {
+            if (coreBonusID.equals(coreBonus.getID())) {
+                return new CoreBonus(coreBonus);
+            }
+        }
+        throw new IllegalArgumentException("No core bonus found for core bonus"
+            + " ID: " + coreBonusID);
+    }
     public static DataTag getDataTag(String dataTagID) {
         HelperMethods.checkObject("dataTagID", dataTagID);
         for (DataTag dataTag : Database.dataTags) {
@@ -284,96 +303,87 @@ public final class Database {
         throw new IllegalArgumentException("No frame found for frame ID: "
             + frameID);
     }
-     * @throws IllegalArgumentException if manufacturerName is null or "".
-     */
-    public static boolean isValidManufacturer(String manufacturerName) {
-        HelperMethods.checkString("manufacturerName",
-            manufacturerName);
-        for (int i = 0; i < Database.manufacturerList.length; i++) {
-            if (Database.manufacturerList[i].equals(manufacturerName)) {
-                return true;
+    public static Manufacturer getManufacturer(String manufacturerID) {
+        HelperMethods.checkObject("manufacturerID",
+            manufacturerID);
+        manufacturerID = manufacturerID.toUpperCase();
+        for (Manufacturer manufacturer : Database.manufacturers) {
+            if (manufacturerID.equals(manufacturer.getID())) {
+                return new Manufacturer(manufacturer);
             }
         }
-
-        return false;
+        throw new IllegalArgumentException("No manufacturer found for"
+            + " manufacturer ID: " + manufacturerID);
     }
-    /**
-     * Searches for and returns a Frame matching the provided search ID.
-     * @param searchID a String containing the frame ID of the Frame the user
-     *     wants.
-     * @return a Frame containing the Frame the user wants.
-     * @throws IllegalArgumentException if searchID is null, "", or if no Frame
-     *     is found matching the provided search ID.
-     */
-    public static Frame getFrame(String searchID) {
-        String frameID;
-    
-        HelperMethods.checkString("searchID", searchID);
-        searchID = searchID.toLowerCase();
-        for (int i = 0; i < Database.frameList.length; i++) {
-            frameID = Database.frameList[i].getID();
-            if (frameID.equals(searchID)) {
-                return new Frame(Database.frameList[i]);
+    public static PilotArmor getPilotArmor(String pilotArmorID) {
+        HelperMethods.checkObject("pilotArmorID", pilotArmorID);
+        for (PilotArmor pilotArmor : Database.pilotArmor) {
+            if (pilotArmorID.equals(pilotArmor.getID())) {
+                return new PilotArmor(pilotArmor);
             }
         }
-        throw new IllegalArgumentException("No frame found for frame ID: \""
-            + searchID + "\"");
+        throw new IllegalArgumentException("No pilot armor found for pilot"
+            + " armor ID: " + pilotArmorID);
     }
-    /**
-     * Searches for and returns a Frame matching the provided search enum.
-     * @param searchEnum a FrameEnum containing the FrameEnum of the Frame the
-     *     user wants.
-     * @return a Frame containing the Frame the user wants.
-     * @throws IllegalArgumentException if no Frame is found matching the
-     *     provided search enum.
-     */
-    public static Frame getFrame(FrameEnum searchEnum) {
-        FrameEnum frameEnum;
-        
-        for (int i = 0; i < Database.frameList.length; i++) {
-            frameEnum = Database.frameList[i].getFrameEnum();
-            if (frameEnum == searchEnum) {
-                return new Frame(Database.frameList[i]);
+    public static PilotGear getPilotGear(String pilotGearID) {
+        HelperMethods.checkObject("pilotGearID", pilotGearID);
+        for (PilotGear pilotGear : Database.pilotGear) {
+            if (pilotGearID.equals(pilotGear.getID())) {
+                return new PilotGear(pilotGear);
             }
         }
-        throw new IllegalArgumentException("No frame found for frame enum: "
-            + searchEnum.toString());
+        throw new IllegalArgumentException("No pilot gear found for pilot"
+            + " gear ID: " + pilotGearID);
     }
-    /**
-     * Searches for a Frame with a name matching the provided frame name.
-     *     Returns whether the Frame was found.
-     * @param frameName a String containing the frame name of the Frame the user
-     *     wants to know whether Database.frameList contains.
-     * @return a boolean representing whether the Frame was found.
-     * @throws IllegalArgumentException if frameName is null or "".
-     */
-    public static boolean containsFrameName(String frameName) {
-        HelperMethods.checkString("frameName", frameName);
-        for (int i = 0; i < Database.frameList.length; i++) {
-            if (Database.frameList[i].getName().equals(frameName)) {
-                return true;
+    public static PilotWeapon getPilotWeapon(String pilotWeaponID) {
+        HelperMethods.checkObject("pilotWeaponID", pilotWeaponID);
+        for (PilotWeapon pilotWeapon : Database.pilotWeapons) {
+            if (pilotWeaponID.equals(pilotWeapon.getID())) {
+                return new PilotWeapon(pilotWeapon);
             }
         }
-        
-        return false;
+        throw new IllegalArgumentException("No pilot weapon found for pilot"
+            + " weapon ID: " + pilotWeaponID);
     }
-    /**
-     * Searches for and returns a MechSystem matching the provided search name.
-     * @param searchID a String containing the mech system name of the
-     *     MechSystem the user wants. Case-sensitive.
-     * @return a MechSystem containing the MechSystem the user wants.
-     * @throws IllegalArgumentException if systemName is null, "", or if no
-     *     MechSystem is found matching the provided mech system name.
-     */
-    public static MechSystem getSystem(String systemName) {
-        HelperMethods.checkString("systemName", systemName);
-        for (int i = 0; i < Database.systemList.length; i++) {
-            if (Database.systemList[i].getName().equals(systemName)) {
-                return Database.systemList[i];
+    public static Rule getRule(String ruleName) {
+        HelperMethods.checkObject("ruleName", ruleName);
+        for (Rule rule : Database.rules) {
+            if (ruleName.equals(rule.getName())) {
+                return new Rule(rule);
+            }
+        }
+        throw new IllegalArgumentException("No rule found for rule name: "
+            + ruleName);
+    }
+    public static State getState(String stateName) {
+        HelperMethods.checkObject("stateName", stateName);
+        for (State state : Database.states) {
+            if (stateName.equals(state.getName())) {
+                return new State(state);
+            }
+        }
+        throw new IllegalArgumentException("No state found for state name: "
+            + stateName);
+    }
+    public static Status getStatus(String statusName) {
+        HelperMethods.checkObject("statusName", statusName);
+        for (Status status : Database.statuses) {
+            if (statusName.equals(status.getName())) {
+                return new Status(status);
+            }
+        }
+        throw new IllegalArgumentException("No status found for status name: "
+            + statusName);
+    }
+    public static MechSystem getSystem(String systemID) {
+        HelperMethods.checkObject("systemID", systemID);
+        for (MechSystem system : Database.systems) {
+            if (systemID.equals(system.getID())) {
+                return new MechSystem(system);
             }
         }
         throw new IllegalArgumentException("No mech system found for mech"
-            + " system name: \"" + systemName + "\"");
+            + " system ID: " + systemID);
     }
     public static Table getTable(String tableName) {
         HelperMethods.checkObject("tableName", tableName);
@@ -433,6 +443,81 @@ public final class Database {
         throw new IllegalArgumentException("No weapon found for weapon ID: "
             + weaponID);
     }
+    // TODO: add "add" methods for all these data types - use checkOpen
+    /**
+     * Adds the provided Action to Database.actions.
+     * @param action a Action which cannot be null.
+     * @throws IllegalArgumentException if action is null.
+     */
+    public static void addAction(Action action) {
+        checkOpen();
+        HelperMethods.checkObject("action", action);
+        Database.actions = HelperMethods.append(Database.actions, action);
+    }
+    /**
+     * Adds the provided Background to Database.backgrounds.
+     * @param background a Background which cannot be null.
+     * @throws IllegalArgumentException if background is null.
+     */
+    public static void addBackground(Background background) {
+        checkOpen();
+        HelperMethods.checkObject("background", background);
+        Database.backgrounds = HelperMethods.append(Database.backgrounds,
+            background);
+    }
+    /**
+     * Adds the provided Bond to Database.bonds.
+     * @param bond a Bond which cannot be null.
+     * @throws IllegalArgumentException if bond is null.
+     */
+    public static void addBond(Bond bond) {
+        checkOpen();
+        HelperMethods.checkObject("bond", bond);
+        Database.bonds = HelperMethods.append(Database.bonds, bond);
+    }
+    /**
+     * Adds the provided Condition to Database.conditions.
+     * @param condition a Condition which cannot be null.
+     * @throws IllegalArgumentException if condition is null.
+     */
+    public static void addCondition(Condition condition) {
+        checkOpen();
+        HelperMethods.checkObject("condition", condition);
+        Database.conditions = HelperMethods.append(Database.conditions,
+            condition);
+    }
+    /**
+     * Adds the provided CoreBonus to Database.coreBonuses.
+     * @param coreBonus a CoreBonus which cannot be null.
+     * @throws IllegalArgumentException if coreBonus is null.
+     */
+    public static void addCoreBonus(CoreBonus coreBonus) {
+        checkOpen();
+        HelperMethods.checkObject("coreBonus", coreBonus);
+        Database.coreBonuses = HelperMethods.append(Database.coreBonuses,
+            coreBonus);
+    }
+    /**
+     * Adds the provided DataTag to Database.dataTags.
+     * @param dataTag a DataTag which cannot be null.
+     * @throws IllegalArgumentException if dataTag is null.
+     */
+    public static void addDataTag(DataTag dataTag) {
+        checkOpen();
+        HelperMethods.checkObject("dataTag", dataTag);
+        Database.dataTags = HelperMethods.append(Database.dataTags, dataTag);
+    }
+    /**
+     * Adds the provided Environment to Database.environments.
+     * @param environment a Environment which cannot be null.
+     * @throws IllegalArgumentException if environment is null.
+     */
+    public static void addEnvironment(Environment environment) {
+        checkOpen();
+        HelperMethods.checkObject("environment", environment);
+        Database.environments = HelperMethods.append(Database.environments,
+            environment);
+    }
     /**
      * Adds the provided Frame to Database.frames.
      * @param frame a Frame which cannot be null.
@@ -442,6 +527,69 @@ public final class Database {
         checkOpen();
         HelperMethods.checkObject("frame", frame);
         Database.frames = HelperMethods.append(Database.frames, frame);
+    }
+    /**
+     * Adds the provided NPCFeature to Database.npcFeatures.
+     * @param npcFeature an NPCFeature which cannot be null.
+     * @throws IllegalArgumentException if npcFeature is null.
+     */
+    public static void addNPCFeature(NPCFeature npcFeature) {
+        checkOpen();
+        HelperMethods.checkObject("npcFeature", npcFeature);
+        Database.npcFeatures = HelperMethods.append(Database.npcFeatures,
+            npcFeature);
+    }
+    /**
+     * Adds the provided NPCTemplate to Database.npcTemplates.
+     * @param npcTemplate an NPCTemplate which cannot be null.
+     * @throws IllegalArgumentException if npcTemplate is null.
+     */
+    public static void addNPCTemplate(NPCTemplate npcTemplate) {
+        checkOpen();
+        HelperMethods.checkObject("npcTemplate", npcTemplate);
+        Database.npcTemplates = HelperMethods.append(Database.npcTemplates,
+            npcTemplate);
+    }
+    /**
+     * Adds the provided PilotGear to Database.pilotGear.
+     * @param pilotGear a PilotGear which cannot be null.
+     * @throws IllegalArgumentException if pilotGear is null.
+     */
+    public static void addPilotGear(PilotGear pilotGear) {
+        checkOpen();
+        HelperMethods.checkObject("pilotGear", pilotGear);
+        Database.pilotGear = HelperMethods.append(Database.pilotGear,
+            pilotGear);
+    }
+    /**
+     * Adds the provided Reserve to Database.reserves.
+     * @param reserve a Reserve which cannot be null.
+     * @throws IllegalArgumentException if reserve is null.
+     */
+    public static void addReserve(Reserve reserve) {
+        checkOpen();
+        HelperMethods.checkObject("reserve", reserve);
+        Database.reserves = HelperMethods.append(Database.reserves, reserve);
+    }
+    /**
+     * Adds the provided State to Database.states.
+     * @param state a State which cannot be null.
+     * @throws IllegalArgumentException if state is null.
+     */
+    public static void addState(State state) {
+        checkOpen();
+        HelperMethods.checkObject("state", state);
+        Database.states = HelperMethods.append(Database.states, state);
+    }
+    /**
+     * Adds the provided Status to Database.statuss.
+     * @param status a Status which cannot be null.
+     * @throws IllegalArgumentException if status is null.
+     */
+    public static void addStatus(Status status) {
+        checkOpen();
+        HelperMethods.checkObject("status", status);
+        Database.statuses = HelperMethods.append(Database.statuses, status);
     }
     /**
      * Adds the provided MechSystem to Database.systems.
