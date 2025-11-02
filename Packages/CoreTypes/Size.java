@@ -1,4 +1,4 @@
-package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable;
+package Packages.CoreTypes;
 
 public class Size {
     private int value;
