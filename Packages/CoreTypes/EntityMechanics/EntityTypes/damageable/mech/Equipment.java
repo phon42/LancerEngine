@@ -3,7 +3,7 @@ package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech;
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.EntityMechanics.License;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.TagSystem.dataTag.Tag;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.dataTag.Tag;
 import Packages.CoreTypes.EntityMechanics.LicenseSystem.frameLicense.LicenseContent;
 
 /**

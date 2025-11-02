@@ -3,8 +3,8 @@ package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.EntityMechanics.Action;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.Deployable;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.TagSystem.DataTag;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.pilot.loadout.PilotEquipment;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.DataTag;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.PilotEquipment;
 
 /**
  * Represents a single piece of pilot gear. Contains several optional properties

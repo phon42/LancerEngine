@@ -5,9 +5,9 @@ import Packages.CoreTypes.EntityMechanics.Action;
 import Packages.CoreTypes.EntityMechanics.License;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
 import Packages.CoreTypes.EntityMechanics.RangeTag;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.mech.Equipment;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.TagSystem.DataTag;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.TagSystem.dataTag.Tag;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Equipment;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.DataTag;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.dataTag.Tag;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.Damage;
 
 /**

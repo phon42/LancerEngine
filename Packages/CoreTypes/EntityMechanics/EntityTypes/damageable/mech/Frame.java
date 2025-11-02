@@ -3,7 +3,7 @@ package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech;
 import MainBranch.Database;
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.EntityMechanics.License;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.mech.frame.FrameEnum;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frame.FrameEnum;
 import Packages.CoreTypes.EntityMechanics.LicenseSystem.frameLicense.LicenseContent;
 
 /**

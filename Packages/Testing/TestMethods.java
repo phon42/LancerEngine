@@ -4,14 +4,14 @@ import MainBranch.Database;
 import Packages.CoreTypes.EntityMechanics.License;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.Mech;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.Pilot;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.mech.Frame;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.mech.Mount;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.MechSystem;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.mech.frame.FrameEnum;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.pilot.Loadout;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.pilot.SkillTriggersList;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.pilot.Talent;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.pilot.skillTriggersList.skillTrigger.Skill;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Frame;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Mount;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.MechSystem;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frame.FrameEnum;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Loadout;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.SkillTriggersList;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Talent;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skillTrigger.Skill;
 import Packages.Testing.testMethods.Test;
 
 /**

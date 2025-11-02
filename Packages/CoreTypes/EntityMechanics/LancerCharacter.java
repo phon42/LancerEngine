@@ -5,12 +5,12 @@ import java.util.HashMap;
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.Mech;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.Pilot;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.mech.Frame;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.mech.Mount;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.MechSystem;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.pilot.Loadout;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.pilot.SkillTriggersList;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.pilot.Talent;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Frame;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Mount;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.MechSystem;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Loadout;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.SkillTriggersList;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Talent;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.damage.Harm;
 import Packages.CoreTypes.EntityMechanics.StateSystem.State;
 

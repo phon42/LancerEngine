@@ -3,7 +3,7 @@ package MainBranch;
 import java.util.Random;
 
 import MainBranch.roll.diceExpression.Expression;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.pilot.skillTriggersList.skillTrigger.Skill;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skillTrigger.Skill;
 
 /**
  * See pgs. 12 - 14 and 45 - 47.
