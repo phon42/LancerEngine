@@ -1,4 +1,6 @@
-package MainBranch.roll;
+package MainBranch.roll.diceExpression;
+
+import MainBranch.roll.DiceExpression;
 
 public class Expression extends DiceExpression {
     private boolean containsD = false;
