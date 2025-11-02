@@ -6,69 +6,81 @@ import main.HelperMethods;
  * See pg. 24 - 27.
  */
 /**
- * Represents a single skill trigger. Contains the skill trigger's name and the
- *     level at which it is held.
+ * Represents a single skill trigger. Contains information about that skill
+ *     trigger, such as its id and the conditions in which it applies.
  * 
- * Requires a skill trigger name and a skill trigger level to be instantiated.
+ * Requires a skill trigger ID, name, description, a more detailed description,
+ *     and the family of skills in which it fits to be instantiated.
  * 
- * Used in SkillTriggersList.
+ * Used in SkillTrigger.
  * 
  * Safety: This class does not have placeholder values and cannot be a
  *     placeholder. None of its properties have allowed values of null.
  */
 public final class Skill {
     /**
-     * The name of the skill trigger (i.e. "Apply Fists to Faces").
+     * The ID of the skill trigger (i.e. "sk_act_unseen_or_unheard").
      * Can be any String except "". Cannot be null.
+     * Case-insensitive and stored in lowercase.
+     */
+    private String id;
+    /**
+     * The name of the skill trigger (i.e. "Act Unseen or Unheard"").
+     * Can be any String except "". Cannot be null.
+     * Case-sensitive.
      */
     private String name;
     /**
-     * The level at which the skill trigger is held.
-     * Must be one of the following values:
-     *     2, 4, 6
+     * A description of what the skill trigger allows you to do (i.e. "Get"
+     *     " somewhere or do something without detection.").
+     * Can be any String except "". Cannot be null.
+     * Case-sensitive.
      */
-    private int level;
+    private String description;
+    /**
+     * A more detailed description of what the skill trigger allows you to do
+     *     (too large to provide an example).
+     * Can be any String except "". Cannot be null.
+     * Case-sensitive.
+     */
+    private String detail;
+    /**
+     * The family of skill triggers in which this skill trigger fits (i.e.
+     *     "dex").
+     * Can be any String except "". Cannot be null.
+     * Case-insensitive and stored in lowercase.
+     */
+    private String family;
 
-    /**
-     * Creates a new Skill with the provided skill trigger name and skill
-     *     trigger level.
-     * @param skillName a String which cannot be null or "".
-     * @param skillLevel an int which must be 2, 4, or 6.
-     */
-    public Skill(String skillName, int skillLevel) {
-        setName(skillName);
-        setLevel(skillLevel);
+    public Skill(String id, String name, String shortDescription,
+        String detailedDescription, String skillFamily) {
+        HelperMethods.verifyConstructor();
+        setID(id);
+        setName(name);
+        setDescription(shortDescription);
+        setDetail(detailedDescription);
+        setFamily(skillFamily);
     }
-    /**
-     * Creates a copy of the provided Skill.
-     * @param skill a Skill to be copied.
-     * @return a Skill copy of the provided Skill.
-     */
     public Skill(Skill skill) {
-        this(skill.name, skill.level);
+        setID(skill.id);
+        setName(skill.name);
+        setDescription(skill.description);
+        setDetail(skill.detail);
+        setFamily(skill.family);
     }
 
+    public String getID() {
+        return id;
+    }
     public String getName() {
         return name;
     }
-    public int getLevel() {
-        return level;
+    public void setID(String id) {
+        this.id = id;
     }
     private void setName(String name) {
         HelperMethods.checkString("New name", name);
         this.name = name;
-    }
-    /**
-     * Sets this.level to the provided value.
-     * @param level an int which must be 2, 4, or 6.
-     * @throws IllegalArgumentException if level is not 2, 4, or 6.
-     */
-    private void setLevel(int level) {
-        if (level != 2 && level != 4 && level != 6) {
-            throw new IllegalArgumentException("New level value: " + level
-                + "is not one of the following valid values: 2, 4, 6");
-        }
-        this.level = level;
     }
 
     /**

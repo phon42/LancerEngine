@@ -386,6 +386,16 @@ public final class Database {
         throw new IllegalArgumentException("No sitrep found for sitrep ID: "
             + sitrepID);
     }
+    public static Skill getSkill(String skillID) {
+        HelperMethods.checkObject("skillID", skillID);
+        for (Skill skill : Database.skills) {
+            if (skillID.equals(skill.getID())) {
+                return new Skill(skill);
+            }
+        }
+        throw new IllegalArgumentException("No skill found for skill ID: "
+            + skillID);
+    }
     public static State getState(String stateName) {
         HelperMethods.checkObject("stateName", stateName);
         for (State state : Database.states) {
