@@ -1,4 +1,4 @@
-package packages.coreTypes;
+package packages.CoreTypes;
 
 /**
  * Represents a single sitrep. Contains information about that sitrep's id,

@@ -1,18 +1,18 @@
 package packages.Testing;
 
 import main.Database;
+import packages.CoreTypes.entityMechanics.License;
+import packages.CoreTypes.entityMechanics.entityTypes.Mech;
+import packages.CoreTypes.entityMechanics.entityTypes.Pilot;
+import packages.CoreTypes.entityMechanics.entityTypes.mech.Frame;
+import packages.CoreTypes.entityMechanics.entityTypes.mech.Mount;
+import packages.CoreTypes.entityMechanics.entityTypes.mech.equipment.MechSystem;
+import packages.CoreTypes.entityMechanics.entityTypes.mech.frame.FrameEnum;
+import packages.CoreTypes.entityMechanics.entityTypes.pilot.Loadout;
+import packages.CoreTypes.entityMechanics.entityTypes.pilot.SkillTriggersList;
+import packages.CoreTypes.entityMechanics.entityTypes.pilot.Talent;
+import packages.CoreTypes.entityMechanics.entityTypes.pilot.skillTriggersList.skillTrigger.Skill;
 import packages.Testing.testMethods.Test;
-import packages.coreTypes.entityMechanics.License;
-import packages.coreTypes.entityMechanics.entityTypes.Mech;
-import packages.coreTypes.entityMechanics.entityTypes.Pilot;
-import packages.coreTypes.entityMechanics.entityTypes.mech.Frame;
-import packages.coreTypes.entityMechanics.entityTypes.mech.Mount;
-import packages.coreTypes.entityMechanics.entityTypes.mech.equipment.MechSystem;
-import packages.coreTypes.entityMechanics.entityTypes.mech.frame.FrameEnum;
-import packages.coreTypes.entityMechanics.entityTypes.pilot.Loadout;
-import packages.coreTypes.entityMechanics.entityTypes.pilot.SkillTriggersList;
-import packages.coreTypes.entityMechanics.entityTypes.pilot.Talent;
-import packages.coreTypes.entityMechanics.entityTypes.pilot.skillTriggersList.skillTrigger.Skill;
 
 /**
  * Tests every class and every method under every class. Yes, I'm serious.

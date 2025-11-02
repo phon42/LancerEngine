@@ -1,9 +1,9 @@
-package packages.coreTypes.entityMechanics.entityTypes.pilot;
+package packages.CoreTypes.entityMechanics.entityTypes.pilot;
 
 import main.HelperMethods;
-import packages.coreTypes.entityMechanics.Action;
-import packages.coreTypes.entityMechanics.Bonus;
-import packages.coreTypes.entityMechanics.Manufacturer;
+import packages.CoreTypes.entityMechanics.Action;
+import packages.CoreTypes.entityMechanics.Bonus;
+import packages.CoreTypes.entityMechanics.Manufacturer;
 
 public class CoreBonus {
     // TODO: fill out

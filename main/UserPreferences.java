@@ -1,6 +1,6 @@
 package main;
 
-import packages.coreTypes.ColorData;
+import packages.CoreTypes.ColorData;
 
 /**
  * Contains a set of preferences/settings for the program.

@@ -1,4 +1,4 @@
-package packages.coreTypes.entityMechanics;
+package packages.CoreTypes.entityMechanics;
 
 /**
  * Represents a single NPC template. Contains information about its features and

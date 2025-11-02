@@ -1,10 +1,10 @@
-package packages.coreTypes.entityMechanics.entityTypes.mech;
+package packages.CoreTypes.entityMechanics.entityTypes.mech;
 
 import main.HelperMethods;
-import packages.coreTypes.entityMechanics.License;
-import packages.coreTypes.entityMechanics.Manufacturer;
-import packages.coreTypes.entityMechanics.entityTypes.mech.equipment.tagSystem.Tag;
-import packages.coreTypes.entityMechanics.licenseSystem.frameLicense.LicenseContent;
+import packages.CoreTypes.entityMechanics.License;
+import packages.CoreTypes.entityMechanics.Manufacturer;
+import packages.CoreTypes.entityMechanics.entityTypes.mech.equipment.tagSystem.Tag;
+import packages.CoreTypes.entityMechanics.licenseSystem.frameLicense.LicenseContent;
 
 /**
  * Represents a piece of mech equipment of any kind, such as a mech system or a

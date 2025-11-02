@@ -1,4 +1,4 @@
-package packages.coreTypes.battlefield;
+package packages.CoreTypes.battlefield;
 
 import main.HelperMethods;
 

@@ -1,4 +1,4 @@
-package packages.coreTypes;
+package packages.CoreTypes;
 
 import main.HelperMethods;
 

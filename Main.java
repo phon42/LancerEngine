@@ -1,17 +1,17 @@
 import java.util.HashMap;
 import main.Database;
-import packages.coreTypes.entityMechanics.LancerCharacter;
-import packages.coreTypes.entityMechanics.License;
-import packages.coreTypes.entityMechanics.entityTypes.Mech;
-import packages.coreTypes.entityMechanics.entityTypes.mech.Mount;
-import packages.coreTypes.entityMechanics.entityTypes.mech.equipment.MechSystem;
-import packages.coreTypes.entityMechanics.entityTypes.mech.frame.FrameEnum;
-import packages.coreTypes.entityMechanics.entityTypes.pilot.Loadout;
-import packages.coreTypes.entityMechanics.entityTypes.pilot.loadout.pilotEquipment.PilotGear;
-import packages.coreTypes.entityMechanics.entityTypes.pilot.loadout.pilotEquipment.PilotWeapon;
-import packages.coreTypes.entityMechanics.entityTypes.pilot.skillTriggersList.skillTrigger.Skill;
-import packages.coreTypes.entityMechanics.entityTypes.pilot.SkillTriggersList;
-import packages.coreTypes.entityMechanics.entityTypes.pilot.Talent;
+import packages.CoreTypes.entityMechanics.LancerCharacter;
+import packages.CoreTypes.entityMechanics.License;
+import packages.CoreTypes.entityMechanics.entityTypes.Mech;
+import packages.CoreTypes.entityMechanics.entityTypes.mech.Mount;
+import packages.CoreTypes.entityMechanics.entityTypes.mech.equipment.MechSystem;
+import packages.CoreTypes.entityMechanics.entityTypes.mech.frame.FrameEnum;
+import packages.CoreTypes.entityMechanics.entityTypes.pilot.Loadout;
+import packages.CoreTypes.entityMechanics.entityTypes.pilot.SkillTriggersList;
+import packages.CoreTypes.entityMechanics.entityTypes.pilot.Talent;
+import packages.CoreTypes.entityMechanics.entityTypes.pilot.loadout.pilotEquipment.PilotGear;
+import packages.CoreTypes.entityMechanics.entityTypes.pilot.loadout.pilotEquipment.PilotWeapon;
+import packages.CoreTypes.entityMechanics.entityTypes.pilot.skillTriggersList.skillTrigger.Skill;
 
 /**
  * This program is intended to simulate one (or more) characters within the

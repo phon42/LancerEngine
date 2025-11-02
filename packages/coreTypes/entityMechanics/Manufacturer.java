@@ -1,7 +1,7 @@
-package packages.coreTypes.entityMechanics;
+package packages.CoreTypes.entityMechanics;
 
 import main.HelperMethods;
-import packages.coreTypes.ColorData;
+import packages.CoreTypes.ColorData;
 
 /**
  * Represents a single manufacturer. Contains information about the

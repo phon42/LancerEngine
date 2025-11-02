@@ -1,4 +1,4 @@
-package packages.coreTypes.entityMechanics;
+package packages.CoreTypes.entityMechanics;
 
 import main.HelperMethods;
 
