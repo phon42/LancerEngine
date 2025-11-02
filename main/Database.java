@@ -31,9 +31,9 @@ import packages.CoreTypes.EntityMechanics.EntityTypes.pilot.skillTriggersList.sk
 import packages.CoreTypes.EntityMechanics.EntityTypes.pilot.talent.TalentData;
 import packages.CoreTypes.EntityMechanics.HarmSystem.damage.Harm;
 import packages.CoreTypes.EntityMechanics.LicenseSystem.FrameLicense;
-import packages.CoreTypes.EntityMechanics.stateSystem.State;
-import packages.CoreTypes.EntityMechanics.stateSystem.state.Condition;
-import packages.CoreTypes.EntityMechanics.stateSystem.state.Status;
+import packages.CoreTypes.EntityMechanics.StateSystem.State;
+import packages.CoreTypes.EntityMechanics.StateSystem.state.Condition;
+import packages.CoreTypes.EntityMechanics.StateSystem.state.Status;
 
 // TODO: let's go full crazy, add the ability to read a set of .lcp files and
 //     unzip those into as much Lancer data as we want:

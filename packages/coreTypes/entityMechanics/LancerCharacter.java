@@ -12,7 +12,7 @@ import packages.CoreTypes.EntityMechanics.EntityTypes.pilot.Loadout;
 import packages.CoreTypes.EntityMechanics.EntityTypes.pilot.SkillTriggersList;
 import packages.CoreTypes.EntityMechanics.EntityTypes.pilot.Talent;
 import packages.CoreTypes.EntityMechanics.HarmSystem.damage.Harm;
-import packages.CoreTypes.EntityMechanics.stateSystem.State;
+import packages.CoreTypes.EntityMechanics.StateSystem.State;
 
 // TODO: add some kind of way for Pilot and Mech's actions to bubble up
 /**

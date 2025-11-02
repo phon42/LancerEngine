@@ -33,8 +33,8 @@ import packages.CoreTypes.EntityMechanics.EntityTypes.pilot.loadout.pilotEquipme
 import packages.CoreTypes.EntityMechanics.EntityTypes.pilot.loadout.pilotEquipment.PilotWeapon;
 import packages.CoreTypes.EntityMechanics.EntityTypes.pilot.skillTriggersList.skillTrigger.Skill;
 import packages.CoreTypes.EntityMechanics.HarmSystem.Damage;
-import packages.CoreTypes.EntityMechanics.stateSystem.state.Condition;
-import packages.CoreTypes.EntityMechanics.stateSystem.state.Status;
+import packages.CoreTypes.EntityMechanics.StateSystem.state.Condition;
+import packages.CoreTypes.EntityMechanics.StateSystem.state.Status;
 
 public class DataCaster {
     // receive JSON data as an Object[] containing JSONObject[]s and JSONObjects

@@ -28,9 +28,9 @@ import packages.CoreTypes.EntityMechanics.EntityTypes.pilot.loadout.pilotEquipme
 import packages.CoreTypes.EntityMechanics.EntityTypes.pilot.skillTriggersList.skillTrigger.Skill;
 import packages.CoreTypes.EntityMechanics.LicenseSystem.FrameLicense;
 import packages.CoreTypes.EntityMechanics.LicenseSystem.frameLicense.LicenseContent;
-import packages.CoreTypes.EntityMechanics.stateSystem.State;
-import packages.CoreTypes.EntityMechanics.stateSystem.state.Condition;
-import packages.CoreTypes.EntityMechanics.stateSystem.state.Status;
+import packages.CoreTypes.EntityMechanics.StateSystem.State;
+import packages.CoreTypes.EntityMechanics.StateSystem.state.Condition;
+import packages.CoreTypes.EntityMechanics.StateSystem.state.Status;
 
 public class DataCompiler {
     // some kind of method for every possible type of data, each with a method

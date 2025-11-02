@@ -32,9 +32,9 @@ import packages.CoreTypes.EntityMechanics.EntityTypes.pilot.skillTriggersList.sk
 import packages.CoreTypes.EntityMechanics.HarmSystem.Damage;
 import packages.CoreTypes.EntityMechanics.HarmSystem.damage.Harm;
 import packages.CoreTypes.EntityMechanics.LicenseSystem.FrameLicense;
-import packages.CoreTypes.EntityMechanics.stateSystem.State;
-import packages.CoreTypes.EntityMechanics.stateSystem.state.Condition;
-import packages.CoreTypes.EntityMechanics.stateSystem.state.Status;
+import packages.CoreTypes.EntityMechanics.StateSystem.State;
+import packages.CoreTypes.EntityMechanics.StateSystem.state.Condition;
+import packages.CoreTypes.EntityMechanics.StateSystem.state.Status;
 import packages.EventSystem.event.EventListener;
 
 // TODO: Use polymorphic methods or generic types or something to combine all
