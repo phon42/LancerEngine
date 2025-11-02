@@ -3,7 +3,7 @@ package packages.CoreTypes.EntityMechanics.EntityTypes.damageable;
 import main.HelperMethods;
 import packages.CoreTypes.EntityMechanics.EntityTypes.Damageable;
 import packages.CoreTypes.EntityMechanics.HarmSystem.Damage;
-import packages.CoreTypes.EntityMechanics.HarmSystem.Harm;
+import packages.CoreTypes.EntityMechanics.HarmSystem.damage.Harm;
 
 /**
  * See pgs. 58, 67, 105 - 106

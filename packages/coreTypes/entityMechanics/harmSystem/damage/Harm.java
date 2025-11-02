@@ -1,7 +1,8 @@
-package packages.CoreTypes.EntityMechanics.HarmSystem;
+package packages.CoreTypes.EntityMechanics.HarmSystem.damage;
 
 import main.HelperMethods;
 import main.roll.DiceExpression;
+import packages.CoreTypes.EntityMechanics.HarmSystem.Damage;
 
 /**
  * See pgs. 67 and 104.

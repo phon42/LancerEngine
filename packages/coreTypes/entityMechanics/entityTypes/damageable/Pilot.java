@@ -10,7 +10,7 @@ import packages.CoreTypes.EntityMechanics.EntityTypes.pilot.SkillTriggersList;
 import packages.CoreTypes.EntityMechanics.EntityTypes.pilot.Talent;
 import packages.CoreTypes.EntityMechanics.EntityTypes.pilot.skillTriggersList.skillTrigger.Skill;
 import packages.CoreTypes.EntityMechanics.HarmSystem.Damage;
-import packages.CoreTypes.EntityMechanics.HarmSystem.Harm;
+import packages.CoreTypes.EntityMechanics.HarmSystem.damage.Harm;
 import packages.CoreTypes.EntityMechanics.stateSystem.state.Condition;
 import packages.CoreTypes.EntityMechanics.stateSystem.state.Status;
 

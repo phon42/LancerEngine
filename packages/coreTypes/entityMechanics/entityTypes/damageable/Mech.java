@@ -11,7 +11,7 @@ import packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.MechSystem;
 import packages.CoreTypes.EntityMechanics.EntityTypes.mech.frame.FrameEnum;
 import packages.CoreTypes.EntityMechanics.EntityTypes.pilot.Talent;
 import packages.CoreTypes.EntityMechanics.HarmSystem.Damage;
-import packages.CoreTypes.EntityMechanics.HarmSystem.Harm;
+import packages.CoreTypes.EntityMechanics.HarmSystem.damage.Harm;
 import packages.CoreTypes.EntityMechanics.stateSystem.State;
 import packages.CoreTypes.EntityMechanics.stateSystem.state.Status;
 
