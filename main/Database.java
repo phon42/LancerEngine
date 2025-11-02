@@ -529,6 +529,17 @@ public final class Database {
         Database.frames = HelperMethods.append(Database.frames, frame);
     }
     /**
+     * Adds the provided Manufacturer to Database.manufacturers.
+     * @param manufacturer a Manufacturer which cannot be null.
+     * @throws IllegalArgumentException if manufacturer is null.
+     */
+    public static void addManufacturer(Manufacturer manufacturer) {
+        checkOpen();
+        HelperMethods.checkObject("manufacturer", manufacturer);
+        Database.manufacturers = HelperMethods.append(Database.manufacturers,
+            manufacturer);
+    }
+    /**
      * Adds the provided NPCFeature to Database.npcFeatures.
      * @param npcFeature an NPCFeature which cannot be null.
      * @throws IllegalArgumentException if npcFeature is null.
@@ -551,6 +562,17 @@ public final class Database {
             npcTemplate);
     }
     /**
+     * Adds the provided PilotArmor to Database.pilotArmor.
+     * @param pilotArmor a PilotArmor which cannot be null.
+     * @throws IllegalArgumentException if pilotArmor is null.
+     */
+    public static void addPilotArmor(PilotArmor pilotArmor) {
+        checkOpen();
+        HelperMethods.checkObject("pilotArmor", pilotArmor);
+        Database.pilotArmor = HelperMethods.append(Database.pilotArmor,
+            pilotArmor);
+    }
+    /**
      * Adds the provided PilotGear to Database.pilotGear.
      * @param pilotGear a PilotGear which cannot be null.
      * @throws IllegalArgumentException if pilotGear is null.
@@ -562,6 +584,17 @@ public final class Database {
             pilotGear);
     }
     /**
+     * Adds the provided PilotWeapon to Database.pilotWeapon.
+     * @param pilotWeapon a PilotWeapon which cannot be null.
+     * @throws IllegalArgumentException if pilotWeapon is null.
+     */
+    public static void addPilotWeapon(PilotWeapon pilotWeapon) {
+        checkOpen();
+        HelperMethods.checkObject("pilotWeapon", pilotWeapon);
+        Database.pilotWeapons = HelperMethods.append(Database.pilotWeapons,
+            pilotWeapon);
+    }
+    /**
      * Adds the provided Reserve to Database.reserves.
      * @param reserve a Reserve which cannot be null.
      * @throws IllegalArgumentException if reserve is null.
@@ -570,6 +603,36 @@ public final class Database {
         checkOpen();
         HelperMethods.checkObject("reserve", reserve);
         Database.reserves = HelperMethods.append(Database.reserves, reserve);
+    }
+    /**
+     * Adds the provided Rule to Database.rules.
+     * @param rule a Rule which cannot be null.
+     * @throws IllegalArgumentException if rule is null.
+     */
+    public static void addRule(Rule rule) {
+        checkOpen();
+        HelperMethods.checkObject("rule", rule);
+        Database.rules = HelperMethods.append(Database.rules, rule);
+    }
+    /**
+     * Adds the provided Sitrep to Database.sitreps.
+     * @param sitrep a Sitrep which cannot be null.
+     * @throws IllegalArgumentException if sitrep is null.
+     */
+    public static void addSitrep(Sitrep sitrep) {
+        checkOpen();
+        HelperMethods.checkObject("sitrep", sitrep);
+        Database.sitreps = HelperMethods.append(Database.sitreps, sitrep);
+    }
+    /**
+     * Adds the provided Skill to Database.skills.
+     * @param skill a Skill which cannot be null.
+     * @throws IllegalArgumentException if skill is null.
+     */
+    public static void addSkill(Skill skill) {
+        checkOpen();
+        HelperMethods.checkObject("skill", skill);
+        Database.skills = HelperMethods.append(Database.skills, skill);
     }
     /**
      * Adds the provided State to Database.states.
@@ -602,6 +665,46 @@ public final class Database {
         Database.systems = HelperMethods.append(Database.systems, system);
     }
     /**
+     * Adds the provided Table to Database.tables.
+     * @param table a Table which cannot be null.
+     * @throws IllegalArgumentException if table is null.
+     */
+    public static void addTable(Table table) {
+        checkOpen();
+        HelperMethods.checkObject("table", table);
+        Database.tables = HelperMethods.append(Database.tables, table);
+    }
+    /**
+     * Adds the provided Tag to Database.tags.
+     * @param tag a Tag which cannot be null.
+     * @throws IllegalArgumentException if tag is null.
+     */
+    public static void addTag(Tag tag) {
+        checkOpen();
+        HelperMethods.checkObject("tag", tag);
+        Database.tags = HelperMethods.append(Database.tags, tag);
+    }
+    /**
+     * Adds the provided Talent to Database.talents.
+     * @param talent a Talent which cannot be null.
+     * @throws IllegalArgumentException if talent is null.
+     */
+    public static void addTalent(Talent talent) {
+        checkOpen();
+        HelperMethods.checkObject("talent", talent);
+        Database.talents = HelperMethods.append(Database.talents, talent);
+    }
+    /**
+     * Adds the provided Term to Database.terms.
+     * @param term a Term which cannot be null.
+     * @throws IllegalArgumentException if term is null.
+     */
+    public static void addTerm(Term term) {
+        checkOpen();
+        HelperMethods.checkObject("term", term);
+        Database.terms = HelperMethods.append(Database.terms, term);
+    }
+    /**
      * Adds the provided Weapon to Database.weapons.
      * @param weapon a Weapon which cannot be null.
      * @throws IllegalArgumentException if weapon is null.
@@ -611,21 +714,12 @@ public final class Database {
         HelperMethods.checkObject("weapon", weapon);
         Database.weapons = HelperMethods.append(Database.weapons, weapon);
     }
-    /**
-     * Checks whether the provided pilot armor is a valid pilot armor.
-     * @param pilotArmor a String that cannot be null.
-     * @return a boolean containing the result of the check.
-     */
-    public static boolean isValidPilotArmor(String pilotArmor) {
-        if (pilotArmor == null) {
-            throw new IllegalArgumentException("pilotArmor is null");
-        }
-        for (String validName : Database.pilotArmorNames) {
-            if (pilotArmor.equals(validName)) {
-                return true;
-            }
-        }
-        return false;
+    public static void addFrameLicense(FrameLicense frameLicense) {
+        checkOpen();
+        HelperMethods.checkObject("frameLicense", frameLicense);
+        Database.frameLicenses = HelperMethods.append(Database.frameLicenses,
+            frameLicense);
+    }
     private static void checkOpen() {
         if (! isOpen()) {
             throw new IllegalStateException("Cannot add to Database while it"

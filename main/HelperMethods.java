@@ -13,6 +13,7 @@ import packages.coreTypes.entityMechanics.entityTypes.mech.equipment.tagSystem.T
 import packages.coreTypes.entityMechanics.entityTypes.pilot.Background;
 import packages.coreTypes.entityMechanics.entityTypes.pilot.Bond;
 import packages.coreTypes.entityMechanics.entityTypes.pilot.CoreBonus;
+import packages.coreTypes.entityMechanics.entityTypes.pilot.loadout.pilotEquipment.PilotArmor;
 import packages.coreTypes.entityMechanics.entityTypes.pilot.loadout.pilotEquipment.PilotGear;
 import packages.coreTypes.entityMechanics.entityTypes.pilot.loadout.pilotEquipment.PilotWeapon;
 import packages.coreTypes.entityMechanics.entityTypes.pilot.Reserve;
@@ -21,6 +22,8 @@ import packages.coreTypes.entityMechanics.entityTypes.pilot.Talent;
 import packages.coreTypes.entityMechanics.harmSystem.Damage;
 import packages.coreTypes.entityMechanics.harmSystem.Harm;
 import packages.coreTypes.entityMechanics.License;
+import packages.coreTypes.entityMechanics.licenseSystem.FrameLicense;
+import packages.coreTypes.entityMechanics.Manufacturer;
 import packages.coreTypes.entityMechanics.NPCFeature;
 import packages.coreTypes.entityMechanics.NPCTemplate;
 import packages.coreTypes.entityMechanics.RangeTag;
@@ -28,7 +31,12 @@ import packages.coreTypes.entityMechanics.stateSystem.State;
 import packages.coreTypes.entityMechanics.stateSystem.state.Condition;
 import packages.coreTypes.entityMechanics.stateSystem.state.Status;
 import packages.coreTypes.Environment;
+import packages.coreTypes.Rule;
+import packages.coreTypes.Sitrep;
+import packages.coreTypes.Table;
+import packages.coreTypes.Term;
 import packages.eventSystem.event.EventListener;
+
 // TODO: Use polymorphic methods or generic types or something to combine all
 //     these methods together
 /**
@@ -542,6 +550,58 @@ public final class HelperMethods {
         return newArray;
     }
     /**
+     * Appends the given FrameLicense element to the end of an existing
+     *     FrameLicense[].
+     * @param array a FrameLicense[] that cannot be null.
+     * @param newElement a FrameLicense that cannot be null to append to the end
+     *     of array.
+     * @return a FrameLicense[] consisting of array with newElement appended to
+     *     the end of it.
+     * @throws IllegalArgumentException if array or newElement is null.
+     */
+    public static FrameLicense[] append(FrameLicense[] array,
+        FrameLicense newElement) {
+        HelperMethods.checkObject("array", array);
+        HelperMethods.checkObject("newElement", newElement);
+        FrameLicense[] newArray = new FrameLicense[array.length + 1];
+
+        for (int i = 0; i < newArray.length; i++) {
+            if (i < array.length) {
+                newArray[i] = array[i];
+                continue;
+            }
+            newArray[i] = newElement;
+        }
+        
+        return newArray;
+    }
+    /**
+     * Appends the given Manufacturer element to the end of an existing
+     *     Manufacturer[].
+     * @param array a Manufacturer[] that cannot be null.
+     * @param newElement a Manufacturer that cannot be null to append to the end
+     *     of array.
+     * @return a Manufacturer[] consisting of array with newElement appended to
+     *     the end of it.
+     * @throws IllegalArgumentException if array or newElement is null.
+     */
+    public static Manufacturer[] append(Manufacturer[] array,
+        Manufacturer newElement) {
+        HelperMethods.checkObject("array", array);
+        HelperMethods.checkObject("newElement", newElement);
+        Manufacturer[] newArray = new Manufacturer[array.length + 1];
+
+        for (int i = 0; i < newArray.length; i++) {
+            if (i < array.length) {
+                newArray[i] = array[i];
+                continue;
+            }
+            newArray[i] = newElement;
+        }
+        
+        return newArray;
+    }
+    /**
      * Appends the given MechSystem element to the end of an existing
      *     MechSystem[].
      * @param array a MechSystem[] that cannot be null.
@@ -620,6 +680,32 @@ public final class HelperMethods {
         return newArray;
     }
     /**
+     * Appends the given PilotArmor element to the end of an existing
+     *     PilotArmor[].
+     * @param array a PilotArmor[] that cannot be null.
+     * @param newElement a PilotArmor that cannot be null to append to the end of
+     *     array.
+     * @return a PilotArmor[] consisting of array with newElement appended to the
+     *     end of it.
+     * @throws IllegalArgumentException if array or newElement is null.
+     */
+    public static PilotArmor[] append(PilotArmor[] array, PilotArmor newElement)
+    {
+        HelperMethods.checkObject("array", array);
+        HelperMethods.checkObject("newElement", newElement);
+        PilotArmor[] newArray = new PilotArmor[array.length + 1];
+
+        for (int i = 0; i < newArray.length; i++) {
+            if (i < array.length) {
+                newArray[i] = array[i];
+                continue;
+            }
+            newArray[i] = newElement;
+        }
+        
+        return newArray;
+    }
+    /**
      * Appends the given PilotGear element to the end of an existing
      *     PilotGear[].
      * @param array a PilotGear[] that cannot be null.
@@ -645,6 +731,32 @@ public final class HelperMethods {
         return newArray;
     }
     /**
+     * Appends the given PilotWeapon element to the end of an existing
+     *     PilotWeapon[].
+     * @param array a PilotWeapon[] that cannot be null.
+     * @param newElement a PilotWeapon that cannot be null to append to the end
+     *     of array.
+     * @return a PilotWeapon[] consisting of array with newElement appended to
+     *     the end of it.
+     * @throws IllegalArgumentException if array or newElement is null.
+     */
+    public static PilotWeapon[] append(PilotWeapon[] array,
+        PilotWeapon newElement) {
+        HelperMethods.checkObject("array", array);
+        HelperMethods.checkObject("newElement", newElement);
+        PilotWeapon[] newArray = new PilotWeapon[array.length + 1];
+
+        for (int i = 0; i < newArray.length; i++) {
+            if (i < array.length) {
+                newArray[i] = array[i];
+                continue;
+            }
+            newArray[i] = newElement;
+        }
+        
+        return newArray;
+    }
+    /**
      * Appends the given Reserve element to the end of an existing Reserve[].
      * @param array a Reserve[] that cannot be null.
      * @param newElement a Reserve that cannot be null to append to the end of
@@ -657,6 +769,54 @@ public final class HelperMethods {
         HelperMethods.checkObject("array", array);
         HelperMethods.checkObject("newElement", newElement);
         Reserve[] newArray = new Reserve[array.length + 1];
+
+        for (int i = 0; i < newArray.length; i++) {
+            if (i < array.length) {
+                newArray[i] = array[i];
+                continue;
+            }
+            newArray[i] = newElement;
+        }
+        
+        return newArray;
+    }
+    /**
+     * Appends the given Rule element to the end of an existing Rule[].
+     * @param array a Rule[] that cannot be null.
+     * @param newElement a Rule that cannot be null to append to the end of
+     *     array.
+     * @return a Rule[] consisting of array with newElement appended to the end
+     *     of it.
+     * @throws IllegalArgumentException if array or newElement is null.
+     */
+    public static Rule[] append(Rule[] array, Rule newElement) {
+        HelperMethods.checkObject("array", array);
+        HelperMethods.checkObject("newElement", newElement);
+        Rule[] newArray = new Rule[array.length + 1];
+
+        for (int i = 0; i < newArray.length; i++) {
+            if (i < array.length) {
+                newArray[i] = array[i];
+                continue;
+            }
+            newArray[i] = newElement;
+        }
+        
+        return newArray;
+    }
+    /**
+     * Appends the given Sitrep element to the end of an existing Sitrep[].
+     * @param array a Sitrep[] that cannot be null.
+     * @param newElement a Sitrep that cannot be null to append to the end of
+     *     array.
+     * @return a Sitrep[] consisting of array with newElement appended to the
+     *     end of it.
+     * @throws IllegalArgumentException if array or newElement is null.
+     */
+    public static Sitrep[] append(Sitrep[] array, Sitrep newElement) {
+        HelperMethods.checkObject("array", array);
+        HelperMethods.checkObject("newElement", newElement);
+        Sitrep[] newArray = new Sitrep[array.length + 1];
 
         for (int i = 0; i < newArray.length; i++) {
             if (i < array.length) {
@@ -705,6 +865,126 @@ public final class HelperMethods {
         HelperMethods.checkObject("array", array);
         HelperMethods.checkObject("newElement", newElement);
         Status[] newArray = new Status[array.length + 1];
+
+        for (int i = 0; i < newArray.length; i++) {
+            if (i < array.length) {
+                newArray[i] = array[i];
+                continue;
+            }
+            newArray[i] = newElement;
+        }
+        
+        return newArray;
+    }
+    /**
+     * Appends the given Skill element to the end of an existing Skill[].
+     * @param array a Skill[] that cannot be null.
+     * @param newElement a Skill that cannot be null to append to the end of
+     *     array.
+     * @return a Skill[] consisting of array with newElement appended to the
+     *     end of it.
+     * @throws IllegalArgumentException if array or newElement is null.
+     */
+    public static Skill[] append(Skill[] array, Skill newElement) {
+        HelperMethods.checkObject("array", array);
+        HelperMethods.checkObject("newElement", newElement);
+        Skill[] newArray = new Skill[array.length + 1];
+
+        for (int i = 0; i < newArray.length; i++) {
+            if (i < array.length) {
+                newArray[i] = array[i];
+                continue;
+            }
+            newArray[i] = newElement;
+        }
+        
+        return newArray;
+    }
+    /**
+     * Appends the given Table element to the end of an existing Table[].
+     * @param array a Table[] that cannot be null.
+     * @param newElement a Table that cannot be null to append to the end of
+     *     array.
+     * @return a Table[] consisting of array with newElement appended to the end
+     *     of it.
+     * @throws IllegalArgumentException if array or newElement is null.
+     */
+    public static Table[] append(Table[] array, Table newElement) {
+        HelperMethods.checkObject("array", array);
+        HelperMethods.checkObject("newElement", newElement);
+        Table[] newArray = new Table[array.length + 1];
+
+        for (int i = 0; i < newArray.length; i++) {
+            if (i < array.length) {
+                newArray[i] = array[i];
+                continue;
+            }
+            newArray[i] = newElement;
+        }
+        
+        return newArray;
+    }
+    /**
+     * Appends the given Tag element to the end of an existing Tag[].
+     * @param array a Tag[] that cannot be null.
+     * @param newElement a Tag that cannot be null to append to the end of
+     *     array.
+     * @return a Tag[] consisting of array with newElement appended to the end
+     *     of it.
+     * @throws IllegalArgumentException if array or newElement is null.
+     */
+    public static Tag[] append(Tag[] array, Tag newElement) {
+        HelperMethods.checkObject("array", array);
+        HelperMethods.checkObject("newElement", newElement);
+        Tag[] newArray = new Tag[array.length + 1];
+
+        for (int i = 0; i < newArray.length; i++) {
+            if (i < array.length) {
+                newArray[i] = array[i];
+                continue;
+            }
+            newArray[i] = newElement;
+        }
+        
+        return newArray;
+    }
+    /**
+     * Appends the given Talent element to the end of an existing Talent[].
+     * @param array a Talent[] that cannot be null.
+     * @param newElement a Talent that cannot be null to append to the end of
+     *     array.
+     * @return a Talent[] consisting of array with newElement appended to the end
+     *     of it.
+     * @throws IllegalArgumentException if array or newElement is null.
+     */
+    public static Talent[] append(Talent[] array, Talent newElement) {
+        HelperMethods.checkObject("array", array);
+        HelperMethods.checkObject("newElement", newElement);
+        Talent[] newArray = new Talent[array.length + 1];
+
+        for (int i = 0; i < newArray.length; i++) {
+            if (i < array.length) {
+                newArray[i] = array[i];
+                continue;
+            }
+            newArray[i] = newElement;
+        }
+        
+        return newArray;
+    }
+    /**
+     * Appends the given Term element to the end of an existing Term[].
+     * @param array a Term[] that cannot be null.
+     * @param newElement a Term that cannot be null to append to the end of
+     *     array.
+     * @return a Term[] consisting of array with newElement appended to the end
+     *     of it.
+     * @throws IllegalArgumentException if array or newElement is null.
+     */
+    public static Term[] append(Term[] array, Term newElement) {
+        HelperMethods.checkObject("array", array);
+        HelperMethods.checkObject("newElement", newElement);
+        Term[] newArray = new Term[array.length + 1];
 
         for (int i = 0; i < newArray.length; i++) {
             if (i < array.length) {
