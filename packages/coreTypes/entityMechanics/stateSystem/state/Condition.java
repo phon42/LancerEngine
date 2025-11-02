@@ -1,7 +1,7 @@
-package packages.CoreTypes.EntityMechanics.StateSystem.state;
+package Packages.CoreTypes.EntityMechanics.StateSystem.state;
 
+import Packages.CoreTypes.EntityMechanics.StateSystem.State;
 import main.HelperMethods;
-import packages.CoreTypes.EntityMechanics.StateSystem.State;
 
 /**
  * See pg. 78.

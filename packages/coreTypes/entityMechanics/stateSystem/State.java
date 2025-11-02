@@ -1,4 +1,4 @@
-package packages.CoreTypes.EntityMechanics.StateSystem;
+package Packages.CoreTypes.EntityMechanics.StateSystem;
 
 import main.HelperMethods;
 

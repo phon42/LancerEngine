@@ -1,19 +1,19 @@
-package packages.CoreTypes.EntityMechanics.EntityTypes.damageable;
+package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable;
 
+import Packages.CoreTypes.EntityMechanics.License;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.Damageable;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.mech.Frame;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.mech.Mount;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.MechSystem;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.mech.frame.FrameEnum;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.pilot.Talent;
+import Packages.CoreTypes.EntityMechanics.HarmSystem.Damage;
+import Packages.CoreTypes.EntityMechanics.HarmSystem.damage.Harm;
+import Packages.CoreTypes.EntityMechanics.StateSystem.State;
+import Packages.CoreTypes.EntityMechanics.StateSystem.state.Status;
 import main.Database;
 import main.HelperMethods;
 import main.Roll;
-import packages.CoreTypes.EntityMechanics.License;
-import packages.CoreTypes.EntityMechanics.EntityTypes.Damageable;
-import packages.CoreTypes.EntityMechanics.EntityTypes.mech.Frame;
-import packages.CoreTypes.EntityMechanics.EntityTypes.mech.Mount;
-import packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.MechSystem;
-import packages.CoreTypes.EntityMechanics.EntityTypes.mech.frame.FrameEnum;
-import packages.CoreTypes.EntityMechanics.EntityTypes.pilot.Talent;
-import packages.CoreTypes.EntityMechanics.HarmSystem.Damage;
-import packages.CoreTypes.EntityMechanics.HarmSystem.damage.Harm;
-import packages.CoreTypes.EntityMechanics.StateSystem.State;
-import packages.CoreTypes.EntityMechanics.StateSystem.state.Status;
 
 /**
  * See pg. 58.

@@ -1,7 +1,7 @@
-package packages.CoreTypes.EntityMechanics.EntityTypes.pilot.skillTriggersList;
+package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList;
 
+import Packages.CoreTypes.EntityMechanics.EntityTypes.pilot.skillTriggersList.skillTrigger.Skill;
 import main.HelperMethods;
-import packages.CoreTypes.EntityMechanics.EntityTypes.pilot.skillTriggersList.skillTrigger.Skill;
 
 /**
  * See pg. 24 - 27.

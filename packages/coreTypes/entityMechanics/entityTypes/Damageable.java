@@ -1,6 +1,6 @@
-package packages.CoreTypes.EntityMechanics.EntityTypes;
+package Packages.CoreTypes.EntityMechanics.EntityTypes;
 
-import packages.CoreTypes.EntityMechanics.HarmSystem.damage.Harm;
+import Packages.CoreTypes.EntityMechanics.HarmSystem.damage.Harm;
 
 /**
  * Represents anything that can receive damage, such as a pilot, mech,

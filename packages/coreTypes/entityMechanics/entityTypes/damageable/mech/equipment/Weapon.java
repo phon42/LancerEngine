@@ -1,11 +1,11 @@
-package packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment;
+package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment;
 
+import Packages.CoreTypes.EntityMechanics.License;
+import Packages.CoreTypes.EntityMechanics.RangeTag;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.mech.Equipment;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.TagSystem.dataTag.Tag;
+import Packages.CoreTypes.EntityMechanics.HarmSystem.damage.Harm;
 import main.HelperMethods;
-import packages.CoreTypes.EntityMechanics.License;
-import packages.CoreTypes.EntityMechanics.RangeTag;
-import packages.CoreTypes.EntityMechanics.EntityTypes.mech.Equipment;
-import packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.TagSystem.dataTag.Tag;
-import packages.CoreTypes.EntityMechanics.HarmSystem.damage.Harm;
 
 /**
  * See pgs. 33 and 104.

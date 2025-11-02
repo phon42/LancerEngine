@@ -1,9 +1,9 @@
-package packages.CoreTypes.EntityMechanics.EntityTypes.damageable;
+package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable;
 
+import Packages.CoreTypes.EntityMechanics.EntityTypes.Damageable;
+import Packages.CoreTypes.EntityMechanics.HarmSystem.Damage;
+import Packages.CoreTypes.EntityMechanics.HarmSystem.damage.Harm;
 import main.HelperMethods;
-import packages.CoreTypes.EntityMechanics.EntityTypes.Damageable;
-import packages.CoreTypes.EntityMechanics.HarmSystem.Damage;
-import packages.CoreTypes.EntityMechanics.HarmSystem.damage.Harm;
 
 /**
  * See pgs. 58 - 59 and 68.

@@ -2,8 +2,8 @@ package main;
 
 import java.util.Random;
 
+import Packages.CoreTypes.EntityMechanics.EntityTypes.pilot.skillTriggersList.skillTrigger.Skill;
 import main.roll.Expression;
-import packages.CoreTypes.EntityMechanics.EntityTypes.pilot.skillTriggersList.skillTrigger.Skill;
 
 /**
  * See pgs. 12 - 14 and 45 - 47.

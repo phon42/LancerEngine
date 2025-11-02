@@ -1,4 +1,4 @@
-package packages.CoreTypes.EntityMechanics.HarmSystem;
+package Packages.CoreTypes.EntityMechanics.HarmSystem;
 
 import main.HelperMethods;
 import main.Roll;

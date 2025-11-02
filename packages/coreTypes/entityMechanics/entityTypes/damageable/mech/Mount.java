@@ -1,8 +1,8 @@
-package packages.CoreTypes.EntityMechanics.EntityTypes.mech;
+package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech;
 
+import Packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.Weapon;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.pilot.Talent;
 import main.HelperMethods;
-import packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.Weapon;
-import packages.CoreTypes.EntityMechanics.EntityTypes.pilot.Talent;
 
 /**
  * See pg. 32.

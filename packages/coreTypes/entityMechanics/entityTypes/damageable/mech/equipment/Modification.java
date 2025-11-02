@@ -1,14 +1,14 @@
-package packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment;
+package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment;
 
+import Packages.CoreTypes.EntityMechanics.Action;
+import Packages.CoreTypes.EntityMechanics.License;
+import Packages.CoreTypes.EntityMechanics.Manufacturer;
+import Packages.CoreTypes.EntityMechanics.RangeTag;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.mech.Equipment;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.TagSystem.DataTag;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.TagSystem.dataTag.Tag;
+import Packages.CoreTypes.EntityMechanics.HarmSystem.Damage;
 import main.HelperMethods;
-import packages.CoreTypes.EntityMechanics.Action;
-import packages.CoreTypes.EntityMechanics.License;
-import packages.CoreTypes.EntityMechanics.Manufacturer;
-import packages.CoreTypes.EntityMechanics.RangeTag;
-import packages.CoreTypes.EntityMechanics.EntityTypes.mech.Equipment;
-import packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.TagSystem.DataTag;
-import packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.TagSystem.dataTag.Tag;
-import packages.CoreTypes.EntityMechanics.HarmSystem.Damage;
 
 /**
  * Represents a single weapon modification. Contains information about the mod

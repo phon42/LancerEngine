@@ -1,17 +1,18 @@
 import java.util.HashMap;
+
+import Packages.CoreTypes.EntityMechanics.LancerCharacter;
+import Packages.CoreTypes.EntityMechanics.License;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.Mech;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.mech.Mount;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.MechSystem;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.mech.frame.FrameEnum;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.pilot.Loadout;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.pilot.SkillTriggersList;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.pilot.Talent;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.pilot.loadout.pilotEquipment.PilotGear;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.pilot.loadout.pilotEquipment.PilotWeapon;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.pilot.skillTriggersList.skillTrigger.Skill;
 import main.Database;
-import packages.CoreTypes.EntityMechanics.LancerCharacter;
-import packages.CoreTypes.EntityMechanics.License;
-import packages.CoreTypes.EntityMechanics.EntityTypes.damageable.Mech;
-import packages.CoreTypes.EntityMechanics.EntityTypes.mech.Mount;
-import packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.MechSystem;
-import packages.CoreTypes.EntityMechanics.EntityTypes.mech.frame.FrameEnum;
-import packages.CoreTypes.EntityMechanics.EntityTypes.pilot.Loadout;
-import packages.CoreTypes.EntityMechanics.EntityTypes.pilot.SkillTriggersList;
-import packages.CoreTypes.EntityMechanics.EntityTypes.pilot.Talent;
-import packages.CoreTypes.EntityMechanics.EntityTypes.pilot.loadout.pilotEquipment.PilotGear;
-import packages.CoreTypes.EntityMechanics.EntityTypes.pilot.loadout.pilotEquipment.PilotWeapon;
-import packages.CoreTypes.EntityMechanics.EntityTypes.pilot.skillTriggersList.skillTrigger.Skill;
 
 /**
  * This program is intended to simulate one (or more) characters within the

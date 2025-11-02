@@ -1,4 +1,4 @@
-package packages.CoreTypes.EntityMechanics.EntityTypes.pilot;
+package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot;
 
 import main.HelperMethods;
 /**

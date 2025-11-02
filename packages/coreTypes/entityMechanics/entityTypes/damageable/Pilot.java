@@ -1,18 +1,18 @@
-package packages.CoreTypes.EntityMechanics.EntityTypes.damageable;
+package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable;
 
+import Packages.CoreTypes.EntityMechanics.License;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.Damageable;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.pilot.Loadout;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.pilot.SkillTriggersList;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.pilot.Talent;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.pilot.skillTriggersList.skillTrigger.Skill;
+import Packages.CoreTypes.EntityMechanics.HarmSystem.Damage;
+import Packages.CoreTypes.EntityMechanics.HarmSystem.damage.Harm;
+import Packages.CoreTypes.EntityMechanics.StateSystem.state.Condition;
+import Packages.CoreTypes.EntityMechanics.StateSystem.state.Status;
 import main.Database;
 import main.HelperMethods;
 import main.Roll;
-import packages.CoreTypes.EntityMechanics.License;
-import packages.CoreTypes.EntityMechanics.EntityTypes.Damageable;
-import packages.CoreTypes.EntityMechanics.EntityTypes.pilot.Loadout;
-import packages.CoreTypes.EntityMechanics.EntityTypes.pilot.SkillTriggersList;
-import packages.CoreTypes.EntityMechanics.EntityTypes.pilot.Talent;
-import packages.CoreTypes.EntityMechanics.EntityTypes.pilot.skillTriggersList.skillTrigger.Skill;
-import packages.CoreTypes.EntityMechanics.HarmSystem.Damage;
-import packages.CoreTypes.EntityMechanics.HarmSystem.damage.Harm;
-import packages.CoreTypes.EntityMechanics.StateSystem.state.Condition;
-import packages.CoreTypes.EntityMechanics.StateSystem.state.Status;
 
 /**
  * See pgs. 58 and 74.

@@ -1,13 +1,13 @@
-package packages.CoreTypes.EntityMechanics.LicenseSystem;
+package Packages.CoreTypes.EntityMechanics.LicenseSystem;
 
+import Packages.CoreTypes.EntityMechanics.Manufacturer;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.mech.Equipment;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.mech.Frame;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.MechSystem;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.Weapon;
+import Packages.CoreTypes.EntityMechanics.LicenseSystem.frameLicense.LicenseContent;
 import main.Database;
 import main.HelperMethods;
-import packages.CoreTypes.EntityMechanics.Manufacturer;
-import packages.CoreTypes.EntityMechanics.EntityTypes.mech.Equipment;
-import packages.CoreTypes.EntityMechanics.EntityTypes.mech.Frame;
-import packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.MechSystem;
-import packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.Weapon;
-import packages.CoreTypes.EntityMechanics.LicenseSystem.frameLicense.LicenseContent;
 
 /**
  * See pg. 31.

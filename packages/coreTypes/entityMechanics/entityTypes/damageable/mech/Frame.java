@@ -1,10 +1,10 @@
-package packages.CoreTypes.EntityMechanics.EntityTypes.mech;
+package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech;
 
+import Packages.CoreTypes.EntityMechanics.License;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.mech.frame.FrameEnum;
+import Packages.CoreTypes.EntityMechanics.LicenseSystem.frameLicense.LicenseContent;
 import main.Database;
 import main.HelperMethods;
-import packages.CoreTypes.EntityMechanics.License;
-import packages.CoreTypes.EntityMechanics.EntityTypes.mech.frame.FrameEnum;
-import packages.CoreTypes.EntityMechanics.LicenseSystem.frameLicense.LicenseContent;
 
 /**
  * See pg. 32.
