@@ -1,5 +1,6 @@
 package main;
 
+import packages.EventSystem.event.EventListener;
 import packages.coreTypes.Callable;
 import packages.coreTypes.entityMechanics.Action;
 import packages.coreTypes.entityMechanics.Bonus;
@@ -35,7 +36,6 @@ import packages.coreTypes.Rule;
 import packages.coreTypes.Sitrep;
 import packages.coreTypes.Table;
 import packages.coreTypes.Term;
-import packages.eventSystem.event.EventListener;
 
 // TODO: Use polymorphic methods or generic types or something to combine all
 //     these methods together

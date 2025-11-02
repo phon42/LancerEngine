@@ -1,4 +1,4 @@
-package packages.eventSystem.event;
+package packages.EventSystem.event;
 
 import main.HelperMethods;
 import packages.coreTypes.Callable;
