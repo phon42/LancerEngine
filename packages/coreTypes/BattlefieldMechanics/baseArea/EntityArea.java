@@ -1,7 +1,7 @@
-package Packages.CoreTypes.Battlefield.baseArea;
+package Packages.CoreTypes.BattlefieldMechanics.baseArea;
 
 import MainBranch.HelperMethods;
-import Packages.CoreTypes.Battlefield.BaseArea;
+import Packages.CoreTypes.BattlefieldMechanics.BaseArea;
 
 public class EntityArea extends BaseArea {
     /**

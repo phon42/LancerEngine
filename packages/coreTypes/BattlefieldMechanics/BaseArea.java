@@ -1,4 +1,4 @@
-package Packages.CoreTypes.Battlefield;
+package Packages.CoreTypes.BattlefieldMechanics;
 
 import MainBranch.HelperMethods;
 
