@@ -42,6 +42,18 @@ public class Action {
     // TODO: when you seperate Boost into several movements, does the second+
     //     movement also trigger systems or traits that work off of Boosting?
     // TODO: what speed are reactions?
+    // TODO: can you boost as a mech, eject, overcharge, then boost as a
+    //     pilot?
+    // TODO: if so, different mech- and pilot-exclusive actions need to be
+    //     created
+    // TODO: you can mount or dismount willing allied mechs or vehicles, add
+    //     this
+    // TODO: can you Prepare a full action? a movement? a free action? a
+    //     reaction, even? (lmao)
+    // TODO: cannot take reactions while holding a prepared action,
+    //     implement this
+    // TODO: what speed are reactions?
+    // TODO: uses the fight action instead for pilots, add this
     // Main properties
     /**
      * The name of the action (i.e. "Move" or "Turret Attack").
@@ -241,10 +253,6 @@ public class Action {
      * Contains an array of base actions.
      */
     private static final Action[] baseActions = {
-        // TODO: can you boost as a mech, eject, overcharge, then boost as a
-        //     pilot?
-        // TODO: if so, different mech- and pilot-exclusive actions need to be
-        //     created
         new Action("boost", "quick", "boost",
             "quick", true, true),
         new Action("continue boost", "move", "boost",
@@ -277,18 +285,12 @@ public class Action {
             "full", true, true),
         new Action("boot up", "full", "full",
             "full", true, false),
-        // TODO: you can mount or dismount willing allied mechs or vehicles, add
-        //     this
         new Action("mount", "full", "full",
             "full", false, true),
         new Action("dismount", "full", "full",
             "full", true, false),
         new Action("eject", "quick", "quick", 
             "quick", true, false),
-        // TODO: can you Prepare a full action? a movement? a free action? a
-        //     reaction, even? (lmao)
-        // TODO: cannot take reactions while holding a prepared action,
-        //     implement this
         new Action("prepare", "quick", "quick",
             "quick", true, true),
         new Action("drop prepare", "free", "free",
@@ -301,12 +303,10 @@ public class Action {
             "full", true, true),
         new Action("overcharge", "free", "free",
             "free", true, false),
-        // TODO: what speed are reactions?
         new Action("reaction", "reaction", "reaction",
             "reaction", true, false),
         new Action("brace", "reaction", "reaction",
             "reaction", true, false),
-        // TODO: uses the fight action instead for pilots, add this
         new Action("overwatch", "reaction", "reaction",
             "reaction", true, true),
         new Action("fight", "full", "full",
@@ -320,18 +320,40 @@ public class Action {
             false),
     };
 
-    public Action(String name, String type, String detailedType, String speed,
-        boolean mechUseable, boolean pilotUseable) {
+    public Action(String id, String name, String activation, String terse,
+        String detail, boolean pilotUseable, boolean mechUseable,
+        boolean hideActive, String[] synergyLocations, String[] confirm,
+        boolean ignoreUsed, int heatCost, boolean techAttack,
+        Frequency frequency, RangeTag[] range, Damage[] damage, String trigger,
+        String init) {
+        HelperMethods.verifyConstructor();
+        // set main data properties
         setName(name);
-        setType(type);
-        setDetailedType(detailedType);
-        setSpeed(speed);
-        setMechUseable(mechUseable);
+        setActivation(activation);
+        setTerse(terse);
+        setDetail(detail);
         setPilotUseable(pilotUseable);
-    }
-    public Action(String name, String type, String detailedType, String speed) {
-        this(name, type, detailedType, speed, true,
-            true);
+        setMechUseable(mechUseable);
+        setHideActive(hideActive);
+        setSynergyLocations(synergyLocations);
+        setConfirm(confirm);
+        setIgnoreUsed(ignoreUsed);
+        setHeatCost(heatCost);
+        setTechAttack(techAttack);
+        setFrequency(frequency);
+
+        // Semi-optional data properties (optional for system actions but not
+        //     for base actions)
+        setID(id);
+
+        // set optional data properties
+        setRange(range);
+        setDamage(damage);
+        setTrigger(trigger);
+        setInit(init);
+
+        // set the helper properties
+        setType();
     }
     /**
      * Creates one of the 34 total base actions detailed within pgs. 69 - 75 (30
@@ -553,6 +575,24 @@ public class Action {
             }
         }
         this.techAttack = techAttack;
+    }
+    private void setFrequency(Frequency frequency) {
+        boolean isXRound = false;
+        boolean isUnlimited = false;
+
+        HelperMethods.checkObject("frequency", frequency);
+        if (! this.activation.equals("reaction")) {
+            isXRound = frequency.getType().equals("X/round")
+                && frequency.getValue() == 1;
+            isUnlimited = frequency.getType().equals("unlimited");
+            if (! (isXRound || isUnlimited)) {
+                throw new IllegalArgumentException("This.frequency must be"
+                    + " \"1/round\" or \"unlimited\" when this.activation is"
+                    + " not \"reaction\"");
+            }
+        }
+        frequency = new Frequency(frequency);
+        this.frequency = frequency;
     }
     // Semi-optional data properties (optional for system actions but not for
     //     regular actions)
