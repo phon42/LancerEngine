@@ -16,6 +16,11 @@
  * - can you Prepare a full action? a movement? a free action? a reaction, even?
  *       (lmao)
  */
+// TODO: add static reference lists of weapon sizes & types (i.e. a special
+//     class)
+// TODO: add an HTMLText or MarkedDownText or something like that to store data
+//     that contains HTML tags in it like "<br/>" or '<code class="horus">' or
+//     even stuff like "\t"
 // TODO: implement this whole list
 /**
  * What's Left To Add:
