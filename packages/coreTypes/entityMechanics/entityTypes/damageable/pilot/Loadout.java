@@ -1,9 +1,9 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot;
 
+import MainBranch.HelperMethods;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.pilot.loadout.pilotEquipment.PilotArmor;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.pilot.loadout.pilotEquipment.PilotGear;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.pilot.loadout.pilotEquipment.PilotWeapon;
-import main.HelperMethods;
 
 /**
  * See pgs. 108 - 114.

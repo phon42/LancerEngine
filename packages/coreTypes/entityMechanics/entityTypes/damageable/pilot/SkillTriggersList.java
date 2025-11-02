@@ -1,7 +1,7 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot;
 
+import MainBranch.HelperMethods;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.pilot.skillTriggersList.skillTrigger.Skill;
-import main.HelperMethods;
 
 /**
  * Represents the set of skill triggers a pilot has. Stores an array of those

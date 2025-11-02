@@ -1,7 +1,7 @@
 package Packages.CoreTypes.EntityMechanics;
 
-import main.Database;
-import main.HelperMethods;
+import MainBranch.Database;
+import MainBranch.HelperMethods;
 
 /**
  * See pg. 31.

@@ -1,8 +1,8 @@
 package Packages.Testing.testMethods;
 
+import MainBranch.HelperMethods;
 import Packages.Testing.TestMethods;
 import Packages.Testing.testMethods.test.TestStatus;
-import main.HelperMethods;
 
 /**
  * A class representing a single test. May have an empty Test[] as its tests

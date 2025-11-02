@@ -1,8 +1,8 @@
 package Packages.EventSystem;
 
+import MainBranch.HelperMethods;
 import Packages.CoreTypes.Callable;
 import Packages.EventSystem.event.EventListener;
-import main.HelperMethods;
 
 /**
  * Represents an event of some kind. Contains information about the event's

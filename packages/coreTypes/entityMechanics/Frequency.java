@@ -1,6 +1,6 @@
 package Packages.CoreTypes.EntityMechanics;
 
-import main.HelperMethods;
+import MainBranch.HelperMethods;
 
 public class Frequency {
     /**

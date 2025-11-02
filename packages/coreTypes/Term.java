@@ -1,6 +1,6 @@
 package Packages.CoreTypes;
 
-import main.HelperMethods;
+import MainBranch.HelperMethods;
 
 /**
  * From /lib/glossary.json.

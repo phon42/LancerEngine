@@ -1,6 +1,6 @@
 package Packages.CoreTypes.Battlefield;
 
-import main.HelperMethods;
+import MainBranch.HelperMethods;
 
 /**
  * See pg. 65.

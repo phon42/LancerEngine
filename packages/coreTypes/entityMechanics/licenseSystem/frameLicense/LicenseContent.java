@@ -1,8 +1,8 @@
 package Packages.CoreTypes.EntityMechanics.LicenseSystem.frameLicense;
 
+import MainBranch.HelperMethods;
 import Packages.CoreTypes.EntityMechanics.License;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
-import main.HelperMethods;
 
 /**
  * Represents anything that can be put into a FrameLicense, such as a frame,

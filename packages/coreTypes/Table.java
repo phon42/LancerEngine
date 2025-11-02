@@ -1,6 +1,6 @@
 package Packages.CoreTypes;
 
-import main.HelperMethods;
+import MainBranch.HelperMethods;
 
 /**
  * Represents a single reference data table from an LCP. Contains information

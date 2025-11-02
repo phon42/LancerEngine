@@ -1,7 +1,7 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.dataTag;
 
+import MainBranch.HelperMethods;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.TagSystem.DataTag;
-import main.HelperMethods;
 
 /**
  * See pgs. 104 - 106.

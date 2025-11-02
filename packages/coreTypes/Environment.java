@@ -1,6 +1,6 @@
 package Packages.CoreTypes;
 
-import main.HelperMethods;
+import MainBranch.HelperMethods;
 
 /**
  * Represents a specified preset environment for a battle to take place in, such

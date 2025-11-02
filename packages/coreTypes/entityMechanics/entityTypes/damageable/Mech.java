@@ -1,5 +1,8 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable;
 
+import MainBranch.Database;
+import MainBranch.HelperMethods;
+import MainBranch.Roll;
 import Packages.CoreTypes.EntityMechanics.License;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.Damageable;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.mech.Frame;
@@ -11,9 +14,6 @@ import Packages.CoreTypes.EntityMechanics.HarmSystem.Damage;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.damage.Harm;
 import Packages.CoreTypes.EntityMechanics.StateSystem.State;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.Status;
-import main.Database;
-import main.HelperMethods;
-import main.Roll;
 
 /**
  * See pg. 58.

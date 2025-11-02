@@ -1,5 +1,6 @@
 package Packages.Testing;
 
+import MainBranch.Database;
 import Packages.CoreTypes.EntityMechanics.License;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.Mech;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.Pilot;
@@ -12,7 +13,6 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.pilot.SkillTriggersList;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.pilot.Talent;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.pilot.skillTriggersList.skillTrigger.Skill;
 import Packages.Testing.testMethods.Test;
-import main.Database;
 
 /**
  * Tests every class and every method under every class. Yes, I'm serious.

@@ -1,6 +1,6 @@
 package Packages.CoreTypes;
 
-import main.HelperMethods;
+import MainBranch.HelperMethods;
 
 /**
  * Represents a single "rule" - a piece of reference data from the rules.json

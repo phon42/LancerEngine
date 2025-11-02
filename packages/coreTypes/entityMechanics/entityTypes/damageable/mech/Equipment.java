@@ -1,10 +1,10 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech;
 
+import MainBranch.HelperMethods;
 import Packages.CoreTypes.EntityMechanics.License;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.TagSystem.dataTag.Tag;
 import Packages.CoreTypes.EntityMechanics.LicenseSystem.frameLicense.LicenseContent;
-import main.HelperMethods;
 
 /**
  * Represents a piece of mech equipment of any kind, such as a mech system or a

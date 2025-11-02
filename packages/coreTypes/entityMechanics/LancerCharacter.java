@@ -2,6 +2,7 @@ package Packages.CoreTypes.EntityMechanics;
 
 import java.util.HashMap;
 
+import MainBranch.HelperMethods;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.Mech;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.Pilot;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.mech.Frame;
@@ -12,7 +13,6 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.pilot.SkillTriggersList;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.pilot.Talent;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.damage.Harm;
 import Packages.CoreTypes.EntityMechanics.StateSystem.State;
-import main.HelperMethods;
 
 // TODO: add some kind of way for Pilot and Mech's actions to bubble up
 /**

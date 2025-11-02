@@ -1,5 +1,8 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable;
 
+import MainBranch.Database;
+import MainBranch.HelperMethods;
+import MainBranch.Roll;
 import Packages.CoreTypes.EntityMechanics.License;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.Damageable;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.pilot.Loadout;
@@ -10,9 +13,6 @@ import Packages.CoreTypes.EntityMechanics.HarmSystem.Damage;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.damage.Harm;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.Condition;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.Status;
-import main.Database;
-import main.HelperMethods;
-import main.Roll;
 
 /**
  * See pgs. 58 and 74.

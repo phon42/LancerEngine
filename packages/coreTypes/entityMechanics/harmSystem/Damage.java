@@ -1,8 +1,8 @@
 package Packages.CoreTypes.EntityMechanics.HarmSystem;
 
-import main.HelperMethods;
-import main.Roll;
-import main.roll.DiceExpression;
+import MainBranch.HelperMethods;
+import MainBranch.Roll;
+import MainBranch.roll.DiceExpression;
 
 /**
  * See pgs. 67 and 104.

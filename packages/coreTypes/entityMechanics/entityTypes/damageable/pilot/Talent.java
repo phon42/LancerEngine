@@ -1,6 +1,6 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot;
 
-import main.HelperMethods;
+import MainBranch.HelperMethods;
 /**
  * See pgs. 35 and 90 - 103.
  */

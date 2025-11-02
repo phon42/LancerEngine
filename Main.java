@@ -1,5 +1,6 @@
 import java.util.HashMap;
 
+import MainBranch.Database;
 import Packages.CoreTypes.EntityMechanics.LancerCharacter;
 import Packages.CoreTypes.EntityMechanics.License;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.Mech;
@@ -12,7 +13,6 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.pilot.Talent;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.pilot.loadout.pilotEquipment.PilotGear;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.pilot.loadout.pilotEquipment.PilotWeapon;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.pilot.skillTriggersList.skillTrigger.Skill;
-import main.Database;
 
 /**
  * This program is intended to simulate one (or more) characters within the

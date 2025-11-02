@@ -1,7 +1,7 @@
 package Packages.CoreTypes;
 
-import main.HelperMethods;
-import main.UserPreferences;
+import MainBranch.HelperMethods;
+import MainBranch.UserPreferences;
 
 /**
  * See java.awt.Color.

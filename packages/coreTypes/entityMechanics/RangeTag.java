@@ -1,6 +1,6 @@
 package Packages.CoreTypes.EntityMechanics;
 
-import main.HelperMethods;
+import MainBranch.HelperMethods;
 
 /**
  * See pgs. 64, 104, and 116.
