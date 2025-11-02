@@ -238,88 +238,6 @@ public class Action {
      */
     private Callable method;
 
-    /**
-     * Contains an array of valid names of base actions.
-     * See pgs. 68 - 76 and 107.
-     */
-    private static final String[] baseActionNames = {"boost", "continue boost",
-        "grapple", "hide", "quick tech", "ram", "search", "skirmish", "barrage",
-        "disengage", "full tech", "improvised attack", "stabilize",
-        "activate (quick)",
-        "activate (full)", "boot up", "mount", "dismount", "eject", "prepare", "drop prepare",
-        "self-destruct", "shut down", "skill check", "overcharge", "reaction",
-        "brace", "overwatch", "fight", "jockey", "reload", "transfer control"};
-    /**
-     * Contains an array of base actions.
-     */
-    private static final Action[] baseActions = {
-        new Action("boost", "quick", "boost",
-            "quick", true, true),
-        new Action("continue boost", "move", "boost",
-            "free", true, true),
-        new Action("grapple", "quick", "quick",
-            "quick", true, false),
-        new Action("hide", "quick", "quick",
-            "quick", true, true),
-        new Action("quick tech", "quick", "quick tech",
-            "quick", true, false),
-        new Action("ram", "quick", "quick",
-            "quick", true, false),
-        new Action("search", "quick", "quick",
-            "quick", true, true),
-        new Action("skirmish", "quick", "quick",
-            "quick", true, false),
-        new Action("barrage", "full", "full",
-            "full", true, false),
-        new Action("disengage", "full", "full",
-            "full", true, true),
-        new Action("full tech", "full", "full",
-            "full", true, false),
-        new Action("improvised attack", "full", "full",
-            "full", true, false),
-        new Action("stabilize", "full", "full",
-            "full", true, false),
-        new Action("activate (quick)", "quick", "quick",
-            "quick", true, true),
-        new Action("activate (full)", "full", "full",
-            "full", true, true),
-        new Action("boot up", "full", "full",
-            "full", true, false),
-        new Action("mount", "full", "full",
-            "full", false, true),
-        new Action("dismount", "full", "full",
-            "full", true, false),
-        new Action("eject", "quick", "quick", 
-            "quick", true, false),
-        new Action("prepare", "quick", "quick",
-            "quick", true, true),
-        new Action("drop prepare", "free", "free",
-            "free", true, true),
-        new Action("self-destruct", "quick", "quick",
-            "quick", true, false),
-        new Action("shut down", "quick", "quick",
-            "quick", true, false),
-        new Action("skill check", "full", "full",
-            "full", true, true),
-        new Action("overcharge", "free", "free",
-            "free", true, false),
-        new Action("reaction", "reaction", "reaction",
-            "reaction", true, false),
-        new Action("brace", "reaction", "reaction",
-            "reaction", true, false),
-        new Action("overwatch", "reaction", "reaction",
-            "reaction", true, true),
-        new Action("fight", "full", "full",
-            "full", false, true),
-        new Action("jockey", "full", "full",
-            "full", false, true),
-        new Action("reload", "quick", "quick",
-            "quick", false, true),
-        new Action("transfer control", "protocol",
-            "protocol", "free", true,
-            false),
-    };
-
     public Action(String id, String name, String activation, String terse,
         String detail, boolean pilotUseable, boolean mechUseable,
         boolean hideActive, String[] synergyLocations, String[] confirm,
@@ -354,32 +272,6 @@ public class Action {
 
         // set the helper properties
         setType();
-    }
-    /**
-     * Creates one of the 34 total base actions detailed within pgs. 69 - 75 (30
-     *     mixed mech/pilot actions, 3 pilot actions, and the ability to hand
-     *     control over to an NHP, if you have one, as a protocol).
-     * @param actionTemplate a String which must be a valid base action name as
-     *     defined by Action.baseActionNames.
-     */
-    public Action(String actionTemplate) {
-        HelperMethods.checkString("actionTemplate",
-            actionTemplate);
-        if (! Action.isValidBaseAction(actionTemplate)) {
-            throw new IllegalArgumentException("actionTemplate value: \""
-                + actionTemplate + "\" is not a valid base action name");
-        }
-        for (Action action : Action.baseActions) {
-            if (actionTemplate.equals(action.getName())) {
-                setName(action.name);
-                setType(action.type);
-                setDetailedType(action.detailedType);
-                setSpeed(action.speed);
-                setMechUseable(action.mechUseable);
-                setPilotUseable(action.pilotUseable);
-                break;
-            }
-        }
     }
     public Action(Action action) {
         // set main data properties
