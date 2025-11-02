@@ -3,6 +3,7 @@ package packages.coreTypes.entityMechanics.entityTypes.mech.equipment;
 import packages.coreTypes.entityMechanics.Action;
 import packages.coreTypes.entityMechanics.entityTypes.mech.Equipment;
 import packages.coreTypes.entityMechanics.entityTypes.mech.equipment.tagSystem.DataTag;
+import packages.coreTypes.entityMechanics.entityTypes.mech.equipment.tagSystem.Tag;
 import packages.coreTypes.entityMechanics.harmSystem.Damage;
 import packages.coreTypes.entityMechanics.Manufacturer;
 import packages.coreTypes.entityMechanics.RangeTag;
@@ -25,7 +26,7 @@ import packages.coreTypes.entityMechanics.License;
  *     placeholder. At least one of its properties has an allowed value of null.
  */
 public class Modification extends Equipment {
-    // Mandatory properties
+    // Required properties
     /**
      * The modification's system points cost (i.e. 2).
      * Must be a minimum of 0.
@@ -86,12 +87,26 @@ public class Modification extends Equipment {
      */
     private DataTag[] addedDataTags;
 
-    public Modification() {
-        // TODO: fill out
-        super("", "", null);
+    public Modification(String id, String name, Manufacturer manufacturer,
+        License originLicense, String license, int licenseLevel,
+        String licenseID, String description, Tag[] tags, int spCost,
+        String[] allowedTypes, String effect, Damage[] addedDamage,
+        String[] restrictedSizes, Action[] actions, RangeTag[] addedRange,
+        DataTag[] addedDataTags) {
+        super(id, name, manufacturer, originLicense, license, licenseLevel,
+            licenseID, description, tags);
+    }
+    protected Modification(String id, String name, Manufacturer manufacturer,
+        String description, Tag[] tags, int spCost, String[] allowedTypes,
+        String effect, Damage[] addedDamage, String[] restrictedSizes,
+        Action[] actions, RangeTag[] addedRange, DataTag[] addedDataTags) {
+            this(id, name, manufacturer, null, null,
+                0, null, description, tags, spCost,
+                allowedTypes, effect, addedDamage, restrictedSizes, actions,
+                addedRange, addedDataTags);
     }
 
-    // Mandatory properties
+    // Required properties
     public int getSpCost() {
         return spCost;
     }
@@ -137,7 +152,7 @@ public class Modification extends Equipment {
 
         return addedDataTags;
     }
-    // Mandatory properties
+    // Required properties
     public void setSpCost(int spCost) {
         if (spCost < 0) {
             throw new IllegalArgumentException("spCost value: " + spCost + " is"
