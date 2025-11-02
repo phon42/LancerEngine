@@ -13,6 +13,7 @@ import Packages.CoreTypes.EntityMechanics.HarmSystem.Damage;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.damage.Harm;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.Condition;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.Status;
+import Packages.CoreTypes.Size;
 
 /**
  * See pgs. 58 and 74.
@@ -97,13 +98,11 @@ public final class Pilot implements Damageable {
     // stats
     /**
      * The pilot's size.
-     * Size is stored as 2 * its value (i.e. Size 1/2 would be stored as int 1).
-     * Must be one of the following values:
-     *     1, 2, 4, 6, 8.
+     * Can be any Size. Cannot be null.
      * Use Pilot.getSize() to get the raw value and Pilot.outputSize() to obtain
      *     it properly formatted.
      */
-    private int size;
+    private Size size;
     /**
      * The pilot's grit value.
      * Must be between 0 and 6 (inclusive).
@@ -387,8 +386,8 @@ public final class Pilot implements Damageable {
         return appearance;
     }
     // ---Narrative Profile---------
-    public int getSize() {
-        return size;
+    public Size getSize() {
+        return new Size(size);
     }
     public int getGrit() {
         return grit;
@@ -517,15 +516,12 @@ public final class Pilot implements Damageable {
     // ---Narrative Profile---------
     /**
      * Sets this.size to the value provided.
-     * @param size an int which must be 1, 2, 4, 6, or 8.
-     * @throws IllegalArgumentException if size is anything other than 1, 2, 4,
-     *     6, or 8.
+     * @param size a Size which cannot be null.
+     * @throws IllegalArgumentException if size is null.
      */
-    private void setSize(int size) {
-        if (size != 1 && size != 2 && size != 4 && size != 6 && size != 8) {
-            throw new IllegalArgumentException("New pilot size: " + size + " is"
-                + " not one of the following valid values: 1, 2, 4, 6, 8");
-        }
+    private void setSize(Size size) {
+        HelperMethods.checkObject("New size", size);
+        size = new Size(size);
         this.size = size;
     }
     /**
@@ -882,13 +878,7 @@ public final class Pilot implements Damageable {
      * @return a String containing the requested output.
      */
     public String outputSize() {
-        if (size == 1) {
-            return "1/2";
-        }
-        if (size > 1) {
-            return Integer.toString(size / 2);
-        }
-        return Integer.toString(size);
+        return size.output();
     }
     /**
      * Adds the provided status to this.statuses.
