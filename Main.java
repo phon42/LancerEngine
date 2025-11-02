@@ -1,18 +1,18 @@
 import java.util.HashMap;
 
 import MainBranch.Database;
-import Packages.CoreTypes.EntityMechanics.LancerCharacter;
-import Packages.CoreTypes.EntityMechanics.License;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.Mech;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.mech.Mount;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.MechSystem;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.mech.frame.FrameEnum;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.pilot.Loadout;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.pilot.SkillTriggersList;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.pilot.Talent;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.pilot.loadout.pilotEquipment.PilotGear;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.pilot.loadout.pilotEquipment.PilotWeapon;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.pilot.skillTriggersList.skillTrigger.Skill;
+import PackageSystemQ.CoreTypes.EntityMechanics.LancerCharacter;
+import PackageSystemQ.CoreTypes.EntityMechanics.License;
+import PackageSystemQ.CoreTypes.EntityMechanics.EntityTypes.damageable.Mech;
+import PackageSystemQ.CoreTypes.EntityMechanics.EntityTypes.mech.Mount;
+import PackageSystemQ.CoreTypes.EntityMechanics.EntityTypes.mech.equipment.MechSystem;
+import PackageSystemQ.CoreTypes.EntityMechanics.EntityTypes.mech.frame.FrameEnum;
+import PackageSystemQ.CoreTypes.EntityMechanics.EntityTypes.pilot.Loadout;
+import PackageSystemQ.CoreTypes.EntityMechanics.EntityTypes.pilot.SkillTriggersList;
+import PackageSystemQ.CoreTypes.EntityMechanics.EntityTypes.pilot.Talent;
+import PackageSystemQ.CoreTypes.EntityMechanics.EntityTypes.pilot.loadout.pilotEquipment.PilotGear;
+import PackageSystemQ.CoreTypes.EntityMechanics.EntityTypes.pilot.loadout.pilotEquipment.PilotWeapon;
+import PackageSystemQ.CoreTypes.EntityMechanics.EntityTypes.pilot.skillTriggersList.skillTrigger.Skill;
 
 /**
  * This program is intended to simulate one (or more) characters within the
