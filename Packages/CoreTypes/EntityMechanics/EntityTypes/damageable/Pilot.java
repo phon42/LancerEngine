@@ -231,51 +231,6 @@ public final class Pilot implements Damageable {
     private int burn;
 
     /**
-     * Creates a new Pilot from the provided pilotName and pilotCallsign.
-     */
-    public Pilot(String pilotName, String pilotCallsign) {
-        // ---Dossier-------------------
-        setName(pilotName);
-        setCallsign(pilotCallsign);
-        setPlayer("");
-        setStatus("active");
-        setBackground("");
-        setBiography("");
-        setAppearance("");
-        setPlayerNotes("");
-
-        // ---Narrative Profile---------
-        // setGrit() is unnecessary because licenseLevel is set later
-        // setMaxHP() swapped with setCurrentHP() because the mutators may throw
-        //     exceptions otherwise
-        // From pgs. 28 and 74:
-        setSize(1);
-        // add this.grit to get this.maxHP
-        setMaxHP(6 + 0);
-        // add this.grit to get this.currentHP
-        setCurrentHP(6 + 0);
-        setArmor(0);
-        setEvasion(10);
-        setSpeed(4);
-        setEDefense(10);
-        setSkillTriggers(new SkillTriggersList());
-        setReserves(new String[0]);
-        setLoadout(new Loadout());
-
-        // ---Tactical Profile---------
-        setLicenseLevel(0);
-        setLicenseList(new License[0]);
-        setSpecialEquipment(new String[0]);
-        setMechSkills(new int[4]);
-        setCoreBonuses(new String[0]);
-        setTalents(new Talent[0]);
-
-        // ---Extra stuff---------
-        setStatuses(new Status[0]);
-        setConditions(new Condition[0]);
-        setBurn(0);
-    }
-    /**
      * Creates a new Pilot using every Pilot property that isn't calculated by
      *     the Pilot's Loadout.
      */
@@ -297,15 +252,15 @@ public final class Pilot implements Damageable {
         setPlayerNotes(playerNotes);
 
         // ---Narrative Profile---------
-        // setGrit() is unnecessary because licenseLevel is set later
-        // setMaxHP() swapped with setCurrentHP() because the mutators may throw
-        //     exceptions otherwise
+        // setGrit() is unnecessary because licenseLevel is set instead
+        setSize(new Size(1));
+        // setLoadout() moved upwards so it doesn't re-set any properties that
+        //     are set above
+        // All the pilot's stats are calculated here
         setLoadout(loadout);
         setCurrentHP(currentHP);
         setSkillTriggers(skillTriggers);
         setReserves(reserves);
-        // setLoadout() moved upwards so it doesn't re-set any properties that
-        //     are set above
 
         // ---Tactical Profile---------
         setLicenseLevel(licenseLevel);
@@ -314,9 +269,33 @@ public final class Pilot implements Damageable {
         setMechSkills(mechSkills);
         setCoreBonuses(coreBonuses);
         setTalents(talents);
+
+        // ---Extra stuff---------
         setStatuses(statuses);
         setConditions(conditions);
         setBurn(burn);
+    }
+    /**
+     * Creates a new Pilot from the provided pilotName and pilotCallsign.
+     */
+    public Pilot(String pilotName, String pilotCallsign) {
+        this(
+            // ---Dossier-------------------
+            pilotName, pilotCallsign, "", "active",
+            "", "", "",
+            "",
+
+            // ---Narrative Profile---------
+            // add this.grit to get this.currentHP
+            6 + 0, new SkillTriggersList(), new String[0], new Loadout(),
+
+            // ---Tactical Profile---------
+            0, new License[0], new String[0], new int[4],
+            new String[0], new Talent[0],
+
+            // ---Extra stuff---------
+            new Status[0], new Condition[0], 0
+        );
     }
     /**
      * Creates a deepest copy of the provided Pilot.
@@ -1112,8 +1091,10 @@ public final class Pilot implements Damageable {
         if (! this.loadout.getPilotArmor().equals("")) {
             int[] armorAttributes = Database.getPilotArmorStats(
                 this.loadout.getPilotArmor());
-            
-            // From pg. 74:
+
+            // From pgs. 28 and 74:
+            // TODO: fill out if it's modified by the armor
+            setSize(new Size(1));
             // setMaxHP() swapped with setCurrentHP() because the mutators may
             //     throw exceptions otherwise
             // add this.grit to get this.maxHP
@@ -1124,8 +1105,6 @@ public final class Pilot implements Damageable {
             setEvasion(10 + armorAttributes[2]);
             setSpeed(4 + armorAttributes[3]);
             setEDefense(10 + armorAttributes[4]);
-            // TODO: fill out if it's modified by the armor
-            setSize(1);
         }
     }
     /**
