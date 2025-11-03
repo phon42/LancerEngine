@@ -111,8 +111,8 @@ public final class SkillData {
      */
     @Override
     public String toString() {
-        return "[ " + family.toUpperCase() + " ]" + name + " (\"" + id + "\")\n"
-            + "  " + description;
+        return "[ " + family.toUpperCase() + " ] " + name + " (\"" + id + "\")"
+            + "\n  " + description;
     }
     /**
      * Compares this SkillData object and obj. If they are the same class,
