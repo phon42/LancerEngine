@@ -1,4 +1,4 @@
-package Packages.CoreTypes;
+package Packages.CoreTypes.BattlefieldMechanics;
 
 /**
  * Represents a single sitrep. Contains information about that sitrep's id,
