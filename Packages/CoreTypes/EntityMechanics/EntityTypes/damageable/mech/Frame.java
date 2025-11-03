@@ -1,9 +1,10 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech;
 
-import MainBranch.Database;
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.EntityMechanics.License;
+import Packages.CoreTypes.EntityMechanics.Manufacturer;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frame.FrameEnum;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frame.FrameStatblock;
 import Packages.CoreTypes.EntityMechanics.LicenseSystem.frameLicense.LicenseContent;
 import Packages.CoreTypes.Size;
 
@@ -34,6 +35,14 @@ import Packages.CoreTypes.Size;
 public final class Frame extends LicenseContent {
     // TODO: figure out a way to override the documentation from LicenseContent
     /**
+     * The frame's ID (i.e. "swallowtail_ranger").
+     * Used for identifying it in Database.getFrame(String).
+     *     Case-insensitive and stored in lowercase. Can be any String except
+     *     "". Cannot be null.
+     */
+    // private String id;
+    // TODO: figure out a way to override the documentation from LicenseContent
+    /**
      * The frame's name (i.e. "everest").
      * Case-insensitive and stored in lowercase. Can be any String except "".
      *     Cannot be null.
@@ -41,18 +50,6 @@ public final class Frame extends LicenseContent {
      *     it properly formatted.
      */
     // private String name;
-    /**
-     * The frame's ID (i.e. "swallowtail_ranger").
-     * Used for identifying it in Database.getFrame(String).
-     *     Case-insensitive and stored in lowercase. Can be any String except
-     *     "". Cannot be null.
-     */
-    private String ID;
-    /**
-     * The frame's frameEnum (i.e. FrameEnum.SWALLOWTAIL_RANGER).
-     * Used for identifying it in Database.getFrame(FrameEnum). Cannot be null.
-     */
-    private FrameEnum frameEnum;
     /**
      * The frame's role (i.e. "balanced"). Multiple items are stored as seperate
      *     elements (i.e "Controller/Support" would be stored as {"controller",
@@ -72,14 +69,17 @@ public final class Frame extends LicenseContent {
     public static final String[] allowedRoles = new String[] {
         "artillery", "balanced", "controller", "defender", "striker", "support"
     };
+    // TODO: figure out a way to override the documentation from LicenseContent
     /**
      * The description at the top of a frame's page on COMP/CON (i.e. "Most
      *     humans don’t...").
      * Can be any String. Cannot be null.
      */
-    private String frameDescription;
+    // private String description;
 
     // frame attributes - size, structure, HP, etc. - see pgs. 33 - 34.
+    private FrameStatblock statblock;
+
     /**
      * The frame's size.
      * Can be any Size. Cannot be null.
@@ -199,54 +199,41 @@ public final class Frame extends LicenseContent {
     // core system passive
     // core system active
 
+    // Optional property
+    /**
+     * The frame's frameEnum (i.e. FrameEnum.SWALLOWTAIL_RANGER).
+     * Used for identifying it in Database.getFrame(FrameEnum). Can be null.
+     */
+    private FrameEnum frameEnum;
+
     /**
      * Creates a new Frame using every possible property.
      */
-    public Frame(License license, String manufacturer, String name,
-        String frameID, FrameEnum frameEnum, String[] role,
-        String frameDescription, Size size, int structure, int hp, int armor,
-        int stress, int heatCapacity, int evasion, int speed, int eDefense,
-        int techAttack, int sensors, int repairCapacity, int saveTarget,
-        int systemPoints, String[] traits, Mount[] mounts) {
-        setSource(Database.getManufacturer(manufacturer));
-        setOriginLicense(license);
-        // setManufacturer moved above setLicense to avoid throwing Exceptions
-        setName(name);
-        setID(frameID);
+    public Frame(String id, String name, Manufacturer manufacturer,
+        License originLicense, String license, String description,
+        String[] role, FrameStatblock statblock, String[] traits,
+        Mount[] mounts, FrameEnum frameEnum) {
+        super(id, name, manufacturer, originLicense, license, description);
         setFrameEnum(frameEnum);
         setRole(role);
-        setFrameDescription(frameDescription);
-        setSize(size);
-        setStructure(structure);
-        setHP(hp);
-        setArmor(armor);
-        setStress(stress);
-        setHeatCapacity(heatCapacity);
-        setEvasion(evasion);
-        setSpeed(speed);
-        setEDefense(eDefense);
-        setTechAttack(techAttack);
-        setSensors(sensors);
-        setRepairCapacity(repairCapacity);
-        setSaveTarget(saveTarget);
-        setSystemPoints(systemPoints);
+        setStats(statblock);
         setTraits(traits);
         setMounts(mounts);
+        setFrameEnum(frameEnum);
     }
     /**
-     * Creates a new Frame using every property except Structure and Stress,
-     *     which it automatically sets to 4. Helpful for player frames.
+     * Creates a new Frame using every possible property except frameEnum.
      */
-    public Frame(License license, String manufacturer, String name,
-        String frameID, FrameEnum frameEnum, String[] role,
-        String frameDescription, Size size, int hp, int armor, int heatCapacity,
-        int evasion, int speed, int eDefense, int techAttack, int sensors,
-        int repairCapacity, int saveTarget, int systemPoints, String[] traits,
+    public Frame(String id, String name, Manufacturer manufacturer,
+        License originLicense, String license, String description,
+        String[] role, FrameStatblock statblock, String[] traits,
         Mount[] mounts) {
-        this(license, manufacturer, name, frameID, frameEnum, role,
-            frameDescription, size, 4, hp, armor, 4,
-            heatCapacity, evasion, speed, eDefense, techAttack, sensors,
-            repairCapacity, saveTarget, systemPoints, traits, mounts);
+        super(id, name, manufacturer, originLicense, license, description);
+        setFrameEnum(frameEnum);
+        setRole(role);
+        setStats(statblock);
+        setTraits(traits);
+        setMounts(mounts);
     }
     /**
      * Creates a deepest copy of the provided Frame.
@@ -256,17 +243,18 @@ public final class Frame extends LicenseContent {
     public Frame(Frame frame) {
         // make sure to use the proper accessor method instead of "property" if
         //     the property's type is mutable
-        this(frame.license, frame.source, frame.name, frame.ID,
-            frame.frameEnum, frame.getRole(), frame.frameDescription,
-            frame.size, frame.structure, frame.HP, frame.armor, frame.stress,
-            frame.heatCapacity, frame.evasion, frame.speed, frame.eDefense,
-            frame.techAttack, frame.sensors, frame.repairCapacity,
-            frame.saveTarget, frame.systemPoints, frame.getTraits(),
-            frame.getMounts());
+        super(frame.id, frame.name, frame.source, frame.originLicense,
+            frame.license, frame.description);
+        setFrameEnum(frame.frameEnum);
+        setRole(frame.role);
+        setStats(frame.statblock);
+        setTraits(frame.traits);
+        setMounts(frame.mounts);
+        setFrameEnum(frame.frameEnum);
     }
 
     public String getID() {
-        return ID;
+        return id;
     }
     public FrameEnum getFrameEnum() {
         return frameEnum;
@@ -274,9 +262,7 @@ public final class Frame extends LicenseContent {
     public String[] getRole() {
         return HelperMethods.copyOf(role);
     }
-    public String getFrameDescription() {
-        return frameDescription;
-    }
+    // getStatblock() intentionally removed
     public Size getSize() {
         return new Size(size);
     }
@@ -331,10 +317,11 @@ public final class Frame extends LicenseContent {
         name = name.toLowerCase();
         this.name = name;
     }
-    protected void setID(String ID) {
-        HelperMethods.checkString("New frame ID", ID);
-        ID = ID.toLowerCase();
-        this.ID = ID;
+    @Override
+    protected void setID(String id) {
+        HelperMethods.checkString("New frame ID", id);
+        id = id.toLowerCase();
+        this.id = id;
     }
     /**
      * Sets this.frameEnum to the provided value.
@@ -381,12 +368,24 @@ public final class Frame extends LicenseContent {
         role = HelperMethods.copyOf(role);
         this.role = role;
     }
-    private void setFrameDescription(String frameDescription) {
-        if (frameDescription == null) {
-            throw new IllegalArgumentException("New frame description is"
-                + " null");
-        }
-        this.frameDescription = frameDescription;
+    private void setStats(FrameStatblock statblock) {
+        HelperMethods.checkObject("New statblock", statblock);
+        statblock = new FrameStatblock(statblock);
+        this.statblock = statblock;
+        setSize(statblock.getSize());
+        setStructure(statblock.getStructure());
+        setHP(statblock.getHP());
+        setArmor(statblock.getArmor());
+        setStress(statblock.getStress());
+        setHeatCapacity(statblock.getHeatCapacity());
+        setEvasion(statblock.getEvasion());
+        setSpeed(statblock.getSpeed());
+        setEDefense(statblock.getEDefense());
+        setTechAttack(statblock.getTechAttack());
+        setSensors(statblock.getSensors());
+        setRepairCapacity(statblock.getRepairCapacity());
+        setSaveTarget(statblock.getSaveTarget());
+        setSystemPoints(statblock.getSystemPoints());
     }
     /**
      * Sets this.size to the value provided.
