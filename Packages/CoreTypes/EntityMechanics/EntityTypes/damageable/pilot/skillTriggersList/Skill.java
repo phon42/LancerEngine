@@ -1,6 +1,7 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList;
 
 import MainBranch.HelperMethods;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skill.SkillData;
 
 /**
  * See pg. 24 - 27.
@@ -28,24 +29,32 @@ public final class Skill {
      *     2, 4, 6
      */
     private int level;
+    /**
+     * The actual skill that this Skill object contains (i.e. a SkillData
+     *     representing Apply Fists to Faces).
+     * Can be any SkillData. Cannot be null.
+     */
+    private SkillData skillData;
 
     /**
      * Creates a new SkillTrigger with the provided skill trigger name and skill
      *     trigger level.
      * @param skillName a String which cannot be null or "".
      * @param skillLevel an int which must be 2, 4, or 6.
+     * @param skillData a SkillData which cannot be null.
      */
-    public Skill(String skillName, int skillLevel) {
+    public Skill(String skillName, int skillLevel, SkillData skillData) {
         setName(skillName);
         setLevel(skillLevel);
+        setSkillData(skillData);
     }
     /**
-     * Creates a copy of the provided SkillTrigger.
-     * @param skillTrigger a SkillTrigger to be copied.
-     * @return a SkillTrigger copy of the provided SkillTrigger.
+     * Creates a copy of the provided Skill.
+     * @param skill a Skill to be copied.
+     * @return a Skill copy of the provided Skill.
      */
-    public Skill(Skill skillTrigger) {
-        this(skillTrigger.name, skillTrigger.level);
+    public Skill(Skill skill) {
+        this(skill.name, skill.level, skill.skillData);
     }
 
     public String getName() {
@@ -53,6 +62,9 @@ public final class Skill {
     }
     public int getLevel() {
         return level;
+    }
+    public SkillData getSkill() {
+        return new SkillData(skillData);
     }
     private void setName(String name) {
         HelperMethods.checkString("New name", name);
@@ -69,6 +81,16 @@ public final class Skill {
                 + "is not one of the following valid values: 2, 4, 6");
         }
         this.level = level;
+    }
+    /**
+     * Sets this.skillData to the provided value.
+     * @param skillData a SkillData which cannot be null.
+     * @throws IllegalArgumentException if skillData is null.
+     */
+    private void setSkillData(SkillData skillData) {
+        HelperMethods.checkObject("skillData", skillData);
+        skillData = new SkillData(skillData);
+        this.skillData = skillData;
     }
 
     /**
