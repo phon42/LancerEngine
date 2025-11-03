@@ -37,19 +37,72 @@ public final class Frame extends LicenseContent {
     /**
      * The frame's ID (i.e. "swallowtail_ranger").
      * Used for identifying it in Database.getFrame(String).
-     *     Case-insensitive and stored in lowercase. Can be any String except
-     *     "". Cannot be null.
+     * Can be any String except "". Cannot be null.
+     * Case-insensitive and stored in lowercase.
      */
     // private String id;
     // TODO: figure out a way to override the documentation from LicenseContent
     /**
-     * The frame's name (i.e. "everest").
-     * Case-insensitive and stored in lowercase. Can be any String except "".
-     *     Cannot be null.
+     * The frame's name (i.e. "Everest").
+     * Case-sensitive. Can be any String except "". Cannot be null.
      * Use Frame.getName() to get the raw value and Frame.outputName() to obtain
      *     it properly formatted.
      */
     // private String name;
+    // TODO: figure out a way to override the documentation from LicenseContent
+    /**
+     * The manufacturer of this frame (i.e. a Manufacturer that represents GMS).
+     * Can be any Manufacturer. Cannot be null.
+     */
+    // protected Manufacturer manufacturer;
+    // TODO: figure out a way to override the documentation from LicenseContent
+    /**
+     * The origin license for this frame (i.e. a License representing 'Everest,
+     *     rank 0' or 'Blackbeard, rank I'). Uses a License to represent an
+     *     ACTUAL license instead of the frame name and rank to which a pilot
+     *     holds a license.
+     * LicenseContent.originLicense.id property is always determined by
+     *     this.licenseID.
+     * LicenseContent.originLicense.level property is always determined by
+     *     this.licenseLevel.
+     * For GMS license content, is set to "<the frame ID>" 0.
+     * Can be any License. Cannot be null.
+     */
+    // protected License originLicense;
+    // TODO: figure out a way to override the documentation from LicenseContent
+    /**
+     * The ID of the license that this frame originates from (i.e.
+     *     "mf_standard_pattern_i_everest" or "mf_blackbeard").
+     * For GMS license content, is set to "mf_standard_pattern_i_everest".
+     * Can be any String except "". Cannot be null.
+     * Case-insensitive and stored in lowercase.
+     */
+    protected String licenseID;
+    // TODO: figure out a way to override the documentation from LicenseContent
+    /**
+     * The name of the license that this license content originates from (i.e.
+     *     "Blackbeard").
+     * For GMS content, is set to "GMS".
+     * Can be any String except "". Cannot be null.
+     * Case-sensitive.
+     */
+    protected String license;
+    // TODO: figure out a way to override the documentation from LicenseContent
+    /**
+     * The license level for this license content (i.e. 1).
+     * For GMS license content, is set to 0. For non-GMS license content, must
+     *     be a minimum of 1.
+     * Must be a minimum of 0.
+     */
+    protected int licenseLevel;
+    // TODO: figure out a way to override the documentation from LicenseContent
+    /**
+     * The description at the top of a frame's page on COMP/CON (i.e. "Most
+     *     humans don’t...").
+     * Can be any String except "". Cannot be null.
+     * Case-sensitive.
+     */
+    // private String description;
     /**
      * The frame's role (i.e. "balanced"). Multiple items are stored as seperate
      *     elements (i.e "Controller/Support" would be stored as {"controller",
@@ -69,13 +122,6 @@ public final class Frame extends LicenseContent {
     public static final String[] allowedRoles = new String[] {
         "artillery", "balanced", "controller", "defender", "striker", "support"
     };
-    // TODO: figure out a way to override the documentation from LicenseContent
-    /**
-     * The description at the top of a frame's page on COMP/CON (i.e. "Most
-     *     humans don’t...").
-     * Can be any String. Cannot be null.
-     */
-    // private String description;
 
     // frame attributes - size, structure, HP, etc. - see pgs. 33 - 34.
     private FrameStatblock statblock;
