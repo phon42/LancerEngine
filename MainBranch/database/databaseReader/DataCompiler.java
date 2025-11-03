@@ -2,11 +2,11 @@ package MainBranch.database.databaseReader;
 
 import MainBranch.Database;
 import MainBranch.HelperMethods;
-import Packages.CoreTypes.Environment;
 import Packages.CoreTypes.Rule;
 import Packages.CoreTypes.Sitrep;
 import Packages.CoreTypes.Table;
 import Packages.CoreTypes.Term;
+import Packages.CoreTypes.BattlefieldMechanics.Environment;
 import Packages.CoreTypes.EntityMechanics.Action;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
 import Packages.CoreTypes.EntityMechanics.NPCFeature;

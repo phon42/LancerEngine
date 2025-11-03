@@ -1,11 +1,11 @@
 package MainBranch;
 
 import Packages.CoreTypes.Callable;
-import Packages.CoreTypes.Environment;
 import Packages.CoreTypes.Rule;
 import Packages.CoreTypes.Sitrep;
 import Packages.CoreTypes.Table;
 import Packages.CoreTypes.Term;
+import Packages.CoreTypes.BattlefieldMechanics.Environment;
 import Packages.CoreTypes.EntityMechanics.Action;
 import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.License;
