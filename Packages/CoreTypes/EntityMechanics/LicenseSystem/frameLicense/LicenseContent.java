@@ -47,7 +47,7 @@ public class LicenseContent {
      *     this.licenseID.
      * LicenseContent.originLicense.level property is always determined by
      *     this.licenseLevel.
-     * For GMS license content, is set to "mf_standard_pattern_i_everest" 0.
+     * For GMS license content, is set to "<the frame ID>" 0.
      * Can be any License. Cannot be null.
      */
     protected License originLicense;
@@ -90,7 +90,23 @@ public class LicenseContent {
         setID(id);
         setName(name);
         setManufacturer(manufacturer);
-        HelperMethods.checkObject("licenseID", licenseID);
+        if (licenseID == null) {
+            // hopefully something like the Chomolungma where only the id, name,
+            //     manufacturer, license level, and description are present?
+            HelperMethods.warn("[ WARNING ] licenseID was not"
+                + " provided for this Frame. Attempting to extrapolate from"
+                + " available data");
+            if (id.substring(0, 3).equals("mf_"))
+            {
+                // it is in fact a Chomolungma-type situation
+                licenseID = id;
+                if (license == null) {
+                    license = "";
+                }
+            } else {
+                throw new IllegalArgumentException("licenseID is null");
+            }
+        }
         if (licenseID.equals("")) {
             setLicenseID("mf_standard_pattern_i_everest");
         } else {
@@ -98,8 +114,7 @@ public class LicenseContent {
         }
         HelperMethods.checkObject("license", license);
         if (license.equals("")) {
-            if (this.licenseID.equals(
-                "mf_standard_pattern_i_everest")) {
+            if (this.manufacturer.getID().equals("GMS")) {
                 setLicense(this.manufacturer.getID());
             } else {
                 setLicense(this.name);
