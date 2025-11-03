@@ -75,12 +75,34 @@ public final class SkillData {
     public String getName() {
         return name;
     }
-    public void setID(String id) {
+    public String getDescription() {
+        return description;
+    }
+    public String getDetail() {
+        return detail;
+    }
+    public String getFamily() {
+        return family;
+    }
+    private void setID(String id) {
         this.id = id;
     }
     private void setName(String name) {
         HelperMethods.checkString("New name", name);
         this.name = name;
+    }
+    private void setDescription(String description) {
+        HelperMethods.checkString("description", description);
+        this.description = description;
+    }
+    private void setDetail(String detail) {
+        HelperMethods.checkString("detail", detail);
+        this.detail = detail;
+    }
+    private void setFamily(String family) {
+        HelperMethods.checkString("family", family);
+        family = family.toLowerCase();
+        this.family = family;
     }
 
     /**
@@ -89,7 +111,8 @@ public final class SkillData {
      */
     @Override
     public String toString() {
-        return getName() + " (+" + getLevel() + ")";
+        return "[ " + family.toUpperCase() + " ]" + name + " (\"" + id + "\")\n"
+            + "  " + description;
     }
     /**
      * Compares this SkillData object and obj. If they are the same class,
@@ -117,10 +140,19 @@ public final class SkillData {
         if (skillData == null) {
             return false;
         }
+        if (! skillData.getID().equals(this.id)) {
+            return false;
+        }
         if (! skillData.getName().equals(this.name)) {
             return false;
         }
-        if (skillData.getLevel() != this.level) {
+        if (! skillData.getDescription().equals(this.description)) {
+            return false;
+        }
+        if (! skillData.getDetail().equals(this.detail)) {
+            return false;
+        }
+        if (! skillData.getFamily().equals(this.family)) {
             return false;
         }
         
