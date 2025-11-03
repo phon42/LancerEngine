@@ -229,7 +229,7 @@ public final class Database {
         if (! Database.open) {
             // user called close() when Database was already closed
             // throw an exception if you hate your user
-            throw new IllegalArgumentException("Attempted to call"
+            throw new IllegalStateException("Attempted to call"
                 + " Database.close() when Database is already closed");
         }
         Database.open = false;
@@ -241,7 +241,7 @@ public final class Database {
                 return new Action(action);
             }
         }
-        throw new IllegalArgumentException("No action found for action name: "
+        throw new NoSuchElementException("No action found for action name: "
             + actionName);
     }
     public static Background getBackground(String backgroundID) {
@@ -251,7 +251,7 @@ public final class Database {
                 return new Background(background);
             }
         }
-        throw new IllegalArgumentException("No background found for background"
+        throw new NoSuchElementException("No background found for background"
             + " ID: " + backgroundID);
     }
     public static Condition getCondition(String conditionName) {
@@ -261,7 +261,7 @@ public final class Database {
                 return new Condition(condition);
             }
         }
-        throw new IllegalArgumentException("No condition found for condition"
+        throw new NoSuchElementException("No condition found for condition"
             + " name: " + conditionName);
     }
     public static CoreBonus getCoreBonus(String coreBonusID) {
@@ -271,7 +271,7 @@ public final class Database {
                 return new CoreBonus(coreBonus);
             }
         }
-        throw new IllegalArgumentException("No core bonus found for core bonus"
+        throw new NoSuchElementException("No core bonus found for core bonus"
             + " ID: " + coreBonusID);
     }
     public static DataTag getDataTag(String dataTagID) {
@@ -281,7 +281,7 @@ public final class Database {
                 return new DataTag(dataTag);
             }
         }
-        throw new IllegalArgumentException("No data tag found for data tag ID: "
+        throw new NoSuchElementException("No data tag found for data tag ID: "
             + dataTagID);
     }
     public static Environment getEnvironment(String environmentID) {
@@ -291,7 +291,7 @@ public final class Database {
                 return new Environment(environment);
             }
         }
-        throw new IllegalArgumentException("No environment found for"
+        throw new NoSuchElementException("No environment found for"
             + " environment ID: " + environmentID);
     }
     public static Frame getFrame(String frameID) {
@@ -301,7 +301,7 @@ public final class Database {
                 return new Frame(frame);
             }
         }
-        throw new IllegalArgumentException("No frame found for frame ID: "
+        throw new NoSuchElementException("No frame found for frame ID: "
             + frameID);
     }
     public static Frame getFrame(FrameEnum frameEnum) {
@@ -311,7 +311,7 @@ public final class Database {
                 return new Frame(frame);
             }
         }
-        throw new IllegalArgumentException("No frame found for frame enum: "
+        throw new NoSuchElementException("No frame found for frame enum: "
             + frameEnum);
     }
     public static Manufacturer getManufacturer(String manufacturerID) {
@@ -323,7 +323,7 @@ public final class Database {
                 return new Manufacturer(manufacturer);
             }
         }
-        throw new IllegalArgumentException("No manufacturer found for"
+        throw new NoSuchElementException("No manufacturer found for"
             + " manufacturer ID: " + manufacturerID);
     }
     public static Modification getModification(String modificationID) {
@@ -334,7 +334,7 @@ public final class Database {
                 return new Modification(modification);
             }
         }
-        throw new IllegalArgumentException("No modification found for"
+        throw new NoSuchElementException("No modification found for"
             + " modification ID: " + modificationID);
     }
     public static PilotArmor getPilotArmor(String pilotArmorID) {
@@ -344,7 +344,7 @@ public final class Database {
                 return new PilotArmor(pilotArmor);
             }
         }
-        throw new IllegalArgumentException("No pilot armor found for pilot"
+        throw new NoSuchElementException("No pilot armor found for pilot"
             + " armor ID: " + pilotArmorID);
     }
     public static PilotGear getPilotGear(String pilotGearID) {
@@ -354,7 +354,7 @@ public final class Database {
                 return new PilotGear(pilotGear);
             }
         }
-        throw new IllegalArgumentException("No pilot gear found for pilot"
+        throw new NoSuchElementException("No pilot gear found for pilot"
             + " gear ID: " + pilotGearID);
     }
     public static PilotWeapon getPilotWeapon(String pilotWeaponID) {
@@ -364,7 +364,7 @@ public final class Database {
                 return new PilotWeapon(pilotWeapon);
             }
         }
-        throw new IllegalArgumentException("No pilot weapon found for pilot"
+        throw new NoSuchElementException("No pilot weapon found for pilot"
             + " weapon ID: " + pilotWeaponID);
     }
     public static Reserve getReserve(String reserveID) {
@@ -374,7 +374,7 @@ public final class Database {
                 return new Reserve(reserve);
             }
         }
-        throw new IllegalArgumentException("No reserve found for reserve ID: "
+        throw new NoSuchElementException("No reserve found for reserve ID: "
             + reserveID);
     }
     public static Rule getRule(String ruleName) {
@@ -384,7 +384,7 @@ public final class Database {
                 return new Rule(rule);
             }
         }
-        throw new IllegalArgumentException("No rule found for rule name: "
+        throw new NoSuchElementException("No rule found for rule name: "
             + ruleName);
     }
     public static Sitrep getSitrep(String sitrepID) {
@@ -394,7 +394,7 @@ public final class Database {
                 return new Sitrep(sitrep);
             }
         }
-        throw new IllegalArgumentException("No sitrep found for sitrep ID: "
+        throw new NoSuchElementException("No sitrep found for sitrep ID: "
             + sitrepID);
     }
     public static SkillData getSkillDataByID(String skillDataID) {
@@ -420,13 +420,16 @@ public final class Database {
     }
     public static State getState(String stateName) {
         HelperMethods.checkObject("stateName", stateName);
-        for (State state : Database.states) {
-            if (stateName.equals(state.getName())) {
-                return new State(state);
+        try {
+            return getCondition(stateName);
+        } catch (NoSuchElementException exception) {
+            try {
+                return getStatus(stateName);
+            } catch (NoSuchElementException exception2) {
+                throw new NoSuchElementException("No state found for state"
+                    + " name: " + stateName);
             }
         }
-        throw new IllegalArgumentException("No state found for state name: "
-            + stateName);
     }
     public static Status getStatus(String statusName) {
         HelperMethods.checkObject("statusName", statusName);
@@ -435,7 +438,7 @@ public final class Database {
                 return new Status(status);
             }
         }
-        throw new IllegalArgumentException("No status found for status name: "
+        throw new NoSuchElementException("No status found for status name: "
             + statusName);
     }
     public static MechSystem getSystem(String systemID) {
@@ -445,7 +448,7 @@ public final class Database {
                 return new MechSystem(system);
             }
         }
-        throw new IllegalArgumentException("No mech system found for mech"
+        throw new NoSuchElementException("No mech system found for mech"
             + " system ID: " + systemID);
     }
     public static Table getTable(String tableName) {
@@ -455,7 +458,7 @@ public final class Database {
                 return new Table(table);
             }
         }
-        throw new IllegalArgumentException("No table found for table name: "
+        throw new NoSuchElementException("No table found for table name: "
             + tableName);
     }
     public static Tag getTag(String tagID) {
@@ -465,7 +468,7 @@ public final class Database {
                 return new Tag(tag);
             }
         }
-        throw new IllegalArgumentException("No tag found for tag ID: "
+        throw new NoSuchElementException("No tag found for tag ID: "
             + tagID);
     }
     public static TalentData getTalent(String talentID) {
@@ -475,7 +478,7 @@ public final class Database {
                 return new TalentData(talent);
             }
         }
-        throw new IllegalArgumentException("No talent found for talent ID: "
+        throw new NoSuchElementException("No talent found for talent ID: "
             + talentID);
     }
     public static Term getTerm(String termName) {
@@ -485,7 +488,7 @@ public final class Database {
                 return new Term(term);
             }
         }
-        throw new IllegalArgumentException("No term found for term name: "
+        throw new NoSuchElementException("No term found for term name: "
             + termName);
     }
     public static Weapon getWeapon(String weaponID) {
@@ -495,7 +498,7 @@ public final class Database {
                 return new Weapon(weapon);
             }
         }
-        throw new IllegalArgumentException("No weapon found for weapon ID: "
+        throw new NoSuchElementException("No weapon found for weapon ID: "
             + weaponID);
     }
     public static FrameLicense getFrameLicense(String frameLicenseID) {
@@ -506,7 +509,7 @@ public final class Database {
                 return new FrameLicense(frameLicense);
             }
         }
-        throw new IllegalArgumentException("No frame license found for frame"
+        throw new NoSuchElementException("No frame license found for frame"
             + " license ID: " + frameLicenseID);
     }
     /**
