@@ -29,8 +29,8 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.talent.Ta
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment.PilotArmor;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment.PilotGear;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment.PilotWeapon;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.SkillTrigger;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skillTrigger.SkillData;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.Skill;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skill.SkillData;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.Damage;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.damage.Harm;
 import Packages.CoreTypes.EntityMechanics.LicenseSystem.FrameLicense;
@@ -1402,19 +1402,19 @@ public final class HelperMethods {
     }
     /**
      * Returns a deepest copy of original.
-     * @param original a SkillTrigger[] that cannot be null.
-     * @return a SkillTrigger[] deepest copy of original.
+     * @param original a Skill[] that cannot be null.
+     * @return a Skill[] deepest copy of original.
      * @throws IllegalArgumentException if original is null.
      */
-    public static SkillTrigger[] copyOf(SkillTrigger[] original) {
+    public static Skill[] copyOf(Skill[] original) {
         checkObject("original", original);
-        SkillTrigger[] copy = new SkillTrigger[original.length];
+        Skill[] copy = new Skill[original.length];
         for (int i = 0; i < original.length; i++) {
             if (original[i] == null) {
                 copy[i] = original[i];
                 continue;
             }
-            copy[i] = new SkillTrigger(original[i]);
+            copy[i] = new Skill(original[i]);
         }
 
         return copy;

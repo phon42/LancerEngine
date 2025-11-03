@@ -16,7 +16,7 @@ import MainBranch.HelperMethods;
  * Safety: This class does not have placeholder values and cannot be a
  *     placeholder. None of its properties have allowed values of null.
  */
-public final class SkillTrigger {
+public final class Skill {
     /**
      * The name of the skill trigger (i.e. "Apply Fists to Faces").
      * Can be any String except "". Cannot be null.
@@ -35,7 +35,7 @@ public final class SkillTrigger {
      * @param skillName a String which cannot be null or "".
      * @param skillLevel an int which must be 2, 4, or 6.
      */
-    public SkillTrigger(String skillName, int skillLevel) {
+    public Skill(String skillName, int skillLevel) {
         setName(skillName);
         setLevel(skillLevel);
     }
@@ -44,7 +44,7 @@ public final class SkillTrigger {
      * @param skillTrigger a SkillTrigger to be copied.
      * @return a SkillTrigger copy of the provided SkillTrigger.
      */
-    public SkillTrigger(SkillTrigger skillTrigger) {
+    public Skill(Skill skillTrigger) {
         this(skillTrigger.name, skillTrigger.level);
     }
 
@@ -101,7 +101,7 @@ public final class SkillTrigger {
      * @param skill a Skill to be compared to.
      * @return a boolean representing whether the two Skills are the same.
      */
-    public boolean equals(SkillTrigger skill) {
+    public boolean equals(Skill skill) {
         if (skill == null) {
             return false;
         }

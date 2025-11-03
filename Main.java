@@ -12,7 +12,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.SkillTrig
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Talent;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment.PilotGear;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment.PilotWeapon;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.SkillTrigger;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.Skill;
 
 /**
  * This program is intended to simulate one (or more) characters within the
@@ -113,13 +113,11 @@ public final class Main {
         pilotProperties.put("appearance", "e");
         pilotProperties.put("playerNotes", "e");
         pilotProperties.put("skillTriggers", new SkillTriggersList(
-            new SkillTrigger[] {
-                new SkillTrigger("Apply Fists to Faces",
-                    2),
-                new SkillTrigger("Assault", 2),
-                new SkillTrigger("Blow Something Up",
-                    2),
-                new SkillTrigger("Survive", 2)
+            new Skill[] {
+                new Skill("Apply Fists to Faces", 2),
+                new Skill("Assault", 2),
+                new Skill("Blow Something Up", 2),
+                new Skill("Survive", 2)
             }
         ));
         pilotProperties.put("loadout", new Loadout());

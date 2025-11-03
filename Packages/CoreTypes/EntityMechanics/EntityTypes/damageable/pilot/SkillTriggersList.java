@@ -1,7 +1,7 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot;
 
 import MainBranch.HelperMethods;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.SkillTrigger;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.Skill;
 
 /**
  * Represents the set of skill triggers a pilot has. Stores an array of those
@@ -16,22 +16,22 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTrig
  */
 public final class SkillTriggersList {
     /**
-     * Can be any SkillTrigger[]. Cannot be null or contain null elements.
+     * Can be any Skill[]. Cannot be null or contain null elements.
      */
-    private SkillTrigger[] skillTriggers;
+    private Skill[] skillTriggers;
 
     /**
      * Creates an empty SkillTriggersList.
      */
     public SkillTriggersList() {
-        setSkillTriggers(new SkillTrigger[0]);
+        setSkillTriggers(new Skill[0]);
     }
     /**
      * Creates a new SkillTriggersList with the provided list of skill triggers.
      * @param skillTriggers a SkillTrigger[] that cannot be null or contain null
      *     elements.
      */
-    public SkillTriggersList(SkillTrigger[] skillTriggers) {
+    public SkillTriggersList(Skill[] skillTriggers) {
         setSkillTriggers(skillTriggers);
     }
     /**
@@ -45,7 +45,7 @@ public final class SkillTriggersList {
         this(skillTriggersList.skillTriggers);
     }
 
-    public SkillTrigger[] getSkillTriggers() {
+    public Skill[] getSkillTriggers() {
         return HelperMethods.copyOf(skillTriggers);
     }
     /**
@@ -56,7 +56,7 @@ public final class SkillTriggersList {
      * @return a boolean containing the result of the search.
      */
     public boolean hasSkillTrigger(String skillTriggerName) {
-        for (SkillTrigger skillTrigger : this.skillTriggers) {
+        for (Skill skillTrigger : this.skillTriggers) {
             if (skillTrigger.getName().equals(skillTriggerName)) {
                 return true;
             }
@@ -69,15 +69,14 @@ public final class SkillTriggersList {
      *     returns it.
      * @param skillTriggerName a String containing the name of the skill trigger
      *     to be searched for.
-     * @return a SkillTrigger containing the skill trigger that was searched
-     *     for.
+     * @return a Skill containing the skill trigger that was searched for.
      * @throws IllegalArgumentException if the requested skill trigger could not
      *     be found.
      */
-    public SkillTrigger getSkillTrigger(String skillTriggerName) {
-        for (SkillTrigger skillTrigger : this.skillTriggers) {
+    public Skill getSkillTrigger(String skillTriggerName) {
+        for (Skill skillTrigger : this.skillTriggers) {
             if (skillTrigger.getName().equals(skillTriggerName)) {
-                return new SkillTrigger(skillTrigger);
+                return new Skill(skillTrigger);
             }
         }
 
@@ -86,12 +85,12 @@ public final class SkillTriggersList {
     }
     /**
      * Sets this.skillTriggers to the provided value.
-     * @param skillTriggers a SkillTrigger[] which cannot be null or contain
-     *     null elements.
+     * @param skillTriggers a Skill[] which cannot be null or contain null
+     *     elements.
      * @throws IllegalArgumentException if skillTriggers is null or contains
      *     null elements.
      */
-    public void setSkillTriggers(SkillTrigger[] skillTriggers) {
+    public void setSkillTriggers(Skill[] skillTriggers) {
         HelperMethods.checkObjectArray("New skill triggers",
             skillTriggers);
         skillTriggers = HelperMethods.copyOf(skillTriggers);

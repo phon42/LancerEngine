@@ -7,7 +7,7 @@ import Packages.CoreTypes.EntityMechanics.License;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.Damageable;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Loadout;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.SkillTriggersList;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.SkillTrigger;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.Skill;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Talent;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.Damage;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.damage.Harm;
@@ -1304,7 +1304,7 @@ public final class Pilot implements Damageable {
         // total skill trigger level should be 4 + licenseLevel
         int totalLevel = 0;
 
-        for (SkillTrigger skillTrigger : this.skillTriggers.getSkillTriggers())
+        for (Skill skillTrigger : this.skillTriggers.getSkillTriggers())
         {
             totalLevel += skillTrigger.getLevel() / 2;
         }

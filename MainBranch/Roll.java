@@ -3,7 +3,7 @@ package MainBranch;
 import java.util.Random;
 
 import MainBranch.roll.diceExpression.Expression;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.SkillTrigger;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.Skill;
 
 /**
  * See pgs. 12 - 14 and 45 - 47.
@@ -491,8 +491,8 @@ public final class Roll {
      * backgroundInvoked adds +1 accuracy or +1 difficulty if its value is +1 or
      *     -1, respectively.
      * teamwork, upon being true, adds +1 accuracy to the total roll.
-     * @param skillTrigger a SkillTrigger which provides the bonus for the roll.
-     *     Cannot be null.
+     * @param skillTrigger a Skill which provides the bonus for the roll. Cannot
+     *     be null.
      * @param accuracy an int containing the number of accuracy dice applied.
      *     Must be a minimum of 0.
      * @param difficulty an int containing the number of difficulty dice
@@ -507,9 +507,8 @@ public final class Roll {
      * @return an int containing the result of the check.
      * @throws IllegalArgumentException if any parameters are invalid.
      */
-    public static int check(SkillTrigger skillTrigger, int accuracy,
-        int difficulty, boolean isDifficult, int backgroundInvoked,
-        boolean teamwork) {
+    public static int check(Skill skillTrigger, int accuracy, int difficulty,
+        boolean isDifficult, int backgroundInvoked, boolean teamwork) {
         // See pgs. 13, 45 - 47
         int bonus;
 
@@ -535,13 +534,12 @@ public final class Roll {
         return roll(bonus, accuracy, difficulty);
     }
     /**
-     * Helper method for check(SkillTrigger, int, int, boolean, int, boolean).
-     *     Allows the method to be called with default values of false, 0, false
-     *     for the fourth parameter onward.
+     * Helper method for check(Skill, int, int, boolean, int, boolean). Allows
+     *     the method to be called with default values of false, 0, false for
+     *     the fourth parameter onward.
      * @return an int containing the result of the check.
      */
-    public static int check(SkillTrigger skillTrigger, int accuracy,
-        int difficulty) {
+    public static int check(Skill skillTrigger, int accuracy, int difficulty) {
             return check(skillTrigger, accuracy, difficulty, false,
                 0, false);
     }
@@ -662,9 +660,8 @@ public final class Roll {
      *     (Participant #2) won.
      * @return an int containing the identity of the winner.
      */
-    public static int contestedCheck(SkillTrigger skillTrigger1,
-        SkillTrigger skillTrigger2, int accuracy1, int difficulty1,
-        int accuracy2, int difficulty2) {
+    public static int contestedCheck(Skill skillTrigger1, Skill skillTrigger2,
+        int accuracy1, int difficulty1, int accuracy2, int difficulty2) {
         // See pg. 13
         int result1 = check(skillTrigger1, accuracy1, difficulty1);
         int result2 = check(skillTrigger2, accuracy2, difficulty2);
@@ -672,8 +669,7 @@ public final class Roll {
         // If it's a tie (result1 == result2), the result is +1
         return result1 >= result2 ? +1 : -1;
     }
-    public static int contestedCheck(SkillTrigger skillTrigger1,
-        SkillTrigger skillTrigger2) {
+    public static int contestedCheck(Skill skillTrigger1, Skill skillTrigger2) {
         return contestedCheck(skillTrigger1, skillTrigger2, 0,
             0, 0, 0);
     }
