@@ -10,6 +10,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Frame;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Mount;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.MechSystem;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frame.FrameEnum;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frame.FrameStatblock;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Talent;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.Damage;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.damage.Harm;
@@ -1205,37 +1206,40 @@ public final class Mech implements Damageable {
         //     Auto-Stabilizing Hardpoints or Overpower Caliber)
         // TODO: update to account for the Engineer talent as well as the
         //     Improved Armament and Integrated Weapon core bonuses
+        FrameStatblock statblock;
+
         if (this.frame == null) {
             throw new IllegalArgumentException("calculateAttributes() was"
                 + " called while this.frame was set to null");
         }
-        setMaxStructure(this.frame.getStructure());
+        statblock = this.frame.getStatblock();
+        setMaxStructure(statblock.getStructure());
         setCurrentStructure(this.maxStructure);
-        setMaxStress(this.frame.getStress());
+        setMaxStress(statblock.getStress());
         setCurrentStress(this.maxStress);
         
         // Hull
-        setMaxHP(this.frame.getHP() + (mechSkills[0] * 2));
+        setMaxHP(statblock.getHP() + (mechSkills[0] * 2));
         setCurrentHP(this.maxHP);
-        setMaxRepairCapacity(this.frame.getRepairCapacity()
+        setMaxRepairCapacity(statblock.getRepairCapacity()
             + (mechSkills[0] / 2));
         setCurrentRepairs(this.maxRepairCapacity);
 
         // Agility
-        setEvasion(this.frame.getEvasion() + mechSkills[1]);
-        setSpeed(this.frame.getSpeed() + (mechSkills[1] / 2));
+        setEvasion(statblock.getEvasion() + mechSkills[1]);
+        setSpeed(statblock.getSpeed() + (mechSkills[1] / 2));
 
         // Systems
-        setEDefense(this.frame.getEDefense() + mechSkills[2]);
-        setTechAttack(this.frame.getTechAttack() + mechSkills[2]);
+        setEDefense(statblock.getEDefense() + mechSkills[2]);
+        setTechAttack(statblock.getTechAttack() + mechSkills[2]);
         // Add grit to system points - see pg. 37
-        setSystemPoints(this.frame.getSystemPoints() + (mechSkills[2] / 2)
+        setSystemPoints(statblock.getSystemPoints() + (mechSkills[2] / 2)
             + grit);
 
         // Engineering
         // setMaxHeatCapacity() swapped with setCurrentHeat() because the
         //     mutators may throw exceptions otherwise
-        setMaxHeatCapacity(this.frame.getHeatCapacity() + mechSkills[3]);
+        setMaxHeatCapacity(statblock.getHeatCapacity() + mechSkills[3]);
         setCurrentHeat(0, false);
         setLimitedSystemsBonus(mechSkills[3] / 2);
         
@@ -1281,11 +1285,11 @@ public final class Mech implements Damageable {
         setManufacturer(this.frame.getManufacturer());
         setFrameName(this.frame.getName());
         setRole(this.frame.getRole());
-        setFrameDescription(this.frame.getFrameDescription());
-        setSize(this.frame.getSize());
-        setArmor(this.frame.getArmor());
-        setSensors(this.frame.getSensors());
-        setSaveTarget(this.frame.getSaveTarget());
+        setFrameDescription(this.frame.getDescription());
+        setSize(statblock.getSize());
+        setArmor(statblock.getArmor());
+        setSensors(statblock.getSensors());
+        setSaveTarget(statblock.getSaveTarget());
         setTraits(this.frame.getTraits());
         setMounts(mounts);
     }
