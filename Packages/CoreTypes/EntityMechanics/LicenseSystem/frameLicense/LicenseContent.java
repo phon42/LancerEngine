@@ -68,8 +68,7 @@ public class LicenseContent {
     protected String description;
 
     protected LicenseContent(String id, String name, Manufacturer source,
-        License originLicense, String license, int licenseLevel,
-        String licenseID, String description) {
+        License originLicense, String license, String description) {
         setID(id);
         setName(name);
         setSource(source);
@@ -81,15 +80,15 @@ public class LicenseContent {
         } else {
             setOriginLicense(originLicense);
             setLicense(license);
-            setLicenseLevel(licenseLevel);
-            setLicenseID(licenseID);
+            setLicenseLevel(originLicense.getLevel());
+            setLicenseID(originLicense.getID());
         }
         setDescription(description);
     }
     protected LicenseContent(String id, String name, Manufacturer source,
         String description) {
         this(id, name, source, null, null,
-            0, null, null);
+            null);
     }
     protected LicenseContent(LicenseContent licenseContent) {
         setID(licenseContent.id);
