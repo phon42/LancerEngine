@@ -2,6 +2,8 @@ package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.talent;
 
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Talent;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.talent.talentData.TalentRank;
+
 /**
  * See pgs. 35 and 90 - 103.
  */
@@ -17,36 +19,66 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Talent;
  *     placeholder. None of its properties have allowed values of null.
  */
 public final class TalentData {
+    /**
+     * The talent's id (i.e. "t_ace").
+     * Can be any String except "". Cannot be null.
+     * Case-insensitive and stored in lowercase.
+     */
     private String id;
     /**
-     * The name of the talent (i.e. "ace").
-     * Case-insensitive and stored in lowercase. Can be any String except "".
-     *     Cannot be null.
-     * Use Talent.getName() to get the raw value and Talent.outputName() to
-     *     obtain it properly formatted.
+     * The name of the talent (i.e. "Ace").
+     * Can be any String except "". Cannot be null.
+     * Case-sensitive.
      */
     private String name;
+    /**
+     * The name of the filename for the talent's icon (i.e. "ACE").
+     * Can be any String except "". Cannot be null.
+     * Case-sensitive.
+     */
     private String icon;
+    /**
+     * A short description of this talent (i.e. "").
+     * Can be any String except "". Cannot be null.
+     * Case-sensitive.
+     */
     private String terse;
+    /**
+     * A detailed description of this talent (i.e. "").
+     * Can be any String except "". Cannot be null.
+     * Case-sensitive.
+     */
     private String description;
+    /**
+     * The ranks of this talent (too long to provide an example).
+     * Can be any TalentRank[] that is of length 3 and does not contain null
+     *     elements. Cannot be null.
+     */
     private TalentRank[] ranks;
 
-    /**
-     * Creates a new Talent with the provided talent name and talent level.
-     * @param talentName a String which cannot be null or "".
-     * @param talentLevel an int which must be between 1 and 3 (inclusive).
-     */
-    public TalentData(String talentName, int talentLevel) {
-        setName(talentName);
-        setLevel(talentLevel);
+    public TalentData(String id, String name, String icon,
+        String shortDescription, String longDescription,
+        TalentRank[] talentRanksData) {
+        HelperMethods.verifyConstructor();
+        setID(id);
+        setName(name);
+        setIcon(icon);
+        setTerse(shortDescription);
+        setDescription(longDescription);
+        setRanks(talentRanksData);
     }
     /**
-     * Creates a copy of the provided Talent.
-     * @param talent a Talent to be copied.
-     * @return a Talent copy of the provided Talent.
+     * Creates a copy of the provided TalentData.
+     * @param talentData a TalentData to be copied.
+     * @return a TalentData copy of the provided TalentData.
      */
-    public TalentData(TalentData talent) {
-        this(talent.name, talent.level);
+    public TalentData(TalentData talentData) {
+        setID(talentData.id);
+        setName(talentData.name);
+        setIcon(talentData.icon);
+        setTerse(talentData.terse);
+        setDescription(talentData.description);
+        setRanks(talentData.ranks);
     }
 
     public String getID() {
@@ -55,7 +87,19 @@ public final class TalentData {
     public String getName() {
         return name;
     }
-    public void setID(String id) {
+    public String getIcon() {
+        return icon;
+    }
+    public String getTerse() {
+        return terse;
+    }
+    public String getDescription() {
+        return description;
+    }
+    public TalentRank[] getRanks() {
+        return HelperMethods.copyOf(ranks);
+    }
+    private void setID(String id) {
         this.id = id;
     }
     private void setName(String name) {
@@ -63,18 +107,39 @@ public final class TalentData {
         name = name.toLowerCase();
         this.name = name;
     }
+    private void setIcon(String icon) {
+        HelperMethods.checkString("icon", icon);
+        this.icon = icon;
+    }
+    public void setTerse(String terse) {
+        HelperMethods.checkString("terse", terse);
+        this.terse = terse;
+    }
+    public void setDescription(String description) {
+        HelperMethods.checkString("description", description);
+        this.description = description;
+    }
+    public void setRanks(TalentRank[] ranks) {
+        HelperMethods.checkObjectArray("ranks", ranks);
+        if (ranks.length != 3) {
+            throw new IllegalArgumentException("ranks array is of length: "
+                + ranks.length + " which != 3");
+        }
+        HelperMethods.copyOf(ranks);
+        this.ranks = ranks;
+    }
 
     /**
-     * Generates a String representation of this Talent.
-     * @return a String containing a representation of this Talent.
+     * Generates a String representation of this TalentData.
+     * @return a String containing a representation of this TalentData.
      */
     @Override
     public String toString() {
-        return outputName() + " " + getLevel();
+        return name + " (\"" + id + "\")\n  " + terse;
     }
     /**
-     * Compares this Talent object and obj. If they are the same class, returns
-     *     true.
+     * Compares this TalentData object and obj. If they are the same class,
+     *     returns true.
      * @param obj an Object to be compared to.
      * @return a boolean representing whether the two Objects are the same.
      */
@@ -89,29 +154,39 @@ public final class TalentData {
         return true;
     }
     /**
-     * Compares this Talent object and talent. If they have the same property
-     *     values, returns true.
-     * @param talent a Talent to be compared to.
-     * @return a boolean representing whether the two Talents are the same.
+     * Compares this TalentData object and talentData. If they have the same
+     *     property values, returns true.
+     * @param talentData a TalentData to be compared to.
+     * @return a boolean representing whether the two TalentDatas are the same.
      */
-    public boolean equals(Talent talent) {
-        if (talent == null) {
+    public boolean equals(TalentData talentData) {
+        TalentRank[] ranks;
+
+        if (talentData == null) {
             return false;
         }
-        if (! talent.getName().equals(this.name)) {
+        if (! talentData.getID().equals(this.id)) {
             return false;
         }
-        if (talent.getLevel() != this.level) {
+        if (! talentData.getName().equals(this.name)) {
             return false;
         }
+        if (! talentData.getIcon().equals(this.icon)) {
+            return false;
+        }
+        if (! talentData.getTerse().equals(this.terse)) {
+            return false;
+        }
+        if (! talentData.getDescription().equals(this.description)) {
+            return false;
+        }
+        ranks = talentData.getRanks();
+        for (int i = 0; i < ranks.length; i++) {
+            if (! ranks[i].equals(this.ranks[i])) {
+                return false;
+            }
+        }
+
         return true;
-    }
-    /**
-     * Returns this.name, properly formatted (i.e. "combined arms" becomes
-     *     "Combined Arms").
-     * @return a String containing this.name, properly formatted.
-     */
-    public String outputName() {
-        return HelperMethods.toProperCase(name);
     }
 }
