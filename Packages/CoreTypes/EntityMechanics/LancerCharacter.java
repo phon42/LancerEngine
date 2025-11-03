@@ -152,7 +152,7 @@ public final class LancerCharacter {
         pilotProperties.put("speed", this.pilot.getSpeed());
         pilotProperties.put("eDefense", this.pilot.getEDefense());
 
-        pilotProperties.put("skills", this.pilot.getSkillTriggers());
+        pilotProperties.put("skills", this.pilot.getSkills());
         pilotProperties.put("reserves", this.pilot.getReserves());
         pilotProperties.put("loadout", this.pilot.getLoadout());
         pilotProperties.put("licenseLevel", this.pilot.getLicenseLevel());
@@ -313,7 +313,7 @@ public final class LancerCharacter {
         this.pilot.setPlayerNotes((String) pilotProperties.get(
             "playerNotes"));
         this.pilot.setCurrentHP((int) pilotProperties.get("currentHP"));
-        this.pilot.setSkillTriggers((SkillTriggersList) pilotProperties.get(
+        this.pilot.setSkills((SkillTriggersList) pilotProperties.get(
             "skills"));
         this.pilot.setReserves((String[]) pilotProperties.get("reserves"));
         this.pilot.setLoadout((Loadout) pilotProperties.get("loadout"));
@@ -589,7 +589,7 @@ public final class LancerCharacter {
         String frameName = "";
         int licenseLevel = this.pilot.getLicenseLevel();
         if (hasMech) {
-            manufacturer = this.mech.getFrame().getSource().getID();
+            manufacturer = this.mech.getFrame().getManufacturer().getID();
             frameName = this.mech.getFrame().outputName();
         }
 
