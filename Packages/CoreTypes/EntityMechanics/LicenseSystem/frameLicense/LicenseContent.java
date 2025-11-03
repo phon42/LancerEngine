@@ -1,5 +1,6 @@
 package Packages.CoreTypes.EntityMechanics.LicenseSystem.frameLicense;
 
+import MainBranch.Database;
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.EntityMechanics.License;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
@@ -17,42 +18,55 @@ import Packages.CoreTypes.EntityMechanics.Manufacturer;
  *     placeholder. At least one of its properties has an allowed value of null.
  */
 public class LicenseContent {
-    // TODO: fill out
+    /**
+     * The license content's ID (i.e. "mf_standard_pattern_i_everest" or
+     *     "ms_comp_con_class_assistant_unit" or "mw_anti_materiel_rifle").
+     * Can be any String except "". Cannot be null.
+     * Case-insensitive and stored in lowercase.
+     */
     protected String id;
     /**
-     * The license content's name (i.e. "everest" or "Armament Redundancy" or
-     *     "Anti-Materiel Rifle").
+     * The license content's name (i.e. "Everest" or "COMP/CON-Class Assistant"
+     *     " Unit" or "Anti-Materiel Rifle").
      * Can be any String except "". Cannot be null.
+     * Case-sensitive.
      */
     protected String name;
     /**
      * The manufacturer providing this license content (i.e. a Manufacturer that
-     *     represents "GMS").
+     *     represents GMS).
      * Can be any Manufacturer. Cannot be null.
      */
-    protected Manufacturer source;
+    protected Manufacturer manufacturer;
     /**
      * The origin license for this license content (i.e. a License representing
-     *     "Blackbeard, rank II"). Uses a License to represent an ACTUAL license
-     *     instead of the frame name and rank to which a pilot holds a license.
-     * For GMS license content, is set to GMS 0.
+     *     'Everest, rank 0' or 'Blackbeard, rank I'). Uses a License to
+     *     represent an ACTUAL license instead of the frame name and rank to
+     *     which a pilot holds a license.
+     * LicenseContent.originLicense.id property is always determined by
+     *     this.licenseID.
+     * LicenseContent.originLicense.level property is always determined by
+     *     this.licenseLevel.
+     * For GMS license content, is set to "mf_standard_pattern_i_everest" 0.
      * Can be any License. Cannot be null.
      */
     protected License originLicense;
+    /**
+     * The ID of the license that this license content originates from (i.e.
+     *     "mf_standard_pattern_i_everest" or "mf_blackbeard").
+     * For GMS license content, is set to "mf_standard_pattern_i_everest".
+     * Can be any String except "". Cannot be null.
+     * Case-insensitive and stored in lowercase.
+     */
+    protected String licenseID;
     /**
      * The name of the license that this license content originates from (i.e.
      *     "Blackbeard").
      * For GMS content, is set to "GMS".
      * Can be any String except "". Cannot be null.
+     * Case-sensitive.
      */
     protected String license;
-    /**
-     * The ID of the license that this license content originates from (i.e.
-     *     "mf_blackbeard").
-     * For GMS content, is set to null.
-     * Can be any String except "". Can be null.
-     */
-    protected String licenseID;
     /**
      * The license level for this license content (i.e. 1).
      * For GMS license content, is set to 0. For non-GMS license content, must
@@ -63,41 +77,53 @@ public class LicenseContent {
     /**
      * The description for this license content (too large to provide an
      *     example).
+     * For frames specifically, serves as the frame description (the text at the
+     *     top of the page).
      * Can be any String except "". Cannot be null.
+     * Case-sensitive.
      */
     protected String description;
 
-    protected LicenseContent(String id, String name, Manufacturer source,
-        License originLicense, String license, String description) {
+    protected LicenseContent(String id, String name, Manufacturer manufacturer,
+        String licenseID, String license, int licenseLevel, String description)
+    {
         setID(id);
         setName(name);
-        setSource(source);
-        if (source.getName().equals("GMS")) {
-            setOriginLicense(new License(null, 0));
-            setLicense("GMS");
-            setLicenseLevel(0);
-            setLicenseID(null);
+        setManufacturer(manufacturer);
+        HelperMethods.checkObject("licenseID", licenseID);
+        if (licenseID.equals("")) {
+            setLicenseID("mf_standard_pattern_i_everest");
         } else {
-            setOriginLicense(originLicense);
-            setLicense(license);
-            setLicenseLevel(originLicense.getLevel());
-            setLicenseID(originLicense.getID());
+            setLicenseID(licenseID);
         }
+        HelperMethods.checkObject("license", license);
+        if (license.equals("")) {
+            if (this.licenseID.equals(
+                "mf_standard_pattern_i_everest")) {
+                setLicense(this.manufacturer.getID());
+            } else {
+                setLicense(this.name);
+            }
+        }
+        setLicenseLevel(licenseLevel);
+        setOriginLicense(new License(this.licenseID, licenseLevel));
         setDescription(description);
     }
-    protected LicenseContent(String id, String name, Manufacturer source,
-        String description) {
-        this(id, name, source, null, null,
-            null);
+    /**
+     * An abbreviated constructor for GMS content.
+     */
+    protected LicenseContent(String id, String name, String licenseID,
+        String license, String description) {
+        this(id, name, Database.getManufacturer("GMS"),
+            licenseID, license, 0, description);
     }
     protected LicenseContent(LicenseContent licenseContent) {
         setID(licenseContent.id);
         setName(licenseContent.name);
-        setSource(licenseContent.source);
+        setManufacturer(licenseContent.manufacturer);
         setOriginLicense(licenseContent.originLicense);
         setLicense(licenseContent.license);
         setLicenseLevel(licenseContent.licenseLevel);
-        setLicenseID(licenseContent.licenseID);
         setDescription(licenseContent.description);
     }
 
@@ -107,13 +133,9 @@ public class LicenseContent {
     public String getName() {
         return name;
     }
-    public Manufacturer getSource() {
-        return new Manufacturer(source);
+    public Manufacturer getManufacturer() {
+        return new Manufacturer(manufacturer);
     }
-    /**
-     * Can be "GMS"
-     * Case-sensitive.
-     */
     public String getLicense() {
         return license;
     }
@@ -124,52 +146,58 @@ public class LicenseContent {
         return licenseID;
     }
     public License getOriginLicense() {
-        return originLicense;
+        return new License(originLicense);
     }
     public String getDescription() {
         return description;
     }
     protected void setID(String id) {
+        HelperMethods.checkString("id", id);
+        id = id.toLowerCase();
         this.id = id;
     }
     protected void setName(String name) {
+        HelperMethods.checkString("name", name);
         this.name = name;
     }
-    protected void setSource(Manufacturer source) {
-        this.source = source;
+    protected void setManufacturer(Manufacturer manufacturer) {
+        HelperMethods.checkObject("manufacturer", manufacturer);
+        manufacturer = new Manufacturer(manufacturer);
+        this.manufacturer = manufacturer;
     }
     protected void setLicense(String license) {
+        HelperMethods.checkString("license", license);
         this.license = license;
     }
     protected void setLicenseLevel(int licenseLevel) {
+        if (licenseLevel < 0) {
+            throw new IllegalArgumentException("licenseLevel value: "
+                + licenseLevel + " is < 0");
+        }
+        if (licenseLevel > 3) {
+            throw new IllegalArgumentException("licenseLevel value: "
+                + licenseLevel + " is < 3");
+        }
+        if (! this.manufacturer.getID().equals("GMS")) {
+            if (licenseLevel == 0) {
+                throw new IllegalArgumentException("licenseLevel value is"
+                    + " 0");
+            }
+        }
         this.licenseLevel = licenseLevel;
     }
     protected void setLicenseID(String licenseID) {
-        if (this.source.getID().equals("GMS")) {
-            // licenseID must be null
-            if (licenseID != null) {
-                throw new IllegalArgumentException("this.source is GMS and"
-                    + " licenseID value is: \"" + licenseID + "\" which is not"
-                    + " the null value it's required to be");
-            }
-        } else {
-            // licenseID cannot be null or ""
-            HelperMethods.checkString("licenseID", licenseID);
-        }
+        HelperMethods.checkString("licenseID", licenseID);
+        licenseID = licenseID.toLowerCase();
         this.licenseID = licenseID;
     }
     protected void setOriginLicense(License originLicense) {
-        if (license == null && ! this.source.getName().equals("GMS")) {
-            throw new IllegalArgumentException("New license is null and"
-                + " this.source is the Manufacturer: \"" + this.source.getName()
-                + "\"");
-        }
-        if (originLicense != null) {
-            originLicense = new License(originLicense);
-        }
+        HelperMethods.checkObject("originLicense", originLicense);
+        originLicense = new License(originLicense);
         this.originLicense = originLicense;
     }
     public void setDescription(String description) {
+        HelperMethods.checkString("description", description);
         this.description = description;
     }
 }
