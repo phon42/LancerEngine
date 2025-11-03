@@ -1,10 +1,14 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment;
 
 import MainBranch.HelperMethods;
+import Packages.CoreTypes.EntityMechanics.Action;
+import Packages.CoreTypes.EntityMechanics.Bonus;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.Deployable;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Equipment;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.DataTag;
 import Packages.CoreTypes.EntityMechanics.License;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Equipment;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.dataTag.Tag;
+import Packages.CoreTypes.EntityMechanics.Synergy;
 
 /**
  * Represents a single system for a mech. Contains information about that system
@@ -27,32 +31,37 @@ public final class MechSystem extends Equipment {
         "Drone", "Shield", "Heat X (Self)", "Protocol", "Overshield",
         "Full Action", "Quick Tech", "Invade", "Reaction", "Full Tech",
         "X/Round", "Danger Zone", "X/Turn"};
+    // Required properties
+    private int spCost;
+    // Optional properties
+    private String effect;
+    private Action[] actions;
+    private Deployable[] deployables;
+    private Bonus[] bonuses;
+    private Synergy[] synergies;
 
-    /**
-     * Creates a MechSystem given a system name.
-     * @param systemName a String which cannot be null or "".
-     * @param systemManufacturer a Manufacturer which can be any Manufacturer.
-     *     Cannot be null.
-     * @param systemLicense a License which can be any License. Cannot be null.
-     */
-    public MechSystem(String systemName, Manufacturer systemManufacturer,
-        License systemLicense) {
-        super(systemName, systemManufacturer, systemLicense);
+    public MechSystem(String id, String name, Manufacturer manufacturer,
+        License originLicense, String licenseName, int licenseLevel,
+        String licenseID, String description, DataTag[] dataTags, int spCost,
+        String effect, Action[] actions, Deployable[] deployables,
+        Bonus[] bonuses, Synergy[] synergies) {
+        super(id, name, manufacturer, originLicense, licenseName, licenseLevel,
+            licenseID, description, dataTags);
+        // Required properties
+        setSpCost(spCost);
+        // Optional properties
+        setEffect(effect);
+        setActions(actions);
+        setDeployables(deployables);
+        setBonuses(bonuses);
+        setSynergy(synergies);
     }
-    /**
-     * Creates a MechSystem given a system name and array of system tags.
-     * @param systemName a String which cannot be null or "".
-     * @param systemManufacturer a Manufacturer which can be any Manufacturer.
-     *     Cannot be null.
-     * @param systemLicense a License which can be any License. Cannot be null.
-     * @param systemTags a Tag[] which cannot be null, contain null elements,
-     *     or contain elements with invalid Tag.name values, as defined by
-     *     MechSystem.allowedNames.
-     */
-    public MechSystem(String systemName, Manufacturer systemManufacturer,
-        License systemLicense, Tag[] systemTags) {
-        super(systemName, systemManufacturer, systemLicense);
-        setTags(systemTags);
+    public MechSystem(String id, String name, Manufacturer manufacturer,
+        License originLicense, String licenseName, int licenseLevel,
+        String licenseID, String description, DataTag[] dataTags, int spCost) {
+        this(id, name, manufacturer, originLicense, licenseName, licenseLevel,
+            licenseID, description, dataTags, spCost, null,
+            null, null, null, null);
     }
     /**
      * Creates a deep copy of the provided MechSystem.
@@ -60,42 +69,47 @@ public final class MechSystem extends Equipment {
      * @return a MechSystem deep copy of the provided MechSystem.
      */
     public MechSystem(MechSystem mechSystem) {
-        this(mechSystem.name, mechSystem.source, mechSystem.originLicense,
-            mechSystem.tags);
+        super(mechSystem);
+        // Required properties
+        setSpCost(mechSystem.spCost);
+        // Optional properties
+        setEffect(mechSystem.effect);
+        setActions(mechSystem.actions);
+        setDeployables(mechSystem.deployables);
+        setBonuses(mechSystem.bonuses);
+        setSynergy(mechSystem.synergies);
     }
 
     /**
-     * Sets this.tags to the provided value.
-     * @param tags a Tag[] which cannot be null, contain null elements, or
-     *     contain elements with invalid Tag.name values as defined by
+     * Sets this.dataTags to the provided value.
+     * @param dataTags a DataTag[] which cannot be null, contain null elements,
+     *     or contain elements with invalid DataTag.name values as defined by
      *     MechSystem.allowedNames.
-     * @throws IllegalArgumentException if tags is null, contains a null
-     *     element, or an element with an invalid Tag.name value, as defined by
-     *     MechSystem.allowedNames.
+     * @throws IllegalArgumentException if dataTags is null, contains a null
+     *     element, or an element with an invalid DataTag.name value, as defined
+     *     by MechSystem.allowedNames.
      */
     @Override
-    protected void setTags(Tag[] tags) {
+    protected void setDataTags(DataTag[] dataTags) {
         boolean isValid;
 
-        // Throws an IllegalArgumentException if tags is null or contains null
-        //     elements
-        checkTagsArray(tags);
-        for (Tag tag : tags) {
+        checkDataTagsArray(dataTags);
+        for (DataTag dataTag : dataTags) {
             isValid = false;
-            for (String allowedTag : MechSystem.allowedNames) {
-                if (tag.getName().equals(allowedTag)) {
+            for (String allowedDataTag : MechSystem.allowedNames) {
+                if (dataTag.getName().equals(allowedDataTag)) {
                     isValid = true;
                     break;
                 }
             }
             if (! isValid) {
-                throw new IllegalArgumentException("New tags array includes an"
-                    + " Tag with an invalid tag name for a MechSystem: \""
-                    + tag.getName() + "\"");
+                throw new IllegalArgumentException("New data tags array"
+                    + " includes a DataTag with an invalid data tag name for a"
+                    + " MechSystem: \"" + dataTag.getName() + "\"");
             }
         }
-        tags = HelperMethods.copyOf(tags);
-        this.tags = tags;
+        dataTags = HelperMethods.copyOf(dataTags);
+        this.dataTags = dataTags;
     }
 
     /**
@@ -129,8 +143,7 @@ public final class MechSystem extends Equipment {
      *     a given system of this Mech object used in Mech.outputSystems(). Only
      *     returns something other than "" when outputType is "mech build" or
      *     "full".
-     * @param outputType a String containing the type of output to
-     *     generate.
+     * @param outputType a String containing the type of output to generate.
      * @param limitedSystemsBonus an int containing the limited systems bonus of
      *     the Mech calling this method.
      * @return a String containing the requested output.
@@ -143,9 +156,9 @@ public final class MechSystem extends Equipment {
             // output something like "Pattern-A Smoke Charges x4"
             // start with something like "Pattern-A Smoke Charges"
             outputString += this.name;
-            if (this.hasTag("Limited X")) {
+            if (this.hasDataTag("Limited X")) {
                 // add something like " x4"
-                outputString += " x" + (getTag("Limited X")
+                outputString += " x" + (getDataTag("Limited X")
                     + limitedSystemsBonus);
             }
         } else {
