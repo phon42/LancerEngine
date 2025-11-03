@@ -50,63 +50,63 @@ public class DataCaster {
 
     // all the data being held at the moment
     // ----some critical data types:
-    private static JSONObject[] frameRaw;
-    private static JSONObject[] systemRaw;
-    private static JSONObject[] modificationRaw;
-    private static JSONObject[] weaponRaw;
+    private static JSONObject[] framesRaw;
+    private static JSONObject[] systemsRaw;
+    private static JSONObject[] modificationsRaw;
+    private static JSONObject[] weaponsRaw;
     // ----the rest of the critical data types:
-    private static JSONObject[] actionRaw;
-    private static JSONObject[] coreBonusRaw;
-    private static JSONObject[] dataTagRaw;
-    private static JSONObject[] manufacturerRaw;
-    private static JSONObject[] npcFeatureRaw;
-    private static JSONObject[] npcTemplateRaw;
+    private static JSONObject[] actionsRaw;
+    private static JSONObject[] coreBonusesRaw;
+    private static JSONObject[] dataTagsRaw;
+    private static JSONObject[] manufacturersRaw;
+    private static JSONObject[] npcFeaturesRaw;
+    private static JSONObject[] npcTemplatesRaw;
     private static JSONObject[] pilotEquipmentRaw;
-    private static JSONObject[] reserveRaw;
+    private static JSONObject[] reservesRaw;
     private static JSONObject[] skillsRaw;
-    private static JSONObject[] stateRaw;
-    private static JSONObject[] talentRaw;
+    private static JSONObject[] statesRaw;
+    private static JSONObject[] talentsRaw;
     // ----less important
-    private static JSONObject[] environmentRaw;
-    private static JSONObject[] sitrepRaw;
+    private static JSONObject[] environmentsRaw;
+    private static JSONObject[] sitrepsRaw;
     // ----almost unimportant
-    private static JSONObject[] backgroundRaw;
-    private static JSONObject[] bondRaw;
+    private static JSONObject[] backgroundsRaw;
+    private static JSONObject[] bondsRaw;
     // ----just for reference
-    private static JSONObject ruleRaw;
-    private static JSONObject[] termRaw;
-    private static JSONObject tableRaw;
+    private static JSONObject rulesRaw;
+    private static JSONObject[] termsRaw;
+    private static JSONObject tablesRaw;
     // ----some critical data types:
-    private static Frame[] frameProcessed;
-    private static MechSystem[] systemProcessed;
-    private static Modification[] modificationProcessed;
-    private static Weapon[] weaponProcessed;
+    private static Frame[] framesProcessed;
+    private static MechSystem[] systemsProcessed;
+    private static Modification[] modificationsProcessed;
+    private static Weapon[] weaponsProcessed;
     // ----the rest of the critical data types:
-    private static Action[] actionProcessed;
-    private static CoreBonus[] coreBonusProcessed;
-    private static Condition[] conditionProcessed;
-    private static DataTag[] dataTagProcessed;
-    private static Tag[] tagProcessed;
-    private static Manufacturer[] manufacturerProcessed;
-    private static NPCFeature[] npcFeatureProcessed;
-    private static NPCTemplate[] npcTemplateProcessed;
+    private static Action[] actionsProcessed;
+    private static CoreBonus[] coreBonusesProcessed;
+    private static Condition[] conditionsProcessed;
+    private static DataTag[] dataTagsProcessed;
+    private static Tag[] tagsProcessed;
+    private static Manufacturer[] manufacturersProcessed;
+    private static NPCFeature[] npcFeaturesProcessed;
+    private static NPCTemplate[] npcTemplatesProcessed;
     private static PilotArmor[] pilotArmorProcessed;
     private static PilotGear[] pilotGearProcessed;
-    private static PilotWeapon[] pilotWeaponProcessed;
-    private static Reserve[] reserveProcessed;
+    private static PilotWeapon[] pilotWeaponsProcessed;
+    private static Reserve[] reservesProcessed;
     private static SkillData[] skillsProcessed;
-    private static Status[] statusProcessed;
-    private static Talent[] talentProcessed;
+    private static Status[] statusesProcessed;
+    private static Talent[] talentsProcessed;
     // ----less important
-    private static Environment[] environmentProcessed;
-    private static Sitrep[] sitrepProcessed;
+    private static Environment[] environmentsProcessed;
+    private static Sitrep[] sitrepsProcessed;
     // ----almost unimportant
-    private static Background[] backgroundProcessed;
-    private static Bond[] bondProcessed;
+    private static Background[] backgroundsProcessed;
+    private static Bond[] bondsProcessed;
     // ----just for reference
-    private static Rule[] ruleProcessed;
-    private static Term[] termProcessed;
-    private static Table[] tableProcessed;
+    private static Rule[] rulesProcessed;
+    private static Term[] termsProcessed;
+    private static Table[] tablesProcessed;
 
     static {
         flushData();
@@ -164,31 +164,31 @@ public class DataCaster {
         // unpack the Object[], transforming each element from Object to a
         //     JSONObject[] or JSONObject, then putting it in its respective
         //     property (i.e. DataCaster.frameRaw).
-            DataCaster.frameRaw = (JSONObject[]) data[0];
-            DataCaster.systemRaw = (JSONObject[]) data[1];
-            DataCaster.modificationRaw = (JSONObject[]) data[2];
-            DataCaster.weaponRaw = (JSONObject[]) data[3];
-            DataCaster.actionRaw = (JSONObject[]) data[4];
-            DataCaster.coreBonusRaw = (JSONObject[]) data[5];
-            DataCaster.dataTagRaw = (JSONObject[]) data[6];
-            DataCaster.manufacturerRaw = (JSONObject[]) data[7];
-            DataCaster.npcFeatureRaw = (JSONObject[]) data[8];
-            DataCaster.npcTemplateRaw = (JSONObject[]) data[9];
+            DataCaster.framesRaw = (JSONObject[]) data[0];
+            DataCaster.systemsRaw = (JSONObject[]) data[1];
+            DataCaster.modificationsRaw = (JSONObject[]) data[2];
+            DataCaster.weaponsRaw = (JSONObject[]) data[3];
+            DataCaster.actionsRaw = (JSONObject[]) data[4];
+            DataCaster.coreBonusesRaw = (JSONObject[]) data[5];
+            DataCaster.dataTagsRaw = (JSONObject[]) data[6];
+            DataCaster.manufacturersRaw = (JSONObject[]) data[7];
+            DataCaster.npcFeaturesRaw = (JSONObject[]) data[8];
+            DataCaster.npcTemplatesRaw = (JSONObject[]) data[9];
             DataCaster.pilotEquipmentRaw = (JSONObject[]) data[10];
-            DataCaster.reserveRaw = (JSONObject[]) data[11];
+            DataCaster.reservesRaw = (JSONObject[]) data[11];
             DataCaster.skillsRaw = (JSONObject[]) data[12];
-            DataCaster.stateRaw = (JSONObject[]) data[13];
-            DataCaster.talentRaw = (JSONObject[]) data[14];
+            DataCaster.statesRaw = (JSONObject[]) data[13];
+            DataCaster.talentsRaw = (JSONObject[]) data[14];
             // ----less important
-            DataCaster.environmentRaw = (JSONObject[]) data[15];
-            DataCaster.sitrepRaw = (JSONObject[]) data[16];
+            DataCaster.environmentsRaw = (JSONObject[]) data[15];
+            DataCaster.sitrepsRaw = (JSONObject[]) data[16];
             // ----almost unimportant
-            DataCaster.backgroundRaw = (JSONObject[]) data[17];
-            DataCaster.bondRaw = (JSONObject[]) data[18];
+            DataCaster.backgroundsRaw = (JSONObject[]) data[17];
+            DataCaster.bondsRaw = (JSONObject[]) data[18];
             // ----just for reference
-            DataCaster.ruleRaw = (JSONObject) data[19];
-            DataCaster.termRaw = (JSONObject[]) data[20];
-            DataCaster.tableRaw = (JSONObject) data[21];
+            DataCaster.rulesRaw = (JSONObject) data[19];
+            DataCaster.termsRaw = (JSONObject[]) data[20];
+            DataCaster.tablesRaw = (JSONObject) data[21];
     }
     private static void processData() {
         // then process that data
@@ -197,51 +197,52 @@ public class DataCaster {
         // each Object is actually a JSONObject[] or JSONObject
         // convert those JSONObject[]s and JSONObjects to Action[],
         //     Background[], etc. etc.
-        if (! (DataCaster.actionRaw == null || DataCaster.actionRaw.length < 1))
-        {
-            processActions(DataCaster.actionRaw);
+        if (! (DataCaster.actionsRaw == null
+            || DataCaster.actionsRaw.length < 1)) {
+            processActions(DataCaster.actionsRaw);
         }
-        if (! (DataCaster.backgroundRaw == null
-            || DataCaster.backgroundRaw.length < 1)) {
-            processBackgrounds(DataCaster.backgroundRaw);
+        if (! (DataCaster.backgroundsRaw == null
+            || DataCaster.backgroundsRaw.length < 1)) {
+            processBackgrounds(DataCaster.backgroundsRaw);
         
         }
-        if (! (DataCaster.bondRaw == null || DataCaster.bondRaw.length < 1)) {
-            processBonds(DataCaster.bondRaw);
+        if (! (DataCaster.bondsRaw == null || DataCaster.bondsRaw.length < 1)) {
+            processBonds(DataCaster.bondsRaw);
         }
         // TODO: fix
-        if (! (DataCaster.coreBonusRaw == null
-            || DataCaster.coreBonusRaw.length < 1)) {
-            processCoreBonuses(DataCaster.coreBonusRaw);
+        if (! (DataCaster.coreBonusesRaw == null
+            || DataCaster.coreBonusesRaw.length < 1)) {
+            processCoreBonuses(DataCaster.coreBonusesRaw);
         
         }
-        if (! (DataCaster.environmentRaw == null
-            || DataCaster.environmentRaw.length < 1)) {
-            processEnvironments(DataCaster.environmentRaw);
+        if (! (DataCaster.environmentsRaw == null
+            || DataCaster.environmentsRaw.length < 1)) {
+            processEnvironments(DataCaster.environmentsRaw);
         
         }
-        if (! (DataCaster.frameRaw == null || DataCaster.frameRaw.length < 1)) {
-            processFrames(DataCaster.frameRaw);
+        if (! (DataCaster.framesRaw == null || DataCaster.framesRaw.length < 1))
+        {
+            processFrames(DataCaster.framesRaw);
         
         }
-        if (! (DataCaster.manufacturerRaw == null
-            || DataCaster.manufacturerRaw.length < 1)) {
-            processManufacturers(DataCaster.manufacturerRaw);
+        if (! (DataCaster.manufacturersRaw == null
+            || DataCaster.manufacturersRaw.length < 1)) {
+            processManufacturers(DataCaster.manufacturersRaw);
         
         }
-        if (! (DataCaster.modificationRaw == null
-            || DataCaster.modificationRaw.length < 1)) {
-            processModifications(DataCaster.modificationRaw);
+        if (! (DataCaster.modificationsRaw == null
+            || DataCaster.modificationsRaw.length < 1)) {
+            processModifications(DataCaster.modificationsRaw);
         
         }
-        if (! (DataCaster.npcFeatureRaw == null
-            || DataCaster.npcFeatureRaw.length < 1)) {
-            processNPCFeatures(DataCaster.npcFeatureRaw);
+        if (! (DataCaster.npcFeaturesRaw == null
+            || DataCaster.npcFeaturesRaw.length < 1)) {
+            processNPCFeatures(DataCaster.npcFeaturesRaw);
         
         }
-        if (! (DataCaster.npcTemplateRaw == null
-            || DataCaster.npcTemplateRaw.length < 1)) {
-            processNPCTemplates(DataCaster.npcTemplateRaw);
+        if (! (DataCaster.npcTemplatesRaw == null
+            || DataCaster.npcTemplatesRaw.length < 1)) {
+            processNPCTemplates(DataCaster.npcTemplatesRaw);
         
         }
         if (! (DataCaster.pilotEquipmentRaw == null
@@ -249,19 +250,19 @@ public class DataCaster {
             processPilotEquipment(DataCaster.pilotEquipmentRaw);
         
         }
-        if (! (DataCaster.reserveRaw == null
-            || DataCaster.reserveRaw.length < 1)) {
-            processReserves(DataCaster.reserveRaw);
+        if (! (DataCaster.reservesRaw == null
+            || DataCaster.reservesRaw.length < 1)) {
+            processReserves(DataCaster.reservesRaw);
         
         }
-        if (! (DataCaster.ruleRaw == null
-            || DataCaster.ruleRaw.keySet().size() < 1)) {
-            processRules(DataCaster.ruleRaw);
+        if (! (DataCaster.rulesRaw == null
+            || DataCaster.rulesRaw.keySet().size() < 1)) {
+            processRules(DataCaster.rulesRaw);
         
         }
-        if (! (DataCaster.sitrepRaw == null || DataCaster.sitrepRaw.length < 1))
-        {
-            processSitreps(DataCaster.sitrepRaw);
+        if (! (DataCaster.sitrepsRaw == null
+            || DataCaster.sitrepsRaw.length < 1)) {
+            processSitreps(DataCaster.sitrepsRaw);
         
         }
         if (! (DataCaster.skillsRaw == null || DataCaster.skillsRaw.length < 1))
@@ -269,37 +270,38 @@ public class DataCaster {
             processSkills(DataCaster.skillsRaw);
         
         }
-        if (! (DataCaster.stateRaw == null || DataCaster.stateRaw.length < 1)) {
-            processStates(DataCaster.stateRaw);
-        
-        }
-        if (! (DataCaster.systemRaw == null || DataCaster.systemRaw.length < 1))
+        if (! (DataCaster.statesRaw == null || DataCaster.statesRaw.length < 1))
         {
-            processMechSystems(DataCaster.systemRaw);
+            processStates(DataCaster.statesRaw);
         
         }
-        if (! (DataCaster.tableRaw == null
-            || DataCaster.tableRaw.keySet().size() < 1)) {
-            processTables(DataCaster.tableRaw);
+        if (! (DataCaster.systemsRaw == null
+            || DataCaster.systemsRaw.length < 1)) {
+            processMechSystems(DataCaster.systemsRaw);
         
         }
-        if (! (DataCaster.dataTagRaw == null
-            || DataCaster.dataTagRaw.length < 1)) {
-            processLCPTags(DataCaster.dataTagRaw);
+        if (! (DataCaster.tablesRaw == null
+            || DataCaster.tablesRaw.keySet().size() < 1)) {
+            processTables(DataCaster.tablesRaw);
         
         }
-        if (! (DataCaster.talentRaw == null || DataCaster.talentRaw.length < 1))
-        {
-            processTalents(DataCaster.talentRaw);
+        if (! (DataCaster.dataTagsRaw == null
+            || DataCaster.dataTagsRaw.length < 1)) {
+            processLCPTags(DataCaster.dataTagsRaw);
         
         }
-        if (! (DataCaster.termRaw == null || DataCaster.termRaw.length < 1)) {
-            processTerms(DataCaster.termRaw);
+        if (! (DataCaster.talentsRaw == null
+            || DataCaster.talentsRaw.length < 1)) {
+            processTalents(DataCaster.talentsRaw);
         
         }
-        if (! (DataCaster.weaponRaw == null || DataCaster.weaponRaw.length < 1))
-        {
-            processWeapons(DataCaster.weaponRaw);
+        if (! (DataCaster.termsRaw == null || DataCaster.termsRaw.length < 1)) {
+            processTerms(DataCaster.termsRaw);
+        
+        }
+        if (! (DataCaster.weaponsRaw == null
+            || DataCaster.weaponsRaw.length < 1)) {
+            processWeapons(DataCaster.weaponsRaw);
         }
         // Remember to take JSONObject[] pilotEquipmentData, stateData, and
         //     split it into its constituent types while it's being casted
@@ -762,8 +764,8 @@ public class DataCaster {
         // TODO: fill out
         return null;
     }
-    private static Skill[] processSkills(JSONObject[] skillsData) {
-        Skill[] skills = new Skill[skillsData.length];
+    private static SkillData[] processSkills(JSONObject[] skillsData) {
+        SkillData[] skills = new SkillData[skillsData.length];
 
         for (int i = 0; i < skills.length; i++) {
             skills[i] = toSkill(skillsData[i]);
@@ -771,7 +773,7 @@ public class DataCaster {
 
         return skills;
     }
-    private static Skill toSkill(JSONObject skillData) {
+    private static SkillData toSkill(JSONObject skillData) {
         // TODO: fill out
         return null;
     }
@@ -845,8 +847,8 @@ public class DataCaster {
         // TODO: fill out
         DataTag[] dataTags = processDataTags(lcpTagsData);
 
-        DataCaster.dataTagProcessed = dataTags;
-        DataCaster.tagProcessed = processTags(dataTags);
+        DataCaster.dataTagsProcessed = dataTags;
+        DataCaster.tagsProcessed = processTags(dataTags);
     }
     private static DataTag[] processDataTags(JSONObject[] dataTagsData) {
         DataTag[] dataTags = new DataTag[dataTagsData.length];
@@ -922,36 +924,36 @@ public class DataCaster {
     private static Object[] packData() {
         Object[] data = new Object[] {
             // ----some critical data types:
-            DataCaster.frameProcessed,
-            DataCaster.systemProcessed,
-            DataCaster.modificationProcessed,
-            DataCaster.weaponProcessed,
+            DataCaster.framesProcessed,
+            DataCaster.systemsProcessed,
+            DataCaster.modificationsProcessed,
+            DataCaster.weaponsProcessed,
             // ----the rest of the critical data types:
-            DataCaster.actionProcessed,
-            DataCaster.conditionProcessed,
-            DataCaster.coreBonusProcessed,
-            DataCaster.dataTagProcessed,
-            DataCaster.tagProcessed,
-            DataCaster.manufacturerProcessed,
-            DataCaster.npcFeatureProcessed,
-            DataCaster.npcTemplateProcessed,
+            DataCaster.actionsProcessed,
+            DataCaster.conditionsProcessed,
+            DataCaster.coreBonusesProcessed,
+            DataCaster.dataTagsProcessed,
+            DataCaster.tagsProcessed,
+            DataCaster.manufacturersProcessed,
+            DataCaster.npcFeaturesProcessed,
+            DataCaster.npcTemplatesProcessed,
             DataCaster.pilotArmorProcessed,
             DataCaster.pilotGearProcessed,
-            DataCaster.pilotWeaponProcessed,
-            DataCaster.reserveProcessed,
+            DataCaster.pilotWeaponsProcessed,
+            DataCaster.reservesProcessed,
             DataCaster.skillsProcessed,
-            DataCaster.statusProcessed,
-            DataCaster.talentProcessed,
+            DataCaster.statusesProcessed,
+            DataCaster.talentsProcessed,
             // ----less important
-            DataCaster.environmentProcessed,
-            DataCaster.sitrepProcessed,
+            DataCaster.environmentsProcessed,
+            DataCaster.sitrepsProcessed,
             // ----almost unimportant
-            DataCaster.backgroundProcessed,
-            DataCaster.bondProcessed,
+            DataCaster.backgroundsProcessed,
+            DataCaster.bondsProcessed,
             // ----just for reference
-            DataCaster.ruleProcessed,
-            DataCaster.termProcessed,
-            DataCaster.tableProcessed
+            DataCaster.rulesProcessed,
+            DataCaster.termsProcessed,
+            DataCaster.tablesProcessed
         };
 
         return data;
@@ -969,62 +971,62 @@ public class DataCaster {
     private static void flushData() {
         // TODO: fill out
         // ----some critical data types:
-        frameRaw = new JSONObject[0];
-        systemRaw = new JSONObject[0];
-        modificationRaw = new JSONObject[0];
-        weaponRaw = new JSONObject[0];
+        framesRaw = new JSONObject[0];
+        systemsRaw = new JSONObject[0];
+        modificationsRaw = new JSONObject[0];
+        weaponsRaw = new JSONObject[0];
         // ----the rest of the critical data types:
-        actionRaw = new JSONObject[0];
-        coreBonusRaw = new JSONObject[0];
-        dataTagRaw = new JSONObject[0];
-        manufacturerRaw = new JSONObject[0];
-        npcFeatureRaw = new JSONObject[0];
-        npcTemplateRaw = new JSONObject[0];
+        actionsRaw = new JSONObject[0];
+        coreBonusesRaw = new JSONObject[0];
+        dataTagsRaw = new JSONObject[0];
+        manufacturersRaw = new JSONObject[0];
+        npcFeaturesRaw = new JSONObject[0];
+        npcTemplatesRaw = new JSONObject[0];
         pilotEquipmentRaw = new JSONObject[0];
-        reserveRaw = new JSONObject[0];
+        reservesRaw = new JSONObject[0];
         skillsRaw = new JSONObject[0];
-        stateRaw = new JSONObject[0];
-        talentRaw = new JSONObject[0];
+        statesRaw = new JSONObject[0];
+        talentsRaw = new JSONObject[0];
         // ----less important
-        environmentRaw = new JSONObject[0];
-        sitrepRaw = new JSONObject[0];
+        environmentsRaw = new JSONObject[0];
+        sitrepsRaw = new JSONObject[0];
         // ----almost unimportant
-        backgroundRaw = new JSONObject[0];
-        bondRaw = new JSONObject[0];
+        backgroundsRaw = new JSONObject[0];
+        bondsRaw = new JSONObject[0];
         // ----just for reference
-        ruleRaw = null;
-        termRaw = new JSONObject[0];
-        tableRaw = null;
+        rulesRaw = null;
+        termsRaw = new JSONObject[0];
+        tablesRaw = null;
         // ----some critical data types:
-        frameProcessed = new Frame[0];
-        systemProcessed = new MechSystem[0];
-        modificationProcessed = new Modification[0];
-        weaponProcessed = new Weapon[0];
+        framesProcessed = new Frame[0];
+        systemsProcessed = new MechSystem[0];
+        modificationsProcessed = new Modification[0];
+        weaponsProcessed = new Weapon[0];
         // ----the rest of the critical data types:
-        actionProcessed = new Action[0];
-        conditionProcessed = new Condition[0];
-        coreBonusProcessed = new CoreBonus[0];
-        dataTagProcessed = new DataTag[0];
-        tagProcessed = new Tag[0];
-        manufacturerProcessed = new Manufacturer[0];
-        npcFeatureProcessed = new NPCFeature[0];
-        npcTemplateProcessed = new NPCTemplate[0];
+        actionsProcessed = new Action[0];
+        conditionsProcessed = new Condition[0];
+        coreBonusesProcessed = new CoreBonus[0];
+        dataTagsProcessed = new DataTag[0];
+        tagsProcessed = new Tag[0];
+        manufacturersProcessed = new Manufacturer[0];
+        npcFeaturesProcessed = new NPCFeature[0];
+        npcTemplatesProcessed = new NPCTemplate[0];
         pilotArmorProcessed = new PilotArmor[0];
         pilotGearProcessed = new PilotGear[0];
-        pilotWeaponProcessed = new PilotWeapon[0];
-        reserveProcessed = new Reserve[0];
+        pilotWeaponsProcessed = new PilotWeapon[0];
+        reservesProcessed = new Reserve[0];
         skillsProcessed = new SkillData[0];
-        statusProcessed = new Status[0];
-        talentProcessed = new Talent[0];
+        statusesProcessed = new Status[0];
+        talentsProcessed = new Talent[0];
         // ----less important
-        environmentProcessed = new Environment[0];
-        sitrepProcessed = new Sitrep[0];
+        environmentsProcessed = new Environment[0];
+        sitrepsProcessed = new Sitrep[0];
         // ----almost unimportant
-        backgroundProcessed = new Background[0];
-        bondProcessed = new Bond[0];
+        backgroundsProcessed = new Background[0];
+        bondsProcessed = new Bond[0];
         // ----just for reference
-        ruleProcessed = new Rule[0];
-        termProcessed = new Term[0];
-        tableProcessed = new Table[0];
+        rulesProcessed = new Rule[0];
+        termsProcessed = new Term[0];
+        tablesProcessed = new Table[0];
     }
 }
