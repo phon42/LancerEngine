@@ -1,5 +1,6 @@
 package MainBranch;
 
+import java.util.NoSuchElementException;
 import MainBranch.roll.DiceExpression;
 import Packages.CoreTypes.Rule;
 import Packages.CoreTypes.Table;
@@ -396,15 +397,26 @@ public final class Database {
         throw new IllegalArgumentException("No sitrep found for sitrep ID: "
             + sitrepID);
     }
-    public static SkillData getSkill(String skillDataID) {
-        HelperMethods.checkObject("skillDataID", skillDataID);
+    public static SkillData getSkillDataByID(String skillDataID) {
+        HelperMethods.checkString("skillDataID", skillDataID);
+        skillDataID = skillDataID.toLowerCase();
         for (SkillData skillData : Database.skills) {
             if (skillDataID.equals(skillData.getID())) {
                 return new SkillData(skillData);
             }
         }
-        throw new IllegalArgumentException("No skill found for skill data ID: "
+        throw new NoSuchElementException("No skill found for skill data ID: "
             + skillDataID);
+    }
+    public static SkillData getSkillDataByName(String skillDataName) {
+        HelperMethods.checkString("skillDataName", skillDataName);
+        for (SkillData skillData : Database.skills) {
+            if (skillDataName.equals(skillData.getName())) {
+                return new SkillData(skillData);
+            }
+        }
+        throw new NoSuchElementException("No skill found for skill data name: "
+            + skillDataName);
     }
     public static State getState(String stateName) {
         HelperMethods.checkObject("stateName", stateName);
