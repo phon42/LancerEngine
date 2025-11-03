@@ -144,41 +144,76 @@ public final class Frame extends LicenseContent {
 
     private CoreSystem coreSystem;
 
-    // Optional property
+    // Optional properties
     /**
      * The frame's frameEnum (i.e. FrameEnum.SWALLOWTAIL_RANGER).
-     * Used for identifying it in Database.getFrame(FrameEnum). Can be null.
+     * Used for identifying it in Database.getFrame(FrameEnum).
+     * Can be null.
      */
     private FrameEnum frameEnum;
+    /**
+     * The frame, if any, that this is a variant of (i.e. "Black Witch").
+     * Can be any String except "". Can be null.
+     * Case-sensitive.
+     */
+    private String variant;
+    /**
+     * "frame"
+     */
+    private String dataType;
+    /**
+     * {}
+     */
+    private Object[] aptitude;
 
     /**
      * Creates a new Frame using every possible property.
      */
     public Frame(String id, String name, Manufacturer manufacturer,
-        License originLicense, String license, String description,
+        String licenseID, String license, int licenseLevel, String description,
         String[] role, FrameStatblock statblock, String[] traits,
-        Mount[] mounts, FrameEnum frameEnum) {
-        super(id, name, manufacturer, originLicense, license, description);
+        Mount[] mounts, CoreSystem coreSystem, FrameEnum frameEnum) {
+        super(id, name, manufacturer, licenseID, license, licenseLevel,
+            description);
         setFrameEnum(frameEnum);
         setRole(role);
         setStats(statblock);
         setTraits(traits);
         setMounts(mounts);
+        setCoreSystem(coreSystem);
         setFrameEnum(frameEnum);
     }
     /**
-     * Creates a new Frame using every possible property except frameEnum.
+     * Creates a new non-GMS Frame using every possible property except
+     *     frameEnum.
      */
     public Frame(String id, String name, Manufacturer manufacturer,
-        License originLicense, String license, String description,
+        String licenseID, String license, int licenseLevel, String description,
         String[] role, FrameStatblock statblock, String[] traits,
-        Mount[] mounts) {
-        super(id, name, manufacturer, originLicense, license, description);
+        Mount[] mounts, CoreSystem coreSystem) {
+        super(id, name, manufacturer, licenseID, license, licenseLevel,
+            description);
         setFrameEnum(frameEnum);
         setRole(role);
         setStats(statblock);
         setTraits(traits);
         setMounts(mounts);
+        setCoreSystem(coreSystem);
+    }
+    /**
+     * Creates a new GMS Frame using every possible property except frameEnum.
+     */
+    public Frame(String id, String name, String licenseID,
+        String license, String description, String[] role,
+        FrameStatblock statblock, String[] traits, Mount[] mounts,
+        CoreSystem coreSystem) {
+        super(id, name, licenseID, license, description);
+        setFrameEnum(frameEnum);
+        setRole(role);
+        setStats(statblock);
+        setTraits(traits);
+        setMounts(mounts);
+        setCoreSystem(coreSystem);
     }
     /**
      * Creates a deepest copy of the provided Frame.
@@ -188,8 +223,7 @@ public final class Frame extends LicenseContent {
     public Frame(Frame frame) {
         // make sure to use the proper accessor method instead of "property" if
         //     the property's type is mutable
-        super(frame.id, frame.name, frame.source, frame.originLicense,
-            frame.license, frame.description);
+        super(frame);
         setFrameEnum(frame.frameEnum);
         setRole(frame.role);
         setStats(frame.statblock);
