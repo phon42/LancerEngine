@@ -7,7 +7,6 @@ import Packages.CoreTypes.EntityMechanics.Manufacturer;
 import Packages.CoreTypes.EntityMechanics.RangeTag;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Equipment;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.DataTag;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.dataTag.Tag;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.Damage;
 
 /**
@@ -89,12 +88,12 @@ public class Modification extends Equipment {
 
     public Modification(String id, String name, Manufacturer manufacturer,
         License originLicense, String license, int licenseLevel,
-        String licenseID, String description, Tag[] tags, int spCost,
+        String licenseID, String description, DataTag[] dataTags, int spCost,
         String[] allowedTypes, String effect, Damage[] addedDamage,
         String[] restrictedSizes, Action[] actions, RangeTag[] addedRange,
         DataTag[] addedDataTags) {
         super(id, name, manufacturer, originLicense, license, licenseLevel,
-            licenseID, description, tags);
+            licenseID, description, dataTags);
         setSpCost(spCost);
         setAllowedTypes(allowedTypes);
         setEffect(effect);
@@ -117,7 +116,7 @@ public class Modification extends Equipment {
         super(modification.id, modification.name, modification.source,
             modification.originLicense, modification.license,
             modification.licenseLevel, modification.licenseID,
-            modification.description, modification.tags);
+            modification.description, modification.dataTags);
         setSpCost(modification.spCost);
         setAllowedTypes(modification.allowedTypes);
         setEffect(modification.effect);
@@ -175,14 +174,14 @@ public class Modification extends Equipment {
         return addedDataTags;
     }
     // Required properties
-    public void setSpCost(int spCost) {
+    private void setSpCost(int spCost) {
         if (spCost < 0) {
             throw new IllegalArgumentException("spCost value: " + spCost + " is"
                 + " < 0");
         }
         this.spCost = spCost;
     }
-    public void setAllowedTypes(String[] allowedTypes) {
+    private void setAllowedTypes(String[] allowedTypes) {
         HelperMethods.checkStringArray("allowedTypes",
             allowedTypes);
         for (int i = 0; i < allowedTypes.length; i++) {
@@ -191,12 +190,12 @@ public class Modification extends Equipment {
         allowedTypes = HelperMethods.copyOf(allowedTypes);
         this.allowedTypes = allowedTypes;
     }
-    public void setEffect(String effect) {
+    private void setEffect(String effect) {
         HelperMethods.checkString("effect", effect);
         this.effect = effect;
     }
     // Optional properties
-    public void setAddedDamage(Damage[] addedDamage) {
+    private void setAddedDamage(Damage[] addedDamage) {
         if (addedDamage != null) {
             if (addedDamage.length == 0) {
                 throw new IllegalArgumentException("addedDamage array's"
@@ -208,7 +207,7 @@ public class Modification extends Equipment {
         }
         this.addedDamage = addedDamage;
     }
-    public void setRestrictedSizes(String[] restrictedSizes) {
+    private void setRestrictedSizes(String[] restrictedSizes) {
         if (restrictedSizes != null) {
             if (restrictedSizes.length == 0) {
                 throw new IllegalArgumentException("restrictedSizes array's"
@@ -220,7 +219,7 @@ public class Modification extends Equipment {
         }
         this.restrictedSizes = restrictedSizes;
     }
-    public void setActions(Action[] actions) {
+    private void setActions(Action[] actions) {
         if (actions != null) {
             if (actions.length == 0) {
                 throw new IllegalArgumentException("actions array's length is"
@@ -232,7 +231,7 @@ public class Modification extends Equipment {
         }
         this.actions = actions;
     }
-    public void setAddedRange(RangeTag[] addedRange) {
+    private void setAddedRange(RangeTag[] addedRange) {
         if (addedRange != null) {
             if (addedRange.length == 0) {
                 throw new IllegalArgumentException("addedRange array's length"
@@ -244,7 +243,7 @@ public class Modification extends Equipment {
         }
         this.addedRange = addedRange;
     }
-    public void setAddedDataTags(DataTag[] addedDataTags) {
+    private void setAddedDataTags(DataTag[] addedDataTags) {
         if (addedDataTags != null) {
             if (addedDataTags.length == 0) {
                 throw new IllegalArgumentException("addedDataTags array's"
