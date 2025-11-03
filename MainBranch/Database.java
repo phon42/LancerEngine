@@ -303,6 +303,16 @@ public final class Database {
         throw new IllegalArgumentException("No frame found for frame ID: "
             + frameID);
     }
+    public static Frame getFrame(FrameEnum frameEnum) {
+        HelperMethods.checkObject("frameEnum", frameEnum);
+        for (Frame frame : Database.frames) {
+            if (frameEnum.equals(frame.getFrameEnum())) {
+                return new Frame(frame);
+            }
+        }
+        throw new IllegalArgumentException("No frame found for frame enum: "
+            + frameEnum);
+    }
     public static Manufacturer getManufacturer(String manufacturerID) {
         HelperMethods.checkObject("manufacturerID",
             manufacturerID);
