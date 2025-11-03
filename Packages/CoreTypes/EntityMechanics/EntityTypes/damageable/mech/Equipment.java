@@ -3,13 +3,13 @@ package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech;
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.EntityMechanics.License;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.dataTag.Tag;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.DataTag;
 import Packages.CoreTypes.EntityMechanics.LicenseSystem.frameLicense.LicenseContent;
 
 /**
  * Represents a piece of mech equipment of any kind, such as a mech system or a
  *     mech weapon. Contains information about the equipment's name, origin, and
- *     tags.
+ *     data tags.
  * 
  * Requires an equipment name to be instantiated.
  * 
@@ -23,69 +23,58 @@ public class Equipment extends LicenseContent {
     //     GMS Pattern-A Jericho Deployable Cover and its Deploy Jericho
     //     Deployable Cover action for MechSystem, or IPS-N D/D 288 and its
     //     Charge D/D 288 action for Weapon)
-    // TODO: add some way for Tags to be automatically added based on an
+    // TODO: add some way for DataTags to be automatically added based on an
     //     equipment's contents
     /**
-     * Contains an array of all of this equipment's tags (i.e. Tag elements
-     *     representing an "AI" or "Limited X" tag).
-     * Can be any Tag[]. Cannot be null or contain null elements.
+     * Contains an array of all of this equipment's data tags (i.e. DataTag
+     *     elements representing an "AI" or "Limited X" data tag).
+     * Can be any DataTag[]. Cannot be null or contain null elements.
      */
-    protected Tag[] tags;
-    
-    /**
-     * Creates a new Equipment from a given equipment name and sets up all
-     *     Equipment's other properties. Used in Equipment's children's
-     *     constructors as the mandatory super() constructor.
-     * @param equipmentName a String which can be any String except "". Cannot
-     *     be null.
-     * @param equipmentManufacturer a Manufacturer which can be any
-     *     Manufacturer. Cannot be null.
-     * @param equipmentLicense a License which can be any License. Cannot be
-     *     null.
-     */
-    protected Equipment(String equipmentID, String equipmentName,
-        Manufacturer equipmentManufacturer, License equipmentOriginLicense,
-        String equipmentLicense, int equipmentLicenseLevel,
-        String equipmentLicenseID, String equipmentDescription,
-        Tag[] equipmentTags) {
-        super(equipmentID, equipmentName, equipmentManufacturer,
-            equipmentOriginLicense, equipmentLicense, equipmentLicenseLevel,
-            equipmentLicenseID, equipmentDescription);
+    protected DataTag[] dataTags;
+
+    protected Equipment(String id, String name, Manufacturer manufacturer,
+        License originLicense, String license, int licenseLevel,
+        String licenseID, String description, DataTag[] dataTags) {
+        super(id, name, manufacturer, originLicense, license, licenseLevel,
+            licenseID, description);
         if (this.source.getID().equals("GMS")) {
-            setTags(new Tag[0]);
+            setDataTags(new DataTag[0]);
         } else {
-            setTags(equipmentTags);
+            setDataTags(dataTags);
         }
     }
-    protected Equipment(String equipmentID, String equipmentName,
-        Manufacturer equipmentManufacturer, String equipmentDescription) {
-        this(equipmentID, equipmentName, equipmentManufacturer,
-            null, null,
-            0, null,
-            null, null);
+    protected Equipment(String id, String name, Manufacturer manufacturer,
+        String description) {
+        this(id, name, manufacturer, null, null,
+            0, null, description, null);
+    }
+    protected Equipment(Equipment equipment) {
+        super(equipment);
+        setDataTags(equipment.dataTags);
     }
 
     /**
      * Is overridden in all of Equipment's children.
-     * @throws IllegalArgumentException if tags is null or includes a null
+     * @throws IllegalArgumentException if dataTags is null or includes a null
      *     element.
      */
-    protected void setTags(Tag[] tags) {
+    protected void setDataTags(DataTag[] dataTags) {
         // This will throw an exception if tags is invalid
-        checkTagsArray(tags);
-        tags = HelperMethods.copyOf(tags);
-        this.tags = tags;
+        checkDataTagsArray(dataTags);
+        dataTags = HelperMethods.copyOf(dataTags);
+        this.dataTags = dataTags;
     }
 
     /**
-     * Searches for a specified tag. Returns whether the search was successful.
-     * @param tagName a String containing the name of the tag to be searched
-     *     for.
+     * Searches for a specified data tag. Returns whether the search was
+     *     successful.
+     * @param dataTagName a String containing the name of the data tag to be
+     *     searched for.
      * @return a boolean containing the result of the search.
      */
-    public boolean hasTag(String tagName) {
-        for (Tag tag : this.tags) {
-            if (tag.getName().equals(tagName)) {
+    public boolean hasDataTag(String dataTagName) {
+        for (DataTag dataTag : this.dataTags) {
+            if (dataTag.getName().equals(dataTagName)) {
                 return true;
             }
         }
@@ -93,37 +82,37 @@ public class Equipment extends LicenseContent {
         return false;
     }
     /**
-     * Searches for a specified tag. If the tag is present, returns the value
-     *     attached to the requested tag. This value only makes sense for
-     *     certain tags, such as "Limited X", and will not make sense for
-     *     others, such as "AI". Since int's default value is 0, this method
-     *     will return an int whether it is valid data or not, so it is best to
-     *     check the tag name first.
-     * @param tagName a String containing the name of the tag to be searched
-     *     for.
-     * @return an int containing the value attached to the requested tag.
-     * @throws IllegalArgumentException if the requested tag could not be found.
+     * Searches for a specified data tag. If the data tag is present, returns
+     *     the value attached to the requested data tag. This value only makes
+     *     sense for certain data tags, such as "Limited X", and will not make
+     *     sense for others, such as "AI". Since int's default value is 0, this
+     *     method will return an int whether it is valid data or not, so it is
+     *     best to check the data tag name first.
+     * @param dataTagName a String containing the name of the data tag to be
+     *     searched for.
+     * @return an int containing the value attached to the requested data tag.
+     * @throws IllegalArgumentException if the requested data tag could not be
+     *     found.
      */
-    public int getTag(String tagName) {
-        for (Tag tag : this.tags) {
-            if (tag.getName().equals(tagName)) {
-                return tag.getValue();
+    public int getDataTag(String dataTagName) {
+        for (DataTag dataTag : this.dataTags) {
+            if (dataTag.getName().equals(dataTagName)) {
+                return dataTag.getValue();
             }
         }
-
-        throw new IllegalArgumentException("Requested tag: \"" + tagName + "\""
-            + " could not be found.");
+        throw new IllegalArgumentException("Requested data tag: \""
+            + dataTagName + "\" could not be found.");
     }
     /**
-     * Checks a Tag[] to see if it is a valid value for Equipment.tags. Throws
-     *     an IllegalArgumentException if not. Used in Equipment's children's
-     *     overridden setTags() methods.
-     * @param tags a Tag[] to be checked.
+     * Checks a DataTag[] to see if it is a valid value for Equipment.dataTags.
+     *     Throws an IllegalArgumentException if not. Used in Equipment's
+     *     children's overridden setDataTags() methods.
+     * @param dataTags a DataTag[] to be checked.
      * @return a boolean containing the result of the check.
-     * @throws IllegalArgumentException if the Tag[] is invalid or contains an
-     *     invalid value for any number of reasons.
+     * @throws IllegalArgumentException if the DataTag[] is invalid or contains
+     *     an invalid value for any number of reasons.
      */
-    protected void checkTagsArray(Tag[] tags) {
-        HelperMethods.checkObjectArray("New tags", tags);
+    protected void checkDataTagsArray(DataTag[] dataTags) {
+        HelperMethods.checkObjectArray("New data tags", dataTags);
     }
 }
