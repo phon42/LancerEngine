@@ -114,7 +114,8 @@ public final class Main {
         pilotProperties.put("playerNotes", "e");
         pilotProperties.put("skills", new SkillTriggersList(
             new Skill[] {
-                new Skill("Apply Fists to Faces", 2),
+                new Skill("Apply Fists to Faces",
+                    2),
                 new Skill("Assault", 2),
                 new Skill("Blow Something Up", 2),
                 new Skill("Survive", 2)

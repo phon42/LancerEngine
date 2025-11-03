@@ -1,5 +1,7 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList;
 
+import java.util.NoSuchElementException;
+import MainBranch.Database;
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skill.SkillData;
 
@@ -7,10 +9,11 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTrig
  * See pg. 24 - 27.
  */
 /**
- * Represents a single skill trigger. Contains the skill trigger's name and the
- *     level at which it is held.
+ * Represents a single skill trigger. Contains the skill's id, its name, the
+ *     level at which it is held, and the data of the originating skill.
  * 
- * Requires a skill trigger name and a skill trigger level to be instantiated.
+ * Requires a skill trigger identifier (either its id or name) and a skill
+ *     trigger level to be instantiated.
  * 
  * Used in SkillTriggersList.
  * 
@@ -19,8 +22,15 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTrig
  */
 public final class Skill {
     /**
+     * The id of the skill trigger (i.e. "sk_act_unseen_or_unheard").
+     * Can be any String except "". Cannot be null.
+     * Case-insensitive and stored in lowercase.
+     */
+    private String id;
+    /**
      * The name of the skill trigger (i.e. "Apply Fists to Faces").
      * Can be any String except "". Cannot be null.
+     * Case-sensitive.
      */
     private String name;
     /**
@@ -37,16 +47,33 @@ public final class Skill {
     private SkillData skillData;
 
     /**
-     * Creates a new Skill with the provided skill trigger name and skill
+     * Creates a new Skill with the provided skill trigger identifier and skill
      *     trigger level.
-     * @param skillName a String which cannot be null or "".
+     * @param skillIdentifier a String which cannot be null or "". Can be the
+     *     skill's id or name.
      * @param skillLevel an int which must be 2, 4, or 6.
-     * @param skillData a SkillData which cannot be null.
      */
-    public Skill(String skillName, int skillLevel, SkillData skillData) {
-        setName(skillName);
-        setLevel(skillLevel);
-        setSkillData(skillData);
+    public Skill(String skillIdentifier, int skillLevel) {
+        SkillData data;
+
+        try {
+            data = Database.getSkillDataByName(skillIdentifier);
+            // skillIdentifier was the skill name
+        } catch (NoSuchElementException exception) {
+            // skillIdentifier was not the skill name
+            // so let's see if it's a skill id
+            try {
+                data = Database.getSkillDataByID(skillIdentifier);
+                // skillIdentifier was the skill id
+            } catch (NoSuchElementException exception2) {
+                throw new IllegalArgumentException("skillIdentifier value: \""
+                    + skillIdentifier + "\" could not be translated into a"
+                    + " valid skill id or skill name");
+            }
+        }
+        setSkillData(data);
+        setID(data.getID());
+        setName(data.getName());
     }
     /**
      * Creates a copy of the provided Skill.
@@ -54,9 +81,15 @@ public final class Skill {
      * @return a Skill copy of the provided Skill.
      */
     public Skill(Skill skill) {
-        this(skill.name, skill.level, skill.skillData);
+        HelperMethods.checkObject("skill", skill);
+        setName(skill.name);
+        setLevel(skill.level);
+        setSkillData(skill.skillData);
     }
 
+    public String getID() {
+        return id;
+    }
     public String getName() {
         return name;
     }
@@ -65,6 +98,11 @@ public final class Skill {
     }
     public SkillData getSkill() {
         return new SkillData(skillData);
+    }
+    private void setID(String id) {
+        HelperMethods.checkString("id", id);
+        id = id.toLowerCase();
+        this.id = id;
     }
     private void setName(String name) {
         HelperMethods.checkString("New name", name);
