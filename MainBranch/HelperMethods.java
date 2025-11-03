@@ -13,6 +13,7 @@ import Packages.CoreTypes.EntityMechanics.Manufacturer;
 import Packages.CoreTypes.EntityMechanics.NPCFeature;
 import Packages.CoreTypes.EntityMechanics.NPCTemplate;
 import Packages.CoreTypes.EntityMechanics.RangeTag;
+import Packages.CoreTypes.EntityMechanics.Synergy;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.Deployable;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Frame;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Mount;
@@ -1415,6 +1416,25 @@ public final class HelperMethods {
                 continue;
             }
             copy[i] = new Skill(original[i]);
+        }
+
+        return copy;
+    }
+    /**
+     * Returns a deepest copy of original.
+     * @param original a Synergy[] that cannot be null.
+     * @return a Synergy[] deepest copy of original.
+     * @throws IllegalArgumentException if original is null.
+     */
+    public static Synergy[] copyOf(Synergy[] original) {
+        checkObject("original", original);
+        Synergy[] copy = new Synergy[original.length];
+        for (int i = 0; i < original.length; i++) {
+            if (original[i] == null) {
+                copy[i] = original[i];
+                continue;
+            }
+            copy[i] = new Synergy(original[i]);
         }
 
         return copy;

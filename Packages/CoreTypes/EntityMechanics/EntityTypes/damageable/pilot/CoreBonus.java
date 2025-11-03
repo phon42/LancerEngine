@@ -4,6 +4,7 @@ import MainBranch.HelperMethods;
 import Packages.CoreTypes.EntityMechanics.Action;
 import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
+import Packages.CoreTypes.EntityMechanics.Synergy;
 
 public class CoreBonus {
     // TODO: fill out
@@ -16,12 +17,12 @@ public class CoreBonus {
     // Optional properties
     private String mountedEffect;
     private Bonus[] bonuses;
-    private Object[] synergies;
+    private Synergy[] synergies;
     private Action[] actions;
 
     public CoreBonus(String id, String name, Manufacturer source, String effect,
         String description, String mountedEffect, Bonus[] bonuses,
-        Object[] synergies, Action[] actions) {
+        Synergy[] synergies, Action[] actions) {
         HelperMethods.verifyConstructor();
         setID(id);
         setName(name);
@@ -73,7 +74,7 @@ public class CoreBonus {
     public Bonus[] getBonuses() {
         return HelperMethods.copyOf(bonuses);
     }
-    public Object[] getSynergies() {
+    public Synergy[] getSynergies() {
         return HelperMethods.copyOf(synergies);
     }
     public Action[] getActions() {
@@ -102,7 +103,7 @@ public class CoreBonus {
     public void setBonuses(Bonus[] bonuses) {
         this.bonuses = bonuses;
     }
-    public void setSynergies(Object[] synergies) {
+    public void setSynergies(Synergy[] synergies) {
         this.synergies = synergies;
     }
     public void setActions(Action[] actions) {
