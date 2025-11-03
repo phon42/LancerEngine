@@ -966,7 +966,7 @@ public class DataCaster {
         // 3. and then close DataCompiler
         DataCompiler.close();
         // 4. and tell DataCompiler to upload it
-        DataCompiler.uploadData();
+        DataCompiler.saveData();
     }
     private static void flushData() {
         // TODO: fill out

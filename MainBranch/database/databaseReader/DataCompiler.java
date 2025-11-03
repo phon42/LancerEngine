@@ -143,7 +143,7 @@ public class DataCompiler {
         } else if (DataCompiler.hasData) {
             throw new IllegalStateException("Attempted to call"
                 + " DataCompiler.open() when DataCompiler still has some data"
-                + " remaining. Call DataCompiler.uploadData() or"
+                + " remaining. Call DataCompiler.saveData() or"
                 + " DataCompiler.flushData() first");
         }
         DataCompiler.open = true;
@@ -199,10 +199,10 @@ public class DataCompiler {
         // remember to mark that we have data now
         DataCompiler.hasData = true;
     }
-    public static void uploadData() { // TODO: find a better name
+    public static void saveData() {
         if (DataCompiler.open) {
             throw new IllegalStateException("Attempted to call"
-                + " DataCompiler.uploadData() while DataCompiler was still"
+                + " DataCompiler.saveData() while DataCompiler was still"
                 + " open. Call DataCompiler.close() first");
         }
         // push all the data that's been collected over to Database
@@ -275,7 +275,7 @@ public class DataCompiler {
                 } else {
                     // non-GMS content
                     licenseFound = frameLicense.getManufacturer()
-                        .equals(content[i].getSource())
+                        .equals(content[i].getManufacturer())
                         && frameLicense.getName()
                         .equals(content[i].getLicense());
                 }
@@ -296,7 +296,7 @@ public class DataCompiler {
                         // non-GMS content
                         frameLicenses[numLicenses] = new FrameLicense(
                             content[i].getLicenseID(), content[i].getLicense(),
-                            content[i].getSource());
+                            content[i].getManufacturer());
                     }
                     numLicenses++;
                 }
