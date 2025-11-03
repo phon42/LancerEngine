@@ -1,12 +1,11 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech;
 
 import MainBranch.HelperMethods;
-import Packages.CoreTypes.EntityMechanics.License;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frame.CoreSystem;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frame.FrameEnum;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frame.FrameStatblock;
 import Packages.CoreTypes.EntityMechanics.LicenseSystem.frameLicense.LicenseContent;
-import Packages.CoreTypes.Size;
 
 /**
  * See pg. 32.
@@ -143,11 +142,7 @@ public final class Frame extends LicenseContent {
      */
     private Mount[] mounts;
 
-    // TODO: fill out core system section - see pg. 33
-    // core system
-    // core system description
-    // core system passive
-    // core system active
+    private CoreSystem coreSystem;
 
     // Optional property
     /**
@@ -200,6 +195,7 @@ public final class Frame extends LicenseContent {
         setStats(frame.statblock);
         setTraits(frame.traits);
         setMounts(frame.mounts);
+        setCoreSystem(frame.coreSystem);
         setFrameEnum(frame.frameEnum);
     }
 
@@ -221,17 +217,8 @@ public final class Frame extends LicenseContent {
     public Mount[] getMounts() {
         return HelperMethods.copyOf(mounts);
     }
-    @Override
-    protected void setName(String name) {
-        HelperMethods.checkString("New frame name", name);
-        name = name.toLowerCase();
-        this.name = name;
-    }
-    @Override
-    protected void setID(String id) {
-        HelperMethods.checkString("New frame ID", id);
-        id = id.toLowerCase();
-        this.id = id;
+    public CoreSystem getCoreSystem() {
+        return new CoreSystem(coreSystem);
     }
     /**
      * Sets this.frameEnum to the provided value.
@@ -328,6 +315,11 @@ public final class Frame extends LicenseContent {
         }
         mounts = HelperMethods.copyOf(mounts);
         this.mounts = mounts;
+    }
+    private void setCoreSystem(CoreSystem coreSystem) {
+        HelperMethods.checkObject("New coreSystem", coreSystem);
+        coreSystem = new CoreSystem(coreSystem);
+        this.coreSystem = coreSystem;
     }
 
     /**
