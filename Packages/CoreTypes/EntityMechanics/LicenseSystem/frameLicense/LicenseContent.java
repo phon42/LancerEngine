@@ -91,6 +91,16 @@ public class LicenseContent {
         this(id, name, source, null, null,
             0, null, null);
     }
+    protected LicenseContent(LicenseContent licenseContent) {
+        setID(licenseContent.id);
+        setName(licenseContent.name);
+        setSource(licenseContent.source);
+        setOriginLicense(licenseContent.originLicense);
+        setLicense(licenseContent.license);
+        setLicenseLevel(licenseContent.licenseLevel);
+        setLicenseID(licenseContent.licenseID);
+        setDescription(licenseContent.description);
+    }
 
     public String getID() {
         return id;
