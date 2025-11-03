@@ -27,7 +27,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Reserve;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment.PilotArmor;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment.PilotGear;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment.PilotWeapon;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skillTrigger.Skill;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skillTrigger.SkillData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.talent.TalentData;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.damage.Harm;
 import Packages.CoreTypes.EntityMechanics.LicenseSystem.FrameLicense;
@@ -130,7 +130,7 @@ public final class Database {
     /**
      * add documentation
      */
-    private static Skill[] skills;
+    private static SkillData[] skills;
     /**
      * add documentation
      */
@@ -196,7 +196,7 @@ public final class Database {
         Database.reserves = new Reserve[0];
         Database.rules = new Rule[0];
         Database.sitreps = new Sitrep[0];
-        Database.skills = new Skill[0];
+        Database.skills = new SkillData[0];
         Database.states = new State[0];
         Database.statuses = new Status[0];
         Database.systems = new MechSystem[0];
@@ -386,15 +386,15 @@ public final class Database {
         throw new IllegalArgumentException("No sitrep found for sitrep ID: "
             + sitrepID);
     }
-    public static Skill getSkill(String skillID) {
-        HelperMethods.checkObject("skillID", skillID);
-        for (Skill skill : Database.skills) {
-            if (skillID.equals(skill.getID())) {
-                return new Skill(skill);
+    public static SkillData getSkill(String skillDataID) {
+        HelperMethods.checkObject("skillDataID", skillDataID);
+        for (SkillData skillData : Database.skills) {
+            if (skillDataID.equals(skillData.getID())) {
+                return new SkillData(skillData);
             }
         }
-        throw new IllegalArgumentException("No skill found for skill ID: "
-            + skillID);
+        throw new IllegalArgumentException("No skill found for skill data ID: "
+            + skillDataID);
     }
     public static State getState(String stateName) {
         HelperMethods.checkObject("stateName", stateName);
@@ -668,14 +668,14 @@ public final class Database {
         Database.sitreps = HelperMethods.append(Database.sitreps, sitrep);
     }
     /**
-     * Adds the provided Skill to Database.skills.
-     * @param skill a Skill which cannot be null.
+     * Adds the provided SkillData to Database.skills.
+     * @param skillData a SkillData which cannot be null.
      * @throws IllegalArgumentException if skill is null.
      */
-    public static void addSkill(Skill skill) {
+    public static void addSkill(SkillData skillData) {
         checkOpen();
-        HelperMethods.checkObject("skill", skill);
-        Database.skills = HelperMethods.append(Database.skills, skill);
+        HelperMethods.checkObject("skillData", skillData);
+        Database.skills = HelperMethods.append(Database.skills, skillData);
     }
     /**
      * Adds the provided State to Database.states.

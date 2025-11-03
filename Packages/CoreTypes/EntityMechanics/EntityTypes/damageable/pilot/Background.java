@@ -1,7 +1,7 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot;
 
 import MainBranch.HelperMethods;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skillTrigger.Skill;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skillTrigger.SkillData;
 
 /**
  * Represents a single background. Contains information about that background's
@@ -38,15 +38,15 @@ public class Background {
     // Optional properties
     /**
      * The skills that might be appropriate to choose for this background (i.e.
-     *     a Skill[] containing Charm, Pull Rank, Lead or Inspire, and
+     *     a SkillData[] containing Charm, Pull Rank, Lead or Inspire, and
      *     Threaten).
-     * Can be any Skill[] that is not of length 0 and does not contain null
+     * Can be any SkillData[] that is not of length 0 and does not contain null
      *     elements. Can be null.
      */
-    private Skill[] skills;
+    private SkillData[] skills;
 
     public Background(String id, String name, String description,
-        Skill[] skills) {
+        SkillData[] skills) {
         setID(id);
         setName(name);
         setDescription(description);
@@ -68,7 +68,7 @@ public class Background {
     public String getDescription() {
         return description;
     }
-    public Skill[] getSkills() {
+    public SkillData[] getSkills() {
         if (skills != null) {
             return HelperMethods.copyOf(skills);
         }
@@ -89,16 +89,16 @@ public class Background {
     }
     /**
      * Sets this.skills to the provided value.
-     * @param skills a Skill[] which cannot be of length 0 or contain null
+     * @param skills a SkillData[] which cannot be of length 0 or contain null
      *     elements. Can be null.
      * @throws IllegalArgumentException if skills is invalid as defined above.
      */
-    public void setSkills(Skill[] skills) {
+    public void setSkills(SkillData[] skills) {
         if (skills != null) {
             if (skills.length == 0) {
                 throw new IllegalArgumentException("skills is of length 0");
             }
-            for (Skill skill : skills) {
+            for (SkillData skill : skills) {
                 if (skill == null) {
                     throw new IllegalArgumentException("skills array contains"
                         + " a null element");

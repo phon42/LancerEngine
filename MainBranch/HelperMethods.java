@@ -30,7 +30,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.p
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment.PilotGear;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment.PilotWeapon;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.SkillTrigger;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skillTrigger.Skill;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skillTrigger.SkillData;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.Damage;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.damage.Harm;
 import Packages.CoreTypes.EntityMechanics.LicenseSystem.FrameLicense;
@@ -879,18 +879,18 @@ public final class HelperMethods {
         return newArray;
     }
     /**
-     * Appends the given Skill element to the end of an existing Skill[].
-     * @param array a Skill[] that cannot be null.
-     * @param newElement a Skill that cannot be null to append to the end of
+     * Appends the given SkillData element to the end of an existing Skill[].
+     * @param array a SkillData[] that cannot be null.
+     * @param newElement a SkillData that cannot be null to append to the end of
      *     array.
-     * @return a Skill[] consisting of array with newElement appended to the
+     * @return a SkillData[] consisting of array with newElement appended to the
      *     end of it.
      * @throws IllegalArgumentException if array or newElement is null.
      */
-    public static Skill[] append(Skill[] array, Skill newElement) {
+    public static SkillData[] append(SkillData[] array, SkillData newElement) {
         HelperMethods.checkObject("array", array);
         HelperMethods.checkObject("newElement", newElement);
-        Skill[] newArray = new Skill[array.length + 1];
+        SkillData[] newArray = new SkillData[array.length + 1];
 
         for (int i = 0; i < newArray.length; i++) {
             if (i < array.length) {
@@ -1383,19 +1383,19 @@ public final class HelperMethods {
     }
     /**
      * Returns a deepest copy of original.
-     * @param original a Skill[] that cannot be null.
-     * @return a Skill[] deepest copy of original.
+     * @param original a SkillData[] that cannot be null.
+     * @return a SkillData[] deepest copy of original.
      * @throws IllegalArgumentException if original is null.
      */
-    public static Skill[] copyOf(Skill[] original) {
+    public static SkillData[] copyOf(SkillData[] original) {
         checkObject("original", original);
-        Skill[] copy = new Skill[original.length];
+        SkillData[] copy = new SkillData[original.length];
         for (int i = 0; i < original.length; i++) {
             if (original[i] == null) {
                 copy[i] = original[i];
                 continue;
             }
-            copy[i] = new Skill(original[i]);
+            copy[i] = new SkillData(original[i]);
         }
 
         return copy;

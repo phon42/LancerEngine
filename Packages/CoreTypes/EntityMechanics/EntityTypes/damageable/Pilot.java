@@ -7,8 +7,8 @@ import Packages.CoreTypes.EntityMechanics.License;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.Damageable;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Loadout;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.SkillTriggersList;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.SkillTrigger;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Talent;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skillTrigger.Skill;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.Damage;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.damage.Harm;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.Condition;
@@ -1304,7 +1304,8 @@ public final class Pilot implements Damageable {
         // total skill trigger level should be 4 + licenseLevel
         int totalLevel = 0;
 
-        for (Skill skillTrigger : this.skillTriggers.getSkillTriggers()) {
+        for (SkillTrigger skillTrigger : this.skillTriggers.getSkillTriggers())
+        {
             totalLevel += skillTrigger.getLevel() / 2;
         }
         // TODO: would it be helpful to have some kind of information about if

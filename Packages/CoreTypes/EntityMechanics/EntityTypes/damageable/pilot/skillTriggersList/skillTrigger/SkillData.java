@@ -6,8 +6,8 @@ import MainBranch.HelperMethods;
  * See pg. 24 - 27.
  */
 /**
- * Represents a single skill trigger. Contains information about that skill
- *     trigger, such as its id and the conditions in which it applies.
+ * Represents a single skill trigger's data. Contains information about that
+ *     skill trigger, such as its id and the conditions in which it applies.
  * 
  * Requires a skill trigger ID, name, description, a more detailed description,
  *     and the family of skills in which it fits to be instantiated.
@@ -17,7 +17,7 @@ import MainBranch.HelperMethods;
  * Safety: This class does not have placeholder values and cannot be a
  *     placeholder. None of its properties have allowed values of null.
  */
-public final class Skill {
+public final class SkillData {
     /**
      * The ID of the skill trigger (i.e. "sk_act_unseen_or_unheard").
      * Can be any String except "". Cannot be null.
@@ -52,7 +52,7 @@ public final class Skill {
      */
     private String family;
 
-    public Skill(String id, String name, String shortDescription,
+    public SkillData(String id, String name, String shortDescription,
         String detailedDescription, String skillFamily) {
         HelperMethods.verifyConstructor();
         setID(id);
@@ -61,12 +61,12 @@ public final class Skill {
         setDetail(detailedDescription);
         setFamily(skillFamily);
     }
-    public Skill(Skill skill) {
-        setID(skill.id);
-        setName(skill.name);
-        setDescription(skill.description);
-        setDetail(skill.detail);
-        setFamily(skill.family);
+    public SkillData(SkillData skillData) {
+        setID(skillData.id);
+        setName(skillData.name);
+        setDescription(skillData.description);
+        setDetail(skillData.detail);
+        setFamily(skillData.family);
     }
 
     public String getID() {
@@ -84,16 +84,16 @@ public final class Skill {
     }
 
     /**
-     * Generates a String representation of this Skill.
-     * @return a String containing a representation of this Skill.
+     * Generates a String representation of this SkillData.
+     * @return a String containing a representation of this SkillData.
      */
     @Override
     public String toString() {
         return getName() + " (+" + getLevel() + ")";
     }
     /**
-     * Compares this Skill object and obj. If they are the same class, returns
-     *     true.
+     * Compares this SkillData object and obj. If they are the same class,
+     *     returns true.
      * @param obj an Object to be compared to.
      * @return a boolean representing whether the two Objects are the same.
      */
@@ -108,19 +108,19 @@ public final class Skill {
         return true;
     }
     /**
-     * Compares this Skill object and skill. If they have the same property
-     *     values, returns true.
-     * @param skill a Skill to be compared to.
-     * @return a boolean representing whether the two Skills are the same.
+     * Compares this SkillData object and skillData. If they have the same
+     *     property values, returns true.
+     * @param skillData a SkillData to be compared to.
+     * @return a boolean representing whether the two SkillDatas are the same.
      */
-    public boolean equals(Skill skill) {
-        if (skill == null) {
+    public boolean equals(SkillData skillData) {
+        if (skillData == null) {
             return false;
         }
-        if (! skill.getName().equals(this.name)) {
+        if (! skillData.getName().equals(this.name)) {
             return false;
         }
-        if (skill.getLevel() != this.level) {
+        if (skillData.getLevel() != this.level) {
             return false;
         }
         

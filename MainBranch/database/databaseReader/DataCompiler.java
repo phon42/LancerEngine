@@ -25,7 +25,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.talent.Ta
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment.PilotArmor;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment.PilotGear;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment.PilotWeapon;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skillTrigger.Skill;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skillTrigger.SkillData;
 import Packages.CoreTypes.EntityMechanics.LicenseSystem.FrameLicense;
 import Packages.CoreTypes.EntityMechanics.LicenseSystem.frameLicense.LicenseContent;
 import Packages.CoreTypes.EntityMechanics.StateSystem.State;
@@ -100,7 +100,7 @@ public class DataCompiler {
     private static PilotGear[] pilotGearData;
     private static PilotWeapon[] pilotWeapon;
     private static Reserve[] reserveData;
-    private static Skill[] skillData;
+    private static SkillData[] skillData;
     private static State[] stateData;
     private static Status[] statusData;
     private static TalentData[] talentData;
@@ -181,7 +181,7 @@ public class DataCompiler {
         DataCompiler.pilotGearData = (PilotGear[]) data[13];
         DataCompiler.pilotWeapon = (PilotWeapon[]) data[14];
         DataCompiler.reserveData = (Reserve[]) data[15];
-        DataCompiler.skillData = (Skill[]) data[16];
+        DataCompiler.skillData = (SkillData[]) data[16];
         DataCompiler.stateData = (State[]) data[17];
         DataCompiler.statusData = (Status[]) data[18];
         DataCompiler.talentData = (TalentData[]) data[19];
@@ -410,7 +410,7 @@ public class DataCompiler {
         DataCompiler.pilotGearData = new PilotGear[0];
         DataCompiler.pilotWeapon = new PilotWeapon[0];
         DataCompiler.reserveData = new Reserve[0];
-        DataCompiler.skillData = new Skill[0];
+        DataCompiler.skillData = new SkillData[0];
         DataCompiler.stateData = new State[0];
         DataCompiler.statusData = new Status[0];
         DataCompiler.talentData = new TalentData[0];

@@ -1,7 +1,6 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList;
 
 import MainBranch.HelperMethods;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skillTrigger.Skill;
 
 /**
  * See pg. 24 - 27.
@@ -102,7 +101,7 @@ public final class SkillTrigger {
      * @param skill a Skill to be compared to.
      * @return a boolean representing whether the two Skills are the same.
      */
-    public boolean equals(Skill skill) {
+    public boolean equals(SkillTrigger skill) {
         if (skill == null) {
             return false;
         }

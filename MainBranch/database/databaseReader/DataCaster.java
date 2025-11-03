@@ -32,7 +32,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Talent;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment.PilotArmor;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment.PilotGear;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment.PilotWeapon;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skillTrigger.Skill;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skillTrigger.SkillData;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.Damage;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.Condition;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.Status;
@@ -63,7 +63,7 @@ public class DataCaster {
     private static JSONObject[] npcTemplateRaw;
     private static JSONObject[] pilotEquipmentRaw;
     private static JSONObject[] reserveRaw;
-    private static JSONObject[] skillRaw;
+    private static JSONObject[] skillsRaw;
     private static JSONObject[] stateRaw;
     private static JSONObject[] talentRaw;
     // ----less important
@@ -94,7 +94,7 @@ public class DataCaster {
     private static PilotGear[] pilotGearProcessed;
     private static PilotWeapon[] pilotWeaponProcessed;
     private static Reserve[] reserveProcessed;
-    private static Skill[] skillProcessed;
+    private static SkillData[] skillsProcessed;
     private static Status[] statusProcessed;
     private static Talent[] talentProcessed;
     // ----less important
@@ -176,7 +176,7 @@ public class DataCaster {
             DataCaster.npcTemplateRaw = (JSONObject[]) data[9];
             DataCaster.pilotEquipmentRaw = (JSONObject[]) data[10];
             DataCaster.reserveRaw = (JSONObject[]) data[11];
-            DataCaster.skillRaw = (JSONObject[]) data[12];
+            DataCaster.skillsRaw = (JSONObject[]) data[12];
             DataCaster.stateRaw = (JSONObject[]) data[13];
             DataCaster.talentRaw = (JSONObject[]) data[14];
             // ----less important
@@ -264,8 +264,9 @@ public class DataCaster {
             processSitreps(DataCaster.sitrepRaw);
         
         }
-        if (! (DataCaster.skillRaw == null || DataCaster.skillRaw.length < 1)) {
-            processSkills(DataCaster.skillRaw);
+        if (! (DataCaster.skillsRaw == null || DataCaster.skillsRaw.length < 1))
+        {
+            processSkills(DataCaster.skillsRaw);
         
         }
         if (! (DataCaster.stateRaw == null || DataCaster.stateRaw.length < 1)) {
@@ -938,7 +939,7 @@ public class DataCaster {
             DataCaster.pilotGearProcessed,
             DataCaster.pilotWeaponProcessed,
             DataCaster.reserveProcessed,
-            DataCaster.skillProcessed,
+            DataCaster.skillsProcessed,
             DataCaster.statusProcessed,
             DataCaster.talentProcessed,
             // ----less important
@@ -981,7 +982,7 @@ public class DataCaster {
         npcTemplateRaw = new JSONObject[0];
         pilotEquipmentRaw = new JSONObject[0];
         reserveRaw = new JSONObject[0];
-        skillRaw = new JSONObject[0];
+        skillsRaw = new JSONObject[0];
         stateRaw = new JSONObject[0];
         talentRaw = new JSONObject[0];
         // ----less important
@@ -1012,7 +1013,7 @@ public class DataCaster {
         pilotGearProcessed = new PilotGear[0];
         pilotWeaponProcessed = new PilotWeapon[0];
         reserveProcessed = new Reserve[0];
-        skillProcessed = new Skill[0];
+        skillsProcessed = new SkillData[0];
         statusProcessed = new Status[0];
         talentProcessed = new Talent[0];
         // ----less important
