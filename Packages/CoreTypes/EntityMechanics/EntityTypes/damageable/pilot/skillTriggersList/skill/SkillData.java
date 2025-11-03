@@ -12,7 +12,7 @@ import MainBranch.HelperMethods;
  * Requires a skill trigger ID, name, description, a more detailed description,
  *     and the family of skills in which it fits to be instantiated.
  * 
- * Used in SkillTrigger.
+ * Used in Skill.
  * 
  * Safety: This class does not have placeholder values and cannot be a
  *     placeholder. None of its properties have allowed values of null.

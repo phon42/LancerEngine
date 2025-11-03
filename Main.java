@@ -112,7 +112,7 @@ public final class Main {
         pilotProperties.put("biography", "e");
         pilotProperties.put("appearance", "e");
         pilotProperties.put("playerNotes", "e");
-        pilotProperties.put("skillTriggers", new SkillTriggersList(
+        pilotProperties.put("skills", new SkillTriggersList(
             new Skill[] {
                 new Skill("Apply Fists to Faces", 2),
                 new Skill("Assault", 2),

@@ -152,7 +152,7 @@ public final class LancerCharacter {
         pilotProperties.put("speed", this.pilot.getSpeed());
         pilotProperties.put("eDefense", this.pilot.getEDefense());
 
-        pilotProperties.put("skillTriggers", this.pilot.getSkillTriggers());
+        pilotProperties.put("skills", this.pilot.getSkillTriggers());
         pilotProperties.put("reserves", this.pilot.getReserves());
         pilotProperties.put("loadout", this.pilot.getLoadout());
         pilotProperties.put("licenseLevel", this.pilot.getLicenseLevel());
@@ -276,7 +276,7 @@ public final class LancerCharacter {
         String[] propertyNames = new String[] {"name", "callsign", "player",
             "status", "background", "biography", "appearance", "playerNotes",
             "size", "grit", "currentHP", "maxHP", "armor", "evasion", "speed",
-            "eDefense", "skillTriggers", "reserves", "loadout", "licenseLevel",
+            "eDefense", "skills", "reserves", "loadout", "licenseLevel",
             "licenseList", "specialEquipment", "mechSkills", "coreBonuses",
             "talents"};
         boolean isAllowed = false;
@@ -314,7 +314,7 @@ public final class LancerCharacter {
             "playerNotes"));
         this.pilot.setCurrentHP((int) pilotProperties.get("currentHP"));
         this.pilot.setSkillTriggers((SkillTriggersList) pilotProperties.get(
-            "skillTriggers"));
+            "skills"));
         this.pilot.setReserves((String[]) pilotProperties.get("reserves"));
         this.pilot.setLoadout((Loadout) pilotProperties.get("loadout"));
         this.pilot.setLicenseLevel((int) pilotProperties.get(

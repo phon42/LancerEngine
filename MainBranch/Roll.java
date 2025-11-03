@@ -491,8 +491,8 @@ public final class Roll {
      * backgroundInvoked adds +1 accuracy or +1 difficulty if its value is +1 or
      *     -1, respectively.
      * teamwork, upon being true, adds +1 accuracy to the total roll.
-     * @param skillTrigger a Skill which provides the bonus for the roll. Cannot
-     *     be null.
+     * @param skill a Skill which provides the bonus for the roll. Cannot be
+     *     null.
      * @param accuracy an int containing the number of accuracy dice applied.
      *     Must be a minimum of 0.
      * @param difficulty an int containing the number of difficulty dice
@@ -507,12 +507,12 @@ public final class Roll {
      * @return an int containing the result of the check.
      * @throws IllegalArgumentException if any parameters are invalid.
      */
-    public static int check(Skill skillTrigger, int accuracy, int difficulty,
+    public static int check(Skill skill, int accuracy, int difficulty,
         boolean isDifficult, int backgroundInvoked, boolean teamwork) {
         // See pgs. 13, 45 - 47
         int bonus;
 
-        HelperMethods.checkObject("skillTrigger", skillTrigger);
+        HelperMethods.checkObject("skill", skill);
         if (accuracy < 0) {
             throw new IllegalArgumentException("accuracy value: " + accuracy
                 + " is < 0");
@@ -525,7 +525,7 @@ public final class Roll {
             throw new IllegalArgumentException("absolute value of"
                 + " backgroundInvoked value: " + backgroundInvoked + " is > 1");
         }
-        bonus = skillTrigger.getLevel();
+        bonus = skill.getLevel();
         difficulty += isDifficult ? 1 : 0;
         accuracy += backgroundInvoked == +1 ? 1 : 0;
         difficulty += backgroundInvoked == -1 ? 1 : 0;
@@ -539,8 +539,8 @@ public final class Roll {
      *     the fourth parameter onward.
      * @return an int containing the result of the check.
      */
-    public static int check(Skill skillTrigger, int accuracy, int difficulty) {
-            return check(skillTrigger, accuracy, difficulty, false,
+    public static int check(Skill skill, int accuracy, int difficulty) {
+            return check(skill, accuracy, difficulty, false,
                 0, false);
     }
     /**
@@ -660,17 +660,17 @@ public final class Roll {
      *     (Participant #2) won.
      * @return an int containing the identity of the winner.
      */
-    public static int contestedCheck(Skill skillTrigger1, Skill skillTrigger2,
+    public static int contestedCheck(Skill skill1, Skill skill2,
         int accuracy1, int difficulty1, int accuracy2, int difficulty2) {
         // See pg. 13
-        int result1 = check(skillTrigger1, accuracy1, difficulty1);
-        int result2 = check(skillTrigger2, accuracy2, difficulty2);
+        int result1 = check(skill1, accuracy1, difficulty1);
+        int result2 = check(skill2, accuracy2, difficulty2);
 
         // If it's a tie (result1 == result2), the result is +1
         return result1 >= result2 ? +1 : -1;
     }
-    public static int contestedCheck(Skill skillTrigger1, Skill skillTrigger2) {
-        return contestedCheck(skillTrigger1, skillTrigger2, 0,
+    public static int contestedCheck(Skill skill1, Skill skill2) {
+        return contestedCheck(skill1, skill2, 0,
             0, 0, 0);
     }
     /**

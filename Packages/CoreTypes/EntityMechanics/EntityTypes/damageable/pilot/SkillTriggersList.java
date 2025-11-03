@@ -18,21 +18,21 @@ public final class SkillTriggersList {
     /**
      * Can be any Skill[]. Cannot be null or contain null elements.
      */
-    private Skill[] skillTriggers;
+    private Skill[] skills;
 
     /**
      * Creates an empty SkillTriggersList.
      */
     public SkillTriggersList() {
-        setSkillTriggers(new Skill[0]);
+        setSkills(new Skill[0]);
     }
     /**
      * Creates a new SkillTriggersList with the provided list of skill triggers.
-     * @param skillTriggers a SkillTrigger[] that cannot be null or contain null
+     * @param skills a Skill[] that cannot be null or contain null
      *     elements.
      */
-    public SkillTriggersList(Skill[] skillTriggers) {
-        setSkillTriggers(skillTriggers);
+    public SkillTriggersList(Skill[] skills) {
+        setSkills(skills);
     }
     /**
      * Creates a deepest copy of the provided SkillTriggersList.
@@ -42,22 +42,22 @@ public final class SkillTriggersList {
      */
     public SkillTriggersList(SkillTriggersList skillTriggersList) {
         // don't need to make copies of these because the mutators already do so
-        this(skillTriggersList.skillTriggers);
+        this(skillTriggersList.skills);
     }
 
-    public Skill[] getSkillTriggers() {
-        return HelperMethods.copyOf(skillTriggers);
+    public Skill[] getSkills() {
+        return HelperMethods.copyOf(skills);
     }
     /**
      * Searches for a specified skill trigger. Returns whether the search was
      *     successful.
-     * @param skillTriggerName a String containing the name of the skill trigger
-     *     to be searched for.
+     * @param skillName a String containing the name of the skill trigger to be
+     *     searched for.
      * @return a boolean containing the result of the search.
      */
-    public boolean hasSkillTrigger(String skillTriggerName) {
-        for (Skill skillTrigger : this.skillTriggers) {
-            if (skillTrigger.getName().equals(skillTriggerName)) {
+    public boolean hasSkill(String skillName) {
+        for (Skill skill : this.skills) {
+            if (skill.getName().equals(skillName)) {
                 return true;
             }
         }
@@ -67,34 +67,33 @@ public final class SkillTriggersList {
     /**
      * Searches for a specified skill trigger. If the skill trigger is present,
      *     returns it.
-     * @param skillTriggerName a String containing the name of the skill trigger
-     *     to be searched for.
+     * @param skillName a String containing the name of the skill trigger to be
+     *     searched for.
      * @return a Skill containing the skill trigger that was searched for.
      * @throws IllegalArgumentException if the requested skill trigger could not
      *     be found.
      */
-    public Skill getSkillTrigger(String skillTriggerName) {
-        for (Skill skillTrigger : this.skillTriggers) {
-            if (skillTrigger.getName().equals(skillTriggerName)) {
-                return new Skill(skillTrigger);
+    public Skill getSkill(String skillName) {
+        for (Skill skill : this.skills) {
+            if (skill.getName().equals(skillName)) {
+                return new Skill(skill);
             }
         }
 
         throw new IllegalArgumentException("Requested skill trigger: \""
-            + skillTriggerName + "\" could not be found.");
+            + skillName + "\" could not be found.");
     }
     /**
-     * Sets this.skillTriggers to the provided value.
-     * @param skillTriggers a Skill[] which cannot be null or contain null
+     * Sets this.skills to the provided value.
+     * @param skills a Skill[] which cannot be null or contain null elements.
+     * @throws IllegalArgumentException if skills is null or contains null
      *     elements.
-     * @throws IllegalArgumentException if skillTriggers is null or contains
-     *     null elements.
      */
-    public void setSkillTriggers(Skill[] skillTriggers) {
+    public void setSkills(Skill[] skills) {
         HelperMethods.checkObjectArray("New skill triggers",
-            skillTriggers);
-        skillTriggers = HelperMethods.copyOf(skillTriggers);
-        this.skillTriggers = skillTriggers;
+            skills);
+        skills = HelperMethods.copyOf(skills);
+        this.skills = skills;
     }
 
     /**
@@ -124,15 +123,14 @@ public final class SkillTriggersList {
         if (skillTriggersList == null) {
             return false;
         }
-        if (skillTriggersList.getSkillTriggers().length == skillTriggers.length
-            && skillTriggers.length == 0) {
+        if (skillTriggersList.getSkills().length == skills.length
+            && skills.length == 0) {
             return true;
         }
-        if (skillTriggersList.getSkillTriggers().length == 
-            skillTriggers.length) {
-            for (int i = 0; i < skillTriggers.length; i++) {
-                if (! skillTriggers[i].equals(
-                    skillTriggersList.getSkillTriggers()[i])) {
+        if (skillTriggersList.getSkills().length ==  skills.length) {
+            for (int i = 0; i < skills.length; i++) {
+                if (! skills[i].equals(
+                    skillTriggersList.getSkills()[i])) {
                     return false;
                 }
             }
@@ -151,19 +149,19 @@ public final class SkillTriggersList {
         //     "  Blow Something Up (+2)\n"
         String outputString = "";
 
-        if (this.skillTriggers.length == 0) {
+        if (this.skills.length == 0) {
             outputString += "  N/A\n";
             return outputString;
         }
-        for (int i = 0; i < this.skillTriggers.length; i += 2) {
+        for (int i = 0; i < this.skills.length; i += 2) {
             outputString += "  ";
-            for (int j = i; j < Math.min(i + 2, this.skillTriggers.length);
+            for (int j = i; j < Math.min(i + 2, this.skills.length);
                 j++) {
                 if (j != i) {
                     outputString += " ";
                 }
-                outputString += this.skillTriggers[j].toString();
-                if (j + 1 < this.skillTriggers.length) {
+                outputString += this.skills[j].toString();
+                if (j + 1 < this.skills.length) {
                     outputString += ",";
                 }
             }

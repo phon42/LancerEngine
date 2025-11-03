@@ -63,15 +63,15 @@ public final class TestMethods {
                 new Test("Pilot.setAppearance()", runSetAppearanceTests()),
                 new Test("Pilot.setPlayerNotes()", runSetPlayerNotesTests()),
                 new Test("Pilot.setCurrentHP()", runSetPilotCurrentHPTests()),
-                new Test("Pilot.setSkillTriggers()", runSetPilotSkillTriggersTests(), new Test[] {
+                new Test("Pilot.setSkills()", runSetPilotSkillsTests(), new Test[] {
                     new Test("SkillTriggersList", new Test[] {
-                        new Test("SkillTriggersList.hasSkillTrigger()", runHasSkillTriggerTests()),
-                        new Test("SkillTriggersList.getSkillTrigger()", runGetSkillTriggerTests()),
-                        new Test("SkillTriggersList.setSkillTriggers()", runSetSkillTriggersTests(), new Test[] {
-                            new Test("SkillTrigger", runSkillTriggerTests(), new Test[] {
-                                new Test("SkillTrigger.equals(Object)", runSkillTriggerEqualsTests()),
-                                new Test("SkillTrigger.equals(SkillTrigger)", runSkillTriggerEqualsSkillTriggerTests()),
-                                new Test("SkillTrigger.copyOf()", runSkillTriggerCopyOfTests())
+                        new Test("SkillTriggersList.hasSkill()", runHasSkillTests()),
+                        new Test("SkillTriggersList.getSkill()", runGetSkillTests()),
+                        new Test("SkillTriggersList.setSkills()", runSetSkillsTests(), new Test[] {
+                            new Test("Skill", runSkillTests(), new Test[] {
+                                new Test("Skill.equals(Object)", runSkillEqualsTests()),
+                                new Test("Skill.equals(Skill)", runSkillEqualsSkillTests()),
+                                new Test("Skill.copyOf()", runSkillCopyOfTests())
                             })
                         }),    
                         new Test("SkillTriggersList.equals(Object)", runSkillTriggersListEqualsTests()),
@@ -477,65 +477,65 @@ public final class TestMethods {
         return test1 && test2 && test3;
     }
     /**
-     * Tests Pilot.setSkillTriggers().
+     * Tests Pilot.setSkills().
      * @return a boolean representing whether the method passed.
      */
-    private static boolean runSetPilotSkillTriggersTests() {
+    private static boolean runSetPilotSkillsTests() {
         Pilot pilot = new Pilot("validName",
             "validCallsign");
         SkillTriggersList skillTriggersList = new SkillTriggersList();
-        SkillData skillTrigger;
+        SkillData skillData;
         boolean test1 = false;
         boolean test2 = false;
         boolean test3 = false;
 
         // normal case
         try {
-            pilot.setSkillTriggers(null);
+            pilot.setSkills(null);
         } catch (IllegalArgumentException exception) {
             test1 = true;
         }
         // normal case
-        pilot.setSkillTriggers(new SkillTriggersList());
-        if (pilot.getSkillTriggers().equals(new SkillTriggersList())) {
+        pilot.setSkills(new SkillTriggersList());
+        if (pilot.getSkills().equals(new SkillTriggersList())) {
             test2 = true;
         }
         // normal case
-        skillTrigger = new SkillData("validSkillTrigger", 2);
-        skillTriggersList.setSkillTriggers(new SkillData[] {
-            skillTrigger
+        skillData = new SkillData("validSkill", 2);
+        skillTriggersList.setSkills(new SkillData[] {
+            skillData
         });
-        pilot.setSkillTriggers(skillTriggersList);
-        if (pilot.getSkillTriggers().getSkillTriggers()[0].equals(
-            skillTrigger)) {
+        pilot.setSkills(skillTriggersList);
+        if (pilot.getSkills().getSkills()[0].equals(
+            skillData)) {
             test3 = true;
         }
 
         return test1 && test2 && test3;
     }
     /**
-     * Tests SkillTriggersList.hasSkillTrigger().
+     * Tests SkillTriggersList.hasSkill().
      * @return a boolean representing whether the method passed.
      */
-    private static boolean runHasSkillTriggerTests() {
+    private static boolean runHasSkillTests() {
         // TODO: fill out
         return false;
     }
     /**
-     * Tests SkillTriggersList.getSkillTrigger().
+     * Tests SkillTriggersList.getSkill().
      * @return a boolean representing whether the method passed.
      */
-    private static boolean runGetSkillTriggerTests() {
+    private static boolean runGetSkillTests() {
         // TODO: fill out
         return false;
     }
     /**
-     * Tests SkillTriggersList.setSkillTriggers().
+     * Tests SkillTriggersList.setSkills().
      * @return a boolean representing whether the method passed.
      */
-    private static boolean runSetSkillTriggersTests() {
-        SkillTriggersList skillTriggers = new SkillTriggersList();
-        SkillData skillTrigger;
+    private static boolean runSetSkillsTests() {
+        SkillTriggersList skillTriggersList = new SkillTriggersList();
+        SkillData skillData;
         boolean test1 = false;
         boolean test2 = false;
         boolean test3 = false;
@@ -543,40 +543,40 @@ public final class TestMethods {
 
         // normal case
         try {
-            skillTriggers.setSkillTriggers(null);
+            skillTriggersList.setSkills(null);
         } catch (IllegalArgumentException exception) {
             test1 = true;
         }
         // normal case
-        skillTriggers.setSkillTriggers(new SkillData[0]);
-        if (skillTriggers.getSkillTriggers().getClass() == SkillData[].class
-            && skillTriggers.getSkillTriggers().length == 0) {
+        skillTriggersList.setSkills(new SkillData[0]);
+        if (skillTriggersList.getSkills().getClass() == SkillData[].class
+            && skillTriggersList.getSkills().length == 0) {
             test2 = true;
         }
         // normal case
         try {
-            // = SkillTrigger[] {null}
-            skillTriggers.setSkillTriggers(new SkillData[1]);
+            // = Skill[] {null}
+            skillTriggersList.setSkills(new SkillData[1]);
         } catch (IllegalArgumentException exception) {
             test3 = true;
         }
         // normal case
-        skillTrigger = new SkillData("Apply Fists to Faces", 2);
-        skillTriggers.setSkillTriggers(new SkillData[] {
-            skillTrigger
+        skillData = new SkillData("Apply Fists to Faces", 2);
+        skillTriggersList.setSkills(new SkillData[] {
+            skillData
         });
-        if (skillTriggers.getSkillTriggers()[0].equals(skillTrigger)) {
+        if (skillTriggersList.getSkills()[0].equals(skillData)) {
             test4 = true;
         }
 
         return test1 && test2 && test3 && test4;
     }
     /**
-     * Tests the SkillTrigger class and all its methods.
+     * Tests the Skill class and all its methods.
      * @return a boolean representing whether the class passed.
      */
-    private static boolean runSkillTriggerTests() {
-        SkillData skillTrigger = new SkillData(
+    private static boolean runSkillTests() {
+        SkillData skillData = new SkillData(
             "Apply Fists to Faces", 2);
         boolean test1 = false;
         boolean test2 = false;
@@ -590,60 +590,60 @@ public final class TestMethods {
 
         // normal case
         try {
-            skillTrigger = new SkillData(null, 2);
+            skillData = new SkillData(null, 2);
         } catch (IllegalArgumentException exception) {
             test1 = true;
         }
         // normal case
-        skillTrigger = new SkillData("validName", 2);
-        if (skillTrigger.getName().equals("validName")) {
+        skillData = new SkillData("validName", 2);
+        if (skillData.getName().equals("validName")) {
             test2 = true;
         }
         // normal case
         try {
-            skillTrigger = new SkillData("Apply Fists to Faces", -2);
+            skillData = new SkillData("Apply Fists to Faces", -2);
         } catch (IllegalArgumentException exception) {
             test3 = true;
         }
         // normal case
         try {
-            skillTrigger = new SkillData("Apply Fists to Faces",
+            skillData = new SkillData("Apply Fists to Faces",
                 7);
         } catch (IllegalArgumentException exception) {
             test4 = true;
         }
         // normal case
         try {
-            skillTrigger = new SkillData("Apply Fists to Faces",
+            skillData = new SkillData("Apply Fists to Faces",
                 0);
         } catch (IllegalArgumentException exception) {
             test5 = true;
         }
         // normal case
         try {
-            skillTrigger = new SkillData("Apply Fists to Faces",
+            skillData = new SkillData("Apply Fists to Faces",
                 1);
         } catch (IllegalArgumentException exception) {
             test6 = true;
         }
         // normal case
         try {
-            skillTrigger = new SkillData("Apply Fists to Faces",
+            skillData = new SkillData("Apply Fists to Faces",
                 3);
         } catch (IllegalArgumentException exception) {
             test7 = true;
         }
         // normal case
         try {
-            skillTrigger = new SkillData("Apply Fists to Faces",
+            skillData = new SkillData("Apply Fists to Faces",
                 5);
         } catch (IllegalArgumentException exception) {
             test8 = true;
         }
         // normal case
-            skillTrigger = new SkillData("Apply Fists to Faces",
+            skillData = new SkillData("Apply Fists to Faces",
                 2);
-        if (skillTrigger.getLevel() == 2) {
+        if (skillData.getLevel() == 2) {
             test9 = true;
         }
         
@@ -651,34 +651,34 @@ public final class TestMethods {
             && test8 && test9;
     }
     /**
-     * Tests SkillTrigger.equals(Object).
+     * Tests Skill.equals(Object).
      * @return a boolean representing whether the method passed.
      */
-    private static boolean runSkillTriggerEqualsTests() {
-        SkillData skillTrigger = new SkillData(
+    private static boolean runSkillEqualsTests() {
+        SkillData skill = new SkillData(
             "Apply Fists to Faces", 2);
         boolean test1 = false;
         boolean test2 = false;
 
         // normal case
-        if (! skillTrigger.equals(null)) {
+        if (! skill.equals(null)) {
             test1 = true;
         }
         // normal case
-        if (! skillTrigger.equals(new Object())) {
+        if (! skill.equals(new Object())) {
             test2 = true;
         }
 
         return test1 && test2;
     }
     /**
-     * Tests SkillTrigger.equals(SkillTrigger).
+     * Tests Skill.equals(Skill).
      * @return a boolean representing whether the method passed.
      */
-    private static boolean runSkillTriggerEqualsSkillTriggerTests() {
-        SkillData skillTrigger = new SkillData(
+    private static boolean runSkillEqualsSkillTests() {
+        SkillData skill = new SkillData(
             "Apply Fists to Faces", 4);
-        SkillData testSkillTrigger = new SkillData("validName",
+        SkillData testSkill = new SkillData("validName",
             2);
         boolean test1 = false;
         boolean test2 = false;
@@ -686,32 +686,32 @@ public final class TestMethods {
         boolean test4 = false;
 
         // normal case
-        if (! skillTrigger.equals(null)) {
+        if (! skill.equals(null)) {
             test1 = true;
         }
         // normal case
-        skillTrigger = new SkillData("Apply Fists to Faces", 2);
-        if (! skillTrigger.equals(testSkillTrigger)) {
+        skill = new SkillData("Apply Fists to Faces", 2);
+        if (! skill.equals(testSkill)) {
             test2 = true;
         }
         // normal case
-        skillTrigger = new SkillData("validName", 4);
-        if (! skillTrigger.equals(testSkillTrigger)) {
+        skill = new SkillData("validName", 4);
+        if (! skill.equals(testSkill)) {
             test3 = true;
         }
         // normal case
-        skillTrigger = new SkillData("validName", 2);
-        if (skillTrigger.equals(testSkillTrigger)) {
+        skill = new SkillData("validName", 2);
+        if (skill.equals(testSkill)) {
             test4 = true;
         }
 
         return test1 && test2 && test3 && test4;
     }
     /**
-     * Tests SkillTrigger.copyOf().
+     * Tests Skill.copyOf().
      * @return a boolean representing whether the method passed.
      */
-    private static boolean runSkillTriggerCopyOfTests() {
+    private static boolean runSkillCopyOfTests() {
         SkillData original = new SkillData("validName", 2);
         SkillData copy;
         boolean test1 = false;
@@ -765,8 +765,7 @@ public final class TestMethods {
         if (skillTriggersList.equals(new SkillTriggersList())) {
             test2 = true;
         }
-        // the rest is tested by SkillTrigger.equals(Object) and
-        //     SkillTrigger.equals(SkillTrigger)
+        // the rest is tested by Skill.equals(Object) and Skill.equals(Skill)
 
         return test1 && test2;
     }
@@ -775,9 +774,9 @@ public final class TestMethods {
      * @return a boolean representing whether the method passed.
      */
     private static boolean runSkillTriggersListCopyOfTests() {
-        SkillData skillTrigger = new SkillData("validName", 2);
+        SkillData skill = new SkillData("validName", 2);
         SkillTriggersList original = new SkillTriggersList(new SkillData[] {
-            skillTrigger
+            skill
         });
         SkillTriggersList copy;
         boolean test1 = false;
@@ -806,12 +805,12 @@ public final class TestMethods {
         boolean test4 = false;
 
         // normal case
-        skillTriggers.setSkillTriggers(new SkillData[0]);
+        skillTriggers.setSkills(new SkillData[0]);
         if (skillTriggers.toString().equals("  N/A\n")) {
             test1 = true;
         }
         // normal case
-        skillTriggers.setSkillTriggers(new SkillData[] {
+        skillTriggers.setSkills(new SkillData[] {
             new SkillData("Apply Fists to Faces", 2)
         });
         String testString1 = "  Apply Fists to Faces (+2)\n";
@@ -819,7 +818,7 @@ public final class TestMethods {
             test2 = true;
         }
         // normal case
-        skillTriggers.setSkillTriggers(new SkillData[] {
+        skillTriggers.setSkills(new SkillData[] {
             new SkillData("Apply Fists to Faces", 2),
             new SkillData("Assault", 4)
         });
@@ -828,7 +827,7 @@ public final class TestMethods {
             test3 = true;
         }
         // normal case
-        skillTriggers.setSkillTriggers(new SkillData[] {
+        skillTriggers.setSkills(new SkillData[] {
             new SkillData("Apply Fists to Faces", 2),
             new SkillData("Assault", 4),
             new SkillData("Blow Something Up", 6)

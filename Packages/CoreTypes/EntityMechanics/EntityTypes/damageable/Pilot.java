@@ -148,7 +148,7 @@ public final class Pilot implements Damageable {
      * The pilot's skill triggers.
      * Can be any SkillTriggersList. Cannot be null.
      */
-    private SkillTriggersList skillTriggers;
+    private SkillTriggersList skills;
 
     /**
      * The pilot's reserves and bonuses.
@@ -237,7 +237,7 @@ public final class Pilot implements Damageable {
      */
     public Pilot(String pilotName, String pilotCallsign, String player,
         String status, String background, String biography, String appearance,
-        String playerNotes, int currentHP, SkillTriggersList skillTriggers,
+        String playerNotes, int currentHP, SkillTriggersList skills,
         String[] reserves, Loadout loadout, int licenseLevel,
         License[] licenseList, String[] specialEquipment, int[] mechSkills,
         String[] coreBonuses, Talent[] talents, Status[] statuses,
@@ -258,7 +258,7 @@ public final class Pilot implements Damageable {
         // All the pilot's stats are calculated here
         setLoadout(loadout);
         setCurrentHP(currentHP);
-        setSkillTriggers(skillTriggers);
+        setSkills(skills);
         setReserves(reserves);
         // setLoadout() moved upwards so it doesn't re-set any properties that
         //     are set above
@@ -328,7 +328,7 @@ public final class Pilot implements Damageable {
         setEvasion(pilot.evasion);
         setSpeed(pilot.speed);
         setEDefense(pilot.eDefense);
-        setSkillTriggers(pilot.skillTriggers);
+        setSkills(pilot.skills);
         setReserves(pilot.reserves);
         // setLoadout() moved upwards so it doesn't re-set any properties that
         //     are set above
@@ -397,8 +397,8 @@ public final class Pilot implements Damageable {
     public int getEDefense() {
         return eDefense;
     }
-    public SkillTriggersList getSkillTriggers() {
-        return new SkillTriggersList(skillTriggers);
+    public SkillTriggersList getSkills() {
+        return new SkillTriggersList(skills);
     }
     public String[] getReserves() {
         return HelperMethods.copyOf(reserves);
@@ -589,15 +589,15 @@ public final class Pilot implements Damageable {
         this.eDefense = eDefense;
     }
     /**
-     * Sets this.skillTriggers to the provided value.
-     * @param skillTriggers a SkillTriggersList which cannot be null.
-     * @throws IllegalArgumentException if skillTriggers is null.
+     * Sets this.skills to the provided value.
+     * @param skills a SkillTriggersList which cannot be null.
+     * @throws IllegalArgumentException if skills is null.
      */
-    public void setSkillTriggers(SkillTriggersList skillTriggers) {
+    public void setSkills(SkillTriggersList skills) {
         HelperMethods.checkObject("New skill triggers list value",
-            skillTriggers);
-        skillTriggers = new SkillTriggersList(skillTriggers);
-        this.skillTriggers = skillTriggers;
+            skills);
+        skills = new SkillTriggersList(skills);
+        this.skills = skills;
     }
     /**
      * Sets this.reserves to the provided value.
@@ -828,7 +828,7 @@ public final class Pilot implements Damageable {
             this.speed
         );
         outputString += "[ SKILL TRIGGERS ]\n";
-        outputString += this.skillTriggers.generateOutput();
+        outputString += this.skills.generateOutput();
         outputString += "[ GEAR ]\n";
         outputString += this.loadout.generateOutput();
         outputString += "[ TALENTS ]\n";
@@ -1343,25 +1343,25 @@ public final class Pilot implements Damageable {
     public boolean checkValidity() {
         // TODO: check the validity of the number of talents, skill triggers,
         //     licenses, and core bonuses
-        boolean skillTriggers = checkSkillTriggers();
+        boolean skills = checkSkills();
         boolean licenses = checkLicenses();
         boolean coreBonuses = checkCoreBonuses();
         boolean talents = checkTalents();
 
-        return skillTriggers && licenses && coreBonuses && talents;
+        return skills && licenses && coreBonuses && talents;
     }
     /**
      * Checks the validity (and number) of skill triggers for this Pilot.
      * @return a boolean containing the result of the check.
      */
-    public boolean checkSkillTriggers() {
+    public boolean checkSkills() {
         // see pg. 18
         // total skill trigger level should be 4 + licenseLevel
         int totalLevel = 0;
 
-        for (Skill skillTrigger : this.skillTriggers.getSkillTriggers())
+        for (Skill skills : this.skills.getSkills())
         {
-            totalLevel += skillTrigger.getLevel() / 2;
+            totalLevel += skills.getLevel() / 2;
         }
         // TODO: would it be helpful to have some kind of information about if
         //     the total skill trigger level is LESS than what it could possibly
@@ -1464,7 +1464,7 @@ public final class Pilot implements Damageable {
             );
             outputString += "  LL" + this.licenseLevel + "\n";
             outputString += "[ SKILL TRIGGERS ]\n";
-            outputString += this.skillTriggers.generateOutput();
+            outputString += this.skills.generateOutput();
             outputString += "[ GEAR ]\n";
             outputString += this.loadout.generateOutput();
             outputString += "[ MECH SKILLS ]\n";
@@ -1486,7 +1486,7 @@ public final class Pilot implements Damageable {
             );
             outputString += "  LL" + this.licenseLevel + "\n";
             outputString += "[ SKILL TRIGGERS ]\n";
-            outputString += this.skillTriggers.generateOutput();
+            outputString += this.skills.generateOutput();
             outputString += "[ GEAR ]\n";
             outputString += this.loadout.generateOutput();
             outputString += "***\n";

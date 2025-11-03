@@ -37,7 +37,7 @@ public final class Skill {
     private SkillData skillData;
 
     /**
-     * Creates a new SkillTrigger with the provided skill trigger name and skill
+     * Creates a new Skill with the provided skill trigger name and skill
      *     trigger level.
      * @param skillName a String which cannot be null or "".
      * @param skillLevel an int which must be 2, 4, or 6.
