@@ -1,14 +1,15 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable;
 
-import MainBranch.Database;
 import MainBranch.HelperMethods;
 import MainBranch.Roll;
+import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.License;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.Damageable;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Loadout;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.SkillTriggersList;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.Skill;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Talent;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment.PilotArmor;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.Damage;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.damage.Harm;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.Condition;
@@ -254,13 +255,13 @@ public final class Pilot implements Damageable {
         // ---Narrative Profile---------
         // setGrit() is unnecessary because licenseLevel is set instead
         setSize(new Size(1));
-        // setLoadout() moved upwards so it doesn't re-set any properties that
-        //     are set above
         // All the pilot's stats are calculated here
         setLoadout(loadout);
         setCurrentHP(currentHP);
         setSkillTriggers(skillTriggers);
         setReserves(reserves);
+        // setLoadout() moved upwards so it doesn't re-set any properties that
+        //     are set above
 
         // ---Tactical Profile---------
         setLicenseLevel(licenseLevel);
@@ -304,8 +305,7 @@ public final class Pilot implements Damageable {
      */
     public Pilot(Pilot pilot) {
         // don't need to make copies of these because the mutators already do so
-        // setMaxHP() swapped with setCurrentHP() because the mutators may throw
-        //     exceptions otherwise
+        // ---Dossier-------------------
         setName(pilot.name);
         setCallsign(pilot.callsign);
         setPlayer(pilot.player);
@@ -315,9 +315,13 @@ public final class Pilot implements Damageable {
         setAppearance(pilot.appearance);
         setPlayerNotes(pilot.playerNotes);
 
+        // All the pilot's stats are calculated here
         setLoadout(pilot.loadout);
 
+        // ---Narrative Profile---------
         setSize(pilot.size);
+        // setMaxHP() swapped with setCurrentHP() because the mutators may throw
+        //     exceptions otherwise
         setMaxHP(pilot.maxHP);
         setCurrentHP(pilot.currentHP);
         setArmor(pilot.armor);
@@ -328,12 +332,16 @@ public final class Pilot implements Damageable {
         setReserves(pilot.reserves);
         // setLoadout() moved upwards so it doesn't re-set any properties that
         //     are set above
+
+        // ---Tactical Profile---------
         setLicenseLevel(pilot.licenseLevel);
         setLicenseList(pilot.licenseList);
         setSpecialEquipment(pilot.specialEquipment);
         setMechSkills(pilot.mechSkills);
         setCoreBonuses(pilot.coreBonuses);
         setTalents(pilot.talents);
+
+        // ---Extra stuff---------
         setStatuses(pilot.statuses);
         setConditions(pilot.conditions);
         setBurn(pilot.burn);
@@ -1087,24 +1095,71 @@ public final class Pilot implements Damageable {
      * Calculates a Pilot's stats based on its Loadout.
      */
     public void calculateAttributes() {
-        // TODO: finish
-        if (! this.loadout.getPilotArmor().equals("")) {
-            int[] armorAttributes = Database.getPilotArmorStats(
-                this.loadout.getPilotArmor());
+        int[] results;
+        PilotArmor pilotArmor;
+        boolean[] pilotBonusesFound;
+        String[] pilotBonusKeys;
+        Bonus bonus;
+        String bonusID;
+        int index = 0;
 
-            // From pgs. 28 and 74:
-            // TODO: fill out if it's modified by the armor
-            setSize(new Size(1));
+        // From pgs. 28 and 74:
+        results = new int[] {
+            1, // Size
+            // add this.grit to get this.maxHP
+            6 + this.grit, // Max HP
+            0, // Armor
+            10, // Evasion
+            4, // Speed
+            10 // E-defense
+        };
+        pilotArmor = this.loadout.getPilotArmor();
+        if (pilotArmor != null) {
+            if (pilotArmor.getBonuses() != null) {
+                pilotBonusesFound = new boolean[6];
+                pilotBonusKeys = new String[] {
+                    "pilot_size", "pilot_hp", "pilot_armor", "pilot_evasion",
+                    "pilot_speed", "pilot_edef"
+                };
+                for (int i = 0; i < pilotArmor.getBonuses().length; i++) {
+                    bonus = pilotArmor.getBonuses()[i];
+                    bonusID = bonus.getID();
+                    index = -1;
+                    for (int j = 0; j < pilotBonusKeys.length; j++) {
+                        if (bonusID.equals(pilotBonusKeys[i])) {
+                            index = j;
+                            break;
+                        }
+                    }
+                    if (index != -1 && ! pilotBonusesFound[index]) {
+                        HelperMethods.warn("[ WARNING ]: Duplicate"
+                            + " bonuses found in this PilotArmor object");
+                    }
+                    if (index != -1) {
+                        if (bonus.isReplace()) {
+                            results[index] = bonus.getVal();
+                        } else {
+                            results[index] += bonus.getVal();
+                        }
+                        pilotBonusesFound[index] = true;
+                    }
+                    if (pilotBonusesFound[0] && pilotBonusesFound[1]
+                        && pilotBonusesFound[2] && pilotBonusesFound[3]
+                        && pilotBonusesFound[4] && pilotBonusesFound[5]) {
+                        // all bonuses found, we can go home early
+                        break;
+                    }
+                }
+            }
+            setSize(new Size(results[0]));
             // setMaxHP() swapped with setCurrentHP() because the mutators may
             //     throw exceptions otherwise
-            // add this.grit to get this.maxHP
-            setMaxHP(6 + armorAttributes[0] + this.grit);
-            // add this.grit to get this.currentHP
-            setCurrentHP(6 + armorAttributes[0] + this.grit);
-            setArmor(0 + armorAttributes[1]);
-            setEvasion(10 + armorAttributes[2]);
-            setSpeed(4 + armorAttributes[3]);
-            setEDefense(10 + armorAttributes[4]);
+            setMaxHP(results[1]);
+            setCurrentHP(this.maxHP);
+            setArmor(results[2]);
+            setEvasion(results[3]);
+            setSpeed(results[4]);
+            setEDefense(results[5]);
         }
     }
     /**
