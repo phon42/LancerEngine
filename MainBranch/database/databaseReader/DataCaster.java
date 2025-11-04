@@ -160,35 +160,36 @@ public class DataCaster {
         passData(data);
     }
     private static void unpackData(Object[] data) {
-        // TODO: fill out
         // unpack the Object[], transforming each element from Object to a
         //     JSONObject[] or JSONObject, then putting it in its respective
         //     property (i.e. DataCaster.frameRaw).
-            DataCaster.framesRaw = (JSONObject[]) data[0];
-            DataCaster.systemsRaw = (JSONObject[]) data[1];
-            DataCaster.modificationsRaw = (JSONObject[]) data[2];
-            DataCaster.weaponsRaw = (JSONObject[]) data[3];
-            DataCaster.actionsRaw = (JSONObject[]) data[4];
-            DataCaster.coreBonusesRaw = (JSONObject[]) data[5];
-            DataCaster.dataTagsRaw = (JSONObject[]) data[6];
-            DataCaster.manufacturersRaw = (JSONObject[]) data[7];
-            DataCaster.npcFeaturesRaw = (JSONObject[]) data[8];
-            DataCaster.npcTemplatesRaw = (JSONObject[]) data[9];
-            DataCaster.pilotEquipmentRaw = (JSONObject[]) data[10];
-            DataCaster.reservesRaw = (JSONObject[]) data[11];
-            DataCaster.skillsRaw = (JSONObject[]) data[12];
-            DataCaster.statesRaw = (JSONObject[]) data[13];
-            DataCaster.talentsRaw = (JSONObject[]) data[14];
-            // ----less important
-            DataCaster.environmentsRaw = (JSONObject[]) data[15];
-            DataCaster.sitrepsRaw = (JSONObject[]) data[16];
-            // ----almost unimportant
-            DataCaster.backgroundsRaw = (JSONObject[]) data[17];
-            DataCaster.bondsRaw = (JSONObject[]) data[18];
-            // ----just for reference
-            DataCaster.rulesRaw = (JSONObject) data[19];
-            DataCaster.termsRaw = (JSONObject[]) data[20];
-            DataCaster.tablesRaw = (JSONObject) data[21];
+        // ----some critical data types:
+        DataCaster.framesRaw = (JSONObject[]) data[0];
+        DataCaster.systemsRaw = (JSONObject[]) data[1];
+        DataCaster.modificationsRaw = (JSONObject[]) data[2];
+        DataCaster.weaponsRaw = (JSONObject[]) data[3];
+        // ----the rest of the critical data types:
+        DataCaster.actionsRaw = (JSONObject[]) data[4];
+        DataCaster.coreBonusesRaw = (JSONObject[]) data[5];
+        DataCaster.dataTagsRaw = (JSONObject[]) data[6];
+        DataCaster.manufacturersRaw = (JSONObject[]) data[7];
+        DataCaster.npcFeaturesRaw = (JSONObject[]) data[8];
+        DataCaster.npcTemplatesRaw = (JSONObject[]) data[9];
+        DataCaster.pilotEquipmentRaw = (JSONObject[]) data[10];
+        DataCaster.reservesRaw = (JSONObject[]) data[11];
+        DataCaster.skillsRaw = (JSONObject[]) data[12];
+        DataCaster.statesRaw = (JSONObject[]) data[13];
+        DataCaster.talentsRaw = (JSONObject[]) data[14];
+        // ----less important
+        DataCaster.environmentsRaw = (JSONObject[]) data[15];
+        DataCaster.sitrepsRaw = (JSONObject[]) data[16];
+        // ----almost unimportant
+        DataCaster.backgroundsRaw = (JSONObject[]) data[17];
+        DataCaster.bondsRaw = (JSONObject[]) data[18];
+        // ----just for reference
+        DataCaster.rulesRaw = (JSONObject) data[19];
+        DataCaster.termsRaw = (JSONObject[]) data[20];
+        DataCaster.tablesRaw = (JSONObject) data[21];
     }
     private static void processData() {
         // then process that data
@@ -209,7 +210,6 @@ public class DataCaster {
         if (! (DataCaster.bondsRaw == null || DataCaster.bondsRaw.length < 1)) {
             processBonds(DataCaster.bondsRaw);
         }
-        // TODO: fix
         if (! (DataCaster.coreBonusesRaw == null
             || DataCaster.coreBonusesRaw.length < 1)) {
             processCoreBonuses(DataCaster.coreBonusesRaw);
