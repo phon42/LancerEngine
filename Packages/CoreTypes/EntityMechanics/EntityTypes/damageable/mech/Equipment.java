@@ -1,7 +1,6 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech;
 
 import MainBranch.HelperMethods;
-import Packages.CoreTypes.EntityMechanics.License;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.DataTag;
 import Packages.CoreTypes.EntityMechanics.LicenseSystem.frameLicense.LicenseContent;
@@ -33,20 +32,16 @@ public class Equipment extends LicenseContent {
     protected DataTag[] dataTags;
 
     protected Equipment(String id, String name, Manufacturer manufacturer,
-        License originLicense, String license, int licenseLevel,
-        String licenseID, String description, DataTag[] dataTags) {
-        super(id, name, manufacturer, originLicense, license, licenseLevel,
-            licenseID, description);
-        if (this.source.getID().equals("GMS")) {
-            setDataTags(new DataTag[0]);
-        } else {
-            setDataTags(dataTags);
-        }
+        String licenseID, String license, int licenseLevel, String description,
+        DataTag[] dataTags) {
+        super(id, name, manufacturer, licenseID, license, licenseLevel,
+            description);
+        setDataTags(dataTags);
     }
-    protected Equipment(String id, String name, Manufacturer manufacturer,
-        String description) {
-        this(id, name, manufacturer, null, null,
-            0, null, description, null);
+    protected Equipment(String id, String name, String licenseID,
+        String license, String description, DataTag[] dataTags) {
+        super(id, name, licenseID, license, description);
+        setDataTags(dataTags);
     }
     protected Equipment(Equipment equipment) {
         super(equipment);
