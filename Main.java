@@ -86,6 +86,7 @@ public final class Main {
 
         // read all necessary databases
         DatabaseReader.read("MainBranch/Target/actions.json");
+        System.out.println(Database.getAction("Move").getDetail());
 
         // compile a character
         myCharacter = new LancerCharacter("Coral Nolan",
