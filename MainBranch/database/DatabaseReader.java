@@ -1,5 +1,7 @@
 package MainBranch.database;
 
+import java.nio.file.Paths;
+
 import MainBranch.HelperMethods;
 import MainBranch.database.databaseReader.DataCaster;
 import MainBranch.database.databaseReader.FileReading.FileProcessor;
@@ -76,22 +78,17 @@ public class DatabaseReader {
      *     null.
      */
     private static void readData(String filePath) {
-        String[] fileStrings;
         String fileExtension;
+        String[] fileStrings;
 
         // extract the file extension
-        // TODO: check to make sure these actually work as expected
-        if (filePath.indexOf("/") != -1) {
-            fileStrings = filePath.split("/");
-            fileExtension = fileStrings[fileStrings.length - 1];
-        } else {
-            fileExtension = filePath;
-        }
+        // TODO: check to make sure this actually works as expected, i.e.
+        //     .tar.gz
+        fileExtension = Paths.get(filePath).toFile().getName();
         if (fileExtension.indexOf(".") != -1) {
             fileStrings = fileExtension.split("\\.");
-            fileExtension = fileStrings[1];
-        } else {
-            fileExtension = "";
+            // this is the step that needs to be changed to deal with .tar.gz
+            fileExtension = fileStrings[fileStrings.length - 1];
         }
         // decide whether to use readLCP, readZIP, or readJSON directly
         if (fileExtension.equals("lcp")) {
@@ -172,7 +169,6 @@ public class DatabaseReader {
      *     assumed to be the contents of a .json file. Cannot be null.
      */
     private static void parseJSONFile(String jsonPath, String fileData) {
-        String[] fileStrings;
         String fileName;
         JSONObject[] data;
         JSONArray jsonArray;
@@ -181,25 +177,16 @@ public class DatabaseReader {
         HelperMethods.checkObject("jsonPath", jsonPath);
         HelperMethods.checkObject("fileData", fileData);
         // Extract the file name
-        // TODO: check to make sure these actually work as expected
-        if (jsonPath.indexOf("/") != -1) {
-            fileStrings = jsonPath.split("/");
-            fileName = fileStrings[Math.max(0, fileStrings.length - 2)];
-        } else {
-            fileName = jsonPath;
-        }
+        // TODO: check to make sure this actually works as expected
+        fileName = Paths.get(jsonPath).toFile().getName();
         if (fileName.indexOf(".") != -1) {
-            fileStrings = fileName.split("\\.");
-            fileName = fileStrings[0];
-        } else {
-            fileName = "";
+            fileName = fileName.split("\\.")[0];
         }
         // Convert the file data to an object and then to a JSONObject[]
         if (fileName.equals("rules")
             || fileName.equals("tables")) {
             // going to be receiving a JSONObject
             data = new JSONObject[] {JSON.toJSONObject(fileData)};
-            
         } else {
             // going to be receiving a JSONArray
             jsonArray = JSON.toJSONArray(fileData);
