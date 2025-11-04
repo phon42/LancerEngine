@@ -166,16 +166,14 @@ public class Action {
     // Optional data properties
     /**
      * The ranges associated with this action, if there are any.
-     * Can be any RangeTag[] that does not contain elements that are null.
-     *     Can be null.
-     * Elements can be any RangeTag. They cannot be null.
+     * Can be any RangeTag[] that does not contain null elements. Can be null.
+     * Elements can be any RangeTag.
      */
     private RangeTag[] range;
     /**
      * The damages associated with this action, if there are any.
-     * Can be any Damage[] that does not contain elements that are null.
-     *     Can be null.
-     * Elements can be any Damage. They cannot be null.
+     * Can be any Damage[] that does not contain null elements. Can be null.
+     * Elements can be any Damage.
      */
     private Damage[] damage;
     // TODO: Brace and Overwatch do not have triggers listed
@@ -379,6 +377,7 @@ public class Action {
      */
     private void setActivation(String activation) {
         HelperMethods.checkString("activation", activation);
+        activation = activation.toLowerCase();
         for (int i = 0; i < Action.allowedActivations.length; i++) {
             if (activation.equals(Action.allowedActivations[i])) {
                 break;
@@ -502,8 +501,8 @@ public class Action {
                         + " null element");
                 }
             }
+            range = HelperMethods.copyOf(range);
         }
-        range = HelperMethods.copyOf(range);
         this.range = range;
     }
     private void setDamage(Damage[] damage) {
@@ -514,8 +513,8 @@ public class Action {
                         + " null element");
                 }
             }
+            damage = HelperMethods.copyOf(damage);
         }
-        damage = HelperMethods.copyOf(damage);
         this.damage = damage;
     }
     private void setTrigger(String trigger) {
