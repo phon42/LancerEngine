@@ -1,0 +1,12 @@
+[
+  {
+    "id": "act_move",
+    "name": "Move",
+    "activation": "Move",
+    "terse": "Move your character up to its Speed in any direction.",
+    "detail": "On their turn, characters can always move spaces equal to their SPEED, in addition to any other actions. This is called a standard move to distinguish it from movement granted by systems or talents.<br>A character only counts as moving if they move 1 or more spaces.<br>Characters can move into any adjacent space, even diagonally, as long as the space isn’t occupied by an obstruction (and is one that they would be able to move in – characters can't move straight up unless they can fly, for example). There are several factors that can affect movement, which are detailed here.",
+    "pilot": true,
+    "mech": true,
+    "hide_active": true
+  }
+]
