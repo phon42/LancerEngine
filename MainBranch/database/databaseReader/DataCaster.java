@@ -28,11 +28,11 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Backgroun
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Bond;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.CoreBonus;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Reserve;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Talent;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment.PilotArmor;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment.PilotGear;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment.PilotWeapon;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skill.SkillData;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.talent.TalentData;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.Damage;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.Condition;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.Status;
@@ -96,7 +96,7 @@ public class DataCaster {
     private static Reserve[] reservesProcessed;
     private static SkillData[] skillsProcessed;
     private static Status[] statusesProcessed;
-    private static Talent[] talentsProcessed;
+    private static TalentData[] talentsProcessed;
     // ----less important
     private static Environment[] environmentsProcessed;
     private static Sitrep[] sitrepsProcessed;
@@ -308,14 +308,13 @@ public class DataCaster {
         // - and then close Database
         Database.close();
     }
-    private static Action[] processActions(JSONObject[] actionsData) {
+    private static void processActions(JSONObject[] actionsData) {
         Action[] actions = new Action[actionsData.length];
 
         for (int i = 0; i < actions.length; i++) {
             actions[i] = toAction(actionsData[i]);
         }
-
-        return actions;
+        DataCaster.actionsProcessed = actions;
     }
     private static Action toAction(JSONObject actionData) {
         // Required properties
@@ -481,127 +480,111 @@ public class DataCaster {
             hideActive, synergyLocations, confirm, ignoreUsed, heatCost,
             techAttack, frequency, range, damage, trigger, init);
     }
-    private static Background[] processBackgrounds(
-        JSONObject[] backgroundsData) {
+    private static void processBackgrounds(JSONObject[] backgroundsData) {
         Background[] backgrounds = new Background[backgroundsData.length];
 
         for (int i = 0; i < backgroundsData.length; i++) {
             backgrounds[i] = toBackground(backgroundsData[i]);
         }
-
-        return backgrounds;
+        DataCaster.backgroundsProcessed = backgrounds;
     }
     private static Background toBackground(JSONObject backgroundData) {
         // TODO: fill out
         return null;
     }
-    private static Bond[] processBonds(JSONObject[] bondsData) {
+    private static void processBonds(JSONObject[] bondsData) {
         Bond[] bonds = new Bond[bondsData.length];
 
         for (int i = 0; i < bondsData.length; i++) {
             bonds[i] = toBond(bondsData[i]);
         }
-
-        return bonds;
+        DataCaster.bondsProcessed = bonds;
     }
     private static Bond toBond(JSONObject bondData) {
         // TODO: fill out
         return null;
     }
-    private static CoreBonus[] processCoreBonuses(
-        JSONObject[] coreBonusesData) {
+    private static void processCoreBonuses(JSONObject[] coreBonusesData) {
         CoreBonus[] coreBonuses = new CoreBonus[coreBonusesData.length];
 
         for (int i = 0; i < coreBonusesData.length; i++) {
             coreBonuses[i] = toCoreBonus(coreBonusesData[i]);
         }
-
-        return coreBonuses;
+        DataCaster.coreBonusesProcessed = coreBonuses;
     }
     private static CoreBonus toCoreBonus(JSONObject coreBonusData) {
         // TODO: fill out
         return null;
     }
-    private static Environment[] processEnvironments(
-        JSONObject[] environmentsData) {
+    private static void processEnvironments(JSONObject[] environmentsData) {
         Environment[] environments = new Environment[environmentsData.length];
 
         for (int i = 0; i < environmentsData.length; i++) {
             environments[i] = toEnvironment(environmentsData[i]);
         }
-
-        return environments;
+        DataCaster.environmentsProcessed = environments;
     }
     private static Environment toEnvironment(JSONObject environmentData) {
         // TODO: fill out
         return null;
     }
-    private static Frame[] processFrames(JSONObject[] framesData) {
+    private static void processFrames(JSONObject[] framesData) {
         Frame[] frames = new Frame[framesData.length];
 
         for (int i = 0; i < framesData.length; i++) {
             frames[i] = toFrame(framesData[i]);
         }
-
-        return frames;
+        DataCaster.framesProcessed = frames;
     }
     private static Frame toFrame(JSONObject frameData) {
         // TODO: fill out
         return null;
     }
-    private static Manufacturer[] processManufacturers(
-        JSONObject[] manufacturersData) {
+    private static void processManufacturers(JSONObject[] manufacturersData) {
         Manufacturer[] manufacturers =
             new Manufacturer[manufacturersData.length];
 
         for (int i = 0; i < manufacturersData.length; i++) {
             manufacturers[i] = toManufacturer(manufacturersData[i]);
         }
-
-        return manufacturers;
+        DataCaster.manufacturersProcessed = manufacturers;
     }
     private static Manufacturer toManufacturer(JSONObject manufacturerData) {
         // TODO: fill out
         return null;
     }
-    private static Modification[] processModifications(
-        JSONObject[] modificationsData) {
+    private static void processModifications(JSONObject[] modificationsData) {
         Modification[] modifications =
             new Modification[modificationsData.length];
 
         for (int i = 0; i < modificationsData.length; i++) {
             modifications[i] = toModification(modificationsData[i]);
         }
-
-        return modifications;
+        DataCaster.modificationsProcessed = modifications;
     }
     private static Modification toModification(JSONObject modificationData) {
         // TODO: fill out
         return null;
     }
-    private static NPCFeature[] processNPCFeatures(JSONObject[] npcFeaturesData)
-    {
+    private static void processNPCFeatures(JSONObject[] npcFeaturesData) {
         NPCFeature[] npcFeatures = new NPCFeature[npcFeaturesData.length];
 
         for (int i = 0; i < npcFeaturesData.length; i++) {
             npcFeatures[i] = toNPCFeature(npcFeaturesData[i]);
         }
-
-        return npcFeatures;
+        DataCaster.npcFeaturesProcessed = npcFeatures;
     }
     private static NPCFeature toNPCFeature(JSONObject npcFeatureData) {
         // TODO: fill out
         return null;
     }
-    private static NPCTemplate[] processNPCTemplates(
-        JSONObject[] npcTemplatesData) {
+    private static void processNPCTemplates(JSONObject[] npcTemplatesData) {
         NPCTemplate[] npcTemplates = new NPCTemplate[npcTemplatesData.length];
 
         for (int i = 0; i < npcTemplates.length; i++) {
             npcTemplates[i] = toNPCTemplate(npcTemplatesData[i]);
         }
-
-        return npcTemplates;
+        DataCaster.npcTemplatesProcessed = npcTemplates;
     }
     private static NPCTemplate toNPCTemplate(JSONObject npcTemplateData) {
         // TODO: fill out
@@ -633,8 +616,7 @@ public class DataCaster {
         DataCaster.processPilotWeapons(pilotWeaponData);
         DataCaster.processPilotGear(pilotGearData);
     }
-    private static PilotArmor[] processPilotArmor(JSONObject[] pilotArmorData)
-    {
+    private static void processPilotArmor(JSONObject[] pilotArmorData) {
         PilotArmor[] pilotArmor;
         int index = 0;
 
@@ -656,14 +638,13 @@ public class DataCaster {
             pilotArmor[index] = toPilotArmor(pilotArmorData[i]);
             index++;
         }
-
-        return pilotArmor;
+        DataCaster.pilotArmorProcessed = pilotArmor;
     }
     private static PilotArmor toPilotArmor(JSONObject pilotArmorData) {
         // TODO: fill out
         return null;
     }
-    private static PilotGear[] processPilotGear(JSONObject[] pilotGearData) {
+    private static void processPilotGear(JSONObject[] pilotGearData) {
         PilotGear[] pilotGear;
         int index = 0;
 
@@ -685,15 +666,13 @@ public class DataCaster {
             pilotGear[index] = toPilotGear(pilotGearData[i]);
             index++;
         }
-
-        return pilotGear;
+        DataCaster.pilotGearProcessed = pilotGear;
     }
     private static PilotGear toPilotGear(JSONObject pilotGearData) {
         // TODO: fill out
         return null;
     }
-    private static PilotWeapon[] processPilotWeapons(
-        JSONObject[] pilotWeaponsData) {
+    private static void processPilotWeapons(JSONObject[] pilotWeaponsData) {
         PilotWeapon[] pilotWeapons;
         int index = 0;
 
@@ -715,27 +694,25 @@ public class DataCaster {
             pilotWeapons[index] = toPilotWeapon(pilotWeaponsData[i]);
             index++;
         }
-
-        return pilotWeapons;
+        DataCaster.pilotWeaponsProcessed = pilotWeapons;
     }
     private static PilotWeapon toPilotWeapon(JSONObject pilotWeaponData) {
         // TODO: fill out
         return null;
     }
-    private static Reserve[] processReserves(JSONObject[] reservesData) {
+    private static void processReserves(JSONObject[] reservesData) {
         Reserve[] reserves = new Reserve[reservesData.length];
 
         for (int i = 0; i < reserves.length; i++) {
             reserves[i] = toReserve(reservesData[i]);
         }
-
-        return reserves;
+        DataCaster.reservesProcessed = reserves;
     }
     private static Reserve toReserve(JSONObject reserveData) {
         // TODO: fill out
         return null;
     }
-    private static Rule[] processRules(JSONObject rulesData) {
+    private static void processRules(JSONObject rulesData) {
         Set<String> keys = rulesData.keySet();
         Rule[] rules = new Rule[keys.size()];
         int i = 0;
@@ -744,34 +721,31 @@ public class DataCaster {
             rules[i] = toRule(key, (JSONArray) rulesData.get(key));
             i++;
         }
-
-        return rules;
+        DataCaster.rulesProcessed = rules;
     }
     private static Rule toRule(String name, JSONArray value) {
         // TODO: fill out
         return null;
     }
-    private static Sitrep[] processSitreps(JSONObject[] sitrepsData) {
+    private static void processSitreps(JSONObject[] sitrepsData) {
         Sitrep[] sitreps = new Sitrep[sitrepsData.length];
 
         for (int i = 0; i < sitreps.length; i++) {
             sitreps[i] = toSitrep(sitrepsData[i]);
         }
-
-        return sitreps;
+        DataCaster.sitrepsProcessed = sitreps;
     }
     private static Sitrep toSitrep(JSONObject sitrepData) {
         // TODO: fill out
         return null;
     }
-    private static SkillData[] processSkills(JSONObject[] skillsData) {
+    private static void processSkills(JSONObject[] skillsData) {
         SkillData[] skills = new SkillData[skillsData.length];
 
         for (int i = 0; i < skills.length; i++) {
             skills[i] = toSkill(skillsData[i]);
         }
-
-        return skills;
+        DataCaster.skillsProcessed = skills;
     }
     private static SkillData toSkill(JSONObject skillData) {
         // TODO: fill out
@@ -782,47 +756,43 @@ public class DataCaster {
         DataCaster.processConditions(statesData);
         DataCaster.processStatuses(statesData);
     }
-    private static Condition[] processConditions(JSONObject[] conditionsData) {
+    private static void processConditions(JSONObject[] conditionsData) {
         Condition[] conditions = new Condition[conditionsData.length];
 
         for (int i = 0; i < conditions.length; i++) {
             conditions[i] = toCondition(conditionsData[i]);
         }
-
-        return conditions;
+        DataCaster.conditionsProcessed = conditions;
     }
     private static Condition toCondition(JSONObject conditionData) {
         // TODO: fill out
         return null;
     }
-    private static Status[] processStatuses(JSONObject[] statusesData) {
+    private static void processStatuses(JSONObject[] statusesData) {
         Status[] statuses = new Status[statusesData.length];
 
         for (int i = 0; i < statuses.length; i++) {
             statuses[i] = toStatus(statusesData[i]);
         }
-
-        return statuses;
+        DataCaster.statusesProcessed = statuses;
     }
     private static Status toStatus(JSONObject statusData) {
         // TODO: fill out
         return null;
     }
-    private static MechSystem[] processMechSystems(JSONObject[] mechSystemsData)
-    {
+    private static void processMechSystems(JSONObject[] mechSystemsData) {
         MechSystem[] mechSystems = new MechSystem[mechSystemsData.length];
 
         for (int i = 0; i < mechSystems.length; i++) {
             mechSystems[i] = toMechSystem(mechSystemsData[i]);
         }
-
-        return mechSystems;
+        DataCaster.systemsProcessed = mechSystems;
     }
     private static MechSystem toMechSystem(JSONObject mechSystemData) {
         // TODO: fill out
         return null;
     }
-    private static Table[] processTables(JSONObject tablesData) {
+    private static void processTables(JSONObject tablesData) {
         Set<String> keys = tablesData.keySet();
         Table[] tables = new Table[keys.size()];
         int i = 0;
@@ -831,8 +801,7 @@ public class DataCaster {
             tables[i] = toTable(key, (JSONArray) tablesData.get(key));
             i++;
         }
-
-        return tables;
+        DataCaster.tablesProcessed = tables;
     }
     private static Table toTable(String key, JSONArray value) {
         String[] data = new String[value.length()];
@@ -844,26 +813,22 @@ public class DataCaster {
         return new Table(key, data);
     }
     private static void processLCPTags(JSONObject[] lcpTagsData) {
-        // TODO: fill out
-        DataTag[] dataTags = processDataTags(lcpTagsData);
-
-        DataCaster.dataTagsProcessed = dataTags;
-        DataCaster.tagsProcessed = processTags(dataTags);
+        processDataTags(lcpTagsData);
+        processTags(DataCaster.dataTagsProcessed);
     }
-    private static DataTag[] processDataTags(JSONObject[] dataTagsData) {
+    private static void processDataTags(JSONObject[] dataTagsData) {
         DataTag[] dataTags = new DataTag[dataTagsData.length];
 
         for (int i = 0; i < dataTags.length; i++) {
             dataTags[i] = toDataTag(dataTagsData[i]);
         }
-
-        return dataTags;
+        DataCaster.dataTagsProcessed = dataTags;
     }
     private static DataTag toDataTag(JSONObject datatagData) {
         // TODO: fill out
         return null;
     }
-    private static Tag[] processTags(DataTag[] tagsData) {
+    private static void processTags(DataTag[] tagsData) {
         int numTags = 0;
         Tag[] tags;
 
@@ -879,43 +844,39 @@ public class DataCaster {
                 numTags++;
             }
         }
-
-        return tags;
+        DataCaster.tagsProcessed = tags;
     }
-    private static Talent[] processTalents(JSONObject[] talentsData) {
-        Talent[] talents = new Talent[talentsData.length];
+    private static void processTalents(JSONObject[] talentsData) {
+        TalentData[] talents = new TalentData[talentsData.length];
 
         for (int i = 0; i < talents.length; i++) {
             talents[i] = toTalent(talentsData[i]);
         }
-
-        return talents;
+        DataCaster.talentsProcessed = talents;
     }
-    private static Talent toTalent(JSONObject talentData) {
+    private static TalentData toTalent(JSONObject talentData) {
         // TODO: fill out
         return null;
     }
-    private static Term[] processTerms(JSONObject[] termsData) {
+    private static void processTerms(JSONObject[] termsData) {
         Term[] terms = new Term[termsData.length];
 
         for (int i = 0; i < terms.length; i++) {
             terms[i] = toTerm(termsData[i]);
         }
-
-        return terms;
+        DataCaster.termsProcessed = terms;
     }
     private static Term toTerm(JSONObject termData) {
         return new Term(termData.getString("name"),
             termData.getString("description"));
     }
-    private static Weapon[] processWeapons(JSONObject[] weaponsData) {
+    private static void processWeapons(JSONObject[] weaponsData) {
         Weapon[] weapons = new Weapon[weaponsData.length];
 
         for (int i = 0; i < weapons.length; i++) {
             weapons[i] = toWeapon(weaponsData[i]);
         }
-
-        return weapons;
+        DataCaster.weaponsProcessed = weapons;
     }
     private static Weapon toWeapon(JSONObject weaponData) {
         // TODO: fill out
@@ -969,64 +930,63 @@ public class DataCaster {
         DataCompiler.saveData();
     }
     private static void flushData() {
-        // TODO: fill out
         // ----some critical data types:
-        framesRaw = new JSONObject[0];
-        systemsRaw = new JSONObject[0];
-        modificationsRaw = new JSONObject[0];
-        weaponsRaw = new JSONObject[0];
+        DataCaster.framesRaw = new JSONObject[0];
+        DataCaster.systemsRaw = new JSONObject[0];
+        DataCaster.modificationsRaw = new JSONObject[0];
+        DataCaster.weaponsRaw = new JSONObject[0];
         // ----the rest of the critical data types:
-        actionsRaw = new JSONObject[0];
-        coreBonusesRaw = new JSONObject[0];
-        dataTagsRaw = new JSONObject[0];
-        manufacturersRaw = new JSONObject[0];
-        npcFeaturesRaw = new JSONObject[0];
-        npcTemplatesRaw = new JSONObject[0];
-        pilotEquipmentRaw = new JSONObject[0];
-        reservesRaw = new JSONObject[0];
-        skillsRaw = new JSONObject[0];
-        statesRaw = new JSONObject[0];
-        talentsRaw = new JSONObject[0];
+        DataCaster.actionsRaw = new JSONObject[0];
+        DataCaster.coreBonusesRaw = new JSONObject[0];
+        DataCaster.dataTagsRaw = new JSONObject[0];
+        DataCaster.manufacturersRaw = new JSONObject[0];
+        DataCaster.npcFeaturesRaw = new JSONObject[0];
+        DataCaster.npcTemplatesRaw = new JSONObject[0];
+        DataCaster.pilotEquipmentRaw = new JSONObject[0];
+        DataCaster.reservesRaw = new JSONObject[0];
+        DataCaster.skillsRaw = new JSONObject[0];
+        DataCaster.statesRaw = new JSONObject[0];
+        DataCaster.talentsRaw = new JSONObject[0];
         // ----less important
-        environmentsRaw = new JSONObject[0];
-        sitrepsRaw = new JSONObject[0];
+        DataCaster.environmentsRaw = new JSONObject[0];
+        DataCaster.sitrepsRaw = new JSONObject[0];
         // ----almost unimportant
-        backgroundsRaw = new JSONObject[0];
-        bondsRaw = new JSONObject[0];
+        DataCaster.backgroundsRaw = new JSONObject[0];
+        DataCaster.bondsRaw = new JSONObject[0];
         // ----just for reference
-        rulesRaw = null;
-        termsRaw = new JSONObject[0];
-        tablesRaw = null;
+        DataCaster.rulesRaw = null;
+        DataCaster.termsRaw = new JSONObject[0];
+        DataCaster.tablesRaw = null;
         // ----some critical data types:
-        framesProcessed = new Frame[0];
-        systemsProcessed = new MechSystem[0];
-        modificationsProcessed = new Modification[0];
-        weaponsProcessed = new Weapon[0];
+        DataCaster.framesProcessed = new Frame[0];
+        DataCaster.systemsProcessed = new MechSystem[0];
+        DataCaster.modificationsProcessed = new Modification[0];
+        DataCaster.weaponsProcessed = new Weapon[0];
         // ----the rest of the critical data types:
-        actionsProcessed = new Action[0];
-        conditionsProcessed = new Condition[0];
-        coreBonusesProcessed = new CoreBonus[0];
-        dataTagsProcessed = new DataTag[0];
-        tagsProcessed = new Tag[0];
-        manufacturersProcessed = new Manufacturer[0];
-        npcFeaturesProcessed = new NPCFeature[0];
-        npcTemplatesProcessed = new NPCTemplate[0];
-        pilotArmorProcessed = new PilotArmor[0];
-        pilotGearProcessed = new PilotGear[0];
-        pilotWeaponsProcessed = new PilotWeapon[0];
-        reservesProcessed = new Reserve[0];
-        skillsProcessed = new SkillData[0];
-        statusesProcessed = new Status[0];
-        talentsProcessed = new Talent[0];
+        DataCaster.actionsProcessed = new Action[0];
+        DataCaster.conditionsProcessed = new Condition[0];
+        DataCaster.coreBonusesProcessed = new CoreBonus[0];
+        DataCaster.dataTagsProcessed = new DataTag[0];
+        DataCaster.tagsProcessed = new Tag[0];
+        DataCaster.manufacturersProcessed = new Manufacturer[0];
+        DataCaster.npcFeaturesProcessed = new NPCFeature[0];
+        DataCaster.npcTemplatesProcessed = new NPCTemplate[0];
+        DataCaster.pilotArmorProcessed = new PilotArmor[0];
+        DataCaster.pilotGearProcessed = new PilotGear[0];
+        DataCaster.pilotWeaponsProcessed = new PilotWeapon[0];
+        DataCaster.reservesProcessed = new Reserve[0];
+        DataCaster.skillsProcessed = new SkillData[0];
+        DataCaster.statusesProcessed = new Status[0];
+        DataCaster.talentsProcessed = new TalentData[0];
         // ----less important
-        environmentsProcessed = new Environment[0];
-        sitrepsProcessed = new Sitrep[0];
+        DataCaster.environmentsProcessed = new Environment[0];
+        DataCaster.sitrepsProcessed = new Sitrep[0];
         // ----almost unimportant
-        backgroundsProcessed = new Background[0];
-        bondsProcessed = new Bond[0];
+        DataCaster.backgroundsProcessed = new Background[0];
+        DataCaster.bondsProcessed = new Bond[0];
         // ----just for reference
-        rulesProcessed = new Rule[0];
-        termsProcessed = new Term[0];
-        tablesProcessed = new Table[0];
+        DataCaster.rulesProcessed = new Rule[0];
+        DataCaster.termsProcessed = new Term[0];
+        DataCaster.tablesProcessed = new Table[0];
     }
 }
