@@ -114,7 +114,7 @@ public class DataCompiler {
     private static Table[] tableData;
 
     static {
-        flushData();
+        flushData(true);
     }
 
     // Prevent user from instantiating this class
@@ -205,8 +205,13 @@ public class DataCompiler {
         // push all the data that's been collected over to Database
         compileLicenseContent();
         compileFrameLicenses();
+        // now we have to open Database again, this time because we're adding
+        //     content
+        Database.open();
         addFrameLicenses();
         addContent();
+        // then we close it afterward
+        Database.close();
         // then flush it
         flushData();
     }
@@ -307,7 +312,6 @@ public class DataCompiler {
         }
     }
     private static void addContent() {
-        // TODO: fill out
         // add anything that wasn't added in a batch through addLicenses
         // in other words, anything except the contents of frameLicenseData,
         //     licenseContentData, and all data types contained therein
@@ -382,7 +386,7 @@ public class DataCompiler {
             Database.addTerm(DataCompiler.termData[i]);
         }
     }
-    public static void flushData() {
+    private static void flushData(boolean suppressAlerts) {
         // delete all the data that's been collected
         // ----some critical data types:
         DataCompiler.frameLicenseData = new FrameLicense[0];
@@ -420,7 +424,12 @@ public class DataCompiler {
 
         DataCompiler.hasData = false;
 
-        // TODO: remove?
-        HelperMethods.alert("DATA FLUSHED SUCCESSFULLY");
+        if (! suppressAlerts) {
+            HelperMethods.alert("DataCompiler - DATA FLUSHED"
+                + " SUCCESSFULLY");
+        }
+    }
+    public static void flushData() {
+        flushData(false);
     }
 }
