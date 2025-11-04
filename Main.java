@@ -79,12 +79,17 @@ public final class Main {
     // if you don't know what this is from looking at the method name
     // you should not be reading this code right now
     public static void main(String[] args) {
-        LancerCharacter myCharacter = new LancerCharacter(
-            "Coral Nolan", "Apocalypse",
-            new Mech("Wraith", FrameEnum.SWALLOWTAIL_RANGER));
+        LancerCharacter myCharacter;
         HashMap<String, Object> mechProperties;
         HashMap<String, Object> pilotProperties;
 
+        // read all necessary databases
+
+        // compile a character
+        myCharacter = new LancerCharacter("Coral Nolan",
+            "Apocalypse", new Mech("Wraith",
+                FrameEnum.SWALLOWTAIL_RANGER)
+        );
         mechProperties = myCharacter.getMechProperties();
         mechProperties.put("mounts", new Mount[] {
             new Mount("aux",
