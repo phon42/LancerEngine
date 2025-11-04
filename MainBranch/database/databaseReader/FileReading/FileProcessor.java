@@ -32,7 +32,7 @@ public class FileProcessor {
 
         return data;
     }
-    // TODO: replace
+    // TODO: remove
     public static String readFile2(String filePath) {
         String data = "[\n  {\n    " + //
             "\"id\": \"act_move\",\n" + //
@@ -44,6 +44,7 @@ public class FileProcessor {
             "    \"mech\": true,\n" + //
             "    \"hide_active\": true\n" + //
             "  },]";
+
         return data;
     }
 }
