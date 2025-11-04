@@ -160,8 +160,7 @@ public class DatabaseReader {
         // 2. A valid *JSON* file path.
         // TODO: complete
         // Parse the .json file
-        // TODO: change to  .readFile()
-        data = FileProcessor.readFile2(jsonPath);
+        data = FileProcessor.readFile(jsonPath);
         // Send the data on to DataCaster.parseJSONFile()
         parseJSONFile(jsonPath, data);
     }
