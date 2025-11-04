@@ -28,7 +28,6 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.p
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skill.SkillData;
 import Packages.CoreTypes.EntityMechanics.LicenseSystem.FrameLicense;
 import Packages.CoreTypes.EntityMechanics.LicenseSystem.frameLicense.LicenseContent;
-import Packages.CoreTypes.EntityMechanics.StateSystem.State;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.Condition;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.Status;
 
@@ -101,7 +100,6 @@ public class DataCompiler {
     private static PilotWeapon[] pilotWeapon;
     private static Reserve[] reserveData;
     private static SkillData[] skillData;
-    private static State[] stateData;
     private static Status[] statusData;
     private static TalentData[] talentData;
     // ----less important
@@ -182,19 +180,18 @@ public class DataCompiler {
         DataCompiler.pilotWeapon = (PilotWeapon[]) data[14];
         DataCompiler.reserveData = (Reserve[]) data[15];
         DataCompiler.skillData = (SkillData[]) data[16];
-        DataCompiler.stateData = (State[]) data[17];
-        DataCompiler.statusData = (Status[]) data[18];
-        DataCompiler.talentData = (TalentData[]) data[19];
+        DataCompiler.statusData = (Status[]) data[17];
+        DataCompiler.talentData = (TalentData[]) data[18];
         // ----less important
-        DataCompiler.environmentData = (Environment[]) data[20];
-        DataCompiler.sitrepData = (Sitrep[]) data[21];
+        DataCompiler.environmentData = (Environment[]) data[19];
+        DataCompiler.sitrepData = (Sitrep[]) data[20];
         // ----almost unimportant
-        DataCompiler.backgroundData = (Background[]) data[22];
-        DataCompiler.bondData = (Bond[]) data[23];
+        DataCompiler.backgroundData = (Background[]) data[21];
+        DataCompiler.bondData = (Bond[]) data[22];
         // ----just for reference
-        DataCompiler.ruleData = (Rule[]) data[24];
-        DataCompiler.termData = (Term[]) data[25];
-        DataCompiler.tableData = (Table[]) data[26];
+        DataCompiler.ruleData = (Rule[]) data[23];
+        DataCompiler.termData = (Term[]) data[24];
+        DataCompiler.tableData = (Table[]) data[25];
 
         // remember to mark that we have data now
         DataCompiler.hasData = true;
@@ -354,9 +351,6 @@ public class DataCompiler {
         for (int i = 0; i < DataCompiler.skillData.length; i++) {
             Database.addSkill(DataCompiler.skillData[i]);
         }
-        for (int i = 0; i < DataCompiler.stateData.length; i++) {
-            Database.addState(DataCompiler.stateData[i]);
-        }
         for (int i = 0; i < DataCompiler.statusData.length; i++) {
             Database.addStatus(DataCompiler.statusData[i]);
         }
@@ -411,7 +405,6 @@ public class DataCompiler {
         DataCompiler.pilotWeapon = new PilotWeapon[0];
         DataCompiler.reserveData = new Reserve[0];
         DataCompiler.skillData = new SkillData[0];
-        DataCompiler.stateData = new State[0];
         DataCompiler.statusData = new Status[0];
         DataCompiler.talentData = new TalentData[0];
         // ----less important
