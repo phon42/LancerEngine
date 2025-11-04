@@ -93,9 +93,8 @@ public class LicenseContent {
         if (licenseID == null) {
             // hopefully something like the Chomolungma where only the id, name,
             //     manufacturer, license level, and description are present?
-            HelperMethods.warn("[ WARNING ] licenseID was not"
-                + " provided for this Frame. Attempting to extrapolate from"
-                + " available data");
+            HelperMethods.warn("licenseID was not provided for this Frame."
+                + " Attempting to extrapolate from available data");
             if (id.substring(0, 3).equals("mf_"))
             {
                 // it is in fact a Chomolungma-type situation

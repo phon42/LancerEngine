@@ -1572,9 +1572,9 @@ public final class HelperMethods {
         return outputString;
     }
     public static void warn(String warningText) {
-        System.out.println(warningText);
+        System.out.println("[ WARNING ]: " + warningText);
     }
     public static void alert(String alertText) {
-        System.out.println(alertText);
+        System.out.println("[ ALERT ]: " + alertText);
     }
 }

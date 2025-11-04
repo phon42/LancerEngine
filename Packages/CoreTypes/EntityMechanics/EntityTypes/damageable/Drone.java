@@ -103,8 +103,8 @@ public class Drone implements Damageable {
                 + " is < 1");
         }
         if (maxHP < this.currentHP) {
-            HelperMethods.warn("[ WARNING ] maxHP value provided: " + maxHP
-                + " is < currentHP value: " + this.currentHP);
+            HelperMethods.warn("maxHP value provided: " + maxHP + " is <"
+                + " currentHP value: " + this.currentHP);
         }
         this.maxHP = maxHP;
     }

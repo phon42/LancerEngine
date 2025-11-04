@@ -555,8 +555,8 @@ public final class Pilot implements Damageable {
                 + " is < 1");
         }
         if (maxHP < this.currentHP) {
-            HelperMethods.warn("[ WARNING ] maxHP value provided: " + maxHP
-                + " is < currentHP value: " + this.currentHP);
+            HelperMethods.warn("maxHP value provided: " + maxHP + " is <"
+                + " currentHP value: " + this.currentHP);
         }
         this.maxHP = maxHP;
     }
@@ -1132,8 +1132,8 @@ public final class Pilot implements Damageable {
                         }
                     }
                     if (index != -1 && ! pilotBonusesFound[index]) {
-                        HelperMethods.warn("[ WARNING ]: Duplicate"
-                            + " bonuses found in this PilotArmor object");
+                        HelperMethods.warn("Duplicate bonuses"
+                            + " found in this PilotArmor object");
                     }
                     if (index != -1) {
                         if (bonus.isReplace()) {

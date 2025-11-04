@@ -600,9 +600,8 @@ public final class Mech implements Damageable {
                 + maxStructure + " is < 1");
         }
         if (maxStructure < this.currentStructure) {
-            HelperMethods.warn("[ WARNING ] maxStructure value provided: "
-                + maxStructure + " is < currentStructure value: "
-                + this.currentStructure);
+            HelperMethods.warn("maxStructure value provided: " + maxStructure
+                + " is < currentStructure value: " + this.currentStructure);
         }
         this.maxStructure = maxStructure;
     }
@@ -634,8 +633,8 @@ public final class Mech implements Damageable {
                 + " is < 1");
         }
         if (maxHP < this.currentHP) {
-            HelperMethods.warn("[ WARNING ] maxHP value provided: " + maxHP
-                + " is < currentHP value: " + this.currentHP);
+            HelperMethods.warn("maxHP value provided: " + maxHP + " is <"
+                + " currentHP value: " + this.currentHP);
         }
         this.maxHP = maxHP;
     }
@@ -675,9 +674,8 @@ public final class Mech implements Damageable {
                 + maxStress + " is < 1");
         }
         if (maxStress < this.currentStress) {
-            HelperMethods.warn("[ WARNING ] maxStress value provided: "
-                + maxStress + " is < currentStress value: "
-                + this.currentStress);
+            HelperMethods.warn("maxStress value provided: " + maxStress + " is"
+                + " < currentStress value: " + this.currentStress);
         }
         this.maxStress = maxStress;
     }
@@ -733,7 +731,7 @@ public final class Mech implements Damageable {
                 + maxHeatCapacity + " is < 1");
         }
         if (maxHeatCapacity < this.currentHeat) {
-            HelperMethods.warn("[ WARNING ] maxHeatCapacity value provided: "
+            HelperMethods.warn("maxHeatCapacity value provided: "
                 + maxHeatCapacity + " is < currentHeat value: "
                 + this.currentHeat);
         }
@@ -801,7 +799,7 @@ public final class Mech implements Damageable {
                 + maxRepairCapacity + " is < 0");
         }
         if (maxRepairCapacity < this.currentRepairs) {
-            HelperMethods.warn("[ WARNING ] maxRepairCapacity value provided: "
+            HelperMethods.warn("maxRepairCapacity value provided: "
                 + maxRepairCapacity + " is < currentRepairs value: "
                 + this.currentRepairs);
         }
