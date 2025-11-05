@@ -81,17 +81,17 @@ public class FileReading {
             throw new IllegalStateException(exception.getMessage());
         }
         // then call readAllInZIP on it
-        readAllInZIP(directoryPath);
+        readAllInDirectory(directoryPath);
         // then delete the zip we've created to do this
         FolderDeleter.deleteFolder(directoryPath);
     }
     /**
-     * Reads a .zip file's contents by calling DatabaseReader.readJSON() on
+     * Reads a directory's contents by calling DatabaseReader.readJSON() on
      *     every file within.
      * @param directoryPath a String which must contain a valid directory path.
      *     Is assumed to be a directory. Cannot be null.
      */
-    private static void readAllInZIP(String directoryPath) {
+    private static void readAllInDirectory(String directoryPath) {
         // TODO: complete
         // call readJSON on every file within
     }
