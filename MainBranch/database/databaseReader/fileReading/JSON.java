@@ -1,7 +1,7 @@
-package MainBranch.database.databaseReader.abba;
+package MainBranch.database.databaseReader.fileReading;
 
-import MainBranch.database.databaseReader.abba.json.JSONArray;
-import MainBranch.database.databaseReader.abba.json.JSONObject;
+import MainBranch.database.databaseReader.fileReading.json.JSONArray;
+import MainBranch.database.databaseReader.fileReading.json.JSONObject;
 
 public class JSON {
     // black box that reads JSON, converts to JSONObject, JSONArray, some mix

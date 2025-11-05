@@ -1,4 +1,4 @@
-package MainBranch.database.databaseReader.abba;
+package MainBranch.database.databaseReader.fileReading;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

@@ -1,4 +1,4 @@
-package MainBranch.database.databaseReader.abba.json;
+package MainBranch.database.databaseReader.fileReading.json;
 
 import java.io.IOException;
 import java.util.Collection;
