@@ -9,10 +9,11 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 public class ZIPUnzipper {
-    private static void unzip(String filePath, String destDirPath)
+    private static String unzip(String filePath, String destDirPath)
         throws FileNotFoundException, IOException {
         ZipInputStream zipStream;
         ZipEntry zipEntry;
+        String directoryPath = null;
 
         zipStream = new ZipInputStream(new FileInputStream(filePath));
         zipEntry = zipStream.getNextEntry();
@@ -22,10 +23,12 @@ public class ZIPUnzipper {
         }
         zipStream.closeEntry();
         zipStream.close();
+
+        return directoryPath;
     }
-    public static void unzip(String filePath) throws FileNotFoundException,
+    public static String unzip(String filePath) throws FileNotFoundException,
         IOException {
-        unzip(filePath, "MainBranch/Target/");
+        return unzip(filePath, "MainBranch/Target/");
     }
     private static void createEntry(String destDirPath, ZipInputStream zis,
         ZipEntry zipEntry) throws IOException {
