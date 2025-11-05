@@ -20,7 +20,7 @@ import Packages.CoreTypes.TriState;
  * 
  * Safety: At least one of this class' properties has an allowed value of null.
  */
-public class Action extends ActionBase {
+public class NewAction extends ActionBase {
     // Required properties
     /**
      * The ID of the action (i.e. "act_move").
@@ -105,7 +105,7 @@ public class Action extends ActionBase {
      */
     private String log;
 
-    public Action(
+    public NewAction(
         // ActionBase properties
         String name, ActivationType activation, HTMLString detailedDescription,
         Callable method,
@@ -129,7 +129,7 @@ public class Action extends ActionBase {
         setSynergyLocations(synergyLocations);
         setLog(log);
     }
-    public Action(String name, ActivationType activation,
+    public NewAction(String name, ActivationType activation,
         HTMLString detailedDescription, String id) {
         super(name, activation, detailedDescription);
         // Required properties
@@ -140,7 +140,7 @@ public class Action extends ActionBase {
         setIgnoreUsed(TriState.UNSET);
         setHeatCost(-1);
     }
-    public Action(Action action) {
+    public NewAction(NewAction action) {
         super(action);
         // Required properties
         setID(action.id);
@@ -205,7 +205,7 @@ public class Action extends ActionBase {
     }
     private void setConfirm(String[] confirm) {
         if (confirm == null) {
-            confirm = HelperMethods.copyOf(Action.confirmDefault);
+            confirm = HelperMethods.copyOf(NewAction.confirmDefault);
         } else {
             HelperMethods.checkObjectArray("confirm", confirm);
             confirm = HelperMethods.copyOf(confirm);
@@ -215,14 +215,14 @@ public class Action extends ActionBase {
     private void setIgnoreUsed(TriState ignoreUsed) {
         HelperMethods.checkObject("ignoreUsed", ignoreUsed);
         if (ignoreUsed == TriState.UNSET) {
-            this.ignoreUsed = Action.ignoreUsedDefault;
+            this.ignoreUsed = NewAction.ignoreUsedDefault;
             return;
         }
         this.ignoreUsed = ignoreUsed.toBoolean();
     }
     private void setHeatCost(int heatCost) {
         if (heatCost < 0) {
-            this.heatCost = Action.heatCostDefault;
+            this.heatCost = NewAction.heatCostDefault;
             return;
         }
         this.heatCost = heatCost;
@@ -261,12 +261,12 @@ public class Action extends ActionBase {
         HelperMethods.checkObject("pilot", pilot);
         HelperMethods.checkObject("mech", mech);
         if (pilot == TriState.UNSET) {
-            setPilot(Action.pilotDefault);
+            setPilot(NewAction.pilotDefault);
         } else {
             setPilot(pilot.toBoolean());
         }
         if (mech == TriState.UNSET) {
-            setMech(Action.mechDefault);
+            setMech(NewAction.mechDefault);
         } else {
             setMech(mech.toBoolean());
         }
