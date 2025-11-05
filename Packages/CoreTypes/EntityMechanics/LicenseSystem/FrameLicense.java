@@ -137,7 +137,7 @@ public class FrameLicense {
         boolean isEquipment = false;
 
         HelperMethods.checkObject("content", content);
-        isGMS = content.getSource().getID().equals("GMS");
+        isGMS = content.getManufacturer().getID().equals("GMS");
         isGMS = isGMS || content.getOriginLicense() == null;
         if (content instanceof Equipment) {
             isEquipment = true;
