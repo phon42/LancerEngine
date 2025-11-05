@@ -117,7 +117,7 @@ public class Action {
     /**
      * An array of lines of flavor text that can be printed out when this action
      *     is executed (i.e. a String[] containing the String "REACTOR LIMITER"
-     *     " DISABLED. CORE TEMPERATURES RISING."").
+     *     " DISABLED. CORE TEMPERATURES RISING.").
      * Can be any String[] that does not contain null elements. Cannot be null.
      * Elements are case-sensitive.
      */
@@ -193,8 +193,10 @@ public class Action {
     private String trigger;
     // TODO: fill out
     /**
-     * Literally only present for "Unleash SCYLLA Reaction" from the
-     *     "SCYLLA-Class NHP" from Gorgon III. Genuinely might be a typo.
+     * Any initial conditions required for this action, which is a reaction.
+     * Presence on the "Unleash SCYLLA Reaction" from the "SCYLLA-Class NHP"
+     *     from Gorgon III might be a typo. Present for things like the Ace
+     *     talent.
      */
     private String init;
 
