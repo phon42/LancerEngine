@@ -48,6 +48,7 @@ public class ActionBase {
         this(name, activation, detailedDescription, null);
     }
     protected ActionBase(ActionBase actionBase) {
+        HelperMethods.checkObject("actionBase", actionBase);
         setName(actionBase.name);
         setActivation(actionBase.activation);
         setDetail(actionBase.detail);
