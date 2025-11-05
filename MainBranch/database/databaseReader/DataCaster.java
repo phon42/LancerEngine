@@ -3,9 +3,9 @@ package MainBranch.database.databaseReader;
 import java.util.Set;
 
 import MainBranch.Database;
-import MainBranch.database.databaseReader.fileReading.json.JSONArray;
-import MainBranch.database.databaseReader.fileReading.json.JSONException;
-import MainBranch.database.databaseReader.fileReading.json.JSONObject;
+import MainBranch.database.databaseReader.FileOperations.fileReading.json.JSONArray;
+import MainBranch.database.databaseReader.FileOperations.fileReading.json.JSONException;
+import MainBranch.database.databaseReader.FileOperations.fileReading.json.JSONObject;
 import MainBranch.roll.DiceExpression;
 import Packages.CoreTypes.Rule;
 import Packages.CoreTypes.Table;

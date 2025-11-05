@@ -4,10 +4,10 @@ import java.nio.file.Paths;
 
 import MainBranch.HelperMethods;
 import MainBranch.database.databaseReader.DataCaster;
-import MainBranch.database.databaseReader.FileReading;
-import MainBranch.database.databaseReader.fileReading.JSON;
-import MainBranch.database.databaseReader.fileReading.json.JSONArray;
-import MainBranch.database.databaseReader.fileReading.json.JSONObject;
+import MainBranch.database.databaseReader.FileOperations.FileReading;
+import MainBranch.database.databaseReader.FileOperations.fileReading.JSON;
+import MainBranch.database.databaseReader.FileOperations.fileReading.json.JSONArray;
+import MainBranch.database.databaseReader.FileOperations.fileReading.json.JSONObject;
 
 public class DatabaseReader {
     // 1. DatabaseReader's DatabaseReader.read() method is called by Database,
