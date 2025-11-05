@@ -27,6 +27,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.CoreBonus
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Reserve;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Talent;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.talent.TalentData;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.talent.talentData.TalentRank;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment.PilotArmor;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment.PilotGear;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment.PilotWeapon;
@@ -1480,6 +1481,25 @@ public final class HelperMethods {
                 continue;
             }
             copy[i] = new Talent(original[i]);
+        }
+
+        return copy;
+    }
+    /**
+     * Returns a deepest copy of original.
+     * @param original a TalentRank[] that cannot be null.
+     * @return a TalentRank[] deepest copy of original.
+     * @throws IllegalArgumentException if original is null.
+     */
+    public static TalentRank[] copyOf(TalentRank[] original) {
+        checkObject("original", original);
+        TalentRank[] copy = new TalentRank[original.length];
+        for (int i = 0; i < original.length; i++) {
+            if (original[i] == null) {
+                copy[i] = original[i];
+                continue;
+            }
+            copy[i] = new TalentRank(original[i]);
         }
 
         return copy;
