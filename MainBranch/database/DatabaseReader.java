@@ -4,7 +4,7 @@ import java.nio.file.Paths;
 
 import MainBranch.HelperMethods;
 import MainBranch.database.databaseReader.DataCaster;
-import MainBranch.database.databaseReader.fileReading.FileProcessor;
+import MainBranch.database.databaseReader.FileReading;
 import MainBranch.database.databaseReader.fileReading.JSON;
 import MainBranch.database.databaseReader.fileReading.json.JSONArray;
 import MainBranch.database.databaseReader.fileReading.json.JSONObject;
@@ -64,102 +64,10 @@ public class DatabaseReader {
      */
     public static void read(String filePath) {
         // read the data
-        readData(filePath);
+        FileReading.readData(filePath);
         // once you're done, send that data along to DataCaster, which sends it
         //     along to DataCompiler
         sendData();
-    }
-    /**
-     * Reads the provided file and saves its contents. Can read .lcp, .zip, or
-     *     individual .json files. Calls DatabaseReader.readLCP(),
-     *     DatabaseReader.readZIP(), or DatabaseReader.readJSON() based on what
-     *     type the file is.
-     * @param filePath a String which must contain a valid file path. Cannot be
-     *     null.
-     */
-    private static void readData(String filePath) {
-        String fileExtension;
-        String[] fileStrings;
-
-        // extract the file extension
-        // TODO: check to make sure this actually works as expected, i.e.
-        //     .tar.gz
-        fileExtension = Paths.get(filePath).toFile().getName();
-        if (fileExtension.indexOf(".") != -1) {
-            fileStrings = fileExtension.split("\\.");
-            // this is the step that needs to be changed to deal with .tar.gz
-            fileExtension = fileStrings[fileStrings.length - 1];
-        }
-        // decide whether to use readLCP, readZIP, or readJSON directly
-        if (fileExtension.equals("lcp")) {
-            readLCP(filePath);
-        } else if (fileExtension.equals("zip")) {
-            readZIP(filePath);
-        } else if (fileExtension.equals("json")) {
-            readJSON(filePath);
-        } else {
-            if (fileExtension.equals("")) {
-                throw new IllegalArgumentException("Unable to find a file"
-                    + " extension in the file path: \"" + filePath + "\"");
-            } else {
-                throw new IllegalArgumentException("Cannot read a file with the"
-                    + " following file extension: \"." + fileExtension + "\"");
-            }
-        }
-    }
-    /**
-     * Reads the provided .lcp file by converting it to a .zip, then calling
-     *     DatabaseReader.readZIP().
-     * @param lcpPath a String which must contain a valid file path. Is assumed
-     *     to be a .lcp file. Cannot be null.
-     */
-    private static void readLCP(String lcpPath) {
-        // unpack the LCP and convert it to a ZIP
-        // TODO: complete
-        // then call readAllInZIP on it
-        readAllInZIP(lcpPath);
-    }
-    /**
-     * Unzips the provided .zip file before calling
-     *     DatabaseReader.readAllInZIP() on its contents.
-     * @param zipPath a String which must contain a valid file path. Is assumed
-     *     to be a .zip file. Cannot be null.
-     */
-    private static void readZIP(String zipPath) {
-        // unpack the zip
-        // TODO: complete
-        // then call readAllInZIP on it
-        readAllInZIP(zipPath);
-    }
-    /**
-     * Reads a .zip file's contents by calling DatabaseReader.readJSON() on
-     *     every file within.
-     * @param directoryPath a String which must contain a valid directory path.
-     *     Is assumed to be a directory. Cannot be null.
-     */
-    private static void readAllInZIP(String directoryPath) {
-        // TODO: complete
-        // call readJSON on every file within
-    }
-    /**
-     * Reads the provided .json file, then calls DatabaseReader.parseJSONFile()
-     *     to parse its data.
-     * @param jsonPath a String which must contain a valid file path. Must be a
-     *     .json file. Cannot be null.
-     */
-    private static void readJSON(String jsonPath) {
-        String data = null;
-
-        // Check whether jsonPath is null
-        HelperMethods.checkObject("jsonPath", jsonPath);
-        // Check whether jsonPath actually corresponds to:
-        // 1. A valid file path
-        // 2. A valid *JSON* file path.
-        // TODO: complete
-        // Parse the .json file
-        data = FileProcessor.readFile(jsonPath);
-        // Send the data on to DataCaster.parseJSONFile()
-        parseJSONFile(jsonPath, data);
     }
     /**
      * Parse the provided .json data, then save its contents.
@@ -168,7 +76,7 @@ public class DatabaseReader {
      * @param fileData a String which contains the contents of a .json file. Is
      *     assumed to be the contents of a .json file. Cannot be null.
      */
-    private static void parseJSONFile(String jsonPath, String fileData) {
+    public static void parseJSONFile(String jsonPath, String fileData) {
         String fileName;
         JSONObject[] data;
         JSONArray jsonArray;
@@ -177,8 +85,8 @@ public class DatabaseReader {
         HelperMethods.checkObject("jsonPath", jsonPath);
         HelperMethods.checkObject("fileData", fileData);
         // Extract the file name
-        // TODO: check to make sure this actually works as expected
         fileName = Paths.get(jsonPath).toFile().getName();
+        // TODO: check to make sure this actually works as expected
         if (fileName.indexOf(".") != -1) {
             fileName = fileName.split("\\.")[0];
         }
