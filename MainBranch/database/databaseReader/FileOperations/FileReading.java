@@ -82,6 +82,8 @@ public class FileReading {
         }
         // then call readAllInZIP on it
         readAllInZIP(directoryPath);
+        // then delete the zip we've created to do this
+        FolderDeleter.deleteFolder(directoryPath);
     }
     /**
      * Reads a .zip file's contents by calling DatabaseReader.readJSON() on
@@ -110,7 +112,11 @@ public class FileReading {
         // TODO: complete
         // Parse the .json file
         data = FileProcessor.readFile(jsonPath);
-        // Send the data on to DataCaster.parseJSONFile()
-        DatabaseReader.parseJSONFile(jsonPath, data);
+        // Send the data on to DataCaster
+        saveJSONData(jsonPath, data);
+    }
+    private static void saveJSONData(String filePath, String fileData) {
+        // Send the data on to DataCaster through DataCaster.parseJSONFile()
+        DatabaseReader.parseJSONFile(filePath, fileData);
     }
 }
