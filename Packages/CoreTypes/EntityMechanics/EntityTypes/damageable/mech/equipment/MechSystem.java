@@ -1,7 +1,6 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment;
 
 import MainBranch.HelperMethods;
-import Packages.CoreTypes.EntityMechanics.Action;
 import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.Deployable;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Equipment;
@@ -9,6 +8,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.
 import Packages.CoreTypes.EntityMechanics.License;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
 import Packages.CoreTypes.EntityMechanics.Synergy;
+import Packages.CoreTypes.EntityMechanics.Actions.Action;
 
 /**
  * Represents a single system for a mech. Contains information about that system

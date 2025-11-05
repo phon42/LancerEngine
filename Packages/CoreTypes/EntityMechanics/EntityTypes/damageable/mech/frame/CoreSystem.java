@@ -1,9 +1,9 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frame;
 
-import Packages.CoreTypes.EntityMechanics.Action;
 import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.Deployable;
 import Packages.CoreTypes.EntityMechanics.Synergy;
+import Packages.CoreTypes.EntityMechanics.Actions.Action;
 
 public class CoreSystem {
     // TODO: fill out core system section - see pg. 33

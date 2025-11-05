@@ -1,9 +1,9 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment;
 
 import MainBranch.HelperMethods;
-import Packages.CoreTypes.EntityMechanics.Action;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
 import Packages.CoreTypes.EntityMechanics.RangeTag;
+import Packages.CoreTypes.EntityMechanics.Actions.Action;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Equipment;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.DataTag;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.Damage;

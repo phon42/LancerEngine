@@ -1,9 +1,9 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.talent.talentData;
 
 import Packages.CoreTypes.Counter;
-import Packages.CoreTypes.EntityMechanics.Action;
 import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.Synergy;
+import Packages.CoreTypes.EntityMechanics.Actions.Action;
 
 public class TalentRank {
     // Required properties

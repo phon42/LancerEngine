@@ -1,7 +1,9 @@
-package Packages.CoreTypes.EntityMechanics;
+package Packages.CoreTypes.EntityMechanics.Actions;
 
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.Callable;
+import Packages.CoreTypes.EntityMechanics.Frequency;
+import Packages.CoreTypes.EntityMechanics.RangeTag;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.Damage;
 
 /**

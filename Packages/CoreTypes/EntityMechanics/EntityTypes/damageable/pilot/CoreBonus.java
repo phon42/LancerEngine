@@ -1,10 +1,10 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot;
 
 import MainBranch.HelperMethods;
-import Packages.CoreTypes.EntityMechanics.Action;
 import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
 import Packages.CoreTypes.EntityMechanics.Synergy;
+import Packages.CoreTypes.EntityMechanics.Actions.Action;
 
 public class CoreBonus {
     // TODO: fill out
