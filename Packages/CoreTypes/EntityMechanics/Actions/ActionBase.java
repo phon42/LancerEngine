@@ -13,16 +13,22 @@ public class ActionBase {
     private Callable method;
 
     protected ActionBase(String name, ActivationType activation,
-        HTMLString detailedDescription) {
+        HTMLString detailedDescription, Callable method) {
         HelperMethods.verifyConstructor();
         setName(name);
         setActivation(activation);
         setDetail(detailedDescription);
+        setMethod(method);
+    }
+    protected ActionBase(String name, ActivationType activation,
+        HTMLString detailedDescription) {
+        this(name, activation, detailedDescription, null);
     }
     protected ActionBase(ActionBase actionBase) {
         setName(actionBase.name);
         setActivation(actionBase.activation);
         setDetail(actionBase.detail);
+        setMethod(actionBase.method);
     }
 
     // Required properties
