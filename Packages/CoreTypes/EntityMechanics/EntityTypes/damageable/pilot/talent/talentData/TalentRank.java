@@ -18,4 +18,6 @@ public class TalentRank {
     private String[] integrated;
     private boolean exclusive;
     private String[] specialEquipment;
+
+    public TalentRank(TalentRank talentRank) {}
 }
