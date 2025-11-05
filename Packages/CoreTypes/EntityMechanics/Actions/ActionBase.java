@@ -1,11 +1,16 @@
 package Packages.CoreTypes.EntityMechanics.Actions;
 
 import MainBranch.HelperMethods;
+import Packages.CoreTypes.Callable;
+import Packages.CoreTypes.HTMLString;
 
 public class ActionBase {
+    // Required properties
     private String name;
     private ActivationType activation;
     private HTMLString detail;
+    // Optional property
+    private Callable method;
 
     protected ActionBase(String name, ActivationType activation,
         HTMLString detailedDescription) {
@@ -20,6 +25,7 @@ public class ActionBase {
         setDetail(actionBase.detail);
     }
 
+    // Required properties
     public String getName() {
         return name;
     }
@@ -29,6 +35,15 @@ public class ActionBase {
     public HTMLString getDetail() {
         return new HTMLString(detail);
     }
+    // Optional property
+    public Callable getMethod() {
+        if (method != null) {
+            return HelperMethods.copyOf(method);
+        }
+
+        return method;
+    }
+    // Required properties
     protected void setName(String name) {
         HelperMethods.checkString("name", name);
         this.name = name;
@@ -42,5 +57,9 @@ public class ActionBase {
         HelperMethods.checkObject("detail", detail);
         detail = new HTMLString(detail);
         this.detail = detail;
+    }
+    // Optional property
+    protected void setMethod(Callable method) {
+        this.method = method;
     }
 }
