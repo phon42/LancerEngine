@@ -138,12 +138,26 @@ public class IActionData extends ActionBase {
         this.cost = cost;
     }
     private void setTechAttack(TriState techAttack) {
+        boolean value;
+        String activation;
+
         HelperMethods.checkObject("techAttack", techAttack);
         if (techAttack == TriState.UNSET) {
             this.techAttack = IActionData.techAttackDefault;
             return;
         }
-        this.techAttack = techAttack.toBoolean();
+        value = techAttack.toBoolean();
+        activation = this.activation.getValue();
+        if (value) {
+            // this.activation MUST be a tech attack of some kind
+            if (! (activation.equals("quick tech")
+                || activation.equals("full tech"))) {
+                throw new IllegalArgumentException("Attempted to set"
+                    + " this.techAttack to true when this.activation is: \""
+                    + activation + "\" (not \"quick tech\" or \"full tech\")");
+            }
+        }
+        this.techAttack = value;
     }
     // Optional property
     private void setSynergyLocations(Synergy[] synergyLocations) {
