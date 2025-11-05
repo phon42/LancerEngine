@@ -27,8 +27,7 @@ public class ZIPUnzipper {
         createDirectory(directoryPath);
         destDirPath = directoryPath;
         while (zipEntry != null) {
-            System.out.println(zipEntry);
-            // createEntry(destDirPath, zipStream, zipEntry);
+            createEntry(destDirPath, zipStream, zipEntry);
             zipEntry = zipStream.getNextEntry();
         }
         zipStream.closeEntry();
