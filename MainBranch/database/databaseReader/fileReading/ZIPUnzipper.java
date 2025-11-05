@@ -18,8 +18,17 @@ public class ZIPUnzipper {
 
         zipStream = new ZipInputStream(new FileInputStream(filePath));
         zipEntry = zipStream.getNextEntry();
+        if (zipEntry == null) {
+            zipStream.close();
+            throw new IllegalStateException("filePath: \"" + filePath + "\" did"
+                + " not contain any content");
+        }
+        directoryPath = destDirPath + new File(filePath).getName() + "/";
+        createDirectory(directoryPath);
+        destDirPath = directoryPath;
         while (zipEntry != null) {
-            createEntry(destDirPath, zipStream, zipEntry);
+            System.out.println(zipEntry);
+            // createEntry(destDirPath, zipStream, zipEntry);
             zipEntry = zipStream.getNextEntry();
         }
         zipStream.closeEntry();
@@ -76,5 +85,8 @@ public class ZIPUnzipper {
         }
 
         return destFile;
+    }
+    private static void createDirectory(String directoryPath) {
+        // TODO: fill out
     }
 }
