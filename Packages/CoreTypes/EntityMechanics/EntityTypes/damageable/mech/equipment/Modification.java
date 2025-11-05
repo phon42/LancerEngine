@@ -2,7 +2,6 @@ package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment
 
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.EntityMechanics.Action;
-import Packages.CoreTypes.EntityMechanics.License;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
 import Packages.CoreTypes.EntityMechanics.RangeTag;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Equipment;
@@ -86,14 +85,17 @@ public class Modification extends Equipment {
      */
     private DataTag[] addedDataTags;
 
+    /**
+     * Verbose constructor for non-GMS content.
+     */
     public Modification(String id, String name, Manufacturer manufacturer,
-        License originLicense, String license, int licenseLevel,
-        String licenseID, String description, DataTag[] dataTags, int spCost,
+        String licenseID, String licenseName, int licenseLevel,
+        String description, DataTag[] dataTags, int spCost,
         String[] allowedTypes, String effect, Damage[] addedDamage,
         String[] restrictedSizes, Action[] actions, RangeTag[] addedRange,
         DataTag[] addedDataTags) {
-        super(id, name, manufacturer, originLicense, license, licenseLevel,
-            licenseID, description, dataTags);
+        super(id, name, manufacturer, licenseID, licenseName, licenseLevel,
+            description, dataTags);
         setSpCost(spCost);
         setAllowedTypes(allowedTypes);
         setEffect(effect);
@@ -103,20 +105,26 @@ public class Modification extends Equipment {
         setAddedRange(addedRange);
         setAddedDataTags(addedDataTags);
     }
-    public Modification(String id, String name, Manufacturer manufacturer,
-        String description, int spCost, String[] allowedTypes, String effect,
-        Damage[] addedDamage, String[] restrictedSizes, Action[] actions,
-        RangeTag[] addedRange, DataTag[] addedDataTags) {
-            this(id, name, manufacturer, null, null,
-                0, null, description, null,
-                spCost, allowedTypes, effect, addedDamage, restrictedSizes,
-                actions, addedRange, addedDataTags);
+    /**
+     * Abbreviated constructor for GMS content.
+     */
+    public Modification(String id, String name, String licenseID,
+        String licenseName, String description, DataTag[] dataTags, int spCost,
+        String[] allowedTypes, String effect, Damage[] addedDamage,
+        String[] restrictedSizes, Action[] actions, RangeTag[] addedRange,
+        DataTag[] addedDataTags) {
+        super(id, name, licenseID, licenseName, description, dataTags);
+        setSpCost(spCost);
+        setAllowedTypes(allowedTypes);
+        setEffect(effect);
+        setAddedDamage(addedDamage);
+        setRestrictedSizes(restrictedSizes);
+        setActions(actions);
+        setAddedRange(addedRange);
+        setAddedDataTags(addedDataTags);
     }
     public Modification(Modification modification) {
-        super(modification.id, modification.name, modification.source,
-            modification.originLicense, modification.license,
-            modification.licenseLevel, modification.licenseID,
-            modification.description, modification.dataTags);
+        super(modification);
         setSpCost(modification.spCost);
         setAllowedTypes(modification.allowedTypes);
         setEffect(modification.effect);
