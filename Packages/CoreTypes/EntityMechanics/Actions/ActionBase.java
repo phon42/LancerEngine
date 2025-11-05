@@ -6,6 +6,18 @@ import Packages.CoreTypes.EntityMechanics.ActivationType;
 import Packages.CoreTypes.HTMLString;
 import Packages.CoreTypes.TriState;
 
+/**
+ * Represents a single action of any type. Contains information about the
+ *     action's name, activation speed, and a detailed description of what it
+ *     does, among other properties.
+ * 
+ * Requires an action name, activation speed, and a detailed description to be
+ *     instantiated.
+ * 
+ * Used in myriad other classes.
+ * 
+ * Safety: At least one of this class' properties has an allowed value of null.
+ */
 public class ActionBase {
     // Required properties
     /**
@@ -78,7 +90,8 @@ public class ActionBase {
         // Semi-required properties
         TriState pilot, TriState mech, String[] confirm,
         // Optional properties
-        Callable method) {
+        Callable method
+    ) {
         HelperMethods.verifyConstructor();
         // Required properties
         setName(name);
