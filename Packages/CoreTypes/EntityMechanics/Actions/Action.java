@@ -116,7 +116,7 @@ public class Action {
     private String[] synergyLocations;
     /**
      * An array of lines of flavor text that can be printed out when this action
-     *     is executed (i.e. a String[] containing the String ""REACTOR LIMITER"
+     *     is executed (i.e. a String[] containing the String "REACTOR LIMITER"
      *     " DISABLED. CORE TEMPERATURES RISING."").
      * Can be any String[] that does not contain null elements. Cannot be null.
      * Elements are case-sensitive.
