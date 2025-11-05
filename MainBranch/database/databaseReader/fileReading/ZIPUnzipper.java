@@ -9,6 +9,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 public class ZIPUnzipper {
+    // Code sourced from https://www.baeldung.com/java-compress-and-uncompress#unzip
     private static String unzip(String filePath, String destDirPath)
         throws FileNotFoundException, IOException {
         ZipInputStream zipStream;
@@ -36,8 +37,8 @@ public class ZIPUnzipper {
         byte[] buffer = new byte[1024];
         File newFile;
         File parent;
-        FileOutputStream fos;
-        int len;
+        FileOutputStream fileOutStream;
+        int fileLength;
 
         newFile = createFile(destDir, zipEntry);
         if (zipEntry.isDirectory()) {
@@ -54,13 +55,13 @@ public class ZIPUnzipper {
             }
 
             // write file content
-            fos = new FileOutputStream(newFile);
-            len = zis.read(buffer);
-            while (len > 0) {
-                fos.write(buffer, 0, len);
-                len = zis.read(buffer);
+            fileOutStream = new FileOutputStream(newFile);
+            fileLength = zis.read(buffer);
+            while (fileLength > 0) {
+                fileOutStream.write(buffer, 0, fileLength);
+                fileLength = zis.read(buffer);
             }
-            fos.close();
+            fileOutStream.close();
         }
     }
     private static File createFile(File destinationDir, ZipEntry zipEntry)
