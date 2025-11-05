@@ -35,9 +35,9 @@ public class Equipment extends LicenseContent {
      * Verbose constructor for non-GMS content.
      */
     protected Equipment(String id, String name, Manufacturer manufacturer,
-        String licenseID, String license, int licenseLevel, String description,
-        DataTag[] dataTags) {
-        super(id, name, manufacturer, licenseID, license, licenseLevel,
+        String licenseID, String licenseName, int licenseLevel,
+        String description, DataTag[] dataTags) {
+        super(id, name, manufacturer, licenseID, licenseName, licenseLevel,
             description);
         setDataTags(dataTags);
     }
@@ -45,8 +45,8 @@ public class Equipment extends LicenseContent {
      * Abbreviated constructor for GMS content.
      */
     protected Equipment(String id, String name, String licenseID,
-        String license, String description, DataTag[] dataTags) {
-        super(id, name, licenseID, license, description);
+        String licenseName, String description, DataTag[] dataTags) {
+        super(id, name, licenseID, licenseName, description);
         setDataTags(dataTags);
     }
     protected Equipment(Equipment equipment) {
