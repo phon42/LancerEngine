@@ -18,17 +18,21 @@ public class FileProcessor {
                 + "\" could not be located", "File", filePath);
         }
         try {
-            while ((i = input.read()) != -1) {
+            i = input.read();
+            while (i != -1) {
                 data += (char) i;
+                i = input.read();
             }
         } catch (IOException exception) {
             throw new IllegalArgumentException("Error reading file");
-        }
-        try {
-            input.close();
-        } catch (IOException exception) {
-            throw new IllegalStateException("Attempting to call"
-                + " FileInputStream.close() on the file threw an IOException");
+        } finally {
+            try {
+                input.close();
+            } catch (IOException exception) {
+                throw new IllegalStateException("Attempting to call"
+                    + " FileInputStream.close() on the file threw an"
+                    + " IOException");
+            }
         }
 
         return data;
