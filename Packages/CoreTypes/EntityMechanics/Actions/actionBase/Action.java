@@ -4,9 +4,7 @@ import MainBranch.HelperMethods;
 import Packages.CoreTypes.Callable;
 import Packages.CoreTypes.HTMLString;
 import Packages.CoreTypes.EntityMechanics.Actions.ActionBase;
-import Packages.CoreTypes.EntityMechanics.Frequency;
-import Packages.CoreTypes.EntityMechanics.HarmSystem.Damage;
-import Packages.CoreTypes.EntityMechanics.RangeTag;
+import Packages.CoreTypes.EntityMechanics.ActivationType;
 import Packages.CoreTypes.EntityMechanics.Synergy;
 
 public class Action extends ActionBase {

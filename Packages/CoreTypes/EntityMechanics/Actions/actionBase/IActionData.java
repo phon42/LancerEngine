@@ -4,6 +4,7 @@ import Packages.CoreTypes.Callable;
 import Packages.CoreTypes.HTMLString;
 import Packages.CoreTypes.EntityMechanics.Synergy;
 import Packages.CoreTypes.EntityMechanics.Actions.ActionBase;
+import Packages.CoreTypes.EntityMechanics.ActivationType;
 
 public class IActionData extends ActionBase {
     // Optional properties

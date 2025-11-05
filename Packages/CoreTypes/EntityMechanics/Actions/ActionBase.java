@@ -2,6 +2,7 @@ package Packages.CoreTypes.EntityMechanics.Actions;
 
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.Callable;
+import Packages.CoreTypes.EntityMechanics.ActivationType;
 import Packages.CoreTypes.HTMLString;
 
 public class ActionBase {
