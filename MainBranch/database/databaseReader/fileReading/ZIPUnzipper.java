@@ -29,7 +29,7 @@ public class ZIPUnzipper {
     }
     public static String unzip(String filePath) throws FileNotFoundException,
         IOException {
-        return unzip(filePath, "MainBranch/Target/");
+        return unzip(filePath, "MainBranch/ProgramData/Target/");
     }
     private static void createEntry(String destDirPath, ZipInputStream zis,
         ZipEntry zipEntry) throws IOException {
