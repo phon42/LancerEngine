@@ -3,6 +3,7 @@ package MainBranch.database.databaseReader.fileReading;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.MissingResourceException;
 
 public class FileProcessor {
     public static String readFile(String filePath) {
@@ -13,8 +14,8 @@ public class FileProcessor {
         try {
             input = new FileInputStream(filePath);
         } catch (FileNotFoundException exception) {
-            throw new IllegalArgumentException("File at path: \"" + filePath
-                + "\" could not be located");
+            throw new MissingResourceException("File at path: \"" + filePath
+                + "\" could not be located", "File", filePath);
         }
         try {
             while ((i = input.read()) != -1) {
