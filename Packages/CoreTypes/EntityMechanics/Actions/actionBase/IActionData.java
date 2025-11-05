@@ -1,27 +1,166 @@
 package Packages.CoreTypes.EntityMechanics.Actions.actionBase;
 
+import MainBranch.HelperMethods;
 import Packages.CoreTypes.Callable;
-import Packages.CoreTypes.HTMLString;
+import Packages.CoreTypes.TriState;
 import Packages.CoreTypes.EntityMechanics.Synergy;
 import Packages.CoreTypes.EntityMechanics.Actions.ActionBase;
 import Packages.CoreTypes.EntityMechanics.ActivationType;
 
+/**
+ * Represents a single action granted by a core bonus, core power, frame trait,
+ *     system, talent rank, or weapon. Contains information about the action's
+ *     name, activation speed, and what it does, among other properties.
+ * 
+ * Requires an action name, activation speed, and a detailed description to be
+ *     instantiated.
+ * 
+ * Used in myriad other classes.
+ * 
+ * Safety: At least one of this class' properties has an allowed value of null.
+ */
 public class IActionData extends ActionBase {
-    // Optional properties
+    // Semi-required (optional but has a specific default value other than null
+    //     when not provided) properties
+    // TODO: find a way to override ActionBase's documentation
+    /**
+     * Whether this action can be used while in pilot form. Not applicable for
+     *     actions that belong to a Deployable, for instance.
+     * Default value: false.
+     */
+    // private boolean pilot;
+    // TODO: find a way to override ActionBase's documentation
+    /**
+     * Whether this action can be used while in a mech. Not applicable for
+     *     actions that belong to a Deployable, for instance.
+     * Default value: true.
+     */
+    // private boolean mech;
+    /**
+     * For actions attached to a limited system, the value of this.cost will be
+     *     deducted from the number of limited charges remaining on that system
+     *     when this action is used.
+     * A value that is > -1 indicates that this action is attached to a limited
+     *     system.
+     * A value of -1 indicates that this action is not attached to a limited
+     *     system.
+     * Must be > -2.
+     * Default value: -1.
+     */
     private int cost;
-    private boolean pilot;
-    private Synergy[] synergyLocations;
+    /**
+     * The default value for IActionData.costDefault.
+     */
+    private static final int costDefault = -1;
+    /**
+     * Whether this action is a tech attack. Can only be true if this.activation
+     *     is a tech action of some kind.
+     * Default value: false.
+     */
     private boolean techAttack;
-    private String[] log;
+    /**
+     * The default value for IActionData.techAttack.
+     */
+    private static final boolean techAttackDefault = false;
 
-    public IActionData(String name, ActivationType activation,
-        HTMLString detailedDescription, Callable method, int cost,
-        boolean pilot, Synergy[] synergyLocations, boolean techAttack,
-        String[] log) {
-        super(name, activation, detailedDescription, method);
+    // Optional property
+    /**
+     * Any synergies that are provided through this property will show up on the
+     *     action.
+     * Can be any Synergy[] that does not contain null elements. Can be null.
+     */
+    private Synergy[] synergyLocations;
+
+    public IActionData(
+        // ActionBase properties
+        String actionName, ActivationType activation,
+        String detailedDescription, TriState pilot, TriState mech,
+        String[] confirm, Callable method,
+        // Semi-required properties
+        int cost, TriState techAttack,
+        // Optional property
+        Synergy[] synergyLocations
+    ) {
+        super(actionName, activation, detailedDescription, pilot, mech, confirm,
+            method);
+        // Semi-required properties
+        setCost(cost);
+        setTechAttack(techAttack);
+        // Optional properties
+        setSynergyLocations(synergyLocations);
     }
-    public IActionData(String name, ActivationType activation,
-        HTMLString detailedDescription) {
-        super(name, activation, detailedDescription);
+    public IActionData(String actionName, ActivationType activation,
+        String detailedDescription) {
+        super(actionName, activation, detailedDescription);
+    }
+    // If passed an item name instead of an action name
+    public IActionData(
+        // ActionBase properties
+        ActivationType activation, String detailedDescription, String itemName,
+        TriState pilot, TriState mech, String[] confirm, Callable method,
+        // Semi-required properties
+        int cost, TriState techAttack,
+        // Optional property
+        Synergy[] synergyLocations
+    ) {
+        this(toActionName(itemName), activation, detailedDescription, pilot,
+            mech, confirm, method, cost, techAttack, synergyLocations);
+    }
+    public IActionData(ActivationType activation, String detailedDescription,
+        String itemName) {
+        this(toActionName(itemName), activation, detailedDescription);
+    }
+    public IActionData(IActionData iActionData) {
+        super(iActionData);
+    }
+
+    // Semi-required properties
+    public int getCost() {
+        return cost;
+    }
+    public boolean isTechAttack() {
+        return techAttack;
+    }
+    // Optional property
+    public Synergy[] getSynergyLocations() {
+        if (synergyLocations == null) {
+            return synergyLocations;
+        }
+
+        return HelperMethods.copyOf(synergyLocations);
+    }
+    // Semi-required properties
+    private void setCost(int cost) {
+        if (cost < 0) {
+            this.cost = IActionData.costDefault;
+            return;
+        }
+        this.cost = cost;
+    }
+    private void setTechAttack(TriState techAttack) {
+        HelperMethods.checkObject("techAttack", techAttack);
+        if (techAttack == TriState.UNSET) {
+            this.techAttack = IActionData.techAttackDefault;
+            return;
+        }
+        this.techAttack = techAttack.toBoolean();
+    }
+    // Optional property
+    private void setSynergyLocations(Synergy[] synergyLocations) {
+        if (synergyLocations == null) {
+            this.synergyLocations = synergyLocations;
+            return;
+        }
+        HelperMethods.checkObjectArray("synergyLocations",
+            synergyLocations);
+        synergyLocations = HelperMethods.copyOf(synergyLocations);
+        this.synergyLocations = synergyLocations;
+    }
+
+    private static String toActionName(String itemName) {
+        HelperMethods.checkString("itemName", itemName);
+        itemName = itemName.toUpperCase();
+
+        return "Activate " + itemName;
     }
 }
