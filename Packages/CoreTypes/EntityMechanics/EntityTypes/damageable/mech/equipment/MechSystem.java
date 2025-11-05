@@ -40,13 +40,16 @@ public final class MechSystem extends Equipment {
     private Bonus[] bonuses;
     private Synergy[] synergies;
 
+    /**
+     * Verbose constructor for non-GMS content.
+     */
     public MechSystem(String id, String name, Manufacturer manufacturer,
-        License originLicense, String licenseName, int licenseLevel,
-        String licenseID, String description, DataTag[] dataTags, int spCost,
+        String licenseID, String licenseName, int licenseLevel,
+        String description, DataTag[] dataTags, int spCost,
         String effect, Action[] actions, Deployable[] deployables,
         Bonus[] bonuses, Synergy[] synergies) {
-        super(id, name, manufacturer, originLicense, licenseName, licenseLevel,
-            licenseID, description, dataTags);
+        super(id, name, manufacturer, licenseID, licenseName, licenseLevel,
+            description, dataTags);
         // Required properties
         setSpCost(spCost);
         // Optional properties
@@ -56,12 +59,22 @@ public final class MechSystem extends Equipment {
         setBonuses(bonuses);
         setSynergy(synergies);
     }
-    public MechSystem(String id, String name, Manufacturer manufacturer,
-        License originLicense, String licenseName, int licenseLevel,
-        String licenseID, String description, DataTag[] dataTags, int spCost) {
-        this(id, name, manufacturer, originLicense, licenseName, licenseLevel,
-            licenseID, description, dataTags, spCost, null,
-            null, null, null, null);
+    /**
+     * Abbreviated constructor for GMS content.
+     */
+    public MechSystem(String id, String name, String licenseID,
+        String licenseName, String description, DataTag[] dataTags, int spCost,
+        String effect, Action[] actions, Deployable[] deployables,
+        Bonus[] bonuses, Synergy[] synergies) {
+        super(id, name, licenseID, licenseName, description, dataTags);
+        // Required properties
+        setSpCost(spCost);
+        // Optional properties
+        setEffect(effect);
+        setActions(actions);
+        setDeployables(deployables);
+        setBonuses(bonuses);
+        setSynergy(synergies);
     }
     /**
      * Creates a deep copy of the provided MechSystem.
