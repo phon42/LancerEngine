@@ -1,4 +1,4 @@
-package MainBranch.database.databaseReader.FileReading.json;
+package MainBranch.database.databaseReader.abba.json;
 
 /**
  * Configuration object for the JSON parser. The configuration is immutable.
