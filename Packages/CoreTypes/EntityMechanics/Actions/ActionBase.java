@@ -8,7 +8,7 @@ import Packages.CoreTypes.HTMLString;
 public class ActionBase {
     // Required properties
     /**
-     * The name of this action (i.e. "Move").
+     * The name of this action (i.e. "Move" or "Turret Attack").
      * For IActionData, might be a regular action name or something like
      *     "Activate Item Name".
      * Can be any String except "". Cannot be null.
