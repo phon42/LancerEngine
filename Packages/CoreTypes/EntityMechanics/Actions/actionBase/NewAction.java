@@ -10,7 +10,7 @@ import Packages.CoreTypes.TriState;
 /**
  * Represents a single action; one of the actions available to every pilot
  *     or mech. Contains information about the action's id, name, activation
- *     speed, and what it does.
+ *     speed, and what it does, among other properties.
  * 
  * Requires an action name, activation speed, detailed description, and id to be
  *     instantiated.
@@ -82,7 +82,8 @@ public class NewAction extends ActionBase {
         // Action semi-required properties
         TriState ignoreUsed, int heatCost,
         // Action optional properties
-        String terse, Synergy[] synergyLocations, String log) {
+        String terse, Synergy[] synergyLocations, String log
+    ) {
         super(name, activation, detailedDescription, pilot, mech, confirm,
             method);
         // Required properties
