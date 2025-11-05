@@ -6,11 +6,33 @@ import Packages.CoreTypes.HTMLString;
 
 public class ActionBase {
     // Required properties
-    private String name;
-    private ActivationType activation;
-    private HTMLString detail;
+    /**
+     * The name of this action (i.e. "Move").
+     * For IActionData, might be a regular action name or something like
+     *     "Activate Item Name".
+     * Can be any String except "". Cannot be null.
+     * Case-sensitive.
+     */
+    protected String name;
+    /**
+     * The activation type of this action (i.e. an ActivationType representing a
+     *     free action).
+     * Can be any ActivationType. Cannot be null.
+     */
+    protected ActivationType activation;
+    /**
+     * A detailed description of this action (too long to provide an example).
+     * Can be any HTMLString. Cannot be null.
+     * Case-sensitive.
+     */
+    protected HTMLString detail;
     // Optional property
-    private Callable method;
+    /**
+     * A method allowing the program to perform the action automatically (unable
+     *     to provide an example).
+     * Can be any Callable. Can be null.
+     */
+    protected Callable method;
 
     protected ActionBase(String name, ActivationType activation,
         HTMLString detailedDescription, Callable method) {
