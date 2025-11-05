@@ -5,7 +5,6 @@ import Packages.CoreTypes.Callable;
 import Packages.CoreTypes.EntityMechanics.Actions.ActionBase;
 import Packages.CoreTypes.EntityMechanics.ActivationType;
 import Packages.CoreTypes.EntityMechanics.Synergy;
-import Packages.CoreTypes.HTMLString;
 import Packages.CoreTypes.TriState;
 
 /**
@@ -28,46 +27,14 @@ public class NewAction extends ActionBase {
      * Case-insensitive and stored in lowercase.
      */
     private String id;
+
     // Semi-required (optional but has a specific default value other than null
     //     when not provided) properties
-    /**
-     * Whether or not this action can be used by a Pilot.
-     * Default value: false.
-     */
-    private boolean pilot;
-    /**
-     * The default value for Action.pilot.
-     */
-    private static final boolean pilotDefault = false;
-    /**
-     * Whether or not this action can be used by a Mech.
-     * Default value: true.
-     */
-    private boolean mech;
-    /**
-     * The default value for Action.mech.
-     */
-    private static final boolean mechDefault = true;
-    /**
-     * An array of lines of flavor text that can be printed out when this action
-     *     is executed (i.e. a String[] containing the String "REACTOR LIMITER"
-     *     " DISABLED. CORE TEMPERATURES RISING."").
-     * Can be any String[] that does not contain null elements. Cannot be null.
-     * Default value: new String[] {"ACTIVATION CONFIRMED."}.
-     * Elements are case-sensitive.
-     */
-    private String[] confirm;
-    /**
-     * The default value for Action.confirm.
-     */
-    private static final String[] confirmDefault = new String[] {"ACTIVATION"
-        + " CONFIRMED."};
     /**
      * Whether or not to ignore the 1 use/round limit on most actions.
      * Default value: false.
      */
     private boolean ignoreUsed;
-
     /**
      * The default value for Action.ignoreUsed.
      */
@@ -82,6 +49,7 @@ public class NewAction extends ActionBase {
      * The default value for Action.heatCost.
      */
     private static final int heatCostDefault = 0;
+
     // Optional properties
     /**
      * A very short description of what this action does (i.e. "Move your
@@ -107,21 +75,19 @@ public class NewAction extends ActionBase {
 
     public NewAction(
         // ActionBase properties
-        String name, ActivationType activation, HTMLString detailedDescription,
-        Callable method,
+        String name, ActivationType activation, String detailedDescription,
+        TriState pilot, TriState mech, String[] confirm, Callable method,
         // Action required properties
         String id,
         // Action semi-required properties
-        TriState pilot, TriState mech, String[] confirm, TriState ignoreUsed,
-        int heatCost,
+        TriState ignoreUsed, int heatCost,
         // Action optional properties
         String terse, Synergy[] synergyLocations, String log) {
-        super(name, activation, detailedDescription, method);
+        super(name, activation, detailedDescription, pilot, mech, confirm,
+            method);
         // Required properties
         setID(id);
         // Semi-required properties
-        setPilotAndMech(pilot, mech);
-        setConfirm(confirm);
         setIgnoreUsed(ignoreUsed);
         setHeatCost(heatCost);
         // Optional properties
@@ -130,13 +96,11 @@ public class NewAction extends ActionBase {
         setLog(log);
     }
     public NewAction(String name, ActivationType activation,
-        HTMLString detailedDescription, String id) {
+        String detailedDescription, String id) {
         super(name, activation, detailedDescription);
         // Required properties
         setID(id);
         // Semi-required properties
-        setPilotAndMech(TriState.UNSET, TriState.UNSET);
-        setConfirm(null);
         setIgnoreUsed(TriState.UNSET);
         setHeatCost(-1);
     }
@@ -145,9 +109,6 @@ public class NewAction extends ActionBase {
         // Required properties
         setID(action.id);
         // Semi-required properties
-        setPilot(action.pilot);
-        setMech(action.mech);
-        setConfirm(action.confirm);
         setIgnoreUsed(TriState.toTriState(action.ignoreUsed));
         setHeatCost(action.heatCost);
         // Optional properties
@@ -161,15 +122,6 @@ public class NewAction extends ActionBase {
         return id;
     }
     // Semi-required properties
-    public boolean isPilot() {
-        return pilot;
-    }
-    public boolean isMech() {
-        return mech;
-    }
-    public String[] getConfirm() {
-        return HelperMethods.copyOf(confirm);
-    }
     public boolean isIgnoreUsed() {
         return ignoreUsed;
     }
@@ -197,21 +149,6 @@ public class NewAction extends ActionBase {
         this.id = id;
     }
     // Semi-required properties
-    private void setPilot(boolean pilot) {
-        this.pilot = pilot;
-    }
-    private void setMech(boolean mech) {
-        this.mech = mech;
-    }
-    private void setConfirm(String[] confirm) {
-        if (confirm == null) {
-            confirm = HelperMethods.copyOf(NewAction.confirmDefault);
-        } else {
-            HelperMethods.checkObjectArray("confirm", confirm);
-            confirm = HelperMethods.copyOf(confirm);
-        }
-        this.confirm = confirm;
-    }
     private void setIgnoreUsed(TriState ignoreUsed) {
         HelperMethods.checkObject("ignoreUsed", ignoreUsed);
         if (ignoreUsed == TriState.UNSET) {
@@ -255,20 +192,5 @@ public class NewAction extends ActionBase {
         }
         HelperMethods.checkString("log", log);
         this.log = log;
-    }
-
-    private void setPilotAndMech(TriState pilot, TriState mech) {
-        HelperMethods.checkObject("pilot", pilot);
-        HelperMethods.checkObject("mech", mech);
-        if (pilot == TriState.UNSET) {
-            setPilot(NewAction.pilotDefault);
-        } else {
-            setPilot(pilot.toBoolean());
-        }
-        if (mech == TriState.UNSET) {
-            setMech(NewAction.mechDefault);
-        } else {
-            setMech(mech.toBoolean());
-        }
     }
 }
