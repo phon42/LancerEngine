@@ -1,7 +1,6 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.talent;
 
 import MainBranch.HelperMethods;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Talent;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.talent.talentData.TalentRank;
 
 /**
