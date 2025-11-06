@@ -23,39 +23,6 @@ import Packages.CoreTypes.EntityMechanics.HarmSystem.Damage;
  *     placeholder. At least one of its properties has an allowed value of null.
  */
 public class Action {
-    // TODO: add an LCP that adds all the actions not covered by the base LCP:
-    // private static final String[] baseActionNames = {"boost", "continue boost",
-    //     "grapple", "hide", "quick tech", "ram", "search", "skirmish", "barrage",
-    //     "disengage", "full tech", "improvised attack", "stabilize",
-    //     "activate (quick)", "activate (full)", "boot up", "mount", "dismount",
-    //     "eject", "prepare", "drop prepare", "self-destruct", "shut down",
-    //     "skill check", "overcharge", "reaction", "brace", "overwatch", "fight",
-    //     "jockey", "reload", "transfer control"};
-    // TODO: remember that pilots in cascading mechs can only use the SHUT DOWN
-    //     action (see pg. 107)
-    // TODO: "Unlike other quick actions, QUICK TECH can be taken more than once
-    //     per turn; however, a different option must be chosen every time,
-    //     unless specified otherwise or granted as a free action."
-    // - pg. 69
-    // Based on this, should Quick Tech be an element in Action.baseActions or
-    //     only its options?
-    // TODO: can you invade multiple times a turn with different options?
-    // TODO: same for activate (quick)
-    // TODO: when you seperate Boost into several movements, does the second+
-    //     movement also trigger systems or traits that work off of Boosting?
-    // TODO: what speed are reactions?
-    // TODO: can you boost as a mech, eject, overcharge, then boost as a
-    //     pilot?
-    // TODO: if so, different mech- and pilot-exclusive actions need to be
-    //     created
-    // TODO: you can mount or dismount willing allied mechs or vehicles, add
-    //     this
-    // TODO: can you Prepare a full action? a movement? a free action? a
-    //     reaction, even? (lmao)
-    // TODO: cannot take reactions while holding a prepared action,
-    //     implement this
-    // TODO: what speed are reactions?
-    // TODO: uses the fight action instead for pilots, add this
     // Main properties
     /**
      * The name of the action (i.e. "Move" or "Turret Attack").
@@ -205,29 +172,6 @@ public class Action {
      * The general type of the action (i.e. "move").
      * Must be a valid type as defined by Action.allowedTypes.
      * Case-insensitive and stored in lowercase. Cannot be null.
-
-     * Meaning of each value:
-     * "STANDARD MOVE
-     * Movement up to a character’s maximum SPEED.
-     * QUICK ACTION
-     * Actions that take a few moments, such as quickly firing a weapon,
-     *     activating a system, or moving further.
-     * REACTION
-     * Reactions are special actions that can be made outside of the usual turn
-     *     order as responses to incoming attacks, enemy movement, and other
-     *     events.
-     * FULL ACTION
-     * Actions that require full attention (e.g. firing a barrage, performing
-     *     field repairs on a mech).
-     * FREE ACTION
-     * Free actions are special actions granted by character traits, like mech
-     *     systems and talents."
-     * - pg. 61
-     * -------------------------------------------------------------------------
-     * "Unlike the standard action types, there is no limit to how many free
-     *     actions and reactions a character can take per round. Characters can
-     *     even take reactions outside of their turn."
-     * - pg. 61
      */
     private String type;
     /**
