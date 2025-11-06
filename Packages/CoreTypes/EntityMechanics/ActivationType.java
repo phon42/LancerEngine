@@ -1,5 +1,7 @@
 package Packages.CoreTypes.EntityMechanics;
 
+import java.util.NoSuchElementException;
+import MainBranch.Database;
 import MainBranch.HelperMethods;
 
 public class ActivationType {
@@ -33,21 +35,72 @@ public class ActivationType {
      * - pg. 61
      */
     private String value;
+    /**
+     * Exactly the same as this.value most of the time; is "free" when
+     *     this.value is an unsorted action.
+     * Can be any String except "". Cannot be null.
+     * Case-insensitive and stored in lowercase. Cannot be null.
+     */
+    private String type;
 
     public ActivationType(String value) {
         HelperMethods.verifyConstructor();
         setValue(value);
+        if (Database.isOpen()) {
+            setType(value);
+        } else {
+            calculateType();
+        }
     }
     public ActivationType(ActivationType activationType) {
         setValue(activationType.value);
+        setType(activationType.type);
     }
 
     public String getValue() {
         return value;
     }
-    public void setValue(String value) {
+    public String getType() {
+        return type;
+    }
+    private void setValue(String value) {
         HelperMethods.checkString("value", value);
         value = value.toLowerCase();
         this.value = value;
+    }
+    private void setType(String type) {
+        HelperMethods.checkString("type", type);
+        type = type.toLowerCase();
+        this.type = type;
+    }
+
+    private void calculateType() {
+        boolean isNull = false;
+        ActivationType activationType;
+        int index = 0;
+        boolean hasBeenFound = false;
+
+        while (! isNull) {
+            // this is essentially a for loop but we don't know the length of
+            //     Database.activationTypes
+            isNull = false;
+            try {
+                activationType = Database.getActivationTypeByIndex(index);
+                // if it didn't throw an exception (the index is valid):
+                if (this.type.equals(activationType.getValue())) {
+                    // nothing needs to be done
+                    hasBeenFound = true;
+                    break;
+                }
+            } catch (NoSuchElementException exception) {
+                // needed so we can exit the loop once we reach the end of
+                //     Database.activationTypes
+                isNull = true;
+            }
+            index++;
+        }
+        if (! hasBeenFound) {
+            setType("free");
+        }
     }
 }
