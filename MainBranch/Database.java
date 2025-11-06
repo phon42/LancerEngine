@@ -6,6 +6,7 @@ import Packages.CoreTypes.Table;
 import Packages.CoreTypes.Term;
 import Packages.CoreTypes.BattlefieldMechanics.Environment;
 import Packages.CoreTypes.BattlefieldMechanics.Sitrep;
+import Packages.CoreTypes.EntityMechanics.ActivationType;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
 import Packages.CoreTypes.EntityMechanics.NPCFeature;
 import Packages.CoreTypes.EntityMechanics.NPCTemplate;
@@ -55,6 +56,10 @@ public final class Database {
      * add documentation
      */
     private static Action[] actions;
+    /**
+     * add documentation
+     */
+    private static ActivationType[] activationTypes;
     /**
      * add documentation
      */
@@ -178,6 +183,7 @@ public final class Database {
 
     static {
         Database.actions = new Action[0];
+        Database.activationTypes = new ActivationType[0];
         Database.backgrounds = new Background[0];
         Database.conditions = new Condition[0];
         Database.coreBonuses = new CoreBonus[0];
@@ -228,6 +234,20 @@ public final class Database {
                 + " Database.close() when Database is already closed");
         }
         Database.open = false;
+    }
+    private static void checkOpen() {
+        if (! isOpen()) {
+            throw new IllegalStateException("Cannot add to Database while it"
+                + " is closed");
+        }
+    }
+    public static ActivationType getActivationTypeByIndex(int index) {
+        if (index < 0 || index >= Database.activationTypes.length) {
+            throw new IllegalArgumentException("index: " + index + " is out of"
+                + " bounds for length: " + Database.activationTypes.length);
+        }
+
+        return new ActivationType(Database.activationTypes[index]);
     }
     public static Action getAction(String actionName) {
         HelperMethods.checkObject("actionName", actionName);
@@ -782,11 +802,5 @@ public final class Database {
         HelperMethods.checkObject("frameLicense", frameLicense);
         Database.frameLicenses = HelperMethods.append(Database.frameLicenses,
             frameLicense);
-    }
-    private static void checkOpen() {
-        if (! isOpen()) {
-            throw new IllegalStateException("Cannot add to Database while it"
-                + " is closed");
-        }
     }
 }
