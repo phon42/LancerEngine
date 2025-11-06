@@ -6,6 +6,7 @@ import Packages.CoreTypes.Table;
 import Packages.CoreTypes.Term;
 import Packages.CoreTypes.BattlefieldMechanics.Environment;
 import Packages.CoreTypes.BattlefieldMechanics.Sitrep;
+import Packages.CoreTypes.EntityMechanics.ActivationType;
 import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.License;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
@@ -342,6 +343,32 @@ public final class HelperMethods {
         HelperMethods.checkObject("array", array);
         HelperMethods.checkObject("newElement", newElement);
         Action[] newArray = new Action[array.length + 1];
+
+        for (int i = 0; i < newArray.length; i++) {
+            if (i < array.length) {
+                newArray[i] = array[i];
+                continue;
+            }
+            newArray[i] = newElement;
+        }
+        
+        return newArray;
+    }
+    /**
+     * Appends the given ActivationType element to the end of an existing
+     *     ActivationType[].
+     * @param array an ActivationType[] that cannot be null.
+     * @param newElement an ActivationType that cannot be null to append to the
+     *     end of array.
+     * @return an ActivationType[] consisting of array with newElement appended
+     *     to the end of it.
+     * @throws IllegalArgumentException if array or newElement is null.
+     */
+    public static ActivationType[] append(ActivationType[] array,
+        ActivationType newElement) {
+        HelperMethods.checkObject("array", array);
+        HelperMethods.checkObject("newElement", newElement);
+        ActivationType[] newArray = new ActivationType[array.length + 1];
 
         for (int i = 0; i < newArray.length; i++) {
             if (i < array.length) {
