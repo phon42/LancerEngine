@@ -208,6 +208,20 @@ public final class Database {
         Database.terms = new Term[0];
         Database.weapons = new Weapon[0];
         Database.frameLicenses = new FrameLicense[0];
+
+        open();
+        addActivationType(new ActivationType("free"));
+        addActivationType(new ActivationType("protocol"));
+        addActivationType(new ActivationType("quick"));
+        addActivationType(new ActivationType("full"));
+        addActivationType(new ActivationType("invade"));
+        addActivationType(new ActivationType("full tech"));
+        addActivationType(new ActivationType("quick tech"));
+        addActivationType(new ActivationType("reaction"));
+        // TODO: not sure whether to add this because it's not included in
+        //     https://github.com/massif-press/lancer-data?tab=readme-ov-file#activationtype
+        addActivationType(new ActivationType("downtime"));
+        close();
     }
 
     // Prevent user from instantiating this class
@@ -241,14 +255,6 @@ public final class Database {
                 + " is closed");
         }
     }
-    public static ActivationType getActivationTypeByIndex(int index) {
-        if (index < 0 || index >= Database.activationTypes.length) {
-            throw new IllegalArgumentException("index: " + index + " is out of"
-                + " bounds for length: " + Database.activationTypes.length);
-        }
-
-        return new ActivationType(Database.activationTypes[index]);
-    }
     public static Action getAction(String actionName) {
         HelperMethods.checkObject("actionName", actionName);
         for (Action action : Database.actions) {
@@ -258,6 +264,14 @@ public final class Database {
         }
         throw new NoSuchElementException("No action found for action name: "
             + actionName);
+    }
+    public static ActivationType getActivationTypeByIndex(int index) {
+        if (index < 0 || index >= Database.activationTypes.length) {
+            throw new IllegalArgumentException("index: " + index + " is out of"
+                + " bounds for length: " + Database.activationTypes.length);
+        }
+
+        return new ActivationType(Database.activationTypes[index]);
     }
     public static Background getBackground(String backgroundID) {
         HelperMethods.checkObject("backgroundID", backgroundID);
@@ -529,13 +543,24 @@ public final class Database {
     }
     /**
      * Adds the provided Action to Database.actions.
-     * @param action a Action which cannot be null.
+     * @param action an Action which cannot be null.
      * @throws IllegalArgumentException if action is null.
      */
     public static void addAction(Action action) {
         checkOpen();
         HelperMethods.checkObject("action", action);
         Database.actions = HelperMethods.append(Database.actions, action);
+    }
+    /**
+     * Adds the provided ActivationType to Database.activationTypes.
+     * @param activationType an ActivationType which cannot be null.
+     * @throws IllegalArgumentException if activationType is null.
+     */
+    public static void addActivationType(ActivationType activationType) {
+        checkOpen();
+        HelperMethods.checkObject("action", activationType);
+        Database.activationTypes =
+            HelperMethods.append(Database.activationTypes, activationType);
     }
     /**
      * Adds the provided Background to Database.backgrounds.
@@ -592,7 +617,7 @@ public final class Database {
     }
     /**
      * Adds the provided Environment to Database.environments.
-     * @param environment a Environment which cannot be null.
+     * @param environment an Environment which cannot be null.
      * @throws IllegalArgumentException if environment is null.
      */
     public static void addEnvironment(Environment environment) {
