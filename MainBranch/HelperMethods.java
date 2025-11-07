@@ -1,5 +1,7 @@
 package MainBranch;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import Packages.CoreTypes.Callable;
 import Packages.CoreTypes.Rule;
 import Packages.CoreTypes.Table;
@@ -1546,6 +1548,34 @@ public final class HelperMethods {
                 continue;
             }
             copy[i] = new Tag(original[i]);
+        }
+
+        return copy;
+    }
+    /**
+     * Returns a deepest copy of original.
+     * @param original a URL[] that cannot be null.
+     * @return a URL[] deepest copy of original.
+     * @throws IllegalArgumentException if original is null.
+     */
+    public static URL[] copyOf(URL[] original) {
+        String url;
+        URL[] copy;
+
+        checkObject("original", original);
+        copy = new URL[original.length];
+        for (int i = 0; i < original.length; i++) {
+            if (original[i] == null) {
+                copy[i] = original[i];
+                continue;
+            }
+            url = original[i].toExternalForm();
+            try {
+                copy[i] = new URL(url);
+            } catch (MalformedURLException exception) {
+                throw new IllegalArgumentException("URL: \"" + url + "\" caused"
+                    + " a MalformedURLException to be thrown");
+            }
         }
 
         return copy;
