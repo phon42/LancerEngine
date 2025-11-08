@@ -21,6 +21,13 @@ public class UserPreferences {
      * Must be a minimum of 1.
      */
     private static int colorResolution = 100;
+    /**
+     * The target directory to use when unzipping .lcp or .zip files.
+     * Set to the path of the purpose-made target directory by default.
+     * Can be any String except "". Cannot be null.
+     */
+    private static String fileDestinationDir =
+        "/LancerEngine/MainBranch/ProgramData/Target";
 
     // Prevent user from instantiating this class
     private UserPreferences() {}
@@ -33,6 +40,9 @@ public class UserPreferences {
     }
     public static int getColorResolution() {
         return colorResolution;
+    }
+    public static String getFileDestinationDir() {
+        return fileDestinationDir;
     }
     public static void setMakeRollsManually(boolean makeRollsManually) {
         UserPreferences.makeRollsManually = makeRollsManually;
@@ -49,5 +59,10 @@ public class UserPreferences {
         ColorData.changeResolution(UserPreferences.colorResolution,
             colorResolution);
         UserPreferences.colorResolution = colorResolution;
+    }
+    public static void setFileDestinationDir(String fileDestinationDir) {
+        HelperMethods.checkString("fileDestinationDir",
+            fileDestinationDir);
+        UserPreferences.fileDestinationDir = fileDestinationDir;
     }
 }
