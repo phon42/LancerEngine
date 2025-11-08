@@ -63,14 +63,9 @@ public class FileReader {
             // this is the step that needs to be changed to deal with .tar.gz
             fileExtension = fileStrings[fileStrings.length - 1];
         }
-        // decide whether to use readLCP, readZIP, or readJSON directly
-        if (fileExtension.equals("lcp")) {
-            readLCP(filePath);
-        } else if (fileExtension.equals("zip")) {
-            readZIP(filePath);
-        } else if (fileExtension.equals("json")) {
-            readJSON(filePath);
-        } else {
+        if (! (fileExtension.equals("lcp")
+            || fileExtension.equals("zip")
+            || fileExtension.equals("json"))) {
             if (fileExtension.equals("")) {
                 throw new IllegalArgumentException("Unable to find a file"
                     + " extension in the file path: \"" + filePath + "\"");
