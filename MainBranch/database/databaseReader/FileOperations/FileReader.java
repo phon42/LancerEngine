@@ -53,6 +53,7 @@ public class FileReader {
         String fileExtension;
         String[] fileStrings;
 
+        HelperMethods.checkString("filePath", filePath);
         // extract the file extension
         // TODO: check to make sure this actually works as expected, i.e.
         //     .tar.gz
@@ -118,12 +119,14 @@ public class FileReader {
      * @param zipPath a String which must contain a valid file path. Is assumed
      *     to be a .zip file. Cannot be null.
      */
-    private static void readZIP(String zipPath) {
-        String directoryPath = null;
+    private static void readZIP(String zipPath, boolean external) {
+        // A directory of the .zip's contents will be created locally. This
+        //     variable stores the file path to that directory.
+        String unzippedDirectoryPath;
 
         // unpack the zip
         try {
-            directoryPath = ZIPUnzipper.unzip(zipPath);
+            unzippedDirectoryPath = ZIPUnzipper.unzip(zipPath);
         } catch (FileNotFoundException exception) {
             throw new MissingResourceException(exception.getMessage(),
                 "File", new File(zipPath).getName());
@@ -131,9 +134,9 @@ public class FileReader {
             throw new IllegalStateException(exception.getMessage());
         }
         // then call readAllInZIP on it
-        readAllInDirectory(directoryPath);
+        readAllInDirectory(unzippedDirectoryPath);
         // then delete the zip we've created to do this
-        FolderDeleter.deleteFolder(directoryPath);
+        FolderDeleter.deleteFolder(unzippedDirectoryPath);
     }
     /**
      * Reads a directory's contents by calling DatabaseReader.readJSON() on
