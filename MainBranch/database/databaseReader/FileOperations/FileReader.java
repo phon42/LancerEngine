@@ -11,9 +11,9 @@ import MainBranch.database.DatabaseReader;
 import MainBranch.database.databaseReader.FileOperations.fileReading.FileProcessor;
 import MainBranch.database.databaseReader.FileOperations.fileReading.ZIPUnzipper;
 
-public class FileReading {
+public class FileReader {
     // prevent user from instantiating this class
-    private FileReading() {}
+    private FileReader() {}
 
     /**
      * Reads the provided file and saves its contents. Can read .lcp, .zip, or
