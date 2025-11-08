@@ -1,14 +1,15 @@
 package MainBranch.database.databaseReader.FileOperations;
 
-import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.file.Paths;
 import java.util.MissingResourceException;
-
 import MainBranch.HelperMethods;
-import MainBranch.database.DatabaseReader;
-import MainBranch.database.databaseReader.FileOperations.fileReading.FileProcessor;
 import MainBranch.database.databaseReader.FileOperations.fileReading.ZIPUnzipper;
 
 public class FileReader {
