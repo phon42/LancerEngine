@@ -112,9 +112,42 @@ public class FileReader {
         // 2. A valid *JSON* file path.
         // TODO: complete
         // Parse the .json file
-        data = FileProcessor.readFile(jsonPath);
+        data = readFile(jsonPath);
         // Send the data on to DataCaster
         saveJSONData(jsonPath, data);
+    }
+    public static String readFile(String filePath) {
+        String data = "";
+        FileInputStream input;
+        InputStreamReader reader;
+        int character;
+
+        try {
+            input = new FileInputStream(filePath);
+        } catch (FileNotFoundException exception) {
+            throw new MissingResourceException("File at path: \"" + filePath
+                + "\" could not be located", "File", filePath);
+        }
+        reader = new InputStreamReader(input);
+        try {
+            character = reader.read();
+            while (character != -1) {
+                data += (char) character;
+                character = reader.read();
+            }
+        } catch (IOException exception) {
+            throw new IllegalArgumentException("Error reading file");
+        } finally {
+            try {
+                reader.close();
+            } catch (IOException exception) {
+                throw new IllegalStateException("Attempting to call"
+                    + " InputStreamReader.close() on the file threw an"
+                    + " IOException");
+            }
+        }
+
+        return data;
     }
     private static void saveJSONData(String filePath, String fileData) {
         // Send the data on to DataCaster through DataCaster.parseJSONFile()
