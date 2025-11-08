@@ -113,8 +113,8 @@ public class FileReader {
         // TODO: complete
         // Parse the .json file
         data = readFile(jsonPath);
-        // Send the data on to DataCaster
-        saveJSONData(jsonPath, data);
+        // Send the data on to FileParser
+        FileParser.parseJSON(jsonPath, data);
     }
     public static String readFile(String filePath) {
         String data = "";
@@ -148,9 +148,5 @@ public class FileReader {
         }
 
         return data;
-    }
-    private static void saveJSONData(String filePath, String fileData) {
-        // Send the data on to DataCaster through DataCaster.parseJSONFile()
-        FileParser.parseJSON(filePath, fileData);
     }
 }
