@@ -15,6 +15,32 @@ public class FileReader {
     // prevent user from instantiating this class
     private FileReader() {}
 
+    public static void read(String resourceLocator, boolean external) {
+        String extension;
+
+        // we take in a String
+        // and turn it into an InputStream of some kind (specifically, a
+        //     FileInputStream if it's local)
+        // as well as a String representing the file's extension
+        if (external) {
+            extension = getExternalExtension(resourceLocator);
+        } else {
+            extension = getLocalExtension(resourceLocator);
+        }
+        // if extension is "" or could not be found, the above methods will
+        //     throw an exception
+        // decide whether to use readLCP, readZIP, or readJSON directly
+        if (extension.equals("lcp")) {
+            readLCP(resourceLocator, external);
+        } else if (extension.equals("zip")) {
+            readZIP(resourceLocator, external);
+        } else if (extension.equals("json")) {
+            readJSON(resourceLocator, external);
+        }
+        // once you're done, send that data along to DataCaster, which sends it
+        //     along to DataCompiler
+        FileParser.sendData();
+    }
     /**
      * Reads the provided file and saves its contents. Can read .lcp, .zip, or
      *     individual .json files. Calls DatabaseReader.readLCP(),
@@ -23,7 +49,7 @@ public class FileReader {
      * @param filePath a String which must contain a valid file path. Cannot be
      *     null.
      */
-    public static void readData(String filePath) {
+    private static String getLocalExtension(String filePath) {
         String fileExtension;
         String[] fileStrings;
 
@@ -52,6 +78,30 @@ public class FileReader {
                     + " following file extension: \"." + fileExtension + "\"");
             }
         }
+
+        return fileExtension;
+    }
+    private static String getExternalExtension(String url) {
+        // https://docs.oracle.com/javase/tutorial/networking/urls/readingURL.html
+        URL resource;
+        String pageExtension;
+
+        try {
+            resource = new URL(url);
+        } catch (MalformedURLException exception) {
+            throw new IllegalArgumentException("url: \"" + url + "\" caused a"
+                + " MalformedURLException to be thrown");
+        }
+        pageExtension = resource.getPath();
+        pageExtension = pageExtension.replaceAll("/", "");
+        try {
+            pageExtension = pageExtension.split("\\.")[0];
+        } catch (IndexOutOfBoundsException exception) {
+            throw new IllegalArgumentException("Unable to find a file extension"
+                + " in the URL: \"" + url + "\"");
+        }
+
+        return pageExtension;
     }
     /**
      * Reads the provided .lcp file by converting it to a .zip, then calling
@@ -59,8 +109,8 @@ public class FileReader {
      * @param lcpPath a String which must contain a valid file path. Is assumed
      *     to be a .lcp file. Cannot be null.
      */
-    private static void readLCP(String lcpPath) {
-        readZIP(lcpPath);
+    private static void readLCP(String lcpPath, boolean external) {
+        readZIP(lcpPath, external);
     }
     /**
      * Unzips the provided .zip file before calling
