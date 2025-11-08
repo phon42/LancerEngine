@@ -202,18 +202,21 @@ public class DataCompiler {
                 + " DataCompiler.saveData() while DataCompiler was still"
                 + " open. Call DataCompiler.close() first");
         }
+        // collect the data together
+        compileContent();
         // push all the data that's been collected over to Database
-        compileLicenseContent();
-        compileFrameLicenses();
-        // now we have to open Database again, this time because we're adding
+        // first we have to open Database again, this time because we're adding
         //     content
         Database.open();
-        addFrameLicenses();
         addContent();
         // then we close it afterward
         Database.close();
         // then flush it
         flushData();
+    }
+    private static void compileContent() {
+        compileLicenseContent();
+        compileFrameLicenses();
     }
     private static void compileLicenseContent() {
         // compile all the LicenseContent you have
@@ -306,12 +309,16 @@ public class DataCompiler {
         }
         DataCompiler.frameLicenseData = frameLicenses;
     }
+    private static void addContent() {
+        addFrameLicenses();
+        addNonLicenseContent();
+    }
     private static void addFrameLicenses() {
         for (int i = 0; i < DataCompiler.frameLicenseData.length; i++) {
             Database.addFrameLicense(DataCompiler.frameLicenseData[i]);
         }
     }
-    private static void addContent() {
+    private static void addNonLicenseContent() {
         // add anything that wasn't added in a batch through addLicenses
         // in other words, anything except the contents of frameLicenseData,
         //     licenseContentData, and all data types contained therein
