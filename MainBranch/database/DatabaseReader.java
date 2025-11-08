@@ -26,32 +26,36 @@ public class DatabaseReader {
 
     // All the data being held at the moment, as JSONObject[]s:
     // ----very critical data:
-    private static JSONObject[] frameData = new JSONObject[0];
-    private static JSONObject[] systemData = new JSONObject[0];
-    private static JSONObject[] modificationData = new JSONObject[0];
-    private static JSONObject[] weaponData = new JSONObject[0];
+    private static JSONObject[] frameData;
+    private static JSONObject[] systemData;
+    private static JSONObject[] modificationData;
+    private static JSONObject[] weaponData;
     // ----critical data:
-    private static JSONObject[] actionData = new JSONObject[0];
-    private static JSONObject[] coreBonusData = new JSONObject[0];
-    private static JSONObject[] dataTagData = new JSONObject[0];
-    private static JSONObject[] manufacturerData = new JSONObject[0];
-    private static JSONObject[] npcFeatureData = new JSONObject[0];
-    private static JSONObject[] npcTemplateData = new JSONObject[0];
-    private static JSONObject[] pilotEquipmentData = new JSONObject[0];
-    private static JSONObject[] reserveData = new JSONObject[0];
-    private static JSONObject[] skillData = new JSONObject[0];
-    private static JSONObject[] stateData = new JSONObject[0];
-    private static JSONObject[] talentData = new JSONObject[0];
+    private static JSONObject[] actionData;
+    private static JSONObject[] coreBonusData;
+    private static JSONObject[] dataTagData;
+    private static JSONObject[] manufacturerData;
+    private static JSONObject[] npcFeatureData;
+    private static JSONObject[] npcTemplateData;
+    private static JSONObject[] pilotEquipmentData;
+    private static JSONObject[] reserveData;
+    private static JSONObject[] skillData;
+    private static JSONObject[] stateData;
+    private static JSONObject[] talentData;
     // ----less important data:
-    private static JSONObject[] environmentData = new JSONObject[0];
-    private static JSONObject[] sitrepData = new JSONObject[0];
+    private static JSONObject[] environmentData;
+    private static JSONObject[] sitrepData;
     // ----pretty unimportant data:
-    private static JSONObject[] backgroundData = new JSONObject[0];
-    private static JSONObject[] bondData = new JSONObject[0];
+    private static JSONObject[] backgroundData;
+    private static JSONObject[] bondData;
     // ----just for reference:
-    private static JSONObject ruleData = null;
-    private static JSONObject[] termData = new JSONObject[0];
-    private static JSONObject tableData = null;
+    private static JSONObject ruleData;
+    private static JSONObject[] termData;
+    private static JSONObject tableData;
+
+    static {
+        flushData();
+    }
 
     // Prevent user from instantiating this class
     private DatabaseReader() {}
