@@ -133,9 +133,9 @@ public class FileReader {
         } catch (IOException exception) {
             throw new IllegalStateException(exception.getMessage());
         }
-        // then call readAllInZIP on it
+        // then call readAllInDirectory on it
         readAllInDirectory(unzippedDirectoryPath);
-        // then delete the zip we've created to do this
+        // then delete the directory we've created to do this
         FolderDeleter.deleteFolder(unzippedDirectoryPath);
     }
     /**
@@ -155,7 +155,7 @@ public class FileReader {
      * @param jsonPath a String which must contain a valid file path. Must be a
      *     .json file. Cannot be null.
      */
-    private static void readJSON(String jsonPath) {
+    private static void readJSON(String jsonPath, boolean external) {
         String data = null;
 
         // Check whether jsonPath is null
@@ -165,11 +165,22 @@ public class FileReader {
         // 2. A valid *JSON* file path.
         // TODO: complete
         // Parse the .json file
-        data = readFile(jsonPath);
+        data = readFile(jsonPath, external);
         // Send the data on to FileParser
         FileParser.parseJSON(jsonPath, data);
     }
-    public static String readFile(String filePath) {
+    public static String readFile(String fileLocator, boolean external) {
+        String data;
+
+        if (external) {
+            data = readExternalFile(fileLocator);
+        } else {
+            data = readLocalFile(fileLocator);
+        }
+
+        return data;
+    }
+    private static String readLocalFile(String filePath) {
         String data = "";
         FileInputStream input;
         InputStreamReader reader;
