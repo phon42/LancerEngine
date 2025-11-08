@@ -151,6 +151,6 @@ public class FileReader {
     }
     private static void saveJSONData(String filePath, String fileData) {
         // Send the data on to DataCaster through DataCaster.parseJSONFile()
-        DatabaseReader.parseJSONFile(filePath, fileData);
+        FileParser.parseJSON(filePath, fileData);
     }
 }
