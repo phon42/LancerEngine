@@ -1,6 +1,11 @@
 package MainBranch;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.NoSuchElementException;
+
+import MainBranch.database.DatabaseReadingPipeline.DatabaseReader;
+import MainBranch.database.fileOperations.ExternalLCP;
 import Packages.CoreTypes.Rule;
 import Packages.CoreTypes.Table;
 import Packages.CoreTypes.Term;
@@ -182,33 +187,20 @@ public final class Database {
     // };
 
     static {
-        Database.actions = new Action[0];
-        Database.activationTypes = new ActivationType[0];
-        Database.backgrounds = new Background[0];
-        Database.conditions = new Condition[0];
-        Database.coreBonuses = new CoreBonus[0];
-        Database.dataTags = new DataTag[0];
-        Database.environments = new Environment[0];
-        Database.frames = new Frame[0];
-        Database.manufacturers = new Manufacturer[0];
-        Database.modifications = new Modification[0];
-        Database.pilotArmor = new PilotArmor[0];
-        Database.pilotGear = new PilotGear[0];
-        Database.pilotWeapons = new PilotWeapon[0];
-        Database.reserves = new Reserve[0];
-        Database.rules = new Rule[0];
-        Database.sitreps = new Sitrep[0];
-        Database.skills = new SkillData[0];
-        Database.states = new State[0];
-        Database.statuses = new Status[0];
-        Database.systems = new MechSystem[0];
-        Database.tables = new Table[0];
-        Database.tags = new Tag[0];
-        Database.talents = new TalentData[0];
-        Database.terms = new Term[0];
-        Database.weapons = new Weapon[0];
-        Database.frameLicenses = new FrameLicense[0];
+        ExternalLCP baseLancer;
+        ExternalLCP dustgrave;
+        ExternalLCP ktb;
+        ExternalLCP longRim;
+        ExternalLCP osr;
+        ExternalLCP ows;
+        ExternalLCP sotw;
+        ExternalLCP ssmr;
+        ExternalLCP wallflower;
 
+        // Initialize the database's properties
+        clear();
+
+        // Add allowed activation types
         open();
         addActivationType(new ActivationType("free"));
         addActivationType(new ActivationType("protocol"));
@@ -222,6 +214,31 @@ public final class Database {
         //     https://github.com/massif-press/lancer-data?tab=readme-ov-file#activationtype
         addActivationType(new ActivationType("downtime"));
         close();
+
+        // Define all external LCPs
+        try {
+            baseLancer = new ExternalLCP(new URL[] {});
+            dustgrave = new ExternalLCP(new URL[] {});
+            ktb = new ExternalLCP(new URL[] {});
+            longRim = new ExternalLCP(new URL[] {});
+            osr = new ExternalLCP(new URL[] {});
+            ows = new ExternalLCP(new URL[] {});
+            sotw = new ExternalLCP(new URL[] {});
+            ssmr = new ExternalLCP(new URL[] {});
+            wallflower = new ExternalLCP(new URL[] {});
+        } catch (MalformedURLException exception) {
+            throw new IllegalStateException("something went wrong");
+        }
+        // Add any desired external LCPs
+        DatabaseReader.readExternalLCP(baseLancer);
+        DatabaseReader.readExternalLCP(dustgrave);
+        DatabaseReader.readExternalLCP(ktb);
+        DatabaseReader.readExternalLCP(longRim);
+        DatabaseReader.readExternalLCP(osr);
+        DatabaseReader.readExternalLCP(ows);
+        DatabaseReader.readExternalLCP(sotw);
+        DatabaseReader.readExternalLCP(ssmr);
+        DatabaseReader.readExternalLCP(wallflower);
     }
 
     // Prevent user from instantiating this class
@@ -254,6 +271,35 @@ public final class Database {
             throw new IllegalStateException("Cannot add to Database while it"
                 + " is closed");
         }
+    }
+    public static void clear() {
+        // This clears the entire database!
+        Database.actions = new Action[0];
+        Database.activationTypes = new ActivationType[0];
+        Database.backgrounds = new Background[0];
+        Database.conditions = new Condition[0];
+        Database.coreBonuses = new CoreBonus[0];
+        Database.dataTags = new DataTag[0];
+        Database.environments = new Environment[0];
+        Database.frames = new Frame[0];
+        Database.manufacturers = new Manufacturer[0];
+        Database.modifications = new Modification[0];
+        Database.pilotArmor = new PilotArmor[0];
+        Database.pilotGear = new PilotGear[0];
+        Database.pilotWeapons = new PilotWeapon[0];
+        Database.reserves = new Reserve[0];
+        Database.rules = new Rule[0];
+        Database.sitreps = new Sitrep[0];
+        Database.skills = new SkillData[0];
+        Database.states = new State[0];
+        Database.statuses = new Status[0];
+        Database.systems = new MechSystem[0];
+        Database.tables = new Table[0];
+        Database.tags = new Tag[0];
+        Database.talents = new TalentData[0];
+        Database.terms = new Term[0];
+        Database.weapons = new Weapon[0];
+        Database.frameLicenses = new FrameLicense[0];
     }
     public static Action getAction(String actionName) {
         HelperMethods.checkObject("actionName", actionName);
