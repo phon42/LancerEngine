@@ -37,10 +37,9 @@ public class ResourceReader {
             return readZIP(resourceLocator, external);
         } else if (extension.equals("json")) {
             return new String[] {readJSON(resourceLocator, external)};
-        } else {
-            throw new IllegalStateException("this should in theory be"
-                + " impossible");
         }
+        throw new IllegalStateException("this should in theory be"
+            + " impossible");
     }
     /**
      * Reads the provided file and saves its contents. Can read .lcp, .zip, or
@@ -63,6 +62,10 @@ public class ResourceReader {
             fileStrings = fileExtension.split("\\.");
             // this is the step that needs to be changed to deal with .tar.gz
             fileExtension = fileStrings[fileStrings.length - 1];
+        }
+        if (fileExtension == null) {
+            throw new IllegalArgumentException("Unable to find a file"
+                    + " extension in the file path: \"" + filePath + "\"");
         }
         if (! (fileExtension.equals("lcp")
             || fileExtension.equals("zip")
@@ -97,6 +100,22 @@ public class ResourceReader {
             throw new IllegalArgumentException("Unable to find a file extension"
                 + " in the URL: \"" + url + "\"");
         }
+        if (pageExtension == null) {
+            throw new IllegalArgumentException("Unable to find a resource"
+                    + " extension in the URL: \"" + url + "\"");
+        }
+        if (! (pageExtension.equals("lcp")
+            || pageExtension.equals("zip")
+            || pageExtension.equals("json"))) {
+            if (pageExtension.equals("")) {
+                throw new IllegalArgumentException("Unable to find a resource"
+                    + " extension in the URL: \"" + url + "\"");
+            } else {
+                throw new IllegalArgumentException("Cannot read a resource with"
+                    + " the following resource extension: \"." + pageExtension
+                    + "\"");
+            }
+        }
 
         return pageExtension;
     }
@@ -125,8 +144,10 @@ public class ResourceReader {
         try {
             unzippedDirectoryPath = FileOperations.unzip(zipPath);
         } catch (FileNotFoundException exception) {
-            throw new MissingResourceException(exception.getMessage(),
-                "File", new File(zipPath).getName());
+            throw new IllegalArgumentException("Resource at resource locator:"
+                + " \"" + zipPath + "\" could not be located and therefore"
+                + " threw a FileNotFoundException with the following message:"
+                + " \"" + exception.getMessage() + "\"");
         } catch (IOException exception) {
             throw new IllegalStateException(exception.getMessage());
         }
@@ -144,10 +165,12 @@ public class ResourceReader {
      *     Is assumed to be a directory. Cannot be null.
      */
     public static String[] readAllInDirectory(String directoryPath) {
-        // TODO: complete
-        // Created using https://www.baeldung.com/java-list-directory-files
-        // call readJSON on every file within
+        // Created in part using
+        //     https://www.baeldung.com/java-list-directory-files
         String[] directoryContents;
+
+        // TODO: complete
+        // call readJSON on every file within the provided directory
 
         return directoryContents;
     }
