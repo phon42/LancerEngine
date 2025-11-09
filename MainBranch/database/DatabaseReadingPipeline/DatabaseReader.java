@@ -1,6 +1,6 @@
 package MainBranch.database.DatabaseReadingPipeline;
 
-import MainBranch.database.meme.ResourceReader;
+import MainBranch.database.fileOperations.ResourceReader;
 
 public class DatabaseReader {
     // 1. DatabaseReader's DatabaseReader.read() method is called by Database,

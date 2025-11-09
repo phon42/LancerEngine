@@ -2,9 +2,9 @@ package MainBranch.database.DatabaseReadingPipeline;
 
 import java.util.Set;
 import MainBranch.Database;
-import MainBranch.database.meme.json.JSONArray;
-import MainBranch.database.meme.json.JSONException;
-import MainBranch.database.meme.json.JSONObject;
+import MainBranch.database.fileOperations.json.JSONArray;
+import MainBranch.database.fileOperations.json.JSONException;
+import MainBranch.database.fileOperations.json.JSONObject;
 import MainBranch.roll.DiceExpression;
 import Packages.CoreTypes.Rule;
 import Packages.CoreTypes.Table;
