@@ -3,6 +3,7 @@ package MainBranch;
 import java.net.MalformedURLException;
 import java.net.URL;
 import MainBranch.database.fileOperations.json.JSONObject;
+import MainBranch.database.LCPCorrection;
 import Packages.CoreTypes.Callable;
 import Packages.CoreTypes.Rule;
 import Packages.CoreTypes.Table;
@@ -47,6 +48,9 @@ import Packages.EventSystem.event.EventListener;
 
 // TODO: Use polymorphic methods or generic types or something to combine all
 //     these methods together
+// TODO: update anything that uses a HelperMethods.append method to create a
+//     copy of the object being appended first, otherwise it's a security
+//     vulnerability
 /**
  * A helper class containing useful methods.
  * 
@@ -598,6 +602,32 @@ public final class HelperMethods {
         HelperMethods.checkObject("array", array);
         HelperMethods.checkObject("newElement", newElement);
         FrameLicense[] newArray = new FrameLicense[array.length + 1];
+
+        for (int i = 0; i < newArray.length; i++) {
+            if (i < array.length) {
+                newArray[i] = array[i];
+                continue;
+            }
+            newArray[i] = newElement;
+        }
+        
+        return newArray;
+    }
+    /**
+     * Appends the given LCPCorrection element to the end of an existing
+     *     LCPCorrection[].
+     * @param array an LCPCorrection[] that cannot be null.
+     * @param newElement an LCPCorrection that cannot be null to append to the
+     *     end of array.
+     * @return an LCPCorrection[] consisting of array with newElement appended
+     *     to the end of it.
+     * @throws IllegalArgumentException if array or newElement is null.
+     */
+    public static LCPCorrection[] append(LCPCorrection[] array,
+        LCPCorrection newElement) {
+        HelperMethods.checkObject("array", array);
+        HelperMethods.checkObject("newElement", newElement);
+        LCPCorrection[] newArray = new LCPCorrection[array.length + 1];
 
         for (int i = 0; i < newArray.length; i++) {
             if (i < array.length) {
