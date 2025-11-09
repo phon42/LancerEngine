@@ -1,13 +1,9 @@
 package MainBranch.database;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import MainBranch.database.fileOperations.DirectoryDeleter;
-import MainBranch.database.fileOperations.JSON;
 import MainBranch.database.fileOperations.ResourceParser;
 import MainBranch.database.fileOperations.ResourceReader;
 import MainBranch.database.fileOperations.ZIPUnzipper;
-import MainBranch.database.fileOperations.json.JSONException;
 
 public class FileOperations {
     // prevent user from instantiating this class
@@ -31,5 +27,26 @@ public class FileOperations {
     public static String unzip(String zipResourceLocator, boolean external) {
         return unzip(zipResourceLocator, external,
             "MainBranch/ProgramData/Target/");
+    }
+    public static String[][] readAllInDirectoryIterable(String directoryPath) {
+        String[][] result;
+
+        result = new String[someLength][2];
+        // index 0 is the file path
+        // index 1 is the file data
+
+        return result;
+    }
+    public static String[] readAllInDirectory(String directoryPath) {
+        String[][] uncompactedResult;
+        String[] result;
+
+        uncompactedResult = readAllInDirectoryIterable(directoryPath);
+        result = new String[uncompactedResult.length];
+        for (int i = 0; i < uncompactedResult.length; i++) {
+            result[i] = uncompactedResult[i][1];
+        }
+
+        return result;
     }
 }
