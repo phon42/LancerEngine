@@ -131,9 +131,15 @@ public class DataReader {
      *     Is assumed to be a directory. Cannot be null.
      */
     private static void readAllInDirectory(String directoryPath) {
-        // TODO: complete
-        // Created using https://www.baeldung.com/java-list-directory-files
+        Iterable<Object> fileData;
+        String[] castedFile;
+
         // call readJSON on every file within
+        fileData = FileOperations.readAllInDirectoryIterable(directoryPath);
+        for (Object jsonFile : fileData) {
+            castedFile = (String[]) jsonFile;
+            DataParser.parseJSON(castedFile[0], castedFile[1]);
+        }
     }
     /**
      * Reads the provided .json file, then calls DatabaseReader.parseJSONFile()
