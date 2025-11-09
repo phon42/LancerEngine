@@ -1,10 +1,9 @@
 package MainBranch.database.DatabaseReadingPipeline;
 
-import MainBranch.database.fileOperations.ResourceReader;
-
 public class DatabaseReader {
-    // 1. DatabaseReader's DatabaseReader.read() method is called by Database,
-    //        something like DatabaseReader.read(<a file path>)
+    // TODO: update documentation
+    // 1. DatabaseReader's read() method is called by Database, something like
+    //        read(<a file path>)
     // 2. Determine whether the file is a .lcp, .zip, .json, and so on
     // 3. Use some black box classes JSON, ZipUnpacker, and FileReader to read
     //        the file, which will then eventually pare their contents down to
@@ -20,16 +19,21 @@ public class DatabaseReader {
     // Prevent user from instantiating this class
     private DatabaseReader() {}
 
+    // Step 0: START - input a path to the resource as a String
+    // readLocal and readExternal are essentially the same method, but we're
+    //     separating them to make it harder for people to pick the wrong one by
+    //     accident
     /**
-     * Reads the provided file and saves all its contents before sending the
-     *     saved data onwards to DataCaster. Can read .lcp, .zip, or individual
-     *     .json files.
+     * Reads a local file from the provided local file path and saves all its
+     *     contents before sending the saved data onwards to DataCaster. Can
+     *     read .lcp, .zip, or individual .json files.
      * @param filePath a String which must contain a valid file path.
      */
     public static void readLocal(String filePath) {
-        ResourceReader.read(filePath, false);
+        DataReader.read(filePath, false);
     }
+    // TODO: add documentation
     public static void readExternal(String url) {
-        ResourceReader.read(url, true);
+        DataReader.read(url, true);
     }
 }
