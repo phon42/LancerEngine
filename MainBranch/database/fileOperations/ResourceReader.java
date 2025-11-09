@@ -193,6 +193,36 @@ public class ResourceReader {
 
         return data;
     }
+    private static String readExternalFile(String fileURL) {
+        // https://docs.oracle.com/javase/tutorial/networking/urls/readingURL.html
+        String data = "";
+        URL resource;
+        InputStream stream;
+        InputStreamReader reader;
+        int character;
+
+        try {
+            resource = new URL(fileURL);
+        } catch (MalformedURLException exception) {
+            throw new IllegalArgumentException("url: \"" + fileURL + "\" caused"
+                + " a MalformedURLException to be thrown");
+        }
+        try {
+            stream = resource.openStream();
+        } catch (IOException exception) {
+            throw new IllegalArgumentException("url: \"" + fileURL + "\" caused"
+                + " an IOException to be thrown");
+        }
+        reader = new InputStreamReader(stream);
+        character = reader.read();
+        while (character != -1) {
+            data += (char) character;
+            character = reader.read();
+        }
+        reader.close();
+
+        return data;
+    }
     private static String readLocalFile(String filePath) {
         String data = "";
         FileInputStream input;
