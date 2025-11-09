@@ -150,12 +150,12 @@ public class DataReader {
      *     Is assumed to be a directory. Cannot be null.
      */
     private static void readAllInDirectory(String directoryPath) {
-        Iterable<Object> fileData;
+        String[][] fileData;
         String[] castedFile;
 
         // call readJSON on every file within
         fileData = FileOperations.readAllInDirectoryIterable(directoryPath);
-        for (Object jsonFile : fileData) {
+        for (String[] jsonFile : fileData) {
             castedFile = (String[]) jsonFile;
             DataParser.parseJSON(castedFile[0], castedFile[1]);
         }
