@@ -38,15 +38,6 @@ public class FileOperations {
         return result;
     }
     public static String[] readAllInDirectory(String directoryPath) {
-        String[][] uncompactedResult;
-        String[] result;
-
-        uncompactedResult = readAllInDirectoryIterable(directoryPath);
-        result = new String[uncompactedResult.length];
-        for (int i = 0; i < uncompactedResult.length; i++) {
-            result[i] = uncompactedResult[i][1];
-        }
-
-        return result;
+        return ResourceReader.readAllInDirectory(directoryPath);
     }
 }
