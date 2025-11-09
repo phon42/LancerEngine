@@ -1,5 +1,7 @@
 package MainBranch.database;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import MainBranch.database.fileOperations.DirectoryDeleter;
 import MainBranch.database.fileOperations.JSON;
 import MainBranch.database.fileOperations.ResourceReader;
@@ -44,9 +46,13 @@ public class FileOperations {
     public static void deleteDirectory(String directoryPath) {
         DirectoryDeleter.deleteDirectory(directoryPath);
     }
-    public static String unzip(String zipResourceLocator, boolean external,
+    private static String unzip(String zipResourceLocator, boolean external,
         String targetDirectoryPath) {
         return ZIPUnzipper.unzip(zipResourceLocator, external,
             targetDirectoryPath);
+    }
+    public static String unzip(String zipResourceLocator, boolean external) {
+        return unzip(zipResourceLocator, external,
+            "MainBranch/ProgramData/Target/");
     }
 }

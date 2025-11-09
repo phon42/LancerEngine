@@ -160,11 +160,6 @@ public class ZIPUnzipper {
 
         return directoryPath;
     }
-    public static String unzip(String zipResourceLocator, boolean external)
-        throws FileNotFoundException, IOException {
-        return unzip(zipResourceLocator, external,
-            "MainBranch/ProgramData/Target/");
-    }
     private static void createEntry(String destDirPath, ZipEntry zipEntry,
         ZipInputStream zipStream) throws FileSystemException {
         File newFile;
