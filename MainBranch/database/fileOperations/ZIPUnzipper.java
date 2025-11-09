@@ -137,6 +137,12 @@ public class ZIPUnzipper {
                     + " directory path: \"" + directoryPath + "\"");
             }
             try {
+                zipStream.closeEntry();
+            } catch (IOException exception) {
+                throw new IllegalStateException("Attempting to close the"
+                    + " already-read entry caused an IOException to be thrown");
+            }
+            try {
                 zipEntry = zipStream.getNextEntry();
             } catch (IOException exception) {
                 throw new IllegalStateException("Attempting to read the next"
