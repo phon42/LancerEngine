@@ -79,6 +79,7 @@ public class DataReader {
         //     https://docs.oracle.com/javase/tutorial/networking/urls/readingURL.html
         URL resource;
         String pageExtension;
+        String[] pathArray;
 
         try {
             resource = new URL(url);
@@ -86,13 +87,31 @@ public class DataReader {
             throw new IllegalArgumentException("url: \"" + url + "\" caused a"
                 + " MalformedURLException to be thrown");
         }
-        pageExtension = resource.getPath();
-        pageExtension = pageExtension.replaceAll("/", "");
+        pageExtension = resource.getFile();
+        pathArray = pageExtension.split("/");
+        pageExtension = pathArray[pathArray.length - 1];
         try {
-            pageExtension = pageExtension.split("\\.")[0];
+            pathArray = pageExtension.split("\\.");
+            pageExtension = pathArray[pathArray.length - 1];
         } catch (IndexOutOfBoundsException exception) {
             throw new IllegalArgumentException("Unable to find a file extension"
                 + " in the URL: \"" + url + "\"");
+        }
+        if (pageExtension == null) {
+            throw new IllegalArgumentException("Unable to find a resource"
+                    + " extension in the URL: \"" + url + "\"");
+        }
+        if (! (pageExtension.equals("lcp")
+            || pageExtension.equals("zip")
+            || pageExtension.equals("json"))) {
+            if (pageExtension.equals("")) {
+                throw new IllegalArgumentException("Unable to find a resource"
+                    + " extension in the URL: \"" + url + "\"");
+            } else {
+                throw new IllegalArgumentException("Cannot read a resource with"
+                    + " the following resource extension: \"." + pageExtension
+                    + "\"");
+            }
         }
 
         return pageExtension;
