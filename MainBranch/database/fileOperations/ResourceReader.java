@@ -141,18 +141,9 @@ public class ResourceReader {
         String[] zipContents;
 
         // unzip the zip
-        try {
-            unzippedDirectoryPath = FileOperations.unzip(zipPath);
-        } catch (FileNotFoundException exception) {
-            throw new IllegalArgumentException("Resource at resource locator:"
-                + " \"" + zipPath + "\" could not be located and therefore"
-                + " threw a FileNotFoundException with the following message:"
-                + " \"" + exception.getMessage() + "\"");
-        } catch (IOException exception) {
-            throw new IllegalStateException(exception.getMessage());
-        }
+        unzippedDirectoryPath = FileOperations.unzip(zipPath, external);
         // then call readAllInDirectory on it
-        zipContents = FileOperations.readAllInDirectory(unzippedDirectoryPath);
+        zipContents = readAllInDirectory(unzippedDirectoryPath);
         // then delete the directory we've created to do this
         FileOperations.deleteDirectory(unzippedDirectoryPath);
 
