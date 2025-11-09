@@ -28,16 +28,25 @@ public class FileOperations {
         return unzip(zipResourceLocator, external,
             "MainBranch/ProgramData/Target/");
     }
-    public static String[][] readAllInDirectoryIterable(String directoryPath) {
-        String[][] result;
-
-        result = new String[someLength][2];
-        // index 0 is the file path
-        // index 1 is the file data
-
-        return result;
+    public static String[] getAllFilenamesInDirectory(String directoryPath) {
+        return ResourceReader.getAllFilenamesInDirectory(directoryPath);
     }
     public static String[] readAllInDirectory(String directoryPath) {
         return ResourceReader.readAllInDirectory(directoryPath);
+    }
+    public static String[][] readAllInDirectoryIterable(String directoryPath) {
+        String[] fileNames;
+        // index 0 is the file path
+        // index 1 is the file data
+        String[][] result;
+
+        fileNames = ResourceReader.readAllInDirectory(directoryPath);
+        result = new String[fileNames.length][2];
+        for (int i = 0; i < fileNames.length; i++) {
+            result[i][0] = fileNames[i];
+            result[i][1] = readResource(fileNames[i], false)[0];
+        }
+
+        return result;
     }
 }
