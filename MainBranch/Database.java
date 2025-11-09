@@ -4,8 +4,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.NoSuchElementException;
 
+import MainBranch.database.ExternalLCP;
 import MainBranch.database.DatabaseReadingPipeline.DatabaseReader;
-import MainBranch.database.fileOperations.ExternalLCP;
 import Packages.CoreTypes.Rule;
 import Packages.CoreTypes.Table;
 import Packages.CoreTypes.Term;

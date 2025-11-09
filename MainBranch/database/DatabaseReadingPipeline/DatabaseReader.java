@@ -1,7 +1,7 @@
 package MainBranch.database.DatabaseReadingPipeline;
 
 import java.net.URL;
-import MainBranch.database.fileOperations.ExternalLCP;
+import MainBranch.database.ExternalLCP;
 
 public class DatabaseReader {
     // TODO: update documentation
