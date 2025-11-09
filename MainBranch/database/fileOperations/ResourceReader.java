@@ -85,6 +85,7 @@ public class ResourceReader {
         // https://docs.oracle.com/javase/tutorial/networking/urls/readingURL.html
         URL resource;
         String pageExtension;
+        String[] pathArray;
 
         try {
             resource = new URL(url);
@@ -92,10 +93,12 @@ public class ResourceReader {
             throw new IllegalArgumentException("url: \"" + url + "\" caused a"
                 + " MalformedURLException to be thrown");
         }
-        pageExtension = resource.getPath();
-        pageExtension = pageExtension.replaceAll("/", "");
+        pageExtension = resource.getFile();
+        pathArray = pageExtension.split("/");
+        pageExtension = pathArray[pathArray.length - 1];
         try {
-            pageExtension = pageExtension.split("\\.")[0];
+            pathArray = pageExtension.split("\\.");
+            pageExtension = pathArray[pathArray.length - 1];
         } catch (IndexOutOfBoundsException exception) {
             throw new IllegalArgumentException("Unable to find a file extension"
                 + " in the URL: \"" + url + "\"");
@@ -204,22 +207,40 @@ public class ResourceReader {
         try {
             resource = new URL(fileURL);
         } catch (MalformedURLException exception) {
-            throw new IllegalArgumentException("url: \"" + fileURL + "\" caused"
+            throw new IllegalArgumentException("URL: \"" + fileURL + "\" caused"
                 + " a MalformedURLException to be thrown");
         }
         try {
             stream = resource.openStream();
         } catch (IOException exception) {
-            throw new IllegalArgumentException("url: \"" + fileURL + "\" caused"
+            throw new IllegalArgumentException("Attempting to open an InputStream to the URL: \"" + fileURL + "\" caused"
                 + " an IOException to be thrown");
         }
         reader = new InputStreamReader(stream);
-        character = reader.read();
+        try {
+            character = reader.read();
+        } catch (IOException exception) {
+            throw new IllegalStateException("Attempting to read the external"
+                + " resource at the URL: \"" + fileURL + "\" caused an"
+                + " IOException to be thrown");
+        }
         while (character != -1) {
             data += (char) character;
-            character = reader.read();
+            try {
+                character = reader.read();
+            } catch (IOException exception) {
+                throw new IllegalStateException("Attempting to read the"
+                    + " external resource at the URL: \"" + fileURL + "\""
+                    + " caused an IOException to be thrown");
+            }
         }
-        reader.close();
+        try {
+            reader.close();
+        } catch (IOException exception) {
+            throw new IllegalStateException("Attempting to close an InputStream"
+                + " to the URL: \"" + fileURL + "\" caused an IOException to be"
+                + " thrown");
+        }
 
         return data;
     }
