@@ -1,5 +1,8 @@
 package MainBranch.database.DatabaseReadingPipeline;
 
+import java.net.URL;
+import MainBranch.database.fileOperations.ExternalLCP;
+
 public class DatabaseReader {
     // TODO: update documentation
     // 1. DatabaseReader's read() method is called by Database, something like
@@ -35,5 +38,13 @@ public class DatabaseReader {
     // TODO: add documentation
     public static void readExternal(String url) {
         DataReader.read(url, true);
+    }
+    public static void readExternalLCP(ExternalLCP externalLCP) {
+        URL[] lcpFiles;
+
+        lcpFiles = externalLCP.getFiles();
+        for (URL file : lcpFiles) {
+            readExternal(file.toString());
+        }
     }
 }
