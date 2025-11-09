@@ -5,7 +5,9 @@ import java.net.URL;
 import java.util.NoSuchElementException;
 
 import MainBranch.database.ExternalLCP;
+import MainBranch.database.LCPCorrection;
 import MainBranch.database.DatabaseReadingPipeline.DatabaseReader;
+import MainBranch.database.fileOperations.json.JSONObject;
 import Packages.CoreTypes.Rule;
 import Packages.CoreTypes.Table;
 import Packages.CoreTypes.Term;
@@ -57,6 +59,10 @@ public final class Database {
      * Represents whether the database is currently being edited.
      */
     private static boolean open = false;
+    /**
+     * add documentation
+     */
+    private static LCPCorrection[] lcpCorrections;
     /**
      * add documentation
      */
@@ -196,6 +202,7 @@ public final class Database {
         ExternalLCP sotw;
         ExternalLCP ssmr;
         ExternalLCP wallflower;
+        LCPCorrection correction;
 
         // Initialize the database's properties
         clear();
@@ -231,6 +238,36 @@ public final class Database {
             throw new IllegalStateException("something went wrong");
         }
         close();
+
+        // Add LCP corrections
+        correction = new LCPCorrection("LANCER Core",
+            "actions", new JSONObject[] {
+                new JSONObject("{\n" + //
+                    "  \"id\": \"act_brace\",\n" + //
+                    "  \"name\": \"Brace\",\n" + //
+                    "  \"activation\": \"Reaction\",\n" + //
+                    "  \"terse\": \"Brace your mech for impact, reducing damage at the cost of your next turn’s actions.\",\n" + //
+                    "  \"trigger\": \"You are hit by an attack and damage has been rolled.\",\n" + //
+                    "  \"effect\": \"You count as having RESISTANCE to all damage, burn, and heat from the triggering attack, and until the end of your next turn, all other attacks against you are made at +1 difficulty.<br>Due to the stress of bracing, you cannot take reactions until the end of your next turn and on that turn, you can only take one quick action – you cannot OVERCHARGE, move normally, take full actions, or take free actions.\",\n" + //
+                    "  \"detail\": \"When you BRACE, you ready your mech against incoming fire.<br>Brace<br>Reaction, 1/round<br>Trigger: You are hit by an attack and damage has been rolled.<br>Effect: You count as having RESISTANCE to all damage, burn, and heat from the triggering attack, and until the end of your next turn, all other attacks against you are made at +1 difficulty.<br>Due to the stress of bracing, you cannot take reactions until the end of your next turn and on that turn, you can only take one quick action – you cannot OVERCHARGE, move normally, take full actions, or take free actions.\"\n" + //
+                    "}"
+                ),
+                new JSONObject("{\n" + //
+                    "  \"id\": \"act_overwatch\",\n" + //
+                    "  \"name\": \"Overwatch\",\n" + //
+                    "  \"activation\": \"Reaction\",\n" + //
+                    "  \"terse\": \"Attack a close-by target attempting to move.\",\n" + //
+                    "  \"trigger\": \"A hostile character starts any movement (including BOOST and other actions) inside one of your weapons’ THREAT.\",\n" + //
+                    "  \"effect\": \"Trigger OVERWATCH, immediately using that weapon to SKIRMISH against that character as a reaction, before they move.\",\n" + //
+                    "  \"detail\": \"When you OVERWATCH, you control and defend the space around your mech from enemy incursion through pilot skill, reflexes, or finely tuned subsystems.<br>Unless specified otherwise, all weapons default to 1 THREAT.<br>Overwatch<br>Reaction, 1/round<br>Trigger: A hostile character starts any movement (including BOOST and other actions) inside one of your weapons’ THREAT.<br>Effect: Trigger OVERWATCH, immediately using that weapon to SKIRMISH against that character as a reaction, before they move.\",\n" + //
+                    "  \"mech\": true,\n" + //
+                    "  \"pilot\": true\n" + //
+                    "}"
+                )
+            }
+        );
+        Database.addLCPCorrection(correction);
+
         // Add any desired external LCPs
         DatabaseReader.readExternalLCP(baseLancer);
         DatabaseReader.readExternalLCP(dustgrave);
@@ -588,6 +625,18 @@ public final class Database {
         }
         throw new NoSuchElementException("No frame license found for frame"
             + " license ID: " + frameLicenseID);
+    }
+    /**
+     * Adds the provided LCPCorrection to Database.lcpCorrections.
+     * @param lcpCorrection a LCPCorrection which cannot be null.
+     * @throws IllegalArgumentException if lcpCorrection is null.
+     */
+    public static void addLCPCorrection(LCPCorrection lcpCorrection) {
+        checkOpen();
+        HelperMethods.checkObject("lcpCorrection", lcpCorrection);
+        lcpCorrection = new LCPCorrection(lcpCorrection);
+        Database.lcpCorrections = HelperMethods.append(Database.lcpCorrections,
+            lcpCorrection);
     }
     /**
      * Adds the provided Action to Database.actions.

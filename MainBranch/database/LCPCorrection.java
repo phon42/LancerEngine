@@ -38,6 +38,11 @@ public class LCPCorrection {
         setFileName(fileName);
         setReplacements(replacements);
     }
+    public LCPCorrection(LCPCorrection lcpCorrection) {
+        setLCPName(lcpCorrection.lcpName);
+        setFileName(lcpCorrection.fileName);
+        setReplacements(lcpCorrection.replacements);
+    }
 
     public String getLCPName() {
         return lcpName;
