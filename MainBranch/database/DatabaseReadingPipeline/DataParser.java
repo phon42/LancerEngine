@@ -1,3 +1,6 @@
 package MainBranch.database.DatabaseReadingPipeline;
 
-public class DataParser {}
+public class DataParser {
+    // prevent user from instantiating this class
+    private DataParser() {}
+}
