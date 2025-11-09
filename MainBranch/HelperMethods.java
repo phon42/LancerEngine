@@ -2,6 +2,7 @@ package MainBranch;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import MainBranch.database.fileOperations.json.JSONObject;
 import Packages.CoreTypes.Callable;
 import Packages.CoreTypes.Rule;
 import Packages.CoreTypes.Table;
@@ -1294,6 +1295,25 @@ public final class HelperMethods {
                 continue;
             }
             copy[i] = new Harm(original[i]);
+        }
+
+        return copy;
+    }
+    /**
+     * Returns a deepest copy of original.
+     * @param original a JSONObject[] that cannot be null.
+     * @return a JSONObject[] deepest copy of original.
+     * @throws IllegalArgumentException if original is null.
+     */
+    public static JSONObject[] copyOf(JSONObject[] original) {
+        checkObject("original", original);
+        JSONObject[] copy = new JSONObject[original.length];
+        for (int i = 0; i < original.length; i++) {
+            if (original[i] == null) {
+                copy[i] = original[i];
+                continue;
+            }
+            copy[i] = new JSONObject(original[i].toString());
         }
 
         return copy;
