@@ -1,4 +1,4 @@
-package MainBranch.database.FileOperations;
+package MainBranch.database.fileOperations;
 
 import java.net.URL;
 import MainBranch.HelperMethods;
