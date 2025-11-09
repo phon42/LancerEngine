@@ -216,6 +216,7 @@ public final class Database {
         close();
 
         // Define all external LCPs
+        open();
         try {
             baseLancer = new ExternalLCP(new URL[] {});
             dustgrave = new ExternalLCP(new URL[] {});
@@ -229,6 +230,7 @@ public final class Database {
         } catch (MalformedURLException exception) {
             throw new IllegalStateException("something went wrong");
         }
+        close();
         // Add any desired external LCPs
         DatabaseReader.readExternalLCP(baseLancer);
         DatabaseReader.readExternalLCP(dustgrave);
