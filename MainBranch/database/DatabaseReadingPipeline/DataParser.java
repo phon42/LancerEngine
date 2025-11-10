@@ -87,6 +87,9 @@ public class DataParser {
         saveJSONData(fileName, convertedData);
     }
     private static void saveJSONData(String fileName, JSONObject[] data) {
+        // TODO: update to APPEND to the relevant data file if there's already
+        //     data there (i.e. two "frames.json" files)
+        // or consider throwing an Exception
         // ----some critical data types:
         if (fileName.equals("frames")) {
             DataParser.frameData = data;
@@ -145,11 +148,15 @@ public class DataParser {
     public static void sendData() {
         Object[] data;
 
+        // TODO: consider throwing an exception here if no info.json or
+        //     lcp_manifest.json file is found
         data = new Object[] {
+            // ----some critical data types:
             DataParser.frameData,
             DataParser.systemData,
             DataParser.modificationData,
             DataParser.weaponData,
+            // ----the rest of the critical data types:
             DataParser.actionData,
             DataParser.coreBonusData,
             DataParser.dataTagData,
