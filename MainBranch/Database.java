@@ -675,6 +675,7 @@ public final class Database {
     public static void addAction(Action action) {
         checkOpen();
         HelperMethods.checkObject("action", action);
+        action = new Action(action);
         Database.actions = HelperMethods.append(Database.actions, action);
     }
     /**
@@ -685,6 +686,7 @@ public final class Database {
     public static void addActivationType(ActivationType activationType) {
         checkOpen();
         HelperMethods.checkObject("action", activationType);
+        activationType = new ActivationType(activationType);
         Database.activationTypes =
             HelperMethods.append(Database.activationTypes, activationType);
     }
@@ -696,6 +698,7 @@ public final class Database {
     public static void addBackground(Background background) {
         checkOpen();
         HelperMethods.checkObject("background", background);
+        background = new Background(background);
         Database.backgrounds = HelperMethods.append(Database.backgrounds,
             background);
     }
@@ -707,6 +710,7 @@ public final class Database {
     public static void addBond(Bond bond) {
         checkOpen();
         HelperMethods.checkObject("bond", bond);
+        bond = new Bond(bond);
         Database.bonds = HelperMethods.append(Database.bonds, bond);
     }
     /**
@@ -717,6 +721,7 @@ public final class Database {
     public static void addCondition(Condition condition) {
         checkOpen();
         HelperMethods.checkObject("condition", condition);
+        condition = new Condition(condition);
         Database.conditions = HelperMethods.append(Database.conditions,
             condition);
     }
@@ -728,6 +733,7 @@ public final class Database {
     public static void addCoreBonus(CoreBonus coreBonus) {
         checkOpen();
         HelperMethods.checkObject("coreBonus", coreBonus);
+        coreBonus = new CoreBonus(coreBonus);
         Database.coreBonuses = HelperMethods.append(Database.coreBonuses,
             coreBonus);
     }
@@ -739,6 +745,7 @@ public final class Database {
     public static void addDataTag(DataTag dataTag) {
         checkOpen();
         HelperMethods.checkObject("dataTag", dataTag);
+        dataTag = new DataTag(dataTag);
         Database.dataTags = HelperMethods.append(Database.dataTags, dataTag);
     }
     /**
@@ -749,6 +756,7 @@ public final class Database {
     public static void addEnvironment(Environment environment) {
         checkOpen();
         HelperMethods.checkObject("environment", environment);
+        environment = new Environment(environment);
         Database.environments = HelperMethods.append(Database.environments,
             environment);
     }
@@ -760,6 +768,7 @@ public final class Database {
     public static void addFrame(Frame frame) {
         checkOpen();
         HelperMethods.checkObject("frame", frame);
+        frame = new Frame(frame);
         Database.frames = HelperMethods.append(Database.frames, frame);
     }
     /**
@@ -770,6 +779,7 @@ public final class Database {
     public static void addManufacturer(Manufacturer manufacturer) {
         checkOpen();
         HelperMethods.checkObject("manufacturer", manufacturer);
+        manufacturer = new Manufacturer(manufacturer);
         Database.manufacturers = HelperMethods.append(Database.manufacturers,
             manufacturer);
     }
@@ -781,6 +791,7 @@ public final class Database {
     public static void addNPCFeature(NPCFeature npcFeature) {
         checkOpen();
         HelperMethods.checkObject("npcFeature", npcFeature);
+        npcFeature = new NPCFeature(npcFeature);
         Database.npcFeatures = HelperMethods.append(Database.npcFeatures,
             npcFeature);
     }
@@ -792,6 +803,7 @@ public final class Database {
     public static void addNPCTemplate(NPCTemplate npcTemplate) {
         checkOpen();
         HelperMethods.checkObject("npcTemplate", npcTemplate);
+        npcTemplate = new NPCTemplate(npcTemplate);
         Database.npcTemplates = HelperMethods.append(Database.npcTemplates,
             npcTemplate);
     }
@@ -803,6 +815,7 @@ public final class Database {
     public static void addPilotArmor(PilotArmor pilotArmor) {
         checkOpen();
         HelperMethods.checkObject("pilotArmor", pilotArmor);
+        pilotArmor = new PilotArmor(pilotArmor);
         Database.pilotArmor = HelperMethods.append(Database.pilotArmor,
             pilotArmor);
     }
@@ -814,6 +827,7 @@ public final class Database {
     public static void addPilotGear(PilotGear pilotGear) {
         checkOpen();
         HelperMethods.checkObject("pilotGear", pilotGear);
+        pilotGear = new PilotGear(pilotGear);
         Database.pilotGear = HelperMethods.append(Database.pilotGear,
             pilotGear);
     }
@@ -825,6 +839,7 @@ public final class Database {
     public static void addPilotWeapon(PilotWeapon pilotWeapon) {
         checkOpen();
         HelperMethods.checkObject("pilotWeapon", pilotWeapon);
+        pilotWeapon = new PilotWeapon(pilotWeapon);
         Database.pilotWeapons = HelperMethods.append(Database.pilotWeapons,
             pilotWeapon);
     }
@@ -836,6 +851,7 @@ public final class Database {
     public static void addReserve(Reserve reserve) {
         checkOpen();
         HelperMethods.checkObject("reserve", reserve);
+        reserve = new Reserve(reserve);
         Database.reserves = HelperMethods.append(Database.reserves, reserve);
     }
     /**
@@ -846,6 +862,7 @@ public final class Database {
     public static void addRule(Rule rule) {
         checkOpen();
         HelperMethods.checkObject("rule", rule);
+        rule = new Rule(rule);
         Database.rules = HelperMethods.append(Database.rules, rule);
     }
     /**
@@ -856,6 +873,7 @@ public final class Database {
     public static void addSitrep(Sitrep sitrep) {
         checkOpen();
         HelperMethods.checkObject("sitrep", sitrep);
+        sitrep = new Sitrep(sitrep);
         Database.sitreps = HelperMethods.append(Database.sitreps, sitrep);
     }
     /**
@@ -866,6 +884,7 @@ public final class Database {
     public static void addSkill(SkillData skillData) {
         checkOpen();
         HelperMethods.checkObject("skillData", skillData);
+        skillData = new SkillData(skillData);
         Database.skills = HelperMethods.append(Database.skills, skillData);
     }
     /**
@@ -886,6 +905,7 @@ public final class Database {
     public static void addStatus(Status status) {
         checkOpen();
         HelperMethods.checkObject("status", status);
+        status = new Status(status);
         Database.statuses = HelperMethods.append(Database.statuses, status);
     }
     /**
@@ -896,6 +916,7 @@ public final class Database {
     public static void addSystem(MechSystem system) {
         checkOpen();
         HelperMethods.checkObject("system", system);
+        system = new MechSystem(system);
         Database.systems = HelperMethods.append(Database.systems, system);
     }
     /**
@@ -906,6 +927,7 @@ public final class Database {
     public static void addTable(Table table) {
         checkOpen();
         HelperMethods.checkObject("table", table);
+        table = new Table(table);
         Database.tables = HelperMethods.append(Database.tables, table);
     }
     /**
@@ -916,6 +938,7 @@ public final class Database {
     public static void addTag(Tag tag) {
         checkOpen();
         HelperMethods.checkObject("tag", tag);
+        tag = new Tag(tag);
         Database.tags = HelperMethods.append(Database.tags, tag);
     }
     /**
@@ -926,6 +949,7 @@ public final class Database {
     public static void addTalent(TalentData talent) {
         checkOpen();
         HelperMethods.checkObject("talent", talent);
+        talent = new TalentData(talent);
         Database.talents = HelperMethods.append(Database.talents, talent);
     }
     /**
@@ -936,6 +960,7 @@ public final class Database {
     public static void addTerm(Term term) {
         checkOpen();
         HelperMethods.checkObject("term", term);
+        term = new Term(term);
         Database.terms = HelperMethods.append(Database.terms, term);
     }
     /**
@@ -946,11 +971,13 @@ public final class Database {
     public static void addWeapon(Weapon weapon) {
         checkOpen();
         HelperMethods.checkObject("weapon", weapon);
+        weapon = new Weapon(weapon);
         Database.weapons = HelperMethods.append(Database.weapons, weapon);
     }
     public static void addFrameLicense(FrameLicense frameLicense) {
         checkOpen();
         HelperMethods.checkObject("frameLicense", frameLicense);
+        frameLicense = new FrameLicense(frameLicense);
         Database.frameLicenses = HelperMethods.append(Database.frameLicenses,
             frameLicense);
     }
