@@ -340,6 +340,35 @@ public final class Database {
         Database.weapons = new Weapon[0];
         Database.frameLicenses = new FrameLicense[0];
     }
+    /**
+     * Returns arrays of length 0 to Database.lcpCorrections.length (inclusive)
+     *     but never null.
+     */
+    public static LCPCorrection[] getLCPCorrections(String infoName,
+        String lcpManifestName, String fileName) {
+        LCPCorrection[] corrections;
+        LCPCorrection[] newCorrections;
+        int index = 0;
+
+        // fileName is supposed to be something like "actions"; all lowercase,
+        //     should not be "", should not be null
+        HelperMethods.checkString("fileName", fileName);
+        fileName = fileName.toLowerCase();
+        corrections = new LCPCorrection[Database.lcpCorrections.length];
+        for (int i = 0; i < corrections.length; i++) {
+            if (Database.lcpCorrections[i].isTarget(infoName, lcpManifestName,
+                fileName)) {
+                corrections[index] = Database.lcpCorrections[i];
+                index++;
+            }
+        }
+        newCorrections = new LCPCorrection[index];
+        for (int i = 0; i < newCorrections.length; i++) {
+            newCorrections[i] = corrections[i];
+        }
+
+        return newCorrections;
+    }
     public static Action getAction(String actionName) {
         HelperMethods.checkObject("actionName", actionName);
         for (Action action : Database.actions) {
