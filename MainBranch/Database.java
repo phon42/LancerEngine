@@ -39,10 +39,6 @@ import Packages.CoreTypes.EntityMechanics.StateSystem.State;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.Condition;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.Status;
 
-// TODO: let's go full crazy, add the ability to read a set of .lcp files and
-//     unzip those into as much Lancer data as we want:
-//         https://www.w3schools.com/java/java_files_read.asp
-//         https://www.baeldung.com/java-compress-and-uncompress#unzip
 /**
  * Represents nothing. Contains a set array of Frames to be used by
  *     Mech(String, String) and Mech(String, FrameEnum).
@@ -326,7 +322,6 @@ public final class Database {
         Database.rules = new Rule[0];
         Database.sitreps = new Sitrep[0];
         Database.skills = new SkillData[0];
-        Database.states = new State[0];
         Database.statuses = new Status[0];
         Database.systems = new MechSystem[0];
         Database.tables = new Table[0];
