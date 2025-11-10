@@ -146,10 +146,6 @@ public final class Database {
     /**
      * add documentation
      */
-    private static State[] states;
-    /**
-     * add documentation
-     */
     private static Status[] statuses;
     /**
      * Contains every mech system for reference.
@@ -887,15 +883,30 @@ public final class Database {
         skillData = new SkillData(skillData);
         Database.skills = HelperMethods.append(Database.skills, skillData);
     }
+    // TODO: remove?
     /**
-     * Adds the provided State to Database.states.
+     * Adds the provided State to Database.conditions or Database.statuses.
      * @param state a State which cannot be null.
      * @throws IllegalArgumentException if state is null.
      */
     public static void addState(State state) {
+        Condition condition;
+        Status status;
+
         checkOpen();
         HelperMethods.checkObject("state", state);
-        Database.states = HelperMethods.append(Database.states, state);
+        try {
+            condition = state.toCondition();
+            addCondition(condition);
+        } catch (IllegalStateException exception) {
+            try {
+                status = state.toStatus();
+                addStatus(status);
+            } catch (IllegalStateException exception2) {
+                throw new IllegalStateException("Unable to convert the"
+                    + " provided State into either a Condition or a Status");
+            }
+        }
     }
     /**
      * Adds the provided Status to Database.statuss.
