@@ -1,14 +1,14 @@
 package MainBranch.database;
 
 import MainBranch.HelperMethods;
+import MainBranch.database.fileOperations.json.JSONException;
 import MainBranch.database.fileOperations.json.JSONObject;
 
 public class LCPCorrection {
     /**
-     * The value of the "name" property in the info.json file of the LCP this is
-     *     meant for (is always "LANCER Core") OR the "name" property in the
-     *     lcp_manifest.json file of the LCP this is meant for (i.e. "LANCER:"
-     *     " Dustgrave").
+     * The value of the "name" property in EITHER the info.json file (is always
+     *     "LANCER Core") OR the lcp_manifest.json file (i.e. "LANCER:"
+     *     " Dustgrave") of the LCP this is meant for.
      * Note that the info.json file is ONLY present in the base Lancer LCP,
      *     while the lcp_manifest.json file is NOT present in the base Lancer
      *     LCP.
@@ -24,24 +24,43 @@ public class LCPCorrection {
      */
     private String fileName;
     /**
-     * An array of the JSONObjects within the LCP this LCPCorrection replaces
-     *     (i.e. a JSONObject containing the data for an Action representing the
-     *     Brace reaction).
-     * Can be any JSONObject[] that does not contain null elements. Cannot be
-     *     null.
+     * (TODO: update documentation)
+     * The property of the target JSONObject which can be used to recognize
+     *     whether this LCPCorrection should replace a given JSONObject (i.e.
+     *     "name").
+     * Can be any String except "". Cannot be null.
+     * Case-sensitive.
      */
-    private JSONObject[] replacements;
+    private String jsonProperty;
+    /**
+     * TODO: add documentation
+     * Can be any String. Cannot be null.
+     * Case-sensitive.
+     */
+    private String jsonValue;
+    /**
+     * The JSONObject within the LCP this LCPCorrection replaces (i.e. a
+     *     JSONObject containing the data for an Action representing the
+     *     Brace reaction).
+     * Can be any JSONObject. Cannot be null.
+     */
+    private JSONObject replacement;
 
     public LCPCorrection(String lcpName, String fileName,
-        JSONObject[] replacements) {
+        String targetFileTargetProperty, String targetFileTargetValue,
+        JSONObject replacement) {
         setLCPName(lcpName);
         setFileName(fileName);
-        setReplacements(replacements);
+        setJSONProperty(targetFileTargetProperty);
+        setJSONValue(targetFileTargetValue);
+        setReplacement(replacement);
     }
     public LCPCorrection(LCPCorrection lcpCorrection) {
         setLCPName(lcpCorrection.lcpName);
         setFileName(lcpCorrection.fileName);
-        setReplacements(lcpCorrection.replacements);
+        setJSONProperty(lcpCorrection.jsonProperty);
+        setJSONValue(lcpCorrection.jsonValue);
+        setReplacement(lcpCorrection.replacement);
     }
 
     public String getLCPName() {
@@ -50,8 +69,8 @@ public class LCPCorrection {
     public String getFileName() {
         return fileName;
     }
-    public JSONObject[] getReplacements() {
-        return HelperMethods.copyOf(replacements);
+    public JSONObject getReplacement() {
+        return new JSONObject(this.replacement.toString());
     }
     private void setLCPName(String lcpName) {
         HelperMethods.checkString("lcpName", lcpName);
@@ -62,14 +81,13 @@ public class LCPCorrection {
         fileName = fileName.toLowerCase();
         this.fileName = fileName;
     }
-    private void setReplacements(JSONObject[] replacements) {
-        HelperMethods.checkObjectArray("replacements",
-            replacements);
-        replacements = HelperMethods.copyOf(replacements);
-        this.replacements = replacements;
+    private void setReplacement(JSONObject replacement) {
+        HelperMethods.checkObject("replacement", replacement);
+        replacement = new JSONObject(this.replacement.toString());
+        this.replacement = replacement;
     }
 
-    public boolean isTarget(String lcpInfoName, String lcpManifestName,
+    public boolean isTargetFile(String lcpInfoName, String lcpManifestName,
         String fileName) {
         if (lcpInfoName != null) {
             if (! this.lcpName.equals(lcpInfoName)) {
@@ -86,5 +104,15 @@ public class LCPCorrection {
         }
 
         return this.fileName.equals(fileName);
+    }
+    public boolean isTargetObject(JSONObject object) {
+        String value;
+
+        try {
+            value = object.getString(this.jsonProperty);
+            return value.equals(this.jsonValue);
+        } catch (JSONException exception) {
+            return false;
+        }
     }
 }
