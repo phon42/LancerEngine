@@ -278,7 +278,7 @@ public class DataCompiler {
                 frameLicense = frameLicenses[j];
                 if (isGMS) {
                     // GMS content
-                    licenseFound = frameLicense.getManufacturer()
+                    licenseFound = frameLicense.getManufacturer().getID()
                         .equals("GMS")
                         && frameLicense.getName()
                         .equals("gms content");
