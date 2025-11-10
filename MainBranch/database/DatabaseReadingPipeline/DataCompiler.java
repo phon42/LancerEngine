@@ -27,6 +27,7 @@ import Packages.CoreTypes.EntityMechanics.NPCFeature;
 import Packages.CoreTypes.EntityMechanics.NPCTemplate;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.Condition;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.Status;
+import Packages.CoreTypes.LCPInfo;
 import Packages.CoreTypes.Rule;
 import Packages.CoreTypes.Table;
 import Packages.CoreTypes.Term;
@@ -79,6 +80,8 @@ public class DataCompiler {
     private static boolean open = false;
     private static boolean hasData = false;
     // all the data being held at the moment
+    // ----absolutely critical data:
+    private static LCPInfo[] lcpInfoData;
     // ----some critical data types:
     private static FrameLicense[] frameLicenseData;
     private static LicenseContent[] licenseContentData;
@@ -161,37 +164,39 @@ public class DataCompiler {
                 + " DataCompiler.receiveData() while DataCompiler was still"
                 + " closed. Call DataCompiler.open() first");
         }
+        // ----absolutely critical data:
+        DataCompiler.lcpInfoData = (LCPInfo[]) data[0];
         // ----some critical data types:
-        DataCompiler.frameData = (Frame[]) data[0];
-        DataCompiler.systemData = (MechSystem[]) data[1];
-        DataCompiler.modificationData = (Modification[]) data[2];
-        DataCompiler.weaponData = (Weapon[]) data[3];
+        DataCompiler.frameData = (Frame[]) data[1];
+        DataCompiler.systemData = (MechSystem[]) data[2];
+        DataCompiler.modificationData = (Modification[]) data[3];
+        DataCompiler.weaponData = (Weapon[]) data[4];
         // ----the rest of the critical data types:
-        DataCompiler.actionData = (Action[]) data[4];
-        DataCompiler.conditionData = (Condition[]) data[5];
-        DataCompiler.coreBonusData = (CoreBonus[]) data[6];
-        DataCompiler.dataTagData = (DataTag[]) data[7];
-        DataCompiler.tagData = (Tag[]) data[8];
-        DataCompiler.manufacturerData = (Manufacturer[]) data[9];
-        DataCompiler.npcFeatureData = (NPCFeature[]) data[10];
-        DataCompiler.npcTemplateData = (NPCTemplate[]) data[11];
-        DataCompiler.pilotArmorData = (PilotArmor[]) data[12];
-        DataCompiler.pilotGearData = (PilotGear[]) data[13];
-        DataCompiler.pilotWeapon = (PilotWeapon[]) data[14];
-        DataCompiler.reserveData = (Reserve[]) data[15];
-        DataCompiler.skillData = (SkillData[]) data[16];
-        DataCompiler.statusData = (Status[]) data[17];
-        DataCompiler.talentData = (TalentData[]) data[18];
+        DataCompiler.actionData = (Action[]) data[5];
+        DataCompiler.conditionData = (Condition[]) data[6];
+        DataCompiler.coreBonusData = (CoreBonus[]) data[7];
+        DataCompiler.dataTagData = (DataTag[]) data[8];
+        DataCompiler.tagData = (Tag[]) data[9];
+        DataCompiler.manufacturerData = (Manufacturer[]) data[10];
+        DataCompiler.npcFeatureData = (NPCFeature[]) data[11];
+        DataCompiler.npcTemplateData = (NPCTemplate[]) data[12];
+        DataCompiler.pilotArmorData = (PilotArmor[]) data[13];
+        DataCompiler.pilotGearData = (PilotGear[]) data[14];
+        DataCompiler.pilotWeapon = (PilotWeapon[]) data[15];
+        DataCompiler.reserveData = (Reserve[]) data[16];
+        DataCompiler.skillData = (SkillData[]) data[17];
+        DataCompiler.statusData = (Status[]) data[18];
+        DataCompiler.talentData = (TalentData[]) data[19];
         // ----less important
-        DataCompiler.environmentData = (Environment[]) data[19];
-        DataCompiler.sitrepData = (Sitrep[]) data[20];
+        DataCompiler.environmentData = (Environment[]) data[20];
+        DataCompiler.sitrepData = (Sitrep[]) data[21];
         // ----almost unimportant
-        DataCompiler.backgroundData = (Background[]) data[21];
-        DataCompiler.bondData = (Bond[]) data[22];
+        DataCompiler.backgroundData = (Background[]) data[22];
+        DataCompiler.bondData = (Bond[]) data[23];
         // ----just for reference
-        DataCompiler.ruleData = (Rule[]) data[23];
-        DataCompiler.termData = (Term[]) data[24];
-        DataCompiler.tableData = (Table[]) data[25];
+        DataCompiler.ruleData = (Rule[]) data[24];
+        DataCompiler.termData = (Term[]) data[25];
+        DataCompiler.tableData = (Table[]) data[26];
 
         // remember to mark that we have data now
         DataCompiler.hasData = true;
@@ -310,6 +315,7 @@ public class DataCompiler {
         DataCompiler.frameLicenseData = frameLicenses;
     }
     private static void addContent() {
+        // TODO: add the LCP info
         addFrameLicenses();
         addNonLicenseContent();
     }
