@@ -1,7 +1,6 @@
 package MainBranch.database.DatabaseReadingPipeline;
 
 import MainBranch.Database;
-import MainBranch.database.fileOperations.json.JSONObject;
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.BattlefieldMechanics.Environment;
 import Packages.CoreTypes.BattlefieldMechanics.Sitrep;
