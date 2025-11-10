@@ -1,10 +1,10 @@
 package MainBranch.database.DatabaseReadingPipeline;
 
 import java.nio.file.Paths;
-import MainBranch.HelperMethods;
 import MainBranch.database.FileOperations;
 import MainBranch.database.fileOperations.json.JSONArray;
 import MainBranch.database.fileOperations.json.JSONObject;
+import MainBranch.HelperMethods;
 
 public class DataParser {
     // All the data being held at the moment, as JSONObject[]s:
