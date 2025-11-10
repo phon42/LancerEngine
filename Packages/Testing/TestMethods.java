@@ -11,6 +11,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frame.Fram
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Loadout;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.SkillTriggersList;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Talent;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.Skill;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skill.SkillData;
 import Packages.Testing.testMethods.Test;
 
@@ -548,8 +549,8 @@ public final class TestMethods {
             test1 = true;
         }
         // normal case
-        skillTriggersList.setSkills(new SkillData[0]);
-        if (skillTriggersList.getSkills().getClass() == SkillData[].class
+        skillTriggersList.setSkills(new Skill[0]);
+        if (skillTriggersList.getSkills().getClass() == Skill[].class
             && skillTriggersList.getSkills().length == 0) {
             test2 = true;
         }
