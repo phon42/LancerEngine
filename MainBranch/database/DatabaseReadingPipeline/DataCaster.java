@@ -35,6 +35,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.talent.Ta
 import Packages.CoreTypes.EntityMechanics.HarmSystem.Damage;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.Condition;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.Status;
+import Packages.CoreTypes.LCPInfo;
 
 public class DataCaster {
     // receive JSON data as an Object[] containing JSONObject[]s and JSONObjects
@@ -48,6 +49,8 @@ public class DataCaster {
     // then flush the data afterwards
 
     // all the data being held at the moment
+    // ----absolutely critical data:
+    private static JSONObject[] lcpInfoRaw;
     // ----some critical data types:
     private static JSONObject[] framesRaw;
     private static JSONObject[] systemsRaw;
@@ -75,6 +78,8 @@ public class DataCaster {
     private static JSONObject rulesRaw;
     private static JSONObject[] termsRaw;
     private static JSONObject tablesRaw;
+    // ----absolutely critical data:
+    private static LCPInfo[] lcpInfoProcessed;
     // ----some critical data types:
     private static Frame[] framesProcessed;
     private static MechSystem[] systemsProcessed;
@@ -162,33 +167,35 @@ public class DataCaster {
         // unpack the Object[], transforming each element from Object to a
         //     JSONObject[] or JSONObject, then putting it in its respective
         //     property (i.e. DataCaster.frameRaw).
+        // ----absolutely critical data:
+        DataCaster.lcpInfoRaw = (JSONObject[]) data[0];
         // ----some critical data types:
-        DataCaster.framesRaw = (JSONObject[]) data[0];
-        DataCaster.systemsRaw = (JSONObject[]) data[1];
-        DataCaster.modificationsRaw = (JSONObject[]) data[2];
-        DataCaster.weaponsRaw = (JSONObject[]) data[3];
+        DataCaster.framesRaw = (JSONObject[]) data[1];
+        DataCaster.systemsRaw = (JSONObject[]) data[2];
+        DataCaster.modificationsRaw = (JSONObject[]) data[3];
+        DataCaster.weaponsRaw = (JSONObject[]) data[4];
         // ----the rest of the critical data types:
-        DataCaster.actionsRaw = (JSONObject[]) data[4];
-        DataCaster.coreBonusesRaw = (JSONObject[]) data[5];
-        DataCaster.dataTagsRaw = (JSONObject[]) data[6];
-        DataCaster.manufacturersRaw = (JSONObject[]) data[7];
-        DataCaster.npcFeaturesRaw = (JSONObject[]) data[8];
-        DataCaster.npcTemplatesRaw = (JSONObject[]) data[9];
-        DataCaster.pilotEquipmentRaw = (JSONObject[]) data[10];
-        DataCaster.reservesRaw = (JSONObject[]) data[11];
-        DataCaster.skillsRaw = (JSONObject[]) data[12];
-        DataCaster.statesRaw = (JSONObject[]) data[13];
-        DataCaster.talentsRaw = (JSONObject[]) data[14];
+        DataCaster.actionsRaw = (JSONObject[]) data[5];
+        DataCaster.coreBonusesRaw = (JSONObject[]) data[6];
+        DataCaster.dataTagsRaw = (JSONObject[]) data[7];
+        DataCaster.manufacturersRaw = (JSONObject[]) data[8];
+        DataCaster.npcFeaturesRaw = (JSONObject[]) data[9];
+        DataCaster.npcTemplatesRaw = (JSONObject[]) data[10];
+        DataCaster.pilotEquipmentRaw = (JSONObject[]) data[11];
+        DataCaster.reservesRaw = (JSONObject[]) data[12];
+        DataCaster.skillsRaw = (JSONObject[]) data[13];
+        DataCaster.statesRaw = (JSONObject[]) data[14];
+        DataCaster.talentsRaw = (JSONObject[]) data[15];
         // ----less important
-        DataCaster.environmentsRaw = (JSONObject[]) data[15];
-        DataCaster.sitrepsRaw = (JSONObject[]) data[16];
+        DataCaster.environmentsRaw = (JSONObject[]) data[16];
+        DataCaster.sitrepsRaw = (JSONObject[]) data[17];
         // ----almost unimportant
-        DataCaster.backgroundsRaw = (JSONObject[]) data[17];
-        DataCaster.bondsRaw = (JSONObject[]) data[18];
+        DataCaster.backgroundsRaw = (JSONObject[]) data[18];
+        DataCaster.bondsRaw = (JSONObject[]) data[19];
         // ----just for reference
-        DataCaster.rulesRaw = (JSONObject) data[19];
-        DataCaster.termsRaw = (JSONObject[]) data[20];
-        DataCaster.tablesRaw = (JSONObject) data[21];
+        DataCaster.rulesRaw = (JSONObject) data[20];
+        DataCaster.termsRaw = (JSONObject[]) data[21];
+        DataCaster.tablesRaw = (JSONObject) data[22];
     }
     private static void processData() {
         // then process that data
@@ -197,6 +204,10 @@ public class DataCaster {
         // each Object is actually a JSONObject[] or JSONObject
         // convert those JSONObject[]s and JSONObjects to Action[],
         //     Background[], etc. etc.
+        if (! (DataCaster.lcpInfoRaw == null
+            || DataCaster.lcpInfoRaw.length < 1)) {
+            processLCPInfo(DataCaster.lcpInfoRaw);
+        }
         if (! (DataCaster.actionsRaw == null
             || DataCaster.actionsRaw.length < 1)) {
             processActions(DataCaster.actionsRaw);
@@ -306,6 +317,18 @@ public class DataCaster {
         //     split it into its constituent types while it's being casted
         // - and then close Database
         Database.close();
+    }
+    private static void processLCPInfo(JSONObject[] lcpInfoData) {
+        LCPInfo[] lcpInfo = new LCPInfo[lcpInfoData.length];
+
+        for (int i = 0; i < lcpInfo.length; i++) {
+            lcpInfo[i] = toLCPInfo(lcpInfoData[i]);
+        }
+        DataCaster.lcpInfoProcessed = lcpInfo;
+    }
+    private static LCPInfo toLCPInfo(JSONObject lcpInfoData) {
+        // TODO: fill out
+        return null;
     }
     private static void processActions(JSONObject[] actionsData) {
         Action[] actions = new Action[actionsData.length];
@@ -883,6 +906,8 @@ public class DataCaster {
     }
     private static Object[] packData() {
         Object[] data = new Object[] {
+            // ----absolutely critical data:
+            DataCaster.lcpInfoProcessed,
             // ----some critical data types:
             DataCaster.framesProcessed,
             DataCaster.systemsProcessed,
@@ -929,6 +954,8 @@ public class DataCaster {
         DataCompiler.saveData();
     }
     private static void flushData() {
+        // ----absolutely critical data:
+        DataCaster.lcpInfoRaw = new JSONObject[0];
         // ----some critical data types:
         DataCaster.framesRaw = new JSONObject[0];
         DataCaster.systemsRaw = new JSONObject[0];
@@ -956,6 +983,8 @@ public class DataCaster {
         DataCaster.rulesRaw = null;
         DataCaster.termsRaw = new JSONObject[0];
         DataCaster.tablesRaw = null;
+        // ----absolutely critical data:
+        DataCaster.lcpInfoProcessed = new LCPInfo[0];
         // ----some critical data types:
         DataCaster.framesProcessed = new Frame[0];
         DataCaster.systemsProcessed = new MechSystem[0];
