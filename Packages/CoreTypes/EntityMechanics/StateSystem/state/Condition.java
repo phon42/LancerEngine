@@ -33,7 +33,6 @@ public class Condition extends State {
         super(name, source, duration);
     }
     public Condition(Condition condition) {
-        // TODO: update
         super(condition);
     }
 
