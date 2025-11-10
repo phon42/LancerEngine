@@ -8,6 +8,8 @@ import MainBranch.HelperMethods;
 
 public class DataParser {
     // All the data being held at the moment, as JSONObject[]s:
+    // ----absolutely critical data:
+    private static JSONObject[] infoData;
     // ----very critical data:
     private static JSONObject[] frameData;
     private static JSONObject[] systemData;
@@ -69,7 +71,9 @@ public class DataParser {
             fileName = fileName.split("\\.")[0];
         }
         // Convert the file data to an object and then to a JSONObject[]
-        if (fileName.equals("rules")
+        if (fileName.equals("info")
+            || fileName.equals("lcp_manifest")
+            || fileName.equals("rules")
             || fileName.equals("tables")) {
             // going to be receiving a JSONObject
             convertedData = new JSONObject[] {(JSONObject) data};
@@ -90,8 +94,13 @@ public class DataParser {
         // TODO: update to APPEND to the relevant data file if there's already
         //     data there (i.e. two "frames.json" files)
         // or consider throwing an Exception
+        // ----absolutely critical data:
+        if (fileName.equals("info")
+            || fileName.equals("lcp_manifest")) {
+            DataParser.infoData = data;
+        }
         // ----some critical data types:
-        if (fileName.equals("frames")) {
+        else if (fileName.equals("frames")) {
             DataParser.frameData = data;
         } else if (fileName.equals("systems")) {
             DataParser.systemData = data;
@@ -151,6 +160,8 @@ public class DataParser {
         // TODO: consider throwing an exception here if no info.json or
         //     lcp_manifest.json file is found
         data = new Object[] {
+            // ----absolutely critical data:
+            DataParser.infoData,
             // ----some critical data types:
             DataParser.frameData,
             DataParser.systemData,
@@ -183,6 +194,8 @@ public class DataParser {
         DataCaster.receiveData(data);
     }
     private static void flushData() {
+        // ----absolutely critical data:
+        DataParser.infoData = new JSONObject[0];
         // ----some of the critical data types:
         DataParser.frameData = new JSONObject[0];
         DataParser.systemData = new JSONObject[0];
