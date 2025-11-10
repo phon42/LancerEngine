@@ -1,6 +1,8 @@
 package Packages.CoreTypes.EntityMechanics.StateSystem;
 
 import MainBranch.HelperMethods;
+import Packages.CoreTypes.EntityMechanics.StateSystem.state.Condition;
+import Packages.CoreTypes.EntityMechanics.StateSystem.state.Status;
 
 /**
  * See pgs. 77 - 78.
@@ -250,5 +252,13 @@ public class State {
         }
 
         return isPresent;
+    }
+    public Condition toCondition() {
+        // TODO: fill out, throw an Exception if it can't be converted
+        return null;
+    }
+    public Status toStatus() {
+        // TODO: fill out, throw an Exception if it can't be converted
+        return null;
     }
 }
