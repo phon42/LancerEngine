@@ -48,6 +48,20 @@ public class DataCaster {
     // - then close DataCompiler
     // then flush the data afterwards
 
+    /**
+     * The info.json "name" property's value for this LCP, if there is one
+     *     (should always be "LANCER Core" if it's set to anything).
+     * Can be any String except "". Cannot be null.
+     * Case-sensitive.
+     */
+    private static String infoName;
+    /**
+     * The info.json "name" property's value for this LCP, if there is one (i.e.
+     *     "LANCER: Dustgrave").
+     * Can be any String except "". Cannot be null.
+     * Case-sensitive.
+     */
+    private static String lcpManifestName;
     // all the data being held at the moment
     // ----absolutely critical data:
     private static JSONObject[] lcpInfoRaw;
@@ -333,6 +347,7 @@ public class DataCaster {
     private static void processActions(JSONObject[] actionsData) {
         Action[] actions = new Action[actionsData.length];
 
+        actionsData = performCorrections("actions", actionsData);
         for (int i = 0; i < actions.length; i++) {
             actions[i] = toAction(actionsData[i]);
         }
@@ -505,6 +520,8 @@ public class DataCaster {
     private static void processBackgrounds(JSONObject[] backgroundsData) {
         Background[] backgrounds = new Background[backgroundsData.length];
 
+        backgroundsData = performCorrections("backgrounds",
+            backgroundsData);
         for (int i = 0; i < backgroundsData.length; i++) {
             backgrounds[i] = toBackground(backgroundsData[i]);
         }
@@ -517,6 +534,7 @@ public class DataCaster {
     private static void processBonds(JSONObject[] bondsData) {
         Bond[] bonds = new Bond[bondsData.length];
 
+        bondsData = performCorrections("bonds", bondsData);
         for (int i = 0; i < bondsData.length; i++) {
             bonds[i] = toBond(bondsData[i]);
         }
@@ -529,6 +547,8 @@ public class DataCaster {
     private static void processCoreBonuses(JSONObject[] coreBonusesData) {
         CoreBonus[] coreBonuses = new CoreBonus[coreBonusesData.length];
 
+        coreBonusesData = performCorrections("core_bonuses",
+            coreBonusesData);
         for (int i = 0; i < coreBonusesData.length; i++) {
             coreBonuses[i] = toCoreBonus(coreBonusesData[i]);
         }
@@ -541,6 +561,8 @@ public class DataCaster {
     private static void processEnvironments(JSONObject[] environmentsData) {
         Environment[] environments = new Environment[environmentsData.length];
 
+        environmentsData = performCorrections("environments",
+            environmentsData);
         for (int i = 0; i < environmentsData.length; i++) {
             environments[i] = toEnvironment(environmentsData[i]);
         }
@@ -553,6 +575,7 @@ public class DataCaster {
     private static void processFrames(JSONObject[] framesData) {
         Frame[] frames = new Frame[framesData.length];
 
+        framesData = performCorrections("frames", framesData);
         for (int i = 0; i < framesData.length; i++) {
             frames[i] = toFrame(framesData[i]);
         }
@@ -566,6 +589,8 @@ public class DataCaster {
         Manufacturer[] manufacturers =
             new Manufacturer[manufacturersData.length];
 
+        manufacturersData = performCorrections("manufacturers",
+            manufacturersData);
         for (int i = 0; i < manufacturersData.length; i++) {
             manufacturers[i] = toManufacturer(manufacturersData[i]);
         }
@@ -579,6 +604,8 @@ public class DataCaster {
         Modification[] modifications =
             new Modification[modificationsData.length];
 
+        modificationsData = performCorrections("mods",
+            modificationsData);
         for (int i = 0; i < modificationsData.length; i++) {
             modifications[i] = toModification(modificationsData[i]);
         }
@@ -591,6 +618,8 @@ public class DataCaster {
     private static void processNPCFeatures(JSONObject[] npcFeaturesData) {
         NPCFeature[] npcFeatures = new NPCFeature[npcFeaturesData.length];
 
+        npcFeaturesData = performCorrections("npcFeatures",
+            npcFeaturesData);
         for (int i = 0; i < npcFeaturesData.length; i++) {
             npcFeatures[i] = toNPCFeature(npcFeaturesData[i]);
         }
@@ -603,6 +632,8 @@ public class DataCaster {
     private static void processNPCTemplates(JSONObject[] npcTemplatesData) {
         NPCTemplate[] npcTemplates = new NPCTemplate[npcTemplatesData.length];
 
+        npcTemplatesData = performCorrections("npcTemplates",
+            npcTemplatesData);
         for (int i = 0; i < npcTemplates.length; i++) {
             npcTemplates[i] = toNPCTemplate(npcTemplatesData[i]);
         }
@@ -619,6 +650,8 @@ public class DataCaster {
         JSONObject[] pilotGearData = new JSONObject[pilotEquipmentData.length];
         String type;
 
+        pilotEquipmentData = performCorrections("pilot_gear",
+            pilotEquipmentData);
         for (int i = 0; i < pilotEquipmentData.length; i++) {
             // skip null elements
             if (pilotEquipmentData[i] == null) {
@@ -725,6 +758,7 @@ public class DataCaster {
     private static void processReserves(JSONObject[] reservesData) {
         Reserve[] reserves = new Reserve[reservesData.length];
 
+        reservesData = performCorrections("reserves", reservesData);
         for (int i = 0; i < reserves.length; i++) {
             reserves[i] = toReserve(reservesData[i]);
         }
@@ -752,6 +786,7 @@ public class DataCaster {
     private static void processSitreps(JSONObject[] sitrepsData) {
         Sitrep[] sitreps = new Sitrep[sitrepsData.length];
 
+        sitrepsData = performCorrections("sitreps", sitrepsData);
         for (int i = 0; i < sitreps.length; i++) {
             sitreps[i] = toSitrep(sitrepsData[i]);
         }
@@ -764,6 +799,7 @@ public class DataCaster {
     private static void processSkills(JSONObject[] skillsData) {
         SkillData[] skills = new SkillData[skillsData.length];
 
+        skillsData = performCorrections("skills", skillsData);
         for (int i = 0; i < skills.length; i++) {
             skills[i] = toSkill(skillsData[i]);
         }
@@ -774,7 +810,7 @@ public class DataCaster {
         return null;
     }
     private static void processStates(JSONObject[] statesData) {
-        // TODO: fill out
+        statesData = performCorrections("states", statesData);
         DataCaster.processConditions(statesData);
         DataCaster.processStatuses(statesData);
     }
@@ -805,6 +841,8 @@ public class DataCaster {
     private static void processMechSystems(JSONObject[] mechSystemsData) {
         MechSystem[] mechSystems = new MechSystem[mechSystemsData.length];
 
+        mechSystemsData = performCorrections("systems",
+            mechSystemsData);
         for (int i = 0; i < mechSystems.length; i++) {
             mechSystems[i] = toMechSystem(mechSystemsData[i]);
         }
@@ -841,6 +879,7 @@ public class DataCaster {
     private static void processDataTags(JSONObject[] dataTagsData) {
         DataTag[] dataTags = new DataTag[dataTagsData.length];
 
+        dataTagsData = performCorrections("tags", dataTagsData);
         for (int i = 0; i < dataTags.length; i++) {
             dataTags[i] = toDataTag(dataTagsData[i]);
         }
@@ -871,6 +910,7 @@ public class DataCaster {
     private static void processTalents(JSONObject[] talentsData) {
         TalentData[] talents = new TalentData[talentsData.length];
 
+        talentsData = performCorrections("talents", talentsData);
         for (int i = 0; i < talents.length; i++) {
             talents[i] = toTalent(talentsData[i]);
         }
@@ -895,6 +935,7 @@ public class DataCaster {
     private static void processWeapons(JSONObject[] weaponsData) {
         Weapon[] weapons = new Weapon[weaponsData.length];
 
+        weaponsData = performCorrections("weapons", weaponsData);
         for (int i = 0; i < weapons.length; i++) {
             weapons[i] = toWeapon(weaponsData[i]);
         }
@@ -903,6 +944,24 @@ public class DataCaster {
     private static Weapon toWeapon(JSONObject weaponData) {
         // TODO: fill out
         return null;
+    }
+    private static JSONObject[] performCorrections(String fileName,
+        JSONObject[] data) {
+        LCPCorrection[] corrections;
+
+        corrections = Database.getLCPCorrections(DataCaster.infoName,
+            DataCaster.lcpManifestName, fileName);
+        for (LCPCorrection correction : corrections) {
+            for (int i = 0; i < data.length; i++) {
+                if (correction.isTargetObject(data[i])) {
+                    data[i] = correction.getReplacement();
+                    // TODO: decide whether to break here or not; the difference
+                    //     is replacing the first object vs replacing every
+                    //     object that fits the search parameters
+                }
+            }
+        }
+        return data;
     }
     private static Object[] packData() {
         Object[] data = new Object[] {
