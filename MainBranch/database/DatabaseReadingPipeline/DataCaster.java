@@ -1,5 +1,6 @@
 package MainBranch.database.DatabaseReadingPipeline;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
 import MainBranch.Database;
@@ -790,18 +791,51 @@ public class DataCaster {
         // TODO: fill out
         return null;
     }
-    private static void processRules(JSONObject rulesData) {
-        Set<String> keys = rulesData.keySet();
-        Rule[] rules = new Rule[keys.size()];
+    private static void processRules(JSONObject rulesObject) {
+        Set<String> keys;
+        JSONObject[] rulesData;
+        HashMap<String, Object> map;
         int i = 0;
+        Rule[] rules;
 
+        // Trying to convert a JSONObject to a JSONObject[] where each element
+        //     is a JSONObject of the form:
+        // {
+        //     "property_name": <the key name from rulesObject as a String>
+        //     "value": <whatever the value for that key is>
+        // }
+        // 1. Get the keys of the object we were given
+        keys = rulesObject.keySet();
+        // 2. Set up the JSONObject[]. We know that we will end up with an array
+        //     of length (keys.size()).
+        rulesData = new JSONObject[keys.size()];
+        i = 0;
         for (String key : keys) {
-            rules[i] = toRule(key, (JSONArray) rulesData.get(key));
+            // 3. Create a new HashMap of the form:
+            // {
+            //     "property_name": <the key as a String>,
+            //     "value": <the value associated with that key>
+            // }
+            map = new HashMap<String, Object>();
+            map.put("property_name", key);
+            map.put("value", rulesObject.get(key));
+            // 4. Turn that HashMap into a JSONObject:
+            rulesData[i] = new JSONObject(map);
             i++;
+            // 5. (Repeat until the array is complete)
+        }
+        // (rulesData is now a JSONObject[] of the correct form)
+        // Perform corrections
+        rulesData = performCorrections("rules", rulesData);
+        // Create an array of the correct size
+        rules = new Rule[keys.size()];
+        // Now actually do the conversions
+        for (i = 0; i < keys.size(); i++) {
+            rules[i] = toRule(rulesData[i]);
         }
         DataCaster.rulesProcessed = rules;
     }
-    private static Rule toRule(String name, JSONArray value) {
+    private static Rule toRule(JSONObject ruleData) {
         // TODO: fill out
         return null;
     }
@@ -874,25 +908,66 @@ public class DataCaster {
         // TODO: fill out
         return null;
     }
-    private static void processTables(JSONObject tablesData) {
-        Set<String> keys = tablesData.keySet();
-        Table[] tables = new Table[keys.size()];
+    private static void processTables(JSONObject tablesObject) {
+        Set<String> keys;
+        JSONObject[] tablesData;
+        HashMap<String, Object> map;
         int i = 0;
+        JSONArray tableArray;
+        Object[] table;
+        Table[] tables;
 
+        // Trying to convert a JSONObject to a JSONObject[] where each element
+        //     is a JSONObject of the form:
+        // {
+        //     "property_name": <the key name from rulesObject as a String>
+        //     "value": <the array which is the value for that key>
+        // }
+        // 1. Get the keys of the object we were given
+        keys = tablesObject.keySet();
+        // 2. Set up the JSONObject[]. We know that we will end up with an array
+        //     of length (keys.size()).
+        tablesData = new JSONObject[keys.size()];
+        i = 0;
         for (String key : keys) {
-            tables[i] = toTable(key, (JSONArray) tablesData.get(key));
+            // 3. Create a new HashMap of the form:
+            // {
+            //     "property_name": <the key as a String>,
+            //     "value": <the array which is the value for that key>
+            // }
+            map = new HashMap<String, Object>();
+            map.put("property_name", key);
+            // 4. Convert the value from a JSONArray to an Object[]:
+            tableArray = tablesObject.getJSONArray(key);
+            table = new Object[tableArray.length()];
+            for (int j = 0; j < tableArray.length(); i++) {
+                table[j] = tableArray.get(j);
+            }
+            map.put("value", table);
+            // 5. Turn that HashMap into a JSONObject:
+            tablesData[i] = new JSONObject(map);
             i++;
+            // 6. (Repeat until the array is complete)
+        }
+        // (tablesData is now a JSONObject[] of the correct form)
+        // Perform corrections
+        tablesData = performCorrections("tables", tablesData);
+        // Create an array of the correct size
+        tables = new Table[keys.size()];
+        // Now actually do the conversions
+        for (i = 0; i < keys.size(); i++) {
+            tables[i] = toTable(tablesData[i]);
         }
         DataCaster.tablesProcessed = tables;
     }
-    private static Table toTable(String key, JSONArray value) {
-        String[] data = new String[value.length()];
+    private static Table toTable(JSONObject table) {
+        String propertyName;
+        Object[] data;
 
-        for (int i = 0; i < value.length(); i++) {
-            data[i] = value.getString(i);
-        }
+        propertyName = table.getString("property_name");
+        data = (Object[]) table.get("value");
 
-        return new Table(key, data);
+        return new Table(propertyName, data);
     }
     private static void processLCPTags(JSONObject[] lcpTagsData) {
         processDataTags(lcpTagsData);
