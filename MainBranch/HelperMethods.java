@@ -7,6 +7,7 @@ import MainBranch.database.LCPCorrection;
 import MainBranch.database.fileOperations.json.JSONArray;
 import MainBranch.database.fileOperations.json.JSONObject;
 import Packages.CoreTypes.Callable;
+import Packages.CoreTypes.HTMLString;
 import Packages.CoreTypes.Rule;
 import Packages.CoreTypes.Table;
 import Packages.CoreTypes.Term;
@@ -281,6 +282,19 @@ public final class HelperMethods {
         if (input.equals("")) {
             throw new IllegalArgumentException(propertyName + " is \"\"");
         }
+    }
+    /**
+     * Checks a provided HTMLString to see if it is null or represents the
+     *     String "".
+     * @param propertyName a String which cannot be "". Cannot be null.
+     * @param input an HTMLString which cannot represent the String "". Cannot
+     *     be null.
+     * @throws IllegalArgumentException if propertyName or input are null,
+     *     propertyName is "", or input represents the String "".
+     */
+    public static void checkHTMLString(String propertyName, HTMLString input) {
+        checkObject(propertyName, input);
+        checkString(propertyName, input.getRawValue());
     }
     /**
      * Checks to make sure the current code is being called while Database is
