@@ -1,11 +1,8 @@
 package MainBranch.database.DatabaseReadingPipeline;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Set;
 import MainBranch.Database;
-import MainBranch.HelperMethods;
-import MainBranch.database.fileOperations.JSON;
 import MainBranch.database.fileOperations.json.JSONArray;
 import MainBranch.database.fileOperations.json.JSONException;
 import MainBranch.database.fileOperations.json.JSONObject;
