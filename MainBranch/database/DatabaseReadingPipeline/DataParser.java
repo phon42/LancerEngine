@@ -159,7 +159,8 @@ public class DataParser {
     public static void sendData() {
         Object[] data;
 
-        if (DataParser.infoData.length == 0 && DataParser.lcpManifestData.length == 0) {
+        if (DataParser.infoData.length == 0
+            && DataParser.lcpManifestData.length == 0) {
             throw new IllegalStateException("Neither an info.json nor an"
                 + " lcp_manifest.json file could be found in the LCP data .json"
                 + " files passed to DataParser");
