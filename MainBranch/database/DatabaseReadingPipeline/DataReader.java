@@ -38,6 +38,27 @@ public class DataReader {
         //     along to DataCompiler
         DataParser.sendData();
     }
+    public static void readArray(String[] resourceLocators, boolean external) {
+        String extension;
+
+        HelperMethods.checkStringArray("resourceLocators",
+            resourceLocators);
+        for (int i = 0; i < resourceLocators.length; i++) {
+            if (external) {
+                extension = getExternalExtension(resourceLocators[i]);
+            } else {
+                extension = getLocalExtension(resourceLocators[i]);
+            }
+            if (extension.equals("json")) {
+                readJSON(resourceLocators[i], external);
+            } else {
+                throw new IllegalArgumentException("resourceLocators contained"
+                    + " an element with the following resource extension: \""
+                    + extension + "\" which is not .json");
+            }
+        }
+        DataParser.sendData();
+    }
     /**
      * Reads the provided file and saves its contents. Can read .lcp, .zip, or
      *     individual .json files. Calls DatabaseReader.readLCP(),
