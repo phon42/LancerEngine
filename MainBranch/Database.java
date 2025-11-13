@@ -261,8 +261,10 @@ public final class Database {
                 "  \"pilot\": true\n" + //
                 "}"
         ));
+        Database.open();
         Database.addLCPCorrection(correction1);
         Database.addLCPCorrection(correction2);
+        Database.close();
 
         // Add any desired external LCPs
         DatabaseReader.readExternalLCP(baseLancer);
