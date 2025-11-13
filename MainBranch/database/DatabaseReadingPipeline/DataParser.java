@@ -10,6 +10,7 @@ public class DataParser {
     // All the data being held at the moment, as JSONObject[]s:
     // ----absolutely critical data:
     private static JSONObject[] infoData;
+    private static JSONObject[] lcpManifestData;
     // ----very critical data:
     private static JSONObject[] frameData;
     private static JSONObject[] systemData;
@@ -95,9 +96,10 @@ public class DataParser {
         //     data there (i.e. two "frames.json" files)
         // or consider throwing an Exception
         // ----absolutely critical data:
-        if (fileName.equals("info")
-            || fileName.equals("lcp_manifest")) {
+        if (fileName.equals("info")) {
             DataParser.infoData = data;
+        } else if (fileName.equals("lcp_manifest")) {
+            DataParser.lcpManifestData = data;
         }
         // ----some critical data types:
         else if (fileName.equals("frames")) {
@@ -157,11 +159,15 @@ public class DataParser {
     public static void sendData() {
         Object[] data;
 
-        // TODO: consider throwing an exception here if no info.json or
-        //     lcp_manifest.json file is found
+        if (DataParser.infoData.length == 0 && DataParser.lcpManifestData.length == 0) {
+            throw new IllegalStateException("Neither an info.json nor an"
+                + " lcp_manifest.json file could be found in the LCP data .json"
+                + " files passed to DataParser");
+        }
         data = new Object[] {
             // ----absolutely critical data:
             DataParser.infoData,
+            DataParser.lcpManifestData,
             // ----some critical data types:
             DataParser.frameData,
             DataParser.systemData,
@@ -194,6 +200,8 @@ public class DataParser {
         DataCaster.receiveData(data);
     }
     private static void flushData() {
+        DataParser.infoData = new JSONObject[0];
+        DataParser.lcpManifestData = new JSONObject[0];
         // ----absolutely critical data:
         DataParser.infoData = new JSONObject[0];
         // ----some of the critical data types:
