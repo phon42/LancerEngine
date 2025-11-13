@@ -996,16 +996,23 @@ public class DataCaster {
         return null;
     }
     private static void processTerms(JSONObject[] termsData) {
-        Term[] terms = new Term[termsData.length];
+        Term[] terms;
 
-        for (int i = 0; i < terms.length; i++) {
+        termsData = performCorrections("glossary", termsData);
+        terms = new Term[termsData.length];
+        for (int i = 0; i < termsData.length; i++) {
             terms[i] = toTerm(termsData[i]);
         }
         DataCaster.termsProcessed = terms;
     }
     private static Term toTerm(JSONObject termData) {
-        return new Term(termData.getString("name"),
-            termData.getString("description"));
+        String name;
+        String description;
+
+        name = termData.getString("name");
+        description = termData.getString("description");
+
+        return new Term(name, description);
     }
     private static void processWeapons(JSONObject[] weaponsData) {
         Weapon[] weapons = new Weapon[weaponsData.length];
