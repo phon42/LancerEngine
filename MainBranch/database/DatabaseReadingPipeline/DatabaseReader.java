@@ -40,13 +40,14 @@ public class DatabaseReader {
         DataReader.read(url, true);
     }
     public static void readExternalLCP(ExternalLCP externalLCP) {
-        // TODO: update this to count all the JSON files together, not each as
-        //     its own little LCP
         URL[] lcpFiles;
+        String[] fileURLs;
 
         lcpFiles = externalLCP.getFiles();
-        for (URL file : lcpFiles) {
-            readExternal(file.toString());
+        fileURLs = new String[lcpFiles.length];
+        for (int i = 0; i < lcpFiles.length; i++) {
+            fileURLs[i] = lcpFiles[i].toString();
         }
+        DataReader.readArray(fileURLs, true);
     }
 }
