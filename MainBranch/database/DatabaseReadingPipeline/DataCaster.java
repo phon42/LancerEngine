@@ -237,7 +237,6 @@ public class DataCaster {
         if (! (DataCaster.backgroundsRaw == null
             || DataCaster.backgroundsRaw.length < 1)) {
             processBackgrounds(DataCaster.backgroundsRaw);
-        
         }
         if (! (DataCaster.bondsRaw == null || DataCaster.bondsRaw.length < 1)) {
             processBonds(DataCaster.bondsRaw);
@@ -245,82 +244,66 @@ public class DataCaster {
         if (! (DataCaster.coreBonusesRaw == null
             || DataCaster.coreBonusesRaw.length < 1)) {
             processCoreBonuses(DataCaster.coreBonusesRaw);
-        
         }
         if (! (DataCaster.environmentsRaw == null
             || DataCaster.environmentsRaw.length < 1)) {
             processEnvironments(DataCaster.environmentsRaw);
-        
         }
         if (! (DataCaster.framesRaw == null || DataCaster.framesRaw.length < 1))
         {
             processFrames(DataCaster.framesRaw);
-        
         }
         if (! (DataCaster.manufacturersRaw == null
             || DataCaster.manufacturersRaw.length < 1)) {
             processManufacturers(DataCaster.manufacturersRaw);
-        
         }
         if (! (DataCaster.modificationsRaw == null
             || DataCaster.modificationsRaw.length < 1)) {
             processModifications(DataCaster.modificationsRaw);
-        
         }
         if (! (DataCaster.npcFeaturesRaw == null
             || DataCaster.npcFeaturesRaw.length < 1)) {
             processNPCFeatures(DataCaster.npcFeaturesRaw);
-        
         }
         if (! (DataCaster.npcTemplatesRaw == null
             || DataCaster.npcTemplatesRaw.length < 1)) {
             processNPCTemplates(DataCaster.npcTemplatesRaw);
-        
         }
         if (! (DataCaster.pilotEquipmentRaw == null
             || DataCaster.pilotEquipmentRaw.length < 1)) {
             processPilotEquipment(DataCaster.pilotEquipmentRaw);
-        
         }
         if (! (DataCaster.reservesRaw == null
             || DataCaster.reservesRaw.length < 1)) {
             processReserves(DataCaster.reservesRaw);
-        
         }
         if (! (DataCaster.rulesRaw == null
             || DataCaster.rulesRaw.keySet().size() < 1)) {
             processRules(DataCaster.rulesRaw);
-        
         }
         if (! (DataCaster.sitrepsRaw == null
             || DataCaster.sitrepsRaw.length < 1)) {
             processSitreps(DataCaster.sitrepsRaw);
-        
         }
         if (! (DataCaster.skillsRaw == null || DataCaster.skillsRaw.length < 1))
         {
             processSkills(DataCaster.skillsRaw);
-        
         }
         if (! (DataCaster.statesRaw == null || DataCaster.statesRaw.length < 1))
         {
             processStates(DataCaster.statesRaw);
-        
         }
         if (! (DataCaster.systemsRaw == null
             || DataCaster.systemsRaw.length < 1)) {
             processMechSystems(DataCaster.systemsRaw);
-        
         }
         if (! (DataCaster.tablesRaw == null
             || DataCaster.tablesRaw.keySet().size() < 1)) {
             processTables(DataCaster.tablesRaw);
-        
         }
         if (! (DataCaster.dataTagsRaw == null
             || DataCaster.dataTagsRaw.length < 1)) {
             processLCPTags(DataCaster.dataTagsRaw);
-        
         }
         if (! (DataCaster.talentsRaw == null
             || DataCaster.talentsRaw.length < 1)) {
@@ -329,7 +312,6 @@ public class DataCaster {
         }
         if (! (DataCaster.termsRaw == null || DataCaster.termsRaw.length < 1)) {
             processTerms(DataCaster.termsRaw);
-        
         }
         if (! (DataCaster.weaponsRaw == null
             || DataCaster.weaponsRaw.length < 1)) {
