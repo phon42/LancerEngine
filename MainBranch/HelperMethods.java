@@ -1,8 +1,11 @@
 package MainBranch;
 
+import java.math.BigDecimal;
 import java.net.MalformedURLException;
 import java.net.URL;
 import MainBranch.database.LCPCorrection;
+import MainBranch.database.fileOperations.json.JSONArray;
+import MainBranch.database.fileOperations.json.JSONObject;
 import Packages.CoreTypes.Callable;
 import Packages.CoreTypes.Rule;
 import Packages.CoreTypes.Table;
@@ -1147,6 +1150,39 @@ public final class HelperMethods {
     }
     /**
      * Returns a deep copy of original.
+     * @param original a BigDecimal that cannot be null.
+     * @return a BigDecimal deep copy of original.
+     * @throws IllegalArgumentException if original is null.
+     */
+    public static BigDecimal copyOf(BigDecimal original) {
+        checkObject("original", original);
+
+        return new BigDecimal(original.unscaledValue(), original.scale());
+    }
+    /**
+     * Returns a deep copy of original.
+     * @param original a Boolean that cannot be null.
+     * @return a Boolean deep copy of original.
+     * @throws IllegalArgumentException if original is null.
+     */
+    public static Boolean copyOf(Boolean original) {
+        checkObject("original", original);
+
+        return Boolean.valueOf(original);
+    }
+    /**
+     * Returns a deep copy of original.
+     * @param original an Integer that cannot be null.
+     * @return an Integer deep copy of original.
+     * @throws IllegalArgumentException if original is null.
+     */
+    public static Integer copyOf(Integer original) {
+        checkObject("original", original);
+
+        return Integer.valueOf(original);
+    }
+    /**
+     * Returns a deepest copy of original.
      * @param original a Callable that cannot be null.
      * @return a Callable deep copy of original.
      * @throws IllegalArgumentException if original is null.
@@ -1163,6 +1199,32 @@ public final class HelperMethods {
         };
 
         return copy;
+    }
+    /**
+     * Returns a deepest copy of original.
+     * Specific to the JSON package used. Update if that package is changed or
+     *     swapped out for a different one.
+     * @param original a JSONObject that cannot be null.
+     * @return a JSONObject deep copy of original.
+     * @throws IllegalArgumentException if original is null.
+     */
+    public static JSONObject copyOf(JSONObject original) {
+        checkObject("original", original);
+
+        return new JSONObject(original.toString());
+    }
+    /**
+     * Returns a deepest copy of original.
+     * Specific to the JSON package used. Update if that package is changed or
+     *     swapped out for a different one.
+     * @param original a JSONArray that cannot be null.
+     * @return a JSONArray deep copy of original.
+     * @throws IllegalArgumentException if original is null.
+     */
+    public static JSONArray copyOf(JSONArray original) {
+        checkObject("original", original);
+
+        return new JSONArray(original.toString());
     }
     /**
      * Returns a deep copy of original.
