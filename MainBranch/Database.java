@@ -311,6 +311,7 @@ public final class Database {
     }
     public static void clear() {
         // This clears the entire database!
+        Database.lcpCorrections = new LCPCorrection[0];
         Database.actions = new Action[0];
         Database.activationTypes = new ActivationType[0];
         Database.backgrounds = new Background[0];
