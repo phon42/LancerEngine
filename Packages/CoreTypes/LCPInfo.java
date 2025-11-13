@@ -3,6 +3,7 @@ package Packages.CoreTypes;
 import java.net.MalformedURLException;
 import java.net.URL;
 import MainBranch.HelperMethods;
+import Packages.CoreTypes.lcpInfo.LCPDependency;
 import Packages.CoreTypes.lcpInfo.Version;
 
 public class LCPInfo {
