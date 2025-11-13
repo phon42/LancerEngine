@@ -164,6 +164,18 @@ public class DataParser {
                 + " lcp_manifest.json file could be found in the LCP data .json"
                 + " files passed to DataParser");
         }
+        if (DataParser.infoData.length > 1) {
+            throw new IllegalStateException("Cannot parse multiple info.json"
+                + " files in one LCP");
+        }
+        if (DataParser.lcpManifestData.length > 1) {
+            throw new IllegalStateException("Cannot parse multiple"
+                + " lcp_manifest.json files in one LCP");
+        }
+        if (DataParser.infoData.length == 1 && DataParser.lcpManifestData.length == 1) {
+            throw new IllegalStateException("Cannot parse both an info.json"
+                + " file and an lcp_manifest.json file in the same LCP");
+        }
         data = new Object[] {
             // ----absolutely critical data:
             DataParser.infoData,
