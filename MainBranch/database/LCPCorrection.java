@@ -69,6 +69,12 @@ public class LCPCorrection {
     public String getFileName() {
         return fileName;
     }
+    public String getJSONProperty() {
+        return jsonProperty;
+    }
+    public String getJSONValue() {
+        return jsonValue;
+    }
     public JSONObject getReplacement() {
         return new JSONObject(this.replacement.toString());
     }
@@ -80,6 +86,14 @@ public class LCPCorrection {
         HelperMethods.checkString("fileName", fileName);
         fileName = fileName.toLowerCase();
         this.fileName = fileName;
+    }
+    private void setJSONProperty(String jsonProperty) {
+        HelperMethods.checkString("jsonProperty", jsonProperty);
+        this.jsonProperty = jsonProperty;
+    }
+    public void setJSONValue(String jsonValue) {
+        HelperMethods.checkObject("jsonValue", jsonValue);
+        this.jsonValue = jsonValue;
     }
     private void setReplacement(JSONObject replacement) {
         HelperMethods.checkObject("replacement", replacement);
