@@ -1,10 +1,14 @@
 package MainBranch.database.DatabaseReadingPipeline;
 
+import java.util.Iterator;
 import java.util.Set;
 import MainBranch.Database;
+import MainBranch.HelperMethods;
+import MainBranch.database.fileOperations.JSON;
 import MainBranch.database.fileOperations.json.JSONArray;
 import MainBranch.database.fileOperations.json.JSONException;
 import MainBranch.database.fileOperations.json.JSONObject;
+import MainBranch.database.LCPCorrection;
 import MainBranch.roll.DiceExpression;
 import Packages.CoreTypes.Rule;
 import Packages.CoreTypes.Table;
@@ -178,6 +182,12 @@ public class DataCaster {
         passData(data);
     }
     private static void unpackData(Object[] data) {
+        DataCaster.infoName = (String) data[0];
+        DataCaster.lcpManifestName = (String) data[1];
+        if (DataCaster.infoName == null && DataCaster.lcpManifestName == null) {
+            throw new IllegalStateException("A \"name\" value could not be"
+                + " found in either info.json or lcp_manifest.json");
+        }
         // unpack the Object[], transforming each element from Object to a
         //     JSONObject[] or JSONObject, then putting it in its respective
         //     property (i.e. DataCaster.frameRaw).
@@ -334,7 +344,18 @@ public class DataCaster {
     }
     private static void processLCPInfo(JSONObject[] lcpInfoData) {
         LCPInfo[] lcpInfo = new LCPInfo[lcpInfoData.length];
+        String fileName;
 
+        if (DataCaster.infoName != null) {
+            fileName = "info";
+        } else if (DataCaster.lcpManifestName != null) {
+            fileName = "lcp_manifest";
+        } else {
+            throw new IllegalStateException("info.json or lcp_manifest.json"
+                + " file is being processed but a \"name\" property for one of"
+                + " those files was not received");
+        }
+        lcpInfoData = performCorrections(fileName, lcpInfoData);
         for (int i = 0; i < lcpInfo.length; i++) {
             lcpInfo[i] = toLCPInfo(lcpInfoData[i]);
         }
@@ -653,6 +674,7 @@ public class DataCaster {
         pilotEquipmentData = performCorrections("pilot_gear",
             pilotEquipmentData);
         for (int i = 0; i < pilotEquipmentData.length; i++) {
+            // why is this needed?
             // skip null elements
             if (pilotEquipmentData[i] == null) {
                 continue;
