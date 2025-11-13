@@ -234,7 +234,8 @@ public final class Database {
 
         // Add LCP corrections
         correction1 = new LCPCorrection("LANCER Core",
-            "actions", "name", "Brace", new JSONObject( //
+            "actions", "name",
+            "Brace", new JSONObject( //
                 "{\n" + //
                 "  \"id\": \"act_brace\",\n" + //
                 "  \"name\": \"Brace\",\n" + //
@@ -246,7 +247,8 @@ public final class Database {
                 "}"
         ));
         correction2 = new LCPCorrection("LANCER Core",
-            "actions", "name", "Overwatch", new JSONObject( //
+            "actions", "name",
+            "Overwatch", new JSONObject( //
                 "{\n" + //
                 "  \"id\": \"act_overwatch\",\n" + //
                 "  \"name\": \"Overwatch\",\n" + //
