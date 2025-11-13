@@ -97,7 +97,7 @@ public class LCPCorrection {
     }
     private void setReplacement(JSONObject replacement) {
         HelperMethods.checkObject("replacement", replacement);
-        replacement = new JSONObject(this.replacement.toString());
+        replacement = new JSONObject(replacement.toString());
         this.replacement = replacement;
     }
 
