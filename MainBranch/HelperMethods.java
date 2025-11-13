@@ -1149,7 +1149,7 @@ public final class HelperMethods {
         return newArray;
     }
     /**
-     * Returns a deep copy of original.
+     * Returns a deepest copy of original.
      * @param original a BigDecimal that cannot be null.
      * @return a BigDecimal deep copy of original.
      * @throws IllegalArgumentException if original is null.
