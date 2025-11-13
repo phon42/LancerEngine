@@ -66,7 +66,8 @@ public class DataCaster {
     private static String lcpManifestName;
     // all the data being held at the moment
     // ----absolutely critical data:
-    private static JSONObject[] lcpInfoRaw;
+    private static JSONObject[] infoRaw;
+    private static JSONObject[] lcpManifestsRaw;
     // ----some critical data types:
     private static JSONObject[] framesRaw;
     private static JSONObject[] systemsRaw;
@@ -180,55 +181,59 @@ public class DataCaster {
         passData(data);
     }
     private static void unpackData(Object[] data) {
-        DataCaster.infoName = (String) data[0];
-        DataCaster.lcpManifestName = (String) data[1];
-        if (DataCaster.infoName == null && DataCaster.lcpManifestName == null) {
-            throw new IllegalStateException("A \"name\" value could not be"
-                + " found in either info.json or lcp_manifest.json");
-        }
         // unpack the Object[], transforming each element from Object to a
         //     JSONObject[] or JSONObject, then putting it in its respective
         //     property (i.e. DataCaster.frameRaw).
         // ----absolutely critical data:
-        DataCaster.lcpInfoRaw = (JSONObject[]) data[0];
+        DataCaster.infoRaw = (JSONObject[]) data[0];
+        DataCaster.lcpManifestsRaw = (JSONObject[]) data[1];
         // ----some critical data types:
-        DataCaster.framesRaw = (JSONObject[]) data[1];
-        DataCaster.systemsRaw = (JSONObject[]) data[2];
-        DataCaster.modificationsRaw = (JSONObject[]) data[3];
-        DataCaster.weaponsRaw = (JSONObject[]) data[4];
+        DataCaster.framesRaw = (JSONObject[]) data[2];
+        DataCaster.systemsRaw = (JSONObject[]) data[3];
+        DataCaster.modificationsRaw = (JSONObject[]) data[4];
+        DataCaster.weaponsRaw = (JSONObject[]) data[5];
         // ----the rest of the critical data types:
-        DataCaster.actionsRaw = (JSONObject[]) data[5];
-        DataCaster.coreBonusesRaw = (JSONObject[]) data[6];
-        DataCaster.dataTagsRaw = (JSONObject[]) data[7];
-        DataCaster.manufacturersRaw = (JSONObject[]) data[8];
-        DataCaster.npcFeaturesRaw = (JSONObject[]) data[9];
-        DataCaster.npcTemplatesRaw = (JSONObject[]) data[10];
-        DataCaster.pilotEquipmentRaw = (JSONObject[]) data[11];
-        DataCaster.reservesRaw = (JSONObject[]) data[12];
-        DataCaster.skillsRaw = (JSONObject[]) data[13];
-        DataCaster.statesRaw = (JSONObject[]) data[14];
-        DataCaster.talentsRaw = (JSONObject[]) data[15];
+        DataCaster.actionsRaw = (JSONObject[]) data[6];
+        DataCaster.coreBonusesRaw = (JSONObject[]) data[7];
+        DataCaster.dataTagsRaw = (JSONObject[]) data[8];
+        DataCaster.manufacturersRaw = (JSONObject[]) data[9];
+        DataCaster.npcFeaturesRaw = (JSONObject[]) data[10];
+        DataCaster.npcTemplatesRaw = (JSONObject[]) data[11];
+        DataCaster.pilotEquipmentRaw = (JSONObject[]) data[12];
+        DataCaster.reservesRaw = (JSONObject[]) data[13];
+        DataCaster.skillsRaw = (JSONObject[]) data[14];
+        DataCaster.statesRaw = (JSONObject[]) data[15];
+        DataCaster.talentsRaw = (JSONObject[]) data[16];
         // ----less important
-        DataCaster.environmentsRaw = (JSONObject[]) data[16];
-        DataCaster.sitrepsRaw = (JSONObject[]) data[17];
+        DataCaster.environmentsRaw = (JSONObject[]) data[17];
+        DataCaster.sitrepsRaw = (JSONObject[]) data[18];
         // ----almost unimportant
-        DataCaster.backgroundsRaw = (JSONObject[]) data[18];
-        DataCaster.bondsRaw = (JSONObject[]) data[19];
+        DataCaster.backgroundsRaw = (JSONObject[]) data[19];
+        DataCaster.bondsRaw = (JSONObject[]) data[20];
         // ----just for reference
-        DataCaster.rulesRaw = (JSONObject) data[20];
-        DataCaster.termsRaw = (JSONObject[]) data[21];
-        DataCaster.tablesRaw = (JSONObject) data[22];
+        DataCaster.rulesRaw = (JSONObject) data[21];
+        DataCaster.termsRaw = (JSONObject[]) data[22];
+        DataCaster.tablesRaw = (JSONObject) data[23];
     }
     private static void processData() {
+        // TODO: could improve this further by considering that the LCP has to
+        //     have EITHER an info.json OR an lcp_manifest.json file so really
+        //     only one boolean variable is needed
+        boolean hasInfo;
+        boolean hasLCPManifest;
+
         // then process that data
         // - first open Database so you can create new Frames, etc etc
         Database.open();
         // each Object is actually a JSONObject[] or JSONObject
         // convert those JSONObject[]s and JSONObjects to Action[],
         //     Background[], etc. etc.
-        if (! (DataCaster.lcpInfoRaw == null
-            || DataCaster.lcpInfoRaw.length < 1)) {
-            processLCPInfo(DataCaster.lcpInfoRaw);
+        hasInfo = ! (DataCaster.infoRaw == null
+            || DataCaster.infoRaw.length < 1);
+        hasLCPManifest = ! (DataCaster.lcpManifestsRaw == null
+            || DataCaster.lcpManifestsRaw.length < 1);
+        if (hasInfo || hasLCPManifest) {
+            processLCPInfo(DataCaster.infoRaw, DataCaster.lcpManifestsRaw);
         }
         if (! (DataCaster.actionsRaw == null
             || DataCaster.actionsRaw.length < 1)) {
@@ -321,26 +326,39 @@ public class DataCaster {
         // - and then close Database
         Database.close();
     }
-    private static void processLCPInfo(JSONObject[] lcpInfoData) {
-        LCPInfo[] lcpInfo = new LCPInfo[lcpInfoData.length];
-        String fileName;
-
-        if (DataCaster.infoName != null) {
-            fileName = "info";
-        } else if (DataCaster.lcpManifestName != null) {
-            fileName = "lcp_manifest";
-        } else {
-            throw new IllegalStateException("info.json or lcp_manifest.json"
-                + " file is being processed but a \"name\" property for one of"
-                + " those files was not received");
+    private static void processLCPInfo(JSONObject[] infoData,
+        JSONObject[] lcpManifestData) {
+        if (infoData != null && infoData.length >= 1) {
+            processInfo(infoData);
         }
+        if (lcpManifestData != null && lcpManifestData.length >= 1) {
+            processLCPManifests(lcpManifestData);
+        }
+    }
+    private static void processInfo(JSONObject[] infoData) {
+        processLCPInfoFile("info", infoData);
+    }
+    private static void processLCPManifests(JSONObject[] lcpManifestData) {
+        processLCPInfoFile("lcp_manifest", lcpManifestData);
+    }
+    private static void processLCPInfoFile(String fileName,
+        JSONObject[] lcpInfoData) {
+        LCPInfo[] lcpInfo;
+
         lcpInfoData = performCorrections(fileName, lcpInfoData);
-        for (int i = 0; i < lcpInfo.length; i++) {
-            lcpInfo[i] = toLCPInfo(lcpInfoData[i]);
+        lcpInfo = new LCPInfo[lcpInfoData.length];
+        for (int i = 0; i < lcpInfoData.length; i++) {
+            lcpInfo[i] = toLCPInfo(fileName, lcpInfoData[i]);
+            if (fileName.equals("info")) {
+                DataCaster.infoName = lcpInfo[i].getName();
+            } else {
+                // fileName is "lcp_manifest"
+                DataCaster.lcpManifestName = lcpInfo[i].getName();
+            }
         }
         DataCaster.lcpInfoProcessed = lcpInfo;
     }
-    private static LCPInfo toLCPInfo(JSONObject lcpInfoData) {
+    private static LCPInfo toLCPInfo(String fileName, JSONObject lcpInfoData) {
         // TODO: fill out
         return null;
     }
@@ -1095,8 +1113,11 @@ public class DataCaster {
         DataCompiler.saveData();
     }
     private static void flushData() {
+        DataCaster.infoName = null;
+        DataCaster.lcpManifestName = null;
         // ----absolutely critical data:
-        DataCaster.lcpInfoRaw = new JSONObject[0];
+        DataCaster.infoRaw = new JSONObject[0];
+        DataCaster.lcpManifestsRaw = new JSONObject[0];
         // ----some critical data types:
         DataCaster.framesRaw = new JSONObject[0];
         DataCaster.systemsRaw = new JSONObject[0];
