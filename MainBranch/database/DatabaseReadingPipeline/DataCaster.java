@@ -308,7 +308,6 @@ public class DataCaster {
         if (! (DataCaster.talentsRaw == null
             || DataCaster.talentsRaw.length < 1)) {
             processTalents(DataCaster.talentsRaw);
-        
         }
         if (! (DataCaster.termsRaw == null || DataCaster.termsRaw.length < 1)) {
             processTerms(DataCaster.termsRaw);
