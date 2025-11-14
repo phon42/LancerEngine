@@ -58,12 +58,11 @@ public class PilotArmor extends PilotEquipment {
     }
     private void setBonuses(Bonus[] bonuses) {
         if (bonuses != null) {
-            for (Bonus bonus : bonuses) {
-                if (bonus == null) {
-                    throw new IllegalArgumentException("bonuses array"
-                        + " contains a null element");
-                }
+            if (bonuses.length == 0) {
+                throw new IllegalStateException("bonuses array is of length"
+                    + " 0");
             }
+            HelperMethods.checkObjectArray("bonuses", bonuses);
             bonuses = HelperMethods.copyOf(bonuses);
         }
         this.bonuses = bonuses;
