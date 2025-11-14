@@ -6,6 +6,7 @@ import Packages.CoreTypes.EntityMechanics.Actions.ActionBase;
 import Packages.CoreTypes.EntityMechanics.ActivationType;
 import Packages.CoreTypes.EntityMechanics.Synergy;
 import Packages.CoreTypes.TriState;
+import Packages.CoreTypes.VueHTMLString;
 
 /**
  * Represents a single action; one of the actions available to every pilot
@@ -109,7 +110,8 @@ public class Action extends ActionBase {
     public Action(
         // ActionBase properties
         String name, ActivationType activation, String detailedDescription,
-        TriState pilot, TriState mech, String[] confirm, Callable method,
+        TriState pilot, TriState mech, String[] confirm, TriState hideActive,
+        Callable method, VueHTMLString requiredInitialConditions,
         // Action required properties
         String id,
         // Action semi-required properties
@@ -118,7 +120,7 @@ public class Action extends ActionBase {
         String terse, Synergy[] synergyLocations, String log
     ) {
         super(name, activation, detailedDescription, pilot, mech, confirm,
-            method);
+            hideActive, method, requiredInitialConditions);
         // Required properties
         setID(id);
         // Semi-required properties
@@ -128,6 +130,7 @@ public class Action extends ActionBase {
         setTerse(terse);
         setSynergyLocations(synergyLocations);
         setLog(log);
+        verifyProperties();
     }
     public Action(String name, ActivationType activation,
         String detailedDescription, String id) {
@@ -137,6 +140,7 @@ public class Action extends ActionBase {
         // Semi-required properties
         setIgnoreUsed(TriState.UNSET);
         setHeatCost(-1);
+        verifyProperties();
     }
     public Action(Action action) {
         super(action);
@@ -149,6 +153,7 @@ public class Action extends ActionBase {
         setTerse(action.terse);
         setSynergyLocations(action.synergyLocations);
         setLog(action.log);
+        verifyProperties();
     }
 
     // Required properties
@@ -226,5 +231,29 @@ public class Action extends ActionBase {
         }
         HelperMethods.checkString("log", log);
         this.log = log;
+    }
+
+    @Override
+    protected void verifyProperties() {
+        super.verifyProperties();
+        if (! this.activation.getType().equals("reaction")) {
+            // do nothing, because this.frequency cannot be null.
+            if (this.ignoreUsed) {
+                if (! this.frequency.getType().equals("unlimited")) {
+                    throw new IllegalStateException("this.frequency cannot"
+                        + " be anything other than \"unlimited\" when"
+                        + " this.activation is not a reaction and"
+                        + " this.ignoreUsed is true");
+                }
+            } else {
+                if (! (this.frequency.getType().equals("X/round")
+                    && this.frequency.getValue() == 1)) {
+                    throw new IllegalStateException("this.frequency cannot"
+                        + " be anything other than \"1/round\" when"
+                        + " this.activation is not a reaction and"
+                        + " this.ignoreUsed is false");
+                }
+            }
+        }
     }
 }
