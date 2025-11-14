@@ -3,6 +3,12 @@ package Packages.CoreTypes;
 import MainBranch.HelperMethods;
 
 public class VueHTMLString extends HTMLString {
+    // TODO: replace documentation from HTMLString
+    /**
+     * TODO: add documentation
+     */
+    // private Object[] dataSequence;
+
     public VueHTMLString() {
         setRawValue("");
     }
@@ -21,10 +27,14 @@ public class VueHTMLString extends HTMLString {
     }
 
     @Override
+    public Object[] getDataSequence() {
+        return copyDataSequence(dataSequence);
+    }
+    @Override
     protected void setRawValue(String rawValue) {
         HelperMethods.checkObject("rawValue", rawValue);
         this.rawValue = rawValue;
-        // TODO: fill out
+        setDataSequence(calculateDataSequence());
     }
 
     @Override
@@ -67,5 +77,15 @@ public class VueHTMLString extends HTMLString {
         }
 
         return result;
+    }
+    @Override
+    protected Object[] calculateDataSequence() {
+        // TODO: fill out
+        return null;
+    }
+    @Override
+    protected Object[] copyDataSequence(Object[] dataSequence) {
+        // TODO: fill out
+        return dataSequence;
     }
 }
