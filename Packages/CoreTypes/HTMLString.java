@@ -34,6 +34,30 @@ public class HTMLString implements Comparable<HTMLString>, CharSequence {
     public String toString() {
         return getRawValue();
     }
+    @Override
+    public boolean equals(Object object) {
+        if (object == null) {
+            return false;
+        }
+        if (! (object instanceof HTMLString)) {
+            return false;
+        }
+
+        return equals((HTMLString) object);
+    }
+    public boolean equals(HTMLString htmlString) {
+        if (htmlString == null) {
+            return false;
+        }
+
+        return this.getRawValue().equals(htmlString.getRawValue());
+    }
+    public boolean rawEquals(Object object) {
+        return equals(object);
+    }
+    public boolean rawEquals(HTMLString htmlString) {
+        return equals(htmlString);
+    }
     public CharSequence subSequence(int beginIndex, int endIndex) {
         return getRawValue().subSequence(beginIndex, endIndex);
     }
@@ -48,5 +72,17 @@ public class HTMLString implements Comparable<HTMLString>, CharSequence {
     }
     public char charAt(int index) {
         return getRawValue().charAt(index);
+    }
+    public HTMLString[] split(String regex) {
+        String[] stringArray;
+        HTMLString[] result;
+
+        stringArray = getRawValue().split(regex);
+        result = new HTMLString[stringArray.length];
+        for (int i = 0; i < stringArray.length; i++) {
+            result[i] = new HTMLString(stringArray[i]);
+        }
+
+        return result;
     }
 }
