@@ -69,12 +69,12 @@ public class PilotGear extends PilotEquipment {
     }
     private void setDeployables(Deployable[] deployables) {
         if (deployables != null) {
-            for (Deployable deployable : deployables) {
-                if (deployable == null) {
-                    throw new IllegalArgumentException("deployables array"
-                        + " contains a null element");
-                }
+            if (deployables.length == 0) {
+                throw new IllegalArgumentException("deployables array is of"
+                    + " length 0");
             }
+            HelperMethods.checkObjectArray("deployables",
+                deployables);
             deployables = HelperMethods.copyOf(deployables);
         }
         this.deployables = deployables;
