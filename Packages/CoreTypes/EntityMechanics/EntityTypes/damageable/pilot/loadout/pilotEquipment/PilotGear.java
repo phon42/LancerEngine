@@ -1,7 +1,7 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment;
 
 import MainBranch.HelperMethods;
-import Packages.CoreTypes.EntityMechanics.Actions.Action;
+import Packages.CoreTypes.EntityMechanics.Actions.actionBase.IActionData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.Deployable;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.DataTag;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.PilotEquipment;
@@ -23,14 +23,14 @@ public class PilotGear extends PilotEquipment {
     /**
      * Optional
      */
-    private Action[] actions;
+    private IActionData[] actions;
     /**
      * Optional
      */
     private Deployable[] deployables;
 
     public PilotGear(String id, String name, DataTag[] dataTags,
-        String description, String effect, Action[] actions,
+        String description, String effect, IActionData[] actions,
         Deployable[] deployables) {
         super(id, name, "gear", dataTags, description, effect);
         setActions(actions);
@@ -42,7 +42,7 @@ public class PilotGear extends PilotEquipment {
             pilotGear.deployables);
     }
 
-    public Action[] getActions() {
+    public IActionData[] getActions() {
         if (actions != null) {
             return HelperMethods.copyOf(actions);
         }
@@ -56,14 +56,13 @@ public class PilotGear extends PilotEquipment {
 
         return deployables;
     }
-    private void setActions(Action[] actions) {
+    private void setActions(IActionData[] actions) {
         if (actions != null) {
-            for (Action action : actions) {
-                if (action == null) {
-                    throw new IllegalArgumentException("actions array"
-                        + " contains a null element");
-                }
+            if (actions.length == 0) {
+                throw new IllegalArgumentException("actions array is of"
+                    + " length 0");
             }
+            HelperMethods.checkObjectArray("actions", actions);
             actions = HelperMethods.copyOf(actions);
         }
         this.actions = actions;

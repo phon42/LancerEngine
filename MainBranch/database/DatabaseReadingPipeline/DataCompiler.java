@@ -4,7 +4,7 @@ import MainBranch.Database;
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.BattlefieldMechanics.Environment;
 import Packages.CoreTypes.BattlefieldMechanics.Sitrep;
-import Packages.CoreTypes.EntityMechanics.Actions.Action;
+import Packages.CoreTypes.EntityMechanics.Actions.actionBase.Action;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.MechSystem;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.Modification;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.DataTag;

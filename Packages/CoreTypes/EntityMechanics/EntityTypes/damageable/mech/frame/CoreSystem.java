@@ -3,7 +3,7 @@ package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frame;
 import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.Deployable;
 import Packages.CoreTypes.EntityMechanics.Synergy;
-import Packages.CoreTypes.EntityMechanics.Actions.Action;
+import Packages.CoreTypes.EntityMechanics.Actions.actionBase.IActionData;
 
 public class CoreSystem {
     // TODO: fill out core system section - see pg. 33
@@ -32,11 +32,11 @@ public class CoreSystem {
     private String[] integrated;
     private Deployable[] deployables;
     private Synergy[] activeSynergies;
-    private Action[] activeActions;
+    private IActionData[] activeActions;
     private Bonus[] activeBonuses;
     private String passiveName;
     private String passiveEffect;
-    private Action[] passiveActions;
+    private IActionData[] passiveActions;
 
     public CoreSystem(CoreSystem coreSystem) {}
 }

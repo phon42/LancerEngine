@@ -3,7 +3,7 @@ package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
 import Packages.CoreTypes.EntityMechanics.RangeTag;
-import Packages.CoreTypes.EntityMechanics.Actions.Action;
+import Packages.CoreTypes.EntityMechanics.Actions.actionBase.IActionData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Equipment;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.DataTag;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.Damage;
@@ -64,12 +64,12 @@ public class Modification extends Equipment {
      */
     private String[] restrictedSizes;
     /**
-     * The actions provided by this modification (i.e. an Action[] containing
-     *     the Activate Shock Wreath action).
-     * Can be any Action that is not of length 0 and does not contain null
+     * The actions provided by this modification (i.e. an IActionData[]
+     *     containing the Activate Shock Wreath action).
+     * Can be any IActionData that is not of length 0 and does not contain null
      *     elements. Can be null.
      */
-    private Action[] actions;
+    private IActionData[] actions;
     /**
      * The range the modification adds directly to the weapon it's applied to
      *     (i.e. a RangeTag[] containing Range 5)
@@ -92,7 +92,7 @@ public class Modification extends Equipment {
         String licenseID, String licenseName, int licenseLevel,
         String description, DataTag[] dataTags, int spCost,
         String[] allowedTypes, String effect, Damage[] addedDamage,
-        String[] restrictedSizes, Action[] actions, RangeTag[] addedRange,
+        String[] restrictedSizes, IActionData[] actions, RangeTag[] addedRange,
         DataTag[] addedDataTags) {
         super(id, name, manufacturer, licenseID, licenseName, licenseLevel,
             description, dataTags);
@@ -111,7 +111,7 @@ public class Modification extends Equipment {
     public Modification(String id, String name, String licenseID,
         String licenseName, String description, DataTag[] dataTags, int spCost,
         String[] allowedTypes, String effect, Damage[] addedDamage,
-        String[] restrictedSizes, Action[] actions, RangeTag[] addedRange,
+        String[] restrictedSizes, IActionData[] actions, RangeTag[] addedRange,
         DataTag[] addedDataTags) {
         super(id, name, licenseID, licenseName, description, dataTags);
         setSpCost(spCost);
@@ -160,7 +160,7 @@ public class Modification extends Equipment {
 
         return restrictedSizes;
     }
-    public Action[] getActions() {
+    public IActionData[] getActions() {
         if (actions != null) {
             return HelperMethods.copyOf(actions);
         }
@@ -227,14 +227,13 @@ public class Modification extends Equipment {
         }
         this.restrictedSizes = restrictedSizes;
     }
-    private void setActions(Action[] actions) {
+    private void setActions(IActionData[] actions) {
         if (actions != null) {
             if (actions.length == 0) {
                 throw new IllegalArgumentException("actions array's length is"
                     + " 0");
             }
-            HelperMethods.checkObjectArray("actions",
-                addedRange);
+            HelperMethods.checkObjectArray("actions", actions);
             actions = HelperMethods.copyOf(actions);
         }
         this.actions = actions;

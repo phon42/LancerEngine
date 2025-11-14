@@ -4,7 +4,7 @@ import MainBranch.HelperMethods;
 import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.Deployable;
 import Packages.CoreTypes.EntityMechanics.Synergy;
-import Packages.CoreTypes.EntityMechanics.Actions.Action;
+import Packages.CoreTypes.EntityMechanics.Actions.actionBase.IActionData;
 
 /**
  * Represents a single reserve. Contains information about the reserve's id,
@@ -68,12 +68,12 @@ public class Reserve {
      */
     private Deployable[] deployables;
     /**
-     * The actions associated with this reserve (i.e. an Action[] containing the
-     *     Redundant Repair action).
-     * Can be any Action[] that is not of length 0 or contains null elements.
-     *     Cannot be null.
+     * The actions associated with this reserve (i.e. an IActionData[]
+     *     containing the Redundant Repair action).
+     * Can be any IActionData[] that is not of length 0 or contains null
+     *     elements. Cannot be null.
      */
-    private Action[] actions;
+    private IActionData[] actions;
     // TODO: add an example here
     /**
      * The synergies associated with this reserve (difficult to provide an
@@ -85,7 +85,7 @@ public class Reserve {
 
     public Reserve(String id, String name, String type, String label,
         String description, Bonus[] bonuses, Deployable[] deployables,
-        Action[] actions, Synergy[] synergies) {
+        IActionData[] actions, Synergy[] synergies) {
         HelperMethods.verifyConstructor();
         // Required properties
         setID(id);
@@ -149,7 +149,7 @@ public class Reserve {
 
         return deployables;
     }
-    public Action[] getActions() {
+    public IActionData[] getActions() {
         if (actions != null) {
             return HelperMethods.copyOf(actions);
         }
@@ -203,7 +203,7 @@ public class Reserve {
         deployables = HelperMethods.copyOf(deployables);
         this.deployables = deployables;
     }
-    public void setActions(Action[] actions) {
+    public void setActions(IActionData[] actions) {
         HelperMethods.checkObjectArray("actions", actions);
         if (actions.length == 0) {
             throw new IllegalArgumentException("actions is length 0");

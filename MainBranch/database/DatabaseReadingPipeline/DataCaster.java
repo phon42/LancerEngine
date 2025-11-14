@@ -18,7 +18,7 @@ import Packages.CoreTypes.EntityMechanics.Manufacturer;
 import Packages.CoreTypes.EntityMechanics.NPCFeature;
 import Packages.CoreTypes.EntityMechanics.NPCTemplate;
 import Packages.CoreTypes.EntityMechanics.RangeTag;
-import Packages.CoreTypes.EntityMechanics.Actions.Action;
+import Packages.CoreTypes.EntityMechanics.Actions.actionBase.Action;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Frame;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.MechSystem;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.Modification;

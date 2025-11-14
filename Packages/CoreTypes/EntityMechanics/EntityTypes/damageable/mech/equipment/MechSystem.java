@@ -1,6 +1,7 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment;
 
 import MainBranch.HelperMethods;
+import Packages.CoreTypes.EntityMechanics.Actions.actionBase.IActionData;
 import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.Deployable;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Equipment;
@@ -8,7 +9,6 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.
 import Packages.CoreTypes.EntityMechanics.License;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
 import Packages.CoreTypes.EntityMechanics.Synergy;
-import Packages.CoreTypes.EntityMechanics.Actions.Action;
 
 /**
  * Represents a single system for a mech. Contains information about that system
@@ -35,7 +35,7 @@ public final class MechSystem extends Equipment {
     private int spCost;
     // Optional properties
     private String effect;
-    private Action[] actions;
+    private IActionData[] actions;
     private Deployable[] deployables;
     private Bonus[] bonuses;
     private Synergy[] synergies;
@@ -46,7 +46,7 @@ public final class MechSystem extends Equipment {
     public MechSystem(String id, String name, Manufacturer manufacturer,
         String licenseID, String licenseName, int licenseLevel,
         String description, DataTag[] dataTags, int spCost,
-        String effect, Action[] actions, Deployable[] deployables,
+        String effect, IActionData[] actions, Deployable[] deployables,
         Bonus[] bonuses, Synergy[] synergies) {
         super(id, name, manufacturer, licenseID, licenseName, licenseLevel,
             description, dataTags);
@@ -64,7 +64,7 @@ public final class MechSystem extends Equipment {
      */
     public MechSystem(String id, String name, String licenseID,
         String licenseName, String description, DataTag[] dataTags, int spCost,
-        String effect, Action[] actions, Deployable[] deployables,
+        String effect, IActionData[] actions, Deployable[] deployables,
         Bonus[] bonuses, Synergy[] synergies) {
         super(id, name, licenseID, licenseName, description, dataTags);
         // Required properties
