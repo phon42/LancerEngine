@@ -19,7 +19,7 @@ import Packages.CoreTypes.TriState;
  * 
  * Safety: At least one of this class' properties has an allowed value of null.
  */
-public class NewAction extends ActionBase {
+public class Action extends ActionBase {
     // TODO: add an LCP that adds all the actions not covered by the base LCP:
     // private static final String[] baseActionNames = {"boost", "continue boost",
     //     "grapple", "hide", "quick tech", "ram", "search", "skirmish", "barrage",
@@ -106,7 +106,7 @@ public class NewAction extends ActionBase {
      */
     private String log;
 
-    public NewAction(
+    public Action(
         // ActionBase properties
         String name, ActivationType activation, String detailedDescription,
         TriState pilot, TriState mech, String[] confirm, Callable method,
@@ -129,7 +129,7 @@ public class NewAction extends ActionBase {
         setSynergyLocations(synergyLocations);
         setLog(log);
     }
-    public NewAction(String name, ActivationType activation,
+    public Action(String name, ActivationType activation,
         String detailedDescription, String id) {
         super(name, activation, detailedDescription);
         // Required properties
@@ -138,7 +138,7 @@ public class NewAction extends ActionBase {
         setIgnoreUsed(TriState.UNSET);
         setHeatCost(-1);
     }
-    public NewAction(NewAction action) {
+    public Action(Action action) {
         super(action);
         // Required properties
         setID(action.id);
@@ -186,14 +186,14 @@ public class NewAction extends ActionBase {
     private void setIgnoreUsed(TriState ignoreUsed) {
         HelperMethods.checkObject("ignoreUsed", ignoreUsed);
         if (ignoreUsed == TriState.UNSET) {
-            this.ignoreUsed = NewAction.ignoreUsedDefault;
+            this.ignoreUsed = Action.ignoreUsedDefault;
             return;
         }
         this.ignoreUsed = ignoreUsed.toBoolean();
     }
     private void setHeatCost(int heatCost) {
         if (heatCost < 0) {
-            this.heatCost = NewAction.heatCostDefault;
+            this.heatCost = Action.heatCostDefault;
             return;
         }
         this.heatCost = heatCost;
