@@ -3,12 +3,27 @@ package Packages.CoreTypes;
 import MainBranch.HelperMethods;
 
 public class VueHTMLString extends HTMLString {
+    public VueHTMLString() {
+        setRawValue("");
+    }
     public VueHTMLString(String input) {
-        super();
-        // TODO: fill out
+        setRawValue(input);
     }
     public VueHTMLString(VueHTMLString vueHTMLString) {
-        super();
+        HelperMethods.checkObject("vueHTMLString", vueHTMLString);
+        setRawValue(vueHTMLString.rawValue);
+    }
+    public VueHTMLString(StringBuffer buffer) {
+        this(new String(buffer));
+    }
+    public VueHTMLString(StringBuilder builder) {
+        this(new String(builder));
+    }
+
+    @Override
+    protected void setRawValue(String rawValue) {
+        HelperMethods.checkObject("rawValue", rawValue);
+        this.rawValue = rawValue;
         // TODO: fill out
     }
 
