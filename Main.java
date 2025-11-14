@@ -1,7 +1,5 @@
 import java.util.HashMap;
-
 import MainBranch.Database;
-import MainBranch.database.DatabaseReadingPipeline.DatabaseReader;
 import Packages.CoreTypes.EntityMechanics.LancerCharacter;
 import Packages.CoreTypes.EntityMechanics.License;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.Mech;
@@ -85,7 +83,7 @@ public final class Main {
         HashMap<String, Object> pilotProperties;
 
         // read all necessary databases
-        DatabaseReader.read("MainBranch/ProgramData/Data/actions.json");
+        // DatabaseReader.readLocal("MainBranch/ProgramData/Data/actions.json");
 
         // compile a character
         myCharacter = new LancerCharacter("Coral Nolan",
