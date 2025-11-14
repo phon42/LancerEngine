@@ -6,6 +6,9 @@ import MainBranch.HelperMethods;
 import Packages.CoreTypes.lcpInfo.LCPDependency;
 import Packages.CoreTypes.lcpInfo.Version;
 
+/**
+ * From https://github.com/massif-press/lancer-data/blob/master/README.md#lcp-structure.
+ */
 public class LCPInfo {
     // Required properties
     /**
