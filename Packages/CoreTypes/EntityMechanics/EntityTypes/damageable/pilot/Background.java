@@ -4,16 +4,18 @@ import MainBranch.HelperMethods;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skill.SkillData;
 
 /**
+ * From https://github.com/massif-press/lancer-data/blob/master/README.md#backgrounds-backgroundsjson.
+ */
+/**
  * Represents a single background. Contains information about that background's
- *     id, name, description, and an array of Skills that might be applicable.
+ *     id, name, description, and an array of SkillDatas that might be
+ *     applicable.
  * 
- * Requires a background id, name, description, and an array of Skills that
- *     might be applicable to be instantiated.
+ * Requires a background id, name, and description to be instantiated.
  * 
  * Unused at present.
  * 
- * Safety: This class does not have placeholder values and cannot be a
- *     placeholder. At least one of its properties has an allowed value of null.
+ * Safety: At least one of this class' properties has an allowed value of null.
  */
 public class Background {
     // Required properties
@@ -35,7 +37,8 @@ public class Background {
      * Case-sensitive.
      */
     private String description;
-    // Optional properties
+
+    // Optional property
     /**
      * The skills that might be appropriate to choose for this background (i.e.
      *     a SkillData[] containing Charm, Pull Rank, Lead or Inspire, and
@@ -47,18 +50,26 @@ public class Background {
 
     public Background(String id, String name, String description,
         SkillData[] skills) {
+        // Required properties
         setID(id);
         setName(name);
         setDescription(description);
+        // Optional property
         setSkills(skills);
     }
+    public Background(String id, String name, String description) {
+        this(id, name, description, null);
+    }
     public Background(Background background) {
+        // Required properties
         setID(background.id);
         setName(background.name);
         setDescription(background.description);
+        // Optional property
         setSkills(background.skills);
     }
 
+    // Required properties
     public String getID() {
         return id;
     }
@@ -68,32 +79,36 @@ public class Background {
     public String getDescription() {
         return description;
     }
+    // Optional property
     public SkillData[] getSkills() {
         if (skills != null) {
             return HelperMethods.copyOf(skills);
         }
+
         return skills;
     }
-    public void setID(String id) {
+    // Required properties
+    private void setID(String id) {
         HelperMethods.checkString("id", id);
         id = id.toLowerCase();
         this.id = id;
     }
-    public void setName(String name) {
+    private void setName(String name) {
         HelperMethods.checkString("name", name);
         this.name = name;
     }
-    public void setDescription(String description) {
+    private void setDescription(String description) {
         HelperMethods.checkString("description", description);
         this.description = description;
     }
+    // Optional property
     /**
      * Sets this.skills to the provided value.
      * @param skills a SkillData[] which cannot be of length 0 or contain null
      *     elements. Can be null.
      * @throws IllegalArgumentException if skills is invalid as defined above.
      */
-    public void setSkills(SkillData[] skills) {
+    private void setSkills(SkillData[] skills) {
         if (skills != null) {
             if (skills.length == 0) {
                 throw new IllegalArgumentException("skills is of length 0");
