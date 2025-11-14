@@ -1,8 +1,10 @@
 package Packages.CoreTypes.EntityMechanics.Actions;
 
+import java.util.HashMap;
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.Callable;
 import Packages.CoreTypes.EntityMechanics.ActivationType;
+import Packages.CoreTypes.EntityMechanics.Frequency;
 import Packages.CoreTypes.VueHTMLString;
 import Packages.CoreTypes.TriState;
 
@@ -75,22 +77,103 @@ public class ActionBase {
      */
     private static final String[] confirmDefault = new String[] {"ACTIVATION"
         + " CONFIRMED."};
+    /**
+     * Unknown purpose.
+     * Is set to true for the Move and Free Action Actions in the base Lancer
+     *     LCP. Unused in all other locations.
+     * Can be any boolean.
+     * Default value: false.
+     */
+    protected boolean hideActive;
+    /**
+     * The default value for ActionBase.hideActive.
+     */
+    private static final boolean hideActiveDefault = false;
 
-    // Optional property
+    // Conditionally required properties
+    /**
+     * The frequency with which this action can be used, if there is one (i.e. a
+     *     Frequency that represents "1/round").
+     * Required when this.activation is a reaction.
+     * When required:
+     *     Can be any Frequency. Cannot be null.
+     * When not required:
+     *     Default value: 1/round if this.ignoreUsed is false and unlimited if
+     *         it's true.
+     *     Must be a Frequency that is either 1/round or unlimited. Cannot be
+     *         null.
+     * Can be any Frequency with the restrictions described above. Cannot be
+     *     null.
+     */
+    protected Frequency frequency;
+    /**
+     * The trigger for this action, if there is one (i.e. a VueHTMLString
+     *     representing the String "You are hit by an attack and damage has"
+     *     " been rolled.").
+     * Required when this.activation is a reaction.
+     * When required:
+     *     Can be any VueHTMLString except "". Cannot be null.
+     * When not required:
+     *     Must be null.
+     * Can be any VueHTMLString except "". Can be null.
+     * Case-sensitive.
+     */
+    protected VueHTMLString trigger;
+
+    // Optional properties
     /**
      * A method allowing the program to perform the action automatically (unable
      *     to provide an example).
      * Can be any Callable. Can be null.
      */
     protected Callable method;
+    /**
+     * Any initial conditions required for this action, if there are any (i.e.
+     *     "Requires activation of the <b>Spin Up Thrusters</b> quick action on"
+     *     " your turn. If you end your turn flying, you may nominate a"
+     *     " character within a Range equal to your Speed and within line of"
+     *     " sight, you may use this reaction.").
+     * Presence on the "Unleash SCYLLA Reaction" from the "SCYLLA-Class NHP"
+     *     from Gorgon III might be a typo. Present on the Ace talent.
+     * When this.activation is a reaction, can be any VueHTMLString except "".
+     *     Can be null.
+     * When this.activation is not a reaction, must be null.
+     * Can be any VueHTMLString except "". Can be null.
+     */
+    protected VueHTMLString init;
+
+    // Helper property
+    /**
+     * The general type of the action (i.e. "move").
+     * Value is based on this.activation.type and, secondarily, this.name.
+     * Can be any String except "". Cannot be null.
+     * Case-insensitive and stored in lowercase.
+     */
+    protected String type;
+    /**
+     * Stores a HashMap helpful in calculating ActionBase.type.
+     */
+    private static final HashMap<String, String> typeMap = new HashMap<>();
+
+    static {
+        ActionBase.typeMap.put("free", "free");
+        ActionBase.typeMap.put("protocol", "free");
+        ActionBase.typeMap.put("quick", "quick");
+        ActionBase.typeMap.put("full", "full");
+        ActionBase.typeMap.put("invade", "quick");
+        ActionBase.typeMap.put("full tech", "full");
+        ActionBase.typeMap.put("quick tech", "quick");
+        ActionBase.typeMap.put("reaction", "reaction");
+        ActionBase.typeMap.put("downtime", "downtime");
+    }
 
     protected ActionBase(
         // Required properties
         String name, ActivationType activation, String detailedDescription,
         // Semi-required properties
-        TriState pilot, TriState mech, String[] confirm,
+        TriState pilot, TriState mech, String[] confirm, TriState hideActive,
         // Optional properties
-        Callable method
+        Callable method, VueHTMLString requiredInitialConditions
     ) {
         HelperMethods.verifyConstructor();
         // Required properties
@@ -100,24 +183,43 @@ public class ActionBase {
         // Semi-required properties
         setPilotAndMech(pilot, mech);
         setConfirm(confirm);
+        calculateHideActive(hideActive);
         // Optional properties
         setMethod(method);
+        setInit(requiredInitialConditions);
+        // Verify everything
+        verifyProperties();
+        // Helper property
+        setType(calculateType());
     }
     protected ActionBase(String name, ActivationType activation,
         String detailedDescription) {
         this(name, activation, detailedDescription, TriState.UNSET,
-            TriState.UNSET, null, null);
+            TriState.UNSET, null, TriState.UNSET, null,
+            null);
     }
     protected ActionBase(ActionBase actionBase) {
         HelperMethods.checkObject("actionBase", actionBase);
+        // Required properties
         setName(actionBase.name);
         setActivation(actionBase.activation);
         setDetail(actionBase.detail);
+        // Semi-required properties
         setMethod(actionBase.method);
         setPilot(actionBase.pilot);
         setMech(actionBase.mech);
         setConfirm(actionBase.confirm);
+        setHideActive(actionBase.hideActive);
+        // Conditionally required properties
+        setFrequency(actionBase.frequency);
+        setTrigger(actionBase.trigger);
+        // Optional properties
         setMethod(actionBase.method);
+        setInit(actionBase.init);
+        // Verify everything
+        verifyProperties();
+        // Helper property
+        setType(calculateType());
     }
 
     // Required properties
@@ -140,13 +242,38 @@ public class ActionBase {
     public String[] getConfirm() {
         return HelperMethods.copyOf(confirm);
     }
-    // Optional property
+    public boolean isHideActive() {
+        return hideActive;
+    }
+    // Conditionally required properties
+    public Frequency getFrequency() {
+        return new Frequency(frequency);
+    }
+    public VueHTMLString getTrigger() {
+        if (trigger == null) {
+            return trigger;
+        }
+
+        return new VueHTMLString(trigger);
+    }
+    // Optional properties
     public Callable getMethod() {
         if (method != null) {
             return HelperMethods.copyOf(method);
         }
 
         return method;
+    }
+    public VueHTMLString getInit() {
+        if (init == null) {
+            return init;
+        }
+
+        return new VueHTMLString(init);
+    }
+    // Helper property
+    public String getType() {
+        return type;
     }
     // Required properties
     protected void setName(String name) {
@@ -183,9 +310,38 @@ public class ActionBase {
         }
         this.confirm = confirm;
     }
-    // Optional property
+    protected void setHideActive(boolean hideActive) {
+        this.hideActive = hideActive;
+    }
+    // Conditionally required properties
+    protected void setFrequency(Frequency frequency) {
+        HelperMethods.checkObject("frequency", frequency);
+        frequency = new Frequency(frequency);
+        this.frequency = frequency;
+    }
+    protected void setTrigger(VueHTMLString trigger) {
+        if (trigger != null) {
+            HelperMethods.checkVueHTMLString("trigger", trigger);
+            trigger = new VueHTMLString(trigger);
+        }
+        this.trigger = trigger;
+    }
+    // Optional properties
     protected void setMethod(Callable method) {
         this.method = method;
+    }
+    protected void setInit(VueHTMLString init) {
+        if (init != null) {
+            HelperMethods.checkVueHTMLString("init", init);
+            init = new VueHTMLString(init);
+        }
+        this.init = init;
+    }
+    // Helper property
+    protected void setType(String type) {
+        HelperMethods.checkString("type", type);
+        type = type.toLowerCase();
+        this.type = type;
     }
 
     protected void setPilotAndMech(TriState pilot, TriState mech) {
@@ -201,5 +357,52 @@ public class ActionBase {
         } else {
             setMech(mech.toBoolean());
         }
+    }
+    protected void calculateHideActive(TriState hideActive) {
+        if (hideActive == TriState.UNSET) {
+            this.hideActive = ActionBase.hideActiveDefault;
+        } else {
+            this.hideActive = hideActive.toBoolean();
+        }
+    }
+    protected void verifyProperties() {
+        if (this.activation.getType().equals("reaction")) {
+            // do nothing about this.frequency, because this.frequency cannot be
+            //     null.
+            if (this.trigger == null) {
+                throw new IllegalStateException("this.trigger cannot be null"
+                    + " when this.activation is a reaction");
+            }
+            // do nothing further about this.trigger because it cannot be ""
+        } else {
+            if (this.trigger != null) {
+                throw new IllegalStateException("this.trigger must be null"
+                    + " when this.activation is not a reaction");
+            }
+        }
+    }
+    /**
+     * Calculates the correct value for the helper property ActionBase.type.
+     * @return a String containing the correct value.
+     */
+    protected String calculateType() {
+        String activationType;
+        String result;
+
+        activationType = this.activation.getType();
+        if (ActionBase.typeMap.containsKey(activationType)) {
+            if (this.name.equals("Move")
+                || this.name.equals("Boost")) {
+                result = "move";
+            } else {
+                result = ActionBase.typeMap.get(activationType);
+            }
+        } else {
+            throw new IllegalStateException("this.activation.type is: \""
+                + activationType + "\" which could not be found within"
+                + " ActionBase.typeMap");
+        }
+
+        return result;
     }
 }
