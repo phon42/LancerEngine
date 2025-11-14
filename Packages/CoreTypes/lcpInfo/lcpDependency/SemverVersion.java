@@ -1,9 +1,16 @@
 package Packages.CoreTypes.lcpInfo.lcpDependency;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.TriState;
 
-public class SemverVersion {
+/**
+ * From https://semver.org/ and
+ *     https://github.com/massif-press/lancer-data/blob/master/README.md#lcp-dependencies.
+ */
+public class SemverVersion implements Comparable<SemverVersion>,
+    Iterable<Integer> {
     /**
      * The version numbers making up this semver version string (i.e. an int[]
      *     containing 1, 0, and 0).
@@ -113,6 +120,61 @@ public class SemverVersion {
         }
 
         return output;
+    }
+    @Override
+    public boolean equals(Object object) {
+        if (! (object instanceof SemverVersion)) {
+            return false;
+        }
+
+        return equals((SemverVersion) object);
+    }
+    public boolean equals(SemverVersion semverVersion) {
+        if (this.acceptAll != semverVersion.acceptAll) {
+            return false;
+        }
+        if (this.acceptExact != semverVersion.acceptExact) {
+            return false;
+        }
+        if (this.versionNumbers.length != semverVersion.versionNumbers.length) {
+            return false;
+        }
+        for (int i = 0; i < this.versionNumbers.length; i++) {
+            if (this.versionNumbers[i] != semverVersion.versionNumbers[i]) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+    public int compareTo(SemverVersion semverVersion) {
+        if (this.acceptAll != semverVersion.acceptAll) {
+            return this.acceptAll && ! semverVersion.acceptAll ? -1 : 1;
+        }
+        if (this.acceptExact != semverVersion.acceptExact) {
+            return this.acceptExact && ! semverVersion.acceptExact ? -1 : 1;
+        }
+        if (this.versionNumbers.length != semverVersion.versionNumbers.length) {
+            return this.versionNumbers.length
+                - semverVersion.versionNumbers.length;
+        }
+        for (int i = 0; i < this.versionNumbers.length; i++) {
+            if (this.versionNumbers[i] != semverVersion.versionNumbers[i]) {
+                return this.versionNumbers[i] - semverVersion.versionNumbers[i];
+            }
+        }
+
+        return 0;
+    }
+    public Iterator<Integer> iterator() {
+        ArrayList<Integer> arrayList;
+
+        arrayList = new ArrayList<>();
+        for (int num : this.versionNumbers) {
+            arrayList.add(num);
+        }
+
+        return arrayList.iterator();
     }
     private void calculateProperties(String input) {
         HelperMethods.checkObject("input", input);
