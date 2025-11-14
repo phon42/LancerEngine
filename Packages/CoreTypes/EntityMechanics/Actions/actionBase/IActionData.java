@@ -3,9 +3,12 @@ package Packages.CoreTypes.EntityMechanics.Actions.actionBase;
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.Callable;
 import Packages.CoreTypes.TriState;
+import Packages.CoreTypes.VueHTMLString;
 import Packages.CoreTypes.EntityMechanics.Synergy;
 import Packages.CoreTypes.EntityMechanics.Actions.ActionBase;
+import Packages.CoreTypes.EntityMechanics.HarmSystem.Damage;
 import Packages.CoreTypes.EntityMechanics.ActivationType;
+import Packages.CoreTypes.EntityMechanics.RangeTag;
 
 /**
  * Represents a single action granted by a core bonus, core power, frame trait,
@@ -63,31 +66,46 @@ public class IActionData extends ActionBase {
      */
     private static final boolean techAttackDefault = false;
 
-    // Optional property
+    // Optional properties
     /**
      * Any synergies that are provided through this property will show up on the
      *     action.
      * Can be any Synergy[] that does not contain null elements. Can be null.
      */
     private Synergy[] synergyLocations;
+    /**
+     * The ranges associated with this action, if there are any.
+     * Can be any RangeTag[] that does not contain null elements. Can be null.
+     * Elements can be any RangeTag.
+     */
+    private RangeTag[] range;
+    /**
+     * The damages associated with this action, if there are any.
+     * Can be any Damage[] that does not contain null elements. Can be null.
+     * Elements can be any Damage.
+     */
+    private Damage[] damage;
 
     public IActionData(
         // ActionBase properties
         String actionName, ActivationType activation,
         String detailedDescription, TriState pilot, TriState mech,
-        String[] confirm, Callable method,
+        String[] confirm, TriState hideActive, Callable method,
+        VueHTMLString requiredInitialConditions,
         // Semi-required properties
         int cost, TriState techAttack,
-        // Optional property
-        Synergy[] synergyLocations
+        // Optional properties
+        Synergy[] synergyLocations, RangeTag[] rangeTags, Damage[] damage
     ) {
         super(actionName, activation, detailedDescription, pilot, mech, confirm,
-            method);
+            hideActive, method, requiredInitialConditions);
         // Semi-required properties
         setCost(cost);
         setTechAttack(techAttack);
         // Optional properties
         setSynergyLocations(synergyLocations);
+        setRange(rangeTags);
+        setDamage(damage);
     }
     public IActionData(String actionName, ActivationType activation,
         String detailedDescription) {
@@ -97,14 +115,16 @@ public class IActionData extends ActionBase {
     public IActionData(
         // ActionBase properties
         ActivationType activation, String detailedDescription, String itemName,
-        TriState pilot, TriState mech, String[] confirm, Callable method,
+        TriState pilot, TriState mech, String[] confirm, TriState hideActive,
+        Callable method, VueHTMLString requiredInitialConditions,
         // Semi-required properties
         int cost, TriState techAttack,
-        // Optional property
-        Synergy[] synergyLocations
+        // Optional properties
+        Synergy[] synergyLocations, RangeTag[] rangeTags, Damage[] damage
     ) {
         this(toActionName(itemName), activation, detailedDescription, pilot,
-            mech, confirm, method, cost, techAttack, synergyLocations);
+            mech, confirm, hideActive, method, requiredInitialConditions, cost,
+            techAttack, synergyLocations, rangeTags, damage);
     }
     public IActionData(ActivationType activation, String detailedDescription,
         String itemName) {
@@ -121,13 +141,27 @@ public class IActionData extends ActionBase {
     public boolean isTechAttack() {
         return techAttack;
     }
-    // Optional property
+    // Optional properties
     public Synergy[] getSynergyLocations() {
         if (synergyLocations == null) {
             return synergyLocations;
         }
 
         return HelperMethods.copyOf(synergyLocations);
+    }
+    public RangeTag[] getRange() {
+        if (range == null) {
+            return range;
+        }
+
+        return HelperMethods.copyOf(range);
+    }
+    public Damage[] getDamage() {
+        if (damage == null) {
+            return damage;
+        }
+
+        return HelperMethods.copyOf(damage);
     }
     // Semi-required properties
     private void setCost(int cost) {
@@ -159,7 +193,7 @@ public class IActionData extends ActionBase {
         }
         this.techAttack = value;
     }
-    // Optional property
+    // Optional properties
     private void setSynergyLocations(Synergy[] synergyLocations) {
         if (synergyLocations == null) {
             this.synergyLocations = synergyLocations;
@@ -169,6 +203,20 @@ public class IActionData extends ActionBase {
             synergyLocations);
         synergyLocations = HelperMethods.copyOf(synergyLocations);
         this.synergyLocations = synergyLocations;
+    }
+    private void setRange(RangeTag[] range) {
+        if (range != null) {
+            HelperMethods.checkObjectArray("range", range);
+            range = HelperMethods.copyOf(range);
+        }
+        this.range = range;
+    }
+    private void setDamage(Damage[] damage) {
+        if (damage != null) {
+            HelperMethods.checkObjectArray("damage", damage);
+            damage = HelperMethods.copyOf(damage);
+        }
+        this.damage = damage;
     }
 
     private static String toActionName(String itemName) {
