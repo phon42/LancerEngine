@@ -3,23 +3,23 @@ package Packages.CoreTypes;
 import MainBranch.HelperMethods;
 
 public class HTMLString implements Comparable<HTMLString>, CharSequence {
-    private String rawValue;
+    protected String rawValue;
 
     public HTMLString() {
         setRawValue("");
     }
     public HTMLString(String input) {
-        HelperMethods.checkObject("input", input);
+        setRawValue(input);
+    }
+    public HTMLString(HTMLString htmlString) {
+        HelperMethods.checkObject("htmlString", htmlString);
+        setRawValue(htmlString.rawValue);
     }
     public HTMLString(StringBuffer buffer) {
         this(new String(buffer));
     }
     public HTMLString(StringBuilder builder) {
         this(new String(builder));
-    }
-    public HTMLString(HTMLString htmlString) {
-        HelperMethods.checkObject("htmlString", htmlString);
-        setRawValue(htmlString.rawValue);
     }
 
     public String getRawValue() {
@@ -28,6 +28,7 @@ public class HTMLString implements Comparable<HTMLString>, CharSequence {
     protected void setRawValue(String rawValue) {
         HelperMethods.checkObject("rawValue", rawValue);
         this.rawValue = rawValue;
+        // TODO: fill out
     }
 
     @Override
