@@ -3,7 +3,7 @@ package Packages.CoreTypes.EntityMechanics.Actions;
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.Callable;
 import Packages.CoreTypes.EntityMechanics.ActivationType;
-import Packages.CoreTypes.HTMLString;
+import Packages.CoreTypes.VueHTMLString;
 import Packages.CoreTypes.TriState;
 
 /**
@@ -36,10 +36,10 @@ public class ActionBase {
     protected ActivationType activation;
     /**
      * A detailed description of this action (too long to provide an example).
-     * Can be any HTMLString. Cannot be null.
+     * Can be any VueHTMLString. Cannot be null.
      * Case-sensitive.
      */
-    protected HTMLString detail;
+    protected VueHTMLString detail;
 
     // Semi-required (optional but has a specific default value other than null
     //     when not provided) properties
@@ -127,8 +127,8 @@ public class ActionBase {
     public ActivationType getActivation() {
         return new ActivationType(activation);
     }
-    public HTMLString getDetail() {
-        return new HTMLString(detail);
+    public VueHTMLString getDetail() {
+        return new VueHTMLString(detail);
     }
     // Semi-required properties
     public boolean isPilot() {
@@ -158,14 +158,14 @@ public class ActionBase {
         activation = new ActivationType(activation);
         this.activation = activation;
     }
-    protected void setDetail(HTMLString detail) {
+    protected void setDetail(VueHTMLString detail) {
         HelperMethods.checkObject("detail", detail);
-        detail = new HTMLString(detail);
+        detail = new VueHTMLString(detail);
         this.detail = detail;
     }
     protected void setDetail(String detail) {
         HelperMethods.checkString("detail", detail);
-        setDetail(new HTMLString(detail));
+        setDetail(new VueHTMLString(detail));
     }
     // Semi-optional properties
     protected void setPilot(boolean pilot) {
