@@ -328,11 +328,38 @@ public class DataCaster {
     }
     private static void processLCPInfo(JSONObject[] infoData,
         JSONObject[] lcpManifestData) {
-        if (infoData != null && infoData.length >= 1) {
+        boolean infoValid;
+        boolean lcpManifestValid;
+
+        infoValid = infoData != null && infoData.length >= 1;
+        lcpManifestValid = lcpManifestData != null
+            && lcpManifestData.length >= 1;
+        System.out.println(infoValid + "" + lcpManifestValid);
+        if (infoValid) {
+            try {
+                DataCaster.infoName = infoData[0].getString("name");
+            } catch (JSONException exception) {
+                infoValid = false;
+            }
+        }
+        if (lcpManifestValid) {
+            try {
+                DataCaster.lcpManifestName =
+                    lcpManifestData[0].getString("name");
+            } catch (JSONException exception) {
+                lcpManifestValid = false;
+            }
+        }
+        if (infoValid) {
             processInfo(infoData);
         }
-        if (lcpManifestData != null && lcpManifestData.length >= 1) {
+        if (lcpManifestValid) {
             processLCPManifests(lcpManifestData);
+        }
+        if (! (infoValid || lcpManifestValid)) {
+            throw new IllegalStateException("Neither a valid info.json file"
+                + " nor a valid lcp_manifest.json file could be found within"
+                + " the provided LCP data .json files");
         }
     }
     private static void processInfo(JSONObject[] infoData) {
@@ -349,12 +376,6 @@ public class DataCaster {
         lcpInfo = new LCPInfo[lcpInfoData.length];
         for (int i = 0; i < lcpInfoData.length; i++) {
             lcpInfo[i] = toLCPInfo(fileName, lcpInfoData[i]);
-            if (fileName.equals("info")) {
-                DataCaster.infoName = lcpInfo[i].getName();
-            } else {
-                // fileName is "lcp_manifest"
-                DataCaster.lcpManifestName = lcpInfo[i].getName();
-            }
         }
         DataCaster.lcpInfoProcessed = lcpInfo;
     }
@@ -671,11 +692,6 @@ public class DataCaster {
         pilotEquipmentData = performCorrections("pilot_gear",
             pilotEquipmentData);
         for (int i = 0; i < pilotEquipmentData.length; i++) {
-            // why is this needed?
-            // skip null elements
-            if (pilotEquipmentData[i] == null) {
-                continue;
-            }
             type = pilotEquipmentData[i].getString("type");
             // add to the appropriate array
             if (type.equals("Armor")) {
@@ -936,7 +952,7 @@ public class DataCaster {
             // 4. Convert the value from a JSONArray to an Object[]:
             tableArray = tablesObject.getJSONArray(key);
             table = new Object[tableArray.length()];
-            for (int j = 0; j < tableArray.length(); i++) {
+            for (int j = 0; j < tableArray.length(); j++) {
                 table[j] = tableArray.get(j);
             }
             map.put("value", table);
@@ -958,10 +974,15 @@ public class DataCaster {
     }
     private static Table toTable(JSONObject table) {
         String propertyName;
+        JSONArray dataArray;
         Object[] data;
 
         propertyName = table.getString("property_name");
-        data = (Object[]) table.get("value");
+        dataArray = (JSONArray) table.get("value");
+        data = new Object[dataArray.length()];
+        for (int i = 0; i < dataArray.length(); i++) {
+            data[i] = dataArray.get(i);
+        }
 
         return new Table(propertyName, data);
     }
