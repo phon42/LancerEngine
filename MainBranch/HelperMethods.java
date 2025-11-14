@@ -11,6 +11,7 @@ import Packages.CoreTypes.HTMLString;
 import Packages.CoreTypes.Rule;
 import Packages.CoreTypes.Table;
 import Packages.CoreTypes.Term;
+import Packages.CoreTypes.VueHTMLString;
 import Packages.CoreTypes.BattlefieldMechanics.Environment;
 import Packages.CoreTypes.BattlefieldMechanics.Sitrep;
 import Packages.CoreTypes.EntityMechanics.ActivationType;
@@ -295,6 +296,19 @@ public final class HelperMethods {
     public static void checkHTMLString(String propertyName, HTMLString input) {
         checkObject(propertyName, input);
         checkString(propertyName, input.getRawValue());
+    }
+    /**
+     * Checks a provided VueHTMLString to see if it is null or represents the
+     *     String "".
+     * @param propertyName a String which cannot be "". Cannot be null.
+     * @param input a VueHTMLString which cannot represent the String "". Cannot
+     *     be null.
+     * @throws IllegalArgumentException if propertyName or input are null,
+     *     propertyName is "", or input represents the String "".
+     */
+    public static void checkVueHTMLString(String propertyName,
+        VueHTMLString input) {
+        checkHTMLString(propertyName, input);
     }
     /**
      * Checks to make sure the current code is being called while Database is
