@@ -91,6 +91,9 @@ public class DataReader {
         resources = DatabaseResourceInfo.toResourceInfo(resourceNames,
             resourceLocators);
         Arrays.sort(resources);
+        if (provideOutput) {
+            System.out.println("Reading elements of the provided array");
+        }
         for (int i = 0; i < resourceLocators.length; i++) {
             readJSON(resources[i].getPath(), external, addToCache);
         }
