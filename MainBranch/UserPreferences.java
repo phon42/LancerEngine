@@ -27,14 +27,14 @@ public class UserPreferences {
      * Can be any String except "". Cannot be null.
      */
     private static String targetDir =
-        "/LancerEngine/MainBranch/ProgramData/Target";
+        "MainBranch/ProgramData/Target/";
     /**
      * The directory to the program's cache.
      * Set to the path of the purpose-made cache directory by default.
      * Can be any String except "". Cannot be null.
      */
     private static String cacheDir =
-        "/LancerEngine/MainBranch/ProgramData/Cache";
+        "MainBranch/ProgramData/Cache/";
 
     // Prevent user from instantiating this class
     private UserPreferences() {}
