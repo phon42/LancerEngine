@@ -207,6 +207,8 @@ public class DataCompiler {
                 + " DataCompiler.saveData() while DataCompiler was still"
                 + " open. Call DataCompiler.close() first");
         }
+        // extract any data that's squirreled away inside other classes
+        extractContent();
         // collect the data together
         compileContent();
         // push all the data that's been collected over to Database
@@ -218,6 +220,9 @@ public class DataCompiler {
         Database.close();
         // then flush it
         flushData();
+    }
+    private static void extractContent() {
+        // TODO: extract IActionData from core bonuses, mech systems, etc etc
     }
     private static void compileContent() {
         compileLicenseContent();
@@ -315,9 +320,14 @@ public class DataCompiler {
         DataCompiler.frameLicenseData = frameLicenses;
     }
     private static void addContent() {
-        // TODO: add the LCP info
+        addLCPInfo();
         addFrameLicenses();
         addNonLicenseContent();
+    }
+    private static void addLCPInfo() {
+        for (int i = 0; i < DataCompiler.lcpInfoData.length; i++) {
+            Database.addLCPInfo(DataCompiler.lcpInfoData[i]);
+        }
     }
     private static void addFrameLicenses() {
         for (int i = 0; i < DataCompiler.frameLicenseData.length; i++) {
