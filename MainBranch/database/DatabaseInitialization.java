@@ -3,6 +3,14 @@ package MainBranch.database;
 import java.util.HashMap;
 import MainBranch.Database;
 
+/**
+ * https://stackoverflow.com/a/18277622 was used in the creation of this file.
+ * The following command was used on this file:
+ *     git update-index --assume-unchanged path/to/file.txt
+ * It will no longer recognize any changes made to it.
+ * To undo this change, use:
+ *     git update-index --no-assume-unchanged path/to/file.txt
+ */
 public class DatabaseInitialization {
     public static final HashMap<String, ExternalLCP> initializationLCPs =
         new HashMap<>();
