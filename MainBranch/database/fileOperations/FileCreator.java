@@ -1,9 +1,10 @@
 package MainBranch.database.fileOperations;
 
 import java.io.IOException;
+import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class FileCreator {
     // Prevent user from instantiating
@@ -16,12 +17,15 @@ public class FileCreator {
         Path filePath;
 
         filePathString = targetDirectoryPath + fileNameAndExtension;
-        filePath = Paths.get(filePathString);
+        filePath = FileSystems.getDefault().getPath(filePathString);
+        filePath = filePath.normalize().toAbsolutePath();
         try {
             filePath = Files.createFile(filePath);
+        } catch (FileAlreadyExistsException exception) {
+            // do nothing because we've successfully created it
         } catch (IOException exception) {
             throw new IllegalStateException("Attempting to create the file"
-                + " threw an IOException with the following method: \""
+                + " threw an IOException with the following message: \""
                 + exception.getMessage() + "\"");
         }
         filePath = filePath.toAbsolutePath();
