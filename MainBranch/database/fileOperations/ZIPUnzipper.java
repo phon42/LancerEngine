@@ -124,7 +124,7 @@ public class ZIPUnzipper {
         directoryPath += originZIPName + "/";
         // end above
         // not included in the original
-        createDirectory(directoryPath);
+        FileOperations.createDirectory(directoryPath);
         // while loop, same as original
         while (zipEntry != null) {
             // the code inside the while loop has been replaced with
@@ -211,16 +211,12 @@ public class ZIPUnzipper {
 
         return newFile;
     }
-    private static void createDirectory(String directoryPath) {
-        // TODO: fill out
-        // Created using https://www.baeldung.com/java-create-directory
-    }
     private static void writeToFile(File file, ZipInputStream zipStream)
         throws IOException {
         FileOutputStream stream;
         int length;
         byte[] buffer = new byte[1024];
-    
+
         try {
             stream = new FileOutputStream(file);
         } catch (FileNotFoundException exception) {
