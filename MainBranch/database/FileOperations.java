@@ -11,8 +11,8 @@ public class FileOperations {
     private FileOperations() {}
 
     public static String[] readResource(String resourceLocator,
-        boolean external) {
-        return ResourceReader.read(resourceLocator, external);
+        boolean external, boolean addToCache) {
+        return ResourceReader.read(resourceLocator, external, addToCache);
     }
     public static Object parseJSONText(String jsonData) {
         return ResourceParser.parseJSONText(jsonData);
@@ -39,20 +39,23 @@ public class FileOperations {
     public static String[] getAllFilenamesInDirectory(String directoryPath) {
         return ResourceReader.getAllFilenamesInDirectory(directoryPath);
     }
-    public static String[] readAllInDirectory(String directoryPath) {
-        return ResourceReader.readAllInDirectory(directoryPath);
+    public static String[] readAllInDirectory(String directoryPath,
+        boolean addToCache) {
+        return ResourceReader.readAllInDirectory(directoryPath, addToCache);
     }
-    public static String[][] readAllInDirectoryIterable(String directoryPath) {
+    public static String[][] readAllInDirectoryIterable(String directoryPath,
+        boolean addToCache) {
         String[] fileNames;
         // index 0 is the file path
         // index 1 is the file data
         String[][] result;
 
-        fileNames = ResourceReader.readAllInDirectory(directoryPath);
+        fileNames = ResourceReader.readAllInDirectory(directoryPath, addToCache);
         result = new String[fileNames.length][2];
         for (int i = 0; i < fileNames.length; i++) {
             result[i][0] = fileNames[i];
-            result[i][1] = readResource(fileNames[i], false)[0];
+            result[i][1] = readResource(fileNames[i], false,
+                addToCache)[0];
         }
 
         return result;
