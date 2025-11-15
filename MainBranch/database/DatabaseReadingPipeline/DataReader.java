@@ -67,7 +67,6 @@ public class DataReader {
     public static void readArray(String[] resourceLocators, boolean external,
         boolean addToCache) {
         String[] resourceNames;
-        String[] extensions;
         String[] resourceInfo;
         DatabaseResourceInfo[] resources;
 
@@ -76,16 +75,14 @@ public class DataReader {
         HelperMethods.checkStringArray("resourceLocators",
             resourceLocators);
         resourceNames = new String[resourceLocators.length];
-        extensions = new String[resourceLocators.length];
         for (int i = 0; i < resourceLocators.length; i++) {
             resourceInfo = getResourceInfo(resourceLocators[i],
                 external);
             resourceNames[i] = resourceInfo[0];
-            extensions[i] = resourceInfo[1];
-            if (! extensions[i].equals("json")) {
+            if (! resourceInfo[1].equals("json")) {
                 throw new IllegalArgumentException("resourceLocators contained"
                     + " an element with the following resource extension: \""
-                    + extensions[i] + "\" which is not .json");
+                    + resourceInfo[1] + "\" which is not .json");
             }
         }
         resources = DatabaseResourceInfo.toResourceInfo(resourceNames,
