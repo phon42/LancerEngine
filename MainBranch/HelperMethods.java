@@ -48,6 +48,7 @@ import Packages.CoreTypes.EntityMechanics.LicenseSystem.FrameLicense;
 import Packages.CoreTypes.EntityMechanics.StateSystem.State;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.Condition;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.Status;
+import Packages.CoreTypes.lcpInfo.LCPDependency;
 import Packages.EventSystem.event.EventListener;
 
 // TODO: Use polymorphic methods or generic types or something to combine all
@@ -1414,6 +1415,25 @@ public final class HelperMethods {
                 continue;
             }
             copy[i] = new Harm(original[i]);
+        }
+
+        return copy;
+    }
+    /**
+     * Returns a deepest copy of original.
+     * @param original an LCPDependency[] that cannot be null.
+     * @return an LCPDependency[] deepest copy of original.
+     * @throws IllegalArgumentException if original is null.
+     */
+    public static LCPDependency[] copyOf(LCPDependency[] original) {
+        checkObject("original", original);
+        LCPDependency[] copy = new LCPDependency[original.length];
+        for (int i = 0; i < original.length; i++) {
+            if (original[i] == null) {
+                copy[i] = original[i];
+                continue;
+            }
+            copy[i] = new LCPDependency(original[i]);
         }
 
         return copy;
