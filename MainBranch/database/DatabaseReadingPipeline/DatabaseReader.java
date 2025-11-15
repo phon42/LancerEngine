@@ -33,17 +33,26 @@ public class DatabaseReader {
      *     read .lcp, .zip, or individual .json files.
      * @param filePath a String which must contain a valid file path.
      */
-    public static void readLocal(String filePath) {
-        System.out.println("Reading local file at file path: \"" + filePath
-            + "\"");
-        DataReader.read(filePath, false, false);
+    public static void readLocal(String filePath, boolean addToCache,
+        boolean provideOutput) {
+        if (provideOutput) {
+            System.out.println("Reading local file at file path: \"" + filePath
+                + "\"");
+        }
+        DataReader.read(filePath, false, addToCache,
+            provideOutput);
     }
     // TODO: add documentation
-    public static void readExternal(String url) {
-        DataReader.read(url, true, true);
+    public static void readExternal(String url, boolean addToCache,
+        boolean provideOutput) {
+        if (provideOutput) {
+            System.out.println("Reading external resource at URL: \"" + url
+                + "\"");
+        }
+        DataReader.read(url, true, addToCache, provideOutput);
     }
     public static void readExternalLCP(ExternalLCP externalLCP,
-        boolean addToCache) {
+        boolean addToCache, boolean provideOutput) {
         String lcpName;
         String cacheDirectoryPath;
         URL[] lcpFiles;
@@ -55,7 +64,8 @@ public class DatabaseReader {
             cacheDirectoryPath = Cache.getLCP(lcpName);
             if (cacheDirectoryPath != null) {
                 // Successfully found the LCP within the cache!
-                DataReader.readAllInDirectory(cacheDirectoryPath, addToCache);
+                DataReader.readAllInDirectory(cacheDirectoryPath, addToCache,
+                    provideOutput);
                 return;
             }
         }
