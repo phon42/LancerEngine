@@ -4,6 +4,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.NoSuchElementException;
 
+import MainBranch.database.DatabaseInitialization;
 import MainBranch.database.ExternalLCP;
 import MainBranch.database.LCPCorrection;
 import MainBranch.database.DatabaseReadingPipeline.DatabaseReader;
@@ -185,15 +186,7 @@ public final class Database {
     // };
 
     static {
-        ExternalLCP baseLancer;
-        ExternalLCP dustgrave;
-        ExternalLCP ktb;
-        ExternalLCP longRim;
-        ExternalLCP osr;
-        ExternalLCP ows;
-        ExternalLCP sotw;
-        ExternalLCP ssmr;
-        ExternalLCP wallflower;
+        ExternalLCP externalLCP;
         LCPCorrection correction1;
         LCPCorrection correction2;
 
@@ -213,23 +206,6 @@ public final class Database {
         // TODO: not sure whether to add this because it's not included in
         //     https://github.com/massif-press/lancer-data?tab=readme-ov-file#activationtype
         addActivationType(new ActivationType("downtime"));
-        close();
-
-        // Define all external LCPs
-        open();
-        try {
-            baseLancer = new ExternalLCP(new URL[] {});
-            dustgrave = new ExternalLCP(new URL[] {});
-            ktb = new ExternalLCP(new URL[] {});
-            longRim = new ExternalLCP(new URL[] {});
-            osr = new ExternalLCP(new URL[] {});
-            ows = new ExternalLCP(new URL[] {});
-            sotw = new ExternalLCP(new URL[] {});
-            ssmr = new ExternalLCP(new URL[] {});
-            wallflower = new ExternalLCP(new URL[] {});
-        } catch (MalformedURLException exception) {
-            throw new IllegalStateException("something went wrong");
-        }
         close();
 
         // Add LCP corrections
@@ -267,15 +243,11 @@ public final class Database {
         Database.close();
 
         // Add any desired external LCPs
-        DatabaseReader.readExternalLCP(baseLancer);
-        DatabaseReader.readExternalLCP(dustgrave);
-        DatabaseReader.readExternalLCP(ktb);
-        DatabaseReader.readExternalLCP(longRim);
-        DatabaseReader.readExternalLCP(osr);
-        DatabaseReader.readExternalLCP(ows);
-        DatabaseReader.readExternalLCP(sotw);
-        DatabaseReader.readExternalLCP(ssmr);
-        DatabaseReader.readExternalLCP(wallflower);
+        for (String key: DatabaseInitialization.initializationLCPs.keySet()) {
+            externalLCP = (ExternalLCP) DatabaseInitialization
+                .initializationLCPs.get(key);
+            DatabaseReader.readExternalLCP(externalLCP);
+        }
     }
 
     // Prevent user from instantiating this class
