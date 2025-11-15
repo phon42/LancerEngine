@@ -12,12 +12,12 @@ public class DirectoryExplorer {
     // Prevent user from instantiating
     private DirectoryExplorer() {}
 
-    public static Path[] listContentsAsArray(String path) throws
-        SecurityException {
+    public static Path[] listContentsAsArray(String path,
+        boolean includeDirectories) throws SecurityException {
         ArrayList<Path> arrayList;
         Path[] array;
 
-        arrayList = listContentsAsArrayList(path);
+        arrayList = listContentsAsArrayList(path, includeDirectories);
         array = new Path[arrayList.size()];
         for (int i = 0; i < array.length; i++) {
             array[i] = arrayList.get(i);
@@ -25,12 +25,13 @@ public class DirectoryExplorer {
 
         return array;
     }
-    public static ArrayList<Path> listContentsAsArrayList(String path) throws
-        SecurityException {
+    public static ArrayList<Path> listContentsAsArrayList(String path,
+        boolean includeDirectories) throws SecurityException {
         Iterator<Path> iterator;
         Path originalPath;
         ArrayList<Path> arrayList;
         Path currPath;
+        boolean isDirectory;
 
         iterator = getContentsIterator(path);
         originalPath = FileSystems.getDefault().getPath(path);
@@ -39,7 +40,10 @@ public class DirectoryExplorer {
         arrayList = new ArrayList<>();
         while (iterator.hasNext()) {
             currPath = iterator.next();
+            isDirectory = currPath.toFile().isDirectory();
             if (currPath.getFileName().equals(originalPath)) {
+                // skip
+            } else if (isDirectory && ! includeDirectories) {
                 // skip
             } else {
                 arrayList.add(iterator.next());
@@ -81,8 +85,8 @@ public class DirectoryExplorer {
 
         return stream;
     }
-    public static Iterator<Path> listContentsAsIterator(String path) throws
-        SecurityException {
-        return listContentsAsArrayList(path).iterator();
+    public static Iterator<Path> listContentsAsIterator(String path,
+        boolean includeDirectories) throws SecurityException {
+        return listContentsAsArrayList(path, includeDirectories).iterator();
     }
 }
