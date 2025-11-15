@@ -43,7 +43,8 @@ public class DatabaseReader {
     public static void readExternal(String url) {
         DataReader.read(url, true, true);
     }
-    public static void readExternalLCP(ExternalLCP externalLCP) {
+    public static void readExternalLCP(ExternalLCP externalLCP,
+        boolean addToCache) {
         String lcpName;
         String cacheDirectoryPath;
         URL[] lcpFiles;
@@ -55,7 +56,7 @@ public class DatabaseReader {
             cacheDirectoryPath = Cache.getLCP(lcpName);
             if (cacheDirectoryPath != null) {
                 // Successfully found the LCP within the cache!
-                DataReader.readAllInDirectory(cacheDirectoryPath);
+                DataReader.readAllInDirectory(cacheDirectoryPath, addToCache);
                 return;
             }
         }
@@ -77,7 +78,8 @@ public class DatabaseReader {
         Object fileObject;
         JSONObject file;
 
-        fileData = FileOperations.readResource(url, true);
+        fileData = FileOperations.readResource(url, true,
+            false);
         if (fileData.length > 1) {
             throw new IllegalStateException("URL: \"" + url + "\" contained"
                 + " more than 1 file");
