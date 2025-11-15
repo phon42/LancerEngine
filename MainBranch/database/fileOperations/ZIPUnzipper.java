@@ -13,7 +13,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 public class ZIPUnzipper {
-    // Code sourced from https://www.baeldung.com/java-compress-and-uncompress#unzip
+    // Created using https://www.baeldung.com/java-compress-and-uncompress#unzip
     public static String unzip(String zipResourceLocator, boolean external,
         String destDirPath) {
         URL url;
