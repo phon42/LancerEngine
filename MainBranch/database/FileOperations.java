@@ -49,15 +49,19 @@ public class FileOperations {
     public static void deleteDirectory(String path) {
         DirectoryDeleter.deleteDirectory(path);
     }
-    public static Iterator<Path> listDirectoryContentsAsIterator(String path) {
-        return DirectoryExplorer.listContentsAsIterator(path);
+    public static Iterator<Path> listDirectoryContentsAsIterator(String path,
+        boolean includeDirectories) {
+        return DirectoryExplorer.listContentsAsIterator(path,
+            includeDirectories);
     }
-    public static Path[] listDirectoryContentsAsArray(String path) {
-        return DirectoryExplorer.listContentsAsArray(path);
+    public static Path[] listDirectoryContentsAsArray(String path,
+        boolean includeDirectories) {
+        return DirectoryExplorer.listContentsAsArray(path, includeDirectories);
     }
-    public static ArrayList<Path> listDirectoryContentsAsArrayList(String path)
-    {
-        return DirectoryExplorer.listContentsAsArrayList(path);
+    public static ArrayList<Path> listDirectoryContentsAsArrayList(String path,
+        boolean includeDirectories) {
+        return DirectoryExplorer.listContentsAsArrayList(path,
+            includeDirectories);
     }
     private static String unzip(String zipResourceLocator, boolean external,
         String targetDirectoryPath) {
