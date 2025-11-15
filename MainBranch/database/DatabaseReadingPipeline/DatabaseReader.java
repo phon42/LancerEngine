@@ -58,15 +58,30 @@ public class DatabaseReader {
         URL[] lcpFiles;
         String[] fileURLs;
 
+        if (provideOutput) {
+            System.out.println("Reading an ExternalLCP object");
+        }
         // Small optimization - see whether the LCP is already cached
         if (externalLCP.hasLCPInfoFile()) {
             lcpName = Cache.peekLCPInfo(externalLCP.getLCPInfoURL());
-            cacheDirectoryPath = Cache.getLCP(lcpName);
-            if (cacheDirectoryPath != null) {
-                // Successfully found the LCP within the cache!
-                DataReader.readAllInDirectory(cacheDirectoryPath, addToCache,
-                    provideOutput);
-                return;
+            if (lcpName != null) {
+                if (provideOutput) {
+                    System.out.println("ExternalLCP object's name is: \""
+                        + lcpName + "\"");
+                }
+                cacheDirectoryPath = Cache.getLCP(lcpName);
+                if (cacheDirectoryPath != null) {
+                    // Successfully found the LCP within the cache!
+                    if (provideOutput) {
+                        System.out.println("ExternalLCP object successfully"
+                            + " found within the cache folder at local"
+                            + " directory path: \"" + cacheDirectoryPath
+                            + "\"");
+                    }
+                    DataReader.readAllInDirectory(cacheDirectoryPath,
+                        addToCache, provideOutput);
+                    return;
+                }
             }
         }
         // LCP doesn't have a name or couldn't be found in the cache - we have
@@ -76,6 +91,6 @@ public class DatabaseReader {
         for (int i = 0; i < lcpFiles.length; i++) {
             fileURLs[i] = lcpFiles[i].toString();
         }
-        DataReader.readArray(fileURLs, true, true);
+        DataReader.readArray(fileURLs, true, addToCache);
     }
 }
