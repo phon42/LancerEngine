@@ -9,8 +9,8 @@ public class DatabaseResourceName implements Comparable<DatabaseResourceName> {
      */
     private String value;
 
-    public DatabaseResourceName(String resourcePath) {
-        setValue(resourcePath);
+    public DatabaseResourceName(String resourceName) {
+        setValue(resourceName);
     }
 
     public String getValue() {
