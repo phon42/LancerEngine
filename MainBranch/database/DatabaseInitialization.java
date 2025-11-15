@@ -20,6 +20,7 @@ public class DatabaseInitialization {
 
         // Define all external LCPs
         Database.open();
+        // hi
         Database.close();
 
         DatabaseInitialization.initializationLCPs.put("baseLancer",
