@@ -12,7 +12,8 @@ public class DataReader {
     // prevent user from instantiating this class
     private DataReader() {}
 
-    public static void read(String resourceLocator, boolean external) {
+    public static void read(String resourceLocator, boolean external,
+        boolean addToCache) {
         String extension;
 
         // we take in a String
@@ -26,22 +27,25 @@ public class DataReader {
         //     call readJSON), or readJSON directly, which sends its data along
         //     to DataParser after resolving
         if (extension.equals("lcp")) {
-            readLCP(resourceLocator, external);
+            readLCP(resourceLocator, external, addToCache);
         } else if (extension.equals("zip")) {
-            readZIP(resourceLocator, external);
+            readZIP(resourceLocator, external, addToCache);
         } else if (extension.equals("json")) {
-            readJSON(resourceLocator, external);
+            readJSON(resourceLocator, external, addToCache);
         }
         // once you're done, send that data along to DataCaster, which sends it
         //     along to DataCompiler
         DataParser.sendData();
     }
-    public static void readArray(String[] resourceLocators, boolean external) {
+    public static void readArray(String[] resourceLocators, boolean external,
+        boolean addToCache) {
         String[] resourceNames;
         String[] extensions;
         String[] resourceInfo;
         DatabaseResourceInfo[] resources;
 
+        // TODO: add the ability to add all of these files to the cache under
+        //     the same folder
         HelperMethods.checkStringArray("resourceLocators",
             resourceLocators);
         resourceNames = new String[resourceLocators.length];
@@ -61,7 +65,7 @@ public class DataReader {
             resourceLocators);
         Arrays.sort(resources);
         for (int i = 0; i < resourceLocators.length; i++) {
-            readJSON(resources[i].getPath(), external);
+            readJSON(resources[i].getPath(), external, addToCache);
         }
         DataParser.sendData();
     }
@@ -162,8 +166,9 @@ public class DataReader {
      * @param lcpPath a String which must contain a valid file path. Is assumed
      *     to be a .lcp file. Cannot be null.
      */
-    private static void readLCP(String lcpPath, boolean external) {
-        readZIP(lcpPath, external);
+    private static void readLCP(String lcpPath, boolean external,
+        boolean addToCache) {
+        readZIP(lcpPath, external, addToCache);
     }
     /**
      * Unzips the provided .zip file before calling
@@ -171,17 +176,23 @@ public class DataReader {
      * @param zipPath a String which must contain a valid file path. Is assumed
      *     to be a .zip file. Cannot be null.
      */
-    private static void readZIP(String zipPath, boolean external) {
+    private static void readZIP(String zipPath, boolean external,
+        boolean addToCache) {
         // A directory of the .zip's contents will be created locally. This
         //     variable stores the file path to that directory.
         String unzippedDirectoryPath;
 
+        // TODO: add a small optimization to peek at the file's info file and
+        //     see if that LCP has been cached
         // unpack the zip
-        unzippedDirectoryPath = FileOperations.unzip(zipPath, external);
+        unzippedDirectoryPath = FileOperations.unzip(zipPath, external,
+            addToCache);
         // then call readAllInDirectory on it
         readAllInDirectory(unzippedDirectoryPath);
-        // then delete the directory we've created to do this
-        FileOperations.deleteDirectory(unzippedDirectoryPath);
+        if (! addToCache) {
+            // then delete the directory we've created to do this
+            FileOperations.deleteDirectory(unzippedDirectoryPath);
+        }
     }
     /**
      * Reads a directory's contents by calling DatabaseReader.readJSON() on
@@ -189,7 +200,7 @@ public class DataReader {
      * @param directoryPath a String which must contain a valid directory path.
      *     Is assumed to be a directory. Cannot be null.
      */
-    private static void readAllInDirectory(String directoryPath) {
+    public static void readAllInDirectory(String directoryPath) {
         String[][] fileData;
         String[] castedFile;
 
@@ -206,9 +217,11 @@ public class DataReader {
      * @param jsonPath a String which must contain a valid file path. Must be a
      *     .json file. Cannot be null.
      */
-    private static void readJSON(String jsonPath, boolean external) {
+    private static void readJSON(String jsonPath, boolean external,
+        boolean addToCache) {
         String[] data = null;
 
+        // TODO: add the ability to cache JSON files
         // Check whether jsonPath is null
         HelperMethods.checkObject("jsonPath", jsonPath);
         // Check whether jsonPath actually corresponds to:
