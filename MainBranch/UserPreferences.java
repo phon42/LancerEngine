@@ -26,8 +26,15 @@ public class UserPreferences {
      * Set to the path of the purpose-made target directory by default.
      * Can be any String except "". Cannot be null.
      */
-    private static String fileDestinationDir =
+    private static String targetDir =
         "/LancerEngine/MainBranch/ProgramData/Target";
+    /**
+     * The directory to the program's cache.
+     * Set to the path of the purpose-made cache directory by default.
+     * Can be any String except "". Cannot be null.
+     */
+    private static String cacheDir =
+        "/LancerEngine/MainBranch/ProgramData/Cache";
 
     // Prevent user from instantiating this class
     private UserPreferences() {}
@@ -41,8 +48,11 @@ public class UserPreferences {
     public static int getColorResolution() {
         return colorResolution;
     }
-    public static String getFileDestinationDir() {
-        return fileDestinationDir;
+    public static String getTargetDir() {
+        return targetDir;
+    }
+    public static String getCacheDir() {
+        return cacheDir;
     }
     public static void setMakeRollsManually(boolean makeRollsManually) {
         UserPreferences.makeRollsManually = makeRollsManually;
@@ -60,9 +70,12 @@ public class UserPreferences {
             colorResolution);
         UserPreferences.colorResolution = colorResolution;
     }
-    public static void setFileDestinationDir(String fileDestinationDir) {
-        HelperMethods.checkString("fileDestinationDir",
-            fileDestinationDir);
-        UserPreferences.fileDestinationDir = fileDestinationDir;
+    public static void setTargetDir(String targetDir) {
+        HelperMethods.checkString("targetDir", targetDir);
+        UserPreferences.targetDir = targetDir;
+    }
+    public static void setCacheDir(String cacheDir) {
+        HelperMethods.checkString("cacheDir", cacheDir);
+        UserPreferences.cacheDir = cacheDir;
     }
 }
