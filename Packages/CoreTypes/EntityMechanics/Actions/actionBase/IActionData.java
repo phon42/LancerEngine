@@ -11,6 +11,10 @@ import Packages.CoreTypes.EntityMechanics.ActivationType;
 import Packages.CoreTypes.EntityMechanics.RangeTag;
 
 /**
+ * See pgs. 61 - 64, 68 - 76, and 107 for more information.
+ * See also https://github.com/massif-press/lancer-data/blob/master/README.md#item-actions.
+ */
+/**
  * Represents a single action granted by a core bonus, core power, frame trait,
  *     system, talent rank, or weapon. Contains information about the action's
  *     name, activation speed, and what it does, among other properties.

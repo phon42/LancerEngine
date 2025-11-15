@@ -9,6 +9,11 @@ import Packages.CoreTypes.VueHTMLString;
 import Packages.CoreTypes.TriState;
 
 /**
+ * See pgs. 61 - 64, 68 - 76, and 107 for more information.
+ * See also https://github.com/massif-press/lancer-data/blob/master/README.md#actions-actionsjson
+ *     and https://github.com/massif-press/lancer-data/blob/master/README.md#item-actions.
+ */
+/**
  * Represents a single action of any type. Contains information about the
  *     action's name, activation speed, and a detailed description of what it
  *     does, among other properties.

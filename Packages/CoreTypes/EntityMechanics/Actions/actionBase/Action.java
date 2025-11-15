@@ -9,6 +9,10 @@ import Packages.CoreTypes.TriState;
 import Packages.CoreTypes.VueHTMLString;
 
 /**
+ * See pgs. 61 - 64, 68 - 76, and 107 for more information.
+ * See also https://github.com/massif-press/lancer-data/blob/master/README.md#actions-actionsjson.
+ */
+/**
  * Represents a single action; one of the actions available to every pilot
  *     or mech. Contains information about the action's id, name, activation
  *     speed, and what it does, among other properties.
