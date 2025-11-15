@@ -5,6 +5,7 @@ import java.net.URL;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import MainBranch.HelperMethods;
+import MainBranch.UserPreferences;
 import MainBranch.database.FileOperations;
 import MainBranch.database.DatabaseReadingPipeline.dataReader.DatabaseResourceInfo;
 
@@ -58,14 +59,14 @@ public class DataReader {
                         + " \"" + resourceLocator + "\"");
                 }
             }
-            readJSON(resourceLocator, external, addToCache);
+            readJSON(resourceLocator, external, addToCache, provideOutput);
         }
         // once you're done, send that data along to DataCaster, which sends it
         //     along to DataCompiler
         DataParser.sendData();
     }
-    public static void readArray(String[] resourceLocators, boolean external,
-        boolean addToCache) {
+    private static void readArray(String[] resourceLocators, boolean external,
+        boolean addToCache, String targetFolderPath, boolean provideOutput) {
         String[] resourceNames;
         String[] resourceInfo;
         DatabaseResourceInfo[] resources;
@@ -74,6 +75,10 @@ public class DataReader {
         //     the same folder
         HelperMethods.checkStringArray("resourceLocators",
             resourceLocators);
+        if (addToCache) {
+            HelperMethods.checkString("targetFolderPath",
+                targetFolderPath);
+        }
         resourceNames = new String[resourceLocators.length];
         for (int i = 0; i < resourceLocators.length; i++) {
             resourceInfo = getResourceInfo(resourceLocators[i],
@@ -92,9 +97,15 @@ public class DataReader {
             System.out.println("Reading elements of the provided array");
         }
         for (int i = 0; i < resourceLocators.length; i++) {
-            readJSON(resources[i].getPath(), external, addToCache);
+            readJSON(resources[i].getPath(), external, addToCache,
+                targetFolderPath, provideOutput);
         }
         DataParser.sendData();
+    }
+    public static void readArray(String[] resourceLocators, boolean external,
+        boolean addToCache, boolean provideOutput) {
+        readArray(resourceLocators, external, addToCache,
+            UserPreferences.getCacheDir(), provideOutput);
     }
     private static String[] getResourceInfo(String resourcePath,
         boolean external) {
@@ -273,12 +284,17 @@ public class DataReader {
      *     .json file. Cannot be null.
      */
     private static void readJSON(String jsonPath, boolean external,
-        boolean addToCache) {
+        boolean addToCache, String targetFolderPath, boolean provideOutput) {
         String[] data = null;
+        String[] resourceInfo;
+        String resourceString;
 
-        // TODO: add the ability to cache JSON files
         // Check whether jsonPath is null
         HelperMethods.checkObject("jsonPath", jsonPath);
+        if (addToCache) {
+            HelperMethods.checkString("targetFolderPath",
+                targetFolderPath);
+        }
         // Check whether jsonPath actually corresponds to:
         // 1. A valid file path
         // 2. A valid *JSON* file path.
@@ -296,5 +312,22 @@ public class DataReader {
         }
         // Send the data on to FileParser
         DataParser.parseJSON(jsonPath, data[0]);
+        if (addToCache) {
+            resourceInfo = getResourceInfo(jsonPath, external);
+            resourceString = resourceInfo[0] + "." + resourceInfo[1];
+            FileOperations.createAndWriteToFile(resourceString,
+                targetFolderPath, data[0], provideOutput);
+        }
+    }
+    private static void readJSON(String jsonPath, boolean external,
+        boolean addToCache, boolean provideOutput) {
+        if (addToCache) {
+            throw new IllegalStateException("Cannot call"
+                + " DataReader.readJSON(String, boolean, true) because reading"
+                + " a JSON file and storing it in the cache afterwards requires"
+                + " a target directory path");
+        }
+        readJSON(jsonPath, external, addToCache, null,
+            provideOutput);
     }
 }
