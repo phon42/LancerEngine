@@ -2,16 +2,57 @@ package MainBranch.database.fileOperations;
 
 import java.io.IOException;
 import java.nio.file.FileSystems;
+import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 import java.util.stream.Stream;
 
 public class DirectoryExplorer {
     // Prevent user from instantiating
     private DirectoryExplorer() {}
 
+    public static String[] getAllFilenamesInDirectory(String directoryPath) {
+        // Created in part using
+        //     https://www.baeldung.com/java-list-directory-files#walking
+        Set<String> fileList;
+        SimpleFileVisitor<Path> visitor;
+        String[] directoryContents;
+        int index = 0;
+
+        fileList = new HashSet<>();
+        visitor = new SimpleFileVisitor<Path>() {
+            @Override
+            public FileVisitResult visitFile(Path file,
+                BasicFileAttributes attrs) {
+                if (! Files.isDirectory(file)) {
+                    fileList.add(file.normalize().toString());
+                }
+
+                return FileVisitResult.CONTINUE;
+            }
+        };
+        try {
+            Files.walkFileTree(Paths.get(directoryPath), visitor);
+        } catch (IOException exception) {
+            throw new IllegalStateException("Attempting to traverse directory at"
+                + " path: \"" + directoryPath + "\" caused an IOException to be"
+                + " thrown");
+        }
+        directoryContents = new String[fileList.size()];
+        for (String file : fileList) {
+            directoryContents[index] = file;
+            index++;
+        }
+
+        return directoryContents;
+    }
     public static Path[] listContentsAsArray(String path,
         boolean includeDirectories) throws SecurityException {
         ArrayList<Path> arrayList;

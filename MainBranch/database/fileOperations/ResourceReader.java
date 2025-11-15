@@ -7,15 +7,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.file.FileVisitResult;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.SimpleFileVisitor;
-import java.nio.file.attribute.BasicFileAttributes;
-import java.util.HashSet;
 import java.util.MissingResourceException;
-import java.util.Set;
 
 import MainBranch.database.FileOperations;
 import MainBranch.HelperMethods;
@@ -184,41 +177,6 @@ public class ResourceReader {
         for (int i = 0; i < fileNames.length; i++) {
             directoryContents[i] = FileOperations.readResource(fileNames[i],
                 false, addToCache)[0];
-        }
-
-        return directoryContents;
-    }
-    public static String[] getAllFilenamesInDirectory(String directoryPath) {
-        // Created in part using
-        //     https://www.baeldung.com/java-list-directory-files#walking
-        Set<String> fileList;
-        SimpleFileVisitor<Path> visitor;
-        String[] directoryContents;
-        int index = 0;
-
-        fileList = new HashSet<>();
-        visitor = new SimpleFileVisitor<Path>() {
-            @Override
-            public FileVisitResult visitFile(Path file,
-                BasicFileAttributes attrs) {
-                if (! Files.isDirectory(file)) {
-                    fileList.add(file.normalize().toString());
-                }
-
-                return FileVisitResult.CONTINUE;
-            }
-        };
-        try {
-            Files.walkFileTree(Paths.get(directoryPath), visitor);
-        } catch (IOException exception) {
-            throw new IllegalStateException("Attempting to traverse directory at"
-                + " path: \"" + directoryPath + "\" caused an IOException to be"
-                + " thrown");
-        }
-        directoryContents = new String[fileList.size()];
-        for (String file : fileList) {
-            directoryContents[index] = file;
-            index++;
         }
 
         return directoryContents;

@@ -76,7 +76,7 @@ public class FileOperations {
         
     }
     public static String[] getAllFilenamesInDirectory(String directoryPath) {
-        return ResourceReader.getAllFilenamesInDirectory(directoryPath);
+        return DirectoryExplorer.getAllFilenamesInDirectory(directoryPath);
     }
     public static String[] readAllInDirectory(String directoryPath,
         boolean addToCache) {
