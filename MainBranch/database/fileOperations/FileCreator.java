@@ -11,7 +11,7 @@ public class FileCreator {
     private FileCreator() {}
 
     public static String createFile(String fileNameAndExtension,
-        String targetDirectoryPath) {
+        String targetDirectoryPath) throws SecurityException {
         // Created using https://www.baeldung.com/java-how-to-create-a-file#jdk7
         String filePathString;
         Path filePath;
