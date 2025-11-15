@@ -19,12 +19,21 @@ public class FileOperations {
         return ResourceParser.parseJSONText(jsonData);
     }
     public static String createFile(String fileNameAndExtension,
-        String targetDirectoryPath, String data) {
+        String targetDirectoryPath) {
         return FileCreator.createFile(fileNameAndExtension,
             targetDirectoryPath);
     }
     public static String writeToFile(String filePath, String data) {
         return FileWriter.writeToFile(filePath, data);
+    }
+    public static String createAndWriteToFile(String fileNameAndExtension,
+        String targetDirectoryPath, String data) {
+        String filePath;
+
+        filePath = createFile(fileNameAndExtension, targetDirectoryPath);
+        filePath = writeToFile(filePath, data);
+
+        return filePath;
     }
     public static void deleteDirectory(String directoryPath) {
         DirectoryDeleter.deleteDirectory(directoryPath);
