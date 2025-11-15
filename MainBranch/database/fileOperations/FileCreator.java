@@ -11,7 +11,8 @@ public class FileCreator {
     private FileCreator() {}
 
     public static String createFile(String fileNameAndExtension,
-        String targetDirectoryPath) throws SecurityException {
+        String targetDirectoryPath, boolean provideOutput) throws
+        SecurityException {
         // Created using https://www.baeldung.com/java-how-to-create-a-file#jdk7
         String filePathString;
         Path filePath;
@@ -19,16 +20,28 @@ public class FileCreator {
         filePathString = targetDirectoryPath + fileNameAndExtension;
         filePath = FileSystems.getDefault().getPath(filePathString);
         filePath = filePath.normalize().toAbsolutePath();
+        if (provideOutput) {
+            System.out.println("Attempting to create file at local file path:"
+                + " \"" + filePath.toString() + "\"");
+        }
         try {
             filePath = Files.createFile(filePath);
         } catch (FileAlreadyExistsException exception) {
             // do nothing because we've successfully created it
+            if (provideOutput) {
+                System.out.println("File was already present at local file"
+                    + " path: \"" + filePath.toString() + "\". Continuing");
+            }
         } catch (IOException exception) {
             throw new IllegalStateException("Attempting to create the file"
                 + " threw an IOException with the following message: \""
                 + exception.getMessage() + "\"");
         }
         filePath = filePath.toAbsolutePath();
+        if (provideOutput) {
+            System.out.println("File successfully created at local file path:"
+                + " \"" + filePath.toString() + "\"");
+        }
 
         return filePath.toString();
     }
