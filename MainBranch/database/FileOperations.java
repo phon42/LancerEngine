@@ -25,9 +25,16 @@ public class FileOperations {
         return ZIPUnzipper.unzip(zipResourceLocator, external,
             targetDirectoryPath);
     }
-    public static String unzip(String zipResourceLocator, boolean external) {
-        return unzip(zipResourceLocator, external,
-            UserPreferences.getFileDestinationDir());
+    public static String unzip(String zipResourceLocator, boolean external,
+        boolean addToCache) {
+        if (addToCache) {
+            return unzip(zipResourceLocator, external,
+                UserPreferences.getTargetDir());
+        } else {
+            return unzip(zipResourceLocator, external,
+                UserPreferences.getCacheDir());
+        }
+        
     }
     public static String[] getAllFilenamesInDirectory(String directoryPath) {
         return ResourceReader.getAllFilenamesInDirectory(directoryPath);
