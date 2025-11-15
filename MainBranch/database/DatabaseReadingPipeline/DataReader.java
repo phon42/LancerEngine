@@ -13,7 +13,7 @@ public class DataReader {
     private DataReader() {}
 
     public static void read(String resourceLocator, boolean external,
-        boolean addToCache) {
+        boolean addToCache, boolean provideOutput) {
         String extension;
 
         // we take in a String
@@ -27,10 +27,37 @@ public class DataReader {
         //     call readJSON), or readJSON directly, which sends its data along
         //     to DataParser after resolving
         if (extension.equals("lcp")) {
+            if (provideOutput) {
+                if (external) {
+                    System.out.println("Reading external .lcp resource at URL:"
+                        + " \"" + resourceLocator + "\"");
+                } else {
+                    System.out.println("Reading local .lcp file at file path:"
+                        + " \"" + resourceLocator + "\"");
+                }
+            }
             readLCP(resourceLocator, external, addToCache);
         } else if (extension.equals("zip")) {
+            if (provideOutput) {
+                if (external) {
+                    System.out.println("Reading external .zip resource at URL:"
+                        + " \"" + resourceLocator + "\"");
+                } else {
+                    System.out.println("Reading local .zip file at file path:"
+                        + " \"" + resourceLocator + "\"");
+                }
+            }
             readZIP(resourceLocator, external, addToCache);
         } else if (extension.equals("json")) {
+            if (provideOutput) {
+                if (external) {
+                    System.out.println("Reading external .json resource at URL:"
+                        + " \"" + resourceLocator + "\"");
+                } else {
+                    System.out.println("Reading local .json file at file path:"
+                        + " \"" + resourceLocator + "\"");
+                }
+            }
             readJSON(resourceLocator, external, addToCache);
         }
         // once you're done, send that data along to DataCaster, which sends it
@@ -166,9 +193,9 @@ public class DataReader {
      * @param lcpPath a String which must contain a valid file path. Is assumed
      *     to be a .lcp file. Cannot be null.
      */
-    private static void readLCP(String lcpPath, boolean external,
-        boolean addToCache) {
-        readZIP(lcpPath, external, addToCache);
+    private static void readLCP(String lcpLocator, boolean external,
+        boolean addToCache, boolean provideOutput) {
+        readZIP(lcpLocator, external, addToCache, provideOutput);
     }
     /**
      * Unzips the provided .zip file before calling
@@ -176,8 +203,8 @@ public class DataReader {
      * @param zipPath a String which must contain a valid file path. Is assumed
      *     to be a .zip file. Cannot be null.
      */
-    private static void readZIP(String zipPath, boolean external,
-        boolean addToCache) {
+    private static void readZIP(String zipLocator, boolean external,
+        boolean addToCache, boolean provideOutput) {
         // A directory of the .zip's contents will be created locally. This
         //     variable stores the file path to that directory.
         String unzippedDirectoryPath;
@@ -185,11 +212,33 @@ public class DataReader {
         // TODO: add a small optimization to peek at the file's info file and
         //     see if that LCP has been cached
         // unpack the zip
-        unzippedDirectoryPath = FileOperations.unzip(zipPath, external,
+        if (provideOutput) {
+            if (external) {
+                System.out.println("Unzipping external resource at URL: \""
+                    + zipLocator + "\"");
+            } else {
+                System.out.println("Unzipping local file at file path: \""
+                    + zipLocator + "\"");
+            }
+        }
+        unzippedDirectoryPath = FileOperations.unzip(zipLocator, external,
             addToCache);
+        if (provideOutput) {
+            if (external) {
+                System.out.println("External resource unzipped to local"
+                    + " directory path: \"" + unzippedDirectoryPath + "\"");
+            } else {
+                System.out.println("Local resource unzipped to local directory"
+                    + " path: \"" + unzippedDirectoryPath + "\"");
+            }
+        }
         // then call readAllInDirectory on it
         readAllInDirectory(unzippedDirectoryPath, addToCache);
         if (! addToCache) {
+            if (provideOutput) {
+                System.out.println("Deleting local directory at local path: \""
+                    + unzippedDirectoryPath + "\"");
+            }
             // then delete the directory we've created to do this
             FileOperations.deleteDirectory(unzippedDirectoryPath);
         }
@@ -201,10 +250,14 @@ public class DataReader {
      *     Is assumed to be a directory. Cannot be null.
      */
     public static void readAllInDirectory(String directoryPath,
-        boolean addToCache) {
+        boolean addToCache, boolean provideOutput) {
         String[][] fileData;
         String[] castedFile;
 
+        if (provideOutput) {
+            System.out.println("Reading all files under local directory at"
+                + " path: \"" + directoryPath + "\"");
+        }
         // call readJSON on every file within
         fileData = FileOperations.readAllInDirectoryIterable(directoryPath,
             addToCache);
