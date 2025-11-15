@@ -37,11 +37,11 @@ public class DatabaseReader {
      * @param filePath a String which must contain a valid file path.
      */
     public static void readLocal(String filePath) {
-        DataReader.read(filePath, false);
+        DataReader.read(filePath, false, false);
     }
     // TODO: add documentation
     public static void readExternal(String url) {
-        DataReader.read(url, true);
+        DataReader.read(url, true, true);
     }
     public static void readExternalLCP(ExternalLCP externalLCP) {
         String lcpName;
@@ -66,7 +66,7 @@ public class DatabaseReader {
         for (int i = 0; i < lcpFiles.length; i++) {
             fileURLs[i] = lcpFiles[i].toString();
         }
-        DataReader.readArray(fileURLs, true);
+        DataReader.readArray(fileURLs, true, true);
     }
     /**
      * Peeks at a given external LCP's info.json or lcp_manifest.json file,
