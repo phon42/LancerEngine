@@ -28,19 +28,21 @@ public class FileOperations {
         return DirectoryCreator.createDirectory(path);
     }
     public static String createFile(String fileNameAndExtension,
-        String targetDirectoryPath) {
+        String targetDirectoryPath, boolean provideOutput) {
         return FileCreator.createFile(fileNameAndExtension,
-            targetDirectoryPath);
+            targetDirectoryPath, provideOutput);
     }
-    public static String writeToFile(String filePath, String data) {
-        return FileWriter.writeToFile(filePath, data);
+    public static String writeToFile(String filePath, String data,
+        boolean provideOutput) {
+        return FileWriter.writeToFile(filePath, data, provideOutput);
     }
     public static String createAndWriteToFile(String fileNameAndExtension,
-        String targetDirectoryPath, String data) {
+        String targetDirectoryPath, String data, boolean provideOutput) {
         String filePath;
 
-        filePath = createFile(fileNameAndExtension, targetDirectoryPath);
-        filePath = writeToFile(filePath, data);
+        filePath = createFile(fileNameAndExtension, targetDirectoryPath,
+            provideOutput);
+        filePath = writeToFile(filePath, data, provideOutput);
 
         return filePath;
     }
