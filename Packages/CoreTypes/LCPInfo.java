@@ -36,8 +36,9 @@ public class LCPInfo {
      * Can be any Version. Cannot be null.
      */
     private Version version;
+
     // Semi-required (optional but has a specific default value other than null
-    //     when not provided) properties
+    //     when not provided) property
     /**
      * Unknown purpose. Only present in the base Lancer LCP, where its value is
      *     true.
@@ -49,6 +50,7 @@ public class LCPInfo {
      * Contains the default value for this.active.
      */
     private static final boolean activeDefault = true;
+
     // Optional properties
     /**
      * The prefix of this LCP (i.e. "dustgrave-").
@@ -103,6 +105,7 @@ public class LCPInfo {
      * Case-sensitive.
      */
     private String releaseDate;
+
     /**
      * A constructor which takes in every possible property. Used for the base
      *     Lancer LCP.
@@ -110,7 +113,7 @@ public class LCPInfo {
     public LCPInfo(
         // Required properties
         String name, String author, String description, String version,
-        // Semi-required properties
+        // Semi-required property
         TriState active,
         // Optional properties
         String itemPrefix, String imageURL, String website,
@@ -144,7 +147,7 @@ public class LCPInfo {
     public LCPInfo(
         // Required properties
         String name, String author, String description, String version,
-        // Semi-required properties
+        // Semi-required property
         TriState active,
         // Optional properties
         String itemPrefix, String imageURL, String website,
@@ -190,7 +193,7 @@ public class LCPInfo {
     public Version getVersion() {
         return new Version(version);
     }
-    // Semi-required properties
+    // Semi-required property
     public boolean isActive() {
         return active;
     }
@@ -253,7 +256,7 @@ public class LCPInfo {
         version = new Version(version);
         this.version = version;
     }
-    // Semi-required properties
+    // Semi-required property
     private void setActive(TriState active) {
         HelperMethods.checkObject("active", active);
         if (active == TriState.UNSET) {
