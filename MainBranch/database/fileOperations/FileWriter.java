@@ -1,9 +1,9 @@
 package MainBranch.database.fileOperations;
 
 import java.io.IOException;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class FileWriter {
     // Prevent user from instantiating
@@ -15,8 +15,8 @@ public class FileWriter {
         Path path;
         byte[] dataBytes;
 
-        path = Paths.get(filePath);
-        path = path.toAbsolutePath();
+        path = FileSystems.getDefault().getPath(filePath);
+        path = path.normalize().toAbsolutePath();
         filePath = path.toString();
         dataBytes = data.getBytes();
         try {
