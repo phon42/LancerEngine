@@ -1,8 +1,13 @@
 package MainBranch.database;
 
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.stream.Stream;
 import MainBranch.UserPreferences;
 import MainBranch.database.fileOperations.DirectoryCreator;
 import MainBranch.database.fileOperations.DirectoryDeleter;
+import MainBranch.database.fileOperations.DirectoryExplorer;
 import MainBranch.database.fileOperations.FileCreator;
 import MainBranch.database.fileOperations.FileWriter;
 import MainBranch.database.fileOperations.ResourceParser;
@@ -40,8 +45,21 @@ public class FileOperations {
 
         return filePath;
     }
-    public static void deleteDirectory(String directoryPath) {
-        DirectoryDeleter.deleteDirectory(directoryPath);
+    public static void deleteDirectory(String path) {
+        DirectoryDeleter.deleteDirectory(path);
+    }
+    public static Stream<Path> listDirectoryContents(String path) {
+        return DirectoryExplorer.listContents(path);
+    }
+    public static Iterator<Path> listDirectoryContentsAsIterator(String path) {
+        return DirectoryExplorer.listContentsAsIterator(path);
+    }
+    public static Path[] listDirectoryContentsAsArray(String path) {
+        return DirectoryExplorer.listContentsAsArray(path);
+    }
+    public static ArrayList<Path> listDirectoryContentsAsArrayList(String path)
+    {
+        return DirectoryExplorer.listContentsAsArrayList(path);
     }
     private static String unzip(String zipResourceLocator, boolean external,
         String targetDirectoryPath) {
