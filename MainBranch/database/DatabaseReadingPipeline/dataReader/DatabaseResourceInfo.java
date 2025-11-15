@@ -2,7 +2,7 @@ package MainBranch.database.DatabaseReadingPipeline.dataReader;
 
 import MainBranch.HelperMethods;
 
-public class DatabaseResourceName implements Comparable<DatabaseResourceName> {
+public class DatabaseResourceInfo implements Comparable<DatabaseResourceInfo> {
     /**
      * The name of this resource (i.e. "info", representing an info.json file).
      * Can be any String except "". Cannot be null.
@@ -16,7 +16,7 @@ public class DatabaseResourceName implements Comparable<DatabaseResourceName> {
      */
     private String path;
 
-    public DatabaseResourceName(String resourceName, String path) {
+    public DatabaseResourceInfo(String resourceName, String path) {
         setName(resourceName);
         setPath(path);
     }
@@ -39,7 +39,7 @@ public class DatabaseResourceName implements Comparable<DatabaseResourceName> {
     }
 
     @Override
-    public int compareTo(DatabaseResourceName o) {
+    public int compareTo(DatabaseResourceInfo o) {
         String str1;
         String str2;
         boolean isImportant1;
@@ -62,9 +62,9 @@ public class DatabaseResourceName implements Comparable<DatabaseResourceName> {
             return str1.compareTo(str2);
         }
     }
-    public static DatabaseResourceName[] toResourceNames(String[] names,
+    public static DatabaseResourceInfo[] toResourceNames(String[] names,
         String[] paths) {
-        DatabaseResourceName[] result;
+        DatabaseResourceInfo[] result;
 
         HelperMethods.checkStringArray("names", names);
         HelperMethods.checkStringArray("paths", paths);
@@ -72,9 +72,9 @@ public class DatabaseResourceName implements Comparable<DatabaseResourceName> {
             throw new IllegalStateException("The provided resource name and"
                 + " resource path arrays must be of the same length");
         }
-        result = new DatabaseResourceName[names.length];
+        result = new DatabaseResourceInfo[names.length];
         for (int i = 0; i < names.length; i++) {
-            result[i] = new DatabaseResourceName(names[i], paths[i]);
+            result[i] = new DatabaseResourceInfo(names[i], paths[i]);
         }
 
         return result;
