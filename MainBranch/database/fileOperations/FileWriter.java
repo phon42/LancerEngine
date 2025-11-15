@@ -9,23 +9,33 @@ public class FileWriter {
     // Prevent user from instantiating
     private FileWriter() {}
 
-    public static String writeToFile(String filePath, String data) throws
-        UnsupportedOperationException, SecurityException {
+    public static String writeToFile(String filePath, String data,
+        boolean provideOutput) throws UnsupportedOperationException,
+        SecurityException {
         // Created using
         //     https://www.baeldung.com/java-write-to-file#write-with-files-class
         Path path;
         byte[] dataBytes;
 
+        if (provideOutput) {
+            System.out.println("Attempting to write to file at local file path:"
+                + " \"" + filePath.toString() + "\"");
+        }
         path = FileSystems.getDefault().getPath(filePath);
         path = path.normalize().toAbsolutePath();
         filePath = path.toString();
         dataBytes = data.getBytes();
         try {
-            Files.write(path, dataBytes);
+            path = Files.write(path, dataBytes);
         } catch (IOException exception) {
             throw new IllegalStateException("Attempting to write to file at"
                 + " path: \"" + filePath + "\" threw an IOException with the"
                 + " following message: \"" + exception.getMessage() + "\"");
+        }
+        path = path.toAbsolutePath();
+        if (provideOutput) {
+            System.out.println("File successfully written to at local file"
+                + " path: \"" + path.toString() + "\"");
         }
 
         return filePath;
