@@ -11,6 +11,7 @@ import MainBranch.roll.DiceExpression;
 import Packages.CoreTypes.Rule;
 import Packages.CoreTypes.Table;
 import Packages.CoreTypes.Term;
+import Packages.CoreTypes.TriState;
 import Packages.CoreTypes.BattlefieldMechanics.Environment;
 import Packages.CoreTypes.BattlefieldMechanics.Sitrep;
 import Packages.CoreTypes.EntityMechanics.Frequency;
@@ -37,6 +38,9 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.talent.Ta
 import Packages.CoreTypes.EntityMechanics.HarmSystem.Damage;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.Condition;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.Status;
+import Packages.CoreTypes.lcpInfo.LCPDependency;
+import Packages.CoreTypes.lcpInfo.Version;
+import Packages.CoreTypes.lcpInfo.lcpDependency.SemverVersion;
 import Packages.CoreTypes.LCPInfo;
 
 public class DataCaster {
@@ -334,7 +338,6 @@ public class DataCaster {
         infoValid = infoData != null && infoData.length >= 1;
         lcpManifestValid = lcpManifestData != null
             && lcpManifestData.length >= 1;
-        System.out.println(infoValid + "" + lcpManifestValid);
         if (infoValid) {
             try {
                 DataCaster.infoName = infoData[0].getString("name");
@@ -380,8 +383,156 @@ public class DataCaster {
         DataCaster.lcpInfoProcessed = lcpInfo;
     }
     private static LCPInfo toLCPInfo(String fileName, JSONObject lcpInfoData) {
-        // TODO: fill out
-        return null;
+        // Required properties
+        String name = null;
+        String author = null;
+        String description = null;
+        String version = null;
+        // Semi-required property
+        TriState active;
+        // Optional properties
+        String itemPrefix = null;
+        String imageURL = null;
+        String releaseDate = null;
+        String website = null;
+        JSONArray dependenciesArray;
+        LCPDependency[] dependencies = null;
+        // Result object
+        LCPInfo result;
+
+        if (! (fileName.equals("info")
+            || fileName.equals("lcp_manifest"))) {
+            throw new IllegalArgumentException("fileName: \"" + fileName + "\""
+                + " must be either \"info\" or \"lcp_manifest\"");
+        }
+        // At this point, we know that the file name is valid
+        // Required properties
+        try {
+            name = lcpInfoData.getString("name");
+        } catch (JSONException exception) {
+            DataCaster.throwLCPInfoException("name");
+        }
+        try {
+            author = lcpInfoData.getString("author");
+        } catch (JSONException exception) {
+            DataCaster.throwLCPInfoException("author");
+        }
+        try {
+            description = lcpInfoData.getString("description");
+        } catch (JSONException exception) {
+            DataCaster.throwLCPInfoException("description");
+        }
+        try {
+            version = lcpInfoData.getString("version");
+        } catch (JSONException exception) {
+            DataCaster.throwLCPInfoException("version");
+        }
+        // Semi-required property
+        try {
+            active = TriState.toTriState(lcpInfoData.getBoolean("active"));
+        } catch (JSONException exception) {
+            active = TriState.UNSET;
+        }
+        // Optional properties
+        try {
+            itemPrefix = lcpInfoData.getString("itemPrefix");
+        } catch (JSONException exception) {}
+        try {
+            imageURL = lcpInfoData.getString("imageURL");
+        } catch (JSONException exception) {}
+        try {
+            website = lcpInfoData.getString("website");
+        } catch (JSONException exception) {}
+        try {
+            dependenciesArray = lcpInfoData.getJSONArray("dependencies");
+            dependencies = DataCaster.toLCPDependencies(dependenciesArray);
+        } catch (JSONException exception) {
+        } catch (IllegalArgumentException exception) {}
+        // Now we construct the actual object
+        if (fileName.equals("info")) {
+            try {
+                new Version(version);
+            } catch (IllegalArgumentException exception) {
+                // version is something like "July 2020 Release", in other
+                //     words, a release date instead of a version
+                releaseDate = version;
+                version = "1.0";
+            }
+            result = new LCPInfo(name, author, description, version, active,
+                itemPrefix, imageURL, website, dependencies, releaseDate);
+        } else {
+            // fileName is "lcp_manifest"
+            result = new LCPInfo(name, author, description, version, active,
+                itemPrefix, imageURL, website, dependencies);
+        }
+
+        return result;
+    }
+    private static void throwLCPInfoException(String propertyName) throws
+        IllegalStateException {
+        throw new IllegalStateException("lcpInfoData does not contain a \""
+            + propertyName + "\" property, which is required for an LCPInfo"
+            + " object");
+    }
+    private static LCPDependency[] toLCPDependencies(
+        JSONArray dependenciesArray) throws IllegalArgumentException {
+        LCPDependency[] dependencies;
+        JSONObject jsonObject;
+
+        dependencies = new LCPDependency[dependenciesArray.length()];
+        for (int i = 0; i < dependencies.length; i++) {
+            try {
+                jsonObject = dependenciesArray.getJSONObject(i);
+            } catch (JSONException exception) {
+                throw new IllegalArgumentException("dependenciesArray caused a"
+                    + " JSONException to be thrown with the following message:"
+                    + " \"" + exception.getMessage() + "\"");
+            }
+            try {
+                dependencies[i] = DataCaster.toLCPDependency(jsonObject);
+            } catch (IllegalArgumentException exception) {
+                throw new IllegalArgumentException("dependenciesArray caused"
+                    + " an IllegalArgumentException to be thrown with the"
+                    + " following message: \"" + exception.getMessage() + "\"");
+            }
+        }
+
+        return dependencies;
+    }
+    private static LCPDependency toLCPDependency(JSONObject dependencyData)
+        throws IllegalArgumentException {
+        // Required properties
+        String name;
+        String versionString;
+        SemverVersion version;
+        // Optional property
+        String link = null;
+        // Result object
+        LCPDependency result;
+
+        // Required properties
+        try {
+            name = dependencyData.getString("name");
+        } catch (JSONException exception) {
+            throw new IllegalArgumentException("Could not find the required"
+                + " property \"name\" in the provided JSONObject");
+        }
+        try {
+            versionString = dependencyData.getString("version");
+        } catch (JSONException exception) {
+            throw new IllegalArgumentException("Could not find the required"
+                + " property \"version\" in the provided JSONObject");
+        }
+        // Optional property
+        try {
+            link = dependencyData.getString("link");
+        } catch (JSONException exception) {}
+        // Calculate property value
+        version = new SemverVersion(versionString);
+        // Create the actual object
+        result = new LCPDependency(name, version, link);
+
+        return result;
     }
     private static void processActions(JSONObject[] actionsData) {
         Action[] actions = new Action[actionsData.length];
