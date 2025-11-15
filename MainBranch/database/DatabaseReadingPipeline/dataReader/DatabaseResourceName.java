@@ -4,22 +4,38 @@ import MainBranch.HelperMethods;
 
 public class DatabaseResourceName implements Comparable<DatabaseResourceName> {
     /**
+     * The name of this resource (i.e. "info", representing an info.json file).
      * Can be any String except "". Cannot be null.
      * Case-insensitive and stored in lowercase.
      */
-    private String value;
+    private String name;
+    /**
+     * The path to this resource (unable to provide an example).
+     * Can be any String except "". Cannot be null.
+     * Case-insensitive and stored in lowercase.
+     */
+    private String path;
 
-    public DatabaseResourceName(String resourceName) {
-        setValue(resourceName);
+    public DatabaseResourceName(String resourceName, String path) {
+        setName(resourceName);
+        setPath(path);
     }
 
-    public String getValue() {
-        return value;
+    public String getName() {
+        return name;
     }
-    private void setValue(String value) {
-        HelperMethods.checkString("value", value);
-        value = value.toLowerCase();
-        this.value = value;
+    public String getPath() {
+        return path;
+    }
+    private void setName(String name) {
+        HelperMethods.checkString("name", name);
+        name = name.toLowerCase();
+        this.name = name;
+    }
+    private void setPath(String path) {
+        HelperMethods.checkString("path", path);
+        path = path.toLowerCase();
+        this.path = path;
     }
 
     @Override
@@ -30,8 +46,8 @@ public class DatabaseResourceName implements Comparable<DatabaseResourceName> {
         boolean isImportant2;
 
         HelperMethods.checkObject("databaseResourceName", o);
-        str1 = this.value;
-        str2 = o.value;
+        str1 = this.name;
+        str2 = o.name;
         isImportant1 = str1.equals("info")
             || str1.equals("lcp_manifest");
         isImportant2 = str2.equals("info")
@@ -46,13 +62,19 @@ public class DatabaseResourceName implements Comparable<DatabaseResourceName> {
             return str1.compareTo(str2);
         }
     }
-    public static DatabaseResourceName[] toResourceNames(String[] input) {
+    public static DatabaseResourceName[] toResourceNames(String[] names,
+        String[] paths) {
         DatabaseResourceName[] result;
 
-        HelperMethods.checkStringArray("input", input);
-        result = new DatabaseResourceName[input.length];
-        for (int i = 0; i < input.length; i++) {
-            result[i] = new DatabaseResourceName(input[i]);
+        HelperMethods.checkStringArray("names", names);
+        HelperMethods.checkStringArray("paths", paths);
+        if (names.length != paths.length) {
+            throw new IllegalStateException("The provided resource name and"
+                + " resource path arrays must be of the same length");
+        }
+        result = new DatabaseResourceName[names.length];
+        for (int i = 0; i < names.length; i++) {
+            result[i] = new DatabaseResourceName(names[i], paths[i]);
         }
 
         return result;
