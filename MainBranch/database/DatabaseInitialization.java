@@ -1,5 +1,7 @@
 package MainBranch.database;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import MainBranch.Database;
 
@@ -28,7 +30,6 @@ public class DatabaseInitialization {
 
         // Define all external LCPs
         Database.open();
-        // hi
         Database.close();
 
         DatabaseInitialization.initializationLCPs.put("baseLancer",
