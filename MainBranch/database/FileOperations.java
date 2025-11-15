@@ -1,5 +1,6 @@
 package MainBranch.database;
 
+import MainBranch.UserPreferences;
 import MainBranch.database.fileOperations.DirectoryDeleter;
 import MainBranch.database.fileOperations.ResourceParser;
 import MainBranch.database.fileOperations.ResourceReader;
@@ -26,7 +27,7 @@ public class FileOperations {
     }
     public static String unzip(String zipResourceLocator, boolean external) {
         return unzip(zipResourceLocator, external,
-            "MainBranch/ProgramData/Target/");
+            UserPreferences.getFileDestinationDir());
     }
     public static String[] getAllFilenamesInDirectory(String directoryPath) {
         return ResourceReader.getAllFilenamesInDirectory(directoryPath);
