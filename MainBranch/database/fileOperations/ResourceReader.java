@@ -7,9 +7,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.file.Paths;
 import java.util.MissingResourceException;
-
 import MainBranch.database.FileOperations;
 import MainBranch.HelperMethods;
 
@@ -59,7 +57,7 @@ public class ResourceReader {
         // extract the file extension
         // TODO: check to make sure this actually works as expected, i.e.
         //     .tar.gz
-        fileExtension = Paths.get(filePath).toFile().getName();
+        fileExtension = FileOperations.toPath(filePath).toFile().getName();
         if (fileExtension.indexOf(".") != -1) {
             fileStrings = fileExtension.split("\\.");
             // this is the step that needs to be changed to deal with .tar.gz

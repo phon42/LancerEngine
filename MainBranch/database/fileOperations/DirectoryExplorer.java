@@ -1,11 +1,9 @@
 package MainBranch.database.fileOperations;
 
 import java.io.IOException;
-import java.nio.file.FileSystems;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
@@ -13,6 +11,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.stream.Stream;
+import MainBranch.database.FileOperations;
 
 public class DirectoryExplorer {
     // Prevent user from instantiating
@@ -39,7 +38,7 @@ public class DirectoryExplorer {
             }
         };
         try {
-            Files.walkFileTree(Paths.get(directoryPath), visitor);
+            Files.walkFileTree(FileOperations.toPath(directoryPath), visitor);
         } catch (IOException exception) {
             throw new IllegalStateException("Attempting to traverse directory at"
                 + " path: \"" + directoryPath + "\" caused an IOException to be"
@@ -75,8 +74,7 @@ public class DirectoryExplorer {
         boolean isDirectory;
 
         iterator = getContentsIterator(path);
-        originalPath = FileSystems.getDefault().getPath(path);
-        originalPath = originalPath.normalize().toAbsolutePath();
+        originalPath = FileOperations.toPath(path);
         originalPath = originalPath.getFileName();
         arrayList = new ArrayList<>();
         while (iterator.hasNext()) {

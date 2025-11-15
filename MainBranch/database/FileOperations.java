@@ -17,6 +17,15 @@ public class FileOperations {
     // prevent user from instantiating this class
     private FileOperations() {}
 
+    public static Path toPath(String filePath) {
+        Path path;
+
+        // alternatively use Paths.get() or Path.of()
+        path = FileSystems.getDefault().getPath(filePath);
+        path = path.normalize().toAbsolutePath();
+
+        return path;
+    }
     public static String[] readResource(String resourceLocator,
         boolean external, boolean addToCache) {
         return ResourceReader.read(resourceLocator, external, addToCache);

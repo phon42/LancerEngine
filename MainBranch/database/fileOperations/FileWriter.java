@@ -1,9 +1,9 @@
 package MainBranch.database.fileOperations;
 
 import java.io.IOException;
-import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import MainBranch.database.FileOperations;
 
 public class FileWriter {
     // Prevent user from instantiating
@@ -21,8 +21,7 @@ public class FileWriter {
             System.out.println("Attempting to write to file at local file path:"
                 + " \"" + filePath.toString() + "\"");
         }
-        path = FileSystems.getDefault().getPath(filePath);
-        path = path.normalize().toAbsolutePath();
+        path = FileOperations.toPath(filePath);
         filePath = path.toString();
         dataBytes = data.getBytes();
         try {

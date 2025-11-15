@@ -2,9 +2,9 @@ package MainBranch.database.fileOperations;
 
 import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
-import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import MainBranch.database.FileOperations;
 
 public class DirectoryCreator {
     // Prevent user from instantiating
@@ -19,8 +19,7 @@ public class DirectoryCreator {
         // - https://docs.oracle.com/javase/8/docs/api/java/nio/file/Files.html#createDirectory-java.nio.file.Path-java.nio.file.attribute.FileAttribute...-
         Path directoryPath;
 
-        directoryPath = FileSystems.getDefault().getPath(path);
-        directoryPath = directoryPath.normalize().toAbsolutePath();
+        directoryPath = FileOperations.toPath(path);
         try {
             directoryPath = Files.createDirectory(directoryPath);
         } catch (FileAlreadyExistsException exception) {

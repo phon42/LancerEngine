@@ -2,9 +2,9 @@ package MainBranch.database.fileOperations;
 
 import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
-import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import MainBranch.database.FileOperations;
 
 public class FileCreator {
     // Prevent user from instantiating
@@ -18,8 +18,7 @@ public class FileCreator {
         Path filePath;
 
         filePathString = targetDirectoryPath + fileNameAndExtension;
-        filePath = FileSystems.getDefault().getPath(filePathString);
-        filePath = filePath.normalize().toAbsolutePath();
+        filePath = FileOperations.toPath(filePathString);
         if (provideOutput) {
             System.out.println("Attempting to create file at local file path:"
                 + " \"" + filePath.toString() + "\"");
