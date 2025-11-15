@@ -3,8 +3,10 @@ package MainBranch.database.DatabaseReadingPipeline;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import MainBranch.HelperMethods;
 import MainBranch.database.FileOperations;
+import MainBranch.database.DatabaseReadingPipeline.dataReader.DatabaseResourceInfo;
 
 public class DataReader {
     // prevent user from instantiating this class
@@ -17,11 +19,7 @@ public class DataReader {
         // and turn it into an InputStream of some kind (specifically, a
         //     FileInputStream if it's local)
         // as well as a String representing the file's extension
-        if (external) {
-            extension = getExternalExtension(resourceLocator);
-        } else {
-            extension = getLocalExtension(resourceLocator);
-        }
+        extension = getResourceInfo(resourceLocator, external)[1];
         // if extension is "" or could not be found, the above methods will
         //     throw an exception
         // decide whether to use readLCP, readZIP (each of which will eventually
@@ -39,103 +37,124 @@ public class DataReader {
         DataParser.sendData();
     }
     public static void readArray(String[] resourceLocators, boolean external) {
-        String extension;
+        String[] resourceNames;
+        String[] extensions;
+        String[] resourceInfo;
+        DatabaseResourceInfo[] resources;
 
         HelperMethods.checkStringArray("resourceLocators",
             resourceLocators);
+        resourceNames = new String[resourceLocators.length];
+        extensions = new String[resourceLocators.length];
         for (int i = 0; i < resourceLocators.length; i++) {
-            if (external) {
-                extension = getExternalExtension(resourceLocators[i]);
-            } else {
-                extension = getLocalExtension(resourceLocators[i]);
-            }
-            if (extension.equals("json")) {
-                readJSON(resourceLocators[i], external);
-            } else {
+            resourceInfo = getResourceInfo(resourceLocators[i],
+                external);
+            resourceNames[i] = resourceInfo[0];
+            extensions[i] = resourceInfo[1];
+            if (! extensions[i].equals("json")) {
                 throw new IllegalArgumentException("resourceLocators contained"
                     + " an element with the following resource extension: \""
-                    + extension + "\" which is not .json");
+                    + extensions[i] + "\" which is not .json");
             }
+        }
+        resources = DatabaseResourceInfo.toResourceInfo(resourceNames,
+            resourceLocators);
+        Arrays.sort(resources);
+        for (int i = 0; i < resourceLocators.length; i++) {
+            readJSON(resources[i].getPath(), external);
         }
         DataParser.sendData();
     }
-    /**
-     * Reads the provided file and saves its contents. Can read .lcp, .zip, or
-     *     individual .json files. Calls DatabaseReader.readLCP(),
-     *     DatabaseReader.readZIP(), or DatabaseReader.readJSON() based on what
-     *     type the file is.
-     * @param filePath a String which must contain a valid file path. Cannot be
-     *     null.
-     */
-    private static String getLocalExtension(String filePath) {
-        String fileExtension;
-        String[] fileStrings;
+    private static String[] getResourceInfo(String resourcePath,
+        boolean external) {
+        String resourceString;
+        String name;
+        String extension;
 
-        HelperMethods.checkString("filePath", filePath);
-        // extract the file extension
-        // TODO: check to make sure this actually works as expected, i.e.
-        //     with a .tar.gz resource
-        fileExtension = Paths.get(filePath).toFile().getName();
-        if (fileExtension.indexOf(".") != -1) {
-            fileStrings = fileExtension.split("\\.");
-            // this is the step that needs to be changed to deal with .tar.gz
-            fileExtension = fileStrings[fileStrings.length - 1];
-        }
-        if (! (fileExtension.equals("lcp")
-            || fileExtension.equals("zip")
-            || fileExtension.equals("json"))) {
-            if (fileExtension.equals("")) {
-                throw new IllegalArgumentException("Unable to find a file"
-                    + " extension in the file path: \"" + filePath + "\"");
+        resourceString = getResourceString(resourcePath, external);
+        name = getName(resourceString);
+        extension = getExtension(resourceString);
+        if (! (extension.equals("lcp")
+            || extension.equals("zip")
+            || extension.equals("json"))) {
+            if (extension.equals("")) {
+                if (external) {
+                    throw new IllegalArgumentException("Unable to find a"
+                        + " resource extension in the URL: \"" + resourcePath
+                        + "\"");
+                } else {
+                    throw new IllegalArgumentException("Unable to find a file"
+                        + " extension in the file path: \"" + resourcePath
+                        + "\"");
+                }
             } else {
-                throw new IllegalArgumentException("Cannot read a file with the"
-                    + " following file extension: \"." + fileExtension + "\"");
+                if (external) {
+                    throw new IllegalArgumentException("Cannot read a resource"
+                        + " with the following resource extension: \"."
+                        + extension + "\"");
+                } else {
+                    throw new IllegalArgumentException("Cannot read a file with"
+                        + " the following file extension: \"." + extension
+                        + "\"");
+                }
             }
         }
 
-        return fileExtension;
+        return new String[] {name, extension};
     }
-    private static String getExternalExtension(String url) {
-        // Created in part using
-        //     https://docs.oracle.com/javase/tutorial/networking/urls/readingURL.html
-        URL resource;
-        String pageExtension;
+    private static String getResourceString(String resourcePath,
+        boolean external) {
+        URL url;
+        String filePath;
         String[] pathArray;
 
-        try {
-            resource = new URL(url);
-        } catch (MalformedURLException exception) {
-            throw new IllegalArgumentException("url: \"" + url + "\" caused a"
-                + " MalformedURLException to be thrown");
-        }
-        pageExtension = resource.getFile();
-        pathArray = pageExtension.split("/");
-        pageExtension = pathArray[pathArray.length - 1];
-        try {
-            pathArray = pageExtension.split("\\.");
-            pageExtension = pathArray[pathArray.length - 1];
-        } catch (IndexOutOfBoundsException exception) {
-            throw new IllegalArgumentException("Unable to find a file extension"
-                + " in the URL: \"" + url + "\"");
-        }
-        if (pageExtension == null) {
-            throw new IllegalArgumentException("Unable to find a resource"
-                    + " extension in the URL: \"" + url + "\"");
-        }
-        if (! (pageExtension.equals("lcp")
-            || pageExtension.equals("zip")
-            || pageExtension.equals("json"))) {
-            if (pageExtension.equals("")) {
-                throw new IllegalArgumentException("Unable to find a resource"
-                    + " extension in the URL: \"" + url + "\"");
-            } else {
-                throw new IllegalArgumentException("Cannot read a resource with"
-                    + " the following resource extension: \"." + pageExtension
-                    + "\"");
+        HelperMethods.checkString("resourcePath", resourcePath);
+        if (external) {
+            // Created in part using
+            //     https://docs.oracle.com/javase/tutorial/networking/urls/readingURL.html
+            try {
+                url = new URL(resourcePath);
+            } catch (MalformedURLException exception) {
+                throw new IllegalArgumentException("URL: \"" + resourcePath
+                    + "\" caused a MalformedURLException to be thrown");
             }
+            filePath = url.getFile();
+            pathArray = filePath.split("/");
+
+            return pathArray[pathArray.length - 1];
+        } else {
+            return Paths.get(resourcePath).toFile().getName();
         }
 
-        return pageExtension;
+    }
+    private static String getName(String resourceString) {
+        String[] splitString;
+
+        HelperMethods.checkString("resourceString",
+            resourceString);
+        splitString = resourceString.split("\\.");
+        if (splitString.length < 2) {
+            throw new IllegalArgumentException("resourceString: \""
+                + resourceString + "\" did not yield both a name and an"
+                + " extension");
+        }
+
+        return splitString[0];
+    }
+    private static String getExtension(String resourceString) {
+        String[] splitString;
+
+        HelperMethods.checkString("resourceString",
+            resourceString);
+        splitString = resourceString.split("\\.");
+        if (splitString.length < 2) {
+            throw new IllegalArgumentException("resourceString: \""
+                + resourceString + "\" did not yield both a name and an"
+                + " extension");
+        }
+
+        // TODO: change to work with a .tar.gz resource
+        return splitString[splitString.length - 1];
     }
     /**
      * Reads the provided .lcp file by converting it to a .zip, then calling
