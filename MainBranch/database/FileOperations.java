@@ -3,7 +3,6 @@ package MainBranch.database;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.stream.Stream;
 import MainBranch.UserPreferences;
 import MainBranch.database.fileOperations.DirectoryCreator;
 import MainBranch.database.fileOperations.DirectoryDeleter;
@@ -47,9 +46,6 @@ public class FileOperations {
     }
     public static void deleteDirectory(String path) {
         DirectoryDeleter.deleteDirectory(path);
-    }
-    public static Stream<Path> listDirectoryContents(String path) {
-        return DirectoryExplorer.listContents(path);
     }
     public static Iterator<Path> listDirectoryContentsAsIterator(String path) {
         return DirectoryExplorer.listContentsAsIterator(path);
