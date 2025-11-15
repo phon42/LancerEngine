@@ -82,6 +82,16 @@ public class DatabaseReader {
                         addToCache, provideOutput);
                     return;
                 }
+                if (provideOutput) {
+                    System.out.println("ExternalLCP object could not be"
+                        + " found within the cache folder");
+                }
+            }
+        } else {
+            if (provideOutput) {
+                System.out.println("ExternalLCP object does not have an"
+                    + " \"info.json\" or \"lcp_manifest.json\" file and is"
+                    + " therefore ineligible for being found in the cache");
             }
         }
         // LCP doesn't have a name or couldn't be found in the cache - we have
@@ -91,6 +101,7 @@ public class DatabaseReader {
         for (int i = 0; i < lcpFiles.length; i++) {
             fileURLs[i] = lcpFiles[i].toString();
         }
-        DataReader.readArray(fileURLs, true, addToCache);
+        DataReader.readArray(fileURLs, true, addToCache,
+            provideOutput);
     }
 }
