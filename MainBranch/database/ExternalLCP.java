@@ -59,12 +59,12 @@ public class ExternalLCP {
     public boolean hasLCPInfoFile() {
         return lcpInfoIndex != -1;
     }
-    public URL getLCPInfoURL() {
+    public String getLCPInfoURL() {
         if (lcpInfoIndex == -1) {
             return null;
         }
 
-        return files[lcpInfoIndex];
+        return files[lcpInfoIndex].toString();
     }
     public String[] getFilesAsStrings() {
         String[] fileStrings;
