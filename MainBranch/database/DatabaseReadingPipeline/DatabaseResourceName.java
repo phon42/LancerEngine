@@ -46,4 +46,15 @@ public class DatabaseResourceName implements Comparable<DatabaseResourceName> {
             return str1.compareTo(str2);
         }
     }
+    public static DatabaseResourceName[] toResourceNames(String[] input) {
+        DatabaseResourceName[] result;
+
+        HelperMethods.checkStringArray("input", input);
+        result = new DatabaseResourceName[input.length];
+        for (int i = 0; i < input.length; i++) {
+            result[i] = new DatabaseResourceName(input[i]);
+        }
+
+        return result;
+    }
 }
