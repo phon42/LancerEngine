@@ -11,6 +11,7 @@ import java.net.URL;
 import java.nio.file.FileSystemException;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
+import MainBranch.database.FileOperations;
 
 public class ZIPUnzipper {
     // Created using https://www.baeldung.com/java-compress-and-uncompress#unzip
