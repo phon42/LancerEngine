@@ -45,7 +45,7 @@ public class DatabaseResourceInfo implements Comparable<DatabaseResourceInfo> {
         boolean isImportant1;
         boolean isImportant2;
 
-        HelperMethods.checkObject("databaseResourceName", o);
+        HelperMethods.checkObject("databaseResourceInfo", o);
         str1 = this.name;
         str2 = o.name;
         isImportant1 = str1.equals("info")
@@ -62,7 +62,7 @@ public class DatabaseResourceInfo implements Comparable<DatabaseResourceInfo> {
             return str1.compareTo(str2);
         }
     }
-    public static DatabaseResourceInfo[] toResourceNames(String[] names,
+    public static DatabaseResourceInfo[] toResourceInfo(String[] names,
         String[] paths) {
         DatabaseResourceInfo[] result;
 
