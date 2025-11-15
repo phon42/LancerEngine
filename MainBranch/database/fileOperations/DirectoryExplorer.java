@@ -12,7 +12,54 @@ public class DirectoryExplorer {
     // Prevent user from instantiating
     private DirectoryExplorer() {}
 
-    public static Stream<Path> listContents(String path) throws
+    public static Path[] listContentsAsArray(String path) throws
+        SecurityException {
+        ArrayList<Path> arrayList;
+        Path[] array;
+
+        arrayList = listContentsAsArrayList(path);
+        array = new Path[arrayList.size()];
+        for (int i = 0; i < array.length; i++) {
+            array[i] = arrayList.get(i);
+        }
+
+        return array;
+    }
+    public static ArrayList<Path> listContentsAsArrayList(String path) throws
+        SecurityException {
+        Iterator<Path> iterator;
+        Path originalPath;
+        ArrayList<Path> arrayList;
+        Path currPath;
+
+        iterator = getContentsIterator(path);
+        originalPath = FileSystems.getDefault().getPath(path);
+        originalPath = originalPath.normalize().toAbsolutePath();
+        originalPath = originalPath.getFileName();
+        arrayList = new ArrayList<>();
+        while (iterator.hasNext()) {
+            currPath = iterator.next();
+            if (currPath.getFileName().equals(originalPath)) {
+                // skip
+            } else {
+                arrayList.add(iterator.next());
+            }
+        }
+        arrayList.sort(null);
+
+        return arrayList;
+    }
+    private static Iterator<Path> getContentsIterator(String path) throws
+        SecurityException {
+        Stream<Path> stream;
+        Iterator<Path> iterator;
+
+        stream = getContentsStream(path);
+        iterator = stream.iterator();
+
+        return iterator;
+    }
+    private static Stream<Path> getContentsStream(String path) throws
         SecurityException {
         // Created using
         //     https://docs.oracle.com/javase/8/docs/api/java/nio/file/Files.html#walk-java.nio.file.Path-int-java.nio.file.FileVisitOption...-
@@ -36,35 +83,6 @@ public class DirectoryExplorer {
     }
     public static Iterator<Path> listContentsAsIterator(String path) throws
         SecurityException {
-        Stream<Path> stream;
-
-        stream = listContents(path);
-        return stream.iterator();
-    }
-    public static Path[] listContentsAsArray(String path) throws
-        SecurityException {
-        ArrayList<Path> arrayList;
-        Path[] array;
-
-        arrayList = listContentsAsArrayList(path);
-        array = new Path[arrayList.size()];
-        for (int i = 0; i < array.length; i++) {
-            array[i] = arrayList.get(i);
-        }
-
-        return array;
-    }
-    public static ArrayList<Path> listContentsAsArrayList(String path) throws
-        SecurityException {
-        Iterator<Path> iterator;
-        ArrayList<Path> arrayList;
-
-        iterator = listContentsAsIterator(path);
-        arrayList = new ArrayList<>();
-        while (iterator.hasNext()) {
-            arrayList.add(iterator.next());
-        }
-
-        return arrayList;
+        return listContentsAsArrayList(path).iterator();
     }
 }
