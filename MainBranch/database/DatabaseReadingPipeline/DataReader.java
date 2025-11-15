@@ -188,7 +188,7 @@ public class DataReader {
         unzippedDirectoryPath = FileOperations.unzip(zipPath, external,
             addToCache);
         // then call readAllInDirectory on it
-        readAllInDirectory(unzippedDirectoryPath);
+        readAllInDirectory(unzippedDirectoryPath, addToCache);
         if (! addToCache) {
             // then delete the directory we've created to do this
             FileOperations.deleteDirectory(unzippedDirectoryPath);
@@ -200,12 +200,14 @@ public class DataReader {
      * @param directoryPath a String which must contain a valid directory path.
      *     Is assumed to be a directory. Cannot be null.
      */
-    public static void readAllInDirectory(String directoryPath) {
+    public static void readAllInDirectory(String directoryPath,
+        boolean addToCache) {
         String[][] fileData;
         String[] castedFile;
 
         // call readJSON on every file within
-        fileData = FileOperations.readAllInDirectoryIterable(directoryPath);
+        fileData = FileOperations.readAllInDirectoryIterable(directoryPath,
+            addToCache);
         for (String[] jsonFile : fileData) {
             castedFile = (String[]) jsonFile;
             DataParser.parseJSON(castedFile[0], castedFile[1]);
@@ -229,7 +231,7 @@ public class DataReader {
         // 2. A valid *JSON* file path.
         // TODO: complete
         // Parse the .json file
-        data = FileOperations.readResource(jsonPath, external);
+        data = FileOperations.readResource(jsonPath, external, addToCache);
         if (data.length > 1) {
             throw new IllegalStateException("Resource path: \"" + jsonPath
                 + "\" lead to a .json file which resulted in more than one"
