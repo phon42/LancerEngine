@@ -2,6 +2,10 @@ package MainBranch.database.DatabaseReadingPipeline;
 
 import java.net.URL;
 import MainBranch.database.ExternalLCP;
+import MainBranch.database.FileOperations;
+import MainBranch.database.DatabaseReadingPipeline.CacheSystem.Cache;
+import MainBranch.database.fileOperations.json.JSONException;
+import MainBranch.database.fileOperations.json.JSONObject;
 
 public class DatabaseReader {
     // TODO: update documentation
@@ -40,14 +44,56 @@ public class DatabaseReader {
         DataReader.read(url, true);
     }
     public static void readExternalLCP(ExternalLCP externalLCP) {
+        String lcpName;
+        String cacheDirectoryPath;
         URL[] lcpFiles;
         String[] fileURLs;
 
+        // Small optimization - see whether the LCP is already cached
+        if (externalLCP.hasLCPInfoFile()) {
+            lcpName = peekLCPInfo(externalLCP.getLCPInfoURL());
+            cacheDirectoryPath = Cache.getLCP(lcpName);
+            if (cacheDirectoryPath != null) {
+                // Successfully found the LCP within the cache!
+                DataReader.readAllInDirectory(cacheDirectoryPath);
+                return;
+            }
+        }
+        // LCP doesn't have a name or couldn't be found in the cache - we have
+        //     to keep going
         lcpFiles = externalLCP.getFiles();
         fileURLs = new String[lcpFiles.length];
         for (int i = 0; i < lcpFiles.length; i++) {
             fileURLs[i] = lcpFiles[i].toString();
         }
         DataReader.readArray(fileURLs, true);
+    }
+    /**
+     * Peeks at a given external LCP's info.json or lcp_manifest.json file,
+     *     retrieves the file's "name" property, and returns it.
+     */
+    private static String peekLCPInfo(String url) {
+        String[] fileData;
+        Object fileObject;
+        JSONObject file;
+
+        fileData = FileOperations.readResource(url, true);
+        if (fileData.length > 1) {
+            throw new IllegalStateException("URL: \"" + url + "\" contained"
+                + " more than 1 file");
+        }
+        fileObject = FileOperations.parseJSONText(fileData[0]);
+        if (! (fileObject instanceof JSONObject)) {
+            throw new IllegalStateException("URL: \"" + url + "\" did not yield"
+                + " a JSONObject");
+        }
+        file = (JSONObject) fileObject;
+        try {
+            return file.getString("name");
+        } catch (JSONException exception) {
+            throw new IllegalStateException("Resource at URL: \"" + url + "\""
+                + " did not contain a JSON file with the required \"name\""
+                + " property");
+        }
     }
 }
