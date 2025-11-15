@@ -10,7 +10,7 @@ public class FileCreator {
     private FileCreator() {}
 
     public static String createFile(String fileNameAndExtension,
-        String targetDirectoryPath, String data) {
+        String targetDirectoryPath) {
         // Created using https://www.baeldung.com/java-how-to-create-a-file#jdk7
         String filePathString;
         Path filePath;
