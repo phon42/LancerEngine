@@ -2,6 +2,7 @@ package MainBranch.database;
 
 import MainBranch.UserPreferences;
 import MainBranch.database.fileOperations.DirectoryDeleter;
+import MainBranch.database.fileOperations.FileCreator;
 import MainBranch.database.fileOperations.ResourceParser;
 import MainBranch.database.fileOperations.ResourceReader;
 import MainBranch.database.fileOperations.ZIPUnzipper;
@@ -16,6 +17,11 @@ public class FileOperations {
     }
     public static Object parseJSONText(String jsonData) {
         return ResourceParser.parseJSONText(jsonData);
+    }
+    public static String createFile(String fileNameAndExtension,
+        String targetDirectoryPath, String data) {
+        return FileCreator.createFile(fileNameAndExtension, targetDirectoryPath,
+            data);
     }
     public static void deleteDirectory(String directoryPath) {
         DirectoryDeleter.deleteDirectory(directoryPath);
