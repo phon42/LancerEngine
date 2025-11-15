@@ -24,7 +24,8 @@ public class ResourceReader {
     // prevent user from instantiating this class
     private ResourceReader() {}
 
-    public static String[] read(String resourceLocator, boolean external) {
+    public static String[] read(String resourceLocator, boolean external,
+        boolean addToCache) {
         String extension;
 
         // we take in a String
@@ -40,11 +41,11 @@ public class ResourceReader {
         //     throw an exception
         // decide whether to use readLCP, readZIP, or readJSON directly
         if (extension.equals("lcp")) {
-            return readLCP(resourceLocator, external);
+            return readLCP(resourceLocator, external, addToCache);
         } else if (extension.equals("zip")) {
-            return readZIP(resourceLocator, external);
+            return readZIP(resourceLocator, external, addToCache);
         } else if (extension.equals("json")) {
-            return new String[] {readJSON(resourceLocator, external)};
+            return new String[] {readJSON(resourceLocator, external, addToCache)};
         }
         throw new IllegalStateException("this should in theory be"
             + " impossible");
@@ -136,8 +137,9 @@ public class ResourceReader {
      * @param lcpPath a String which must contain a valid file path. Is assumed
      *     to be a .lcp file. Cannot be null.
      */
-    private static String[] readLCP(String lcpPath, boolean external) {
-        return readZIP(lcpPath, external);
+    private static String[] readLCP(String lcpPath, boolean external,
+        boolean addToCache) {
+        return readZIP(lcpPath, external, addToCache);
     }
     /**
      * Unzips the provided .zip file before calling
@@ -145,18 +147,22 @@ public class ResourceReader {
      * @param zipPath a String which must contain a valid file path. Is assumed
      *     to be a .zip file. Cannot be null.
      */
-    private static String[] readZIP(String zipPath, boolean external) {
+    private static String[] readZIP(String zipPath, boolean external,
+        boolean addToCache) {
         // A directory of the .zip's contents will be created locally. This
         //     variable stores the file path to that directory.
         String unzippedDirectoryPath;
         String[] zipContents;
 
         // unzip the zip
-        unzippedDirectoryPath = FileOperations.unzip(zipPath, external);
+        unzippedDirectoryPath = FileOperations.unzip(zipPath, external,
+            addToCache);
         // then call readAllInDirectory on it
-        zipContents = readAllInDirectory(unzippedDirectoryPath);
-        // then delete the directory we've created to do this
-        FileOperations.deleteDirectory(unzippedDirectoryPath);
+        zipContents = readAllInDirectory(unzippedDirectoryPath, addToCache);
+        if (! addToCache) {
+            // then delete the directory we've created to do this
+            FileOperations.deleteDirectory(unzippedDirectoryPath);
+        }
 
         return zipContents;
     }
@@ -166,7 +172,8 @@ public class ResourceReader {
      * @param directoryPath a String which must contain a valid directory path.
      *     Is assumed to be a directory. Cannot be null.
      */
-    public static String[] readAllInDirectory(String directoryPath) {
+    public static String[] readAllInDirectory(String directoryPath,
+        boolean addToCache) {
         // Created in part using
         //     https://www.baeldung.com/java-list-directory-files#walking
         String[] fileNames;
@@ -176,7 +183,7 @@ public class ResourceReader {
         directoryContents = new String[fileNames.length];
         for (int i = 0; i < fileNames.length; i++) {
             directoryContents[i] = FileOperations.readResource(fileNames[i],
-                false)[0];
+                false, addToCache)[0];
         }
 
         return directoryContents;
@@ -222,7 +229,9 @@ public class ResourceReader {
      * @param jsonPath a String which must contain a valid file path. Must be a
      *     .json file. Cannot be null.
      */
-    private static String readJSON(String jsonPath, boolean external) {
+    private static String readJSON(String jsonPath, boolean external,
+        boolean addToCache) {
+        // TODO: add some way of adding JSON files to cache
         // Check whether jsonPath is null
         HelperMethods.checkObject("jsonPath", jsonPath);
         // Check whether jsonPath actually corresponds to:
