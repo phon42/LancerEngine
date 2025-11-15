@@ -248,7 +248,8 @@ public final class Database {
         for (String key: DatabaseInitialization.initializationLCPs.keySet()) {
             externalLCP = (ExternalLCP) DatabaseInitialization
                 .initializationLCPs.get(key);
-            DatabaseReader.readExternalLCP(externalLCP, true);
+            DatabaseReader.readExternalLCP(externalLCP, true,
+                true);
         }
     }
 
