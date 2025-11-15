@@ -36,7 +36,7 @@ public class DataReader {
                         + " \"" + resourceLocator + "\"");
                 }
             }
-            readLCP(resourceLocator, external, addToCache);
+            readLCP(resourceLocator, external, addToCache, provideOutput);
         } else if (extension.equals("zip")) {
             if (provideOutput) {
                 if (external) {
@@ -47,7 +47,7 @@ public class DataReader {
                         + " \"" + resourceLocator + "\"");
                 }
             }
-            readZIP(resourceLocator, external, addToCache);
+            readZIP(resourceLocator, external, addToCache, provideOutput);
         } else if (extension.equals("json")) {
             if (provideOutput) {
                 if (external) {
@@ -233,7 +233,7 @@ public class DataReader {
             }
         }
         // then call readAllInDirectory on it
-        readAllInDirectory(unzippedDirectoryPath, addToCache);
+        readAllInDirectory(unzippedDirectoryPath, addToCache, provideOutput);
         if (! addToCache) {
             if (provideOutput) {
                 System.out.println("Deleting local directory at local path: \""
