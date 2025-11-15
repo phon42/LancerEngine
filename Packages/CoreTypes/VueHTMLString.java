@@ -2,6 +2,9 @@ package Packages.CoreTypes;
 
 import MainBranch.HelperMethods;
 
+/**
+ * See https://vuejs.org/guide/essentials/template-syntax.
+ */
 public class VueHTMLString extends HTMLString {
     // TODO: replace documentation from HTMLString
     /**
