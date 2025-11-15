@@ -9,7 +9,8 @@ public class FileWriter {
     // Prevent user from instantiating
     private FileWriter() {}
 
-    public static String writeToFile(String filePath, String data) {
+    public static String writeToFile(String filePath, String data) throws
+        UnsupportedOperationException, SecurityException {
         // Created using
         //     https://www.baeldung.com/java-write-to-file#write-with-files-class
         Path path;
