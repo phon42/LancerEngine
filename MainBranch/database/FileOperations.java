@@ -20,8 +20,11 @@ public class FileOperations {
     }
     public static String createFile(String fileNameAndExtension,
         String targetDirectoryPath, String data) {
-        return FileCreator.createFile(fileNameAndExtension, targetDirectoryPath,
-            data);
+        return FileCreator.createFile(fileNameAndExtension,
+            targetDirectoryPath);
+    }
+    public static String writeToFile(String filePath, String data) {
+        return FileWriter.writeToFile(filePath, data);
     }
     public static void deleteDirectory(String directoryPath) {
         DirectoryDeleter.deleteDirectory(directoryPath);
