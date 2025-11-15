@@ -219,7 +219,8 @@ public final class Database {
                 "  \"terse\": \"Brace your mech for impact, reducing damage at the cost of your next turn’s actions.\",\n" + //
                 "  \"trigger\": \"You are hit by an attack and damage has been rolled.\",\n" + //
                 "  \"effect\": \"You count as having RESISTANCE to all damage, burn, and heat from the triggering attack, and until the end of your next turn, all other attacks against you are made at +1 difficulty.<br>Due to the stress of bracing, you cannot take reactions until the end of your next turn and on that turn, you can only take one quick action – you cannot OVERCHARGE, move normally, take full actions, or take free actions.\",\n" + //
-                "  \"detail\": \"When you BRACE, you ready your mech against incoming fire.<br>Brace<br>Reaction, 1/round<br>Trigger: You are hit by an attack and damage has been rolled.<br>Effect: You count as having RESISTANCE to all damage, burn, and heat from the triggering attack, and until the end of your next turn, all other attacks against you are made at +1 difficulty.<br>Due to the stress of bracing, you cannot take reactions until the end of your next turn and on that turn, you can only take one quick action – you cannot OVERCHARGE, move normally, take full actions, or take free actions.\"\n" + //
+                "  \"detail\": \"When you BRACE, you ready your mech against incoming fire.<br>Brace<br>Reaction, 1/round<br>Trigger: You are hit by an attack and damage has been rolled.<br>Effect: You count as having RESISTANCE to all damage, burn, and heat from the triggering attack, and until the end of your next turn, all other attacks against you are made at +1 difficulty.<br>Due to the stress of bracing, you cannot take reactions until the end of your next turn and on that turn, you can only take one quick action – you cannot OVERCHARGE, move normally, take full actions, or take free actions.\",\n" + //
+                "  \"frequency\": \"1/round\"\n" + //
                 "}"
         ));
         correction2 = new LCPCorrection("LANCER Core",
@@ -234,7 +235,8 @@ public final class Database {
                 "  \"effect\": \"Trigger OVERWATCH, immediately using that weapon to SKIRMISH against that character as a reaction, before they move.\",\n" + //
                 "  \"detail\": \"When you OVERWATCH, you control and defend the space around your mech from enemy incursion through pilot skill, reflexes, or finely tuned subsystems.<br>Unless specified otherwise, all weapons default to 1 THREAT.<br>Overwatch<br>Reaction, 1/round<br>Trigger: A hostile character starts any movement (including BOOST and other actions) inside one of your weapons’ THREAT.<br>Effect: Trigger OVERWATCH, immediately using that weapon to SKIRMISH against that character as a reaction, before they move.\",\n" + //
                 "  \"mech\": true,\n" + //
-                "  \"pilot\": true\n" + //
+                "  \"pilot\": true,\n" + //
+                "  \"frequency\": \"1/round\"\n" + //
                 "}"
         ));
         Database.open();
