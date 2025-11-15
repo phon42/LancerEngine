@@ -50,6 +50,7 @@ public class LCPDependency {
         setName(targetLCPName);
         setVersion(minimumAcceptedVersion);
         // Optional property
+        setLinkRaw(link);
     }
     public LCPDependency(String targetLCPName,
         SemverVersion minimumAcceptedVersion) {
