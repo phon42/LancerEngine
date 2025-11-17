@@ -158,7 +158,7 @@ public class ActionBase {
 
     // Helper property
     /**
-     * The general type of the action (i.e. "move").
+     * The general type of the action (i.e. "free").
      * Value is based on this.activation.type and, secondarily, this.name.
      * Can be any String except "". Cannot be null.
      * Case-insensitive and stored in lowercase.
@@ -430,17 +430,17 @@ public class ActionBase {
         String result;
 
         activationType = this.activation.getType();
-        if (ActionBase.typeMap.containsKey(activationType)) {
-            if (this.name.equals("Move")
-                || this.name.equals("Boost")) {
-                result = "move";
-            } else {
-                result = ActionBase.typeMap.get(activationType);
-            }
+        if (this.name.equals("Move")
+            || this.name.equals("Boost")) {
+            result = "move";
         } else {
-            throw new IllegalStateException("this.activation.type is: \""
-                + activationType + "\" which could not be found within"
-                + " ActionBase.typeMap");
+            if (ActionBase.typeMap.containsKey(activationType)) {
+                result = ActionBase.typeMap.get(activationType);
+            } else {
+                throw new IllegalStateException("this.activation.type is: \""
+                    + activationType + "\" which could not be found within"
+                    + " ActionBase.typeMap");
+            }
         }
 
         return result;
