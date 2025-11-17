@@ -80,7 +80,8 @@ public class DatabaseReader {
                             + "\"");
                     }
                     DataReader.readAllInDirectory(cacheDirectoryPath,
-                        addToCache, provideOutput);
+                        false, provideOutput);
+                    DataParser.sendData();
                     return;
                 }
                 if (provideOutput) {
