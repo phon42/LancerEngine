@@ -1,5 +1,7 @@
 package MainBranch;
 
+import java.nio.file.Path;
+import MainBranch.database.FileOperations;
 import Packages.CoreTypes.ColorData;
 
 /**
@@ -48,11 +50,11 @@ public class UserPreferences {
     public static int getColorResolution() {
         return colorResolution;
     }
-    public static String getTargetDir() {
-        return targetDir;
+    public static Path getTargetDir() {
+        return FileOperations.toPath(targetDir);
     }
-    public static String getCacheDir() {
-        return cacheDir;
+    public static Path getCacheDir() {
+        return FileOperations.toPath(cacheDir);
     }
     public static void setMakeRollsManually(boolean makeRollsManually) {
         UserPreferences.makeRollsManually = makeRollsManually;

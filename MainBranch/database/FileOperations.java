@@ -33,21 +33,21 @@ public class FileOperations {
     public static Object parseJSONText(String jsonData) {
         return ResourceParser.parseJSONText(jsonData);
     }
-    public static String createDirectory(String path) {
+    public static Path createDirectory(Path path) {
         return DirectoryCreator.createDirectory(path);
     }
-    public static String createFile(String fileNameAndExtension,
-        String targetDirectoryPath, boolean provideOutput) {
+    public static Path createFile(String fileNameAndExtension,
+        Path targetDirectoryPath, boolean provideOutput) {
         return FileCreator.createFile(fileNameAndExtension,
             targetDirectoryPath, provideOutput);
     }
-    public static String writeToFile(String filePath, String data,
+    public static Path writeToFile(Path filePath, String data,
         boolean provideOutput) {
         return FileWriter.writeToFile(filePath, data, provideOutput);
     }
-    public static String createAndWriteToFile(String fileNameAndExtension,
-        String targetDirectoryPath, String data, boolean provideOutput) {
-        String filePath;
+    public static Path createAndWriteToFile(String fileNameAndExtension,
+        Path targetDirectoryPath, String data, boolean provideOutput) {
+        Path filePath;
 
         filePath = createFile(fileNameAndExtension, targetDirectoryPath,
             provideOutput);
@@ -55,29 +55,29 @@ public class FileOperations {
 
         return filePath;
     }
-    public static void deleteDirectory(String path) {
-        DirectoryDeleter.deleteDirectory(path);
+    public static Path deleteDirectory(Path path) {
+        return DirectoryDeleter.deleteDirectory(path);
     }
-    public static Iterator<Path> listDirectoryContentsAsIterator(String path,
+    public static Iterator<Path> listDirectoryContentsAsIterator(Path path,
         boolean includeDirectories) {
         return DirectoryExplorer.listContentsAsIterator(path,
             includeDirectories);
     }
-    public static Path[] listDirectoryContentsAsArray(String path,
+    public static Path[] listDirectoryContentsAsArray(Path path,
         boolean includeDirectories) {
         return DirectoryExplorer.listContentsAsArray(path, includeDirectories);
     }
-    public static ArrayList<Path> listDirectoryContentsAsArrayList(String path,
+    public static ArrayList<Path> listDirectoryContentsAsArrayList(Path path,
         boolean includeDirectories) {
         return DirectoryExplorer.listContentsAsArrayList(path,
             includeDirectories);
     }
-    private static String unzip(String zipResourceLocator, boolean external,
-        String targetDirectoryPath) {
+    private static Path unzip(String zipResourceLocator, boolean external,
+        Path targetDirectoryPath) {
         return ZIPUnzipper.unzip(zipResourceLocator, external,
             targetDirectoryPath);
     }
-    public static String unzip(String zipResourceLocator, boolean external,
+    public static Path unzip(String zipResourceLocator, boolean external,
         boolean addToCache) {
         if (addToCache) {
             return unzip(zipResourceLocator, external,
@@ -88,14 +88,14 @@ public class FileOperations {
         }
         
     }
-    public static String[] getAllFilenamesInDirectory(String directoryPath) {
+    public static Path[] getAllFilenamesInDirectory(Path directoryPath) {
         return DirectoryExplorer.getAllFilenamesInDirectory(directoryPath);
     }
-    public static String[] readAllInDirectory(String directoryPath,
+    public static String[] readAllInDirectory(Path directoryPath,
         boolean addToCache) {
         return ResourceReader.readAllInDirectory(directoryPath, addToCache);
     }
-    public static String[][] readAllInDirectoryIterable(String directoryPath,
+    public static String[][] readAllInDirectoryIterable(Path directoryPath,
         boolean addToCache) {
         String[] fileNames;
         // index 0 is the file path

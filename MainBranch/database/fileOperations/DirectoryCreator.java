@@ -4,24 +4,20 @@ import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import MainBranch.database.FileOperations;
 
 public class DirectoryCreator {
     // Prevent user from instantiating
     private DirectoryCreator() {}
 
-    public static String createDirectory(String path) throws SecurityException {
+    public static Path createDirectory(Path path) throws SecurityException {
         // Created using the following URLs:
         // Mainly used:
         // - https://docs.oracle.com/javase/tutorial/essential/io/dirs.html
         // Partially used:
         // - https://medium.com/@AlexanderObregon/javas-files-createdirectories-method-explained-cb824678b0b7
         // - https://docs.oracle.com/javase/8/docs/api/java/nio/file/Files.html#createDirectory-java.nio.file.Path-java.nio.file.attribute.FileAttribute...-
-        Path directoryPath;
-
-        directoryPath = FileOperations.toPath(path);
         try {
-            directoryPath = Files.createDirectory(directoryPath);
+            path = Files.createDirectory(path);
         } catch (FileAlreadyExistsException exception) {
             // do nothing because we've successfully created it
         } catch (IOException exception) {
@@ -29,8 +25,8 @@ public class DirectoryCreator {
                 + " threw an IOException with the following message: \""
                 + exception.getMessage() + "\"");
         }
-        directoryPath = directoryPath.toAbsolutePath();
+        path = path.toAbsolutePath();
 
-        return directoryPath.toString();
+        return path;
     }
 }

@@ -163,18 +163,18 @@ public class ResourceReader {
      * @param directoryPath a String which must contain a valid directory path.
      *     Is assumed to be a directory. Cannot be null.
      */
-    public static String[] readAllInDirectory(String directoryPath,
+    public static String[] readAllInDirectory(Path directoryPath,
         boolean addToCache) {
         // Created in part using
         //     https://www.baeldung.com/java-list-directory-files#walking
-        String[] fileNames;
+        Path[] fileNames;
         String[] directoryContents;
 
         fileNames = FileOperations.getAllFilenamesInDirectory(directoryPath);
         directoryContents = new String[fileNames.length];
         for (int i = 0; i < fileNames.length; i++) {
-            directoryContents[i] = FileOperations.readResource(fileNames[i],
-                false, addToCache)[0];
+            directoryContents[i] = FileOperations.readResource(
+                fileNames[i].toString(), false, addToCache)[0];
         }
 
         return directoryContents;
