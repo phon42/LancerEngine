@@ -5,17 +5,6 @@ import MainBranch.HelperMethods;
 /**
  * From https://github.com/massif-press/lancer-data/blob/master/README.md#backgrounds-backgroundsjson.
  */
-/**
- * Represents a single background. Contains information about that background's
- *     id, name, description, and an array of SkillDatas that might be
- *     applicable.
- * 
- * Requires a background id, name, and description to be instantiated.
- * 
- * Unused at present.
- * 
- * Safety: At least one of this class' properties has an allowed value of null.
- */
 public class BackgroundBase {
     // Required properties
     /**
