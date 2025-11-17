@@ -71,15 +71,15 @@ public class DataReader {
         String[] resourceNames;
         String[] resourceInfo;
         DatabaseResourceInfo[] resources;
+        Object[] lcpInfoData;
+        String cacheName;
 
         // TODO: add the ability to add all of these files to the cache under
         //     the same folder
         HelperMethods.checkStringArray("resourceLocators",
             resourceLocators);
-        if (addToCache) {
-            HelperMethods.checkObject("targetFolderPath",
-                targetFolderPath);
-        }
+        HelperMethods.checkObject("targetFolderPath",
+            targetFolderPath);
         resourceNames = new String[resourceLocators.length];
         for (int i = 0; i < resourceLocators.length; i++) {
             resourceInfo = getResourceInfo(resourceLocators[i],
@@ -97,7 +97,7 @@ public class DataReader {
         if (provideOutput) {
             System.out.println("Reading elements of the provided array");
         }
-        for (int i = 0; i < resourceLocators.length; i++) {
+        for (int i = 0; i < resources.length; i++) {
             readJSON(resources[i].getPath(), external, addToCache,
                 targetFolderPath, provideOutput);
         }
