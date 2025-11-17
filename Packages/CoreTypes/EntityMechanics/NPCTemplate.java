@@ -20,4 +20,7 @@ public class NPCTemplate {
     private String[] baseFeatures;
     private String[] optionalFeatures;
     private int power;
+
+    public NPCTemplate() {}
+    public NPCTemplate(NPCTemplate npcTemplate) {}
 }
