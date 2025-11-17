@@ -38,6 +38,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.CoreBonus
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Reserve;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Talent;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Background.backgroundBase.Background;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Background.backgroundBase.UnverifiedBackground;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.talent.TalentData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.talent.talentData.TalentRank;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment.PilotArmor;
@@ -1159,6 +1160,33 @@ public final class HelperMethods {
         HelperMethods.checkObject("array", array);
         HelperMethods.checkObject("newElement", newElement);
         Term[] newArray = new Term[array.length + 1];
+
+        for (int i = 0; i < newArray.length; i++) {
+            if (i < array.length) {
+                newArray[i] = array[i];
+                continue;
+            }
+            newArray[i] = newElement;
+        }
+        
+        return newArray;
+    }
+    /**
+     * Appends the given UnverifiedBackground element to the end of an existing
+     *     UnverifiedBackground[].
+     * @param array an UnverifiedBackground[] that cannot be null.
+     * @param newElement an UnverifiedBackground that cannot be null to append
+     *     to the end of array.
+     * @return an UnverifiedBackground[] consisting of array with newElement
+     *     appended to the end of it.
+     * @throws IllegalArgumentException if array or newElement is null.
+     */
+    public static UnverifiedBackground[] append(UnverifiedBackground[] array,
+        UnverifiedBackground newElement) {
+        HelperMethods.checkObject("array", array);
+        HelperMethods.checkObject("newElement", newElement);
+        UnverifiedBackground[] newArray =
+            new UnverifiedBackground[array.length + 1];
 
         for (int i = 0; i < newArray.length; i++) {
             if (i < array.length) {
