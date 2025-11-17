@@ -1,6 +1,8 @@
 package MainBranch;
 
+import java.util.Arrays;
 import java.util.NoSuchElementException;
+import java.util.Set;
 import MainBranch.database.DatabaseInitialization;
 import MainBranch.database.ExternalLCP;
 import MainBranch.database.LCPCorrection;
@@ -205,6 +207,8 @@ public final class Database {
         ExternalLCP externalLCP;
         LCPCorrection correction1;
         LCPCorrection correction2;
+        Set<String> keys;
+        String[] keysArray;
 
         // Initialize the database's properties
         clear();
@@ -261,8 +265,12 @@ public final class Database {
         Database.close();
 
         // Add any desired external LCPs
-        for (String key: DatabaseInitialization.initializationLCPs.keySet()) {
-            externalLCP = (ExternalLCP) DatabaseInitialization
+        keys = DatabaseInitialization.initializationLCPs.keySet();
+        keysArray = keys.toArray(new String[keys.size()]);
+        Arrays.sort(keysArray);
+        for (String key : keysArray) {
+            externalLCP =
+                (ExternalLCP) DatabaseInitialization
                 .initializationLCPs.get(key);
             DatabaseReader.readExternalLCP(externalLCP, true,
                 true);
