@@ -67,12 +67,7 @@ public class Background extends BackgroundBase {
             if (skills.length == 0) {
                 throw new IllegalArgumentException("skills is of length 0");
             }
-            for (SkillData skill : skills) {
-                if (skill == null) {
-                    throw new IllegalArgumentException("skills array contains"
-                        + " a null element");
-                }
-            }
+            HelperMethods.checkObjectArray("skills", skills);
             skills = HelperMethods.copyOf(skills);
         }
         this.skills = skills;
