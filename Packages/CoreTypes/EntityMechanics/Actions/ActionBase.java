@@ -250,7 +250,7 @@ public class ActionBase {
         return name;
     }
     public ActivationType getActivation() {
-        return new ActivationType(activation);
+        return activation;
     }
     public VueHTMLString getDetail() {
         return new VueHTMLString(detail);
@@ -312,7 +312,6 @@ public class ActionBase {
     }
     protected void setActivation(ActivationType activation) {
         HelperMethods.checkObject("activation", activation);
-        activation = new ActivationType(activation);
         this.activation = activation;
     }
     protected void setDetail(VueHTMLString detail) {
