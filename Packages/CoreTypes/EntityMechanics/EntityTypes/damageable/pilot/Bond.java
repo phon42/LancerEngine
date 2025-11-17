@@ -20,4 +20,7 @@ public class Bond {
     private String[] minorIdeals;
     private Object[] questions;
     private Object[] powers;
+
+    public Bond() {}
+    public Bond(Bond bond) {}
 }
