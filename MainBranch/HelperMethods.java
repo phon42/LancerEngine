@@ -25,6 +25,7 @@ import Packages.CoreTypes.EntityMechanics.RangeTag;
 import Packages.CoreTypes.EntityMechanics.ISynergyData;
 import Packages.CoreTypes.EntityMechanics.SynergyLocation;
 import Packages.CoreTypes.EntityMechanics.Actions.actionBase.Action;
+import Packages.CoreTypes.EntityMechanics.Actions.actionBase.IActionData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.Deployable;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Frame;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Mount;
@@ -609,6 +610,32 @@ public final class HelperMethods {
         HelperMethods.checkObject("array", array);
         HelperMethods.checkObject("newElement", newElement);
         Frame[] newArray = new Frame[array.length + 1];
+
+        for (int i = 0; i < newArray.length; i++) {
+            if (i < array.length) {
+                newArray[i] = array[i];
+                continue;
+            }
+            newArray[i] = newElement;
+        }
+        
+        return newArray;
+    }
+    /**
+     * Appends the given IActionData element to the end of an existing
+     *     IActionData[].
+     * @param array an IActionData[] that cannot be null.
+     * @param newElement an IActionData that cannot be null to append to the end
+     *     of array.
+     * @return an IActionData[] consisting of array with newElement appended to
+     *     the end of it.
+     * @throws IllegalArgumentException if array or newElement is null.
+     */
+    public static IActionData[] append(IActionData[] array,
+        IActionData newElement) {
+        HelperMethods.checkObject("array", array);
+        HelperMethods.checkObject("newElement", newElement);
+        IActionData[] newArray = new IActionData[array.length + 1];
 
         for (int i = 0; i < newArray.length; i++) {
             if (i < array.length) {
