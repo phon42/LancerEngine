@@ -202,7 +202,7 @@ public class ActionBase {
         setConfirm(confirm);
         calculateHideActive(hideActive);
         // Conditionally required properties
-        setFrequency(frequency);
+        setFrequency(calculateFrequency(frequency));
         setTrigger(trigger);
         // Optional properties
         setMethod(method);
@@ -444,5 +444,14 @@ public class ActionBase {
         }
 
         return result;
+    }
+    protected Frequency calculateFrequency(Frequency frequency) {
+        if (this.activation.getType().equals("reaction")) {
+            // this.frequency is required; therefore, it can be any frequency
+            //     but cannot be null
+            return frequency;
+        }
+
+        return frequency;
     }
 }
