@@ -21,4 +21,7 @@ public class NPCFeature {
     private boolean locked;
     private String type;
     private String effect;
+
+    public NPCFeature() {}
+    public NPCFeature(NPCFeature npcFeature) {}
 }
