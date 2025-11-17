@@ -2,7 +2,7 @@ package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frame;
 
 import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.Deployable;
-import Packages.CoreTypes.EntityMechanics.Synergy;
+import Packages.CoreTypes.EntityMechanics.ISynergyData;
 import Packages.CoreTypes.EntityMechanics.Actions.actionBase.IActionData;
 
 public class CoreSystem {
@@ -31,7 +31,7 @@ public class CoreSystem {
     private String deactivation;
     private String[] integrated;
     private Deployable[] deployables;
-    private Synergy[] activeSynergies;
+    private ISynergyData[] activeSynergies;
     private IActionData[] activeActions;
     private Bonus[] activeBonuses;
     private String passiveName;
