@@ -5,6 +5,7 @@ import MainBranch.HelperMethods;
 import Packages.CoreTypes.BattlefieldMechanics.Environment;
 import Packages.CoreTypes.BattlefieldMechanics.Sitrep;
 import Packages.CoreTypes.EntityMechanics.Actions.actionBase.Action;
+import Packages.CoreTypes.EntityMechanics.Actions.actionBase.IActionData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.MechSystem;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.Modification;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.DataTag;
@@ -91,6 +92,7 @@ public class DataCompiler {
     private static Weapon[] weaponData;
     // ----the rest of the critical data types:
     private static Action[] actionData;
+    private static IActionData[] iActionDataData;
     private static Condition[] conditionData;
     private static CoreBonus[] coreBonusData;
     private static DataTag[] dataTagData;
@@ -341,6 +343,9 @@ public class DataCompiler {
         // ----the rest of the critical data types:
         for (int i = 0; i < DataCompiler.actionData.length; i++) {
             Database.addAction(DataCompiler.actionData[i]);
+        }
+        for (int i = 0; i < DataCompiler.iActionDataData.length; i++) {
+            Database.addIActionData(DataCompiler.iActionDataData[i]);
         }
         for (int i = 0; i < DataCompiler.conditionData.length; i++) {
             Database.addCondition(DataCompiler.conditionData[i]);
