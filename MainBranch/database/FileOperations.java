@@ -115,18 +115,18 @@ public class FileOperations {
     }
     public static String[][] readAllInDirectoryIterable(Path directoryPath,
         boolean addToCache) {
-        String[] fileNames;
+        Path[] filePaths;
+        String[] fileData;
         // index 0 is the file path
         // index 1 is the file data
         String[][] result;
 
-        fileNames = ResourceReader.readAllInDirectory(directoryPath,
-            addToCache);
-        result = new String[fileNames.length][2];
-        for (int i = 0; i < fileNames.length; i++) {
-            result[i][0] = fileNames[i];
-            result[i][1] = readResource(fileNames[i], false,
-                addToCache)[0];
+        filePaths = FileOperations.getAllFilenamesInDirectory(directoryPath);
+        fileData = ResourceReader.readAllInDirectory(directoryPath, addToCache);
+        result = new String[fileData.length][2];
+        for (int i = 0; i < fileData.length; i++) {
+            result[i][0] = filePaths[i].toString();
+            result[i][1] = fileData[i];
         }
 
         return result;
