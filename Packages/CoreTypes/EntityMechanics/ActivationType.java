@@ -4,13 +4,23 @@ import java.util.NoSuchElementException;
 import MainBranch.Database;
 import MainBranch.HelperMethods;
 
+/**
+ * Represents an activation type. Contains information about that activation
+ *     type's type and a helper property related to it.
+ * 
+ * Requires an activation type type to be instantiated.
+ * 
+ * Unused at present.
+ * 
+ * Safety: None of this class' properties have allowed values of null.
+ * 
+ * This class is immutable (in other words, no copies of it need to be created).
+ */
 public class ActivationType {
+    // Required property
     /**
      * The value of this activation type (i.e. "free").
-     * Can be any String except "". Cannot be null.
-     * Case-insensitive and stored in lowercase. Cannot be null.
-     * Anything that is not one of the standard values is automatically counted as a free action.
-     * 
+     * =========================================================================
      * Meaning of each value:
      * "STANDARD MOVE
      * Movement up to a character’s maximum SPEED.
@@ -33,8 +43,15 @@ public class ActivationType {
      *     actions and reactions a character can take per round. Characters can
      *     even take reactions outside of their turn."
      * - pg. 61
+     * =========================================================================
+     * Can be any String except "". Cannot be null.
+     * Case-insensitive and stored in lowercase. Cannot be null.
+     * Anything that is not one of the standard values is automatically counted
+     *     as a free action.
      */
     private String value;
+
+    // Helper property
     /**
      * Exactly the same as this.value most of the time; is "free" when
      *     this.value is an unsorted action.
@@ -51,10 +68,6 @@ public class ActivationType {
         } else {
             calculateType();
         }
-    }
-    public ActivationType(ActivationType activationType) {
-        setValue(activationType.value);
-        setType(activationType.type);
     }
 
     public String getValue() {
