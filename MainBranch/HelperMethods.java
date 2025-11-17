@@ -8,6 +8,7 @@ import MainBranch.database.fileOperations.json.JSONArray;
 import MainBranch.database.fileOperations.json.JSONObject;
 import Packages.CoreTypes.Callable;
 import Packages.CoreTypes.HTMLString;
+import Packages.CoreTypes.LCPInfo;
 import Packages.CoreTypes.Rule;
 import Packages.CoreTypes.Table;
 import Packages.CoreTypes.Term;
@@ -634,6 +635,30 @@ public final class HelperMethods {
         HelperMethods.checkObject("array", array);
         HelperMethods.checkObject("newElement", newElement);
         FrameLicense[] newArray = new FrameLicense[array.length + 1];
+
+        for (int i = 0; i < newArray.length; i++) {
+            if (i < array.length) {
+                newArray[i] = array[i];
+                continue;
+            }
+            newArray[i] = newElement;
+        }
+        
+        return newArray;
+    }
+    /**
+     * Appends the given LCPInfo element to the end of an existing LCPInfo[].
+     * @param array an LCPInfo[] that cannot be null.
+     * @param newElement an LCPInfo that cannot be null to append to the end of
+     *     array.
+     * @return an LCPInfo[] consisting of array with newElement appended to the
+     *     end of it.
+     * @throws IllegalArgumentException if array or newElement is null.
+     */
+    public static LCPInfo[] append(LCPInfo[] array, LCPInfo newElement) {
+        HelperMethods.checkObject("array", array);
+        HelperMethods.checkObject("newElement", newElement);
+        LCPInfo[] newArray = new LCPInfo[array.length + 1];
 
         for (int i = 0; i < newArray.length; i++) {
             if (i < array.length) {
