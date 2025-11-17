@@ -29,6 +29,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Bond;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.CoreBonus;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Reserve;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Background.backgroundBase.Background;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Background.backgroundBase.UnverifiedBackground;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment.PilotArmor;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment.PilotGear;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment.PilotWeapon;
@@ -63,6 +64,14 @@ public final class Database {
      * add documentation
      */
     private static LCPInfo[] lcpInfo;
+
+    // Unverified data
+    /**
+     * add documentation
+     */
+    private static UnverifiedBackground[] unverifiedBackgrounds;
+
+    // Verified data
     /**
      * add documentation
      */
@@ -283,7 +292,15 @@ public final class Database {
             throw new IllegalStateException("Attempted to call"
                 + " Database.close() when Database is already closed");
         }
+        verifyData();
         Database.open = false;
+    }
+    private static void verifyData() {
+        for (UnverifiedBackground unverifiedBackground :
+            Database.unverifiedBackgrounds) {
+            addBackground(unverifiedBackground.toBackground());
+        }
+        Database.unverifiedBackgrounds = new UnverifiedBackground[0];
     }
     private static void checkOpen() {
         if (! isOpen()) {
@@ -295,6 +312,9 @@ public final class Database {
         // This clears the entire database!
         Database.lcpCorrections = new LCPCorrection[0];
         Database.lcpInfo = new LCPInfo[0];
+        // Unverified data
+        Database.unverifiedBackgrounds = new UnverifiedBackground[0];
+        // Verified data
         Database.actions = new Action[0];
         Database.activationTypes = new ActivationType[0];
         Database.backgrounds = new Background[0];
@@ -712,6 +732,22 @@ public final class Database {
         lcpInfo = new LCPInfo(lcpInfo);
         Database.lcpInfo = HelperMethods.append(Database.lcpInfo, lcpInfo);
     }
+    // Unverified data
+    /**
+     * Adds the provided UnverifiedBackground to Database.unverifiedBackgrounds.
+     * @param unverifiedBackground an UnverifiedBackground which cannot be null.
+     * @throws IllegalArgumentException if unverifiedBackground is null.
+     */
+    public static void addUnverifiedBackground(
+        UnverifiedBackground unverifiedBackground) {
+        checkOpen();
+        HelperMethods.checkObject("unverifiedBackground",
+            unverifiedBackground);
+        unverifiedBackground = new UnverifiedBackground(unverifiedBackground);
+        Database.actions = HelperMethods.append(Database.actions,
+            unverifiedBackground);
+    }
+    // Verified data
     /**
      * Adds the provided Action to Database.actions.
      * @param action an Action which cannot be null.
