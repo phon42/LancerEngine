@@ -1,7 +1,9 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Background.backgroundBase;
 
+import MainBranch.Database;
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Background.BackgroundBase;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skill.SkillData;
 
 /**
  * From https://github.com/massif-press/lancer-data/blob/master/README.md#backgrounds-backgroundsjson.
@@ -73,5 +75,17 @@ public class UnverifiedBackground extends BackgroundBase {
             skillStrings = HelperMethods.copyOf(skillStrings);
         }
         this.skillStrings = skillStrings;
+    }
+
+    public Background toBackground() {
+        SkillData[] skills;
+
+        skills = new SkillData[this.skillStrings.length];
+        for (int i = 0; i < this.skillStrings.length; i++){
+            skills[i] = Database.getSkillDataByName(this.skillStrings[i]);
+        }
+
+        return new Background(this.id, this.name, this.description,
+            skills);
     }
 }
