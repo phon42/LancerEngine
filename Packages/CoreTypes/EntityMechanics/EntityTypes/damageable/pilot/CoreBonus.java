@@ -3,7 +3,7 @@ package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot;
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
-import Packages.CoreTypes.EntityMechanics.Synergy;
+import Packages.CoreTypes.EntityMechanics.ISynergyData;
 import Packages.CoreTypes.EntityMechanics.Actions.actionBase.IActionData;
 
 public class CoreBonus {
@@ -17,12 +17,12 @@ public class CoreBonus {
     // Optional properties
     private String mountedEffect;
     private Bonus[] bonuses;
-    private Synergy[] synergies;
+    private ISynergyData[] synergies;
     private IActionData[] actions;
 
     public CoreBonus(String id, String name, Manufacturer source, String effect,
         String description, String mountedEffect, Bonus[] bonuses,
-        Synergy[] synergies, IActionData[] actions) {
+        ISynergyData[] synergies, IActionData[] actions) {
         HelperMethods.verifyConstructor();
         setID(id);
         setName(name);
@@ -74,7 +74,7 @@ public class CoreBonus {
     public Bonus[] getBonuses() {
         return HelperMethods.copyOf(bonuses);
     }
-    public Synergy[] getSynergies() {
+    public ISynergyData[] getSynergies() {
         return HelperMethods.copyOf(synergies);
     }
     public IActionData[] getActions() {
@@ -103,7 +103,7 @@ public class CoreBonus {
     public void setBonuses(Bonus[] bonuses) {
         this.bonuses = bonuses;
     }
-    public void setSynergies(Synergy[] synergies) {
+    public void setSynergies(ISynergyData[] synergies) {
         this.synergies = synergies;
     }
     public void setActions(IActionData[] actions) {
