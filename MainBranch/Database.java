@@ -1,9 +1,6 @@
 package MainBranch;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.NoSuchElementException;
-
 import MainBranch.database.DatabaseInitialization;
 import MainBranch.database.ExternalLCP;
 import MainBranch.database.LCPCorrection;
