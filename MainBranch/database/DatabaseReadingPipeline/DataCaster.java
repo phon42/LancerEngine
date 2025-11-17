@@ -12,8 +12,10 @@ import Packages.CoreTypes.Rule;
 import Packages.CoreTypes.Table;
 import Packages.CoreTypes.Term;
 import Packages.CoreTypes.TriState;
+import Packages.CoreTypes.VueHTMLString;
 import Packages.CoreTypes.BattlefieldMechanics.Environment;
 import Packages.CoreTypes.BattlefieldMechanics.Sitrep;
+import Packages.CoreTypes.EntityMechanics.ActivationType;
 import Packages.CoreTypes.EntityMechanics.Frequency;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
 import Packages.CoreTypes.EntityMechanics.NPCFeature;
@@ -41,6 +43,7 @@ import Packages.CoreTypes.EntityMechanics.StateSystem.state.Status;
 import Packages.CoreTypes.lcpInfo.LCPDependency;
 import Packages.CoreTypes.lcpInfo.Version;
 import Packages.CoreTypes.lcpInfo.lcpDependency.SemverVersion;
+import Packages.CoreTypes.Callable;
 import Packages.CoreTypes.LCPInfo;
 
 public class DataCaster {
@@ -703,9 +706,10 @@ public class DataCaster {
             init = actionData.getString("init");
         } catch (JSONException exception) {}
 
-        return new Action(id, name, activation, terse, detail, pilot, mech,
-            hideActive, synergyLocations, confirm, ignoreUsed, heatCost,
-            techAttack, frequency, range, damage, trigger, init);
+        return new Action(name, activation, detail, pilot, mech, confirm,
+            hideActive, null, init, id, ignoreUsed, heatCost, terse,
+            synergyLocations);
+        // Unused: techAttack, frequency, range, damage, trigger
     }
     private static void processBackgrounds(JSONObject[] backgroundsData) {
         Background[] backgrounds = new Background[backgroundsData.length];
