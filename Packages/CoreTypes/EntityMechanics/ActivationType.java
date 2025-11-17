@@ -63,11 +63,12 @@ public class ActivationType {
     public ActivationType(String value) {
         HelperMethods.verifyConstructor();
         setValue(value);
-        if (Database.isOpen()) {
-            setType(value);
-        } else {
-            calculateType();
-        }
+        calculateType();
+    }
+    public ActivationType(String value, String type) {
+        HelperMethods.verifyConstructor();
+        setValue(value);
+        setType(type);
     }
 
     public String getValue() {
