@@ -47,6 +47,7 @@ public class FileCreator {
 
         return filePath;
     }
+    // TODO: check if this is even being used
     public static File createFile(Path destDirPath, ZipEntry zipEntry)
         throws IOException {
         File destinationDirectory;
