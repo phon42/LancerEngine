@@ -21,7 +21,7 @@ import Packages.CoreTypes.EntityMechanics.Manufacturer;
 import Packages.CoreTypes.EntityMechanics.NPCFeature;
 import Packages.CoreTypes.EntityMechanics.NPCTemplate;
 import Packages.CoreTypes.EntityMechanics.RangeTag;
-import Packages.CoreTypes.EntityMechanics.Synergy;
+import Packages.CoreTypes.EntityMechanics.ISynergyData;
 import Packages.CoreTypes.EntityMechanics.Actions.actionBase.Action;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.Deployable;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Frame;
@@ -1596,15 +1596,15 @@ public final class HelperMethods {
      * @return a Synergy[] deepest copy of original.
      * @throws IllegalArgumentException if original is null.
      */
-    public static Synergy[] copyOf(Synergy[] original) {
+    public static ISynergyData[] copyOf(ISynergyData[] original) {
         checkObject("original", original);
-        Synergy[] copy = new Synergy[original.length];
+        ISynergyData[] copy = new ISynergyData[original.length];
         for (int i = 0; i < original.length; i++) {
             if (original[i] == null) {
                 copy[i] = original[i];
                 continue;
             }
-            copy[i] = new Synergy(original[i]);
+            copy[i] = new ISynergyData(original[i]);
         }
 
         return copy;
