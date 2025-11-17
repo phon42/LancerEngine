@@ -19,6 +19,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.p
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment.PilotWeapon;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Reserve;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Background.backgroundBase.Background;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Background.backgroundBase.UnverifiedBackground;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skill.SkillData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.talent.TalentData;
 import Packages.CoreTypes.EntityMechanics.LicenseSystem.FrameLicense;
@@ -111,7 +112,7 @@ public class DataCompiler {
     private static Environment[] environmentData;
     private static Sitrep[] sitrepData;
     // ----almost unimportant
-    private static Background[] backgroundData;
+    private static UnverifiedBackground[] backgroundData;
     private static Bond[] bondData;
     // ----just for reference
     private static Rule[] ruleData;
@@ -193,7 +194,7 @@ public class DataCompiler {
         DataCompiler.environmentData = (Environment[]) data[20];
         DataCompiler.sitrepData = (Sitrep[]) data[21];
         // ----almost unimportant
-        DataCompiler.backgroundData = (Background[]) data[22];
+        DataCompiler.backgroundData = (UnverifiedBackground[]) data[22];
         DataCompiler.bondData = (Bond[]) data[23];
         // ----just for reference
         DataCompiler.ruleData = (Rule[]) data[24];
@@ -398,7 +399,7 @@ public class DataCompiler {
         }
         // ----almost unimportant
         for (int i = 0; i < DataCompiler.backgroundData.length; i++) {
-            Database.addBackground(DataCompiler.backgroundData[i]);
+            Database.addUnverifiedBackground(DataCompiler.backgroundData[i]);
         }
         for (int i = 0; i < DataCompiler.bondData.length; i++) {
             Database.addBond(DataCompiler.bondData[i]);
@@ -444,7 +445,7 @@ public class DataCompiler {
         DataCompiler.environmentData = new Environment[0];
         DataCompiler.sitrepData = new Sitrep[0];
         // ----almost unimportant
-        DataCompiler.backgroundData = new Background[0];
+        DataCompiler.backgroundData = new UnverifiedBackground[0];
         DataCompiler.bondData = new Bond[0];
         // ----just for reference
         DataCompiler.ruleData = new Rule[0];
