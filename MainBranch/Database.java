@@ -352,13 +352,14 @@ public final class Database {
     public static ActivationType getActivationType(String activationTypeValue) {
         HelperMethods.checkString("activationTypeValue",
             activationTypeValue);
+        activationTypeValue = activationTypeValue.toLowerCase();
         for (ActivationType activationType : Database.activationTypes) {
             if (activationType.getValue().equals(activationTypeValue)) {
                 return new ActivationType(activationTypeValue);
             }
         }
         throw new NoSuchElementException("No activation type found for"
-            + " activation type value:" + activationTypeValue);
+            + " activation type value: " + activationTypeValue);
     }
     public static ActivationType getActivationTypeByIndex(int index) {
         if (index < 0 || index >= Database.activationTypes.length) {
@@ -370,6 +371,7 @@ public final class Database {
     }
     public static Background getBackground(String backgroundID) {
         HelperMethods.checkObject("backgroundID", backgroundID);
+        backgroundID = backgroundID.toLowerCase();
         for (Background background : Database.backgrounds) {
             if (backgroundID.equals(background.getID())) {
                 return new Background(background);
@@ -390,6 +392,7 @@ public final class Database {
     }
     public static CoreBonus getCoreBonus(String coreBonusID) {
         HelperMethods.checkObject("coreBonusID", coreBonusID);
+        coreBonusID = coreBonusID.toLowerCase();
         for (CoreBonus coreBonus : Database.coreBonuses) {
             if (coreBonusID.equals(coreBonus.getID())) {
                 return new CoreBonus(coreBonus);
@@ -400,6 +403,7 @@ public final class Database {
     }
     public static DataTag getDataTag(String dataTagID) {
         HelperMethods.checkObject("dataTagID", dataTagID);
+        dataTagID = dataTagID.toLowerCase();
         for (DataTag dataTag : Database.dataTags) {
             if (dataTagID.equals(dataTag.getID())) {
                 return new DataTag(dataTag);
@@ -410,6 +414,7 @@ public final class Database {
     }
     public static Environment getEnvironment(String environmentID) {
         HelperMethods.checkObject("environmentID", environmentID);
+        environmentID = environmentID.toLowerCase();
         for (Environment environment : Database.environments) {
             if (environmentID.equals(environment.getID())) {
                 return new Environment(environment);
@@ -420,6 +425,7 @@ public final class Database {
     }
     public static Frame getFrame(String frameID) {
         HelperMethods.checkObject("frameID", frameID);
+        frameID = frameID.toLowerCase();
         for (Frame frame : Database.frames) {
             if (frameID.equals(frame.getID())) {
                 return new Frame(frame);
@@ -453,6 +459,7 @@ public final class Database {
     public static Modification getModification(String modificationID) {
         HelperMethods.checkObject("modificationID",
             modificationID);
+        modificationID = modificationID.toLowerCase();
         for (Modification modification : Database.modifications) {
             if (modificationID.equals(modification.getID())) {
                 return new Modification(modification);
@@ -463,6 +470,7 @@ public final class Database {
     }
     public static PilotArmor getPilotArmor(String pilotArmorID) {
         HelperMethods.checkObject("pilotArmorID", pilotArmorID);
+        pilotArmorID = pilotArmorID.toLowerCase();
         for (PilotArmor pilotArmor : Database.pilotArmor) {
             if (pilotArmorID.equals(pilotArmor.getID())) {
                 return new PilotArmor(pilotArmor);
@@ -473,6 +481,7 @@ public final class Database {
     }
     public static PilotGear getPilotGear(String pilotGearID) {
         HelperMethods.checkObject("pilotGearID", pilotGearID);
+        pilotGearID = pilotGearID.toLowerCase();
         for (PilotGear pilotGear : Database.pilotGear) {
             if (pilotGearID.equals(pilotGear.getID())) {
                 return new PilotGear(pilotGear);
@@ -483,6 +492,7 @@ public final class Database {
     }
     public static PilotWeapon getPilotWeapon(String pilotWeaponID) {
         HelperMethods.checkObject("pilotWeaponID", pilotWeaponID);
+        pilotWeaponID = pilotWeaponID.toLowerCase();
         for (PilotWeapon pilotWeapon : Database.pilotWeapons) {
             if (pilotWeaponID.equals(pilotWeapon.getID())) {
                 return new PilotWeapon(pilotWeapon);
@@ -493,6 +503,7 @@ public final class Database {
     }
     public static Reserve getReserve(String reserveID) {
         HelperMethods.checkObject("reserveID", reserveID);
+        reserveID = reserveID.toLowerCase();
         for (Reserve reserve : Database.reserves) {
             if (reserveID.equals(reserve.getID())) {
                 return new Reserve(reserve);
@@ -503,6 +514,7 @@ public final class Database {
     }
     public static Rule getRule(String ruleName) {
         HelperMethods.checkObject("ruleName", ruleName);
+        ruleName = ruleName.toLowerCase();
         for (Rule rule : Database.rules) {
             if (ruleName.equals(rule.getName())) {
                 return new Rule(rule);
@@ -513,6 +525,7 @@ public final class Database {
     }
     public static Sitrep getSitrep(String sitrepID) {
         HelperMethods.checkObject("sitrepID", sitrepID);
+        sitrepID = sitrepID.toLowerCase();
         for (Sitrep sitrep : Database.sitreps) {
             if (sitrepID.equals(sitrep.getID())) {
                 return new Sitrep(sitrep);
@@ -567,6 +580,7 @@ public final class Database {
     }
     public static MechSystem getSystem(String systemID) {
         HelperMethods.checkObject("systemID", systemID);
+        systemID = systemID.toLowerCase();
         for (MechSystem system : Database.systems) {
             if (systemID.equals(system.getID())) {
                 return new MechSystem(system);
@@ -577,6 +591,7 @@ public final class Database {
     }
     public static Table getTable(String tableName) {
         HelperMethods.checkObject("tableName", tableName);
+        tableName = tableName.toLowerCase();
         for (Table table : Database.tables) {
             if (tableName.equals(table.getName())) {
                 return new Table(table);
@@ -587,6 +602,7 @@ public final class Database {
     }
     public static Tag getTag(String tagID) {
         HelperMethods.checkObject("tagID", tagID);
+        tagID = tagID.toLowerCase();
         for (Tag tag : Database.tags) {
             if (tagID.equals(tag.getID())) {
                 return new Tag(tag);
@@ -597,6 +613,7 @@ public final class Database {
     }
     public static TalentData getTalent(String talentID) {
         HelperMethods.checkObject("talentID", talentID);
+        talentID = talentID.toLowerCase();
         for (TalentData talent : Database.talents) {
             if (talentID.equals(talent.getID())) {
                 return new TalentData(talent);
@@ -617,6 +634,7 @@ public final class Database {
     }
     public static Weapon getWeapon(String weaponID) {
         HelperMethods.checkObject("weaponID", weaponID);
+        weaponID = weaponID.toLowerCase();
         for (Weapon weapon : Database.weapons) {
             if (weaponID.equals(weapon.getID())) {
                 return new Weapon(weapon);
@@ -628,6 +646,7 @@ public final class Database {
     public static FrameLicense getFrameLicense(String frameLicenseID) {
         HelperMethods.checkObject("frameLicenseID",
             frameLicenseID);
+        frameLicenseID = frameLicenseID.toLowerCase();
         for (FrameLicense frameLicense : Database.frameLicenses) {
             if (frameLicenseID.equals(frameLicense.getID())) {
                 return new FrameLicense(frameLicense);
