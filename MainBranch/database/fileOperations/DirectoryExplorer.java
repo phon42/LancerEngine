@@ -83,7 +83,7 @@ public class DirectoryExplorer {
             } else if (isDirectory && ! includeDirectories) {
                 // skip
             } else {
-                arrayList.add(iterator.next());
+                arrayList.add(currPath);
             }
         }
         arrayList.sort(null);
