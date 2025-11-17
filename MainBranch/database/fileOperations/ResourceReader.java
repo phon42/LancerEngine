@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Path;
 import java.util.MissingResourceException;
 import MainBranch.database.FileOperations;
 import MainBranch.HelperMethods;
@@ -128,9 +129,9 @@ public class ResourceReader {
      * @param lcpPath a String which must contain a valid file path. Is assumed
      *     to be a .lcp file. Cannot be null.
      */
-    private static String[] readLCP(String lcpPath, boolean external,
+    private static String[] readLCP(String lcpLocator, boolean external,
         boolean addToCache) {
-        return readZIP(lcpPath, external, addToCache);
+        return readZIP(lcpLocator, external, addToCache);
     }
     /**
      * Unzips the provided .zip file before calling
@@ -138,15 +139,15 @@ public class ResourceReader {
      * @param zipPath a String which must contain a valid file path. Is assumed
      *     to be a .zip file. Cannot be null.
      */
-    private static String[] readZIP(String zipPath, boolean external,
+    private static String[] readZIP(String zipLocator, boolean external,
         boolean addToCache) {
         // A directory of the .zip's contents will be created locally. This
         //     variable stores the file path to that directory.
-        String unzippedDirectoryPath;
+        Path unzippedDirectoryPath;
         String[] zipContents;
 
         // unzip the zip
-        unzippedDirectoryPath = FileOperations.unzip(zipPath, external,
+        unzippedDirectoryPath = FileOperations.unzip(zipLocator, external,
             addToCache);
         // then call readAllInDirectory on it
         zipContents = readAllInDirectory(unzippedDirectoryPath, addToCache);

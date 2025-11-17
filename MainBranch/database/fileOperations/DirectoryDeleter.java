@@ -6,5 +6,7 @@ public class DirectoryDeleter {
     // Prevent user from instantiating
     private DirectoryDeleter() {}
 
-    public static Path deleteDirectory(Path directoryPath) {}
+    public static Path deleteDirectory(Path directoryPath) {
+        return null;
+    }
 }

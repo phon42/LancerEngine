@@ -2,6 +2,7 @@ package MainBranch.database.DatabaseReadingPipeline;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import MainBranch.HelperMethods;
@@ -66,7 +67,7 @@ public class DataReader {
         DataParser.sendData();
     }
     private static void readArray(String[] resourceLocators, boolean external,
-        boolean addToCache, String targetFolderPath, boolean provideOutput) {
+        boolean addToCache, Path targetFolderPath, boolean provideOutput) {
         String[] resourceNames;
         String[] resourceInfo;
         DatabaseResourceInfo[] resources;
@@ -76,7 +77,7 @@ public class DataReader {
         HelperMethods.checkStringArray("resourceLocators",
             resourceLocators);
         if (addToCache) {
-            HelperMethods.checkString("targetFolderPath",
+            HelperMethods.checkObject("targetFolderPath",
                 targetFolderPath);
         }
         resourceNames = new String[resourceLocators.length];
@@ -218,7 +219,7 @@ public class DataReader {
         boolean addToCache, boolean provideOutput) {
         // A directory of the .zip's contents will be created locally. This
         //     variable stores the file path to that directory.
-        String unzippedDirectoryPath;
+        Path unzippedDirectoryPath;
 
         // TODO: add a small optimization to peek at the file's info file and
         //     see if that LCP has been cached
@@ -260,7 +261,7 @@ public class DataReader {
      * @param directoryPath a String which must contain a valid directory path.
      *     Is assumed to be a directory. Cannot be null.
      */
-    public static void readAllInDirectory(String directoryPath,
+    public static void readAllInDirectory(Path directoryPath,
         boolean addToCache, boolean provideOutput) {
         String[][] fileData;
         String[] castedFile;
@@ -284,7 +285,7 @@ public class DataReader {
      *     .json file. Cannot be null.
      */
     private static void readJSON(String jsonPath, boolean external,
-        boolean addToCache, String targetFolderPath, boolean provideOutput) {
+        boolean addToCache, Path targetFolderPath, boolean provideOutput) {
         String[] data = null;
         String[] resourceInfo;
         String resourceString;
@@ -292,7 +293,7 @@ public class DataReader {
         // Check whether jsonPath is null
         HelperMethods.checkObject("jsonPath", jsonPath);
         if (addToCache) {
-            HelperMethods.checkString("targetFolderPath",
+            HelperMethods.checkObject("targetFolderPath",
                 targetFolderPath);
         }
         // Check whether jsonPath actually corresponds to:

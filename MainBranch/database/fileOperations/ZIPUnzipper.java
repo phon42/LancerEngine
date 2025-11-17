@@ -9,19 +9,19 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.FileSystemException;
+import java.nio.file.Path;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import MainBranch.database.FileOperations;
 
 public class ZIPUnzipper {
     // Created using https://www.baeldung.com/java-compress-and-uncompress#unzip
-    public static String unzip(String zipResourceLocator, boolean external,
-        String destDirPath) {
+    public static Path unzip(String zipResourceLocator, boolean external,
+        Path destDirPath) {
         URL url;
         InputStream inputStream;
         ZipInputStream zipStream;
         ZipEntry zipEntry;
-        String directoryPath;
         String originZIPName;
 
         // all of this is just to get a ZipInputStream
@@ -93,7 +93,6 @@ public class ZIPUnzipper {
         // end above
         // getting the target directory path (designated in the original example
         //     as "destDir")
-        directoryPath = destDirPath;
         if (external) {
             try {
                 originZIPName = new URL(zipResourceLocator).getPath();
@@ -122,20 +121,20 @@ public class ZIPUnzipper {
                     + " \".zip\" at the end");
             }
         }
-        directoryPath += originZIPName + "/";
+        destDirPath = destDirPath.resolve(originZIPName);
         // end above
         // not included in the original
-        FileOperations.createDirectory(directoryPath);
+        destDirPath = FileOperations.createDirectory(destDirPath);
         // while loop, same as original
         while (zipEntry != null) {
             // the code inside the while loop has been replaced with
             //     a single method, createEntry()
             try {
                 // replaces the entire while loop
-                createEntry(directoryPath, zipEntry, zipStream);
+                createEntry(destDirPath, zipEntry, zipStream);
             } catch (FileSystemException exception) {
                 throw new IllegalStateException("Failed to create entry under"
-                    + " directory path: \"" + directoryPath + "\"");
+                    + " directory path: \"" + destDirPath + "\"");
             }
             try {
                 zipStream.closeEntry();
@@ -159,7 +158,7 @@ public class ZIPUnzipper {
                 + " ZipInputStream caused an IOException to be thrown");
         }
 
-        return directoryPath;
+        return destDirPath;
     }
     private static void createEntry(String destDirPath, ZipEntry zipEntry,
         ZipInputStream zipStream) throws FileSystemException {
