@@ -96,12 +96,6 @@ public class Action extends ActionBase {
      * Case-sensitive.
      */
     private String terse;
-    /**
-     * An array of locations that this action is connected to (i.e. a Synergy[]
-     *     containing a Synergy representing "overcharge").
-     * Can be any Synergy[] that does not contain null elements. Can be null.
-     */
-    private Synergy[] synergyLocations;
     // TODO: add example
     /**
      * An optional String that will be written to the LancerCharacter's combat
@@ -115,16 +109,17 @@ public class Action extends ActionBase {
         // ActionBase properties
         String name, ActivationType activation, String detailedDescription,
         TriState pilot, TriState mech, String[] confirm, TriState hideActive,
-        Callable method, VueHTMLString requiredInitialConditions,
+        Callable method, Synergy[] synergyLocations,
+        VueHTMLString requiredInitialConditions,
         // Action required properties
         String id,
         // Action semi-required properties
         TriState ignoreUsed, int heatCost,
         // Action optional properties
-        String terse, Synergy[] synergyLocations, String log
+        String terse, String log
     ) {
         super(name, activation, detailedDescription, pilot, mech, confirm,
-            hideActive, method, requiredInitialConditions);
+            hideActive, method, synergyLocations, requiredInitialConditions);
         // Required properties
         setID(id);
         // Semi-required properties
@@ -132,7 +127,6 @@ public class Action extends ActionBase {
         setHeatCost(heatCost);
         // Optional properties
         setTerse(terse);
-        setSynergyLocations(synergyLocations);
         setLog(log);
         verifyProperties();
     }
@@ -155,7 +149,6 @@ public class Action extends ActionBase {
         setHeatCost(action.heatCost);
         // Optional properties
         setTerse(action.terse);
-        setSynergyLocations(action.synergyLocations);
         setLog(action.log);
         verifyProperties();
     }
@@ -174,13 +167,6 @@ public class Action extends ActionBase {
     // Optional properties
     public String getTerse() {
         return terse;
-    }
-    public Synergy[] getSynergyLocations() {
-        if (synergyLocations == null) {
-            return synergyLocations;
-        }
-
-        return HelperMethods.copyOf(synergyLocations);
     }
     public String getLog() {
         return log;
@@ -217,16 +203,6 @@ public class Action extends ActionBase {
             throw new IllegalArgumentException("terse is \"\"");
         }
         this.terse = terse;
-    }
-    private void setSynergyLocations(Synergy[] synergyLocations) {
-        if (synergyLocations == null) {
-            this.synergyLocations = synergyLocations;
-            return;
-        }
-        HelperMethods.checkObjectArray("synergyLocations",
-            synergyLocations);
-        synergyLocations = HelperMethods.copyOf(synergyLocations);
-        this.synergyLocations = synergyLocations;
     }
     private void setLog(String log) {
         if (log == null) {

@@ -5,6 +5,7 @@ import MainBranch.HelperMethods;
 import Packages.CoreTypes.Callable;
 import Packages.CoreTypes.EntityMechanics.ActivationType;
 import Packages.CoreTypes.EntityMechanics.Frequency;
+import Packages.CoreTypes.EntityMechanics.Synergy;
 import Packages.CoreTypes.VueHTMLString;
 import Packages.CoreTypes.TriState;
 
@@ -133,6 +134,12 @@ public class ActionBase {
      */
     protected Callable method;
     /**
+     * An array of locations that this action is connected to (i.e. a Synergy[]
+     *     containing a Synergy representing "overcharge").
+     * Can be any Synergy[] that does not contain null elements. Can be null.
+     */
+    private Synergy[] synergyLocations;
+    /**
      * Any initial conditions required for this action, if there are any (i.e.
      *     "Requires activation of the <b>Spin Up Thrusters</b> quick action on"
      *     " your turn. If you end your turn flying, you may nominate a"
@@ -178,7 +185,8 @@ public class ActionBase {
         // Semi-required properties
         TriState pilot, TriState mech, String[] confirm, TriState hideActive,
         // Optional properties
-        Callable method, VueHTMLString requiredInitialConditions
+        Callable method, Synergy[] synergyLocations,
+        VueHTMLString requiredInitialConditions
     ) {
         HelperMethods.verifyConstructor();
         // Required properties
@@ -191,6 +199,7 @@ public class ActionBase {
         calculateHideActive(hideActive);
         // Optional properties
         setMethod(method);
+        setSynergyLocations(synergyLocations);
         setInit(requiredInitialConditions);
         // Verify everything
         verifyProperties();
@@ -201,7 +210,7 @@ public class ActionBase {
         String detailedDescription) {
         this(name, activation, detailedDescription, TriState.UNSET,
             TriState.UNSET, null, TriState.UNSET, null,
-            null);
+            null, null);
     }
     protected ActionBase(ActionBase actionBase) {
         HelperMethods.checkObject("actionBase", actionBase);
@@ -220,6 +229,7 @@ public class ActionBase {
         setTrigger(actionBase.trigger);
         // Optional properties
         setMethod(actionBase.method);
+        setSynergyLocations(actionBase.synergyLocations);
         setInit(actionBase.init);
         // Verify everything
         verifyProperties();
@@ -268,6 +278,13 @@ public class ActionBase {
         }
 
         return method;
+    }
+    public Synergy[] getSynergyLocations() {
+        if (synergyLocations == null) {
+            return synergyLocations;
+        }
+
+        return HelperMethods.copyOf(synergyLocations);
     }
     public VueHTMLString getInit() {
         if (init == null) {
@@ -334,6 +351,16 @@ public class ActionBase {
     // Optional properties
     protected void setMethod(Callable method) {
         this.method = method;
+    }
+    private void setSynergyLocations(Synergy[] synergyLocations) {
+        if (synergyLocations == null) {
+            this.synergyLocations = synergyLocations;
+            return;
+        }
+        HelperMethods.checkObjectArray("synergyLocations",
+            synergyLocations);
+        synergyLocations = HelperMethods.copyOf(synergyLocations);
+        this.synergyLocations = synergyLocations;
     }
     protected void setInit(VueHTMLString init) {
         if (init != null) {
