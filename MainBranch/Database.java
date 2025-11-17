@@ -349,6 +349,17 @@ public final class Database {
         throw new NoSuchElementException("No action found for action name: "
             + actionName);
     }
+    public static ActivationType getActivationType(String activationTypeValue) {
+        HelperMethods.checkString("activationTypeValue",
+            activationTypeValue);
+        for (ActivationType activationType : Database.activationTypes) {
+            if (activationType.getValue().equals(activationTypeValue)) {
+                return new ActivationType(activationTypeValue);
+            }
+        }
+        throw new NoSuchElementException("No activation type found for"
+            + " activation type value:" + activationTypeValue);
+    }
     public static ActivationType getActivationTypeByIndex(int index) {
         if (index < 0 || index >= Database.activationTypes.length) {
             throw new IllegalArgumentException("index: " + index + " is out of"
