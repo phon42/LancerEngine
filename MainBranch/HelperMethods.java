@@ -39,6 +39,8 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Reserve;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Talent;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Background.backgroundBase.Background;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Background.backgroundBase.UnverifiedBackground;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.bond.BondPower;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.bond.BondQuestion;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.talent.TalentData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.talent.talentData.TalentRank;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment.PilotArmor;
@@ -1381,6 +1383,44 @@ public final class HelperMethods {
                 continue;
             }
             copy[i] = new Action(original[i]);
+        }
+
+        return copy;
+    }
+    /**
+     * Returns a deepest copy of original.
+     * @param original a BondPower[] that cannot be null.
+     * @return a BondPower[] deepest copy of original.
+     * @throws IllegalArgumentException if original is null.
+     */
+    public static BondPower[] copyOf(BondPower[] original) {
+        checkObject("original", original);
+        BondPower[] copy = new BondPower[original.length];
+        for (int i = 0; i < original.length; i++) {
+            if (original[i] == null) {
+                copy[i] = original[i];
+                continue;
+            }
+            copy[i] = original[i];
+        }
+
+        return copy;
+    }
+    /**
+     * Returns a deepest copy of original.
+     * @param original a BondQuestion[] that cannot be null.
+     * @return a BondQuestion[] deepest copy of original.
+     * @throws IllegalArgumentException if original is null.
+     */
+    public static BondQuestion[] copyOf(BondQuestion[] original) {
+        checkObject("original", original);
+        BondQuestion[] copy = new BondQuestion[original.length];
+        for (int i = 0; i < original.length; i++) {
+            if (original[i] == null) {
+                copy[i] = original[i];
+                continue;
+            }
+            copy[i] = original[i];
         }
 
         return copy;
