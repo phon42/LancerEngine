@@ -84,7 +84,7 @@ public class VueHTMLString extends HTMLString {
     @Override
     protected Object[] calculateDataSequence() {
         // TODO: fill out
-        return null;
+        return new Object[0];
     }
     @Override
     protected Object[] copyDataSequence(Object[] dataSequence) {
