@@ -17,6 +17,7 @@ import Packages.CoreTypes.EntityMechanics.Manufacturer;
 import Packages.CoreTypes.EntityMechanics.NPCFeature;
 import Packages.CoreTypes.EntityMechanics.NPCTemplate;
 import Packages.CoreTypes.EntityMechanics.Actions.actionBase.Action;
+import Packages.CoreTypes.EntityMechanics.Actions.actionBase.IActionData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Frame;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.MechSystem;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.Modification;
@@ -98,6 +99,10 @@ public final class Database {
      * Contains every frame's data for reference.
      */
     private static Frame[] frames;
+    /**
+     * add documentation
+     */
+    private static IActionData[] iActionData;
     /**
      * Contains every manufacturer for reference.
      */
@@ -289,6 +294,7 @@ public final class Database {
     public static void clear() {
         // This clears the entire database!
         Database.lcpCorrections = new LCPCorrection[0];
+        Database.lcpInfo = new LCPInfo[0];
         Database.actions = new Action[0];
         Database.activationTypes = new ActivationType[0];
         Database.backgrounds = new Background[0];
@@ -297,6 +303,7 @@ public final class Database {
         Database.dataTags = new DataTag[0];
         Database.environments = new Environment[0];
         Database.frames = new Frame[0];
+        Database.iActionData = new IActionData[0];
         Database.manufacturers = new Manufacturer[0];
         Database.modifications = new Modification[0];
         Database.pilotArmor = new PilotArmor[0];
@@ -459,6 +466,17 @@ public final class Database {
         }
         throw new NoSuchElementException("No frame found for frame enum: "
             + frameEnum);
+    }
+    public static IActionData getIActionData(IActionData iActionDataName) {
+        HelperMethods.checkObject("iActionDataName",
+            iActionDataName);
+        for (IActionData iActionDataObject : Database.iActionData) {
+            if (iActionDataObject.getName().equals(iActionDataName)) {
+                return new IActionData(iActionDataObject);
+            }
+        }
+        throw new NoSuchElementException("No IActionData object found for"
+            + " IActionData name: \"" + iActionDataName + "\"");
     }
     public static Manufacturer getManufacturer(String manufacturerID) {
         HelperMethods.checkObject("manufacturerID",
@@ -797,6 +815,18 @@ public final class Database {
         HelperMethods.checkObject("frame", frame);
         frame = new Frame(frame);
         Database.frames = HelperMethods.append(Database.frames, frame);
+    }
+    /**
+     * Adds the provided IActionData to Database.frames.
+     * @param iActionData an IActionData which cannot be null.
+     * @throws IllegalArgumentException if iActionData is null.
+     */
+    public static void addIActionData(IActionData iActionData) {
+        checkOpen();
+        HelperMethods.checkObject("iActionData", iActionData);
+        iActionData = new IActionData(iActionData);
+        Database.iActionData = HelperMethods.append(Database.iActionData,
+            iActionData);
     }
     /**
      * Adds the provided Manufacturer to Database.manufacturers.
