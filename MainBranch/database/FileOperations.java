@@ -86,7 +86,6 @@ public class FileOperations {
             return unzip(zipResourceLocator, external,
                 UserPreferences.getCacheDir());
         }
-        
     }
     public static Path[] getAllFilenamesInDirectory(Path directoryPath) {
         return DirectoryExplorer.getAllFilenamesInDirectory(directoryPath);
@@ -102,7 +101,8 @@ public class FileOperations {
         // index 1 is the file data
         String[][] result;
 
-        fileNames = ResourceReader.readAllInDirectory(directoryPath, addToCache);
+        fileNames = ResourceReader.readAllInDirectory(directoryPath,
+            addToCache);
         result = new String[fileNames.length][2];
         for (int i = 0; i < fileNames.length; i++) {
             result[i][0] = fileNames[i];
