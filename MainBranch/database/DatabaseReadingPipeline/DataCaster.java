@@ -31,7 +31,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Bond;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.CoreBonus;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Reserve;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Background.backgroundBase.Background;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Background.backgroundBase.UnverifiedBackground;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment.PilotArmor;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment.PilotGear;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment.PilotWeapon;
@@ -127,7 +127,7 @@ public class DataCaster {
     private static Environment[] environmentsProcessed;
     private static Sitrep[] sitrepsProcessed;
     // ----almost unimportant
-    private static Background[] backgroundsProcessed;
+    private static UnverifiedBackground[] backgroundsProcessed;
     private static Bond[] bondsProcessed;
     // ----just for reference
     private static Rule[] rulesProcessed;
@@ -654,7 +654,8 @@ public class DataCaster {
             init, id, ignoreUsed, heatCost, terse, log);
     }
     private static void processBackgrounds(JSONObject[] backgroundsData) {
-        Background[] backgrounds = new Background[backgroundsData.length];
+        UnverifiedBackground[] backgrounds =
+            new UnverifiedBackground[backgroundsData.length];
 
         backgroundsData = performCorrections("backgrounds",
             backgroundsData);
@@ -663,9 +664,37 @@ public class DataCaster {
         }
         DataCaster.backgroundsProcessed = backgrounds;
     }
-    private static Background toBackground(JSONObject backgroundData) {
-        // TODO: fill out
-        return null;
+    private static UnverifiedBackground toBackground(JSONObject backgroundData)
+    {
+        // Required properties
+        String id;
+        String name;
+        String description;
+        // Optional property
+        JSONArray skillsArray;
+        String[] skills;
+
+        // Required properties
+        try {
+            id = backgroundData.getString("id");
+            name = backgroundData.getString("name");
+            description = backgroundData.getString("description");
+        } catch (JSONException exception) {
+            throw new IllegalStateException("backgroundData threw a"
+                + " JSONException during the required properties section of the"
+                + " object parsing, which is not allowed");
+        }
+        // Optional property
+        try {
+            skillsArray = backgroundData.getJSONArray("skills");
+            skills = new String[skillsArray.length()];
+            for (int i = 0; i < skills.length; i++) {
+                skills[i] = skillsArray.getString(i);
+            }
+        } catch (JSONException exception) {}
+
+        return new UnverifiedBackground(id, name, description,
+            null);
     }
     private static void processBonds(JSONObject[] bondsData) {
         Bond[] bonds = new Bond[bondsData.length];
@@ -1302,7 +1331,7 @@ public class DataCaster {
         DataCaster.environmentsProcessed = new Environment[0];
         DataCaster.sitrepsProcessed = new Sitrep[0];
         // ----almost unimportant
-        DataCaster.backgroundsProcessed = new Background[0];
+        DataCaster.backgroundsProcessed = new UnverifiedBackground[0];
         DataCaster.bondsProcessed = new Bond[0];
         // ----just for reference
         DataCaster.rulesProcessed = new Rule[0];
