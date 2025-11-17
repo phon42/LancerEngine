@@ -32,6 +32,8 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Bond;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.CoreBonus;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Reserve;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Background.backgroundBase.UnverifiedBackground;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.bond.BondPower;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.bond.BondQuestion;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment.PilotArmor;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment.PilotGear;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment.PilotWeapon;
@@ -706,8 +708,96 @@ public class DataCaster {
         DataCaster.bondsProcessed = bonds;
     }
     private static Bond toBond(JSONObject bondData) {
-        // TODO: fill out
-        return null;
+        // Required properties
+        String id;
+        String name;
+        //     majorIdeals
+        JSONArray majorIdealsArray;
+        String[] majorIdeals;
+        //     minorIdeals
+        JSONArray minorIdealsArray;
+        String[] minorIdeals;
+        //     questions
+        JSONArray questionsArray;
+        JSONObject questionsObject;
+        JSONArray questionsArray2;
+        String[] questionsStrings;
+        BondQuestion[] questions;
+        //     powers
+        JSONArray powersArray;
+        JSONObject powersObject;
+        TriState powersMaster;
+        TriState powersVeteran;
+        String powersPrerequisite = null;
+        Frequency powersFrequency = null;
+        BondPower[] powers;
+
+        try {
+            // Required properties
+            id = bondData.getString("id");
+            name = bondData.getString("name");
+            //     majorIdeals
+            majorIdealsArray = bondData.getJSONArray("major_ideals");
+            majorIdeals = new String[majorIdealsArray.length()];
+            for (int i = 0; i < majorIdeals.length; i++) {
+                majorIdeals[i] = majorIdealsArray.getString(i);
+            }
+            //     minorIdeals
+            minorIdealsArray = bondData.getJSONArray("major_ideals");
+            minorIdeals = new String[minorIdealsArray.length()];
+            for (int i = 0; i < minorIdeals.length; i++) {
+                minorIdeals[i] = minorIdealsArray.getString(i);
+            }
+            //     questions
+            questionsArray = bondData.getJSONArray("questions");
+            questions = new BondQuestion[questionsArray.length()];
+            for (int i = 0; i < questions.length; i++) {
+                questionsObject = questionsArray.getJSONObject(i);
+                questionsArray2 = questionsObject.getJSONArray("options");
+                questionsStrings = new String[questionsArray2.length()];
+                for (int j = 0; j < questionsStrings.length; j++) {
+                    questionsStrings[j] = questionsArray2.getString(j);
+                }
+                questions[i] = new BondQuestion(
+                    questionsObject.getString("question"),
+                    questionsStrings);
+            }
+            //     powers
+            powersArray = bondData.getJSONArray("powers");
+            powers = new BondPower[powersArray.length()];
+            for (int i = 0; i < powers.length; i++) {
+                powersObject = powersArray.getJSONObject(i);
+                try {
+                    powersMaster = TriState.toTriState(
+                        powersObject.getBoolean("master"));
+                } catch (JSONException exception) {
+                    powersMaster = TriState.UNSET;
+                }
+                try {
+                    powersVeteran = TriState.toTriState(
+                        powersObject.getBoolean("veteran"));
+                } catch (JSONException exception) {
+                    powersVeteran = TriState.UNSET;
+                }
+                try {
+                    powersPrerequisite =
+                        powersObject.getString("prerequisite");
+                } catch (JSONException exception) {}
+                try {
+                    powersFrequency =
+                        new Frequency(powersObject.getString("frequency"));
+                } catch (JSONException exception) {}
+                powers[i] = new BondPower(powersObject.getString("name"),
+                    powersObject.getString("description"), powersMaster,
+                    powersVeteran, powersPrerequisite, powersFrequency);
+            }
+        } catch (JSONException exception) {
+            throw new IllegalStateException("bondData threw a JSONException"
+                + " during the required properties section of the object"
+                + " parsing, which is not allowed");
+        }
+
+        return new Bond(id, name, majorIdeals, minorIdeals, questions, powers);
     }
     private static void processCoreBonuses(JSONObject[] coreBonusesData) {
         CoreBonus[] coreBonuses = new CoreBonus[coreBonusesData.length];
