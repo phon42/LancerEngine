@@ -3,11 +3,11 @@ package MainBranch.database.DatabaseReadingPipeline;
 import java.util.HashMap;
 import java.util.Set;
 import MainBranch.Database;
+import MainBranch.HelperMethods;
 import MainBranch.database.fileOperations.json.JSONArray;
 import MainBranch.database.fileOperations.json.JSONException;
 import MainBranch.database.fileOperations.json.JSONObject;
 import MainBranch.database.LCPCorrection;
-import MainBranch.roll.DiceExpression;
 import Packages.CoreTypes.Rule;
 import Packages.CoreTypes.Table;
 import Packages.CoreTypes.Term;
@@ -20,7 +20,7 @@ import Packages.CoreTypes.EntityMechanics.Frequency;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
 import Packages.CoreTypes.EntityMechanics.NPCFeature;
 import Packages.CoreTypes.EntityMechanics.NPCTemplate;
-import Packages.CoreTypes.EntityMechanics.RangeTag;
+import Packages.CoreTypes.EntityMechanics.SynergyLocation;
 import Packages.CoreTypes.EntityMechanics.Actions.actionBase.Action;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Frame;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.MechSystem;
@@ -37,13 +37,11 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.p
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment.PilotWeapon;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skill.SkillData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.talent.TalentData;
-import Packages.CoreTypes.EntityMechanics.HarmSystem.Damage;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.Condition;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.Status;
 import Packages.CoreTypes.lcpInfo.LCPDependency;
 import Packages.CoreTypes.lcpInfo.Version;
 import Packages.CoreTypes.lcpInfo.lcpDependency.SemverVersion;
-import Packages.CoreTypes.Callable;
 import Packages.CoreTypes.LCPInfo;
 
 public class DataCaster {
@@ -547,169 +545,117 @@ public class DataCaster {
         DataCaster.actionsProcessed = actions;
     }
     private static Action toAction(JSONObject actionData) {
-        // Required properties
-        String id;
+        // Required properties - ActionBase
         String name;
-        String activation;
-        String terse;
+        String activationString;
+        ActivationType activation;
         String detail;
-        // Optional properties
-        boolean containsPilot = false;
-        boolean containsMech = false;
-        boolean pilot = false;
-        boolean mech;
-        boolean hideActive = false;
-        JSONArray synergyLocationsJSON = null;
-        String[] synergyLocations;
-        JSONArray confirmJSON = null;
-        String[] confirm;
-        boolean ignoreUsed = false;
-        int heatCost = 0;
-        boolean techAttack = false;
-        Frequency frequency;
-        RangeTag[] range = null;
-        JSONArray rangeJSON;
-        JSONObject rangeObject;
-        Damage[] damage = null;
-        JSONArray damageJSON;
-        JSONObject damageObject;
-        Object[] damageVals;
-        String trigger = null;
-        String init = null;
+        // Required properties - Action
+        String id;
+        // Semi-required properties - ActionBase
+        TriState pilot;
+        TriState mech;
+        JSONArray confirmArray;
+        String[] confirm = null;
+        TriState hideActive;
+        // Semi-required properties - Action
+        TriState ignoreUsed;
+        int heatCost = -1;
+        // Conditionally required properties - ActionBase
+        String frequencyString;
+        Frequency frequency = null;
+        String triggerString;
+        VueHTMLString trigger = null;
+        // Optional properties - ActionBase
+        JSONArray synergyLocationsArray;
+        String synergyLocationsString;
+        SynergyLocation[] synergyLocations = null;
+        String initString;
+        VueHTMLString init = null;
+        // Optional properties - Action
+        String terse;
+        String log;
 
-        id = actionData.getString("id");
-        name = actionData.getString("name");
-        activation = actionData.getString("activation");
-        terse = actionData.getString("terse");
-        detail = actionData.getString("detail");
-        // Get pilot and mech:
-        // The possible states for "pilot" or "mech" being present:
-        // A. Neither - means either "activation" is "Downtime" or (false, true)
-        // B. "pilot" only - means (true, false)
-        // C. "pilot" and "mech" - means (true, true)
-        // Notice that as long as the "activation" case and neither property
-        //     being present are filtered out, we can just use containsPilot for
-        //     pilot and containsMech for mech
-        // Don't need to check for properties if "activation" is "Downtime"
-        //     because we know neither is present
-        if (activation.equals("Downtime")) {
-            pilot = true;
-            mech = false;
-        } else {
-            // Otherwise
-            // Get containsPilot and containsMech
-            try {
-                actionData.getBoolean("pilot");
-                containsPilot = true;
-            } catch (JSONException exception) {}
-            try {
-                actionData.getBoolean("mech");
-                containsMech = true;
-            } catch (JSONException exception) {}
-            // Filter out the case where neither property is present
-            if (! (containsPilot || containsMech)) {
-                mech = true;
-            } else {
-                // Otherwise we can use containsPilot for pilot and containsMech
-                //     for mech
-                pilot = containsPilot;
-                mech = containsMech;
-            }
-        }
-        // Get hideActive
-        // It's only true if it's present, and it's always true when it's
-        //     present
+        HelperMethods.checkObject("actionData", actionData);
         try {
-            actionData.getBoolean("hide_active");
-            hideActive = true;
-        } catch (JSONException exception) {}
-        // Get synergyLocations
-        synergyLocations = new String[0];
-        try {
-            synergyLocationsJSON =
-                actionData.getJSONArray("synergy_locations");
-        } catch (JSONException exception) {}
-        if (synergyLocationsJSON != null) {
-            synergyLocations = new String[synergyLocationsJSON.length()];
-            for (int i = 0; i < synergyLocations.length; i++) {
-                synergyLocations[i] = synergyLocationsJSON.getString(i);
-            }
-        }
-        // Get confirm
-        confirm = new String[0];
-        try {
-            confirmJSON = actionData.getJSONArray("confirm");
-        } catch (JSONException exception) {}
-        if (confirmJSON != null) {
-            confirm = new String[confirmJSON.length()];
-            for (int i = 0; i < confirm.length; i++) {
-                confirm[i] = confirmJSON.getString(i);
-            }
-        }
-        // Get ignoreUsed
-        try {
-            actionData.getBoolean("ignore_used");
-            ignoreUsed = true;
-        } catch (JSONException exception) {}
-        // Get heatCost
-        try {
-            heatCost = actionData.getInt("heat_cost");
-        } catch (JSONException exception) {}
-        // Get techAttack
-        if (activation.equals("quick tech")
-            || activation.equals("full tech")) {
-            try {
-                actionData.getBoolean("tech_attack");
-                techAttack = true;
-            } catch (JSONException exception) {
-                throw new IllegalArgumentException();
-            }
-        }
-        // Get frequency
-        try {
-            frequency = new Frequency(actionData.getString("frequency"));
+            // Required properties - ActionBase
+            name = actionData.getString("name");
+            activationString = actionData.getString("activation");
+            detail = actionData.getString("detail");
+            // Required properties - Action
+            id = actionData.getString("id");
         } catch (JSONException exception) {
-            if (ignoreUsed) {
-                frequency = new Frequency("unlimited");
-            } else {
-                frequency = new Frequency("1/round");
-            }
+            throw new IllegalStateException("actionData threw a"
+                + " JSONException during the required properties section of the"
+                + " object parsing, which is not allowed");
         }
-        // Get range
+        activation = Database.getActivationType(activationString);
+        // Semi-required properties - ActionBase
         try {
-            rangeJSON = actionData.getJSONArray("range");
-            range = new RangeTag[rangeJSON.length()];
-            for (int i = 0; i < range.length; i++) {
-                rangeObject = rangeJSON.getJSONObject(i);
-                range[i] = new RangeTag(rangeObject.getString("type"),
-                    rangeObject.getInt("value"));
+            pilot = TriState.toTriState(actionData.getBoolean("pilot"));
+        } catch (JSONException exception) {
+            pilot = TriState.UNSET;
+        }
+        try {
+            mech = TriState.toTriState(actionData.getBoolean("mech"));
+        } catch (JSONException exception) {
+            mech = TriState.UNSET;
+        }
+        try {
+            confirmArray = actionData.getJSONArray("confirm");
+            confirm = new String[confirmArray.length()];
+            for (int i = 0; i < confirm.length; i++) {
+                confirm[i] = confirmArray.getString(i);
             }
         } catch (JSONException exception) {}
-        // Get damage
         try {
-            damageJSON = actionData.getJSONArray("damage");
-            damage = new Damage[damageJSON.length()];
-            for (int i = 0; i < damage.length; i++) {
-                damageObject = damageJSON.getJSONObject(i);
-                damageVals = Damage.splitDamageString(
-                    damageObject.getString("val"));
-                damage[i] = new Damage(damageObject.getString("type"),
-                    (DiceExpression) damageVals[0], (int) damageVals[1]);
+            hideActive = TriState.toTriState(
+                actionData.getBoolean("hideActive"));
+        } catch (JSONException exception) {
+            hideActive = TriState.UNSET;
+        }
+        // Semi-required properties - Action
+        try {
+            ignoreUsed = TriState.toTriState(
+                actionData.getBoolean("ignoreUsed"));
+        } catch (JSONException exception) {
+            ignoreUsed = TriState.UNSET;
+        }
+        try {
+            heatCost = actionData.getInt("heatCost");
+        } catch (JSONException exception) {}
+        // Conditionally required properties - ActionBase
+        try {
+            frequencyString = actionData.getString("frequency");
+            frequency = new Frequency(frequencyString);
+        } catch (JSONException exception) {}
+        try {
+            triggerString = actionData.getString("trigger");
+            trigger = new VueHTMLString(triggerString);
+        } catch (JSONException exception) {}
+        // Optional properties - ActionBase
+        try {
+            synergyLocationsArray =
+                actionData.getJSONArray("synergy_locations");
+            synergyLocations =
+                new SynergyLocation[synergyLocationsArray.length()];
+            for (int i = 0; i < synergyLocations.length; i++) {
+                synergyLocationsString = synergyLocationsArray.getString(i);
+                synergyLocations[i] =
+                    new SynergyLocation(synergyLocationsString);
             }
         } catch (JSONException exception) {}
-        // Get trigger
         try {
-            trigger = actionData.getString("trigger");
+            initString = actionData.getString("init");
+            init = new VueHTMLString(initString);
         } catch (JSONException exception) {}
-        // Get init
-        try {
-            init = actionData.getString("init");
-        } catch (JSONException exception) {}
+        // Optional properties - Action
+        terse = getOptionalString(actionData, "terse");
+        log = getOptionalString(actionData, "log");
 
         return new Action(name, activation, detail, pilot, mech, confirm,
-            hideActive, null, init, id, ignoreUsed, heatCost, terse,
-            synergyLocations);
-        // Unused: techAttack, frequency, range, damage, trigger
+            hideActive, frequency, trigger, null, synergyLocations,
+            init, id, ignoreUsed, heatCost, terse, log);
     }
     private static void processBackgrounds(JSONObject[] backgroundsData) {
         Background[] backgrounds = new Background[backgroundsData.length];
@@ -1238,6 +1184,18 @@ public class DataCaster {
             }
         }
         return data;
+    }
+    private static String getOptionalString(JSONObject originObject,
+        String propertyName) {
+        HelperMethods.checkObject("originObject", originObject);
+        HelperMethods.checkString("propertyName", propertyName);
+        try {
+            return originObject.getString(propertyName);
+        } catch (JSONException exception) {
+            // do nothing 'cause it's an optional property
+        }
+
+        return null;
     }
     private static Object[] packData() {
         Object[] data = new Object[] {
