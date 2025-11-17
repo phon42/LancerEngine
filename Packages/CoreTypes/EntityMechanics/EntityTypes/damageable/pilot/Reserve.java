@@ -3,7 +3,7 @@ package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot;
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.Deployable;
-import Packages.CoreTypes.EntityMechanics.Synergy;
+import Packages.CoreTypes.EntityMechanics.ISynergyData;
 import Packages.CoreTypes.EntityMechanics.Actions.actionBase.IActionData;
 
 /**
@@ -81,11 +81,11 @@ public class Reserve {
      * Can be any Synergy[] that is not of length 0 or contains null elements.
      *     Cannot be null.
      */
-    private Synergy[] synergies;
+    private ISynergyData[] synergies;
 
     public Reserve(String id, String name, String type, String label,
         String description, Bonus[] bonuses, Deployable[] deployables,
-        IActionData[] actions, Synergy[] synergies) {
+        IActionData[] actions, ISynergyData[] synergies) {
         HelperMethods.verifyConstructor();
         // Required properties
         setID(id);
@@ -156,7 +156,7 @@ public class Reserve {
 
         return actions;
     }
-    public Synergy[] getSynergies() {
+    public ISynergyData[] getSynergies() {
         if (synergies != null) {
             return HelperMethods.copyOf(synergies);
         }
@@ -211,7 +211,7 @@ public class Reserve {
         actions = HelperMethods.copyOf(actions);
         this.actions = actions;
     }
-    public void setSynergies(Synergy[] synergies) {
+    public void setSynergies(ISynergyData[] synergies) {
         HelperMethods.checkObjectArray("synergies", synergies);
         if (synergies.length == 0) {
             throw new IllegalArgumentException("synergies is length 0");
