@@ -8,7 +8,7 @@ import java.util.Arrays;
 import MainBranch.HelperMethods;
 import MainBranch.UserPreferences;
 import MainBranch.database.FileOperations;
-import MainBranch.database.DatabaseReadingPipeline.dataReader.DatabaseResourceInfo;
+import MainBranch.database.DatabaseReadingPipeline.DatabaseResourceInfo.DatabaseResourceInfo;
 import MainBranch.database.fileOperations.json.JSONException;
 import MainBranch.database.fileOperations.json.JSONObject;
 

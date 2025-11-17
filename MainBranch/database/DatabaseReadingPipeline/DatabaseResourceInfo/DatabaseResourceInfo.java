@@ -1,4 +1,4 @@
-package MainBranch.database.DatabaseReadingPipeline.dataReader;
+package MainBranch.database.DatabaseReadingPipeline.DatabaseResourceInfo;
 
 import MainBranch.HelperMethods;
 
