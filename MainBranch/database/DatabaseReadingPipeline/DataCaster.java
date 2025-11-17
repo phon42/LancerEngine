@@ -111,6 +111,7 @@ public class DataCaster {
     private static Weapon[] weaponsProcessed;
     // ----the rest of the critical data types:
     private static Action[] actionsProcessed;
+    private static ActivationType[] activationTypesProcessed;
     private static CoreBonus[] coreBonusesProcessed;
     private static Condition[] conditionsProcessed;
     private static DataTag[] dataTagsProcessed;
@@ -587,7 +588,8 @@ public class DataCaster {
                 + " JSONException during the required properties section of the"
                 + " object parsing, which is not allowed");
         }
-        activation = Database.getActivationType(activationString);
+        activation = new ActivationType(activationString);
+        addActivationType(activation);
         // Semi-required properties - ActionBase
         try {
             pilot = TriState.toTriState(actionData.getBoolean("pilot"));
@@ -1282,6 +1284,11 @@ public class DataCaster {
         // TODO: fill out
         return null;
     }
+    private static void addActivationType(ActivationType activationType) {
+        DataCaster.activationTypesProcessed =
+            HelperMethods.append(DataCaster.activationTypesProcessed,
+                activationType);
+    }
     private static JSONObject[] performCorrections(String fileName,
         JSONObject[] data) {
         LCPCorrection[] corrections;
@@ -1323,6 +1330,7 @@ public class DataCaster {
             DataCaster.weaponsProcessed,
             // ----the rest of the critical data types:
             DataCaster.actionsProcessed,
+            DataCaster.activationTypesProcessed,
             DataCaster.conditionsProcessed,
             DataCaster.coreBonusesProcessed,
             DataCaster.dataTagsProcessed,
@@ -1403,6 +1411,7 @@ public class DataCaster {
         DataCaster.weaponsProcessed = new Weapon[0];
         // ----the rest of the critical data types:
         DataCaster.actionsProcessed = new Action[0];
+        DataCaster.activationTypesProcessed = new ActivationType[0];
         DataCaster.conditionsProcessed = new Condition[0];
         DataCaster.coreBonusesProcessed = new CoreBonus[0];
         DataCaster.dataTagsProcessed = new DataTag[0];
