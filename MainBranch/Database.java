@@ -215,14 +215,18 @@ public final class Database {
 
         // Add allowed activation types
         open();
-        addActivationType(new ActivationType("free"));
-        addActivationType(new ActivationType("protocol"));
-        addActivationType(new ActivationType("quick"));
-        addActivationType(new ActivationType("full"));
-        addActivationType(new ActivationType("invade"));
-        addActivationType(new ActivationType("full tech"));
-        addActivationType(new ActivationType("quick tech"));
-        addActivationType(new ActivationType("reaction"));
+        addActivationType(new ActivationType("free", "free"));
+        addActivationType(new ActivationType("protocol",
+            "protocol"));
+        addActivationType(new ActivationType("quick", "quick"));
+        addActivationType(new ActivationType("full", "full"));
+        addActivationType(new ActivationType("invade", "free"));
+        addActivationType(new ActivationType("full tech",
+            "full tech"));
+        addActivationType(new ActivationType("quick tech",
+            "quick tech"));
+        addActivationType(new ActivationType("reaction",
+            "reaction"));
         // TODO: not sure whether to add this because it's not included in
         //     https://github.com/massif-press/lancer-data?tab=readme-ov-file#activationtype
         addActivationType(new ActivationType("downtime"));
