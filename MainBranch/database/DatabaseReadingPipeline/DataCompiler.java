@@ -23,6 +23,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTrig
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.talent.TalentData;
 import Packages.CoreTypes.EntityMechanics.LicenseSystem.FrameLicense;
 import Packages.CoreTypes.EntityMechanics.LicenseSystem.frameLicense.LicenseContent;
+import Packages.CoreTypes.EntityMechanics.ActivationType;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
 import Packages.CoreTypes.EntityMechanics.NPCFeature;
 import Packages.CoreTypes.EntityMechanics.NPCTemplate;
@@ -93,6 +94,7 @@ public class DataCompiler {
     // ----the rest of the critical data types:
     private static Action[] actionData;
     private static IActionData[] iActionDataData;
+    private static ActivationType[] activationTypeData;
     private static Condition[] conditionData;
     private static CoreBonus[] coreBonusData;
     private static DataTag[] dataTagData;
@@ -175,30 +177,31 @@ public class DataCompiler {
         DataCompiler.weaponData = (Weapon[]) data[4];
         // ----the rest of the critical data types:
         DataCompiler.actionData = (Action[]) data[5];
-        DataCompiler.conditionData = (Condition[]) data[6];
-        DataCompiler.coreBonusData = (CoreBonus[]) data[7];
-        DataCompiler.dataTagData = (DataTag[]) data[8];
-        DataCompiler.tagData = (Tag[]) data[9];
-        DataCompiler.manufacturerData = (Manufacturer[]) data[10];
-        DataCompiler.npcFeatureData = (NPCFeature[]) data[11];
-        DataCompiler.npcTemplateData = (NPCTemplate[]) data[12];
-        DataCompiler.pilotArmorData = (PilotArmor[]) data[13];
-        DataCompiler.pilotGearData = (PilotGear[]) data[14];
-        DataCompiler.pilotWeapon = (PilotWeapon[]) data[15];
-        DataCompiler.reserveData = (Reserve[]) data[16];
-        DataCompiler.skillData = (SkillData[]) data[17];
-        DataCompiler.statusData = (Status[]) data[18];
-        DataCompiler.talentData = (TalentData[]) data[19];
+        DataCompiler.activationTypeData = (ActivationType[]) data[6];
+        DataCompiler.conditionData = (Condition[]) data[7];
+        DataCompiler.coreBonusData = (CoreBonus[]) data[8];
+        DataCompiler.dataTagData = (DataTag[]) data[9];
+        DataCompiler.tagData = (Tag[]) data[10];
+        DataCompiler.manufacturerData = (Manufacturer[]) data[11];
+        DataCompiler.npcFeatureData = (NPCFeature[]) data[12];
+        DataCompiler.npcTemplateData = (NPCTemplate[]) data[13];
+        DataCompiler.pilotArmorData = (PilotArmor[]) data[14];
+        DataCompiler.pilotGearData = (PilotGear[]) data[15];
+        DataCompiler.pilotWeapon = (PilotWeapon[]) data[16];
+        DataCompiler.reserveData = (Reserve[]) data[17];
+        DataCompiler.skillData = (SkillData[]) data[18];
+        DataCompiler.statusData = (Status[]) data[19];
+        DataCompiler.talentData = (TalentData[]) data[20];
         // ----less important
-        DataCompiler.environmentData = (Environment[]) data[20];
-        DataCompiler.sitrepData = (Sitrep[]) data[21];
+        DataCompiler.environmentData = (Environment[]) data[21];
+        DataCompiler.sitrepData = (Sitrep[]) data[22];
         // ----almost unimportant
-        DataCompiler.backgroundData = (UnverifiedBackground[]) data[22];
-        DataCompiler.bondData = (Bond[]) data[23];
+        DataCompiler.backgroundData = (UnverifiedBackground[]) data[23];
+        DataCompiler.bondData = (Bond[]) data[24];
         // ----just for reference
-        DataCompiler.ruleData = (Rule[]) data[24];
-        DataCompiler.termData = (Term[]) data[25];
-        DataCompiler.tableData = (Table[]) data[26];
+        DataCompiler.ruleData = (Rule[]) data[25];
+        DataCompiler.termData = (Term[]) data[26];
+        DataCompiler.tableData = (Table[]) data[27];
 
         // remember to mark that we have data now
         DataCompiler.hasData = true;
@@ -347,6 +350,9 @@ public class DataCompiler {
         for (int i = 0; i < DataCompiler.iActionDataData.length; i++) {
             Database.addIActionData(DataCompiler.iActionDataData[i]);
         }
+        for (int i = 0; i < DataCompiler.activationTypeData.length; i++) {
+            Database.addActivationType(DataCompiler.activationTypeData[i]);
+        }
         for (int i = 0; i < DataCompiler.conditionData.length; i++) {
             Database.addCondition(DataCompiler.conditionData[i]);
         }
@@ -426,6 +432,7 @@ public class DataCompiler {
         // ----the rest of the critical data types:
         DataCompiler.actionData = new Action[0];
         DataCompiler.iActionDataData = new IActionData[0];
+        DataCompiler.activationTypeData = new ActivationType[0];
         DataCompiler.conditionData = new Condition[0];
         DataCompiler.coreBonusData = new CoreBonus[0];
         DataCompiler.dataTagData = new DataTag[0];
