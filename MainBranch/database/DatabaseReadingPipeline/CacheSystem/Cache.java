@@ -1,5 +1,6 @@
 package MainBranch.database.DatabaseReadingPipeline.CacheSystem;
 
+import java.nio.file.Path;
 import MainBranch.HelperMethods;
 import MainBranch.database.FileOperations;
 import MainBranch.database.fileOperations.json.JSONException;

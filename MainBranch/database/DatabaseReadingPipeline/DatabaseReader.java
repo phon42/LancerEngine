@@ -1,6 +1,7 @@
 package MainBranch.database.DatabaseReadingPipeline;
 
 import java.net.URL;
+import java.nio.file.Path;
 import MainBranch.database.ExternalLCP;
 import MainBranch.database.DatabaseReadingPipeline.CacheSystem.Cache;
 
@@ -54,7 +55,7 @@ public class DatabaseReader {
     public static void readExternalLCP(ExternalLCP externalLCP,
         boolean addToCache, boolean provideOutput) {
         String lcpName;
-        String cacheDirectoryPath;
+        Path cacheDirectoryPath;
         URL[] lcpFiles;
         String[] fileURLs;
 
