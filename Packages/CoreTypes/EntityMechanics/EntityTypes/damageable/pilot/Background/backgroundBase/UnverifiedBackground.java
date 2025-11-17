@@ -82,7 +82,7 @@ public class UnverifiedBackground extends BackgroundBase {
 
         skills = new SkillData[this.skillStrings.length];
         for (int i = 0; i < this.skillStrings.length; i++){
-            skills[i] = Database.getSkillDataByName(this.skillStrings[i]);
+            skills[i] = Database.getSkillDataByID(this.skillStrings[i]);
         }
 
         return new Background(this.id, this.name, this.description,
