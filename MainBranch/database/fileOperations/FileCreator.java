@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.zip.ZipEntry;
 import MainBranch.database.FileOperations;
 
 public class FileCreator {
@@ -45,5 +46,23 @@ public class FileCreator {
         }
 
         return filePath;
+    }
+    public static File createFile(Path destDirPath, ZipEntry zipEntry)
+        throws IOException {
+        File destinationDirectory;
+        File newFile;
+        String destFilePath;
+
+        destinationDirectory = destDirPath.toFile();
+        newFile = new File(destinationDirectory, zipEntry.getName());
+        destFilePath = newFile.getCanonicalPath();
+        destDirPath = FileOperations.toPath(
+            destinationDirectory.getCanonicalPath());
+        if (! destFilePath.startsWith(destDirPath + File.separator)) {
+            throw new IOException("Entry is outside of the target dir: \""
+                + zipEntry.getName() + "\"");
+        }
+
+        return newFile;
     }
 }
