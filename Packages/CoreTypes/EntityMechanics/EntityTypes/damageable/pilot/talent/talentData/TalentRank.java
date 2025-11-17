@@ -2,7 +2,7 @@ package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.talent.t
 
 import Packages.CoreTypes.Counter;
 import Packages.CoreTypes.EntityMechanics.Bonus;
-import Packages.CoreTypes.EntityMechanics.Synergy;
+import Packages.CoreTypes.EntityMechanics.ISynergyData;
 import Packages.CoreTypes.EntityMechanics.Actions.actionBase.IActionData;
 
 public class TalentRank {
@@ -11,7 +11,7 @@ public class TalentRank {
     private String description;
 
     // Optional properties
-    private Synergy[] synergies;
+    private ISynergyData[] synergies;
     private IActionData[] actions;
     private Counter[] counters;
     private Bonus[] bonuses;
