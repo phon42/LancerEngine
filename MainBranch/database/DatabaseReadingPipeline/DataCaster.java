@@ -342,6 +342,7 @@ public class DataCaster {
         if (infoValid) {
             try {
                 DataCaster.infoName = infoData[0].getString("name");
+                processInfo(infoData);
             } catch (JSONException exception) {
                 infoValid = false;
             }
@@ -350,15 +351,10 @@ public class DataCaster {
             try {
                 DataCaster.lcpManifestName =
                     lcpManifestData[0].getString("name");
+                processLCPManifests(lcpManifestData);
             } catch (JSONException exception) {
                 lcpManifestValid = false;
             }
-        }
-        if (infoValid) {
-            processInfo(infoData);
-        }
-        if (lcpManifestValid) {
-            processLCPManifests(lcpManifestData);
         }
         if (! (infoValid || lcpManifestValid)) {
             throw new IllegalStateException("Neither a valid info.json file"
