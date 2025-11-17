@@ -418,7 +418,7 @@ public final class Database {
                 + " bounds for length: " + Database.activationTypes.length);
         }
 
-        return new ActivationType(Database.activationTypes[index]);
+        return Database.activationTypes[index];
     }
     public static Background getBackground(String backgroundID) {
         HelperMethods.checkObject("backgroundID", backgroundID);
@@ -775,7 +775,6 @@ public final class Database {
     public static void addActivationType(ActivationType activationType) {
         checkOpen();
         HelperMethods.checkObject("action", activationType);
-        activationType = new ActivationType(activationType);
         Database.activationTypes =
             HelperMethods.append(Database.activationTypes, activationType);
     }
