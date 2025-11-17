@@ -791,7 +791,6 @@ public final class Database {
     public static void addBond(Bond bond) {
         checkOpen();
         HelperMethods.checkObject("bond", bond);
-        bond = new Bond(bond);
         Database.bonds = HelperMethods.append(Database.bonds, bond);
     }
     /**
