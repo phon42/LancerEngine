@@ -56,7 +56,10 @@ public class FileSystemNamer {
                 continue;
             }
             // filtering out specific blocks
-            if (0 < codePoint && codePoint < 0xFF) {
+            if (0 < codePoint && codePoint < 0x1F) {
+                continue;
+            }
+            if (0x7F < codePoint && codePoint < 0xFF) {
                 continue;
             }
             if (0xE0000 < codePoint && codePoint < 0xEE07F) {
