@@ -1,5 +1,6 @@
 package MainBranch.database;
 
+import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -32,6 +33,23 @@ public class FileOperations {
     }
     public static Object parseJSONText(String jsonData) {
         return ResourceParser.parseJSONText(jsonData);
+    }
+    public static Object[] readAndParseResource(String resourceLocator,
+        boolean external, boolean addToCache) {
+        String[] resourceData;
+        Object[] parsedJSON;
+
+        resourceData = readResource(resourceLocator, external, addToCache);
+        parsedJSON = new Object[resourceData.length];
+        for (int i = 0; i < resourceData.length; i++) {
+            if (resourceData[i] == null) {
+                parsedJSON[i] = null;
+            } else {
+                parsedJSON[i] = parseJSONText(resourceData[i]);
+            }
+        }
+
+        return parsedJSON;
     }
     public static Path createDirectory(Path path) {
         return DirectoryCreator.createDirectory(path);
