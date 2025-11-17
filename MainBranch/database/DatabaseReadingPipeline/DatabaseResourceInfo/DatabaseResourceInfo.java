@@ -44,6 +44,8 @@ public class DatabaseResourceInfo implements Comparable<DatabaseResourceInfo> {
         String str2;
         boolean isImportant1;
         boolean isImportant2;
+        boolean isSkill1;
+        boolean isSkill2;
 
         HelperMethods.checkObject("databaseResourceInfo", o);
         str1 = this.name;
@@ -59,6 +61,12 @@ public class DatabaseResourceInfo implements Comparable<DatabaseResourceInfo> {
                 return isImportant1 ? -1 : 1;
             }
         } else {
+            isSkill1 = str1.equals("skills");
+            isSkill2 = str2.equals("skills");
+            if (isSkill1 || isSkill2) {
+                return (isSkill1 ? -1 : 1) - (isSkill2 ? -1 : 1);
+            }
+
             return str1.compareTo(str2);
         }
     }
