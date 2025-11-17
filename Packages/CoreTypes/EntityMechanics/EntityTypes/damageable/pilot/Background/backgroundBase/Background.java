@@ -1,6 +1,7 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Background.backgroundBase;
 
 import MainBranch.HelperMethods;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Background.BackgroundBase;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skill.SkillData;
 
 /**
@@ -17,27 +18,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTrig
  * 
  * Safety: At least one of this class' properties has an allowed value of null.
  */
-public class Background {
-    // Required properties
-    /**
-     * The ID of this background (i.e. "pbg_celebrity").
-     * Can be any String except "". Cannot be null.
-     * Case-insensitive and stored in lowercase.
-     */
-    private String id;
-    /**
-     * The name of this background (i.e. "Celebrity").
-     * Can be any String except "". Cannot be null.
-     * Case-sensitive.
-     */
-    private String name;
-    /**
-     * The description of this background (too large to provide an example).
-     * Can be any String except "". Cannot be null.
-     * Case-sensitive.
-     */
-    private String description;
-
+public class Background extends BackgroundBase {
     // Optional property
     /**
      * The skills that might be appropriate to choose for this background (i.e.
@@ -48,12 +29,12 @@ public class Background {
      */
     private SkillData[] skills;
 
-    public Background(String id, String name, String description,
+    public Background(
+        // BackgroundBase properties
+        String id, String name, String description,
+        // Optional property
         SkillData[] skills) {
-        // Required properties
-        setID(id);
-        setName(name);
-        setDescription(description);
+        super(id, name, description);
         // Optional property
         setSkills(skills);
     }
@@ -61,24 +42,11 @@ public class Background {
         this(id, name, description, null);
     }
     public Background(Background background) {
-        // Required properties
-        setID(background.id);
-        setName(background.name);
-        setDescription(background.description);
+        super(background);
         // Optional property
         setSkills(background.skills);
     }
 
-    // Required properties
-    public String getID() {
-        return id;
-    }
-    public String getName() {
-        return name;
-    }
-    public String getDescription() {
-        return description;
-    }
     // Optional property
     public SkillData[] getSkills() {
         if (skills != null) {
@@ -86,20 +54,6 @@ public class Background {
         }
 
         return skills;
-    }
-    // Required properties
-    private void setID(String id) {
-        HelperMethods.checkString("id", id);
-        id = id.toLowerCase();
-        this.id = id;
-    }
-    private void setName(String name) {
-        HelperMethods.checkString("name", name);
-        this.name = name;
-    }
-    private void setDescription(String description) {
-        HelperMethods.checkString("description", description);
-        this.description = description;
     }
     // Optional property
     /**
