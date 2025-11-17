@@ -744,8 +744,8 @@ public final class Database {
         HelperMethods.checkObject("unverifiedBackground",
             unverifiedBackground);
         unverifiedBackground = new UnverifiedBackground(unverifiedBackground);
-        Database.actions = HelperMethods.append(Database.actions,
-            unverifiedBackground);
+        Database.unverifiedBackgrounds = HelperMethods.append(
+            Database.unverifiedBackgrounds, unverifiedBackground);
     }
     // Verified data
     /**
