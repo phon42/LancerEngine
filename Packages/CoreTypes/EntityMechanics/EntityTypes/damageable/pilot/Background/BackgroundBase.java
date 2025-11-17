@@ -12,19 +12,19 @@ public class BackgroundBase {
      * Can be any String except "". Cannot be null.
      * Case-insensitive and stored in lowercase.
      */
-    private String id;
+    protected String id;
     /**
      * The name of this background (i.e. "Celebrity").
      * Can be any String except "". Cannot be null.
      * Case-sensitive.
      */
-    private String name;
+    protected String name;
     /**
      * The description of this background (too large to provide an example).
      * Can be any String except "". Cannot be null.
      * Case-sensitive.
      */
-    private String description;
+    protected String description;
 
     public BackgroundBase(String id, String name, String description) {
         // Required properties
@@ -50,16 +50,16 @@ public class BackgroundBase {
         return description;
     }
     // Required properties
-    private void setID(String id) {
+    protected void setID(String id) {
         HelperMethods.checkString("id", id);
         id = id.toLowerCase();
         this.id = id;
     }
-    private void setName(String name) {
+    protected void setName(String name) {
         HelperMethods.checkString("name", name);
         this.name = name;
     }
-    private void setDescription(String description) {
+    protected void setDescription(String description) {
         HelperMethods.checkString("description", description);
         this.description = description;
     }
