@@ -425,6 +425,7 @@ public class DataCompiler {
         DataCompiler.weaponData = new Weapon[0];
         // ----the rest of the critical data types:
         DataCompiler.actionData = new Action[0];
+        DataCompiler.iActionDataData = new IActionData[0];
         DataCompiler.conditionData = new Condition[0];
         DataCompiler.coreBonusData = new CoreBonus[0];
         DataCompiler.dataTagData = new DataTag[0];
