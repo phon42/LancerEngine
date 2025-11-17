@@ -6,6 +6,7 @@ import MainBranch.database.ExternalLCP;
 import MainBranch.database.LCPCorrection;
 import MainBranch.database.DatabaseReadingPipeline.DatabaseReader;
 import MainBranch.database.fileOperations.json.JSONObject;
+import Packages.CoreTypes.LCPInfo;
 import Packages.CoreTypes.Rule;
 import Packages.CoreTypes.Table;
 import Packages.CoreTypes.Term;
@@ -57,6 +58,10 @@ public final class Database {
      * add documentation
      */
     private static LCPCorrection[] lcpCorrections;
+    /**
+     * add documentation
+     */
+    private static LCPInfo[] lcpInfo;
     /**
      * add documentation
      */
@@ -338,6 +343,17 @@ public final class Database {
         }
 
         return newCorrections;
+    }
+    public static LCPInfo getLCPInfo(String lcpName) {
+        HelperMethods.checkString("lcpName", lcpName);
+        for (LCPInfo lcpInfoObject : Database.lcpInfo) {
+            if (lcpInfoObject.getName().equals(lcpName)) {
+                return lcpInfoObject;
+            }
+        }
+
+        throw new NoSuchElementException("No LCP info found for LCP name: \""
+            + lcpName + "\"");
     }
     public static Action getAction(String actionName) {
         HelperMethods.checkObject("actionName", actionName);
@@ -666,6 +682,17 @@ public final class Database {
         lcpCorrection = new LCPCorrection(lcpCorrection);
         Database.lcpCorrections = HelperMethods.append(Database.lcpCorrections,
             lcpCorrection);
+    }
+    /**
+     * Adds the provided LCPInfo to Database.lcpInfo.
+     * @param lcpInfo an LCPInfo which cannot be null.
+     * @throws IllegalArgumentException if lcpInfo is null.
+     */
+    public static void addLCPInfo(LCPInfo lcpInfo) {
+        checkOpen();
+        HelperMethods.checkObject("lcpInfo", lcpInfo);
+        lcpInfo = new LCPInfo(lcpInfo);
+        Database.lcpInfo = HelperMethods.append(Database.lcpInfo, lcpInfo);
     }
     /**
      * Adds the provided Action to Database.actions.
