@@ -341,6 +341,9 @@ public class DataCompiler {
         // in other words, anything except the contents of frameLicenseData,
         //     licenseContentData, and all data types contained therein
         // ----the rest of the critical data types:
+        for (int i = 0; i < DataCompiler.skillData.length; i++) {
+            Database.addSkill(DataCompiler.skillData[i]);
+        }
         for (int i = 0; i < DataCompiler.actionData.length; i++) {
             Database.addAction(DataCompiler.actionData[i]);
         }
@@ -379,9 +382,6 @@ public class DataCompiler {
         }
         for (int i = 0; i < DataCompiler.reserveData.length; i++) {
             Database.addReserve(DataCompiler.reserveData[i]);
-        }
-        for (int i = 0; i < DataCompiler.skillData.length; i++) {
-            Database.addSkill(DataCompiler.skillData[i]);
         }
         for (int i = 0; i < DataCompiler.statusData.length; i++) {
             Database.addStatus(DataCompiler.statusData[i]);
