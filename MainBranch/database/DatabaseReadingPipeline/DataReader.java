@@ -9,6 +9,8 @@ import MainBranch.HelperMethods;
 import MainBranch.UserPreferences;
 import MainBranch.database.FileOperations;
 import MainBranch.database.DatabaseReadingPipeline.dataReader.DatabaseResourceInfo;
+import MainBranch.database.fileOperations.json.JSONException;
+import MainBranch.database.fileOperations.json.JSONObject;
 
 public class DataReader {
     // prevent user from instantiating this class
@@ -72,10 +74,8 @@ public class DataReader {
         String[] resourceInfo;
         DatabaseResourceInfo[] resources;
         Object[] lcpInfoData;
-        String cacheName;
+        String cacheName = null;
 
-        // TODO: add the ability to add all of these files to the cache under
-        //     the same folder
         HelperMethods.checkStringArray("resourceLocators",
             resourceLocators);
         HelperMethods.checkObject("targetFolderPath",
@@ -96,6 +96,49 @@ public class DataReader {
         Arrays.sort(resources);
         if (provideOutput) {
             System.out.println("Reading elements of the provided array");
+        }
+        if (addToCache) {
+            for (int i = 0; i < resources.length; i++) {
+                if ("info".equals(resources[i].getName())) {
+                    lcpInfoData = FileOperations.readAndParseResource(
+                        resources[i].getPath(), external, false);
+                    if (lcpInfoData.length != 1) {
+                        throw new IllegalStateException("JSON file yielded"
+                            + " either no data or the data of more than 1"
+                            + " file");
+                    }
+                    if (lcpInfoData[0] instanceof JSONObject) {
+                        try {
+                            cacheName = ((JSONObject) lcpInfoData[0])
+                                .getString("name");
+                            continue;
+                        } catch (JSONException exception) {}
+                    }
+                }
+                if ("lcp_manifest".equals(resources[i].getName())) {
+                    lcpInfoData = FileOperations.readAndParseResource(
+                        resources[i].getPath(), external, false);
+                    if (lcpInfoData.length != 1) {
+                        throw new IllegalStateException("JSON file yielded"
+                            + " either no data or the data of more than 1"
+                            + " file");
+                    }
+                    if (lcpInfoData[0] instanceof JSONObject) {
+                        try {
+                            cacheName = ((JSONObject) lcpInfoData[0])
+                                .getString("name");
+                            continue;
+                        } catch (JSONException exception) {}
+                    }
+                }
+            }
+            if (cacheName != null) {
+                cacheName = FileOperations.toValidDirectoryName(cacheName);
+                targetFolderPath = targetFolderPath.resolve(cacheName);
+                FileOperations.createDirectory(targetFolderPath);
+            } else {
+                addToCache = false;
+            }
         }
         for (int i = 0; i < resources.length; i++) {
             readJSON(resources[i].getPath(), external, addToCache,
