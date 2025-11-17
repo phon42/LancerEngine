@@ -4,10 +4,11 @@ import MainBranch.HelperMethods;
 import Packages.CoreTypes.Callable;
 import Packages.CoreTypes.TriState;
 import Packages.CoreTypes.VueHTMLString;
-import Packages.CoreTypes.EntityMechanics.Synergy;
+import Packages.CoreTypes.EntityMechanics.SynergyLocation;
 import Packages.CoreTypes.EntityMechanics.Actions.ActionBase;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.Damage;
 import Packages.CoreTypes.EntityMechanics.ActivationType;
+import Packages.CoreTypes.EntityMechanics.Frequency;
 import Packages.CoreTypes.EntityMechanics.RangeTag;
 
 /**
@@ -88,15 +89,18 @@ public class IActionData extends ActionBase {
         // ActionBase properties
         String actionName, ActivationType activation,
         String detailedDescription, TriState pilot, TriState mech,
-        String[] confirm, TriState hideActive, Callable method,
-        Synergy[] synergyLocations, VueHTMLString requiredInitialConditions,
+        String[] confirm, TriState hideActive, Frequency frequency,
+        VueHTMLString trigger, Callable method,
+        SynergyLocation[] synergyLocations,
+        VueHTMLString requiredInitialConditions,
         // Semi-required properties
         int cost, TriState techAttack,
         // Optional properties
         RangeTag[] rangeTags, Damage[] damage
     ) {
         super(actionName, activation, detailedDescription, pilot, mech, confirm,
-            hideActive, method, synergyLocations, requiredInitialConditions);
+            hideActive, frequency, trigger, method, synergyLocations,
+            requiredInitialConditions);
         // Semi-required properties
         setCost(cost);
         setTechAttack(techAttack);
@@ -113,15 +117,18 @@ public class IActionData extends ActionBase {
         // ActionBase properties
         ActivationType activation, String detailedDescription, String itemName,
         TriState pilot, TriState mech, String[] confirm, TriState hideActive,
-        Callable method, VueHTMLString requiredInitialConditions,
+        Frequency frequency, VueHTMLString trigger, Callable method,
+        VueHTMLString requiredInitialConditions,
         // Semi-required properties
         int cost, TriState techAttack,
         // Optional properties
-        Synergy[] synergyLocations, RangeTag[] rangeTags, Damage[] damage
+        SynergyLocation[] synergyLocations, RangeTag[] rangeTags,
+        Damage[] damage
     ) {
         this(toActionName(itemName), activation, detailedDescription, pilot,
-            mech, confirm, hideActive, method, synergyLocations,
-            requiredInitialConditions, cost, techAttack, rangeTags, damage);
+            mech, confirm, hideActive, frequency, trigger, method,
+            synergyLocations, requiredInitialConditions, cost, techAttack,
+            rangeTags, damage);
     }
     public IActionData(ActivationType activation, String detailedDescription,
         String itemName) {

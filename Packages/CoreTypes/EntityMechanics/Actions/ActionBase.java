@@ -5,7 +5,7 @@ import MainBranch.HelperMethods;
 import Packages.CoreTypes.Callable;
 import Packages.CoreTypes.EntityMechanics.ActivationType;
 import Packages.CoreTypes.EntityMechanics.Frequency;
-import Packages.CoreTypes.EntityMechanics.Synergy;
+import Packages.CoreTypes.EntityMechanics.SynergyLocation;
 import Packages.CoreTypes.VueHTMLString;
 import Packages.CoreTypes.TriState;
 
@@ -134,11 +134,13 @@ public class ActionBase {
      */
     protected Callable method;
     /**
-     * An array of locations that this action is connected to (i.e. a Synergy[]
-     *     containing a Synergy representing "overcharge").
-     * Can be any Synergy[] that does not contain null elements. Can be null.
+     * An array of locations that this action is connected to (i.e. a
+     *     SynergyLocation[] containing a SynergyLocation representing
+     *     "overcharge").
+     * Can be any SynergyLocation[] that does not contain null elements. Can be
+     *     null.
      */
-    private Synergy[] synergyLocations;
+    private SynergyLocation[] synergyLocations;
     /**
      * Any initial conditions required for this action, if there are any (i.e.
      *     "Requires activation of the <b>Spin Up Thrusters</b> quick action on"
@@ -184,8 +186,10 @@ public class ActionBase {
         String name, ActivationType activation, String detailedDescription,
         // Semi-required properties
         TriState pilot, TriState mech, String[] confirm, TriState hideActive,
+        // Conditionally required properties
+        Frequency frequency, VueHTMLString trigger,
         // Optional properties
-        Callable method, Synergy[] synergyLocations,
+        Callable method, SynergyLocation[] synergyLocations,
         VueHTMLString requiredInitialConditions
     ) {
         HelperMethods.verifyConstructor();
@@ -197,6 +201,9 @@ public class ActionBase {
         setPilotAndMech(pilot, mech);
         setConfirm(confirm);
         calculateHideActive(hideActive);
+        // Conditionally required properties
+        setFrequency(frequency);
+        setTrigger(trigger);
         // Optional properties
         setMethod(method);
         setSynergyLocations(synergyLocations);
@@ -210,7 +217,8 @@ public class ActionBase {
         String detailedDescription) {
         this(name, activation, detailedDescription, TriState.UNSET,
             TriState.UNSET, null, TriState.UNSET, null,
-            null, null);
+            null, null, null,
+            null);
     }
     protected ActionBase(ActionBase actionBase) {
         HelperMethods.checkObject("actionBase", actionBase);
@@ -279,7 +287,7 @@ public class ActionBase {
 
         return method;
     }
-    public Synergy[] getSynergyLocations() {
+    public SynergyLocation[] getSynergyLocations() {
         if (synergyLocations == null) {
             return synergyLocations;
         }
@@ -352,7 +360,7 @@ public class ActionBase {
     protected void setMethod(Callable method) {
         this.method = method;
     }
-    private void setSynergyLocations(Synergy[] synergyLocations) {
+    private void setSynergyLocations(SynergyLocation[] synergyLocations) {
         if (synergyLocations == null) {
             this.synergyLocations = synergyLocations;
             return;

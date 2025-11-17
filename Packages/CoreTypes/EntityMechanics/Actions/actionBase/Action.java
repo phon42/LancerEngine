@@ -4,7 +4,8 @@ import MainBranch.HelperMethods;
 import Packages.CoreTypes.Callable;
 import Packages.CoreTypes.EntityMechanics.Actions.ActionBase;
 import Packages.CoreTypes.EntityMechanics.ActivationType;
-import Packages.CoreTypes.EntityMechanics.Synergy;
+import Packages.CoreTypes.EntityMechanics.Frequency;
+import Packages.CoreTypes.EntityMechanics.SynergyLocation;
 import Packages.CoreTypes.TriState;
 import Packages.CoreTypes.VueHTMLString;
 
@@ -109,7 +110,8 @@ public class Action extends ActionBase {
         // ActionBase properties
         String name, ActivationType activation, String detailedDescription,
         TriState pilot, TriState mech, String[] confirm, TriState hideActive,
-        Callable method, Synergy[] synergyLocations,
+        Frequency frequency, VueHTMLString trigger, Callable method,
+        SynergyLocation[] synergyLocations,
         VueHTMLString requiredInitialConditions,
         // Action required properties
         String id,
@@ -119,7 +121,8 @@ public class Action extends ActionBase {
         String terse, String log
     ) {
         super(name, activation, detailedDescription, pilot, mech, confirm,
-            hideActive, method, synergyLocations, requiredInitialConditions);
+            hideActive, frequency, trigger, method, synergyLocations,
+            requiredInitialConditions);
         // Required properties
         setID(id);
         // Semi-required properties
