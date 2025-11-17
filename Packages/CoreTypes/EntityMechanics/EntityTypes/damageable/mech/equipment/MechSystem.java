@@ -8,7 +8,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Equipment;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.DataTag;
 import Packages.CoreTypes.EntityMechanics.License;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
-import Packages.CoreTypes.EntityMechanics.Synergy;
+import Packages.CoreTypes.EntityMechanics.ISynergyData;
 
 /**
  * Represents a single system for a mech. Contains information about that system
@@ -38,7 +38,7 @@ public final class MechSystem extends Equipment {
     private IActionData[] actions;
     private Deployable[] deployables;
     private Bonus[] bonuses;
-    private Synergy[] synergies;
+    private ISynergyData[] synergies;
 
     /**
      * Verbose constructor for non-GMS content.
@@ -47,7 +47,7 @@ public final class MechSystem extends Equipment {
         String licenseID, String licenseName, int licenseLevel,
         String description, DataTag[] dataTags, int spCost,
         String effect, IActionData[] actions, Deployable[] deployables,
-        Bonus[] bonuses, Synergy[] synergies) {
+        Bonus[] bonuses, ISynergyData[] synergies) {
         super(id, name, manufacturer, licenseID, licenseName, licenseLevel,
             description, dataTags);
         // Required properties
@@ -65,7 +65,7 @@ public final class MechSystem extends Equipment {
     public MechSystem(String id, String name, String licenseID,
         String licenseName, String description, DataTag[] dataTags, int spCost,
         String effect, IActionData[] actions, Deployable[] deployables,
-        Bonus[] bonuses, Synergy[] synergies) {
+        Bonus[] bonuses, ISynergyData[] synergies) {
         super(id, name, licenseID, licenseName, description, dataTags);
         // Required properties
         setSpCost(spCost);
