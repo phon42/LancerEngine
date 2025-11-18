@@ -101,7 +101,7 @@ public class ActivationType {
                 activationType = Database.getActivationTypeByIndex(index);
                 // if it didn't throw an exception (the index is valid):
                 if (this.value.equals(activationType.getValue())) {
-                    // nothing needs to be done
+                    setType(activationType.getType());
                     hasBeenFound = true;
                     break;
                 }
