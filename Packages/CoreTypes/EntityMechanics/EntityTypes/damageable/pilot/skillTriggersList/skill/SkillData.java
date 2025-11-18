@@ -1,6 +1,7 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skill;
 
 import MainBranch.HelperMethods;
+import Packages.CoreTypes.VueHTMLString;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skill.skillData.SkillFamily;
 
 /**
@@ -41,10 +42,10 @@ public final class SkillData {
     /**
      * A more detailed description of what the skill trigger allows you to do
      *     (too large to provide an example).
-     * Can be any String except "". Cannot be null.
+     * Can be any VueHTMLString except "". Cannot be null.
      * Case-sensitive.
      */
-    private String detail;
+    private VueHTMLString detail;
     /**
      * The family of skill triggers in which this skill trigger fits (i.e. a
      *     SkillFamily representing "dex").
@@ -78,7 +79,7 @@ public final class SkillData {
     public String getDescription() {
         return description;
     }
-    public String getDetail() {
+    public VueHTMLString getDetail() {
         return detail;
     }
     public SkillFamily getFamily() {
@@ -95,8 +96,8 @@ public final class SkillData {
         HelperMethods.checkString("description", description);
         this.description = description;
     }
-    private void setDetail(String detail) {
-        HelperMethods.checkString("detail", detail);
+    private void setDetail(VueHTMLString detail) {
+        HelperMethods.checkVueHTMLString("detail", detail);
         this.detail = detail;
     }
     private void setFamily(SkillFamily family) {
@@ -156,5 +157,8 @@ public final class SkillData {
         }
         
         return true;
+    }
+    private void setDetail(String detail) {
+        setDetail(new VueHTMLString(detail));
     }
 }
