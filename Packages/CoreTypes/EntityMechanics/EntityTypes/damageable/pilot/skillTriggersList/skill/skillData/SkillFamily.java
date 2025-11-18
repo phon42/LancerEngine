@@ -1,5 +1,7 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skill.skillData;
 
+import MainBranch.HelperMethods;
+
 /**
  * Yes, you can add methods into enum classes!
  * https://stackoverflow.com/questions/18883646/java-enum-methods-return-opposite-direction-enum
@@ -16,5 +18,11 @@ public enum SkillFamily {
     @Override
     public String toString() {
         return this.name().toLowerCase();
+    }
+    public static SkillFamily fromString(String input) {
+        HelperMethods.checkString("input", input);
+        input = input.toUpperCase();
+
+        return SkillFamily.valueOf(input);
     }
 }
