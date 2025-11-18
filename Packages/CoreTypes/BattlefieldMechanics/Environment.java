@@ -1,6 +1,7 @@
 package Packages.CoreTypes.BattlefieldMechanics;
 
 import MainBranch.HelperMethods;
+import Packages.CoreTypes.VueHTMLString;
 
 /**
  * Represents a specified preset environment for a battle to take place in, such
@@ -29,10 +30,11 @@ public class Environment {
     private String name;
     /**
      * The environment's name (too large to provide an example).
-     * Can be any String except "". Cannot be null.
+     * Usually contains the environment's effect.
+     * Can be any VueHTMLString except "". Cannot be null.
      * Case-sensitive.
      */
-    private String description;
+    private VueHTMLString description;
 
     public Environment(String id, String name, String description) {
         HelperMethods.verifyConstructor();
@@ -52,7 +54,7 @@ public class Environment {
     public String getName() {
         return name;
     }
-    public String getDescription() {
+    public VueHTMLString getDescription() {
         return description;
     }
     private void setID(String id) {
@@ -64,8 +66,12 @@ public class Environment {
         HelperMethods.checkString("name", name);
         this.name = name;
     }
-    private void setDescription(String description) {
-        HelperMethods.checkString("description", description);
+    private void setDescription(VueHTMLString description) {
+        HelperMethods.checkVueHTMLString("description", description);
         this.description = description;
+    }
+
+    private void setDescription(String description) {
+        setDescription(new VueHTMLString(description));
     }
 }
