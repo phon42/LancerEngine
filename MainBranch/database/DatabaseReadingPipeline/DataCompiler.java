@@ -168,6 +168,11 @@ public class DataCompiler {
                 + " DataCompiler.receiveData() while DataCompiler was still"
                 + " closed. Call DataCompiler.open() first");
         }
+        unpackData(data);
+        // remember to mark that we have data now
+        DataCompiler.hasData = true;
+    }
+    public static void unpackData(Object[] data) {
         // ----absolutely critical data:
         DataCompiler.lcpInfoData = (LCPInfo[]) data[0];
         // ----some critical data types:
@@ -202,9 +207,6 @@ public class DataCompiler {
         DataCompiler.ruleData = (Rule[]) data[25];
         DataCompiler.termData = (Term[]) data[26];
         DataCompiler.tableData = (Table[]) data[27];
-
-        // remember to mark that we have data now
-        DataCompiler.hasData = true;
     }
     public static void saveData() {
         if (DataCompiler.open) {
@@ -217,12 +219,7 @@ public class DataCompiler {
         // collect the data together
         compileContent();
         // push all the data that's been collected over to Database
-        // first we have to open Database again, this time because we're adding
-        //     content
-        Database.open();
         addContent();
-        // then we close it afterward
-        Database.close();
         // then flush it
         flushData();
     }
@@ -325,9 +322,14 @@ public class DataCompiler {
         DataCompiler.frameLicenseData = frameLicenses;
     }
     private static void addContent() {
+        // first we have to open Database again, this time because we're adding
+        //     content
+        Database.open();
         addLCPInfo();
         addFrameLicenses();
         addNonLicenseContent();
+        // then we close it afterward
+        Database.close();
     }
     private static void addLCPInfo() {
         for (int i = 0; i < DataCompiler.lcpInfoData.length; i++) {
