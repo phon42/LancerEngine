@@ -854,8 +854,37 @@ public class DataCaster {
         DataCaster.manufacturersProcessed = manufacturers;
     }
     private static Manufacturer toManufacturer(JSONObject manufacturerData) {
-        // TODO: fill out
-        return null;
+        // Required properties
+        String id;
+        String name;
+        String logo;
+        String light;
+        String dark;
+        String quote;
+        // Optional properties
+        String logoURL;
+        String description;
+
+        try {
+            // Required properties
+            id = manufacturerData.getString("id");
+            name = manufacturerData.getString("name");
+            logo = manufacturerData.getString("logo");
+            light = manufacturerData.getString("light");
+            dark = manufacturerData.getString("dark");
+            quote = manufacturerData.getString("quote");
+        } catch (JSONException exception) {
+            throw new IllegalStateException("bondData threw a JSONException"
+                + " during the required properties section of the object"
+                + " parsing, which is not allowed");
+        }
+        // Optional properties
+        logoURL = getOptionalString(manufacturerData, "logo_url");
+        description = getOptionalString(manufacturerData,
+            "description");
+
+        return new Manufacturer(id, name, logo, light, dark, quote, logoURL,
+            description);
     }
     private static void processModifications(JSONObject[] modificationsData) {
         Modification[] modifications =
