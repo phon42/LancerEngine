@@ -1,6 +1,7 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skill;
 
 import MainBranch.HelperMethods;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skill.skillData.SkillFamily;
 
 /**
  * See pg. 24 - 27.
@@ -45,15 +46,14 @@ public final class SkillData {
      */
     private String detail;
     /**
-     * The family of skill triggers in which this skill trigger fits (i.e.
-     *     "dex").
-     * Can be any String except "". Cannot be null.
-     * Case-insensitive and stored in lowercase.
+     * The family of skill triggers in which this skill trigger fits (i.e. a
+     *     SkillFamily representing "dex").
+     * Can be any SkillFamily. Cannot be null.
      */
-    private String family;
+    private SkillFamily family;
 
     public SkillData(String id, String name, String shortDescription,
-        String detailedDescription, String skillFamily) {
+        String detailedDescription, SkillFamily skillFamily) {
         HelperMethods.verifyConstructor();
         setID(id);
         setName(name);
@@ -81,7 +81,7 @@ public final class SkillData {
     public String getDetail() {
         return detail;
     }
-    public String getFamily() {
+    public SkillFamily getFamily() {
         return family;
     }
     private void setID(String id) {
@@ -99,9 +99,8 @@ public final class SkillData {
         HelperMethods.checkString("detail", detail);
         this.detail = detail;
     }
-    private void setFamily(String family) {
-        HelperMethods.checkString("family", family);
-        family = family.toLowerCase();
+    private void setFamily(SkillFamily family) {
+        HelperMethods.checkObject("family", family);
         this.family = family;
     }
 
@@ -111,8 +110,8 @@ public final class SkillData {
      */
     @Override
     public String toString() {
-        return "[ " + family.toUpperCase() + " ] " + name + " (\"" + id + "\")"
-            + "\n  " + description;
+        return "[ " + family.toString().toUpperCase() + " ] " + name + " (\""
+            + id + "\")\n  " + description;
     }
     /**
      * Compares this SkillData object and obj. If they are the same class,
