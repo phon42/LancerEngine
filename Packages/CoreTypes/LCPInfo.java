@@ -24,13 +24,12 @@ public class LCPInfo {
      */
     private String author;
     /**
-     * The description of this LCP (i.e. an HTMLString representing "The"
+     * The description of this LCP (i.e. a VueHTMLString representing "The"
      *     " official base game").
-     * Can be any HTMLString except an HTMLString representing "". Cannot be
-     *     null.
+     * Can be any VueHTMLString except "". Cannot be null.
      * Case-sensitive.
      */
-    private HTMLString description;
+    private VueHTMLString description;
     /**
      * The version of the LCP (i.e. a Version representing 1.0.0 or 1.4.0).
      * Can be any Version. Cannot be null.
@@ -121,14 +120,8 @@ public class LCPInfo {
     ) {
         setName(name);
         setAuthor(author);
-        setDescription(new HTMLString(description));
-        if (this.name.equals("LANCER Core")) {
-            // the base Lancer LCP
-            setVersionFromString("1.0.0");
-            setReleaseDate(version);
-        } else {
-            setVersionFromString(version);
-        }
+        setDescription(description);
+        calculateVersion(version);
         setActive(active);
         setItemPrefix(itemPrefix);
         setImageURLRaw(imageURL);
@@ -187,7 +180,7 @@ public class LCPInfo {
     public String getAuthor() {
         return author;
     }
-    public HTMLString getDescription() {
+    public VueHTMLString getDescription() {
         return description;
     }
     public Version getVersion() {
@@ -246,9 +239,9 @@ public class LCPInfo {
         HelperMethods.checkString("author", author);
         this.author = author;
     }
-    private void setDescription(HTMLString description) {
-        HelperMethods.checkHTMLString("description", description);
-        description = new HTMLString(description);
+    private void setDescription(VueHTMLString description) {
+        HelperMethods.checkVueHTMLString("description",
+            description);
         this.description = description;
     }
     private void setVersion(Version version) {
@@ -314,11 +307,20 @@ public class LCPInfo {
         this.dependencies = dependencies;
     }
 
-    private void setVersionFromString(String version) {
-        Version versionObject;
-
-        versionObject = new Version(version);
-        setVersion(versionObject);
+    private void setDescription(String description) {
+        setDescription(new VueHTMLString(description));
+    }
+    private void calculateVersion(String version) {
+        if (this.name.equals("LANCER Core")) {
+            // the base Lancer LCP
+            setVersion("1.0.0");
+            setReleaseDate(version);
+        } else {
+            setVersion(version);
+        }
+    }
+    private void setVersion(String version) {
+        setVersion(new Version(version));
     }
     private void calculateImageURL() {
         URL url;
