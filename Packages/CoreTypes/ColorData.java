@@ -101,37 +101,35 @@ public class ColorData {
         ColorData.colors = newColors;
     }
     private void parseString(String colorString) {
-        int containsHashtag = 0;
-        int containsRGB = 0;
-        int containsRGBA = 0;
+        boolean containsHashtag;
+        boolean containsRGB;
+        boolean containsRGBA;
+        int total;
         String dataSnippet = null;
         String newColorString = null;
         int colorProperty = -1;
 
         HelperMethods.checkObject("colorString", colorString);
-        containsHashtag = colorString.indexOf("#") != -1 ? 1 : 0;
-        containsRGB = colorString.indexOf("rgb(") != -1 ? 1 : 0;
-        containsRGBA = colorString.indexOf("rgba") != -1 ? 1 : 0;
+        containsHashtag = colorString.indexOf("#") != -1;
+        containsRGB = colorString.indexOf("rgb(") != -1;
+        containsRGBA = colorString.indexOf("rgba") != -1;
         if (containsHashtag == containsRGB && containsRGB == containsRGBA) {
             // neither of these cases is allowed
             throw new IllegalArgumentException("Cannot parse a color from: \""
                 + colorString + "\"");
         }
-        if (containsHashtag + containsRGB + containsRGBA > 1) {
+        total = (containsHashtag ? 1 : 0) + (containsRGB ? 1 : 0)
+            + (containsRGBA ? 1 : 0);
+        if (total > 1) {
             throw new IllegalArgumentException("Cannot parse a color from: \""
                 + colorString + "\"");
         }
         // at this point only one of containsHashtag, containsRGB, containsRGBA
         //     can be 1
-        if (containsHashtag == 1) {
+        if (containsHashtag) {
             // parse hex strings
             if (colorString.length() == 1) {
                 // colorString is "#"
-                throw new IllegalArgumentException("Cannot parse a color from:"
-                    + " \"" + colorString + "\"");
-            }
-            if (colorString.length() == 7) {
-                // colorString is some weird abomination
                 throw new IllegalArgumentException("Cannot parse a color from:"
                     + " \"" + colorString + "\"");
             }
@@ -176,15 +174,15 @@ public class ColorData {
                 }
                 newColorString += colorString.substring(4);
                 colorString = newColorString;
+            } else if (colorString.length() == 7) {
+                // colorString is "#RRGGBB" (alpha value is 255)
+                colorString += "FF";
             } else if (colorString.length() == 8) {
                 // colorString is "#RRGGBBA" (translates to #RRGGBBA0)
                 colorString += "0";
             }
             if (colorString.length() == 9) {
                 // colorString is "#RRGGBBAA"
-                for (int i = 0; i < 8; i += 2) {
-                    colorProperty = Integer.parseInt(dataSnippet, 16);
-                }
                 // get red
                 dataSnippet = colorString.substring(1, 3);
                 colorProperty = Integer.parseInt(dataSnippet, 16);
@@ -202,7 +200,7 @@ public class ColorData {
                 colorProperty = Integer.parseInt(dataSnippet, 16);
                 setAlpha(colorProperty * UserPreferences.getColorResolution());
             }
-        } else if (containsRGB == 1) {
+        } else if (containsRGB) {
             // parse "rgb(...)"
             // TODO: implement
         } else {
