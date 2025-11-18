@@ -38,6 +38,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.p
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment.PilotGear;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment.PilotWeapon;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skill.SkillData;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skill.skillData.SkillFamily;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.talent.TalentData;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.Condition;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.Status;
@@ -1134,8 +1135,26 @@ public class DataCaster {
         DataCaster.skillsProcessed = skills;
     }
     private static SkillData toSkill(JSONObject skillData) {
-        // TODO: fill out
-        return null;
+        String id;
+        String name;
+        String description;
+        String detail;
+        String family;
+
+        try {
+            id = skillData.getString("id");
+            name = skillData.getString("name");
+            description = skillData.getString("description");
+            detail = skillData.getString("detail");
+            family = skillData.getString("family");
+        } catch (JSONException exception) {
+            throw new IllegalStateException("skillData threw a JSONException"
+                + " during the required properties section of the object"
+                + " parsing, which is not allowed");
+        }
+
+        return new SkillData(id, name, description, detail,
+            SkillFamily.fromString(family));
     }
     private static void processStates(JSONObject[] statesData) {
         statesData = performCorrections("states", statesData);
