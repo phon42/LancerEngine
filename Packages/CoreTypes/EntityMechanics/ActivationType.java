@@ -1,6 +1,5 @@
 package Packages.CoreTypes.EntityMechanics;
 
-import java.util.NoSuchElementException;
 import MainBranch.Database;
 import MainBranch.HelperMethods;
 
@@ -101,12 +100,12 @@ public class ActivationType {
             try {
                 activationType = Database.getActivationTypeByIndex(index);
                 // if it didn't throw an exception (the index is valid):
-                if (this.type.equals(activationType.getValue())) {
+                if (this.value.equals(activationType.getValue())) {
                     // nothing needs to be done
                     hasBeenFound = true;
                     break;
                 }
-            } catch (NoSuchElementException exception) {
+            } catch (IllegalArgumentException exception) {
                 // needed so we can exit the loop once we reach the end of
                 //     Database.activationTypes
                 isNull = true;
