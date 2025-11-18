@@ -826,8 +826,21 @@ public class DataCaster {
         DataCaster.environmentsProcessed = environments;
     }
     private static Environment toEnvironment(JSONObject environmentData) {
-        // TODO: fill out
-        return null;
+        String id;
+        String name;
+        String description;
+
+        try {
+            id = environmentData.getString("id");
+            name = environmentData.getString("name");
+            description = environmentData.getString("description");
+        } catch (JSONException exception) {
+            throw new IllegalStateException("environmentData threw a"
+                + " JSONException during the required properties section of the"
+                + " object parsing, which is not allowed");
+        }
+
+        return new Environment(id, name, description);
     }
     private static void processFrames(JSONObject[] framesData) {
         Frame[] frames = new Frame[framesData.length];
@@ -874,9 +887,9 @@ public class DataCaster {
             dark = manufacturerData.getString("dark");
             quote = manufacturerData.getString("quote");
         } catch (JSONException exception) {
-            throw new IllegalStateException("bondData threw a JSONException"
-                + " during the required properties section of the object"
-                + " parsing, which is not allowed");
+            throw new IllegalStateException("manufacturerData threw a"
+                + " JSONException during the required properties section of the"
+                + " object parsing, which is not allowed");
         }
         // Optional properties
         logoURL = getOptionalString(manufacturerData, "logo_url");
