@@ -15,7 +15,7 @@ import Packages.CoreTypes.VueHTMLString;
  * Requires a manufacturer id, name, logo, light color, dark color, slogan, and
  *     description to be instantiated.
  * 
- * Unused at present.
+ * Used in equipment classes (i.e. children of Equipment), as well as Frame.
  * 
  * Safety: This class does not have placeholder values and cannot be a
  *     placeholder. None of its properties have allowed values of null.
