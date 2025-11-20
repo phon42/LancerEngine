@@ -1860,6 +1860,38 @@ public final class HelperMethods {
 
         return copy;
     }
+    public static String[] arraySlice(String[] array, int startIndex,
+        int endIndex) {
+        int length;
+        String[] result;
+
+        HelperMethods.checkObject("array", array);
+        checkIndex(startIndex, array.length);
+        checkIndex(endIndex, array.length);
+        if (endIndex < startIndex) {
+            throw new IllegalArgumentException("startIndex: " + startIndex
+                + " is < endIndex: " + endIndex);
+        }
+        length = endIndex - startIndex;
+        result = new String[length];
+        for (int i = startIndex; i < endIndex; i++) {
+            result[i] = array[i];
+        }
+
+        return result;
+    }
+    public static String[] arraySlice(String[] array, int startIndex) {
+        HelperMethods.checkObject("array", array);
+
+        return arraySlice(array, startIndex, array.length - 1);
+    }
+    private static void checkIndex(int index, int arrayLength) throws
+        IllegalArgumentException {
+        if (index < 0 || index >= arrayLength) {
+            throw new IllegalArgumentException("Index: " + index + " is out of"
+                + " bounds for an array of length " + arrayLength);
+        }
+    }
     /**
      * Converts a String to proper case, in which the first letter of every word
      *     is capitalized.
