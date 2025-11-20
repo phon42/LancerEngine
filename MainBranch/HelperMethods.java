@@ -1,8 +1,8 @@
 package MainBranch;
 
 import java.math.BigDecimal;
-import java.net.MalformedURLException;
 import java.net.URL;
+import MainBranch.database.FileOperations;
 import MainBranch.database.LCPCorrection;
 import MainBranch.database.fileOperations.json.JSONArray;
 import MainBranch.database.fileOperations.json.JSONObject;
@@ -1850,12 +1850,7 @@ public final class HelperMethods {
                 continue;
             }
             url = original[i].toExternalForm();
-            try {
-                copy[i] = new URL(url);
-            } catch (MalformedURLException exception) {
-                throw new IllegalArgumentException("URL: \"" + url + "\" caused"
-                    + " a MalformedURLException to be thrown");
-            }
+            copy[i] = FileOperations.toURLCaught(url);
         }
 
         return copy;
