@@ -42,6 +42,22 @@ public class FileOperations {
 
         return url;
     }
+    public static URL toURLCaught(String urlString) throws
+        IllegalArgumentException {
+        URL url;
+
+        try {
+            url = FileOperations.toURL(urlString);
+        } catch (URISyntaxException exception) {
+            throw new IllegalArgumentException("URL: \"" + urlString + "\""
+                + " caused a URISyntaxException to be thrown");
+        } catch (MalformedURLException exception) {
+            throw new IllegalArgumentException("URL: \"" + urlString + "\""
+                + " caused a MalformedURLException to be thrown");
+        }
+
+        return url;
+    }
     public static String[] readResource(String resourceLocator,
         boolean external, boolean addToCache) {
         return ResourceReader.read(resourceLocator, external, addToCache);
