@@ -1,14 +1,11 @@
 package MainBranch.database.DatabaseReadingPipeline;
 
-import java.net.URL;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Arrays;
 import MainBranch.HelperMethods;
 import MainBranch.UserPreferences;
 import MainBranch.database.FileOperations;
 import MainBranch.database.DatabaseReadingPipeline.DatabaseResourceInfo.DatabaseResourceInfo;
-import MainBranch.database.fileOperations.FileNameOperator;
 import MainBranch.database.fileOperations.json.JSONException;
 import MainBranch.database.fileOperations.json.JSONObject;
 
@@ -156,9 +153,10 @@ public class DataReader {
         String name;
         String extension;
 
-        resourceString = getResourceString(resourcePath, external);
-        name = FileNameOperator.getName(resourceString);
-        extension = FileNameOperator.getExtension(resourceString);
+        resourceString = FileOperations.getResourceString(resourcePath,
+            external);
+        name = FileOperations.getName(resourceString);
+        extension = FileOperations.getExtension(resourceString);
         if (! (extension.equals("lcp")
             || extension.equals("zip")
             || extension.equals("json"))) {
@@ -186,26 +184,6 @@ public class DataReader {
         }
 
         return new String[] {name, extension};
-    }
-    private static String getResourceString(String resourcePath,
-        boolean external) {
-        URL url;
-        String filePath;
-        String[] pathArray;
-
-        HelperMethods.checkString("resourcePath", resourcePath);
-        if (external) {
-            // Created in part using
-            //     https://docs.oracle.com/javase/tutorial/networking/urls/readingURL.html
-            url = FileOperations.toURLCaught(resourcePath);
-            filePath = url.getFile();
-            pathArray = filePath.split("/");
-
-            return pathArray[pathArray.length - 1];
-        } else {
-            return Paths.get(resourcePath).toFile().getName();
-        }
-
     }
     /**
      * Reads the provided .lcp file by converting it to a .zip, then calling
