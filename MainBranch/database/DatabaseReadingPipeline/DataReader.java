@@ -70,7 +70,6 @@ public class DataReader {
         String[] resourceNames;
         String[] resourceInfo;
         DatabaseResourceInfo[] resources;
-        Object[] lcpInfoData;
         String cacheName = null;
 
         HelperMethods.checkStringArray("resourceLocators",
@@ -96,44 +95,25 @@ public class DataReader {
         }
         if (addToCache) {
             for (int i = 0; i < resources.length; i++) {
-                if ("info".equals(resources[i].getName())) {
-                    lcpInfoData = FileOperations.readAndParseResource(
-                        resources[i].getPath(), external, false);
-                    if (lcpInfoData.length != 1) {
-                        throw new IllegalStateException("JSON file yielded"
-                            + " either no data or the data of more than 1"
-                            + " file");
-                    }
-                    if (lcpInfoData[0] instanceof JSONObject) {
-                        try {
-                            cacheName = ((JSONObject) lcpInfoData[0])
-                                .getString("name");
-                            continue;
-                        } catch (JSONException exception) {}
-                    }
+                cacheName = readDBResourceInfoItem("info",
+                    resources[i], external);
+                if (cacheName != null) {
+                    break;
                 }
-                if ("lcp_manifest".equals(resources[i].getName())) {
-                    lcpInfoData = FileOperations.readAndParseResource(
-                        resources[i].getPath(), external, false);
-                    if (lcpInfoData.length != 1) {
-                        throw new IllegalStateException("JSON file yielded"
-                            + " either no data or the data of more than 1"
-                            + " file");
-                    }
-                    if (lcpInfoData[0] instanceof JSONObject) {
-                        try {
-                            cacheName = ((JSONObject) lcpInfoData[0])
-                                .getString("name");
-                            continue;
-                        } catch (JSONException exception) {}
-                    }
+                cacheName = readDBResourceInfoItem("lcp_manifest",
+                    resources[i], external);
+                if (cacheName != null) {
+                    break;
                 }
             }
             if (cacheName != null) {
+                // an lcp name could be found
                 cacheName = FileOperations.toValidDirectoryName(cacheName);
                 targetFolderPath = targetFolderPath.resolve(cacheName);
                 FileOperations.createDirectory(targetFolderPath);
             } else {
+                // could not find the name of the lcp, we can't add it to the
+                //     cache :(
                 addToCache = false;
             }
         }
@@ -141,6 +121,27 @@ public class DataReader {
             readJSON(resources[i].getPath(), external, addToCache,
                 targetFolderPath, provideOutput);
         }
+    }
+    private static String readDBResourceInfoItem(String resourceName,
+        DatabaseResourceInfo item, boolean external) {
+        Object[] lcpInfoData;
+
+        if (resourceName.equals(item.getName())) {
+            lcpInfoData = FileOperations.readAndParseResource(
+                item.getPath(), external, false);
+            if (lcpInfoData.length != 1) {
+                throw new IllegalStateException("JSON file yielded"
+                    + " either no data or the data of more than 1"
+                    + " file");
+            }
+            if (lcpInfoData[0] instanceof JSONObject) {
+                try {
+                    return ((JSONObject) lcpInfoData[0]).getString("name");
+                } catch (JSONException exception) {}
+            }
+        }
+
+        return null;
     }
     public static void readArray(String[] resourceLocators, boolean external,
         boolean addToCache, boolean provideOutput) {
