@@ -10,6 +10,7 @@ import MainBranch.HelperMethods;
 import MainBranch.UserPreferences;
 import MainBranch.database.FileOperations;
 import MainBranch.database.DatabaseReadingPipeline.DatabaseResourceInfo.DatabaseResourceInfo;
+import MainBranch.database.fileOperations.FileNameOperator;
 import MainBranch.database.fileOperations.json.JSONException;
 import MainBranch.database.fileOperations.json.JSONObject;
 
@@ -158,8 +159,8 @@ public class DataReader {
         String extension;
 
         resourceString = getResourceString(resourcePath, external);
-        name = getName(resourceString);
-        extension = getExtension(resourceString);
+        name = FileNameOperator.getName(resourceString);
+        extension = FileNameOperator.getExtension(resourceString);
         if (! (extension.equals("lcp")
             || extension.equals("zip")
             || extension.equals("json"))) {
@@ -215,35 +216,6 @@ public class DataReader {
             return Paths.get(resourcePath).toFile().getName();
         }
 
-    }
-    private static String getName(String resourceString) {
-        String[] splitString;
-
-        HelperMethods.checkString("resourceString",
-            resourceString);
-        splitString = resourceString.split("\\.");
-        if (splitString.length < 2) {
-            throw new IllegalArgumentException("resourceString: \""
-                + resourceString + "\" did not yield both a name and an"
-                + " extension");
-        }
-
-        return splitString[0];
-    }
-    private static String getExtension(String resourceString) {
-        String[] splitString;
-
-        HelperMethods.checkString("resourceString",
-            resourceString);
-        splitString = resourceString.split("\\.");
-        if (splitString.length < 2) {
-            throw new IllegalArgumentException("resourceString: \""
-                + resourceString + "\" did not yield both a name and an"
-                + " extension");
-        }
-
-        // TODO: change to work with a .tar.gz resource
-        return splitString[splitString.length - 1];
     }
     /**
      * Reads the provided .lcp file by converting it to a .zip, then calling
