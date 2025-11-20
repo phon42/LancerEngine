@@ -1,6 +1,7 @@
 package MainBranch.database.DatabaseReadingPipeline;
 
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -144,7 +145,6 @@ public class DataReader {
             readJSON(resources[i].getPath(), external, addToCache,
                 targetFolderPath, provideOutput);
         }
-        DataParser.sendData();
     }
     public static void readArray(String[] resourceLocators, boolean external,
         boolean addToCache, boolean provideOutput) {
@@ -199,7 +199,10 @@ public class DataReader {
             // Created in part using
             //     https://docs.oracle.com/javase/tutorial/networking/urls/readingURL.html
             try {
-                url = new URL(resourcePath);
+                url = FileOperations.toURL(resourcePath);
+            } catch (URISyntaxException exception) {
+                throw new IllegalArgumentException("URL: \"" + resourcePath
+                    + "\" caused a URISyntaxException to be thrown");
             } catch (MalformedURLException exception) {
                 throw new IllegalArgumentException("URL: \"" + resourcePath
                     + "\" caused a MalformedURLException to be thrown");
