@@ -6,8 +6,11 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Iterator;
+
+import MainBranch.HelperMethods;
 import MainBranch.UserPreferences;
 import MainBranch.database.fileOperations.DirectoryCreator;
 import MainBranch.database.fileOperations.DirectoryDeleter;
@@ -173,5 +176,25 @@ public class FileOperations {
     }
     public static String getExtension(String resourceString) {
         return FileNameOperator.getExtension(resourceString);
+    }
+    public static String getResourceString(String resourcePath,
+        boolean external) {
+        URL url;
+        String filePath;
+        String[] pathArray;
+
+        HelperMethods.checkString("resourcePath", resourcePath);
+        if (external) {
+            // Created in part using
+            //     https://docs.oracle.com/javase/tutorial/networking/urls/readingURL.html
+            url = FileOperations.toURLCaught(resourcePath);
+            filePath = url.getFile();
+            pathArray = filePath.split("/");
+
+            return pathArray[pathArray.length - 1];
+        } else {
+            return Paths.get(resourcePath).toFile().getName();
+        }
+
     }
 }
