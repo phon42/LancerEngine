@@ -1,5 +1,9 @@
 package MainBranch.database;
 
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -27,6 +31,16 @@ public class FileOperations {
         path = path.normalize().toAbsolutePath();
 
         return path;
+    }
+    public static URL toURL(String urlString) throws URISyntaxException,
+        MalformedURLException {
+        URI uri;
+        URL url;
+
+        uri = new URI(urlString);
+        url = uri.toURL();
+
+        return url;
     }
     public static String[] readResource(String resourceLocator,
         boolean external, boolean addToCache) {
