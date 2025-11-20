@@ -14,7 +14,8 @@ public class FileNameOperator {
 
         splitString = splitString(resourceString);
         nameBoundary = getExtensionBoundary(resourceString, splitString);
-        splitString = HelperMethods.arraySlice(splitString, 0, nameBoundary);
+        splitString = HelperMethods.arraySlice(splitString, 0,
+            nameBoundary);
 
         return String.join(".", splitString);
     }
