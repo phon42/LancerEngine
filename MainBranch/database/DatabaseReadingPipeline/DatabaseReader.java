@@ -32,25 +32,27 @@ public class DatabaseReader {
      * Reads a local file from the provided local file path and saves all its
      *     contents before sending the saved data onwards to DataCaster. Can
      *     read .lcp, .zip, or individual .json files.
-     * @param filePath a String which must contain a valid file path.
+     * @param filePath a Path which can be any file path. Is assumed not to be
+     *     null.
      */
-    public static void readLocal(String filePath, boolean addToCache,
+    public static void readLocal(Path filePath, boolean addToCache,
         boolean provideOutput) {
         if (provideOutput) {
             System.out.println("Reading local file at file path: \"" + filePath
                 + "\"");
         }
-        DataReader.read(filePath, false, addToCache,
+        DataReader.read(filePath.toString(), false, addToCache,
             provideOutput);
     }
     // TODO: add documentation
-    public static void readExternal(String url, boolean addToCache,
+    public static void readExternal(URL url, boolean addToCache,
         boolean provideOutput) {
         if (provideOutput) {
             System.out.println("Reading external resource at URL: \"" + url
                 + "\"");
         }
-        DataReader.read(url, true, addToCache, provideOutput);
+        DataReader.read(url.toString(), true, addToCache,
+            provideOutput);
     }
     public static void readExternalLCP(ExternalLCP externalLCP,
         boolean addToCache, boolean provideOutput) {
@@ -105,5 +107,6 @@ public class DatabaseReader {
         }
         DataReader.readArray(fileURLs, true, addToCache,
             provideOutput);
+        DataParser.sendData();
     }
 }
