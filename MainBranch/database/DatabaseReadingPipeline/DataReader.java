@@ -267,8 +267,6 @@ public class DataReader {
         //     variable stores the file path to that directory.
         Path unzippedDirectoryPath;
 
-        // TODO: add a small optimization to peek at the file's info file and
-        //     see if that LCP has been cached
         // unpack the zip
         if (provideOutput) {
             if (external) {
@@ -282,24 +280,19 @@ public class DataReader {
         unzippedDirectoryPath = FileOperations.unzip(zipLocator, external,
             addToCache);
         if (provideOutput) {
-            if (external) {
-                System.out.println("External resource unzipped to local"
-                    + " directory path: \"" + unzippedDirectoryPath + "\"");
-            } else {
-                System.out.println("Local resource unzipped to local directory"
-                    + " path: \"" + unzippedDirectoryPath + "\"");
-            }
+            System.out.println((external ? "External" : "Local") + " resource"
+                + " unzipped to local directory path: \""
+                + unzippedDirectoryPath + "\"");
         }
         // then call readAllInDirectory on it
-        readAllInDirectory(unzippedDirectoryPath, addToCache, provideOutput);
-        if (! addToCache) {
-            if (provideOutput) {
-                System.out.println("Deleting local directory at local path: \""
-                    + unzippedDirectoryPath + "\"");
-            }
-            // then delete the directory we've created to do this
-            FileOperations.deleteDirectory(unzippedDirectoryPath);
+        readAllInDirectory(unzippedDirectoryPath, false,
+            provideOutput);
+        if (provideOutput) {
+            System.out.println("Deleting local directory at local path: \""
+                + unzippedDirectoryPath + "\"");
         }
+        // then delete the directory we've created to do this
+        FileOperations.deleteDirectory(unzippedDirectoryPath);
     }
     /**
      * Reads a directory's contents by calling DatabaseReader.readJSON() on
