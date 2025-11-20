@@ -1,4 +1,4 @@
-package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frame;
+package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.unverifiedFrame.frame;
 
 /**
  * Contains a set of values that can be used to reference or obtain a specific

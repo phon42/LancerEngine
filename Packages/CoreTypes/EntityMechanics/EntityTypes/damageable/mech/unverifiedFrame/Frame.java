@@ -1,10 +1,11 @@
-package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech;
+package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.unverifiedFrame;
 
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frame.CoreSystem;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frame.FrameEnum;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frame.FrameStatblock;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Mount;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.unverifiedFrame.frame.CoreSystem;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.unverifiedFrame.frame.FrameEnum;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.unverifiedFrame.frame.FrameStatblock;
 import Packages.CoreTypes.EntityMechanics.LicenseSystem.frameLicense.LicenseContent;
 
 /**
