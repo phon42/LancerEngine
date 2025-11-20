@@ -13,6 +13,7 @@ import MainBranch.database.fileOperations.DirectoryCreator;
 import MainBranch.database.fileOperations.DirectoryDeleter;
 import MainBranch.database.fileOperations.DirectoryExplorer;
 import MainBranch.database.fileOperations.FileCreator;
+import MainBranch.database.fileOperations.FileNameOperator;
 import MainBranch.database.fileOperations.FileSystemNamer;
 import MainBranch.database.fileOperations.FileWriter;
 import MainBranch.database.fileOperations.ResourceParser;
@@ -163,5 +164,14 @@ public class FileOperations {
     }
     public static String toValidDirectoryName(String name) {
         return FileSystemNamer.toValidDirectoryName(name);
+    }
+    public static String[] splitResourceString(String resourceString) {
+        return FileNameOperator.splitResourceString(resourceString);
+    }
+    public static String getName(String resourceString) {
+        return FileNameOperator.getName(resourceString);
+    }
+    public static String getExtension(String resourceString) {
+        return FileNameOperator.getExtension(resourceString);
     }
 }
