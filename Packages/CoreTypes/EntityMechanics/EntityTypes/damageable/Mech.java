@@ -389,7 +389,7 @@ public final class Mech implements Damageable {
         return name;
     }
     public Frame getFrame() {
-        return new Frame(frame);
+        return frame;
     }
     public Manufacturer getManufacturer() {
         return manufacturer;
@@ -495,7 +495,6 @@ public final class Mech implements Damageable {
      */
     public void setFrame(Frame frame) {
         HelperMethods.checkObject("New frame", frame);
-        frame = new Frame(frame);
         this.frame = frame;
         calculateAttributes();
     }
