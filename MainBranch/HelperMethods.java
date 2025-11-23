@@ -53,6 +53,7 @@ import Packages.CoreTypes.EntityMechanics.HarmSystem.damage.Harm;
 import Packages.CoreTypes.EntityMechanics.LicenseSystem.FrameLicense;
 import Packages.CoreTypes.EntityMechanics.StateSystem.State;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.Condition;
+import Packages.CoreTypes.EntityMechanics.StateSystem.state.StateData;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.Status;
 import Packages.CoreTypes.lcpInfo.LCPDependency;
 import Packages.EventSystem.event.EventListener;
@@ -1749,6 +1750,12 @@ public final class HelperMethods {
 
         return copy;
     }
+    /**
+     * Returns a deepest copy of original.
+     * @param original a State[] that cannot be null.
+     * @return a State[] deepest copy of original.
+     * @throws IllegalArgumentException if original is null.
+     */
     public static State[] copyOf(State[] original) {
         checkObject("original", original);
         State[] copy = new State[original.length];
@@ -1758,6 +1765,25 @@ public final class HelperMethods {
                 continue;
             }
             copy[i] = new State(original[i]);
+        }
+
+        return copy;
+    }
+    /**
+     * Returns a deepest copy of original.
+     * @param original a StateData[] that cannot be null.
+     * @return a StateData[] deepest copy of original.
+     * @throws IllegalArgumentException if original is null.
+     */
+    public static StateData[] copyOf(StateData[] original) {
+        checkObject("original", original);
+        StateData[] copy = new StateData[original.length];
+        for (int i = 0; i < original.length; i++) {
+            if (original[i] == null) {
+                copy[i] = original[i];
+                continue;
+            }
+            copy[i] = original[i];
         }
 
         return copy;
