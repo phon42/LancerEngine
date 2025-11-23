@@ -22,13 +22,6 @@ import Packages.CoreTypes.EntityMechanics.StateSystem.State;
  * Safety: At least one of this class' properties has an allowed value of null.
  */
 public class Condition extends State {
-    /**
-     * Contains an array of valid values for a Condition.
-     */
-    public static final String[] allowedConditions = new String[] {
-        "immobilized", "impaired", "jammed", "lock on", "shredded", "slowed",
-        "stunned"};
-
     public Condition(StateData data, Duration duration, String source,
         State causedBy) {
         super(data, duration, source, causedBy);
