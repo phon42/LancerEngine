@@ -28,10 +28,18 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.unverified
  * 
  * Used in Mech to create Mech objects. Also used in Database.
  * 
- * Safety: This class does not have placeholder values and cannot be a
- *     placeholder. At least one of its properties has an allowed value of null.
+ * Safety: At least one of this class' properties has an allowed value of null.
+ * 
+ * This class is immutable (in other words, no copies of it need to be created).
  */
 public final class Frame extends UnverifiedFrame {
+    // TODO: figure out a way to override the documentation from LicenseContent
+    /**
+     * The manufacturer of this frame (i.e. a Manufacturer that represents GMS).
+     * Can be any Manufacturer. Cannot be null.
+     */
+    // protected Manufacturer manufacturer;
+
     /**
      * Creates a new Frame using every possible property.
      */
@@ -63,15 +71,5 @@ public final class Frame extends UnverifiedFrame {
         CoreSystem coreSystem) {
         super(id, name, licenseID, license, description, role, statblock,
             traits, mounts, coreSystem);
-    }
-    /**
-     * Creates a deepest copy of the provided Frame.
-     * @param frame a Frame to be copied.
-     * @return a Frame deepest copy of the provided Frame.
-     */
-    public Frame(Frame frame) {
-        // make sure to use the proper accessor method instead of "property" if
-        //     the property's type is mutable
-        super(frame);
     }
 }
