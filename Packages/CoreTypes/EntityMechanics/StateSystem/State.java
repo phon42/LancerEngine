@@ -11,15 +11,15 @@ import Packages.CoreTypes.EntityMechanics.StateSystem.state.Status;
  */
 /**
  * Represents a single status or condition on a mech or pilot. Contains
- *     information about the status or condition's name, origin, duration, and
- *     effects.
+ *     information about the state's properties, effect duration, its source,
+ *     and the State which may have caused it.
  * 
- * Requires a name, source, and duration to be instantiated.
+ * Requires a StateData object, a duration, and either a source or a State by
+ *     which it was caused to be instantiated.
  * 
  * Used in and extended by Condition and Status.
  * 
- * Safety: This class does not have placeholder values and cannot be a
- *     placeholder. At least one of its properties has an allowed value of null.
+ * Safety: At least one of this class' properties has an allowed value of null.
  */
 public class State {
     // Required properties
@@ -33,37 +33,68 @@ public class State {
      */
     protected Duration duration;
 
-    // Conditionally required properties
+    // Conditionally required property
+    /**
+     * The source of this state (i.e. "Taro's mech").
+     * Required when this.causedBy is null.
+     * When required:
+     *     Can be any String except "". Cannot be null.
+     * When not required:
+     *     Must be null.
+     * Can be any String except "". Can be null.
+     */
+    protected String source;
+
+    // Optional property
     /**
      * The State (if there is one) that caused this State to exist.
      * Can be any State. Can be null.
      */
     protected State causedBy;
-    /**
-     * The source of this state (i.e. "Taro's mech").
-     * Can be any String except "". Can be null if this.causedBy is null.
-     */
-    protected String source;
 
-    public State(String name, String source, Duration duration) {
+    public State(StateData data, Duration duration, String source,
+        State causedBy) {
+        // Required properties
+        setData(data);
         setDuration(duration);
-        setCausedBy(null);
+
+        // Conditionally required property
         setSource(source);
+
+        // Optional property
+        setCausedBy(causedBy);
     }
     public State(State state) {
+        // Required properties
+        setData(state.data);
         setDuration(state.duration);
-        setCausedBy(state.causedBy);
+
+        // Conditionally required property
         setSource(state.source);
+
+        // Optional property
+        setCausedBy(state.causedBy);
     }
 
+    // Required properties
+    public StateData getData() {
+        return data;
+    }
     public Duration getDuration() {
         return duration;
     }
+    // Conditionally required property
+    public String getSource() {
+        return source;
+    }
+    // Optional property
     public State getCausedBy() {
         return causedBy;
     }
-    public String getSource() {
-        return source;
+    // Required properties
+    protected void setData(StateData data) {
+        HelperMethods.checkObject("data", data);
+        this.data = data;
     }
     /**
      * Sets this.duration to the provided value.
@@ -75,15 +106,17 @@ public class State {
         HelperMethods.checkObject("New duration", duration);
         this.duration = duration;
     }
+    // Conditionally required property
+    protected void setSource(String source) {
+        HelperMethods.checkString("source", source);
+        this.source = source;
+    }
+    // Optional property
     protected void setCausedBy(State causedBy) {
         if (causedBy != null) {
             causedBy = new State(causedBy);
         }
         this.causedBy = causedBy;
-    }
-    protected void setSource(String source) {
-        HelperMethods.checkString("source", source);
-        this.source = source;
     }
 
     /**
