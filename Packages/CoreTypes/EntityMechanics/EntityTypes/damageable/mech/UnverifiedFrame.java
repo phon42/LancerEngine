@@ -11,7 +11,7 @@ import Packages.CoreTypes.EntityMechanics.LicenseSystem.frameLicense.LicenseCont
 public class UnverifiedFrame extends LicenseContent {
     // TODO: figure out a way to override the documentation from LicenseContent
     /**
-     * The frame's ID (i.e. "swallowtail_ranger").
+     * The frame's ID (i.e. "mf_swallowtail_ranger").
      * Used for identifying it in Database.getFrame(String).
      * Can be any String except "". Cannot be null.
      * Case-insensitive and stored in lowercase.
@@ -25,12 +25,6 @@ public class UnverifiedFrame extends LicenseContent {
      *     it properly formatted.
      */
     // private String name;
-    // TODO: figure out a way to override the documentation from LicenseContent
-    /**
-     * The manufacturer of this frame (i.e. a Manufacturer that represents GMS).
-     * Can be any Manufacturer. Cannot be null.
-     */
-    // protected Manufacturer manufacturer;
     // TODO: figure out a way to override the documentation from LicenseContent
     /**
      * The origin license for this frame (i.e. a License representing 'Everest,
@@ -53,7 +47,7 @@ public class UnverifiedFrame extends LicenseContent {
      * Can be any String except "". Cannot be null.
      * Case-insensitive and stored in lowercase.
      */
-    protected String licenseID;
+    // protected String licenseID;
     // TODO: figure out a way to override the documentation from LicenseContent
     /**
      * The name of the license that this license content originates from (i.e.
@@ -150,9 +144,11 @@ public class UnverifiedFrame extends LicenseContent {
         String licenseID, String license, int licenseLevel, String description,
         String[] role, FrameStatblock statblock, String[] traits,
         Mount[] mounts, CoreSystem coreSystem, FrameEnum frameEnum) {
+        // TODO: replace the manufacturer variable with a constant Manufacturer
+        //     which will be verified later
         super(id, name, manufacturer, licenseID, license, licenseLevel,
             description);
-        setFrameEnum(frameEnum);
+        HelperMethods.verifyConstructor();
         setRole(role);
         setStats(statblock);
         setTraits(traits);
@@ -168,14 +164,9 @@ public class UnverifiedFrame extends LicenseContent {
         String licenseID, String license, int licenseLevel, String description,
         String[] role, FrameStatblock statblock, String[] traits,
         Mount[] mounts, CoreSystem coreSystem) {
-        super(id, name, manufacturer, licenseID, license, licenseLevel,
-            description);
-        setFrameEnum(frameEnum);
-        setRole(role);
-        setStats(statblock);
-        setTraits(traits);
-        setMounts(mounts);
-        setCoreSystem(coreSystem);
+        this(id, name, manufacturer, licenseID, license, licenseLevel,
+            description, role, statblock, traits, mounts, coreSystem,
+            null);
     }
     /**
      * Creates a new GMS UnverifiedFrame using every possible property except
@@ -185,8 +176,9 @@ public class UnverifiedFrame extends LicenseContent {
         String license, String description, String[] role,
         FrameStatblock statblock, String[] traits, Mount[] mounts,
         CoreSystem coreSystem) {
+        // TODO: replace the manufacturer variable with a constant Manufacturer
+        //     which will be verified later
         super(id, name, licenseID, license, description);
-        setFrameEnum(frameEnum);
         setRole(role);
         setStats(statblock);
         setTraits(traits);
@@ -199,10 +191,9 @@ public class UnverifiedFrame extends LicenseContent {
      * @return an UnverifiedFrame deepest copy of the provided UnverifiedFrame.
      */
     public UnverifiedFrame(UnverifiedFrame unverifiedFrame) {
-        // make sure to use the proper accessor method instead of "property" if
+        // make sure to use the proper accessor method instead of .<property> if
         //     the property's type is mutable
         super(unverifiedFrame);
-        setFrameEnum(unverifiedFrame.frameEnum);
         setRole(unverifiedFrame.role);
         setStats(unverifiedFrame.statblock);
         setTraits(unverifiedFrame.traits);
@@ -234,11 +225,9 @@ public class UnverifiedFrame extends LicenseContent {
     }
     /**
      * Sets this.frameEnum to the provided value.
-     * @param frameEnum a FrameEnum which cannot be null.
-     * @throws IllegalArgumentException if frameEnum is null.
+     * @param frameEnum a FrameEnum which can be any FrameEnum.
      */
     private void setFrameEnum(FrameEnum frameEnum) {
-        HelperMethods.checkObject("New frame enum", frameEnum);
         this.frameEnum = frameEnum;
     }
     /**
@@ -342,5 +331,9 @@ public class UnverifiedFrame extends LicenseContent {
      */
     public String outputName() {
         return HelperMethods.toProperCase(name);
+    }
+    public Frame toFrame() {
+        // TODO: fill out
+        return null;
     }
 }
