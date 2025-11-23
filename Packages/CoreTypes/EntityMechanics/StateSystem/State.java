@@ -22,10 +22,18 @@ import Packages.CoreTypes.EntityMechanics.StateSystem.state.Status;
  *     placeholder. At least one of its properties has an allowed value of null.
  */
 public class State {
+    // Required properties
     /**
      * TODO: Add documentation
      */
     protected StateData data;
+    /**
+     * The duration of this State (i.e. a Duration representing 1 round).
+     * Can be any Duration. Cannot be null.
+     */
+    protected Duration duration;
+
+    // Conditionally required properties
     /**
      * The State (if there is one) that caused this State to exist.
      * Can be any State. Can be null.
@@ -36,41 +44,26 @@ public class State {
      * Can be any String except "". Can be null if this.causedBy is null.
      */
     protected String source;
-    /**
-     * The duration of this State (i.e. a Duration representing 1 round).
-     * Can be any Duration. Cannot be null.
-     */
-    protected Duration duration;
 
     public State(String name, String source, Duration duration) {
+        setDuration(duration);
         setCausedBy(null);
         setSource(source);
-        setDuration(duration);
     }
     public State(State state) {
+        setDuration(state.duration);
         setCausedBy(state.causedBy);
         setSource(state.source);
-        setDuration(state.duration);
     }
 
+    public Duration getDuration() {
+        return duration;
+    }
     public State getCausedBy() {
         return causedBy;
     }
     public String getSource() {
         return source;
-    }
-    public Duration getDuration() {
-        return duration;
-    }
-    protected void setCausedBy(State causedBy) {
-        if (causedBy != null) {
-            causedBy = new State(causedBy);
-        }
-        this.causedBy = causedBy;
-    }
-    protected void setSource(String source) {
-        HelperMethods.checkString("source", source);
-        this.source = source;
     }
     /**
      * Sets this.duration to the provided value.
@@ -81,6 +74,16 @@ public class State {
     protected void setDuration(Duration duration) {
         HelperMethods.checkObject("New duration", duration);
         this.duration = duration;
+    }
+    protected void setCausedBy(State causedBy) {
+        if (causedBy != null) {
+            causedBy = new State(causedBy);
+        }
+        this.causedBy = causedBy;
+    }
+    protected void setSource(String source) {
+        HelperMethods.checkString("source", source);
+        this.source = source;
     }
 
     /**
