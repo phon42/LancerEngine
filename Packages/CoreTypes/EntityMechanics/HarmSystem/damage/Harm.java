@@ -166,6 +166,16 @@ public class Harm extends Damage {
      *     invalid for a Damage object.
      */
     public Damage toDamage() {
-        return new Damage(this.type, this.diceValue, this.flatValue);
+        if (this.type.equals("heat")) {
+            throw new IllegalStateException("Cannot convert Burn harm to a"
+                + " Damage object");
+        }
+        try {
+            return new Damage(this.type, this.diceValue, this.flatValue);
+        } catch (IllegalArgumentException exception) {
+            throw new IllegalStateException("Cannot convert this Harm object to"
+                + " a Damage object for the following reason: "
+                + exception.getMessage());
+        }
     }
 }
