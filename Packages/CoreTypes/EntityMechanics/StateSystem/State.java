@@ -2,6 +2,7 @@ package Packages.CoreTypes.EntityMechanics.StateSystem;
 
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.Condition;
+import Packages.CoreTypes.EntityMechanics.StateSystem.state.Duration;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.StateData;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.Status;
 
@@ -36,13 +37,12 @@ public class State {
      */
     protected String source;
     /**
-     * The duration of this State (i.e. "1 round").
-     * Must be a valid String as defined by State.allowedDurations.
-     * Case-insensitive and stored in lowercase. Cannot be null.
+     * The duration of this State (i.e. a Duration representing 1 round).
+     * Can be any Duration. Cannot be null.
      */
-    protected String duration;
+    protected Duration duration;
 
-    public State(String name, String source, String duration) {
+    public State(String name, String source, Duration duration) {
         setCausedBy(null);
         setSource(source);
         setDuration(duration);
@@ -59,7 +59,7 @@ public class State {
     public String getSource() {
         return source;
     }
-    public String getDuration() {
+    public Duration getDuration() {
         return duration;
     }
     protected void setCausedBy(State causedBy) {
@@ -74,22 +74,13 @@ public class State {
     }
     /**
      * Sets this.duration to the provided value.
-     * @param duration a String which cannot be null and cannot be an invalid
-     *     duration, as defined by State.allowedDurations.
+     * @param duration a Duration which can be any Duration. Cannot be null.
      * @throws IllegalArgumentException if status is duration or an invalid
      *     value as defined by State.allowedDurations.
      */
-    protected void setDuration(String duration) {
-        HelperMethods.checkString("New duration", duration);
-        duration = duration.toLowerCase();
-        for (String allowedDuration : State.allowedDurations) {
-            if (duration.equals(allowedDuration)) {
-                this.duration = duration;
-                return;
-            }
-        }
-        throw new IllegalArgumentException("New duration value is an invalid"
-            + " value: \"" + duration + "\"");
+    protected void setDuration(Duration duration) {
+        HelperMethods.checkObject("New duration", duration);
+        this.duration = duration;
     }
 
     /**
