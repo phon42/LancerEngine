@@ -39,19 +39,6 @@ public class LicenseContent {
      */
     protected Manufacturer manufacturer;
     /**
-     * The origin license for this license content (i.e. a License representing
-     *     'Everest, rank 0' or 'Blackbeard, rank I'). Uses a License to
-     *     represent an ACTUAL license instead of the frame name and rank to
-     *     which a pilot holds a license.
-     * LicenseContent.originLicense.id property is always determined by
-     *     this.licenseID.
-     * LicenseContent.originLicense.level property is always determined by
-     *     this.licenseLevel.
-     * For GMS license content, is set to "<the frame ID>" 0.
-     * Can be any License. Cannot be null.
-     */
-    protected License originLicense;
-    /**
      * The ID of the license that this license content originates from (i.e.
      *     "mf_standard_pattern_i_everest" or "mf_blackbeard").
      * For GMS license content, is set to "mf_standard_pattern_i_everest".
@@ -59,14 +46,6 @@ public class LicenseContent {
      * Case-insensitive and stored in lowercase.
      */
     protected String licenseID;
-    /**
-     * The name of the license that this license content originates from (i.e.
-     *     "Blackbeard").
-     * For GMS content, is set to "GMS".
-     * Can be any String except "". Cannot be null.
-     * Case-sensitive.
-     */
-    protected String license;
     /**
      * The license level for this license content (i.e. 1).
      * For GMS license content, is set to 0. For non-GMS license content, must
@@ -83,6 +62,29 @@ public class LicenseContent {
      * Case-sensitive.
      */
     protected String description;
+
+    // Helper properties
+    /**
+     * The name of the license that this license content originates from (i.e.
+     *     "Blackbeard").
+     * For GMS content, is set to "GMS".
+     * Can be any String except "". Cannot be null.
+     * Case-sensitive.
+     */
+    protected String license;
+    /**
+     * The origin license for this license content (i.e. a License representing
+     *     'Everest, rank 0' or 'Blackbeard, rank I'). Uses a License to
+     *     represent an ACTUAL license instead of the frame name and rank to
+     *     which a pilot holds a license.
+     * LicenseContent.originLicense.id property is always determined by
+     *     this.licenseID.
+     * LicenseContent.originLicense.level property is always determined by
+     *     this.licenseLevel.
+     * For GMS license content, is set to "<the frame ID>" 0.
+     * Can be any License. Cannot be null.
+     */
+    protected License originLicense;
 
     protected LicenseContent(String id, String name, Manufacturer manufacturer,
         String licenseID, String license, int licenseLevel, String description)
