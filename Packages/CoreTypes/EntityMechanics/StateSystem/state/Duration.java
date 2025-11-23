@@ -4,39 +4,40 @@ import MainBranch.HelperMethods;
 
 public class Duration {
     /**
-     * The duration of this State (i.e. "1 round").
-     * Must be a valid String as defined by State.allowedDurations.
+     * The value of this Duration (i.e. "1 round").
+     * Must be a valid String as defined by Duration.allowedValues. Cannot be
+     *     null.
      * Case-insensitive and stored in lowercase.
      */
-    protected String duration;
+    protected String value;
     /**
-     * Contains an array of possible values for this.duration.
-     * - "source" - The life time of the source 
+     * Contains an array of possible values for Duration.value.
+     * - "source" - The life time of the source.
      * Case-insensitive and stored in lowercase.
      */
-    protected static final String[] allowedDurations = new String[] {"1 round",
+    protected static final String[] allowedValues = new String[] {"1 round",
         "1 turn", "permanent", "until removed", "source"};
 
-    public String getDuration() {
-        return duration;
+    public String getValue() {
+        return value;
     }
     /**
-     * Sets this.duration to the provided value.
-     * @param duration a String which cannot be null and cannot be an invalid
-     *     duration, as defined by State.allowedDurations.
-     * @throws IllegalArgumentException if status is duration or an invalid
-     *     value as defined by State.allowedDurations.
+     * Sets this.value to the provided value.
+     * @param value a String which cannot be null and cannot be an invalid
+     *     value, as defined by Duration.allowedValues.
+     * @throws IllegalArgumentException if value an invalid value as defined by
+     *     Duration.allowedValues.
      */
-    protected void setDuration(String duration) {
-        HelperMethods.checkString("New duration", duration);
-        duration = duration.toLowerCase();
-        for (String allowedDuration : State.allowedDurations) {
-            if (duration.equals(allowedDuration)) {
-                this.duration = duration;
+    protected void setValue(String value) {
+        HelperMethods.checkString("New value", value);
+        value = value.toLowerCase();
+        for (String allowedValue : Duration.allowedValues) {
+            if (value.equals(allowedValue)) {
+                this.value = value;
                 return;
             }
         }
-        throw new IllegalArgumentException("New duration value is an invalid"
-            + " value: \"" + duration + "\"");
+        throw new IllegalArgumentException("New value is an invalid value: \""
+            + value + "\"");
     }
 }
