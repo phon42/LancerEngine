@@ -483,7 +483,7 @@ public final class Database {
         frameID = frameID.toLowerCase();
         for (Frame frame : Database.frames) {
             if (frameID.equals(frame.getID())) {
-                return new Frame(frame);
+                return frame;
             }
         }
         throw new NoSuchElementException("No frame found for frame ID: "
@@ -493,7 +493,7 @@ public final class Database {
         HelperMethods.checkObject("frameEnum", frameEnum);
         for (Frame frame : Database.frames) {
             if (frameEnum.equals(frame.getFrameEnum())) {
-                return new Frame(frame);
+                return frame;
             }
         }
         throw new NoSuchElementException("No frame found for frame enum: "
@@ -859,7 +859,6 @@ public final class Database {
     public static void addFrame(Frame frame) {
         checkOpen();
         HelperMethods.checkObject("frame", frame);
-        frame = new Frame(frame);
         Database.frames = HelperMethods.append(Database.frames, frame);
     }
     /**
