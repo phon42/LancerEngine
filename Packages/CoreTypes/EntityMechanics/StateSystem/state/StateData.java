@@ -72,33 +72,34 @@ public class StateData {
         HelperMethods.checkObject("stateEffects", stateEffects);
         setEffects(HelperMethods.append(this.stateEffects, stateEffects));
     }
-    public StateData removeEffect(int index) {
-        StateData removedEffect;
-        StateData[] effects;
+    public StateData removeStateEffect(int index) {
+        StateData removedStateEffect;
+        StateData[] stateEffects;
 
-        if (this.effects.length == 0) {
+        if (this.stateEffects.length == 0) {
             throw new IllegalArgumentException("Attempted to call"
-                + " State.removeEffect() when this.effects.length is 0");
+                + " StateData.removeEffect() when this.stateEffects.length is"
+                + " 0");
         }
-        if (index < 0 || index > this.effects.length) {
+        if (index < 0 || index > this.stateEffects.length) {
             throw new IllegalArgumentException("index value: " + index + " is"
-                + " out of bounds for a State[] of length: "
-                + this.effects.length);
+                + " out of bounds for a StateData[] of length: "
+                + this.stateEffects.length);
         }
-        removedEffect = this.effects[index];
-        effects = new State[this.effects.length - 1];
-        for (int i = 0; i < effects.length; i++) {
+        removedStateEffect = this.stateEffects[index];
+        stateEffects = new StateData[this.stateEffects.length - 1];
+        for (int i = 0; i < stateEffects.length; i++) {
             if (i < index) {
-                effects[i] = this.effects[i];
+                stateEffects[i] = this.stateEffects[i];
                 continue;
             }
             if (i > index) {
-                effects[i] = this.effects[i - 1];
+                stateEffects[i] = this.stateEffects[i - 1];
             }
         }
-        setEffects(effects);
+        setStateEffects(stateEffects);
 
-        return removedEffect;
+        return removedStateEffect;
     }
     /**
      * Recursively checks whether any of the States this State has caused, or
@@ -114,7 +115,7 @@ public class StateData {
         HelperMethods.checkObject("stateName", stateName);
         // TODO: fill out once Database has an array of States set up
         // stateName is a valid State
-        for (State state : this.effects) {
+        for (StateData state : this.stateEffects) {
             if (state.getName().equals(stateName)) {
                 isPresent = true;
                 break;
