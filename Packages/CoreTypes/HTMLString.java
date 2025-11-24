@@ -71,9 +71,11 @@ public class HTMLString implements Comparable<HTMLString>, CharSequence {
 
         return this.getRawValue().equals(htmlString.getRawValue());
     }
+    // TODO: remove?
     public boolean rawEquals(Object object) {
         return super.equals(object);
     }
+    // TODO: remove?
     public boolean rawEquals(HTMLString htmlString) {
         return super.equals(htmlString);
     }
