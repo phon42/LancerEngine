@@ -1,7 +1,10 @@
 package Packages.CoreTypes.EntityMechanics.StateSystem.state;
 
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import MainBranch.HelperMethods;
+import MainBranch.database.FileOperations;
 import Packages.CoreTypes.VueHTMLString;
 
 public class StateData {
@@ -12,6 +15,12 @@ public class StateData {
      * Case-sensitive.
      */
     private String name;
+    /**
+     * The URL to this State's icon, represented as a String (i.e. TODO: add
+     *     example).
+     * Can be any String except "". Cannot be null.
+     * Case-insensitive and stored in lowercase.
+     */
     private String iconURLRaw;
     /**
      * Whether this State is a status or condition.
@@ -19,7 +28,12 @@ public class StateData {
      * false: Condition
      * Can be any boolean.
      */
-    private boolean status;
+    private boolean isStatus;
+    /**
+     * TODO: add documentation
+     * Can be any VueHTMLString except "". Cannot be null.
+     * Case-sensitive.
+     */
     private VueHTMLString effects;
     private boolean mechAffected;
     private boolean pilotAffected;
@@ -34,15 +48,90 @@ public class StateData {
      */
     private StateData[] stateEffects;
 
+    public StateData(String name, String iconURL, boolean isStatus,
+        String effects, boolean isMechAffected, boolean isPilotAffected,
+        String terse, StateData[] stateEffects) {
+        // Required properties
+        setName(name);
+        setIconURLRaw(iconURL);
+        setIsStatus(isStatus);
+        setEffects(effects);
+        setMechAffected(isMechAffected);
+        setPilotAffected(isPilotAffected);
+
+        // Optional properties
+        // setIconURL omitted because it's already set by setIconURLRaw
+        setTerse(terse);
+        setStateEffects(stateEffects);
+    }
+    public StateData(String name, String iconURL, boolean isStatus,
+        String effects, boolean isMechAffected, boolean isPilotAffected) {
+        this(name, iconURL, isStatus, effects, isMechAffected, isPilotAffected,
+            null, null);
+    }
+
+    // Required properties
     public String getName() {
         return name;
+    }
+    public String getIconURLRaw() {
+        return iconURLRaw;
+    }
+    public boolean isStatus() {
+        return isStatus;
+    }
+    public VueHTMLString getEffects() {
+        return effects;
+    }
+    public boolean isMechAffected() {
+        return mechAffected;
+    }
+    public boolean isPilotAffected() {
+        return pilotAffected;
+    }
+    // Optional properties
+    public URL getIconURL() {
+        return iconURL;
+    }
+    public String getTerse() {
+        return terse;
     }
     public StateData[] getStateEffects() {
         return stateEffects;
     }
-    protected void setName(String name) {
+    // Required properties
+    private void setName(String name) {
         HelperMethods.checkString("New name", name);
         this.name = name;
+    }
+    private void setIconURLRaw(String iconURLRaw) {
+        HelperMethods.checkString("iconURLRaw", iconURLRaw);
+        iconURLRaw = iconURLRaw.toLowerCase();
+        this.iconURLRaw = iconURLRaw;
+        setIconURL(iconURLRaw);
+    }
+    private void setIsStatus(boolean isStatus) {
+        this.isStatus = isStatus;
+    }
+    private void setEffects(VueHTMLString effects) {
+        HelperMethods.checkVueHTMLString("effects", effects);
+        this.effects = effects;
+    }
+    private void setMechAffected(boolean mechAffected) {
+        this.mechAffected = mechAffected;
+    }
+    private void setPilotAffected(boolean pilotAffected) {
+        this.pilotAffected = pilotAffected;
+    }
+    // Optional properties
+    private void setIconURL(URL iconURL) {
+        this.iconURL = iconURL;
+    }
+    private void setTerse(String terse) {
+        if (terse != null) {
+            HelperMethods.checkString("terse", terse);
+        }
+        this.terse = terse;
     }
     /**
      * Sets this.stateEffects to the provided value.
@@ -62,6 +151,20 @@ public class StateData {
             stateEffects = HelperMethods.copyOf(stateEffects);
         }
         this.stateEffects = stateEffects;
+    }
+
+    private void setEffects(String effects) {
+        HelperMethods.checkString("effects", effects);
+        setEffects(new VueHTMLString(effects));
+    }
+    private void setIconURL(String iconURL) {
+        URL url = null;
+
+        HelperMethods.checkString("iconURL", iconURL);
+        try {
+            url = FileOperations.toURLCaught(iconURL);
+        } catch (IllegalArgumentException exception) {}
+        setIconURL(url);
     }
     /**
      * Adds a provided StateData effect to this.stateEffects.
