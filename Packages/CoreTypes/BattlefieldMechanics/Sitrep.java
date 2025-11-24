@@ -171,11 +171,16 @@ public class Sitrep {
     }
     // Optional properties
     private void setPCVictory(String pcVictory) {
-        HelperMethods.checkString("pcVictory", pcVictory);
+        if (pcVictory != null) {
+            HelperMethods.checkString("pcVictory", pcVictory);
+        }
         this.pcVictory = pcVictory;
     }
     private void setEnemyVictory(String enemyVictory) {
-        HelperMethods.checkString("enemyVictory", enemyVictory);
+        if (enemyVictory != null) {
+            HelperMethods.checkString("enemyVictory",
+                enemyVictory);
+        }
         this.enemyVictory = enemyVictory;
     }
     private void setNoVictory(String noVictory) {
