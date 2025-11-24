@@ -18,6 +18,10 @@ public class Duration {
     protected static final String[] allowedValues = new String[] {"1 round",
         "1 turn", "permanent", "until removed", "source"};
 
+    public Duration(String duration) {
+        setValue(duration);
+    }
+
     public String getValue() {
         return value;
     }
