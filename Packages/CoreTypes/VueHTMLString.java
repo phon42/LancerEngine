@@ -38,7 +38,7 @@ public class VueHTMLString implements Comparable<VueHTMLString>, CharSequence {
         return rawValue;
     }
     public Object[] getDataSequence() {
-        return copyDataSequence(dataSequence);
+        return copyDataSequence();
     }
     private void setRawValue(String rawValue) {
         HelperMethods.checkObject("rawValue", rawValue);
@@ -248,19 +248,16 @@ public class VueHTMLString implements Comparable<VueHTMLString>, CharSequence {
         // TODO: fill out
         throw new IllegalStateException();
     }
-    private Object[] copyDataSequence(Object[] original) {
-        // TODO: fill out
+    private Object[] copyDataSequence() {
         Object[] copy;
+        int type;
 
-        HelperMethods.checkObjectArray("original", original);
-        copy = new Object[original.length];
-        for (int i = 0; i < original.length; i++) {
-            if (original[i] instanceof String) {
-                copy[i] = original[i];
-            } else {
-                // original is an HTMLTag
-                copy[i] = new HTMLTag((HTMLTag) original[i]);
-            }
+        copy = new Object[this.dataSequence.length];
+        for (int i = 0; i < this.dataSequence.length; i++) {
+            type = dataType(this.dataSequence[i]);
+            if (type == 0) {
+                copy[i] = this.dataSequence[i];
+            } // TODO: fill out
         }
 
         return copy;

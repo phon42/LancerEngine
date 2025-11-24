@@ -34,7 +34,7 @@ public class HTMLString implements Comparable<HTMLString>, CharSequence {
         return rawValue;
     }
     public Object[] getDataSequence() {
-        return copyDataSequence(dataSequence);
+        return copyDataSequence();
     }
     private void setRawValue(String rawValue) {
         HelperMethods.checkObject("rawValue", rawValue);
@@ -247,17 +247,19 @@ public class HTMLString implements Comparable<HTMLString>, CharSequence {
         throw new IllegalStateException("dataElement is of a type that is"
             + " neither String nor HTMLTag");
     }
-    private Object[] copyDataSequence(Object[] original) {
+    private Object[] copyDataSequence() {
         Object[] copy;
+        boolean type;
 
-        HelperMethods.checkObjectArray("original", original);
-        copy = new Object[original.length];
-        for (int i = 0; i < original.length; i++) {
-            if (original[i] instanceof String) {
-                copy[i] = original[i];
+        copy = new Object[this.dataSequence.length];
+        for (int i = 0; i < this.dataSequence.length; i++) {
+            type = dataType(this.dataSequence[i]);
+            if (! type) {
+                // this.dataSequence[i] is a String
+                copy[i] = this.dataSequence[i];
             } else {
-                // original is an HTMLTag
-                copy[i] = new HTMLTag((HTMLTag) original[i]);
+                // this.dataSequence[i] is an HTMLTag
+                copy[i] = new HTMLTag((HTMLTag) this.dataSequence[i]);
             }
         }
 
