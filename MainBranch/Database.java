@@ -38,9 +38,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.p
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skill.SkillData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.talent.TalentData;
 import Packages.CoreTypes.EntityMechanics.LicenseSystem.FrameLicense;
-import Packages.CoreTypes.EntityMechanics.StateSystem.State;
-import Packages.CoreTypes.EntityMechanics.StateSystem.state.Condition;
-import Packages.CoreTypes.EntityMechanics.StateSystem.state.Status;
+import Packages.CoreTypes.EntityMechanics.StateSystem.state.StateData;
 
 /**
  * Represents nothing. Contains a set array of Frames to be used by
@@ -93,7 +91,7 @@ public final class Database {
     /**
      * add documentation
      */
-    private static Condition[] conditions;
+    private static StateData[] conditions;
     /**
      * add documentation
      */
@@ -161,7 +159,7 @@ public final class Database {
     /**
      * add documentation
      */
-    private static Status[] statuses;
+    private static StateData[] statuses;
     /**
      * Contains every mech system for reference.
      */
@@ -330,7 +328,7 @@ public final class Database {
         Database.actions = new Action[0];
         Database.activationTypes = new ActivationType[0];
         Database.backgrounds = new Background[0];
-        Database.conditions = new Condition[0];
+        Database.conditions = new StateData[0];
         Database.coreBonuses = new CoreBonus[0];
         Database.dataTags = new DataTag[0];
         Database.environments = new Environment[0];
@@ -345,7 +343,7 @@ public final class Database {
         Database.rules = new Rule[0];
         Database.sitreps = new Sitrep[0];
         Database.skills = new SkillData[0];
-        Database.statuses = new Status[0];
+        Database.statuses = new StateData[0];
         Database.systems = new MechSystem[0];
         Database.tables = new Table[0];
         Database.tags = new Tag[0];
@@ -435,11 +433,11 @@ public final class Database {
         throw new NoSuchElementException("No background found for background"
             + " ID: " + backgroundID);
     }
-    public static Condition getCondition(String conditionName) {
+    public static StateData getCondition(String conditionName) {
         HelperMethods.checkObject("conditionName", conditionName);
-        for (Condition condition : Database.conditions) {
+        for (StateData condition : Database.conditions) {
             if (conditionName.equals(condition.getName())) {
-                return new Condition(condition);
+                return condition;
             }
         }
         throw new NoSuchElementException("No condition found for condition"
@@ -621,7 +619,7 @@ public final class Database {
         throw new NoSuchElementException("No skill found for skill data name: "
             + skillDataName);
     }
-    public static State getState(String stateName) {
+    public static StateData getState(String stateName) {
         HelperMethods.checkObject("stateName", stateName);
         try {
             return getCondition(stateName);
@@ -634,11 +632,11 @@ public final class Database {
             }
         }
     }
-    public static Status getStatus(String statusName) {
+    public static StateData getStatus(String statusName) {
         HelperMethods.checkObject("statusName", statusName);
-        for (Status status : Database.statuses) {
+        for (StateData status : Database.statuses) {
             if (statusName.equals(status.getName())) {
-                return new Status(status);
+                return status;
             }
         }
         throw new NoSuchElementException("No status found for status name: "
@@ -805,14 +803,13 @@ public final class Database {
         Database.bonds = HelperMethods.append(Database.bonds, bond);
     }
     /**
-     * Adds the provided Condition to Database.conditions.
-     * @param condition a Condition which cannot be null.
+     * Adds the provided StateData to Database.conditions.
+     * @param condition a StateData which cannot be null.
      * @throws IllegalArgumentException if condition is null.
      */
-    public static void addCondition(Condition condition) {
+    public static void addCondition(StateData condition) {
         checkOpen();
         HelperMethods.checkObject("condition", condition);
-        condition = new Condition(condition);
         Database.conditions = HelperMethods.append(Database.conditions,
             condition);
     }
@@ -991,38 +988,27 @@ public final class Database {
     }
     // TODO: remove?
     /**
-     * Adds the provided State to Database.conditions or Database.statuses.
-     * @param state a State which cannot be null.
+     * Adds the provided StateData to Database.conditions or Database.statuses.
+     * @param state a StateData which cannot be null.
      * @throws IllegalArgumentException if state is null.
      */
-    public static void addState(State state) {
-        Condition condition;
-        Status status;
-
+    public static void addState(StateData state) {
         checkOpen();
         HelperMethods.checkObject("state", state);
-        try {
-            condition = state.toCondition();
-            addCondition(condition);
-        } catch (IllegalStateException exception) {
-            try {
-                status = state.toStatus();
-                addStatus(status);
-            } catch (IllegalStateException exception2) {
-                throw new IllegalStateException("Unable to convert the"
-                    + " provided State into either a Condition or a Status");
-            }
+        if (state.isStatus()) {
+            addStatus(state);
+        } else {
+            addCondition(state);
         }
     }
     /**
-     * Adds the provided Status to Database.statuss.
-     * @param status a Status which cannot be null.
+     * Adds the provided StateData to Database.statuses.
+     * @param status a StateData which cannot be null.
      * @throws IllegalArgumentException if status is null.
      */
-    public static void addStatus(Status status) {
+    public static void addStatus(StateData status) {
         checkOpen();
         HelperMethods.checkObject("status", status);
-        status = new Status(status);
         Database.statuses = HelperMethods.append(Database.statuses, status);
     }
     /**
