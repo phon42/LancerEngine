@@ -146,11 +146,19 @@ public class State {
         return true;
     }
     public Condition toCondition() {
-        // TODO: fill out, throw an Exception if it can't be converted
-        return null;
+        if (data.isStatus()) {
+            throw new IllegalStateException("Unable to convert this State"
+                + " (which has a State.isStatus value of false) to a"
+                + " Condition");
+        }
+
+        return new Condition(data, duration, source, causedBy);
     }
     public Status toStatus() {
-        // TODO: fill out, throw an Exception if it can't be converted
-        return null;
+        if (data.isStatus()) {
+            return new Status(data, duration, source, causedBy);
+        }
+        throw new IllegalStateException("Unable to convert this State (which"
+            + " has a State.isStatus value of false) to a Status");
     }
 }
