@@ -13,6 +13,10 @@ public class HTMLString implements Comparable<HTMLString>, CharSequence {
      * TODO: add documentation
      */
     private Object[] dataSequence;
+    /**
+     * TODO: add documentation
+     */
+    private boolean[] typeSequence;
 
     public HTMLString() {
         setRawValue("");
@@ -36,10 +40,11 @@ public class HTMLString implements Comparable<HTMLString>, CharSequence {
     public Object[] getDataSequence() {
         return copyDataSequence(dataSequence);
     }
+    // getTypeSequence purposefully removed
     private void setRawValue(String rawValue) {
         HelperMethods.checkObject("rawValue", rawValue);
         this.rawValue = rawValue;
-        setDataSequence(calculateDataSequence());
+        calculateDataSequence();
     }
     private void setDataSequence(Object[] dataSequence) {
         HelperMethods.checkObjectArray("dataSequence",
@@ -47,6 +52,12 @@ public class HTMLString implements Comparable<HTMLString>, CharSequence {
         // removed copying of dataSequence because this method is only ever
         //     called within this class
         this.dataSequence = dataSequence;
+    }
+    private void setTypeSequence(boolean[] typeSequence) {
+        HelperMethods.checkObject("typeSequence", typeSequence);
+        // removed copying of typeSequence because this method is only ever
+        //     called within this class
+        this.typeSequence = typeSequence;
     }
 
     @Override
@@ -106,13 +117,14 @@ public class HTMLString implements Comparable<HTMLString>, CharSequence {
 
         return result;
     }
-    private Object[] calculateDataSequence() {
+    private void calculateDataSequence() {
         ArrayList<Object> sequence;
         String rawValue;
         String workingString;
         boolean isClosingTag = false;
         HTMLTag workingTag;
         Object[] result;
+        boolean[] types;
 
         sequence = new ArrayList<>();
         // We will represent the possible value of rawValue through the method
@@ -211,8 +223,12 @@ public class HTMLString implements Comparable<HTMLString>, CharSequence {
         for (int i = 0; i < result.length; i++) {
             result[i] = sequence.get(i);
         }
-
-        return result;
+        types = new boolean[result.length];
+        for (int i = 0; i < result.length; i++) {
+            types[i] = dataType(result[i]);
+        }
+        setDataSequence(result);
+        setTypeSequence(types);
     }
     private void addElement(ArrayList<Object> arrayList, Object newElement) {
         Object lastElement;
