@@ -892,29 +892,24 @@ public final class Mech implements Damageable {
     }
     /**
      * Sets this.statuses to the provided value.
-     * @param statuses a Status[] which cannot be null or contain elements with
-     *     invalid Status.name values as defined by Status.allowedMechStatuses.
-     * @throws IllegalArgumentException if statuses is null or contains elements
-     *     with invalid Status.name values as defined by
-     *     Status.allowedMechStatuses.
+     * @param statuses a Status[] which cannot be null, contain null elements,
+     *     or elements with Status.data.mechAffected values that are false.
+     * @throws IllegalArgumentException if statuses is null, contains null
+     *     elements, or contains elements whose Status.data.mechAffected values
+     *     are false.
      */
     public void setStatuses(Status[] statuses) {
-        boolean isValidStatus = false;
-        String statusString = "";
+        StateData data;
+        String statusName;
 
         HelperMethods.checkObjectArray("New statuses", statuses);
         for (Status status : statuses) {
-            statusString = status.getName();
-            for (String allowedStatus : Status.allowedMechStatuses) {
-                if (statusString.equals(allowedStatus)) {
-                    isValidStatus = true;
-                    break;
-                }
-            }
-            if (! isValidStatus) {
+            data = status.getData();
+            statusName = data.getName();
+            if (! data.isMechAffected()) {
                 throw new IllegalArgumentException("New statuses array contains"
-                    + " an element with an invalid Status.name value: \""
-                    + statusString + "\"");
+                    + " an element that does not affect mechs: \"" + statusName
+                    + "\"");
             }
         }
         statuses = HelperMethods.copyOf(statuses);
@@ -922,14 +917,27 @@ public final class Mech implements Damageable {
     }
     /**
      * Sets this.conditions to the provided value.
-     * @param conditions a Condition[] which cannot be null or contain null
-     *     elements.
-     * @throws IllegalArgumentException if conditions is null or contains
-     *     null elements.
+     * @param conditions a Condition[] which cannot be null, contain null
+     *     elements, or elements with Condition.data.mechAffected values that
+     *     are false.
+     * @throws IllegalArgumentException if conditions is null, contains null
+     *     elements, or contains elements whose Condition.data.mechAffected
+     *     values are false.
      */
     public void setConditions(Condition[] conditions) {
-        HelperMethods.checkObjectArray("New conditions",
-            conditions);
+        StateData data;
+        String conditionName;
+
+        HelperMethods.checkObjectArray("New conditions", conditions);
+        for (Condition condition : conditions) {
+            data = condition.getData();
+            conditionName = data.getName();
+            if (! data.isMechAffected()) {
+                throw new IllegalArgumentException("New conditions array"
+                    + " contains an element that does not affect mechs: \""
+                    + conditionName + "\"");
+            }
+        }
         conditions = HelperMethods.copyOf(conditions);
         this.conditions = conditions;
     }
