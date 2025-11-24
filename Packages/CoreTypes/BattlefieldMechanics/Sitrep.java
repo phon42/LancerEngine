@@ -30,20 +30,6 @@ public class Sitrep {
      */
     private String name;
     /**
-     * The conditions for the player characters to claim victory within this
-     *     sitrep (i.e. TODO: add example).
-     * Can be any String except "". Cannot be null.
-     * Case-sensitive.
-     */
-    private String pcVictory;
-    /**
-     * The conditions for the enemy force to claim victory within this sitrep
-     *     (i.e. TODO: add example).
-     * Can be any String except "". Cannot be null.
-     * Case-sensitive.
-     */
-    private String enemyVictory;
-    /**
      * A description of this sitrep (i.e. TODO: add example).
      * Can be any String except "". Cannot be null.
      * Case-sensitive.
@@ -52,43 +38,80 @@ public class Sitrep {
 
     // Optional properties
     /**
+     * The conditions for the player characters to claim victory within this
+     *     sitrep (i.e. TODO: add example).
+     * Can be any String except "". Can be null.
+     * Case-sensitive.
+     */
+    private String pcVictory;
+    /**
+     * The conditions for the enemy force to claim victory within this sitrep
+     *     (i.e. TODO: add example).
+     * Can be any String except "". Can be null.
+     * Case-sensitive.
+     */
+    private String enemyVictory;
+    /**
      * The conditions under which no victory can be claimed by either side in
      *     this sitrep (i.e. TODO: add example).
      * Can be any String except "". Can be null.
      * Case-sensitive.
      */
     private String noVictory;
-    private String controlZone;
+    /**
+     * The procedure for how to determine the order in which player characters
+     *     and enemies should deploy (i.e. TODO: add example).
+     * Can be any String except "". Can be null.
+     * Case-sensitive.
+     */
     private String deployment;
-    private String extraction;
+    /**
+     * A description of what the Objective is and its importance (i.e. TODO: add
+     *     example).
+     * Can be any String except "". Can be null.
+     * Case-sensitive.
+     */
     private String objective;
+    /**
+     * The conditions under which player characters may extract from the sitrep,
+     *     if extraction is possible (i.e. TODO: add example).
+     * Can be any String except "". Can be null.
+     * Case-sensitive.
+     */
+    private String extraction;
+    /**
+     * The restrictions for where the control zones for this sitrep can be
+     *     placed (i.e. TODO: add example).
+     * Can be any String except "". Can be null.
+     * Case-sensitive.
+     */
+    private String controlZone;
 
-    public Sitrep(String id, String name, String pcVictory, String enemyVictory,
-        String description, String noVictory, String controlZone,
-        String deployment, String extraction, String objective) {
+    public Sitrep(String id, String name, String description, String pcVictory,
+        String enemyVictory, String noVictory, String deployment,
+        String objective, String extraction, String controlZone) {
         // Required properties
         setID(id);
         setName(name);
-        setPcVictory(pcVictory);
-        setEnemyVictory(enemyVictory);
         setDescription(description);
         // Optional properties
+        setPCVictory(pcVictory);
+        setEnemyVictory(enemyVictory);
         setNoVictory(noVictory);
-        setControlZone(controlZone);
         setDeployment(deployment);
-        setExtraction(extraction);
         setObjective(objective);
+        setExtraction(extraction);
+        setControlZone(controlZone);
     }
-    public Sitrep(String id, String name, String pcVictory, String enemyVictory,
-        String description) {
-        this(id, name, pcVictory, enemyVictory, description, null,
-            null, null, null,
+    public Sitrep(String id, String name, String description) {
+        this(id, name, description, null, null,
+            null, null, null, null,
             null);
     }
     public Sitrep(Sitrep sitrep) {
-        this(sitrep.id, sitrep.name, sitrep.pcVictory, sitrep.enemyVictory,
-            sitrep.description, sitrep.noVictory, sitrep.controlZone,
-            sitrep.deployment, sitrep.extraction, sitrep.objective);
+        this(sitrep.id, sitrep.name, sitrep.description, sitrep.pcVictory,
+            sitrep.enemyVictory, sitrep.noVictory, sitrep.deployment,
+            sitrep.objective, sitrep.extraction, sitrep.controlZone);
     }
 
     // Required properties
@@ -98,16 +121,16 @@ public class Sitrep {
     public String getName() {
         return name;
     }
-    public String getPcVictory() {
+    public String getDescription() {
+        return description;
+    }
+    // Optional properties
+    public String getPCVictory() {
         return pcVictory;
     }
     public String getEnemyVictory() {
         return enemyVictory;
     }
-    public String getDescription() {
-        return description;
-    }
-    // Optional properties
     public String getNoVictory() {
         return noVictory;
     }
@@ -133,7 +156,12 @@ public class Sitrep {
         HelperMethods.checkString("name", name);
         this.name = name;
     }
-    public void setPcVictory(String pcVictory) {
+    public void setDescription(String description) {
+        HelperMethods.checkString("description", description);
+        this.description = description;
+    }
+    // Optional properties
+    public void setPCVictory(String pcVictory) {
         HelperMethods.checkString("pcVictory", pcVictory);
         this.pcVictory = pcVictory;
     }
@@ -141,22 +169,11 @@ public class Sitrep {
         HelperMethods.checkString("enemyVictory", enemyVictory);
         this.enemyVictory = enemyVictory;
     }
-    public void setDescription(String description) {
-        HelperMethods.checkString("description", description);
-        this.description = description;
-    }
-    // Optional properties
     public void setNoVictory(String noVictory) {
         if (noVictory != null) {
             HelperMethods.checkString("noVictory", noVictory);
         }
         this.noVictory = noVictory;
-    }
-    public void setControlZone(String controlZone) {
-        if (controlZone != null) {
-            HelperMethods.checkString("controlZone", controlZone);
-        }
-        this.controlZone = controlZone;
     }
     public void setDeployment(String deployment) {
         if (deployment != null) {
@@ -164,16 +181,22 @@ public class Sitrep {
         }
         this.deployment = deployment;
     }
+    public void setObjective(String objective) {
+        if (objective != null) {
+            HelperMethods.checkString("objective", objective);
+        }
+        this.objective = objective;
+    }
     public void setExtraction(String extraction) {
         if (extraction != null) {
             HelperMethods.checkString("extraction", extraction);
         }
         this.extraction = extraction;
     }
-    public void setObjective(String objective) {
-        if (objective != null) {
-            HelperMethods.checkString("objective", objective);
+    public void setControlZone(String controlZone) {
+        if (controlZone != null) {
+            HelperMethods.checkString("controlZone", controlZone);
         }
-        this.objective = objective;
+        this.controlZone = controlZone;
     }
 }
