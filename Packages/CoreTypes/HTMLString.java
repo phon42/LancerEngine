@@ -216,8 +216,8 @@ public class HTMLString implements Comparable<HTMLString>, CharSequence {
     }
     private void addElement(ArrayList<Object> arrayList, Object newElement) {
         Object lastElement;
-        boolean isLastElementTag = false;
-        boolean isNewElementTag = false;
+        boolean lastElementType = false;
+        boolean newElementType = false;
         int lastElementIndex;
         String modifiedString;
 
@@ -225,10 +225,10 @@ public class HTMLString implements Comparable<HTMLString>, CharSequence {
         HelperMethods.checkObject("newElement", newElement);
         lastElement = arrayList.get(arrayList.size() - 1);
         HelperMethods.checkObject("lastElement", lastElement);
-        isLastElementTag = dataType(lastElement);
-        isNewElementTag = dataType(newElement);
+        lastElementType = dataType(lastElement);
+        newElementType = dataType(newElement);
         lastElementIndex = arrayList.size() - 1;
-        if (! (isLastElementTag || isNewElementTag)) {
+        if (! (lastElementType || newElementType)) {
             modifiedString = (String) lastElement;
             modifiedString += (String) newElement;
             arrayList.set(lastElementIndex, modifiedString);
