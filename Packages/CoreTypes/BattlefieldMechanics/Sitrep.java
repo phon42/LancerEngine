@@ -1,6 +1,7 @@
 package Packages.CoreTypes.BattlefieldMechanics;
 
 import MainBranch.HelperMethods;
+import Packages.CoreTypes.VueHTMLString;
 
 /**
  * Represents a single sitrep. Contains information about that sitrep's id,
@@ -30,62 +31,70 @@ public class Sitrep {
      */
     private String name;
     /**
-     * A description of this sitrep (i.e. TODO: add example).
-     * Can be any String except "". Cannot be null.
+     * A description of this sitrep (i.e. a VueHTMLString representing "A"
+     *     " simple affair, with two sides facing off against each other until"
+     *     " one of them is broken or destroyed.").
+     * Can be any VueHTMLString except "". Cannot be null.
      * Case-sensitive.
      */
-    private String description;
+    private VueHTMLString description;
 
     // Optional properties
     /**
      * The conditions for the player characters to claim victory within this
-     *     sitrep (i.e. TODO: add example).
-     * Can be any String except "". Can be null.
+     *     sitrep (i.e. a VueHTMLString representing "PCs defeat or route all"
+     *     " enemy forces").
+     * Can be any VueHTMLString except "". Can be null.
      * Case-sensitive.
      */
-    private String pcVictory;
+    private VueHTMLString pcVictory;
     /**
      * The conditions for the enemy force to claim victory within this sitrep
-     *     (i.e. TODO: add example).
-     * Can be any String except "". Can be null.
+     *     (i.e. a VueHTMLString representing "PCs are defeated or retreat from"
+     *     " battle").
+     * Can be any VueHTMLString except "". Can be null.
      * Case-sensitive.
      */
-    private String enemyVictory;
+    private VueHTMLString enemyVictory;
     /**
      * The conditions under which no victory can be claimed by either side in
-     *     this sitrep (i.e. TODO: add example).
-     * Can be any String except "". Can be null.
+     *     this sitrep (i.e. a VueHTMLString representing "If both sides have"
+     *     " an equal score at the end of the sixth round, there is no victor"
+     *     " and both sides must withdraw.").
+     * Can be any VueHTMLString except "". Can be null.
      * Case-sensitive.
      */
-    private String noVictory;
+    private VueHTMLString noVictory;
     /**
      * The procedure for how to determine the order in which player characters
-     *     and enemies should deploy (i.e. TODO: add example).
-     * Can be any String except "". Can be null.
+     *     and enemies should deploy (i.e. a VueHTMLString representing "The GM"
+     *     " and a player each roll 1d6 to determine the order of deployment."
+     *     " Whoever rolls the lower result deploys first.").
+     * Can be any VueHTMLString except "". Can be null.
      * Case-sensitive.
      */
-    private String deployment;
+    private VueHTMLString deployment;
     /**
-     * A description of what the Objective is and its importance (i.e. TODO: add
-     *     example).
-     * Can be any String except "". Can be null.
+     * A description of what the Objective is and its importance (too long to
+     *     provide an example).
+     * Can be any VueHTMLString except "". Can be null.
      * Case-sensitive.
      */
-    private String objective;
+    private VueHTMLString objective;
     /**
      * The conditions under which player characters may extract from the sitrep,
-     *     if extraction is possible (i.e. TODO: add example).
-     * Can be any String except "". Can be null.
+     *     if extraction is possible (too long to provide an example).
+     * Can be any VueHTMLString except "". Can be null.
      * Case-sensitive.
      */
-    private String extraction;
+    private VueHTMLString extraction;
     /**
      * The restrictions for where the control zones for this sitrep can be
-     *     placed (i.e. TODO: add example).
-     * Can be any String except "". Can be null.
+     *     placed (too long to provide an example).
+     * Can be any VueHTMLString except "". Can be null.
      * Case-sensitive.
      */
-    private String controlZone;
+    private VueHTMLString controlZone;
 
     public Sitrep(String id, String name, String description, String pcVictory,
         String enemyVictory, String noVictory, String deployment,
@@ -130,29 +139,29 @@ public class Sitrep {
     public String getName() {
         return name;
     }
-    public String getDescription() {
+    public VueHTMLString getDescription() {
         return description;
     }
     // Optional properties
-    public String getPCVictory() {
+    public VueHTMLString getPCVictory() {
         return pcVictory;
     }
-    public String getEnemyVictory() {
+    public VueHTMLString getEnemyVictory() {
         return enemyVictory;
     }
-    public String getNoVictory() {
+    public VueHTMLString getNoVictory() {
         return noVictory;
     }
-    public String getControlZone() {
+    public VueHTMLString getControlZone() {
         return controlZone;
     }
-    public String getDeployment() {
+    public VueHTMLString getDeployment() {
         return deployment;
     }
-    public String getExtraction() {
+    public VueHTMLString getExtraction() {
         return extraction;
     }
-    public String getObjective() {
+    public VueHTMLString getObjective() {
         return objective;
     }
     // Required properties
@@ -165,52 +174,105 @@ public class Sitrep {
         HelperMethods.checkString("name", name);
         this.name = name;
     }
-    private void setDescription(String description) {
-        HelperMethods.checkString("description", description);
+    private void setDescription(VueHTMLString description) {
+        HelperMethods.checkVueHTMLString("description",
+            description);
         this.description = description;
     }
     // Optional properties
-    private void setPCVictory(String pcVictory) {
+    private void setPCVictory(VueHTMLString pcVictory) {
         if (pcVictory != null) {
-            HelperMethods.checkString("pcVictory", pcVictory);
+            HelperMethods.checkVueHTMLString("pcVictory",
+                pcVictory);
         }
         this.pcVictory = pcVictory;
     }
-    private void setEnemyVictory(String enemyVictory) {
+    private void setEnemyVictory(VueHTMLString enemyVictory) {
         if (enemyVictory != null) {
-            HelperMethods.checkString("enemyVictory",
+            HelperMethods.checkVueHTMLString("enemyVictory",
                 enemyVictory);
         }
         this.enemyVictory = enemyVictory;
     }
-    private void setNoVictory(String noVictory) {
+    private void setNoVictory(VueHTMLString noVictory) {
         if (noVictory != null) {
-            HelperMethods.checkString("noVictory", noVictory);
+            HelperMethods.checkVueHTMLString("noVictory",
+                noVictory);
         }
         this.noVictory = noVictory;
     }
-    private void setDeployment(String deployment) {
+    private void setDeployment(VueHTMLString deployment) {
         if (deployment != null) {
-            HelperMethods.checkString("deployment", deployment);
+            HelperMethods.checkVueHTMLString("deployment",
+                deployment);
         }
         this.deployment = deployment;
     }
-    private void setObjective(String objective) {
+    private void setObjective(VueHTMLString objective) {
         if (objective != null) {
-            HelperMethods.checkString("objective", objective);
+            HelperMethods.checkVueHTMLString("objective",
+                objective);
         }
         this.objective = objective;
     }
-    private void setExtraction(String extraction) {
+    private void setExtraction(VueHTMLString extraction) {
         if (extraction != null) {
-            HelperMethods.checkString("extraction", extraction);
+            HelperMethods.checkVueHTMLString("extraction",
+                extraction);
         }
         this.extraction = extraction;
     }
-    private void setControlZone(String controlZone) {
+    private void setControlZone(VueHTMLString controlZone) {
         if (controlZone != null) {
-            HelperMethods.checkString("controlZone", controlZone);
+            HelperMethods.checkVueHTMLString("controlZone",
+                controlZone);
         }
         this.controlZone = controlZone;
+    }
+
+    private void setDescription(String description) {
+        setDescription(new VueHTMLString(description));
+    }
+    private void setPCVictory(String pcVictory) {
+        if (pcVictory != null) {
+            setPCVictory(new VueHTMLString(pcVictory));
+        }
+        this.pcVictory = null;
+    }
+    private void setEnemyVictory(String enemyVictory) {
+        if (enemyVictory != null) {
+            setEnemyVictory(new VueHTMLString(enemyVictory));
+        }
+        this.enemyVictory = null;
+    }
+    private void setNoVictory(String noVictory) {
+        if (noVictory != null) {
+            setNoVictory(new VueHTMLString(noVictory));
+        }
+        this.noVictory = null;
+    }
+    private void setDeployment(String deployment) {
+        if (deployment != null) {
+            setDeployment(new VueHTMLString(deployment));
+        }
+        this.deployment = null;
+    }
+    private void setObjective(String objective) {
+        if (objective != null) {
+            setObjective(new VueHTMLString(objective));
+        }
+        this.objective = null;
+    }
+    private void setExtraction(String extraction) {
+        if (extraction != null) {
+            setExtraction(new VueHTMLString(extraction));
+        }
+        this.extraction = null;
+    }
+    private void setControlZone(String controlZone) {
+        if (controlZone != null) {
+            setControlZone(new VueHTMLString(controlZone));
+        }
+        this.controlZone = null;
     }
 }
