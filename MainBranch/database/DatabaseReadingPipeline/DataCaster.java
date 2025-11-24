@@ -40,8 +40,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.p
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skill.SkillData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skill.skillData.SkillFamily;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.talent.TalentData;
-import Packages.CoreTypes.EntityMechanics.StateSystem.state.Condition;
-import Packages.CoreTypes.EntityMechanics.StateSystem.state.Status;
+import Packages.CoreTypes.EntityMechanics.StateSystem.state.StateData;
 import Packages.CoreTypes.lcpInfo.LCPDependency;
 import Packages.CoreTypes.lcpInfo.Version;
 import Packages.CoreTypes.lcpInfo.lcpDependency.SemverVersion;
@@ -114,7 +113,7 @@ public class DataCaster {
     private static Action[] actionsProcessed;
     private static ActivationType[] activationTypesProcessed;
     private static CoreBonus[] coreBonusesProcessed;
-    private static Condition[] conditionsProcessed;
+    private static StateData[] conditionsProcessed;
     private static DataTag[] dataTagsProcessed;
     private static Tag[] tagsProcessed;
     private static Manufacturer[] manufacturersProcessed;
@@ -125,7 +124,7 @@ public class DataCaster {
     private static PilotWeapon[] pilotWeaponsProcessed;
     private static Reserve[] reservesProcessed;
     private static SkillData[] skillsProcessed;
-    private static Status[] statusesProcessed;
+    private static StateData[] statusesProcessed;
     private static TalentData[] talentsProcessed;
     // ----less important
     private static Environment[] environmentsProcessed;
@@ -141,6 +140,7 @@ public class DataCaster {
     static {
         flushData();
     }
+
     // Prevent user from instantiating this class
     private DataCaster() {}
 
@@ -1157,33 +1157,120 @@ public class DataCaster {
             SkillFamily.fromString(family));
     }
     private static void processStates(JSONObject[] statesData) {
-        statesData = performCorrections("states", statesData);
-        DataCaster.processConditions(statesData);
-        DataCaster.processStatuses(statesData);
-    }
-    private static void processConditions(JSONObject[] conditionsData) {
-        Condition[] conditions = new Condition[conditionsData.length];
+        StateData[] states = new StateData[statesData.length];
 
+        statesData = performCorrections("states", statesData);
+        for (int i = 0; i < states.length; i++) {
+            states[i] = toState(statesData[i]);
+        }
+        DataCaster.processConditions(states);
+        DataCaster.processStatuses(states);
+    }
+    private static StateData toState(JSONObject stateData) {
+        // Required properties
+        String name;
+        String iconURL;
+        String type;
+        boolean isStatus = false;
+        String effects;
+        String exclusive;
+        boolean mechAffected = true;
+        boolean pilotAffected = true;
+
+        // Optional properties
+        String terse;
+        JSONArray stateEffectsArray;
+        int length;
+        StateData[] stateEffects = null;
+
+        // Required properties
+        try {
+            name = stateData.getString("name");
+            iconURL = stateData.getString("icon_url");
+            type = stateData.getString("type");
+            if (type.equals("Condition")) {
+            } else if (type.equals("Status")) {
+                isStatus = true;
+            } else {
+                throw new IllegalStateException("stateData's \"type\" property"
+                    + " had a value of: \"" + type + "\" which is neither"
+                    + " \"Condition\" nor \"Status\"");
+            }
+            effects = stateData.getString("effects");
+        } catch (JSONException exception) {
+            throw new IllegalStateException("skillData threw a JSONException"
+                + " during the required properties section of the object"
+                + " parsing, which is not allowed");
+        }
+        exclusive = getOptionalString(stateData, "exclusive");
+        if (exclusive == null) {
+        } else if (exclusive.equals("Mech")) {
+            pilotAffected = false;
+        } else if (exclusive.equals("Pilot")) {
+            mechAffected = false;
+        }
+        // Optional properties
+        terse = getOptionalString(stateData, "terse");
+        try {
+            stateEffectsArray = stateData.getJSONArray("state_effects");
+            try {
+                length = stateEffectsArray.length();
+                stateEffects = new StateData[length];
+                for (int i = 0; i < length; i++) {
+                    stateEffects[i] = toState(
+                        stateEffectsArray.getJSONObject(i));
+                }
+            } catch (JSONException exception) {
+                throw new IllegalStateException("Attempting to parse one of"
+                    + " the elements of the \"state_effects\" property of"
+                    + " stateData caused a JSONException to be thrown");
+            }
+        } catch (JSONException exception) {}
+
+        return new StateData(name, iconURL, isStatus, effects, mechAffected,
+            pilotAffected, terse, stateEffects);
+    }
+    private static void processConditions(StateData[] conditionsData) {
+        StateData[] conditions;
+        int numElements = 0;
+
+        for (int i = 0; i < conditionsData.length; i++) {
+            if (conditionsData[i].isStatus()) {
+                continue;
+            }
+            numElements++;
+        }
+        numElements = 0;
+        conditions = new StateData[numElements];
         for (int i = 0; i < conditions.length; i++) {
-            conditions[i] = toCondition(conditionsData[i]);
+            if (conditionsData[i].isStatus()) {
+                continue;
+            }
+            conditions[numElements] = conditionsData[i];
+            numElements++;
         }
         DataCaster.conditionsProcessed = conditions;
     }
-    private static Condition toCondition(JSONObject conditionData) {
-        // TODO: fill out
-        return null;
-    }
-    private static void processStatuses(JSONObject[] statusesData) {
-        Status[] statuses = new Status[statusesData.length];
+    private static void processStatuses(StateData[] statusesData) {
+        StateData[] statuses;
+        int numElements = 0;
 
+        for (int i = 0; i < statusesData.length; i++) {
+            if (! statusesData[i].isStatus()) {
+                continue;
+            }
+            numElements++;
+        }
+        numElements = 0;
+        statuses = new StateData[numElements];
         for (int i = 0; i < statuses.length; i++) {
-            statuses[i] = toStatus(statusesData[i]);
+            if (! statusesData[i].isStatus()) {
+                continue;
+            }
+            statuses[numElements] = statusesData[i];
+            numElements++;
         }
         DataCaster.statusesProcessed = statuses;
-    }
-    private static Status toStatus(JSONObject statusData) {
-        // TODO: fill out
-        return null;
     }
     private static void processMechSystems(JSONObject[] mechSystemsData) {
         MechSystem[] mechSystems = new MechSystem[mechSystemsData.length];
@@ -1473,7 +1560,7 @@ public class DataCaster {
         // ----the rest of the critical data types:
         DataCaster.actionsProcessed = new Action[0];
         DataCaster.activationTypesProcessed = new ActivationType[0];
-        DataCaster.conditionsProcessed = new Condition[0];
+        DataCaster.conditionsProcessed = new StateData[0];
         DataCaster.coreBonusesProcessed = new CoreBonus[0];
         DataCaster.dataTagsProcessed = new DataTag[0];
         DataCaster.tagsProcessed = new Tag[0];
@@ -1485,7 +1572,7 @@ public class DataCaster {
         DataCaster.pilotWeaponsProcessed = new PilotWeapon[0];
         DataCaster.reservesProcessed = new Reserve[0];
         DataCaster.skillsProcessed = new SkillData[0];
-        DataCaster.statusesProcessed = new Status[0];
+        DataCaster.statusesProcessed = new StateData[0];
         DataCaster.talentsProcessed = new TalentData[0];
         // ----less important
         DataCaster.environmentsProcessed = new Environment[0];
