@@ -18,13 +18,13 @@ import MainBranch.HelperMethods;
 public class Sitrep {
     // Required properties
     /**
-     * The ID of the sitrep (i.e. TODO: add example).
+     * The ID of the sitrep (i.e. "sitrep_standardcombat").
      * Can be any String except "". Cannot be null.
      * Case-insensitive and stored in lowercase.
      */
     private String id;
     /**
-     * The name of the sitrep (i.e. TODO: add example).
+     * The name of the sitrep (i.e. "Standard Combat").
      * Can be any String except "". Cannot be null.
      * Case-sensitive.
      */
@@ -109,9 +109,18 @@ public class Sitrep {
             null);
     }
     public Sitrep(Sitrep sitrep) {
-        this(sitrep.id, sitrep.name, sitrep.description, sitrep.pcVictory,
-            sitrep.enemyVictory, sitrep.noVictory, sitrep.deployment,
-            sitrep.objective, sitrep.extraction, sitrep.controlZone);
+        // Required properties
+        setID(sitrep.id);
+        setName(sitrep.name);
+        setDescription(sitrep.description);
+        // Optional properties
+        setPCVictory(sitrep.pcVictory);
+        setEnemyVictory(sitrep.enemyVictory);
+        setNoVictory(sitrep.noVictory);
+        setDeployment(sitrep.deployment);
+        setObjective(sitrep.objective);
+        setExtraction(sitrep.extraction);
+        setControlZone(sitrep.controlZone);
     }
 
     // Required properties
@@ -147,53 +156,53 @@ public class Sitrep {
         return objective;
     }
     // Required properties
-    public void setID(String id) {
+    private void setID(String id) {
         HelperMethods.checkString("id", id);
         id = id.toLowerCase();
         this.id = id;
     }
-    public void setName(String name) {
+    private void setName(String name) {
         HelperMethods.checkString("name", name);
         this.name = name;
     }
-    public void setDescription(String description) {
+    private void setDescription(String description) {
         HelperMethods.checkString("description", description);
         this.description = description;
     }
     // Optional properties
-    public void setPCVictory(String pcVictory) {
+    private void setPCVictory(String pcVictory) {
         HelperMethods.checkString("pcVictory", pcVictory);
         this.pcVictory = pcVictory;
     }
-    public void setEnemyVictory(String enemyVictory) {
+    private void setEnemyVictory(String enemyVictory) {
         HelperMethods.checkString("enemyVictory", enemyVictory);
         this.enemyVictory = enemyVictory;
     }
-    public void setNoVictory(String noVictory) {
+    private void setNoVictory(String noVictory) {
         if (noVictory != null) {
             HelperMethods.checkString("noVictory", noVictory);
         }
         this.noVictory = noVictory;
     }
-    public void setDeployment(String deployment) {
+    private void setDeployment(String deployment) {
         if (deployment != null) {
             HelperMethods.checkString("deployment", deployment);
         }
         this.deployment = deployment;
     }
-    public void setObjective(String objective) {
+    private void setObjective(String objective) {
         if (objective != null) {
             HelperMethods.checkString("objective", objective);
         }
         this.objective = objective;
     }
-    public void setExtraction(String extraction) {
+    private void setExtraction(String extraction) {
         if (extraction != null) {
             HelperMethods.checkString("extraction", extraction);
         }
         this.extraction = extraction;
     }
-    public void setControlZone(String controlZone) {
+    private void setControlZone(String controlZone) {
         if (controlZone != null) {
             HelperMethods.checkString("controlZone", controlZone);
         }
