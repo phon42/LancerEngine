@@ -1220,7 +1220,12 @@ public class DataCaster {
         // Required properties
         try {
             name = stateData.getString("name");
-            iconURL = stateData.getString("icon_url");
+            // TODO: the LCP documentation page states that statuses.json
+            //     objects should have an "icon_url" property that is required;
+            //     however, objects in actual LCPs seem to instead have "icon"
+            //     properties which do not resemble a URL but could conceivably
+            //     be used as locators
+            iconURL = stateData.getString("icon");
             type = stateData.getString("type");
             if (type.equals("Condition")) {
             } else if (type.equals("Status")) {
