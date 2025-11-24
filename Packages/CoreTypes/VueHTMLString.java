@@ -264,16 +264,26 @@ public class VueHTMLString implements Comparable<VueHTMLString>, CharSequence {
     }
     public static VueHTMLString format(VueHTMLString vueHTMLString,
         Object... args) {
-        HelperMethods.checkObject("vueHTMLString", vueHTMLString);
-
-        return vueHTMLString.format(args);
-    }
-    public VueHTMLString format(Object... args) {
-        // TODO: fill out
         VueHTMLString newVueHTMLString;
 
-        newVueHTMLString = new VueHTMLString(this);
+        HelperMethods.checkObject("vueHTMLString", vueHTMLString);
+        HelperMethods.checkObject("args", args);
+        newVueHTMLString = new VueHTMLString(vueHTMLString);
+        for (int i = 0; i < args.length; i++) {
+            if (args[i] == null) {
+                continue;
+            }
+            if (dataType(args[i]) != dataType(args[i])) {
+                throw new IllegalArgumentException("Object at index: " + i
+                    + " is of a type that is different from the type of the"
+                    + " element of this VueHTMLString in that position");
+            }
+        }
+        // TODO: fill out
 
         return newVueHTMLString;
+    }
+    public VueHTMLString format(Object... args) {
+        return format(this, args);
     }
 }

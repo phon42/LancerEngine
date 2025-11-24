@@ -265,4 +265,11 @@ public class HTMLString implements Comparable<HTMLString>, CharSequence {
 
         return copy;
     }
+    public static HTMLString format(HTMLString htmlString, Object... args) {
+        // TODO: fill out
+        return null;
+    }
+    public HTMLString format(Object... args) {
+        return format(this, args);
+    }
 }
