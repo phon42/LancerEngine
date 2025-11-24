@@ -23,7 +23,8 @@ public class VueHTMLString implements Comparable<VueHTMLString>, CharSequence {
     public VueHTMLString(String input) {
         setRawValue(input);
     }
-    public VueHTMLString(VueHTMLString vueHTMLString) {
+    private VueHTMLString(VueHTMLString vueHTMLString) {
+        HelperMethods.checkObject("vueHTMLString", vueHTMLString);
         setRawValue(vueHTMLString.rawValue);
     }
     public VueHTMLString(StringBuffer buffer) {
@@ -269,6 +270,10 @@ public class VueHTMLString implements Comparable<VueHTMLString>, CharSequence {
     }
     public VueHTMLString format(Object... args) {
         // TODO: fill out
-        return null;
+        VueHTMLString newVueHTMLString;
+
+        newVueHTMLString = new VueHTMLString(this);
+
+        return newVueHTMLString;
     }
 }
