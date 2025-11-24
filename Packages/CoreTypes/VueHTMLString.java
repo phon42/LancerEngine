@@ -257,7 +257,7 @@ public class VueHTMLString implements Comparable<VueHTMLString>, CharSequence {
             arrayList.set(lastElementIndex, modifiedString);
         } // TODO: fill out
     }
-    private int dataType(Object dataElement) {
+    private static int dataType(Object dataElement) {
         if (dataElement instanceof String) {
             return 0;
         }

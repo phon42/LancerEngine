@@ -252,7 +252,7 @@ public class HTMLString implements Comparable<HTMLString>, CharSequence {
             arrayList.add(newElement);
         }
     }
-    private boolean dataType(Object dataElement) {
+    private static boolean dataType(Object dataElement) {
         HelperMethods.checkObject("dataElement", dataElement);
         if (dataElement instanceof String) {
             return false;
