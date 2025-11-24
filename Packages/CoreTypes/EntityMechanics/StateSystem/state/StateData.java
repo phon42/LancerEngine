@@ -35,7 +35,15 @@ public class StateData {
      * Case-sensitive.
      */
     private VueHTMLString effects;
+    /**
+     * Whether mechs are affected by this State.
+     * Can be any boolean.
+     */
     private boolean mechAffected;
+    /**
+     * Whether pilots are affected by this State.
+     * Can be any boolean.
+     */
     private boolean pilotAffected;
 
     // Optional properties
