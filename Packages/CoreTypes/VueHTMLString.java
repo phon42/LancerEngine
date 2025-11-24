@@ -61,12 +61,12 @@ public class VueHTMLString implements Comparable<VueHTMLString>, CharSequence {
 
         return this.getRawValue().equals(vueHTMLString.getRawValue());
     }
-    public HTMLString[] split(String regex) {
+    public VueHTMLString[] split(String regex) {
         String[] stringArray;
-        HTMLString[] result;
+        VueHTMLString[] result;
 
         stringArray = getRawValue().split(regex);
-        result = new HTMLString[stringArray.length];
+        result = new VueHTMLString[stringArray.length];
         for (int i = 0; i < stringArray.length; i++) {
             result[i] = new VueHTMLString(stringArray[i]);
         }
