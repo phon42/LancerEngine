@@ -16,10 +16,6 @@ public class VueHTMLString implements Comparable<VueHTMLString>, CharSequence {
      * TODO: add documentation
      */
     private Object[] dataSequence;
-    /**
-     * TODO: add documentation
-     */
-    private int[] typeSequence;
 
     public VueHTMLString() {
         setRawValue("");
@@ -44,11 +40,10 @@ public class VueHTMLString implements Comparable<VueHTMLString>, CharSequence {
     public Object[] getDataSequence() {
         return copyDataSequence(dataSequence);
     }
-    // getTypeSequence purposefully removed
     private void setRawValue(String rawValue) {
         HelperMethods.checkObject("rawValue", rawValue);
         this.rawValue = rawValue;
-        calculateDataSequence();
+        setDataSequence(calculateDataSequence());
     }
     private void setDataSequence(Object[] dataSequence) {
         HelperMethods.checkObjectArray("dataSequence",
@@ -56,12 +51,6 @@ public class VueHTMLString implements Comparable<VueHTMLString>, CharSequence {
         // removed copying of dataSequence because this method is only ever
         //     called within this class
         this.dataSequence = dataSequence;
-    }
-    private void setTypeSequence(int[] typeSequence) {
-        HelperMethods.checkObject("typeSequence", typeSequence);
-        // removed copying of typeSequence because this method is only ever
-        //     called within this class
-        this.typeSequence = typeSequence;
     }
 
     @Override
@@ -121,7 +110,7 @@ public class VueHTMLString implements Comparable<VueHTMLString>, CharSequence {
 
         return result;
     }
-    private void calculateDataSequence() {
+    private Object[] calculateDataSequence() {
         // TODO: fill out
         ArrayList<Object> sequence;
         String rawValue;
@@ -129,7 +118,6 @@ public class VueHTMLString implements Comparable<VueHTMLString>, CharSequence {
         boolean isClosingTag = false;
         HTMLTag workingTag;
         Object[] result;
-        int[] types;
 
         sequence = new ArrayList<>();
         // We will represent the possible value of rawValue through the method
@@ -228,12 +216,8 @@ public class VueHTMLString implements Comparable<VueHTMLString>, CharSequence {
         for (int i = 0; i < result.length; i++) {
             result[i] = sequence.get(i);
         }
-        types = new int[result.length];
-        for (int i = 0; i < result.length; i++) {
-            types[i] = dataType(result[i]);
-        }
-        setDataSequence(result);
-        setTypeSequence(types);
+
+        return result;
     }
     private void addElement(ArrayList<Object> arrayList, Object newElement) {
         Object lastElement;
