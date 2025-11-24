@@ -16,7 +16,6 @@ import MainBranch.HelperMethods;
  *     placeholder. At least one of its properties has an allowed value of null.
  */
 public class Sitrep {
-    // TODO: fill out
     // Required properties
     /**
      * The ID of the sitrep (i.e. TODO: add example).
@@ -126,18 +125,24 @@ public class Sitrep {
     }
     // Required properties
     public void setID(String id) {
+        HelperMethods.checkString("id", id);
+        id = id.toLowerCase();
         this.id = id;
     }
     public void setName(String name) {
+        HelperMethods.checkString("name", name);
         this.name = name;
     }
     public void setPcVictory(String pcVictory) {
+        HelperMethods.checkString("pcVictory", pcVictory);
         this.pcVictory = pcVictory;
     }
     public void setEnemyVictory(String enemyVictory) {
+        HelperMethods.checkString("enemyVictory", enemyVictory);
         this.enemyVictory = enemyVictory;
     }
     public void setDescription(String description) {
+        HelperMethods.checkString("description", description);
         this.description = description;
     }
     // Optional properties
