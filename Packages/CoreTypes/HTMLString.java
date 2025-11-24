@@ -8,11 +8,11 @@ public class HTMLString implements Comparable<HTMLString>, CharSequence {
     /**
      * TODO: add documentation
      */
-    protected String rawValue;
+    private String rawValue;
     /**
      * TODO: add documentation
      */
-    protected Object[] dataSequence;
+    private Object[] dataSequence;
 
     public HTMLString() {
         setRawValue("");
@@ -21,7 +21,6 @@ public class HTMLString implements Comparable<HTMLString>, CharSequence {
         setRawValue(input);
     }
     public HTMLString(HTMLString htmlString) {
-        HelperMethods.checkObject("htmlString", htmlString);
         setRawValue(htmlString.rawValue);
     }
     public HTMLString(StringBuffer buffer) {
@@ -37,12 +36,12 @@ public class HTMLString implements Comparable<HTMLString>, CharSequence {
     public Object[] getDataSequence() {
         return copyDataSequence(dataSequence);
     }
-    protected void setRawValue(String rawValue) {
+    private void setRawValue(String rawValue) {
         HelperMethods.checkObject("rawValue", rawValue);
         this.rawValue = rawValue;
         setDataSequence(calculateDataSequence());
     }
-    protected void setDataSequence(Object[] dataSequence) {
+    private void setDataSequence(Object[] dataSequence) {
         HelperMethods.checkObjectArray("dataSequence",
             dataSequence);
         // removed copying of dataSequence because this method is only ever
@@ -73,10 +72,10 @@ public class HTMLString implements Comparable<HTMLString>, CharSequence {
         return this.getRawValue().equals(htmlString.getRawValue());
     }
     public boolean rawEquals(Object object) {
-        return equals(object);
+        return super.equals(object);
     }
     public boolean rawEquals(HTMLString htmlString) {
-        return equals(htmlString);
+        return super.equals(htmlString);
     }
     public CharSequence subSequence(int beginIndex, int endIndex) {
         return getRawValue().subSequence(beginIndex, endIndex);
@@ -105,7 +104,7 @@ public class HTMLString implements Comparable<HTMLString>, CharSequence {
 
         return result;
     }
-    protected Object[] calculateDataSequence() {
+    private Object[] calculateDataSequence() {
         ArrayList<Object> sequence;
         String rawValue;
         String workingString;
@@ -239,7 +238,7 @@ public class HTMLString implements Comparable<HTMLString>, CharSequence {
             arrayList.add(newElement);
         }
     }
-    protected Object[] copyDataSequence(Object[] original) {
+    private Object[] copyDataSequence(Object[] original) {
         Object[] copy;
 
         HelperMethods.checkObjectArray("original", original);
