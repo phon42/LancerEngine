@@ -1,5 +1,7 @@
 package Packages.CoreTypes.BattlefieldMechanics;
 
+import MainBranch.HelperMethods;
+
 /**
  * Represents a single sitrep. Contains information about that sitrep's id,
  *     name, win conditions for both parties, and description, among other
@@ -16,12 +18,46 @@ package Packages.CoreTypes.BattlefieldMechanics;
 public class Sitrep {
     // TODO: fill out
     // Required properties
+    /**
+     * The ID of the sitrep (i.e. TODO: add example).
+     * Can be any String except "". Cannot be null.
+     * Case-insensitive and stored in lowercase.
+     */
     private String id;
+    /**
+     * The name of the sitrep (i.e. TODO: add example).
+     * Can be any String except "". Cannot be null.
+     * Case-sensitive.
+     */
     private String name;
+    /**
+     * The conditions for the player characters to claim victory within this
+     *     sitrep (i.e. TODO: add example).
+     * Can be any String except "". Cannot be null.
+     * Case-sensitive.
+     */
     private String pcVictory;
+    /**
+     * The conditions for the enemy force to claim victory within this sitrep
+     *     (i.e. TODO: add example).
+     * Can be any String except "". Cannot be null.
+     * Case-sensitive.
+     */
     private String enemyVictory;
+    /**
+     * A description of this sitrep (i.e. TODO: add example).
+     * Can be any String except "". Cannot be null.
+     * Case-sensitive.
+     */
     private String description;
+
     // Optional properties
+    /**
+     * The conditions under which no victory can be claimed by either side in
+     *     this sitrep (i.e. TODO: add example).
+     * Can be any String except "". Can be null.
+     * Case-sensitive.
+     */
     private String noVictory;
     private String controlZone;
     private String deployment;
@@ -73,22 +109,6 @@ public class Sitrep {
         return description;
     }
     // Optional properties
-    public void setID(String id) {
-        this.id = id;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-    public void setPcVictory(String pcVictory) {
-        this.pcVictory = pcVictory;
-    }
-    public void setEnemyVictory(String enemyVictory) {
-        this.enemyVictory = enemyVictory;
-    }
-    public void setDescription(String description) {
-        this.description = description;
-    }
-    // Required properties
     public String getNoVictory() {
         return noVictory;
     }
@@ -104,20 +124,51 @@ public class Sitrep {
     public String getObjective() {
         return objective;
     }
+    // Required properties
+    public void setID(String id) {
+        this.id = id;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public void setPcVictory(String pcVictory) {
+        this.pcVictory = pcVictory;
+    }
+    public void setEnemyVictory(String enemyVictory) {
+        this.enemyVictory = enemyVictory;
+    }
+    public void setDescription(String description) {
+        this.description = description;
+    }
     // Optional properties
     public void setNoVictory(String noVictory) {
+        if (noVictory != null) {
+            HelperMethods.checkString("noVictory", noVictory);
+        }
         this.noVictory = noVictory;
     }
     public void setControlZone(String controlZone) {
+        if (controlZone != null) {
+            HelperMethods.checkString("controlZone", controlZone);
+        }
         this.controlZone = controlZone;
     }
     public void setDeployment(String deployment) {
+        if (deployment != null) {
+            HelperMethods.checkString("deployment", deployment);
+        }
         this.deployment = deployment;
     }
     public void setExtraction(String extraction) {
+        if (extraction != null) {
+            HelperMethods.checkString("extraction", extraction);
+        }
         this.extraction = extraction;
     }
     public void setObjective(String objective) {
+        if (objective != null) {
+            HelperMethods.checkString("objective", objective);
+        }
         this.objective = objective;
     }
 }
