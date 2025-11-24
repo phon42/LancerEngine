@@ -17,6 +17,7 @@ import Packages.CoreTypes.EntityMechanics.HarmSystem.damage.Harm;
 import Packages.CoreTypes.EntityMechanics.StateSystem.State;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.Status;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.Condition;
+import Packages.CoreTypes.EntityMechanics.StateSystem.state.StateData;
 import Packages.CoreTypes.Size;
 
 /**
@@ -959,32 +960,28 @@ public final class Mech implements Damageable {
     }
     /**
      * Adds the provided status to this.statuses.
-     * @param newStatus a Status containing the new status. Must have a valid
-     *     Status.name property as defined by Status.allowedMechStatuses.
+     * @param newStatus a Status containing the new status. Must have a
+     *     Status.data.mechAffected value of true.
      * @param addDuplicate a boolean representing whether or not to add a second
      *     version of the same status if a status of the same name is already
      *     present in this.statuses.
-     * @throws IllegalArgumentException if newStatus has a Status.name property
-     *     that is invalid as defined by Status.allowedMechStatuses.
+     * @throws IllegalArgumentException if newStatus has a
+     *     Status.data.mechAffected value that is false.
      */
     public void addStatus(Status newStatus, boolean addDuplicate) {
-        boolean isValid = false;
+        StateData data;
+        String newStatusName;
         boolean containsStatus = false;
 
         HelperMethods.checkObject("newStatus", newStatus);
-        for (String status : Status.allowedMechStatuses) {
-            if (newStatus.getName().equals(status)) {
-                isValid = true;
-                break;
-            }
-        }
-        if (! isValid) {
-            throw new IllegalArgumentException("newStatus' Status.name"
-                + " property: \"" + newStatus.getName() + "\" is an invalid"
-                + " status");
+        data = newStatus.getData();
+        newStatusName = data.getName();
+        if (! data.isMechAffected()) {
+            throw new IllegalArgumentException("newStatus is a Status that does"
+                + " not affect mechs: \"" + newStatusName + "\"");
         }
         for (Status status : this.statuses) {
-            if (status.getName().equals(newStatus.getName())) {
+            if (status.getData().getName().equals(newStatusName)) {
                 containsStatus = true;
             }
         }
@@ -996,8 +993,8 @@ public final class Mech implements Damageable {
     /**
      * A helper method for addStatus(Status, boolean). Allows the method to be
      *     called with a default value of false for the boolean.
-     * @param status a Status containing the new status. Must have a valid
-     *     Status.name property as defined by Status.allowedMechStatuses.
+     * @param newStatus a Status containing the new status. Must have a
+     *     Status.data.mechAffected value of true.
      */
     public void addStatus(Status status) {
         addStatus(status, false);
@@ -1005,33 +1002,30 @@ public final class Mech implements Damageable {
     /**
      * Removes the provided status from this.statuses.
      * @param oldStatus a Status containing the status to be removed. Must have
-     *     a valid Status.name property as defined by
-     *     Status.allowedMechStatuses.
+     *     a Status.data.mechAffected value of true.
      * @param removeAll a boolean representing whether to remove all statuses
-     *     with the same Status.name property as oldStatus if multiple statuses
-     *     of the same name are present, or just the specified one.
-     * @throws IllegalArgumentException if oldStatus has an invalid Status.name
-     *     property as defined by Status.allowedMechStatuses.
+     *     with the same Status.data.name property as oldStatus if multiple
+     *     statuses of the same name are present, or just the specified one.
+     * @throws IllegalArgumentException if oldStatus has a
+     *     Status.data.mechAffected value that is false.
      */
     public void removeStatus(Status oldStatus, boolean removeAll) {
-        boolean isValid = false;
+        StateData data;
+        String oldStatusName;
         boolean areSame = false;
         Status[] newStatuses;
 
-        for (String status : Status.allowedMechStatuses) {
-            if (oldStatus.getName().equals(status)) {
-                isValid = true;
-                break;
-            }
-        }
-        if (! isValid) {
-            throw new IllegalArgumentException("oldStatus has an invalid"
-                + " Status.name property: \"" + oldStatus.getName() + "\"");
+        HelperMethods.checkObject("oldStatus", oldStatus);
+        data = oldStatus.getData();
+        oldStatusName = data.getName();
+        if (! data.isMechAffected()) {
+            throw new IllegalArgumentException("oldStatus is a Status that does"
+                + " not affect mechs: \"" + oldStatusName + "\"");
         }
         for (int i = 0; i < this.statuses.length; i++) {
             if (removeAll) {
-                areSame = this.statuses[i].getName().equals(
-                    oldStatus.getName());
+                areSame = this.statuses[i].getData().getName().equals(
+                    oldStatusName);
             } else {
                 areSame = this.statuses[i].equals(oldStatus);
             }
@@ -1057,49 +1051,60 @@ public final class Mech implements Damageable {
      * Helper method for removeStatus(Status, boolean). Allows the method to be
      *     run with a default value of false for the boolean.
      * @param oldStatus a Status containing the status to be removed. Must have
-     *     a valid Status.name property as defined by
-     *     Status.allowedMechStatuses.
+     *     a Status.data.mechAffected value of true.
      */
     public void removeStatus(Status oldStatus) {
         removeStatus(oldStatus, false);
     }
     /**
      * Recursively checks whether any of this.conditions or this.status have a
-     *     State.name value of stateName, or whether any of the States they
-     *     caused have such a value, and so on.
-     * @param stateName a String containing a State.name value to search for.
-     *     Must be a valid name as defined by State.allowedNames.
+     *     State.data.name value of stateName.
+     * @param stateName a String containing a State.data.name value to search
+     *     for.
      * @return a boolean containing the result of the check.
      */
     public boolean hasState(String stateName) {
         boolean isPresent = false;
 
+        HelperMethods.checkString("stateName", stateName);
         for (Condition condition : this.conditions) {
-            isPresent = isPresent || condition.getName().equals(stateName);
-            isPresent = isPresent || condition.hasState(stateName);
+            isPresent = isPresent
+                || condition.getData().getName().equals(stateName);
         }
         if (isPresent) {
             return isPresent;
         }
         for (Status status : this.statuses) {
-            isPresent = isPresent || status.getName().equals(stateName);
-            isPresent = isPresent || status.hasState(stateName);
+            isPresent = isPresent
+                || status.getData().getName().equals(stateName);
         }
 
         return isPresent;
     }
     /**
      * Adds the provided condition to this.conditions.
-     * @param newCondition a Condition containing the new condition.
+     * @param newCondition a Condition containing the new condition. Must have a
+     *     Condition.data.mechAffected value of true.
      * @param addDuplicate a boolean representing whether or not to add a second
      *     version of the same condition if a condition of the same name is
      *     already present in this.conditions.
+     * @throws IllegalArgumentException if newCondition has a
+     *     Condition.data.mechAffected value that is false.
      */
     public void addCondition(Condition newCondition, boolean addDuplicate) {
+        StateData data;
+        String newConditionName;
         boolean containsCondition = false;
 
+        HelperMethods.checkObject("newCondition", newCondition);
+        data = newCondition.getData();
+        newConditionName = data.getName();
+        if (! data.isMechAffected()) {
+            throw new IllegalArgumentException("newCondition is a Condition"
+                + " that does not affect mechs: \"" + newConditionName + "\"");
+        }
         for (Condition condition : this.conditions) {
-            if (condition.getName().equals(newCondition.getName())) {
+            if (condition.getData().getName().equals(newConditionName)) {
                 containsCondition = true;
             }
         }
@@ -1111,38 +1116,50 @@ public final class Mech implements Damageable {
     /**
      * A helper method for addCondition(Condition, boolean). Allows the method
      *     to be called with a default value of false for the boolean.
-     * @param condition a Condition containing the new condition.
+     * @param newCondition a Condition containing the new condition. Must have a
+     *     Condition.data.mechAffected value of true.
      */
-    public void addCondition(Condition condition) {
-        addCondition(condition, false);
+    public void addCondition(Condition newCondition) {
+        addCondition(newCondition, false);
     }
     /**
      * Removes the provided condition from this.conditions.
      * @param oldCondition a Condition containing the condition to be removed.
+     *     Must have a Condition.data.mechAffected value of true.
      * @param removeAll a boolean representing whether to remove all conditions
-     *     with the same Condition.name property as oldCondition if multiple
-     *     conditions of the same name are present, or just the specified one.
+     *     with the same Condition.data.name property as oldCondition if
+     *     multiple conditions of the same name are present, or just the
+     *     specified one.
+     * @throws IllegalArgumentException if oldCondition has a
+     *     Condition.data.mechAffected value that is false.
      */
     public void removeCondition(Condition oldCondition, boolean removeAll) {
+        StateData data;
+        String oldConditionName;
         boolean areSame = false;
         Condition[] newConditions;
 
+        HelperMethods.checkObject("oldCondition", oldCondition);
+        data = oldCondition.getData();
+        oldConditionName = data.getName();
+        if (! data.isMechAffected()) {
+            throw new IllegalArgumentException("oldCondition is a Condition"
+                + " that does not affect mechs: \"" + oldConditionName + "\"");
+        }
         for (int i = 0; i < this.conditions.length; i++) {
             if (removeAll) {
-                areSame = this.conditions[i].getName().equals(
-                    oldCondition.getName());
+                areSame = this.conditions[i].getData().getName().equals(
+                    oldConditionName);
             } else {
                 areSame = this.conditions[i].equals(oldCondition);
             }
             if (areSame) {
                 newConditions = new Condition[this.conditions.length - 1];
                 for (int j = 0; j < this.conditions.length; j++) {
-                    if (j == i) {
-                        continue;
-                    }
                     if (j < i) {
                         newConditions[j] = this.conditions[j];
-                    } else {
+                    } 
+                    if (j > i) {
                         newConditions[j - 1] = this.conditions[j];
                     }
                 }
@@ -1155,9 +1172,10 @@ public final class Mech implements Damageable {
         }
     }
     /**
-     * Helper method for removeCondition(Condition, boolean). Allows the method
-     *     to be run with a default value of false for the boolean.
-     * @param oldCondition a Condition containing the condition to be removed.
+     * Helper method for removeCondition(Condition, boolean). Allows the method to be
+     *     run with a default value of false for the boolean.
+     * @param oldCondition a Condition containing the condition to be removed. Must have
+     *     a Condition.data.mechAffected value of true.
      */
     public void removeCondition(Condition oldCondition) {
         removeCondition(oldCondition, false);
