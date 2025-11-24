@@ -1,6 +1,8 @@
 package Packages.CoreTypes;
 
+import java.util.ArrayList;
 import MainBranch.HelperMethods;
+import Packages.CoreTypes.htmlString.HTMLTag;
 
 /**
  * See https://vuejs.org/guide/essentials/template-syntax.
@@ -42,7 +44,18 @@ public class VueHTMLString implements Comparable<VueHTMLString>, CharSequence {
         this.rawValue = rawValue;
         setDataSequence(calculateDataSequence());
     }
+    private void setDataSequence(Object[] dataSequence) {
+        HelperMethods.checkObjectArray("dataSequence",
+            dataSequence);
+        // removed copying of dataSequence because this method is only ever
+        //     called within this class
+        this.dataSequence = dataSequence;
+    }
 
+    @Override
+    public String toString() {
+        return getRawValue();
+    }
     @Override
     public boolean equals(Object object) {
         if (object == null) {
@@ -60,6 +73,29 @@ public class VueHTMLString implements Comparable<VueHTMLString>, CharSequence {
         }
 
         return this.getRawValue().equals(vueHTMLString.getRawValue());
+    }
+    // TODO: remove?
+    public boolean rawEquals(Object object) {
+        return super.equals(object);
+    }
+    // TODO: remove?
+    public boolean rawEquals(VueHTMLString vueHTMLString) {
+        return super.equals(vueHTMLString);
+    }
+    public CharSequence subSequence(int beginIndex, int endIndex) {
+        return getRawValue().subSequence(beginIndex, endIndex);
+    }
+    public int compareTo(VueHTMLString anotherVueHTMLString) {
+        HelperMethods.checkObject("anotherVueHTMLString",
+            anotherVueHTMLString);
+
+        return getRawValue().compareTo(anotherVueHTMLString.getRawValue());
+    }
+    public int length() {
+        return getRawValue().length();
+    }
+    public char charAt(int index) {
+        return getRawValue().charAt(index);
     }
     public VueHTMLString[] split(String regex) {
         String[] stringArray;
