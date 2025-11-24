@@ -5,12 +5,15 @@ import MainBranch.HelperMethods;
 /**
  * See https://vuejs.org/guide/essentials/template-syntax.
  */
-public class VueHTMLString extends HTMLString {
-    // TODO: replace documentation from HTMLString
+public class VueHTMLString implements Comparable<VueHTMLString>, CharSequence {
     /**
      * TODO: add documentation
      */
-    // private Object[] dataSequence;
+    private String rawValue;
+    /**
+     * TODO: add documentation
+     */
+    private Object[] dataSequence;
 
     public VueHTMLString() {
         setRawValue("");
@@ -19,7 +22,6 @@ public class VueHTMLString extends HTMLString {
         setRawValue(input);
     }
     public VueHTMLString(VueHTMLString vueHTMLString) {
-        HelperMethods.checkObject("vueHTMLString", vueHTMLString);
         setRawValue(vueHTMLString.rawValue);
     }
     public VueHTMLString(StringBuffer buffer) {
@@ -29,12 +31,13 @@ public class VueHTMLString extends HTMLString {
         this(new String(builder));
     }
 
-    @Override
+    public String getRawValue() {
+        return rawValue;
+    }
     public Object[] getDataSequence() {
         return copyDataSequence(dataSequence);
     }
-    @Override
-    protected void setRawValue(String rawValue) {
+    private void setRawValue(String rawValue) {
         HelperMethods.checkObject("rawValue", rawValue);
         this.rawValue = rawValue;
         setDataSequence(calculateDataSequence());
@@ -58,17 +61,6 @@ public class VueHTMLString extends HTMLString {
 
         return this.getRawValue().equals(vueHTMLString.getRawValue());
     }
-    public static VueHTMLString format(VueHTMLString vueHTMLString,
-        Object... args) {
-        HelperMethods.checkObject("vueHTMLString", vueHTMLString);
-
-        return vueHTMLString.format(args);
-    }
-    public VueHTMLString format(Object... args) {
-        // TODO: fill out
-        return null;
-    }
-    @Override
     public HTMLString[] split(String regex) {
         String[] stringArray;
         HTMLString[] result;
@@ -81,14 +73,22 @@ public class VueHTMLString extends HTMLString {
 
         return result;
     }
-    @Override
-    protected Object[] calculateDataSequence() {
+    private Object[] calculateDataSequence() {
         // TODO: fill out
         return new Object[0];
     }
-    @Override
-    protected Object[] copyDataSequence(Object[] dataSequence) {
+    private Object[] copyDataSequence(Object[] dataSequence) {
         // TODO: fill out
         return dataSequence;
+    }
+    public static VueHTMLString format(VueHTMLString vueHTMLString,
+        Object... args) {
+        HelperMethods.checkObject("vueHTMLString", vueHTMLString);
+
+        return vueHTMLString.format(args);
+    }
+    public VueHTMLString format(Object... args) {
+        // TODO: fill out
+        return null;
     }
 }
