@@ -266,8 +266,34 @@ public class HTMLString implements Comparable<HTMLString>, CharSequence {
         return copy;
     }
     public static HTMLString format(HTMLString htmlString, Object... args) {
-        // TODO: fill out
-        return null;
+        HTMLString newHTMLString;
+        Object[] newDataSequence;
+        String newRawValue = "";
+
+        HelperMethods.checkObject("htmlString", htmlString);
+        HelperMethods.checkObject("args", args);
+        newHTMLString = new HTMLString(htmlString);
+        for (int i = 0; i < args.length; i++) {
+            if (args[i] == null) {
+                continue;
+            }
+            if (dataType(args[i]) != dataType(args[i])) {
+                throw new IllegalArgumentException("Object at index: " + i
+                    + " is of a type that is different from the type of the"
+                    + " element of this HTMLString in that position");
+            }
+        }
+        newDataSequence = newHTMLString.copyDataSequence();
+        for (int i = 0; i < args.length; i++) {
+            if (args[i] == null) {
+                continue;
+            }
+            newDataSequence[i] = args[i];
+            newRawValue += newDataSequence[i].toString();
+        }
+        newHTMLString.setRawValue(newRawValue);
+
+        return newHTMLString;
     }
     public HTMLString format(Object... args) {
         return format(this, args);

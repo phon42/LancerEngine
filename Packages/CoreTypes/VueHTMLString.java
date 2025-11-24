@@ -265,6 +265,8 @@ public class VueHTMLString implements Comparable<VueHTMLString>, CharSequence {
     public static VueHTMLString format(VueHTMLString vueHTMLString,
         Object... args) {
         VueHTMLString newVueHTMLString;
+        Object[] newDataSequence;
+        String newRawValue = "";
 
         HelperMethods.checkObject("vueHTMLString", vueHTMLString);
         HelperMethods.checkObject("args", args);
@@ -279,7 +281,15 @@ public class VueHTMLString implements Comparable<VueHTMLString>, CharSequence {
                     + " element of this VueHTMLString in that position");
             }
         }
-        // TODO: fill out
+        newDataSequence = newVueHTMLString.copyDataSequence();
+        for (int i = 0; i < args.length; i++) {
+            if (args[i] == null) {
+                continue;
+            }
+            newDataSequence[i] = args[i];
+            newRawValue += newDataSequence[i].toString();
+        }
+        newVueHTMLString.setRawValue(newRawValue);
 
         return newVueHTMLString;
     }
