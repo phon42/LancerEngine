@@ -17,6 +17,7 @@ import Packages.CoreTypes.EntityMechanics.HarmSystem.damage.Harm;
 import Packages.CoreTypes.EntityMechanics.StateSystem.State;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.Status;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.Condition;
+import Packages.CoreTypes.EntityMechanics.StateSystem.state.Duration;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.StateData;
 import Packages.CoreTypes.Size;
 
@@ -702,12 +703,18 @@ public final class Mech implements Damageable {
         if (modifyStatuses) {
             if (this.currentHeat * 2 >= this.maxHeatCapacity) {
                 // in danger zone
-                addStatus(new Status("danger zone",
-                    "current heat (self)", "until removed"));
+                addStatus(new Status(
+                    Database.getStatus("danger zone"),
+                    new Duration("until removed"), "self",
+                    null
+                ));
             } else {
                 // not in danger zone
-                removeStatus(new Status("danger zone", "N/A",
-                    "source"), true);
+                removeStatus(new Status(
+                    Database.getStatus("danger zone"),
+                    new Duration("until removed"), "self",
+                    null
+                ));
             }
         }
     }
