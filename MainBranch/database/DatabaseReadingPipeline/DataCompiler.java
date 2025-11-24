@@ -28,6 +28,7 @@ import Packages.CoreTypes.EntityMechanics.Manufacturer;
 import Packages.CoreTypes.EntityMechanics.NPCFeature;
 import Packages.CoreTypes.EntityMechanics.NPCTemplate;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.Condition;
+import Packages.CoreTypes.EntityMechanics.StateSystem.state.StateData;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.Status;
 import Packages.CoreTypes.LCPInfo;
 import Packages.CoreTypes.Rule;
@@ -95,7 +96,7 @@ public class DataCompiler {
     private static Action[] actionData;
     private static IActionData[] iActionDataData;
     private static ActivationType[] activationTypeData;
-    private static Condition[] conditionData;
+    private static StateData[] conditionData;
     private static CoreBonus[] coreBonusData;
     private static DataTag[] dataTagData;
     private static Tag[] tagData;
@@ -107,7 +108,7 @@ public class DataCompiler {
     private static PilotWeapon[] pilotWeapon;
     private static Reserve[] reserveData;
     private static SkillData[] skillData;
-    private static Status[] statusData;
+    private static StateData[] statusData;
     private static TalentData[] talentData;
     // ----less important
     private static Environment[] environmentData;
@@ -183,7 +184,7 @@ public class DataCompiler {
         // ----the rest of the critical data types:
         DataCompiler.actionData = (Action[]) data[5];
         DataCompiler.activationTypeData = (ActivationType[]) data[6];
-        DataCompiler.conditionData = (Condition[]) data[7];
+        DataCompiler.conditionData = (StateData[]) data[7];
         DataCompiler.coreBonusData = (CoreBonus[]) data[8];
         DataCompiler.dataTagData = (DataTag[]) data[9];
         DataCompiler.tagData = (Tag[]) data[10];
@@ -195,7 +196,7 @@ public class DataCompiler {
         DataCompiler.pilotWeapon = (PilotWeapon[]) data[16];
         DataCompiler.reserveData = (Reserve[]) data[17];
         DataCompiler.skillData = (SkillData[]) data[18];
-        DataCompiler.statusData = (Status[]) data[19];
+        DataCompiler.statusData = (StateData[]) data[19];
         DataCompiler.talentData = (TalentData[]) data[20];
         // ----less important
         DataCompiler.environmentData = (Environment[]) data[21];
@@ -435,7 +436,7 @@ public class DataCompiler {
         DataCompiler.actionData = new Action[0];
         DataCompiler.iActionDataData = new IActionData[0];
         DataCompiler.activationTypeData = new ActivationType[0];
-        DataCompiler.conditionData = new Condition[0];
+        DataCompiler.conditionData = new StateData[0];
         DataCompiler.coreBonusData = new CoreBonus[0];
         DataCompiler.dataTagData = new DataTag[0];
         DataCompiler.tagData = new Tag[0];
@@ -447,7 +448,7 @@ public class DataCompiler {
         DataCompiler.pilotWeapon = new PilotWeapon[0];
         DataCompiler.reserveData = new Reserve[0];
         DataCompiler.skillData = new SkillData[0];
-        DataCompiler.statusData = new Status[0];
+        DataCompiler.statusData = new StateData[0];
         DataCompiler.talentData = new TalentData[0];
         // ----less important
         DataCompiler.environmentData = new Environment[0];
