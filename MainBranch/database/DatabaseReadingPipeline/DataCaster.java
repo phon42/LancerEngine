@@ -879,8 +879,8 @@ public class DataCaster {
         String logoURL;
         String description;
 
+        // Required properties
         try {
-            // Required properties
             id = manufacturerData.getString("id");
             name = manufacturerData.getString("name");
             logo = manufacturerData.getString("logo");
@@ -1122,8 +1122,42 @@ public class DataCaster {
         DataCaster.sitrepsProcessed = sitreps;
     }
     private static Sitrep toSitrep(JSONObject sitrepData) {
-        // TODO: fill out
-        return null;
+        // Required properties
+        String id;
+        String name;
+        String description;
+        // Optional properties
+        String pcVictory;
+        String enemyVictory;
+        String noVictory;
+        String deployment;
+        String objective;
+        String extraction;
+        String controlZone;
+
+        // Required properties
+        try {
+            id = sitrepData.getString("id");
+            name = sitrepData.getString("name");
+            description = sitrepData.getString("description");
+        } catch (JSONException exception) {
+            throw new IllegalStateException("sitrepData threw a JSONException"
+                + " during the required properties section of the object"
+                + " parsing, which is not allowed");
+        }
+        // Optional properties
+        pcVictory = getOptionalString(sitrepData, "pc_victory");
+        enemyVictory = getOptionalString(sitrepData,
+            "enemy_victory");
+        noVictory = getOptionalString(sitrepData, "no_victory");
+        deployment = getOptionalString(sitrepData, "deployment");
+        objective = getOptionalString(sitrepData, "objective");
+        extraction = getOptionalString(sitrepData, "extraction");
+        controlZone = getOptionalString(sitrepData,
+            "control_zone");
+
+        return new Sitrep(id, name, description, pcVictory, enemyVictory,
+            noVictory, deployment, objective, extraction, controlZone);
     }
     private static void processSkills(JSONObject[] skillsData) {
         SkillData[] skills = new SkillData[skillsData.length];
@@ -1198,7 +1232,7 @@ public class DataCaster {
             }
             effects = stateData.getString("effects");
         } catch (JSONException exception) {
-            throw new IllegalStateException("skillData threw a JSONException"
+            throw new IllegalStateException("stateData threw a JSONException"
                 + " during the required properties section of the object"
                 + " parsing, which is not allowed");
         }
