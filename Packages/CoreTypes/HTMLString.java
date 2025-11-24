@@ -216,8 +216,8 @@ public class HTMLString implements Comparable<HTMLString>, CharSequence {
     }
     private void addElement(ArrayList<Object> arrayList, Object newElement) {
         Object lastElement;
-        boolean isLastElementString = false;
-        boolean isNewElementString = false;
+        boolean isLastElementTag = false;
+        boolean isNewElementTag = false;
         int lastElementIndex;
         String modifiedString;
 
@@ -225,20 +225,27 @@ public class HTMLString implements Comparable<HTMLString>, CharSequence {
         HelperMethods.checkObject("newElement", newElement);
         lastElement = arrayList.get(arrayList.size() - 1);
         HelperMethods.checkObject("lastElement", lastElement);
-        if (lastElement instanceof String) {
-            isLastElementString = true;
-        }
-        if (newElement instanceof String) {
-            isNewElementString = true;
-        }
+        isLastElementTag = dataType(lastElement);
+        isNewElementTag = dataType(newElement);
         lastElementIndex = arrayList.size() - 1;
-        if (isLastElementString && isNewElementString) {
+        if (! (isLastElementTag || isNewElementTag)) {
             modifiedString = (String) lastElement;
             modifiedString += (String) newElement;
             arrayList.set(lastElementIndex, modifiedString);
         } else {
             arrayList.add(newElement);
         }
+    }
+    private boolean dataType(Object dataElement) {
+        HelperMethods.checkObject("dataElement", dataElement);
+        if (dataElement instanceof String) {
+            return false;
+        }
+        if (dataElement instanceof HTMLTag) {
+            return true;
+        }
+        throw new IllegalStateException("dataElement is of a type that is"
+            + " neither String nor HTMLTag");
     }
     private Object[] copyDataSequence(Object[] original) {
         Object[] copy;
