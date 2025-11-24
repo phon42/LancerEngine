@@ -1,8 +1,8 @@
 package Packages.CoreTypes;
 
 import java.util.ArrayList;
-
 import MainBranch.HelperMethods;
+import Packages.CoreTypes.htmlString.HTMLTag;
 
 public class HTMLString implements Comparable<HTMLString>, CharSequence {
     /**
