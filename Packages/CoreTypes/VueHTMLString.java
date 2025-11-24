@@ -221,8 +221,8 @@ public class VueHTMLString implements Comparable<VueHTMLString>, CharSequence {
     }
     private void addElement(ArrayList<Object> arrayList, Object newElement) {
         Object lastElement;
-        boolean lastElementType = false;
-        boolean newElementType = false;
+        int lastElementType;
+        int newElementType;
         int lastElementIndex;
         String modifiedString;
 
@@ -233,24 +233,20 @@ public class VueHTMLString implements Comparable<VueHTMLString>, CharSequence {
         lastElementType = dataType(lastElement);
         newElementType = dataType(newElement);
         lastElementIndex = arrayList.size() - 1;
-        if (! (lastElementType || newElementType)) {
+        if (lastElementType != newElementType) {
+            arrayList.add(newElement);
+        } else if (lastElementType == 0) {
             modifiedString = (String) lastElement;
             modifiedString += (String) newElement;
             arrayList.set(lastElementIndex, modifiedString);
-        } else {
-            arrayList.add(newElement);
-        }
+        } // TODO: fill out
     }
-    private boolean dataType(Object dataElement) {
-        HelperMethods.checkObject("dataElement", dataElement);
+    private int dataType(Object dataElement) {
         if (dataElement instanceof String) {
-            return false;
+            return 0;
         }
-        if (dataElement instanceof HTMLTag) {
-            return true;
-        }
-        throw new IllegalStateException("dataElement is of a type that is"
-            + " neither String nor HTMLTag");
+        // TODO: fill out
+        throw new IllegalStateException();
     }
     private Object[] copyDataSequence(Object[] original) {
         // TODO: fill out
