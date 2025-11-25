@@ -1,4 +1,4 @@
-package Packages.CoreTypes.table;
+package Packages.CoreTypes.jsonTypeTree;
 
 public enum JSONType {
     BOOLEAN,
