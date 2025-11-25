@@ -23,6 +23,8 @@ import Packages.CoreTypes.EntityMechanics.Manufacturer;
 import Packages.CoreTypes.EntityMechanics.NPCFeature;
 import Packages.CoreTypes.EntityMechanics.NPCTemplate;
 import Packages.CoreTypes.EntityMechanics.SynergyLocation;
+import Packages.CoreTypes.EntityMechanics.WeaponSize;
+import Packages.CoreTypes.EntityMechanics.WeaponType;
 import Packages.CoreTypes.EntityMechanics.Actions.actionBase.Action;
 import Packages.CoreTypes.EntityMechanics.Actions.actionBase.IActionData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.MechSystem;
@@ -49,6 +51,7 @@ import Packages.CoreTypes.lcpInfo.LCPDependency;
 import Packages.CoreTypes.lcpInfo.Version;
 import Packages.CoreTypes.lcpInfo.lcpDependency.SemverVersion;
 import Packages.CoreTypes.Counter;
+import Packages.CoreTypes.JSONTypeTree;
 import Packages.CoreTypes.LCPInfo;
 
 public class DataCaster {
@@ -806,6 +809,106 @@ public class DataCaster {
         }
 
         return new Bond(id, name, majorIdeals, minorIdeals, questions, powers);
+    }
+    private static Bonus toBonus(JSONObject bonusData) {
+        // Required properties
+        String id;
+        Object value;
+        JSONTypeTree valueType;
+        // Semi-required properties
+        TriState overwrite;
+        TriState replace;
+        // Optional properties
+        JSONArray damageTypesArray;
+        DamageType[] damageTypes;
+        JSONArray rangeTypesArray;
+        RangeType[] rangeTypes;
+        JSONArray weaponTypesArray;
+        WeaponType[] weaponTypes;
+        JSONArray weaponSizesArray;
+        WeaponSize[] weaponSizes;
+
+        // Required properties
+        try {
+            id = bonusData.getString("id");
+            value = bonusData.get("val");
+        } catch (JSONException exception) {
+            throw new IllegalStateException("bonusData threw a JSONException"
+                + " during the required properties section of the object"
+                + " parsing, which is not allowed");
+        }
+        // Determine valueType
+        valueType = JSONTypeTree.constructTree(value);
+
+        // Semi-required properties
+        try {
+            overwrite = TriState.toTriState(
+                bonusData.getBoolean("overwrite"));
+        } catch (JSONException exception) {
+            overwrite = TriState.UNSET;
+        }
+        try {
+            replace = TriState.toTriState(bonusData.getBoolean("replace"));
+        } catch (JSONException exception) {
+            replace = TriState.UNSET;
+        }
+
+        // Optional properties
+        try {
+            damageTypesArray = bonusData.getJSONArray("damage_types");
+            try {
+                damageTypes = new DamageType[damageTypesArray.length()];
+                for (int i = 0; i < damageTypes.length; i++) {
+                    damageTypes[i] =
+                        toDamageType(damageTypesArray.getJSONObject(i));
+                }
+            } catch (JSONException exception) {
+                throw new IllegalStateException("Attempting to parse"
+                    + " damageTypesArray threw a JSONException");
+            }
+        } catch (JSONException exception) {}
+        try {
+            rangeTypesArray = bonusData.getJSONArray("range_types");
+            try {
+                rangeTypes = new RangeType[rangeTypesArray.length()];
+                for (int i = 0; i < rangeTypes.length; i++) {
+                    rangeTypes[i] =
+                        toRangeType(rangeTypesArray.getJSONObject(i));
+                }
+            } catch (JSONException exception) {
+                throw new IllegalStateException("Attempting to parse"
+                    + " rangeTypesArray threw a JSONException");
+            }
+        } catch (JSONException exception) {}
+        try {
+            weaponTypesArray = bonusData.getJSONArray("weapon_types");
+            try {
+                weaponTypes = new WeaponType[weaponTypesArray.length()];
+                for (int i = 0; i < weaponTypes.length; i++) {
+                    weaponTypes[i] =
+                        toWeaponType(weaponTypesArray.getJSONObject(i));
+                }
+            } catch (JSONException exception) {
+                throw new IllegalStateException("Attempting to parse"
+                    + " weaponTypesArray threw a JSONException");
+            }
+        } catch (JSONException exception) {}
+        try {
+            weaponSizesArray = bonusData.getJSONArray("weapon_sizes");
+            try {
+                weaponSizes = new WeaponSize[weaponSizesArray.length()];
+                for (int i = 0; i < weaponSizes.length; i++) {
+                    weaponSizes[i] =
+                        toWeaponSize(weaponSizesArray.getJSONObject(i));
+                }
+            } catch (JSONException exception) {
+                throw new IllegalStateException("Attempting to parse"
+                    + " weaponSizesArray threw a JSONException");
+            }
+        } catch (JSONException exception) {}
+
+        return new Bonus(id, value, valueType, overwrite, replace, damageTypes,
+            rangeTypes, weaponTypes, weaponSizes);
     }
     private static void processCoreBonuses(JSONObject[] coreBonusesData) {
         UnverifiedCoreBonus[] coreBonuses =
