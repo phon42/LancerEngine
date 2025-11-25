@@ -23,20 +23,26 @@ public final class Tag extends DataTag {
      * The id for this tag (i.e. "tg_ai").
      * Must be a valid value for this.id (as defined by
      *     Tag.allowedTags). Cannot be null.
+     * Case-insensitive and stored in lowercase.
      */
     // protected String id;
     // TODO: find a way to override DataTag's documentation
     /**
      * The name for this tag (i.e. "AI").
      * Must be a valid value (as defined by Tag.allowedTags). Cannot be null.
+     * Case-sensitive.
      */
     // protected String name;
     // TODO: find a way to override DataTag's documentation
     /**
      * The value for this equipment tag if it has one (i.e. the "X" in
      *     "Limited X").
-     * Must be a minimum of 0. If this.name is one of Tag.valueNames, must be a
-     *     minimum of 1. Set to 0 on construction.
+     * If this.id is one of Tag.valueIDs:
+     *     Must be a minimum of 1.
+     * Otherwise:
+     *     Must be a minimum of 0.
+     * Must be a minimum of 0.
+     * Set to 0 on construction.
      */
     // private int value;
     /**
