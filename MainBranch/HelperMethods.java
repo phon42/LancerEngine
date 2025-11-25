@@ -8,6 +8,7 @@ import MainBranch.database.fileOperations.json.JSONArray;
 import MainBranch.database.fileOperations.json.JSONObject;
 import Packages.CoreTypes.Callable;
 import Packages.CoreTypes.HTMLString;
+import Packages.CoreTypes.JSONTypeTree;
 import Packages.CoreTypes.LCPInfo;
 import Packages.CoreTypes.Rule;
 import Packages.CoreTypes.Table;
@@ -1538,6 +1539,25 @@ public final class HelperMethods {
                 continue;
             }
             copy[i] = new Harm(original[i]);
+        }
+
+        return copy;
+    }
+    /**
+     * Returns a deepest copy of original.
+     * @param original a JSONTypeTree[] that cannot be null.
+     * @return a JSONTypeTree[] deep copy of original.
+     * @throws IllegalArgumentException if original is null.
+     */
+    public static JSONTypeTree[] copyOf(JSONTypeTree[] original) {
+        checkObject("original", original);
+        JSONTypeTree[] copy = new JSONTypeTree[original.length];
+        for (int i = 0; i < original.length; i++) {
+            if (original[i] == null) {
+                copy[i] = original[i];
+                continue;
+            }
+            copy[i] = original[i];
         }
 
         return copy;
