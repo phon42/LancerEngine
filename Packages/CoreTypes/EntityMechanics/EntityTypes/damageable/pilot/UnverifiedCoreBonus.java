@@ -16,25 +16,25 @@ public class UnverifiedCoreBonus {
      * Can be any String except "". Cannot be null.
      * Case-insensitive and stored in lowercase.
      */
-    private String id;
-    private String name;
-    private Manufacturer source;
-    private VueHTMLString effect;
-    private VueHTMLString description;
+    protected String id;
+    protected String name;
+    private String source;
+    protected VueHTMLString effect;
+    protected VueHTMLString description;
 
     // Optional properties
-    private String mountedEffect;
-    private IActionData[] actions;
-    private IBonusData[] bonuses;
-    private ISynergyData[] synergies;
-    private IDeployableData[] deployables;
-    private Counter[] counters;
-    private String[] integrated;
-    private String[] specialEquipment;
+    protected String mountedEffect;
+    protected IActionData[] actions;
+    protected IBonusData[] bonuses;
+    protected ISynergyData[] synergies;
+    protected IDeployableData[] deployables;
+    protected Counter[] counters;
+    protected String[] integrated;
+    protected String[] specialEquipment;
 
     public UnverifiedCoreBonus(
         // Required properties
-        String id, String name, Manufacturer source, String effect,
+        String id, String name, String source, String effect,
         String description,
         // Optional properties
         String mountedEffect, IActionData[] actions, IBonusData[] bonuses,
@@ -45,7 +45,7 @@ public class UnverifiedCoreBonus {
         // Required properties
         // Optional properties
     }
-    public UnverifiedCoreBonus(String id, String name, Manufacturer source,
+    public UnverifiedCoreBonus(String id, String name, String source,
         String effect, String description) {
         this(id, name, source, effect, description, null,
             null, null, null, null,
@@ -58,7 +58,7 @@ public class UnverifiedCoreBonus {
     }
     // Optional properties
     // Required properties
-    private void setID(String id) {
+    protected void setID(String id) {
         HelperMethods.checkString("id", id);
         id = id.toLowerCase();
         this.id = id;
