@@ -1,5 +1,8 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot;
 
+import java.util.NoSuchElementException;
+
+import MainBranch.Database;
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.Counter;
 import Packages.CoreTypes.VueHTMLString;
@@ -7,6 +10,7 @@ import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
 import Packages.CoreTypes.EntityMechanics.ISynergyData;
 import Packages.CoreTypes.EntityMechanics.Actions.actionBase.IActionData;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.unverifiedCoreBonus.CoreBonus;
 
 public class UnverifiedCoreBonus {
     // TODO: fill out
@@ -64,4 +68,21 @@ public class UnverifiedCoreBonus {
         this.id = id;
     }
     // Optional properties
+
+    public CoreBonus toCoreBonus() {
+        Manufacturer source;
+
+        try {
+            source = Database.getManufacturer(this.source);
+        } catch (NoSuchElementException exception) {
+            throw new IllegalStateException("Unable to convert this"
+                + " UnverifiedCoreBonus with an UnverifiedCoreBonus.source"
+                + " value of: \"" + this.source + "\"");
+        }
+
+        return new CoreBonus(this.id, this.name, source, this.mountedEffect,
+            effect.getRawValue(), description.getRawValue(), this.actions,
+            this.bonuses, this.synergies, this.deployables, this.counters,
+            this.integrated, this.specialEquipment);
+    }
 }
