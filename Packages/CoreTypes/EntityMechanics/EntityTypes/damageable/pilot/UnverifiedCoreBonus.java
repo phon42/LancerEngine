@@ -29,7 +29,7 @@ public class UnverifiedCoreBonus {
     // Optional properties
     protected String mountedEffect;
     protected IActionData[] actions;
-    protected IBonusData[] bonuses;
+    protected Bonus[] bonuses;
     protected ISynergyData[] synergies;
     protected IDeployableData[] deployables;
     protected Counter[] counters;
@@ -41,7 +41,7 @@ public class UnverifiedCoreBonus {
         String id, String name, String source, String effect,
         String description,
         // Optional properties
-        String mountedEffect, IActionData[] actions, IBonusData[] bonuses,
+        String mountedEffect, IActionData[] actions, Bonus[] bonuses,
         ISynergyData[] synergies, IDeployableData[] deployables,
         Counter[] counters, String[] integrated, String[] specialEquipment
     ) {
