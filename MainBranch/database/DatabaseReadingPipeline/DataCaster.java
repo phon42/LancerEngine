@@ -1404,27 +1404,32 @@ public class DataCaster {
         }
         DataCaster.dataTagsProcessed = dataTags;
     }
-    private static DataTag toDataTag(JSONObject datatagData) {
+    private static DataTag toDataTag(JSONObject dataTagData) {
         // TODO: fill out
         return null;
     }
     private static void processTags(DataTag[] tagsData) {
-        int numTags = 0;
         Tag[] tags;
+        int numTags = 0;
+        Tag[] newTags;
 
+        tags = new Tag[tagsData.length];
         for (int i = 0; i < tagsData.length; i++) {
-            if (! tagsData[i].isHidden()) {
+            try {
+                tags[i] = tagsData[i].toTag();
                 numTags++;
-            }
+            } catch (IllegalArgumentException exception) {}
         }
-        tags = new Tag[numTags];
-        for (int i = 0; i < tagsData.length; i++) {
-            if (! tagsData[i].isHidden()) {
-                tags[numTags] = tagsData[i].toTag();
-                numTags++;
+        newTags = new Tag[numTags];
+        numTags = 0;
+        for (int i = 0; i < tags.length; i++) {
+            if (tags[i] == null) {
+                continue;
             }
+            newTags[numTags] = tags[i];
+            numTags++;
         }
-        DataCaster.tagsProcessed = tags;
+        DataCaster.tagsProcessed = newTags;
     }
     private static void processTalents(JSONObject[] talentsData) {
         TalentData[] talents = new TalentData[talentsData.length];
