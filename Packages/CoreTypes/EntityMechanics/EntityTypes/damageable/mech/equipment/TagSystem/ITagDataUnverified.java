@@ -16,17 +16,19 @@ public class ITagDataUnverified {
     /**
      * The int value that this ITagDataUnverified object holds (example
      *     unhelpful).
-     * Must be -1 when this.valueString is not null. Otherwise, must be a
-     *     minimum of 0.
+     * When this.valueString is not null:
+     *     Must be -1.
+     * When this.valueString is null:
+     *     Must be a minimum of 0.
      * Must be a minimum of -1.
      */
     private int valueInt;
     /**
      * The String value that this ITagDataUnverified object holds (i.e. "X").
-     * When this.valueInt is > -1:
-     *     Can be any String. Cannot be null.
      * When this.valueInt is -1:
      *     Must be null.
+     * When this.valueInt is > -1:
+     *     Can be any String. Cannot be null.
      * Can be any String. Can be null.
      * Case-sensitive.
      */
