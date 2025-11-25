@@ -1466,7 +1466,7 @@ public final class HelperMethods {
                 copy[i] = original[i];
                 continue;
             }
-            copy[i] = new Bonus(original[i]);
+            copy[i] = original[i];
         }
 
         return copy;
