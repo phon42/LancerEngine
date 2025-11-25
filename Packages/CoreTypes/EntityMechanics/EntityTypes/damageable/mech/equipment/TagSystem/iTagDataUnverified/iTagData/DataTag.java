@@ -174,7 +174,7 @@ public class DataTag {
 
         return TriState.UNSET;
     }
-    public Tag toTag() {
+    public Tag toTag() throws IllegalArgumentException {
         if (this.hidden) {
             throw new IllegalArgumentException("Unable to convert a DataTag"
                 + " with a DataTag.hidden value of true to a Tag");
