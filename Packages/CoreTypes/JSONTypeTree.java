@@ -162,4 +162,11 @@ public class JSONTypeTree {
                 + " which is not -1");
         }
     }
+    /**
+     * Creates a copy of original using type as a guide on how to copy it.
+     */
+    public static Object copy(Object original, JSONTypeTree type) {
+        // TODO: fill out
+        return original;
+    }
 }
