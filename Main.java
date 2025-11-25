@@ -83,8 +83,6 @@ public final class Main {
         HashMap<String, Object> pilotProperties;
 
         Database.initialize();
-        // read all necessary databases
-        // DatabaseReader.readLocal("MainBranch/ProgramData/Data/actions.json");
 
         // compile a character
         myCharacter = new LancerCharacter("Coral Nolan",
