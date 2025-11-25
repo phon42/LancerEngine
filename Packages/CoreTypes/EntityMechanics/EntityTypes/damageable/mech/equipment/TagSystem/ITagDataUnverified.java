@@ -5,7 +5,8 @@ import MainBranch.HelperMethods;
 public class ITagDataUnverified {
     // Required property
     /**
-     * The id of the data tag this ITagData object refers to (i.e. "tg_ai").
+     * The id of the data tag this ITagDataUnverified object refers to (i.e.
+     *     "tg_ai").
      * Can be any String except "". Cannot be null.
      * Case-insensitive and stored in lowercase.
      */
@@ -13,14 +14,15 @@ public class ITagDataUnverified {
 
     // Optional properties
     /**
-     * The int value that this ITagData object holds (example unhelpful).
+     * The int value that this ITagDataUnverified object holds (example
+     *     unhelpful).
      * Must be -1 when this.valueString is not null. Otherwise, must be a
      *     minimum of 0.
      * Must be a minimum of -1.
      */
     private int valueInt;
     /**
-     * The String value that this ITagData object holds (i.e. "X").
+     * The String value that this ITagDataUnverified object holds (i.e. "X").
      * When this.valueInt is > -1:
      *     Can be any String. Cannot be null.
      * When this.valueInt is -1:
