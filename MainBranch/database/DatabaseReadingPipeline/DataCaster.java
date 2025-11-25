@@ -17,11 +17,13 @@ import Packages.CoreTypes.BattlefieldMechanics.Environment;
 import Packages.CoreTypes.BattlefieldMechanics.Sitrep;
 import Packages.CoreTypes.EntityMechanics.ActivationType;
 import Packages.CoreTypes.EntityMechanics.Frequency;
+import Packages.CoreTypes.EntityMechanics.ISynergyData;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
 import Packages.CoreTypes.EntityMechanics.NPCFeature;
 import Packages.CoreTypes.EntityMechanics.NPCTemplate;
 import Packages.CoreTypes.EntityMechanics.SynergyLocation;
 import Packages.CoreTypes.EntityMechanics.Actions.actionBase.Action;
+import Packages.CoreTypes.EntityMechanics.Actions.actionBase.IActionData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.MechSystem;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.Modification;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.Weapon;
@@ -30,6 +32,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.unverifiedFrame.Frame;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Bond;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Reserve;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.UnverifiedCoreBonus;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Background.backgroundBase.UnverifiedBackground;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.bond.BondPower;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.bond.BondQuestion;
@@ -44,6 +47,7 @@ import Packages.CoreTypes.EntityMechanics.StateSystem.state.StateData;
 import Packages.CoreTypes.lcpInfo.LCPDependency;
 import Packages.CoreTypes.lcpInfo.Version;
 import Packages.CoreTypes.lcpInfo.lcpDependency.SemverVersion;
+import Packages.CoreTypes.Counter;
 import Packages.CoreTypes.LCPInfo;
 
 public class DataCaster {
@@ -112,7 +116,7 @@ public class DataCaster {
     // ----the rest of the critical data types:
     private static Action[] actionsProcessed;
     private static ActivationType[] activationTypesProcessed;
-    private static CoreBonus[] coreBonusesProcessed;
+    private static UnverifiedCoreBonus[] coreBonusesProcessed;
     private static StateData[] conditionsProcessed;
     private static DataTag[] dataTagsProcessed;
     private static Tag[] tagsProcessed;
@@ -803,7 +807,8 @@ public class DataCaster {
         return new Bond(id, name, majorIdeals, minorIdeals, questions, powers);
     }
     private static void processCoreBonuses(JSONObject[] coreBonusesData) {
-        CoreBonus[] coreBonuses = new CoreBonus[coreBonusesData.length];
+        UnverifiedCoreBonus[] coreBonuses =
+            new CoreBonus[coreBonusesData.length];
 
         coreBonusesData = performCorrections("core_bonuses",
             coreBonusesData);
@@ -812,9 +817,136 @@ public class DataCaster {
         }
         DataCaster.coreBonusesProcessed = coreBonuses;
     }
-    private static CoreBonus toCoreBonus(JSONObject coreBonusData) {
-        // TODO: fill out
-        return null;
+    private static UnverifiedCoreBonus toCoreBonus(JSONObject coreBonusData) {
+        // Required properties
+        String id;
+        String name;
+        String source;
+        String effect;
+        String description;
+        // Optional properties
+        String mountedEffect;
+        JSONArray actionsArray;
+        IActionData[] actions = null;
+        JSONArray bonusesArray;
+        IBonusData[] bonuses = null;
+        JSONArray synergiesArray;
+        ISynergyData[] synergies = null;
+        JSONArray deployablesArray;
+        IDeployableData[] deployables = null;
+        JSONArray countersArray;
+        Counter[] counters = null;
+        JSONArray integratedArray;
+        String[] integrated = null;
+        JSONArray specialEquipmentArray;
+        String[] specialEquipment = null;
+
+        // Required properties
+        try {
+            id = coreBonusData.getString("id");
+            name = coreBonusData.getString("name");
+            source = coreBonusData.getString("source");
+            effect = coreBonusData.getString("effect");
+            description = coreBonusData.getString("description");
+        } catch (JSONException exception) {
+            throw new IllegalStateException("coreBonusData threw a"
+                + " JSONException during the required properties section of the"
+                + " object parsing, which is not allowed");
+        }
+        // Optional properties
+        mountedEffect = getOptionalString(coreBonusData,
+            "mounted_effect");
+        try {
+            actionsArray = coreBonusData.getJSONArray("actions");
+            try {
+                actions = new IActionData[actionsArray.length()];
+                for (int i = 0; i < actions.length; i++) {
+                    actions[i] = toIActionData(actionsArray.getJSONObject(i));
+                }
+            } catch (JSONException exception) {
+                throw new IllegalStateException("Attempting to process"
+                    + " actionsArray threw a JSONException");
+            }
+        } catch (JSONException exception) {}
+        try {
+            bonusesArray = coreBonusData.getJSONArray("bonuses");
+            try {
+                bonuses = new IBonusData[bonusesArray.length()];
+                for (int i = 0; i < bonuses.length; i++) {
+                    bonuses[i] = toIBonusData(bonusesArray.getJSONObject(i));
+                }
+            } catch (JSONException exception) {
+                throw new IllegalStateException("Attempting to process"
+                    + " bonusesArray threw a JSONException");
+            }
+        } catch (JSONException exception) {}
+        try {
+            synergiesArray = coreBonusData.getJSONArray("synergies");
+            try {
+                synergies = new ISynergyData[synergiesArray.length()];
+                for (int i = 0; i < synergies.length; i++) {
+                    synergies[i] =
+                        toISynergyData(synergiesArray.getJSONObject(i));
+                }
+            } catch (JSONException exception) {
+                throw new IllegalStateException("Attempting to process"
+                    + " synergiesArray threw a JSONException");
+            }
+        } catch (JSONException exception) {}
+        try {
+            deployablesArray = coreBonusData.getJSONArray("deployables");
+            try {
+                deployables = new IDeployableData[deployablesArray.length()];
+                for (int i = 0; i < deployables.length; i++) {
+                    deployables[i] =
+                        toIDeployableData(deployablesArray.getJSONObject(i));
+                }
+            } catch (JSONException exception) {
+                throw new IllegalStateException("Attempting to process"
+                    + " deployablesArray threw a JSONException");
+            }
+        } catch (JSONException exception) {}
+        try {
+            countersArray = coreBonusData.getJSONArray("counters");
+            try {
+                counters = new Counter[countersArray.length()];
+                for (int i = 0; i < counters.length; i++) {
+                    counters[i] = toCounter(countersArray.getJSONObject(i));
+                }
+            } catch (JSONException exception) {
+                throw new IllegalStateException("Attempting to process"
+                    + " countersArray threw a JSONException");
+            }
+        } catch (JSONException exception) {}
+        try {
+            integratedArray = coreBonusData.getJSONArray("integrated");
+            try {
+                integrated = new String[integratedArray.length()];
+                for (int i = 0; i < integrated.length; i++) {
+                    integrated[i] = integratedArray.getString(i);
+                }
+            } catch (JSONException exception) {
+                throw new IllegalStateException("Attempting to process"
+                    + " integratedArray threw a JSONException");
+            }
+        } catch (JSONException exception) {}
+        try {
+            specialEquipmentArray = coreBonusData.getJSONArray(
+                "special_equipment");
+            try {
+                specialEquipment = new String[specialEquipmentArray.length()];
+                for (int i = 0; i < specialEquipment.length; i++) {
+                    specialEquipment[i] = specialEquipmentArray.getString(i);
+                }
+            } catch (JSONException exception) {
+                throw new IllegalStateException("Attempting to process"
+                    + " specialEquipmentArray threw a JSONException");
+            }
+        } catch (JSONException exception) {}
+
+        return new CoreBonus(id, name, source, mountedEffect, name,
+            mountedEffect, actions, null, synergies, null,
+            counters, integrated, specialEquipment);
     }
     private static void processEnvironments(JSONObject[] environmentsData) {
         Environment[] environments = new Environment[environmentsData.length];
@@ -1626,7 +1758,7 @@ public class DataCaster {
         DataCaster.actionsProcessed = new Action[0];
         DataCaster.activationTypesProcessed = new ActivationType[0];
         DataCaster.conditionsProcessed = new StateData[0];
-        DataCaster.coreBonusesProcessed = new CoreBonus[0];
+        DataCaster.coreBonusesProcessed = new UnverifiedCoreBonus[0];
         DataCaster.dataTagsProcessed = new DataTag[0];
         DataCaster.tagsProcessed = new Tag[0];
         DataCaster.manufacturersProcessed = new Manufacturer[0];
