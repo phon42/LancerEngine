@@ -252,7 +252,7 @@ public class ActionBase {
         return activation;
     }
     public VueHTMLString getDetail() {
-        return new VueHTMLString(detail);
+        return detail;
     }
     // Semi-required properties
     public boolean isPilot() {
@@ -276,7 +276,7 @@ public class ActionBase {
             return trigger;
         }
 
-        return new VueHTMLString(trigger);
+        return trigger;
     }
     // Optional properties
     public Callable getMethod() {
@@ -298,7 +298,7 @@ public class ActionBase {
             return init;
         }
 
-        return new VueHTMLString(init);
+        return init;
     }
     // Helper property
     public String getType() {
@@ -315,7 +315,6 @@ public class ActionBase {
     }
     protected void setDetail(VueHTMLString detail) {
         HelperMethods.checkObject("detail", detail);
-        detail = new VueHTMLString(detail);
         this.detail = detail;
     }
     protected void setDetail(String detail) {
@@ -350,7 +349,6 @@ public class ActionBase {
     protected void setTrigger(VueHTMLString trigger) {
         if (trigger != null) {
             HelperMethods.checkVueHTMLString("trigger", trigger);
-            trigger = new VueHTMLString(trigger);
         }
         this.trigger = trigger;
     }
@@ -371,7 +369,6 @@ public class ActionBase {
     protected void setInit(VueHTMLString init) {
         if (init != null) {
             HelperMethods.checkVueHTMLString("init", init);
-            init = new VueHTMLString(init);
         }
         this.init = init;
     }
