@@ -201,7 +201,10 @@ public final class Database {
     //     )
     // };
 
-    static {
+    // Prevent user from instantiating this class
+    private Database() {}
+
+    public static void initialize() {
         ExternalLCP externalLCP;
         LCPCorrection correction1;
         LCPCorrection correction2;
@@ -278,10 +281,6 @@ public final class Database {
                 true);
         }
     }
-
-    // Prevent user from instantiating this class
-    private Database() {}
-
     public static boolean isOpen() {
         return Database.open;
     }
