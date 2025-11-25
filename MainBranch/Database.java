@@ -18,6 +18,7 @@ import Packages.CoreTypes.EntityMechanics.ActivationType;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
 import Packages.CoreTypes.EntityMechanics.NPCFeature;
 import Packages.CoreTypes.EntityMechanics.NPCTemplate;
+import Packages.CoreTypes.EntityMechanics.WeaponSize;
 import Packages.CoreTypes.EntityMechanics.Actions.actionBase.Action;
 import Packages.CoreTypes.EntityMechanics.Actions.actionBase.IActionData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.MechSystem;
@@ -190,6 +191,10 @@ public final class Database {
      */
     private static Weapon[] weapons;
     /**
+     * add documentation
+     */
+    private static WeaponSize[] weaponSizes;
+    /**
      * Contains a list of every content license for reference.
      */
     private static FrameLicense[] frameLicenses;
@@ -219,8 +224,8 @@ public final class Database {
         // Initialize the database's properties
         clear();
 
-        // Add allowed activation types
         open();
+        // Add allowed activation types
         addActivationType(new ActivationType("free", "free"));
         addActivationType(new ActivationType("protocol",
             "protocol"));
@@ -236,6 +241,13 @@ public final class Database {
         // TODO: not sure whether to add this because it's not included in
         //     https://github.com/massif-press/lancer-data?tab=readme-ov-file#activationtype
         addActivationType(new ActivationType("downtime"));
+
+        // Add allowed weapon sizes
+        addWeaponSize(new WeaponSize(0, "Aux"));
+        addWeaponSize(new WeaponSize(1, "Main"));
+        addWeaponSize(new WeaponSize(2, "Heavy"));
+        addWeaponSize(new WeaponSize(3, "Superheavy"));
+        addWeaponSize(new WeaponSize(4, "Ship-Class"));
         close();
 
         // Add LCP corrections
@@ -360,6 +372,7 @@ public final class Database {
         Database.talents = new TalentData[0];
         Database.terms = new Term[0];
         Database.weapons = new Weapon[0];
+        Database.weaponSizes = new WeaponSize[0];
         Database.frameLicenses = new FrameLicense[0];
     }
     /**
@@ -1093,6 +1106,17 @@ public final class Database {
         checkOpen();
         HelperMethods.checkObject("weapon", weapon);
         Database.weapons = HelperMethods.append(Database.weapons, weapon);
+    }
+    /**
+     * Adds the provided WeaponSize to Database.weaponSizes.
+     * @param weaponSize a WeaponSize which cannot be null.
+     * @throws IllegalArgumentException if weaponSize is null.
+     */
+    public static void addWeaponSize(WeaponSize weaponSize) {
+        checkOpen();
+        HelperMethods.checkObject("weaponSize", weaponSize);
+        Database.weaponSizes = HelperMethods.append(Database.weaponSizes,
+            weaponSize);
     }
     public static void addFrameLicense(FrameLicense frameLicense) {
         checkOpen();
