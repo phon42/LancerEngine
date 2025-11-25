@@ -19,6 +19,7 @@ import Packages.CoreTypes.EntityMechanics.Manufacturer;
 import Packages.CoreTypes.EntityMechanics.NPCFeature;
 import Packages.CoreTypes.EntityMechanics.NPCTemplate;
 import Packages.CoreTypes.EntityMechanics.WeaponSize;
+import Packages.CoreTypes.EntityMechanics.WeaponType;
 import Packages.CoreTypes.EntityMechanics.Actions.actionBase.Action;
 import Packages.CoreTypes.EntityMechanics.Actions.actionBase.IActionData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.MechSystem;
@@ -195,6 +196,10 @@ public final class Database {
      */
     private static WeaponSize[] weaponSizes;
     /**
+     * add documentation
+     */
+    private static WeaponType[] weaponTypes;
+    /**
      * Contains a list of every content license for reference.
      */
     private static FrameLicense[] frameLicenses;
@@ -248,6 +253,18 @@ public final class Database {
         addWeaponSize(new WeaponSize(2, "Heavy"));
         addWeaponSize(new WeaponSize(3, "Superheavy"));
         addWeaponSize(new WeaponSize(4, "Ship-Class"));
+
+        // Add allowed weapon types
+        addWeaponType(new WeaponType(0, "CQB"));
+        addWeaponType(new WeaponType(1, "Cannon"));
+        addWeaponType(new WeaponType(2, "Launcher"));
+        addWeaponType(new WeaponType(3, "Melee"));
+        addWeaponType(new WeaponType(4, "Nexus"));
+        addWeaponType(new WeaponType(5, "Rifle"));
+        addWeaponType(new WeaponType(6, "Drone Weapon"));
+        addWeaponType(new WeaponType(7, "Spool Weapon"));
+        addWeaponType(new WeaponType(8, "???"));
+        addWeaponType(new WeaponType(9, "Special"));
         close();
 
         // Add LCP corrections
@@ -373,6 +390,7 @@ public final class Database {
         Database.terms = new Term[0];
         Database.weapons = new Weapon[0];
         Database.weaponSizes = new WeaponSize[0];
+        Database.weaponTypes = new WeaponType[0];
         Database.frameLicenses = new FrameLicense[0];
     }
     /**
@@ -1117,6 +1135,17 @@ public final class Database {
         HelperMethods.checkObject("weaponSize", weaponSize);
         Database.weaponSizes = HelperMethods.append(Database.weaponSizes,
             weaponSize);
+    }
+    /**
+     * Adds the provided WeaponType to Database.weaponTypes.
+     * @param weaponType a WeaponType which cannot be null.
+     * @throws IllegalArgumentException if weaponType is null.
+     */
+    public static void addWeaponType(WeaponType weaponType) {
+        checkOpen();
+        HelperMethods.checkObject("weaponType", weaponType);
+        Database.weaponTypes = HelperMethods.append(Database.weaponTypes,
+            weaponType);
     }
     public static void addFrameLicense(FrameLicense frameLicense) {
         checkOpen();
