@@ -241,8 +241,9 @@ public class VueHTMLString implements Comparable<VueHTMLString>, CharSequence {
         if (dataElement instanceof String) {
             return 0;
         }
+
         // TODO: fill out
-        throw new IllegalStateException();
+        return -1;
     }
     private Object[] copyDataSequence() {
         Object[] copy;
