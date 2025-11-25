@@ -287,10 +287,10 @@ public class HTMLString implements Comparable<HTMLString>, CharSequence {
         }
         HTMLTag.checkTagSequence(tags);
     }
-    public HTMLString format(Object... args) {
-        return format(this, args);
+    public HTMLString replaceElements(Object... args) {
+        return replaceElements(this, args);
     }
-    public static HTMLString format(HTMLString htmlString,
+    public static HTMLString replaceElements(HTMLString htmlString,
         Object... args) {
         HTMLString newHTMLString;
         Object[] newDataSequence;

@@ -261,10 +261,10 @@ public class VueHTMLString implements Comparable<VueHTMLString>, CharSequence {
         // TODO: fill out
         // verify this object is of the correct syntax
     }
-    public VueHTMLString format(Object... args) {
-        return format(this, args);
+    public VueHTMLString replaceElements(Object... args) {
+        return replaceElements(this, args);
     }
-    public static VueHTMLString format(VueHTMLString vueHTMLString,
+    public static VueHTMLString replaceElements(VueHTMLString vueHTMLString,
         Object... args) {
         VueHTMLString newVueHTMLString;
         Object[] newDataSequence;
