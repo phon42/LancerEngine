@@ -1,5 +1,7 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem;
 
+import java.util.NoSuchElementException;
+import MainBranch.Database;
 import MainBranch.HelperMethods;
 
 public class ITagDataUnverified {
@@ -94,5 +96,25 @@ public class ITagDataUnverified {
             HelperMethods.checkObject("valueString", valueString);
         }
         this.valueString = valueString;
+    }
+
+    public ITagData toITagData() {
+        DataTag dataTag;
+
+        try {
+            dataTag = Database.getDataTag(this.id);
+        } catch (NoSuchElementException exception) {
+            throw new IllegalStateException("Unable to convert this"
+                + " ITagDataUnverified to a ITagData because the DataTag: \""
+                + this.id + "\" could not be found in Database");
+        }
+        if (this.valueInt > -1) {
+            return new ITagData(dataTag, this.valueInt);
+        }
+        if (this.valueString != null) {
+            return new ITagData(dataTag, this.valueString);
+        }
+
+        return new ITagData(dataTag);
     }
 }
