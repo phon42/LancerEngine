@@ -711,7 +711,7 @@ public final class Database {
         weaponID = weaponID.toLowerCase();
         for (Weapon weapon : Database.weapons) {
             if (weaponID.equals(weapon.getID())) {
-                return new Weapon(weapon);
+                return weapon;
             }
         }
         throw new NoSuchElementException("No weapon found for weapon ID: "
@@ -1092,7 +1092,6 @@ public final class Database {
     public static void addWeapon(Weapon weapon) {
         checkOpen();
         HelperMethods.checkObject("weapon", weapon);
-        weapon = new Weapon(weapon);
         Database.weapons = HelperMethods.append(Database.weapons, weapon);
     }
     public static void addFrameLicense(FrameLicense frameLicense) {

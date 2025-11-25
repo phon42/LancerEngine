@@ -169,7 +169,8 @@ public final class Mount {
         if (weapon == null) {
             return weapon;
         }
-        return new Weapon(weapon);
+
+        return weapon;
     }
     public boolean hasModification() {
         return hasModification;
@@ -217,9 +218,6 @@ public final class Mount {
         this.mountType = mountType;
     }
     public void setWeapon(Weapon weapon) {
-        if (weapon != null) {
-            weapon = new Weapon(weapon);
-        }
         this.weapon = weapon;
     }
     // Mutator for hasModification removed purposefully

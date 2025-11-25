@@ -3,6 +3,7 @@ package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.EntityMechanics.License;
 import Packages.CoreTypes.EntityMechanics.RangeTag;
+import Packages.CoreTypes.EntityMechanics.WeaponSize;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Equipment;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.iTagDataUnverified.iTagData.dataTag.Tag;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.damage.Harm;
@@ -35,30 +36,10 @@ public final class Weapon extends Equipment {
         "Reaction", "Drone", "Protocol", "Full Action", "Deployable",
         "Quick Action", "X/Round", "Danger Zone", "AI", "Free Action"};
     /**
-     * The weapon's size (i.e. Main).
-     * Must be between 0 and 4 (inclusive).
-     * Details on these values:
-     *     0 - an aux weapon. This can go in a Mount of Mount.mountType:
-     *         "aux", "aux/aux", "flex", "heavy", "main", "main/aux",
-     *             "integrated weapon core bonus", or
-     *             "improved armament core bonus".
-     *     1 - a main weapon. This can go in a Mount of Mount.mountType:
-     *         "flex", "heavy", "main", "main/aux", or
-     *             "improved armament core bonus".
-     *     2 - a heavy weapon. This can go in a Mount of Mount.mountType:
-     *         "heavy"
-     *     3 - a superheavy weapon. This can go in a Mount of Mount.mountType:
-     *         "heavy"
-     *         and requires an additional mount to brace against. In doing so,
-     *         it consumes the ENTIRE mount - Mounts of Mount.mountType
-     *         "aux/aux", "flex", or "main/aux" cannot be used as bracing AND
-     *         still hold an additional weapon.
-     *     4 - a ship-class weapon. This can go in a Mount of Mount.mountType:
-     *         "integrated mount"
-     * 
-     * See pg. 33.
+     * The weapon's size (i.e. a WeaponSize representing a main weapon).
+     * Can be any WeaponSize. Cannot be null.
      */
-    private int size;
+    private WeaponSize size;
     /**
      * The weapon's type (i.e. CQB).
      * Must be between 0 and 9 (inclusive).
@@ -94,88 +75,68 @@ public final class Weapon extends Equipment {
     private RangeTag[] range;
 
     /**
-     * Creates a new Weapon given a weapon name, weapon size, weapon type, and
-     *     weapon harm.
-     * @param weaponName a String which cannot be null or "".
-     * @param weaponManufacturer a String which must be a valid manufacturer
-     *     name as defined by Database.manufacturerList. Cannot be null.
+     * Creates a new Weapon given a weapon name, manufacturer, the license the
+     *     weapon belongs to, a weapon size, type, and the amount of harm dealt.
+     * @param name a String which cannot be null or "".
+     * @param manufacturer a String which must be a valid manufacturer name as
+     *     defined by Database.manufacturerList. Cannot be null.
      * @param weaponLicense a License which can be any License. Cannot be null.
-     * @param weaponSize an int which must be between 0 and 4 (inclusive).
-     * @param weaponType an int which must be between 0 and 9 (inclusive).
-     * @param weaponHarm a Harm[] which cannot be null or contain null
-     *     elements.
+     * @param size a WeaponSize which can be any WeaponSize. Cannot be null.
+     * @param type an int which must be between 0 and 9 (inclusive).
+     * @param harmDealt a Harm[] which cannot be null or contain null elements.
      */
-    public Weapon(String weaponName, String weaponManufacturer,
-        License weaponLicense, int weaponSize, int weaponType,
-        Harm[] weaponHarm) {
-        super(weaponName, weaponManufacturer, weaponLicense);
-        setSize(weaponSize);
-        setType(weaponType);
-        setHarm(weaponHarm);
+    public Weapon(String name, String manufacturer, License weaponLicense,
+        WeaponSize size, int type, Harm[] harmDealt) {
+        super(name, manufacturer, weaponLicense);
+        setSize(size);
+        setType(type);
+        setHarm(harmDealt);
         setRange(new RangeTag[] {
             new RangeTag("threat", 1)
         });
     }
     /**
-     * Creates a new Weapon given a weapon name, weapon size, weapon type,
-     *     weapon harm, and weapon range.
-     * @param weaponName a String which cannot be null or "".
-     * @param weaponManufacturer a String which must be a valid manufacturer
-     *     name as defined by Database.manufacturerList. Cannot be null.
+     * Creates a new Weapon given a weapon name, manufacturer, the license the
+     *     weapon belongs to, a weapon size, type, the amount of harm dealt, and
+     *     the weapon's range.
+     * @param name a String which cannot be null or "".
+     * @param manufacturer a String which must be a valid manufacturer name as
+     *     defined by Database.manufacturerList. Cannot be null.
      * @param weaponLicense a License which can be any License. Cannot be null.
-     * @param weaponSize an int which must be between 0 and 4 (inclusive).
-     * @param weaponType an int which must be between 0 and 9 (inclusive).
-     * @param weaponHarm a Harm[] which cannot be null or contain null elements.
-     * @param weaponRange a RangeTag[] which cannot be null or contain null
-     *     elements.
+     * @param size a WeaponSize which can be any WeaponSize. Cannot be null.
+     * @param type an int which must be between 0 and 9 (inclusive).
+     * @param harmDealt a Harm[] which cannot be null or contain null elements.
+     * @param range a RangeTag[] which cannot be null or contain null elements.
      */
-    public Weapon(String weaponName, String weaponManufacturer,
-        License weaponLicense, int weaponSize, int weaponType,
-        Harm[] weaponHarm, RangeTag[] weaponRange) {
-        super(weaponName, weaponManufacturer, weaponLicense);
-        setSize(weaponSize);
-        setType(weaponType);
-        setHarm(weaponHarm);
-        setRange(weaponRange);
+    public Weapon(String name, String manufacturer, License weaponLicense,
+        WeaponSize size, int type, Harm[] harmDealt, RangeTag[] range) {
+        this(name, manufacturer, weaponLicense, size, type, harmDealt);
+        setRange(range);
     }
     /**
-     * Creates a new Weapon given a weapon name, weapon size, weapon type,
-     *     weapon harm, weapon range, and an array of weapon tags.
-     * @param weaponName a String which cannot be null or "".
-     * @param weaponManufacturer a String which must be a valid manufacturer
-     *     name as defined by Database.manufacturerList. Cannot be null.
+     * Creates a new Weapon given a weapon name, manufacturer, the license the
+     *     weapon belongs to, a weapon size, type, the amount of harm dealt, the
+     *     weapon's range, and an array of tags associated with it.
+     * @param name a String which cannot be null or "".
+     * @param manufacturer a String which must be a valid manufacturer name as
+     *     defined by Database.manufacturerList. Cannot be null.
      * @param weaponLicense a License which can be any License. Cannot be null.
-     * @param weaponSize an int which must be between 0 and 4 (inclusive).
-     * @param weaponType an int which must be between 0 and 9 (inclusive).
-     * @param weaponHarm a Harm[] which cannot be null or contain null
-     *     elements.
-     * @param weaponRange a RangeTag[] which cannot be null or contain null
-     *     elements.
-     * @param weaponTags a Tag[] which cannot be null, contain null elements, or
+     * @param size a WeaponSize which can be any WeaponSize. Cannot be null.
+     * @param type an int which must be between 0 and 9 (inclusive).
+     * @param harmDealt a Harm[] which cannot be null or contain null elements.
+     * @param range a RangeTag[] which cannot be null or contain null elements.
+     * @param tags a Tag[] which cannot be null, contain null elements, or
      *     elements with invalid Tag.name values, as defined by
      *     Weapon.allowedNames.
      */
-    public Weapon(String weaponName, String weaponManufacturer,
-        License weaponLicense, int weaponSize, int weaponType,
-        Harm[] weaponHarm, RangeTag[] weaponRange, Tag[] weaponTags) {
-        this(weaponName, weaponManufacturer, weaponLicense, weaponSize,
-            weaponType, weaponHarm, weaponRange);
-        setTags(weaponTags);
-    }
-    /**
-     * Creates a deep copy of the provided Weapon.
-     * @param weapon a Weapon to be copied.
-     * @return a Weapon deep copy of the provided Weapon.
-     */
-    public Weapon(Weapon weapon) {
-        // don't need to make copies of this.tags because the mutator
-        //     (Equipment.setTags()) called by Weapon(String, int, Tag[])
-        //     already does so
-        this(weapon.name, weapon.manufacturer, weapon.license, weapon.size,
-            weapon.type, weapon.harm, weapon.range, weapon.tags);
+    public Weapon(String name, String manufacturer, License weaponLicense,
+        WeaponSize size, int type, Harm[] harmDealt, RangeTag[] range,
+        Tag[] tags) {
+        this(name, manufacturer, weaponLicense, size, type, harmDealt, range);
+        setTags(tags);
     }
 
-    public int getSize() {
+    public WeaponSize getSize() {
         return size;
     }
     public int getType() {
@@ -187,21 +148,8 @@ public final class Weapon extends Equipment {
     public RangeTag[] getRange() {
         return range;
     }
-    /**
-     * Sets this.size to the provided value.
-     * @param size an int which must be between 0 and 4 (inclusive).
-     * @throws IllegalArgumentException if size is not between 0 and 4
-     *     (inclusive).
-     */
-    private void setSize(int size) {
-        if (size < 0) {
-            throw new IllegalArgumentException("New size value: " + size + " is"
-                + " < 0");
-        }
-        if (size > 4) {
-            throw new IllegalArgumentException("New size value: " + size + " is"
-                + " > 4");
-        }
+    private void setSize(WeaponSize size) {
+        HelperMethods.checkObject("size", size);
         this.size = size;
     }
     /**
