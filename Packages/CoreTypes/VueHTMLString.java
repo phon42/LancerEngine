@@ -3,6 +3,7 @@ package Packages.CoreTypes;
 import java.util.ArrayList;
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.htmlString.HTMLTag;
+import Packages.CoreTypes.vueHTMLString.VueReplaceableType;
 
 /**
  * See https://vuejs.org/guide/essentials/template-syntax.
@@ -290,6 +291,69 @@ public class VueHTMLString implements Comparable<VueHTMLString>, CharSequence {
             }
             newDataSequence[i] = args[i];
             newRawValue += newDataSequence[i].toString();
+        }
+        newVueHTMLString.setRawValue(newRawValue);
+
+        return newVueHTMLString;
+    }
+    public VueHTMLString format(Object... args) {
+        return format(this, args);
+    }
+    public static VueHTMLString format(VueHTMLString vueHTMLString,
+        Object... args) {
+        Object[] data;
+        int numReplaceables = 0;
+        VueHTMLString newVueHTMLString;
+        String[] strings;
+        int numReplacements = 0;
+        Object[] newDataSequence;
+        int index = 0;
+        String newRawValue = "";
+
+        HelperMethods.checkObject("vueHTMLString", vueHTMLString);
+        HelperMethods.checkObject("args", args);
+        data = vueHTMLString.dataSequence;
+        for (int i = 0; i < data.length; i++) {
+            if (data[i] instanceof VueReplaceableType) {
+                // data[i] is a replaceable type
+                numReplaceables++;
+            }
+        }
+        if (args.length > numReplaceables) {
+            throw new IllegalArgumentException("args array length: "
+                + args.length + " is greater than the number of replaceable"
+                + " elements in vueHTMLString: " + numReplaceables);
+        }
+        newVueHTMLString = new VueHTMLString(vueHTMLString);
+        strings = new String[args.length];
+        // Convert each element in args to a String
+        for (int i = 0; i < args.length; i++) {
+            if (args[i] == null) {
+                continue;
+            }
+            strings[i] = args[i].toString();
+            numReplaceables++;
+        }
+        // Check if there are any replacements
+        if (numReplacements == 0) {
+            // No replacements provided
+            return vueHTMLString;
+        }
+        // Replace the elements
+        newDataSequence = newVueHTMLString.copyDataSequence();
+        for (int i = 0; i < newDataSequence.length; i++) {
+            if (! (data[i] instanceof VueReplaceableType)) {
+                // data[i] is not a replaceable type
+                continue;
+            }
+            if (strings[index] == null) {
+                index++;
+                continue;
+            }
+            newDataSequence[i] = ((VueReplaceableType) newDataSequence[i])
+                .replace(strings[index]);
+            newRawValue += newDataSequence[i].toString();
+            index++;
         }
         newVueHTMLString.setRawValue(newRawValue);
 
