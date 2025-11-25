@@ -76,8 +76,8 @@ public class HTMLTag {
             return;
         }
         if (sequence.length % 2 == 1) {
-            throw new IllegalArgumentException("sequence array contains an"
-                + " unmatched HTMLTag");
+            throw new IllegalArgumentException("Tag sequence's length is odd"
+                + " and therefore contains an unmatched HTMLTag");
         }
         // from this point onwards, sequence's length is always even
         openingTags = new Stack<>();
@@ -85,12 +85,14 @@ public class HTMLTag {
             tag = sequence[i];
             if (tag.isClosingTag()) {
                 if (openingTags.isEmpty()) {
-                    throw new IllegalArgumentException("sequence array element "
+                    throw new IllegalArgumentException("Tag sequence element "
                         + i + ": \"" + tag + "\" is a closing tag without a"
                         + " corresponding opening tag");
                 }
                 mostRecentOpener = openingTags.peek();
-                if (! mostRecentOpener.formsPairWith(tag)) {
+                if (mostRecentOpener.formsPairWith(tag)) {
+                    openingTags.pop();
+                } else {
                     throw new IllegalArgumentException("Expected: \""
                         + mostRecentOpener.toClosingTag() + "\" at index " + i
                         + ", instead found: \"" + tag + "\"");
