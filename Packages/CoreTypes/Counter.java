@@ -3,7 +3,7 @@ package Packages.CoreTypes;
 import MainBranch.HelperMethods;
 
 public class Counter {
-    // Main properties
+    // Required properties
     /**
      * The id of this counter (i.e. "ctr_brawler").
      * Can be any String except "". Cannot be null.
@@ -55,7 +55,7 @@ public class Counter {
      */
     public Counter(String id, String name, int minimumValue, int maximumValue,
         int defaultValue) {
-        // Main properties
+        // Required properties
         this(id, name);
         // Semi-required properties
         setMin(minimumValue);
@@ -71,7 +71,7 @@ public class Counter {
      * Counter.defaultValue: NOT PROVIDED
      */
     public Counter(String id, String name, int minimumValue, int maximumValue) {
-        // Main properties
+        // Required properties
         this(id, name);
         // Semi-required properties
         setMin(minimumValue);
@@ -88,7 +88,7 @@ public class Counter {
      */
     public Counter(String id, String name, int minimumValue,
         Object maximumValue, int defaultValue) {
-        // Main properties
+        // Required properties
         this(id, name);
         // Semi-required properties
         setMin(minimumValue);
@@ -104,7 +104,7 @@ public class Counter {
      * Counter.defaultValue: NOT PROVIDED
      */
     public Counter(String id, String name, int minimumValue) {
-        // Main properties
+        // Required properties
         this(id, name);
         // Semi-required properties
         setMin(minimumValue);
@@ -121,7 +121,7 @@ public class Counter {
      */
     public Counter(String id, String name, Object minimumValue,
         int maximumValue, int defaultValue) {
-        // Main properties
+        // Required properties
         this(id, name);
         // Semi-required properties
         setMin(Counter.minDefault);
@@ -138,7 +138,7 @@ public class Counter {
      */
     public Counter(String id, String name, Object minimumValue,
         int maximumValue) {
-        // Main properties
+        // Required properties
         this(id, name);
         // Semi-required properties
         setMin(Counter.minDefault);
@@ -155,7 +155,7 @@ public class Counter {
      */
     public Counter(String id, String name, Object minimumValue,
         Object maximumValue, int defaultValue) {
-        // Main properties
+        // Required properties
         this(id, name);
         // Semi-required properties
         setMin(Counter.minDefault);
@@ -171,7 +171,7 @@ public class Counter {
      * Counter.defaultValue: NOT PROVIDED
      */
     public Counter(String id, String name) {
-        // Main properties
+        // Required properties
         setID(id);
         setName(name);
         // Semi-required properties
@@ -188,7 +188,7 @@ public class Counter {
         setDefaultValuePresent(counter.defaultValuePresent);
     }
 
-    // Main properties
+    // Required properties
     public String getID() {
         return id;
     }
@@ -210,7 +210,7 @@ public class Counter {
     public boolean isDefaultValuePresent() {
         return defaultValuePresent;
     }
-    // Main properties
+    // Required properties
     public void setID(String id) {
         HelperMethods.checkString("id", id);
         id = id.toLowerCase();
