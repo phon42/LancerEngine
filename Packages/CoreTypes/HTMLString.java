@@ -42,6 +42,7 @@ public class HTMLString implements Comparable<HTMLString>, CharSequence {
         HelperMethods.checkObject("rawValue", rawValue);
         this.rawValue = rawValue;
         setDataSequence(calculateDataSequence());
+        verify();
     }
     private void setDataSequence(Object[] dataSequence) {
         HelperMethods.checkObjectArray("dataSequence",
@@ -258,6 +259,34 @@ public class HTMLString implements Comparable<HTMLString>, CharSequence {
         }
 
         return copy;
+    }
+    private void verify() throws IllegalArgumentException {
+        // verify that all opening HTMLTags in this object have one and only one
+        //     corresponding closing HTMLTag and vice versa 
+        boolean containsTag = false;
+        int numTags = 0;
+        HTMLTag[] tags;
+
+        for (int i = 0; i < this.dataSequence.length; i++) {
+            if (dataType(this.dataSequence[i])) {
+                containsTag = true;
+                numTags++;
+            }
+        }
+        if (! containsTag) {
+            return;
+        }
+        tags = new HTMLTag[numTags];
+        for (int i = 0; i < this.dataSequence.length; i++) {
+            if (dataType(this.dataSequence[i])) {
+                containsTag = true;
+                numTags++;
+            } else {
+                continue;
+            }
+            tags[numTags - 1] = (HTMLTag) this.dataSequence[i];
+        }
+        HTMLTag.checkTagSequence(tags);
     }
     public static HTMLString format(HTMLString htmlString, Object... args) {
         HTMLString newHTMLString;

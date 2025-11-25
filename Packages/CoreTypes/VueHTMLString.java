@@ -46,6 +46,7 @@ public class VueHTMLString implements Comparable<VueHTMLString>, CharSequence {
         HelperMethods.checkObject("rawValue", rawValue);
         this.rawValue = rawValue;
         setDataSequence(calculateDataSequence());
+        verify();
     }
     private void setDataSequence(Object[] dataSequence) {
         HelperMethods.checkObjectArray("dataSequence",
@@ -255,6 +256,10 @@ public class VueHTMLString implements Comparable<VueHTMLString>, CharSequence {
         }
 
         return copy;
+    }
+    private void verify() throws IllegalArgumentException {
+        // TODO: fill out
+        // verify this object is of the correct syntax
     }
     public static VueHTMLString format(VueHTMLString vueHTMLString,
         Object... args) {
