@@ -261,6 +261,9 @@ public class VueHTMLString implements Comparable<VueHTMLString>, CharSequence {
         // TODO: fill out
         // verify this object is of the correct syntax
     }
+    public VueHTMLString format(Object... args) {
+        return format(this, args);
+    }
     public static VueHTMLString format(VueHTMLString vueHTMLString,
         Object... args) {
         VueHTMLString newVueHTMLString;
@@ -291,8 +294,5 @@ public class VueHTMLString implements Comparable<VueHTMLString>, CharSequence {
         newVueHTMLString.setRawValue(newRawValue);
 
         return newVueHTMLString;
-    }
-    public VueHTMLString format(Object... args) {
-        return format(this, args);
     }
 }

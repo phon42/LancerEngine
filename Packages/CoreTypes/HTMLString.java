@@ -287,7 +287,11 @@ public class HTMLString implements Comparable<HTMLString>, CharSequence {
         }
         HTMLTag.checkTagSequence(tags);
     }
-    public static HTMLString format(HTMLString htmlString, Object... args) {
+    public HTMLString format(Object... args) {
+        return format(this, args);
+    }
+    public static HTMLString format(HTMLString htmlString,
+        Object... args) {
         HTMLString newHTMLString;
         Object[] newDataSequence;
         String newRawValue = "";
@@ -316,8 +320,5 @@ public class HTMLString implements Comparable<HTMLString>, CharSequence {
         newHTMLString.setRawValue(newRawValue);
 
         return newHTMLString;
-    }
-    public HTMLString format(Object... args) {
-        return format(this, args);
     }
 }
