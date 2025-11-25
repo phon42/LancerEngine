@@ -4,6 +4,7 @@ import MainBranch.HelperMethods;
 import Packages.CoreTypes.EntityMechanics.License;
 import Packages.CoreTypes.EntityMechanics.RangeTag;
 import Packages.CoreTypes.EntityMechanics.WeaponSize;
+import Packages.CoreTypes.EntityMechanics.WeaponType;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Equipment;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.iTagDataUnverified.iTagData.dataTag.Tag;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.damage.Harm;
@@ -41,23 +42,10 @@ public final class Weapon extends Equipment {
      */
     private WeaponSize size;
     /**
-     * The weapon's type (i.e. CQB).
-     * Must be between 0 and 9 (inclusive).
-     * Details on these values:
-     *     0 - CQB
-     *     1 - Cannon
-     *     2 - Launcher
-     *     3 - Melee
-     *     4 - Nexus
-     *     5 - Rifle
-     *     6 - Drone Weapon (Bligh integrated weapon only)
-     *     7 - Spool Weapon (Barbarossa integrated weapon only)
-     *     8 - ??? (Mimic Gun only)
-     *     9 - Special (Prototype Weapon only)
-     * 
-     * See pg. 33.
+     * The weapon's type (i.e. a WeaponType representing a CQB weapon).
+     * Can be any WeaponType. Cannot be null.
      */
-    private int type;
+    private WeaponType type;
     /**
      * The weapon's damage, including heat and burn (i.e. a Harm[] containing
      *     a Harm representing 10 Kinetic, 2 Heat, or 3 Burn).
@@ -82,11 +70,11 @@ public final class Weapon extends Equipment {
      *     defined by Database.manufacturerList. Cannot be null.
      * @param weaponLicense a License which can be any License. Cannot be null.
      * @param size a WeaponSize which can be any WeaponSize. Cannot be null.
-     * @param type an int which must be between 0 and 9 (inclusive).
+     * @param type a WeaponType which can be any WeaponType. Cannot be null.
      * @param harmDealt a Harm[] which cannot be null or contain null elements.
      */
     public Weapon(String name, String manufacturer, License weaponLicense,
-        WeaponSize size, int type, Harm[] harmDealt) {
+        WeaponSize size, WeaponType type, Harm[] harmDealt) {
         super(name, manufacturer, weaponLicense);
         setSize(size);
         setType(type);
@@ -139,7 +127,7 @@ public final class Weapon extends Equipment {
     public WeaponSize getSize() {
         return size;
     }
-    public int getType() {
+    public WeaponType getType() {
         return type;
     }
     public Harm[] getHarm() {
@@ -152,13 +140,8 @@ public final class Weapon extends Equipment {
         HelperMethods.checkObject("size", size);
         this.size = size;
     }
-    /**
-     * Sets this.type to the provided value.
-     * @param type an int which must be between 0 and 9 (inclusive).
-     * @throws IllegalArgumentException if type is not between 0 and 9
-     *     (inclusive).
-     */
-    private void setType(int type) {
+    private void setType(WeaponType type) {
+        HelperMethods.checkObject("type", type);
         this.type = type;
     }
     public void setHarm(Harm[] harm) {
