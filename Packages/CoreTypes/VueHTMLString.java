@@ -9,7 +9,9 @@ import Packages.CoreTypes.htmlString.HTMLTag;
  */
 public class VueHTMLString implements Comparable<VueHTMLString>, CharSequence {
     /**
-     * TODO: add documentation
+     * The raw value of the content stored in this VueHTMLString.
+     * Can be any String. Cannot be null.
+     * Case-sensitive.
      */
     private String rawValue;
     /**
@@ -75,14 +77,6 @@ public class VueHTMLString implements Comparable<VueHTMLString>, CharSequence {
 
         return this.getRawValue().equals(vueHTMLString.getRawValue());
     }
-    // TODO: remove?
-    public boolean rawEquals(Object object) {
-        return super.equals(object);
-    }
-    // TODO: remove?
-    public boolean rawEquals(VueHTMLString vueHTMLString) {
-        return super.equals(vueHTMLString);
-    }
     public CharSequence subSequence(int beginIndex, int endIndex) {
         return getRawValue().subSequence(beginIndex, endIndex);
     }
@@ -132,9 +126,9 @@ public class VueHTMLString implements Comparable<VueHTMLString>, CharSequence {
         // "..." will represent some amount of content that could contain any of
         //     the above
         rawValue = this.rawValue;
+        sequence.add("");
         // At this point, rawValue can be any amount of "   abc   ..." possibly
         //     including a tag or not
-        sequence.add("");
         while (! rawValue.isEmpty()) {
             if (rawValue.indexOf("<") == -1) {
                 // rawValue is "   abc   " (does not contain a valid tag but

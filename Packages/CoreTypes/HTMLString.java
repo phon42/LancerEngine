@@ -6,7 +6,9 @@ import Packages.CoreTypes.htmlString.HTMLTag;
 
 public class HTMLString implements Comparable<HTMLString>, CharSequence {
     /**
-     * TODO: add documentation
+     * The raw value of the content stored in this HTMLString.
+     * Can be any String. Cannot be null.
+     * Case-sensitive.
      */
     private String rawValue;
     /**
@@ -71,14 +73,6 @@ public class HTMLString implements Comparable<HTMLString>, CharSequence {
 
         return this.getRawValue().equals(htmlString.getRawValue());
     }
-    // TODO: remove?
-    public boolean rawEquals(Object object) {
-        return super.equals(object);
-    }
-    // TODO: remove?
-    public boolean rawEquals(HTMLString htmlString) {
-        return super.equals(htmlString);
-    }
     public CharSequence subSequence(int beginIndex, int endIndex) {
         return getRawValue().subSequence(beginIndex, endIndex);
     }
@@ -127,9 +121,9 @@ public class HTMLString implements Comparable<HTMLString>, CharSequence {
         // "..." will represent some amount of content that could contain any of
         //     the above
         rawValue = this.rawValue;
+        sequence.add("");
         // At this point, rawValue can be any amount of "   abc   ..." possibly
         //     including a tag or not
-        sequence.add("");
         while (! rawValue.isEmpty()) {
             if (rawValue.indexOf("<") == -1) {
                 // rawValue is "   abc   " (does not contain a valid tag but
