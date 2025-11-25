@@ -1405,8 +1405,29 @@ public class DataCaster {
         DataCaster.dataTagsProcessed = dataTags;
     }
     private static DataTag toDataTag(JSONObject dataTagData) {
-        // TODO: fill out
-        return null;
+        String id;
+        String name;
+        String description;
+        boolean hidden = false;
+        boolean filterIgnore = false;
+
+        try {
+            id = dataTagData.getString("id");
+            name = dataTagData.getString("name");
+            description = dataTagData.getString("description");
+        } catch (JSONException exception) {
+            throw new IllegalStateException("dataTagData threw a JSONException"
+                + " during the required properties section of the object"
+                + " parsing, which is not allowed");
+        }
+        try {
+            hidden = dataTagData.getBoolean("hidden");
+        } catch (JSONException exception) {}
+        try {
+            filterIgnore = dataTagData.getBoolean("filter_ignore");
+        } catch (JSONException exception) {}
+
+        return new DataTag(id, name, description, filterIgnore, hidden);
     }
     private static void processTags(DataTag[] tagsData) {
         Tag[] tags;
