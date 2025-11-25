@@ -14,7 +14,7 @@ public enum JSONType {
     JSONARRAY;
 
     public static JSONType determineType(Object value) {
-        if (value == null) {
+        if (value == null || value.equals(null)) {
             return JSONType.NULL;
         }
         if (value instanceof Boolean) {
@@ -35,7 +35,7 @@ public enum JSONType {
         if (value instanceof JSONArray) {
             return JSONType.JSONARRAY;
         }
-
-        return JSONType.NULL;
+        throw new IllegalArgumentException("value is of a type that is not"
+            + " one of the accepted JSONType values");
     }
 }
