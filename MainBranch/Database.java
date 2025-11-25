@@ -447,7 +447,7 @@ public final class Database {
         coreBonusID = coreBonusID.toLowerCase();
         for (CoreBonus coreBonus : Database.coreBonuses) {
             if (coreBonusID.equals(coreBonus.getID())) {
-                return new CoreBonus(coreBonus);
+                return coreBonus;
             }
         }
         throw new NoSuchElementException("No core bonus found for core bonus"
@@ -820,7 +820,6 @@ public final class Database {
     public static void addCoreBonus(CoreBonus coreBonus) {
         checkOpen();
         HelperMethods.checkObject("coreBonus", coreBonus);
-        coreBonus = new CoreBonus(coreBonus);
         Database.coreBonuses = HelperMethods.append(Database.coreBonuses,
             coreBonus);
     }
