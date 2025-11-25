@@ -87,7 +87,6 @@ public class ActionBase {
      * Unknown purpose.
      * Is set to true for the Move and Free Action Actions in the base Lancer
      *     LCP. Unused in all other locations.
-     * Can be any boolean.
      * Default value: false.
      */
     protected boolean hideActive;

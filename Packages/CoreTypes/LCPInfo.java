@@ -41,7 +41,6 @@ public class LCPInfo {
     /**
      * Unknown purpose. Only present in the base Lancer LCP, where its value is
      *     true.
-     * Can be any boolean.
      * Default value: true.
      */
     private boolean active;

@@ -37,7 +37,6 @@ public class BondPower {
     //     when not provided) property
     /**
      * Unknown purpose.
-     * Can be any boolean.
      * Default value: false.
      */
     private boolean master;
@@ -47,7 +46,6 @@ public class BondPower {
     private static final boolean masterDefault = false;
     /**
      * Unknown purpose.
-     * Can be any boolean.
      * Default value: false.
      */
     private boolean veteran;

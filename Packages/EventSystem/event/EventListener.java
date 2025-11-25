@@ -27,7 +27,6 @@ public class EventListener {
     /**
      * Whether or not to automatically delete this EventListener once it's been
      *     triggered.
-     * Can be any boolean.
      */
     private boolean disposable;
 

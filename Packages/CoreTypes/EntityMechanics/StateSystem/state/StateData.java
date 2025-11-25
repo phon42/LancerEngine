@@ -26,7 +26,6 @@ public class StateData {
      * Whether this State is a status or condition.
      * true: Status
      * false: Condition
-     * Can be any boolean.
      */
     private boolean isStatus;
     /**
@@ -37,12 +36,10 @@ public class StateData {
     private VueHTMLString effects;
     /**
      * Whether mechs are affected by this State.
-     * Can be any boolean.
      */
     private boolean mechAffected;
     /**
      * Whether pilots are affected by this State.
-     * Can be any boolean.
      */
     private boolean pilotAffected;
 

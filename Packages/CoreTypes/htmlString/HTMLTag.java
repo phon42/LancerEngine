@@ -15,7 +15,6 @@ public class HTMLTag {
     /**
      * Whether this tag is a closing tag (in other words, if it's of the form
      *     "</abc>" instead of "<abc>").
-     * Can be any boolean.
      */
     private boolean closingTag;
 

@@ -20,14 +20,12 @@ public class SemverVersion implements Comparable<SemverVersion>,
     private int[] versionNumbers;
     /**
      * Whether this semver version string accepts any version of the target.
-     * Can be any boolean.
      */
     private boolean acceptAll;
     /**
      * Whether this semver version string accepts only a specific version of the
      *     target.
      * If this.acceptAll is true, must be false.
-     * Can be any boolean.
      */
     private boolean acceptExact;
 
