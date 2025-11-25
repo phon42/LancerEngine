@@ -29,6 +29,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.unverified
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.unverifiedFrame.frame.FrameEnum;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Bond;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Reserve;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.UnverifiedCoreBonus;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Background.backgroundBase.Background;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Background.backgroundBase.UnverifiedBackground;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment.PilotArmor;
@@ -70,6 +71,10 @@ public final class Database {
      * add documentation
      */
     private static UnverifiedBackground[] unverifiedBackgrounds;
+    /**
+     * add documentation
+     */
+    private static UnverifiedCoreBonus[] unverifiedCoreBonuses;
 
     // Verified data
     /**
@@ -310,6 +315,11 @@ public final class Database {
             addBackground(unverifiedBackground.toBackground());
         }
         Database.unverifiedBackgrounds = new UnverifiedBackground[0];
+        for (UnverifiedCoreBonus unverifiedCoreBonus :
+            Database.unverifiedCoreBonuses) {
+            addCoreBonus(unverifiedCoreBonus.toCoreBonus());
+        }
+        Database.unverifiedCoreBonuses = new UnverifiedCoreBonus[0];
     }
     private static void checkOpen() {
         if (! isOpen()) {
@@ -323,6 +333,7 @@ public final class Database {
         Database.lcpInfo = new LCPInfo[0];
         // Unverified data
         Database.unverifiedBackgrounds = new UnverifiedBackground[0];
+        Database.unverifiedCoreBonuses = new UnverifiedCoreBonus[0];
         // Verified data
         Database.actions = new Action[0];
         Database.activationTypes = new ActivationType[0];
@@ -755,6 +766,17 @@ public final class Database {
         unverifiedBackground = new UnverifiedBackground(unverifiedBackground);
         Database.unverifiedBackgrounds = HelperMethods.append(
             Database.unverifiedBackgrounds, unverifiedBackground);
+    }
+    /**
+     * Adds the provided UnverifiedCoreBonus to Database.unverifiedCoreBonuses.
+     * @param coreBonus an UnverifiedCoreBonus which cannot be null.
+     * @throws IllegalArgumentException if coreBonus is null.
+     */
+    public static void addUnverifiedCoreBonus(UnverifiedCoreBonus coreBonus) {
+        checkOpen();
+        HelperMethods.checkObject("coreBonus", coreBonus);
+        Database.unverifiedCoreBonuses = HelperMethods.append(
+            Database.unverifiedCoreBonuses, coreBonus);
     }
     // Verified data
     /**
