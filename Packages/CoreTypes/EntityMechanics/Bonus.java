@@ -60,7 +60,7 @@ public class Bonus {
         return id;
     }
     public Object getValue() {
-        return copyValue(value);
+        return JSONTypeTree.copy(value, valueType);
     }
     public JSONTypeTree getValueType() {
         return valueType;
@@ -74,15 +74,31 @@ public class Bonus {
     }
     // Optional properties
     public DamageType[] getDamageTypes() {
+        if (damageTypes == null) {
+            return damageTypes;
+        }
+
         return HelperMethods.copyOf(damageTypes);
     }
     public RangeType[] getRangeTypes() {
+        if (rangeTypes == null) {
+            return rangeTypes;
+        }
+
         return HelperMethods.copyOf(rangeTypes);
     }
     public WeaponType[] getWeaponTypes() {
+        if (weaponTypes == null) {
+            return weaponTypes;
+        }
+
         return HelperMethods.copyOf(weaponTypes);
     }
     public WeaponSize[] getWeaponSizes() {
+        if (weaponSizes == null) {
+            return weaponSizes;
+        }
+
         return HelperMethods.copyOf(weaponSizes);
     }
     // Required properties
@@ -93,7 +109,7 @@ public class Bonus {
     }
     private void setValue(Object value) {
         HelperMethods.checkObject("value", value);
-        value = copyValue(value);
+        value = JSONTypeTree.copy(value, valueType);
         this.value = value;
     }
     private void setValueType(JSONTypeTree valueType) {
@@ -147,10 +163,5 @@ public class Bonus {
             weaponSizes = HelperMethods.copyOf(weaponSizes);
         }
         this.weaponSizes = weaponSizes;
-    }
-
-    private Object copyValue(Object value) {
-        // TODO: fill out
-        return value;
     }
 }
