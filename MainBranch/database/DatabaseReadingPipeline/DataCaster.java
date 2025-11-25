@@ -16,6 +16,7 @@ import Packages.CoreTypes.VueHTMLString;
 import Packages.CoreTypes.BattlefieldMechanics.Environment;
 import Packages.CoreTypes.BattlefieldMechanics.Sitrep;
 import Packages.CoreTypes.EntityMechanics.ActivationType;
+import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.Frequency;
 import Packages.CoreTypes.EntityMechanics.ISynergyData;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
@@ -829,7 +830,7 @@ public class DataCaster {
         JSONArray actionsArray;
         IActionData[] actions = null;
         JSONArray bonusesArray;
-        IBonusData[] bonuses = null;
+        Bonus[] bonuses = null;
         JSONArray synergiesArray;
         ISynergyData[] synergies = null;
         JSONArray deployablesArray;
@@ -871,9 +872,9 @@ public class DataCaster {
         try {
             bonusesArray = coreBonusData.getJSONArray("bonuses");
             try {
-                bonuses = new IBonusData[bonusesArray.length()];
+                bonuses = new Bonus[bonusesArray.length()];
                 for (int i = 0; i < bonuses.length; i++) {
-                    bonuses[i] = toIBonusData(bonusesArray.getJSONObject(i));
+                    bonuses[i] = toBonus(bonusesArray.getJSONObject(i));
                 }
             } catch (JSONException exception) {
                 throw new IllegalStateException("Attempting to process"
@@ -945,8 +946,8 @@ public class DataCaster {
         } catch (JSONException exception) {}
 
         return new CoreBonus(id, name, source, mountedEffect, name,
-            mountedEffect, actions, null, synergies, null,
-            counters, integrated, specialEquipment);
+            mountedEffect, actions, bonuses, synergies, deployables, counters,
+            integrated, specialEquipment);
     }
     private static void processEnvironments(JSONObject[] environmentsData) {
         Environment[] environments = new Environment[environmentsData.length];
