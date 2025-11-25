@@ -109,13 +109,13 @@ public class ITagData {
     }
 
     private void verify() throws IllegalStateException {
-        if (data.acceptsValue == TriState.TRUE) {
+        if (data.acceptsValue() == TriState.TRUE) {
             if (valueInt == -1 && valueString == null) {
                 throw new IllegalStateException("this.data requires a value"
                     + " of some kind and both this.valueInt is -1 and"
                     + " this.valueString is null");
             }
-        } else if (data.acceptsValue == TriState.FALSE) {
+        } else if (data.acceptsValue() == TriState.FALSE) {
             if (valueInt != -1) {
                 throw new IllegalStateException("this.data does not accept a"
                     + " value, but this.valueInt is: " + valueInt + " which is"
