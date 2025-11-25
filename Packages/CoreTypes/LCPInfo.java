@@ -1,8 +1,8 @@
 package Packages.CoreTypes;
 
-import java.net.MalformedURLException;
 import java.net.URL;
 import MainBranch.HelperMethods;
+import MainBranch.database.FileOperations;
 import Packages.CoreTypes.lcpInfo.LCPDependency;
 import Packages.CoreTypes.lcpInfo.Version;
 
@@ -202,8 +202,8 @@ public class LCPInfo {
             return this.imageURL;
         }
         try {
-            return new URL(imageURL.toString());
-        } catch (MalformedURLException exception) {
+            return FileOperations.toURLCaught(imageURL.toString());
+        } catch (IllegalArgumentException exception) {
             return null;
         }
     }
@@ -215,8 +215,8 @@ public class LCPInfo {
             return website;
         }
         try {
-            return new URL(website.toString());
-        } catch (MalformedURLException exception) {
+            return FileOperations.toURLCaught(website.toString());
+        } catch (IllegalArgumentException exception) {
             return null;
         }
     }
@@ -329,8 +329,8 @@ public class LCPInfo {
             setImageURL(null);
         } else {
             try {
-                url = new URL(imageURLRaw);
-            } catch (MalformedURLException exception) {
+                url = FileOperations.toURLCaught(imageURLRaw);
+            } catch (IllegalArgumentException exception) {
                 url = null;
             }
             setImageURL(url);
@@ -343,8 +343,8 @@ public class LCPInfo {
             url = null;
         } else {
             try {
-                url = new URL(this.websiteRaw);
-            } catch (MalformedURLException exception) {
+                url = FileOperations.toURLCaught(this.websiteRaw);
+            } catch (IllegalArgumentException exception) {
                 url = null;
             }
         }
