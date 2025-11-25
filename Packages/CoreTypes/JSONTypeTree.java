@@ -85,6 +85,10 @@ public class JSONTypeTree {
     public JSONTypeTree(JSONType type) {
         // Required property
         setType(type);
+        // Optional properties
+        setPropertyName(null);
+        setStartIndex(-1);
+        setEndIndex(-1);
     }
 
     // Required properties
@@ -143,6 +147,31 @@ public class JSONTypeTree {
         this.childrenDescriptors = childrenDescriptors;
     }
 
+    @Override
+    public String toString() {
+        return toString(1);
+    }
+    public String toString(int indent) {
+        String output;
+        final String indentString = " -".repeat(indent);
+
+        output = this.type.toString();
+        if (this.startIndex != -1 && this.endIndex != -1) {
+            output += " (" + this.startIndex + " : " + this.endIndex + ")";
+        }
+        if (this.propertyName != null) {
+            output += " (\"" + this.propertyName + "\")";
+        }
+        if (this.childrenDescriptors != null) {
+            for (int i = 0; i < this.childrenDescriptors.length; i++) {
+                output += "\n";
+                output += indentString + " "
+                    + this.childrenDescriptors[i].toString(indent + 1);
+            }
+        }
+
+        return output;
+    }
     public JSONTypeTree addPropertyName(String propertyName) {
         if (this.startIndex != -1 || this.endIndex != -1
             || this.propertyName != null) {
