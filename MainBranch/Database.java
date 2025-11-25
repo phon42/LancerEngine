@@ -668,7 +668,7 @@ public final class Database {
         tagID = tagID.toLowerCase();
         for (Tag tag : Database.tags) {
             if (tagID.equals(tag.getID())) {
-                return new Tag(tag);
+                return tag;
             }
         }
         throw new NoSuchElementException("No tag found for tag ID: "
@@ -1039,7 +1039,6 @@ public final class Database {
     public static void addTag(Tag tag) {
         checkOpen();
         HelperMethods.checkObject("tag", tag);
-        tag = new Tag(tag);
         Database.tags = HelperMethods.append(Database.tags, tag);
     }
     /**
