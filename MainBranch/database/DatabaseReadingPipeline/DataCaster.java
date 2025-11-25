@@ -949,6 +949,72 @@ public class DataCaster {
             mountedEffect, actions, bonuses, synergies, deployables, counters,
             integrated, specialEquipment);
     }
+    private static Counter toCounter(JSONObject counterData) {
+        // Main properties
+        String id;
+        String name;
+        // Semi-required properties
+        boolean minPresent = false;
+        int min = 0;
+        boolean maxPresent = false;
+        int max = 0;
+        // Technically optional property
+        boolean defaultValuePresent = false;
+        int defaultValue = 0;
+
+        try {
+            id = counterData.getString("id");
+            name = counterData.getString("name");
+        } catch (JSONException exception) {
+            throw new IllegalStateException("counterData threw a JSONException"
+                + " during the required properties section of the object"
+                + " parsing, which is not allowed");
+        }
+        try {
+            min = counterData.getInt("min");
+            minPresent = true;
+        } catch (JSONException exception) {}
+        try {
+            max = counterData.getInt("max");
+            maxPresent = true;
+        } catch (JSONException exception) {}
+        try {
+            defaultValue = counterData.getInt("default_value");
+            defaultValuePresent = true;
+        } catch (JSONException exception) {}
+        if (defaultValuePresent) {
+            if (maxPresent) {
+                if (minPresent) {
+                    return new Counter(id, name, min, max, defaultValue);
+                } else {
+                    return new Counter(id, name, null, max,
+                        defaultValue);
+                }
+            } else {
+                if (minPresent) {
+                    return new Counter(id, name, min, null,
+                        defaultValue);
+                } else {
+                    return new Counter(id, name, null,
+                        null, defaultValue);
+                }
+            }
+        } else {
+            if (maxPresent) {
+                if (minPresent) {
+                    return new Counter(id, name, min, max);
+                } else {
+                    return new Counter(id, name, null, max);
+                }
+            } else {
+                if (minPresent) {
+                    return new Counter(id, name, min);
+                } else {
+                    return new Counter(id, name);
+                }
+            }
+        }
+    }
     private static void processEnvironments(JSONObject[] environmentsData) {
         Environment[] environments = new Environment[environmentsData.length];
 
