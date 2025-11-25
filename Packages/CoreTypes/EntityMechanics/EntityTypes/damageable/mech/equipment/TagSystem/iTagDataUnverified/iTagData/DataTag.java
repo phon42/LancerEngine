@@ -21,7 +21,6 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.
  *     placeholder. None of its properties have allowed values of null.
  */
 public class DataTag {
-    // Required properties
     /**
      * The id for this data tag (i.e. "tg_ai").
      * Can be any String except "". Cannot be null.
