@@ -14,7 +14,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.
  * 
  * Requires a data tag ID to be instantiated.
  * 
- * Used in Database.
+ * Used in Database and ITagData.
  * 
  * Safety: This class does not have placeholder values and cannot be a
  *     placeholder. None of its properties have allowed values of null.
@@ -24,24 +24,31 @@ public class DataTag {
      * The id for this data tag (i.e. "tg_ai").
      * Must be a valid value for this.id (as defined by
      *     DataTag.allowedDataTags). Cannot be null.
+     * Case-insensitive and stored in lowercase.
      */
     protected String id;
     /**
      * The name for this data tag (i.e. "AI").
      * Must be a valid value (as defined by DataTag.allowedDataTags). Cannot be
      *     null.
+     * Case-sensitive.
      */
     protected String name;
     /**
      * A short description for this DataTag.
      * Must be a valid description (as defined by DataTag.allowedDataTags).
      *     Cannot be null.
+     * Case-sensitive.
      */
     protected String description;
     /**
      * The value for this data tag if it has one (i.e. the "X" in "Limited X").
-     * Must be a minimum of 0. If this.id is one of DataTag.valueIDs, must be a
-     *     minimum of 1. Set to 0 on construction.
+     * If this.id is one of DataTag.valueIDs:
+     *     Must be a minimum of 1.
+     * Otherwise:
+     *     Must be a minimum of 0.
+     * Must be a minimum of 0.
+     * Set to 0 on construction.
      */
     protected int value;
     /**
@@ -54,8 +61,8 @@ public class DataTag {
     protected boolean hidden;
     /**
      * Contains an array of values for this.id for which having a value other
-     *     than 0 for this.value makes sense. Case-insensitive and stored in
-     *     lowercase.
+     *     than 0 for this.value makes sense.
+     * Elements are case-insensitive and stored in lowercase.
      */
     private static final String[] valueIDs = new String[] {
         // Shared tags
