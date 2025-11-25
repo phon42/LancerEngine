@@ -35,7 +35,7 @@ public enum JSONType {
         if (value instanceof JSONArray) {
             return JSONType.JSONARRAY;
         }
-        throw new IllegalArgumentException("value is of a type that is not"
-            + " one of the accepted JSONType values");
+
+        return JSONType.NULL;
     }
 }
