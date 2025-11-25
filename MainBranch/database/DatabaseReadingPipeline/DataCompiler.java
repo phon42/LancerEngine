@@ -17,10 +17,10 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.p
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment.PilotGear;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment.PilotWeapon;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Reserve;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.UnverifiedCoreBonus;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Background.backgroundBase.UnverifiedBackground;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skill.SkillData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.talent.TalentData;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.unverifiedCoreBonus.CoreBonus;
 import Packages.CoreTypes.EntityMechanics.LicenseSystem.FrameLicense;
 import Packages.CoreTypes.EntityMechanics.LicenseSystem.frameLicense.LicenseContent;
 import Packages.CoreTypes.EntityMechanics.ActivationType;
@@ -95,7 +95,7 @@ public class DataCompiler {
     private static IActionData[] iActionDataData;
     private static ActivationType[] activationTypeData;
     private static StateData[] conditionData;
-    private static CoreBonus[] coreBonusData;
+    private static UnverifiedCoreBonus[] coreBonusData;
     private static DataTag[] dataTagData;
     private static Tag[] tagData;
     private static Manufacturer[] manufacturerData;
@@ -183,7 +183,7 @@ public class DataCompiler {
         DataCompiler.actionData = (Action[]) data[5];
         DataCompiler.activationTypeData = (ActivationType[]) data[6];
         DataCompiler.conditionData = (StateData[]) data[7];
-        DataCompiler.coreBonusData = (CoreBonus[]) data[8];
+        DataCompiler.coreBonusData = (UnverifiedCoreBonus[]) data[8];
         DataCompiler.dataTagData = (DataTag[]) data[9];
         DataCompiler.tagData = (Tag[]) data[10];
         DataCompiler.manufacturerData = (Manufacturer[]) data[11];
@@ -358,7 +358,7 @@ public class DataCompiler {
             Database.addCondition(DataCompiler.conditionData[i]);
         }
         for (int i = 0; i < DataCompiler.coreBonusData.length; i++) {
-            Database.addCoreBonus(DataCompiler.coreBonusData[i]);
+            Database.addUnverifiedCoreBonus(DataCompiler.coreBonusData[i]);
         }
         for (int i = 0; i < DataCompiler.dataTagData.length; i++) {
             Database.addDataTag(DataCompiler.dataTagData[i]);
@@ -435,7 +435,7 @@ public class DataCompiler {
         DataCompiler.iActionDataData = new IActionData[0];
         DataCompiler.activationTypeData = new ActivationType[0];
         DataCompiler.conditionData = new StateData[0];
-        DataCompiler.coreBonusData = new CoreBonus[0];
+        DataCompiler.coreBonusData = new UnverifiedCoreBonus[0];
         DataCompiler.dataTagData = new DataTag[0];
         DataCompiler.tagData = new Tag[0];
         DataCompiler.manufacturerData = new Manufacturer[0];
