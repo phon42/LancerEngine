@@ -458,7 +458,7 @@ public final class Database {
         dataTagID = dataTagID.toLowerCase();
         for (DataTag dataTag : Database.dataTags) {
             if (dataTagID.equals(dataTag.getID())) {
-                return new DataTag(dataTag);
+                return dataTag;
             }
         }
         throw new NoSuchElementException("No data tag found for data tag ID: "
@@ -832,7 +832,6 @@ public final class Database {
     public static void addDataTag(DataTag dataTag) {
         checkOpen();
         HelperMethods.checkObject("dataTag", dataTag);
-        dataTag = new DataTag(dataTag);
         Database.dataTags = HelperMethods.append(Database.dataTags, dataTag);
     }
     /**

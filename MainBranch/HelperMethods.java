@@ -316,7 +316,8 @@ public final class HelperMethods {
      */
     public static void checkVueHTMLString(String propertyName,
         VueHTMLString input) {
-        checkHTMLString(propertyName, input);
+        checkObject(propertyName, input);
+        checkString(propertyName, input.getRawValue());
     }
     /**
      * Checks to make sure the current code is being called while Database is
@@ -1498,7 +1499,7 @@ public final class HelperMethods {
                 copy[i] = original[i];
                 continue;
             }
-            copy[i] = new DataTag(original[i]);
+            copy[i] = original[i];
         }
 
         return copy;
