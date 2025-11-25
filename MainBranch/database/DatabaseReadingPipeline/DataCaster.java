@@ -29,7 +29,6 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.iTagDataUnverified.iTagData.dataTag.Tag;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.unverifiedFrame.Frame;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Bond;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.CoreBonus;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Reserve;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Background.backgroundBase.UnverifiedBackground;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.bond.BondPower;
@@ -40,6 +39,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.p
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skill.SkillData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skill.skillData.SkillFamily;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.talent.TalentData;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.unverifiedCoreBonus.CoreBonus;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.StateData;
 import Packages.CoreTypes.lcpInfo.LCPDependency;
 import Packages.CoreTypes.lcpInfo.Version;
