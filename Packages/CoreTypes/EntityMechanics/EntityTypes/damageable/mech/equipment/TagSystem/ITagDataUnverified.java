@@ -1,0 +1,94 @@
+package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem;
+
+import MainBranch.HelperMethods;
+
+public class ITagDataUnverified {
+    // Required property
+    /**
+     * The id of the data tag this ITagData object refers to (i.e. "tg_ai").
+     * Can be any String except "". Cannot be null.
+     * Case-insensitive and stored in lowercase.
+     */
+    private String id;
+
+    // Optional properties
+    /**
+     * The int value that this ITagData object holds (example unhelpful).
+     * Must be -1 when this.valueString is not null. Otherwise, must be a
+     *     minimum of 0.
+     * Must be a minimum of -1.
+     */
+    private int valueInt;
+    /**
+     * The String value that this ITagData object holds (i.e. "X").
+     * When this.valueInt is > -1:
+     *     Can be any String. Cannot be null.
+     * When this.valueInt is -1:
+     *     Must be null.
+     * Can be any String. Can be null.
+     * Case-sensitive.
+     */
+    private String valueString;
+
+    public ITagDataUnverified(String id, String value) {
+        this(id);
+        setValueString(value);
+    }
+    public ITagDataUnverified(String id, int value) {
+        this(id);
+        setValueInt(value);
+    }
+    public ITagDataUnverified(String id) {
+        setID(id);
+        this.valueInt = -1;
+        this.valueString = null;
+    }
+
+    // Required property
+    public String getID() {
+        return id;
+    }
+    // Optional properties
+    public int getValueInt() {
+        return valueInt;
+    }
+    public String getValueString() {
+        return valueString;
+    }
+    // Required property
+    private void setID(String id) {
+        HelperMethods.checkString("id", id);
+        id = id.toLowerCase();
+        this.id = id;
+    }
+    // Optional properties
+    private void setValueInt(int valueInt) {
+        if (this.valueString == null) {
+            // Must be a minimum of 0
+            if (valueInt < 0) {
+                throw new IllegalArgumentException("valueInt: " + valueInt
+                    + " is < 0");
+            }
+        } else {
+            // Must be -1
+            if (valueInt != -1) {
+                throw new IllegalArgumentException("valueInt: " + valueInt
+                    + " is != -1");
+            }
+        }
+        this.valueInt = valueInt;
+    }
+    private void setValueString(String valueString) {
+        if (this.valueInt == -1) {
+            // Must be null
+            if (valueString != null) {
+                throw new IllegalArgumentException("valueString: \""
+                    + valueString + "\" is not null");
+            }
+        } else {
+            // Can be any String. Cannot be null.
+            HelperMethods.checkObject("valueString", valueString);
+        }
+        this.valueString = valueString;
+    }
+}
