@@ -321,6 +321,30 @@ public final class HelperMethods {
         checkString(propertyName, input.getRawValue());
     }
     /**
+     * An alternate check to perform on an object array compared to
+     *     checkObjectArray() that instead checks if the provided Object[] is of
+     *     length 0 or contains null elements. Null values for input are
+     *     allowed.
+     * Checks a provided Object[] to see if it is of length 0 or contains null
+     *     elements.
+     * @param propertyName a String which cannot be "". Cannot be null.
+     * @param input an Object[] which cannot be of length 0 or contain null
+     *     elements.
+     * @throws IllegalArgumentException if propertyName is null or "", or input
+     *     is of length 0 or contains null elements.
+     */
+    public static void checkObjectArrayAlt(String propertyName, Object[] input)
+    {
+        checkString("propertyName", propertyName);
+        if (input != null) {
+            if (input.length == 0) {
+                throw new IllegalArgumentException(propertyName + " array is of"
+                    + " length 0");
+            }
+            checkObjectArray(propertyName, input);
+        }
+    }
+    /**
      * Checks to make sure the current code is being called while Database is
      *     open. Throws an Exception otherwise. Used in several constructors.
      * @throws IllegalStateException if Database.isOpen() returns false.
