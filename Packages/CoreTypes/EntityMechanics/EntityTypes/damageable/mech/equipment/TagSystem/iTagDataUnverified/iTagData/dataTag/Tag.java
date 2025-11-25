@@ -1,68 +1,54 @@
-package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem;
+package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.iTagDataUnverified.iTagData.dataTag;
 
 import MainBranch.HelperMethods;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.dataTag.Tag;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.iTagDataUnverified.iTagData.DataTag;
 
 /**
- * See the tags within the files under
- *     https://github.com/massif-press/lancer-data/tree/master/lib.
+ * See pgs. 104 - 106.
  */
 /**
- * Represents a tag on a JSON file for a mech system or weapon (i.e. the tags
- *     "AI" or "Grenade"). These tags are not always publicly visible. Contains
- *     information about the data tag's name and value (if it has one).
+ * Represents a tag for a mech system or weapon, like the tags "AI" or "Limited
+ *     X". Contains information about the tag's name and value (if it has one).
  * 
- * Requires a data tag ID to be instantiated.
+ * Requires a tag name to be instantiated.
  * 
- * Used in Database and ITagData.
+ * Used in Equipment, MechSystem, and Weapon.
  * 
  * Safety: This class does not have placeholder values and cannot be a
  *     placeholder. None of its properties have allowed values of null.
  */
-public class DataTag {
+public final class Tag extends DataTag {
+    // TODO: find a way to override DataTag's documentation
     /**
-     * The id for this data tag (i.e. "tg_ai").
+     * The id for this tag (i.e. "tg_ai").
      * Must be a valid value for this.id (as defined by
-     *     DataTag.allowedDataTags). Cannot be null.
+     *     Tag.allowedTags). Cannot be null.
      * Case-insensitive and stored in lowercase.
      */
-    protected String id;
+    // protected String id;
+    // TODO: find a way to override DataTag's documentation
     /**
-     * The name for this data tag (i.e. "AI").
-     * Must be a valid value (as defined by DataTag.allowedDataTags). Cannot be
-     *     null.
+     * The name for this tag (i.e. "AI").
+     * Must be a valid value (as defined by Tag.allowedTags). Cannot be null.
      * Case-sensitive.
      */
-    protected String name;
+    // protected String name;
+    // TODO: find a way to override DataTag's documentation
     /**
-     * A short description for this DataTag.
-     * Must be a valid description (as defined by DataTag.allowedDataTags).
-     *     Cannot be null.
-     * Case-sensitive.
-     */
-    protected String description;
-    /**
-     * The value for this data tag if it has one (i.e. the "X" in "Limited X").
-     * If this.id is one of DataTag.valueIDs:
+     * The value for this equipment tag if it has one (i.e. the "X" in
+     *     "Limited X").
+     * If this.id is one of Tag.valueIDs:
      *     Must be a minimum of 1.
      * Otherwise:
      *     Must be a minimum of 0.
      * Must be a minimum of 0.
      * Set to 0 on construction.
      */
-    protected int value;
-    /**
-     * Whether filtering algorithms should hide this data tag.
-     */
-    protected boolean filterIgnore;
-    /**
-     * Whether this data tag is always hidden.
-     */
-    protected boolean hidden;
+    // private int value;
     /**
      * Contains an array of values for this.id for which having a value other
-     *     than 0 for this.value makes sense.
-     * Elements are case-insensitive and stored in lowercase.
+     *     than 0 for this.value makes sense. Case-insensitive and stored in
+     *     lowercase.
      */
     private static final String[] valueIDs = new String[] {
         // Shared tags
@@ -76,9 +62,9 @@ public class DataTag {
         "tg_burst", "tg_range", "tg_recharge", "tg_threat"
     };
     /**
-     * Contains an array of allowed DataTag values.
+     * Contains an array of allowed Tag values.
      */
-    private static final Object[][] allowedDataTags = new Object[][] {
+    private static final Object[][] allowedTags = new Object[][] {
         // Shared tags
         new Object[] {"tg_heat_self", "Heat X (Self)", "Immediately after using"
             + " this weapon or system, the user takes X Heat.", false, false},
@@ -100,9 +86,6 @@ public class DataTag {
             + " mech, and cannot be used for Overwatch.", false, false},
         new Object[] {"tg_resistall", "Resistance (All)", "This unit has"
             + " Resistance to all damage types", true, false},
-        new Object[] {"tg_set_damage_type", "Set Damage Type", "Allow player to"
-            + " set the damage type for this equipment (HIDDEN TAG)", false,
-            true},
         new Object[] {"tg_smart", "Smart", "This weapon has self-guidance"
             + " systems, self-propelled projectiles, or even nanorobotic"
             + " ammunition. These systems are effective enough that its attacks"
@@ -143,9 +126,6 @@ public class DataTag {
             true, false},
         new Object[] {"tg_invulnerable", "Invulnerable", "This equipment is"
             + " immune to all damage.", true, false},
-        new Object[] {"tg_no_cascade", "Prevent Cascade", "Prohibits an AI"
-            + " system from being recognized as a valid target for Cascading"
-            + " (HIDDEN TAG)", false, true},
         new Object[] {"tg_overshield", "Overshield", "This system provides HP"
             + " that disappears at the end of the scene or when a specified"
             + " condition is met. The user only retains the highest value of"
@@ -226,8 +206,6 @@ public class DataTag {
             + " complicated paths to its targets. As long as it’s possible to"
             + " draw a path to its target, this weapon ignores cover and"
             + " doesn’t require line of sight.", false, false},
-        new Object[] {"tg_set_max_uses", "Set Max Uses", "Allow player to set"
-            + " the maximum uses for this equipment (HIDDEN TAG)", false, true},
         new Object[] {"tg_thrown", "Thrown X", "This melee weapon can be thrown"
             + " at targets within X spaces. Thrown attacks follow the rules for"
             + " melee attacks but are affected by cover; additionally, a thrown"
@@ -341,150 +319,106 @@ public class DataTag {
     };
 
     /**
-     * Creates a new DataTag given a data tag ID.
-     * @param dataTagID a String which cannot be null or an invalid ID, as
-     *     defined by DataTag.allowedDataTags.
+     * Creates a new Tag given an equipment tag name.
+     * @param tagName a String which cannot be null or an invalid value, as
+     *     defined by Tag.allowedTags.
      */
-    public DataTag(String dataTagID) {
-        setID(dataTagID);
+    public Tag(String tagID, String tagName, String tagDescription,
+        boolean filterIgnore) {
+        super("tg_inaccurate");
+        setID(tagID);
+        setName(tagName);
+        setDescription(tagDescription);
         this.value = 0;
+        setFilterIgnore(filterIgnore);
+        setHidden(false);
     }
     /**
-     * Creates a new DataTag such as the "Limited X" data tag, given a data tag
-     *     ID for which having a value other than 0 for this.value makes sense,
-     *     and a data tag value.
-     * @param dataTagID a String which must be a valid data tag ID as defined by
-     *     DataTag.allowedDataTags. Additionally, the DataTag.name value it
-     *     translates to must be a value for which having a value other than 0
-     *     makes sense as defined by DataTag.valueIDs.
-     * @param dataTagValue an int which must be > 1.
+     * Creates a new Tag such as the "Limited X" tag, given an equipment tag
+     *     name for which having a value other than 0 for this.value makes
+     *     sense as defined by Tag.valueIDs, and a tag value.
+     * @param tagName a String which must be a value for which having a value
+     *     other than 0 makes sense as defined by Tag.valueIDs. Cannot be null.
+     * @param tagValue an int which must be > 1.
      */
-    public DataTag(String dataTagID, int dataTagValue) {
-        setID(dataTagID);
-        setValue(dataTagValue);
+    public Tag(String tagID, String tagName, String tagDescription,
+        int tagValue, boolean filterIgnore) {
+        super("tg_inaccurate");
+        setID(tagID);
+        setName(tagName);
+        setDescription(tagDescription);
+        setValue(tagValue);
+        setFilterIgnore(filterIgnore);
+        setHidden(false);
     }
     /**
-     * Creates a copy of the provided DataTag.
-     * @param dataTag a DataTag to be copied.
-     * @return a DataTag copy of the provided DataTag.
+     * Creates a copy of the provided Tag.
+     * @param tag a Tag to be copied.
+     * @return a Tag copy of the provided Tag.
      */
-    public DataTag(DataTag dataTag) {
-        HelperMethods.checkObject("dataTag", dataTag);
-        setID(dataTag.id);
-        setValue(dataTag.value);
+    public Tag(Tag tag) {
+        super("tg_inaccurate");
+        HelperMethods.checkObject("tag", tag);
+        setID(tag.id);
+        setName(tag.name);
+        setDescription(tag.description);
+        setValue(tag.value);
+        setFilterIgnore(tag.filterIgnore);
+        setHidden(tag.hidden);
     }
 
-    public String getID() {
-        return id;
-    }
-    public String getName() {
-        return name;
-    }
-    public String getDescription() {
-        return description;
-    }
-    public int getValue() {
-        return value;
-    }
-    public boolean isFilterIgnore() {
-        return filterIgnore;
-    }
-    public boolean isHidden() {
-        return hidden;
+    @Override
+    protected void setID(String id) {
+        HelperMethods.checkString("New ID", id);
+        id = id.toLowerCase();
+        this.id = id;
     }
     /**
      * Sets this.id to the provided value.
      * @param id a String which must be a valid value (as defined by
-     *     DataTag.allowedDataTags). Cannot be null.
+     *     Tag.allowedTags). Cannot be null.
      * @throws IllegalArgumentException if id is null or an invalid value, as
-     *     defined by DataTag.allowedDataTags.
+     *     defined by Tag.allowedTags.
      */
-    protected void setID(String id) {
-        HelperMethods.checkString("New ID", id);
-        id = id.toLowerCase();
-        for (Object[] ID : DataTag.allowedDataTags) {
-            if (id.equals((String) ID[0])) {
-                this.id = id;
-                setName((String) ID[1]);
-                setDescription((String) ID[2]);
-                setFilterIgnore((boolean) ID[3]);
-                setHidden((boolean) ID[4]);
+    @Override
+    protected void setName(String name) {
+        HelperMethods.checkString("New name", name);
+        for (Object[] tag : Tag.allowedTags) {
+            if (name.equals((String) tag[1])) {
+                this.name = name;
+                setID((String) tag[0]);
+                setDescription((String) tag[2]);
+                setFilterIgnore((boolean) tag[3]);
+                setHidden((boolean) tag[4]);
                 return;
             }
         }
-        throw new IllegalArgumentException("ID: \"" + id + "\" is not a valid"
-            + " data tag ID");
-    }
-    protected void setName(String name) {
-        HelperMethods.checkString("New name", name);
-        this.name = name;
-    }
-    protected void setDescription(String description) {
-        HelperMethods.checkString("New description", name);
-        this.description = description;
+        throw new IllegalArgumentException("New name: \"" + name + "\" is not a"
+            + " valid tag name");
     }
     /**
-     * Sets this.value to the provided value. If this.id is a data tag for
-     *     which having a value makes sense as defined by DataTag.valueIDs,
-     *     checks whether value is < 1.
+     * Sets this.value to the provided value. If this.id is a tag for which
+     *     having a value makes sense as defined by Tag.valueIDs, checks whether
+     *     value is < 1.
      * @param value an int containing the new value.
-     * @throws IllegalArgumentException if this.id is not a data tag for which
-     *     having a value makes sense, or if it is and value is < 1.
+     * @throws IllegalArgumentException if this.id is not a tag for which having
+     *     a value makes sense, or if it is and value is < 1.
      */
+    @Override
     protected void setValue(int value) {
-        for (String valueID : DataTag.valueIDs) {
+        for (String valueID : Tag.valueIDs) {
             if (this.id.equals(valueID)) {
                 if (value < 1) {
                     throw new IllegalArgumentException("Name is: \"" + this.name
-                        + "\" and new value: " + value + " is < 1");
+                    + "\" and new value: " + value + " is < 1");
                 }
                 this.value = value;
                 return;
             }
         }
         if (value != 0) {
-            throw new IllegalArgumentException("Attempted to change a DataTag's"
-                + " value when its DataTag.name value is: \"" + this.name
-                + "\"");
+            throw new IllegalArgumentException("Attempted to change a Tag's"
+                + " value when its Tag.name value is: \"" + this.name + "\"");
         }
-    }
-    protected void setFilterIgnore(boolean filterIgnore) {
-        this.filterIgnore = filterIgnore;
-    }
-    protected void setHidden(boolean hidden) {
-        this.hidden = hidden;
-    }
-
-    public Tag toTag() {
-        if (this.hidden) {
-            throw new IllegalArgumentException("Unable to convert a DataTag"
-                + " with a DataTag.hidden value of true to a Tag");
-        }
-
-        return new Tag(this.id, this.name, this.description, this.value,
-            this.filterIgnore);
-    }
-    public static Tag[] toTags(DataTag[] dataTags) {
-        int numValidTags = 0;
-        Tag[] tags;
-
-        HelperMethods.checkObject("dataTags", dataTags);
-        for (int i = 0; i < dataTags.length; i++) {
-            if (dataTags[i] == null) {
-                continue;
-            }
-            numValidTags++;
-        }
-        tags = new Tag[numValidTags];
-        numValidTags = 0;
-        for (int i = 0; i < dataTags.length; i++) {
-            if (dataTags[i] == null) {
-                continue;
-            }
-            tags[numValidTags] = dataTags[i].toTag();
-            numValidTags++;
-        }
-
-        return tags;
     }
 }
