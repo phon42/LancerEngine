@@ -277,14 +277,13 @@ public class HTMLString implements Comparable<HTMLString>, CharSequence {
             return;
         }
         tags = new HTMLTag[numTags];
+        numTags = 0;
         for (int i = 0; i < this.dataSequence.length; i++) {
-            if (dataType(this.dataSequence[i])) {
-                containsTag = true;
-                numTags++;
-            } else {
+            if (! dataType(this.dataSequence[i])) {
                 continue;
             }
-            tags[numTags - 1] = (HTMLTag) this.dataSequence[i];
+            tags[numTags] = (HTMLTag) this.dataSequence[i];
+            numTags++;
         }
         HTMLTag.checkTagSequence(tags);
     }
