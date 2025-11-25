@@ -19,14 +19,8 @@ public enum JSONType {
         }
         if (value instanceof Boolean) {
             return JSONType.BOOLEAN;
-        // TODO: find out how to do this check properly
-        } else if (value instanceof boolean) {
-            return JSONType.BOOLEAN;
         }
         if (value instanceof Integer) {
-            return JSONType.INTEGER;
-        // TODO: find out how to do this check properly
-        } else if (value instanceof int) {
             return JSONType.INTEGER;
         }
         if (value instanceof BigDecimal) {
