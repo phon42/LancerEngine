@@ -59,8 +59,8 @@ public class DataTag {
 
     // Helper properties
     /**
-     * Contains an array of values for this.id for which having a value other
-     *     than 0 for this.value makes sense.
+     * Contains an array of values for this.id for which this data tag requires
+     *     a value of some kind.
      * Elements are case-insensitive and stored in lowercase.
      */
     private static final String[] valueIDs = new String[] {
@@ -75,7 +75,8 @@ public class DataTag {
         "tg_burst", "tg_range", "tg_recharge", "tg_threat"
     };
     /**
-     * Contains an array of allowed DataTag values.
+     * Contains an array of known data tag IDs.
+     * Elements are case-insensitive and stored in lowercase.
      */
     private static final String[] dataTagIDs = new String[] {
         // Shared tags
