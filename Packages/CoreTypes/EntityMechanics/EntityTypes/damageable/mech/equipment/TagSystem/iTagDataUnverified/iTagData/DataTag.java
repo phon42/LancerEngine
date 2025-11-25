@@ -2,6 +2,7 @@ package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment
 
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.TriState;
+import Packages.CoreTypes.VueHTMLString;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.iTagDataUnverified.iTagData.dataTag.Tag;
 
 /**
@@ -38,10 +39,10 @@ public class DataTag {
     protected String name;
     /**
      * A short description for this DataTag.
-     * Can be any String except "". Cannot be null.
+     * Can be any VueHTMLString except "". Cannot be null.
      * Case-sensitive.
      */
-    protected String description;
+    protected VueHTMLString description;
     /**
      * Whether this data tag is always hidden.
      */
@@ -122,7 +123,7 @@ public class DataTag {
     public String getName() {
         return name;
     }
-    public String getDescription() {
+    public VueHTMLString getDescription() {
         return description;
     }
     public boolean isFilterIgnore() {
@@ -148,8 +149,9 @@ public class DataTag {
         HelperMethods.checkString("New name", name);
         this.name = name;
     }
-    protected void setDescription(String description) {
-        HelperMethods.checkString("New description", name);
+    protected void setDescription(VueHTMLString description) {
+        HelperMethods.checkVueHTMLString("New description",
+            description);
         this.description = description;
     }
     protected void setFilterIgnore(boolean filterIgnore) {
@@ -163,6 +165,9 @@ public class DataTag {
         this.acceptsValue = acceptsValue;
     }
 
+    protected void setDescription(String description) {
+        setDescription(new VueHTMLString(description));
+    }
     private TriState calculateAcceptsValue() {
         for (String valueID : DataTag.valueIDs) {
             if (this.id.equals(valueID)) {
@@ -183,7 +188,7 @@ public class DataTag {
                 + " with a DataTag.hidden value of true to a Tag");
         }
 
-        return new Tag(this.id, this.name, this.description, this.filterIgnore);
+        return new Tag(this.id, this.name, this.id, this.filterIgnore);
     }
     public static Tag[] toTags(DataTag[] dataTags) {
         int numValidTags = 0;
