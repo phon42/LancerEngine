@@ -11,14 +11,17 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.
 /**
  * Represents a tag on a JSON file for a mech system or weapon (i.e. the tags
  *     "AI" or "Grenade"). These tags are not always publicly visible. Contains
- *     information about the data tag's name and value (if it has one).
+ *     information about the tag's id, name, and description, among other
+ *     properties.
  * 
- * Requires a data tag ID to be instantiated.
+ * Requires a data tag id, name, description, whether it is a hidden data tag,
+ *     and whether it is ignored in filters to be instantiated.
  * 
  * Used in Database and ITagData.
  * 
- * Safety: This class does not have placeholder values and cannot be a
- *     placeholder. None of its properties have allowed values of null.
+ * Safety: None of this class' properties have allowed values of null.
+ * 
+ * This class is immutable (in other words, no copies of it need to be created).
  */
 public class DataTag {
     /**
@@ -60,7 +63,7 @@ public class DataTag {
     // Helper properties
     /**
      * Contains an array of values for this.id for which this data tag requires
-     *     a value of some kind.
+     *     an accompanying value of some kind.
      * Elements are case-insensitive and stored in lowercase.
      */
     private static final String[] valueIDs = new String[] {
