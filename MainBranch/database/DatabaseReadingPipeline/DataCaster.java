@@ -890,7 +890,7 @@ public class DataCaster {
                 weaponTypes = new WeaponType[weaponTypesArray.length()];
                 for (int i = 0; i < weaponTypes.length; i++) {
                     weaponTypes[i] =
-                        toWeaponType(weaponTypesArray.getJSONObject(i));
+                        toWeaponType(weaponTypesArray.getString(i));
                 }
             } catch (JSONException exception) {
                 throw new IllegalStateException("Attempting to parse"
@@ -903,7 +903,7 @@ public class DataCaster {
                 weaponSizes = new WeaponSize[weaponSizesArray.length()];
                 for (int i = 0; i < weaponSizes.length; i++) {
                     weaponSizes[i] =
-                        toWeaponSize(weaponSizesArray.getJSONObject(i));
+                        toWeaponSize(weaponSizesArray.getString(i));
                 }
             } catch (JSONException exception) {
                 throw new IllegalStateException("Attempting to parse"
@@ -1829,19 +1829,6 @@ public class DataCaster {
         // TODO: fill out
         return null;
     }
-    private static WeaponType toWeaponType(String weaponTypeName) {
-        WeaponType weaponType;
-
-        try {
-            return Database.getWeaponType(weaponTypeName);
-        } catch (NoSuchElementException exception) {
-            weaponType = new WeaponType(WeaponType.getMaxID() + 1,
-                weaponTypeName);
-            HelperMethods.append(DataCaster.weaponTypesProcessed, weaponType);
-
-            return weaponType;
-        }
-    }
     private static WeaponSize toWeaponSize(String weaponSizeName) {
         WeaponSize weaponSize;
 
@@ -1853,6 +1840,19 @@ public class DataCaster {
             HelperMethods.append(DataCaster.weaponSizesProcessed, weaponSize);
 
             return weaponSize;
+        }
+    }
+    private static WeaponType toWeaponType(String weaponTypeName) {
+        WeaponType weaponType;
+
+        try {
+            return Database.getWeaponType(weaponTypeName);
+        } catch (NoSuchElementException exception) {
+            weaponType = new WeaponType(WeaponType.getMaxID() + 1,
+                weaponTypeName);
+            HelperMethods.append(DataCaster.weaponTypesProcessed, weaponType);
+
+            return weaponType;
         }
     }
     private static void addActivationType(ActivationType activationType) {
