@@ -23,6 +23,7 @@ import Packages.CoreTypes.EntityMechanics.ISynergyData;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
 import Packages.CoreTypes.EntityMechanics.NPCFeature;
 import Packages.CoreTypes.EntityMechanics.NPCTemplate;
+import Packages.CoreTypes.EntityMechanics.RangeType;
 import Packages.CoreTypes.EntityMechanics.SynergyLocation;
 import Packages.CoreTypes.EntityMechanics.WeaponSize;
 import Packages.CoreTypes.EntityMechanics.WeaponType;
@@ -47,7 +48,6 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.p
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skill.SkillData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skill.skillData.SkillFamily;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.talent.TalentData;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.unverifiedCoreBonus.CoreBonus;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.harm.harmType.DamageType;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.unverifiedStateData.StateData;
 import Packages.CoreTypes.lcpInfo.LCPDependency;
@@ -133,6 +133,7 @@ public class DataCaster {
     private static PilotArmor[] pilotArmorProcessed;
     private static PilotGear[] pilotGearProcessed;
     private static PilotWeapon[] pilotWeaponsProcessed;
+    private static RangeType[] rangeTypesProcessed;
     private static Reserve[] reservesProcessed;
     private static SkillData[] skillsProcessed;
     private static StateData[] statusesProcessed;
@@ -604,7 +605,9 @@ public class DataCaster {
                 + " object parsing, which is not allowed");
         }
         activation = new ActivationType(activationString);
-        addActivationType(activation);
+        DataCaster.activationTypesProcessed =
+            HelperMethods.append(DataCaster.activationTypesProcessed,
+                activation);
         // Semi-required properties - ActionBase
         try {
             pilot = TriState.toTriState(actionData.getBoolean("pilot"));
@@ -826,13 +829,13 @@ public class DataCaster {
         TriState replace;
         // Optional properties
         JSONArray damageTypesArray;
-        DamageType[] damageTypes;
+        DamageType[] damageTypes = null;
         JSONArray rangeTypesArray;
-        RangeType[] rangeTypes;
+        RangeType[] rangeTypes = null;
         JSONArray weaponTypesArray;
-        WeaponType[] weaponTypes;
+        WeaponType[] weaponTypes = null;
         JSONArray weaponSizesArray;
-        WeaponSize[] weaponSizes;
+        WeaponSize[] weaponSizes = null;
 
         // Required properties
         try {
@@ -912,7 +915,7 @@ public class DataCaster {
             }
         } catch (JSONException exception) {}
 
-        return new Bonus(id, value, valueType, overwrite, replace, harmTypes,
+        return new Bonus(id, value, valueType, overwrite, replace, damageTypes,
             rangeTypes, weaponTypes, weaponSizes);
     }
     private static void processCoreBonuses(JSONObject[] coreBonusesData) {
@@ -1384,6 +1387,10 @@ public class DataCaster {
         // TODO: fill out
         return null;
     }
+    private static RangeType toRangeType(JSONObject rangeTypeData) {
+        // TODO: fill out
+        return null;
+    }
     private static void processReserves(JSONObject[] reservesData) {
         Reserve[] reserves = new Reserve[reservesData.length];
 
@@ -1827,8 +1834,13 @@ public class DataCaster {
 
         name = termData.getString("name");
         description = termData.getString("description");
+        try {
+            Database.getTerm(name);
 
-        return new Term(name, description);
+            return null;
+        } catch (NoSuchElementException exception) {
+            return new Term(name, description);
+        }
     }
     private static void processWeapons(JSONObject[] weaponsData) {
         Weapon[] weapons = new Weapon[weaponsData.length];
@@ -1840,8 +1852,16 @@ public class DataCaster {
         DataCaster.weaponsProcessed = weapons;
     }
     private static Weapon toWeapon(JSONObject weaponData) {
-        // TODO: fill out
-        return null;
+        String id = null;
+
+        try {
+            Database.getWeapon(id);
+
+            return null;
+        } catch (NoSuchElementException exception) {
+            // return new Weapon();
+            return null;
+        }
     }
     private static WeaponSize toWeaponSize(String weaponSizeName) {
         WeaponSize weaponSize;
@@ -1868,11 +1888,6 @@ public class DataCaster {
 
             return weaponType;
         }
-    }
-    private static void addActivationType(ActivationType activationType) {
-        DataCaster.activationTypesProcessed =
-            HelperMethods.append(DataCaster.activationTypesProcessed,
-                activationType);
     }
     private static JSONObject[] performCorrections(String fileName,
         JSONObject[] data) {
@@ -1926,6 +1941,7 @@ public class DataCaster {
             DataCaster.pilotArmorProcessed,
             DataCaster.pilotGearProcessed,
             DataCaster.pilotWeaponsProcessed,
+            DataCaster.rangeTypesProcessed,
             DataCaster.reservesProcessed,
             DataCaster.skillsProcessed,
             DataCaster.statusesProcessed,
@@ -2009,6 +2025,7 @@ public class DataCaster {
         DataCaster.pilotArmorProcessed = new PilotArmor[0];
         DataCaster.pilotGearProcessed = new PilotGear[0];
         DataCaster.pilotWeaponsProcessed = new PilotWeapon[0];
+        DataCaster.rangeTypesProcessed = new RangeType[0];
         DataCaster.reservesProcessed = new Reserve[0];
         DataCaster.skillsProcessed = new SkillData[0];
         DataCaster.statusesProcessed = new StateData[0];
