@@ -16,21 +16,6 @@ public class IDeployableData {
      */
     private Size size;
     /**
-     * The deployable's max HP value.
-     * Must be a minimum of 1.
-     */
-    private int hp;
-    /**
-     * The deployable's armor value.
-     * Must be a minimum of 0.
-     */
-    private int armor;
-    /**
-     * The deployable's evasion value.
-     * Must be a minimum of 0.
-     */
-    private int evasion;
-    /**
      * The statblock associated with this IDeployableData (example unhelpful).
      * Can be any DeployableStatblock. Can be null.
      */
@@ -43,57 +28,27 @@ public class IDeployableData {
         // default values from pg. 68
         // max always before current
         setSize(size);
-        setHP(10 / 2 * size.getValue());
-        setArmor(armor);
-        setEvasion(5);
+        setStatblock(new DeployableStatblock(size, armor));
     }
 
+    // Optional properties
     public Size getSize() {
         return size;
     }
-    public int getHP() {
-        return hp;
+    public DeployableStatblock getStatblock() {
+        return statblock;
     }
-    public int getArmor() {
-        return armor;
-    }
-    public int getEvasion() {
-        return evasion;
-    }
+    // Optional properties
     /**
      * Sets this.size to the provided value.
      * @param size a Size which cannot be null.
      * @throws IllegalArgumentException if size is null.
      */
     private void setSize(Size size) {
-        HelperMethods.checkObject("New size", size);
         this.size = size;
     }
-    /**
-     * Sets this.hp to the provided value.
-     * @param hp an int which cannot be < 1.
-     * @throws IllegalArgumentException if hp is < 1.
-     */
-    private void setHP(int hp) {
-        if (hp < 1) {
-            throw new IllegalArgumentException("New hp value: " + hp + " is <"
-                + " 1");
-        }
-        this.hp = hp;
-    }
-    private void setArmor(int armor) {
-        if (armor < 0) {
-            throw new IllegalArgumentException("New armor value: " + armor
-                + " is < 0");
-        }
-        this.armor = armor;
-    }
-    private void setEvasion(int evasion) {
-        if (evasion < 0) {
-            throw new IllegalArgumentException("New evasion value: " + evasion
-                + " is < 0");
-        }
-        this.evasion = evasion;
+    private void setStatblock(DeployableStatblock statblock) {
+        this.statblock = statblock;
     }
 
     /**
