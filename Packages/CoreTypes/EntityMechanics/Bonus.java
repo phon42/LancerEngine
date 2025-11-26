@@ -49,6 +49,7 @@ public class Bonus {
         setDamageTypes(damageTypes);
         setRangeTypes(rangeTypes);
         setWeaponTypes(weaponTypes);
+        setWeaponSizes(weaponSizes);
     }
     public Bonus(String id, Object value, JSONTypeTree valueType) {
         this(id, value, valueType, TriState.UNSET, TriState.UNSET,
