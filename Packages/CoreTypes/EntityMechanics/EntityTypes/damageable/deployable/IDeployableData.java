@@ -7,9 +7,10 @@ import Packages.CoreTypes.Size;
  * See pgs. 58 and 68.
  */
 public class IDeployableData {
+    // Optional properties
     /**
      * The deployable's size.
-     * Can be any Size. Cannot be null.
+     * Can be any Size. Can be null.
      * Use IDeployableData.getSize() to get the raw value and
      *     IDeployableData.outputSize() to obtain it properly formatted.
      */
@@ -29,6 +30,11 @@ public class IDeployableData {
      * Must be a minimum of 0.
      */
     private int evasion;
+    /**
+     * The statblock associated with this IDeployableData (example unhelpful).
+     * Can be any DeployableStatblock. Can be null.
+     */
+    private DeployableStatblock statblock;
 
     public IDeployableData() {
         this(new Size(2), 0);
