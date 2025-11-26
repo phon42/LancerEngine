@@ -6,6 +6,7 @@ import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.ISynergyData;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
 import Packages.CoreTypes.EntityMechanics.Actions.actionBase.IActionData;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.IDeployableData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.UnverifiedCoreBonus;
 
 public class CoreBonus extends UnverifiedCoreBonus {
@@ -27,7 +28,7 @@ public class CoreBonus extends UnverifiedCoreBonus {
         Counter[] counters, String[] integrated, String[] specialEquipment
     ) {
         super(id, name, "", effect, description, mountedEffect, actions,
-            null, synergies, null, counters, integrated,
+            null, synergies, deployables, counters, integrated,
             specialEquipment);
         setSource(source);
     }
