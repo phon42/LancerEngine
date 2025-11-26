@@ -1462,8 +1462,8 @@ public class DataCaster {
         Object data;
 
         try {
-            name = ruleData.getString("name");
-            data = ruleData.get("description");
+            name = ruleData.getString("property_name");
+            data = ruleData.get("value");
         } catch (JSONException exception) {
             throw new IllegalStateException("ruleData threw a JSONException"
                 + " during the required properties section of the object"
