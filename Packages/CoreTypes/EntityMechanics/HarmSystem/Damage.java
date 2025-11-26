@@ -3,6 +3,7 @@ package Packages.CoreTypes.EntityMechanics.HarmSystem;
 import MainBranch.HelperMethods;
 import MainBranch.Roll;
 import MainBranch.roll.DiceExpression;
+import Packages.CoreTypes.EntityMechanics.HarmSystem.damage.DamageType;
 
 /**
  * See pgs. 67 and 104.
@@ -12,23 +13,15 @@ import MainBranch.roll.DiceExpression;
  */
 public class Damage {
     /**
-     * The Damage's type (i.e. "kinetic").
-     * Must be an allowed type as defined by Damage.allowedTypes. Cannot be
-     *     null.
-     * Depending on the context, a value of "burn" may represent receiving Burn
+     * The Damage's type (i.e. a DamageType representing kinetic).
+     * Can be any DamageType. Cannot be null.
+     * Depending on the context, a value of burn may represent receiving Burn
      *     (in other words, a type of harm which involves incrementing the
      *     number of Burn stacks on the target) or receiving Burn damage (a type
      *     of damage that is caused by Burn and does NOT increment the number of
      *     Burn stacks on the target).
      */
-    protected String type;
-    /**
-     * Contains an array of allowed damage types.
-     * Case-insensitive and stored in lowercase.
-     * See pgs. 67 and 104.
-     */
-    public static final String[] allowedTypes = new String[] {"kinetic",
-        "explosive", "energy", "burn"};
+    private DamageType type;
     /**
      * The amount of dice damage dealt (i.e. a DiceExpression representing
      *     "1d6", representing the "1d6" in "1d6+2").
@@ -43,21 +36,16 @@ public class Damage {
      */
     protected int flatValue;
 
-    public Damage(String damageType, DiceExpression damageDice,
+    public Damage(DamageType damageType, DiceExpression damageDice,
         int damageFlatAmount) {
         setType(damageType);
         setDiceValue(damageDice);
         setFlatValue(damageFlatAmount);
         checkValidity();
     }
-    public Damage(Damage damage) {
-        setType(damage.type);
-        setDiceValue(damage.diceValue);
-        setFlatValue(damage.flatValue);
-        checkValidity();
-    }
+    protected Damage() {}
     
-    public String getType() {
+    public DamageType getType() {
         return type;
     }
     public DiceExpression getDiceValue() {
@@ -66,14 +54,8 @@ public class Damage {
     public int getFlatValue() {
         return flatValue;
     }
-    protected void setType(String type) {
-        HelperMethods.checkString("type", type);
-        type = type.toLowerCase();
-        // TODO: create methods like this for all the checkable final arrays
-        if (! Damage.isValidType(type)) {
-            throw new IllegalArgumentException("type value: \"" + type + "\" is"
-                + " an invalid type");
-        }
+    private void setType(DamageType type) {
+        HelperMethods.checkObject("type", type);
         this.type = type;
     }
     /**
@@ -102,20 +84,6 @@ public class Damage {
         this.flatValue = flatValue;
     }
 
-    /**
-     * Checks whether a provided String is a valid Damage.type value.
-     * @param type a String that cannot be null.
-     * @return a boolean containing the result of the check.
-     */
-    public static boolean isValidType(String type) {
-        HelperMethods.checkObject("type", type);
-        for (int i = 0; i < Damage.allowedTypes.length; i++) {
-            if (type.equals(Damage.allowedTypes[i])) {
-                return true;
-            }
-        }
-        return false;
-    }
     /**
      * Checks whether this.diceValue and this.flatValue are set to a valid
      *     combination of values. Throws an IllegalArgumentException if not.
