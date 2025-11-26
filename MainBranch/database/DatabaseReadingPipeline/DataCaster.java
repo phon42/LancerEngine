@@ -27,6 +27,7 @@ import Packages.CoreTypes.EntityMechanics.WeaponSize;
 import Packages.CoreTypes.EntityMechanics.WeaponType;
 import Packages.CoreTypes.EntityMechanics.Actions.actionBase.Action;
 import Packages.CoreTypes.EntityMechanics.Actions.actionBase.IActionData;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.IDeployableData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.MechSystem;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.Modification;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.Weapon;
@@ -912,7 +913,7 @@ public class DataCaster {
     }
     private static void processCoreBonuses(JSONObject[] coreBonusesData) {
         UnverifiedCoreBonus[] coreBonuses =
-            new CoreBonus[coreBonusesData.length];
+            new UnverifiedCoreBonus[coreBonusesData.length];
 
         coreBonusesData = performCorrections("core_bonuses",
             coreBonusesData);
@@ -1048,7 +1049,7 @@ public class DataCaster {
             }
         } catch (JSONException exception) {}
 
-        return new CoreBonus(id, name, source, mountedEffect, name,
+        return new UnverifiedCoreBonus(id, name, source, effect, description,
             mountedEffect, actions, bonuses, synergies, deployables, counters,
             integrated, specialEquipment);
     }
