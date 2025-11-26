@@ -1861,6 +1861,7 @@ public class DataCaster {
         DataCaster.weaponsProcessed = weapons;
     }
     private static Weapon toWeapon(JSONObject weaponData) {
+        // TODO: fill out
         String id = null;
 
         try {

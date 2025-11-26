@@ -40,6 +40,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.unverified
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Bond;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Reserve;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Talent;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.UnverifiedCoreBonus;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Background.backgroundBase.Background;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Background.backgroundBase.UnverifiedBackground;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.bond.BondPower;
@@ -1110,6 +1111,31 @@ public final class HelperMethods {
         return newArray;
     }
     /**
+     * Appends the given StateData element to the end of an existing
+     *     StateData[].
+     * @param array a StateData[] that cannot be null.
+     * @param newElement a StateData that cannot be null to append to the end of
+     *     array.
+     * @return a StateData[] consisting of array with newElement appended to the
+     *     end of it.
+     * @throws IllegalArgumentException if array or newElement is null.
+     */
+    public static StateData[] append(StateData[] array, StateData newElement) {
+        HelperMethods.checkObject("array", array);
+        HelperMethods.checkObject("newElement", newElement);
+        StateData[] newArray = new StateData[array.length + 1];
+
+        for (int i = 0; i < newArray.length; i++) {
+            if (i < array.length) {
+                newArray[i] = array[i];
+                continue;
+            }
+            newArray[i] = newElement;
+        }
+        
+        return newArray;
+    }
+    /**
      * Appends the given Status element to the end of an existing Status[].
      * @param array a Status[] that cannot be null.
      * @param newElement a Status that cannot be null to append to the end of
@@ -1295,6 +1321,33 @@ public final class HelperMethods {
         HelperMethods.checkObject("newElement", newElement);
         UnverifiedBackground[] newArray =
             new UnverifiedBackground[array.length + 1];
+
+        for (int i = 0; i < newArray.length; i++) {
+            if (i < array.length) {
+                newArray[i] = array[i];
+                continue;
+            }
+            newArray[i] = newElement;
+        }
+        
+        return newArray;
+    }
+    /**
+     * Appends the given UnverifiedCoreBonus element to the end of an existing
+     *     UnverifiedCoreBonus[].
+     * @param array an UnverifiedCoreBonus[] that cannot be null.
+     * @param newElement an UnverifiedCoreBonus that cannot be null to append to
+     *     the end of array.
+     * @return an UnverifiedCoreBonus[] consisting of array with newElement
+     *     appended to the end of it.
+     * @throws IllegalArgumentException if array or newElement is null.
+     */
+    public static UnverifiedCoreBonus[] append(UnverifiedCoreBonus[] array,
+        UnverifiedCoreBonus newElement) {
+        HelperMethods.checkObject("array", array);
+        HelperMethods.checkObject("newElement", newElement);
+        UnverifiedCoreBonus[] newArray =
+            new UnverifiedCoreBonus[array.length + 1];
 
         for (int i = 0; i < newArray.length; i++) {
             if (i < array.length) {
