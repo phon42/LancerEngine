@@ -1643,6 +1643,25 @@ public final class HelperMethods {
     }
     /**
      * Returns a deepest copy of original.
+     * @param original a DamageType[] that cannot be null.
+     * @return a DamageType[] deepest copy of original.
+     * @throws IllegalArgumentException if original is null.
+     */
+    public static DamageType[] copyOf(DamageType[] original) {
+        checkObject("original", original);
+        DamageType[] copy = new DamageType[original.length];
+        for (int i = 0; i < original.length; i++) {
+            if (original[i] == null) {
+                copy[i] = original[i];
+                continue;
+            }
+            copy[i] = original[i];
+        }
+
+        return copy;
+    }
+    /**
+     * Returns a deepest copy of original.
      * @param original a DataTag[] that cannot be null.
      * @return a DataTag[] deepest copy of original.
      * @throws IllegalArgumentException if original is null.
@@ -1852,6 +1871,25 @@ public final class HelperMethods {
     }
     /**
      * Returns a deepest copy of original.
+     * @param original a RangeType[] that cannot be null.
+     * @return a RangeType[] deepest copy of original.
+     * @throws IllegalArgumentException if original is null.
+     */
+    public static RangeType[] copyOf(RangeType[] original) {
+        checkObject("original", original);
+        RangeType[] copy = new RangeType[original.length];
+        for (int i = 0; i < original.length; i++) {
+            if (original[i] == null) {
+                copy[i] = original[i];
+                continue;
+            }
+            copy[i] = original[i];
+        }
+
+        return copy;
+    }
+    /**
+     * Returns a deepest copy of original.
      * @param original a SkillData[] that cannot be null.
      * @return a SkillData[] deepest copy of original.
      * @throws IllegalArgumentException if original is null.
@@ -2053,6 +2091,44 @@ public final class HelperMethods {
             }
             url = original[i].toExternalForm();
             copy[i] = FileOperations.toURLCaught(url);
+        }
+
+        return copy;
+    }
+    /**
+     * Returns a deepest copy of original.
+     * @param original a WeaponType[] that cannot be null.
+     * @return a WeaponType[] deepest copy of original.
+     * @throws IllegalArgumentException if original is null.
+     */
+    public static WeaponType[] copyOf(WeaponType[] original) {
+        checkObject("original", original);
+        WeaponType[] copy = new WeaponType[original.length];
+        for (int i = 0; i < original.length; i++) {
+            if (original[i] == null) {
+                copy[i] = original[i];
+                continue;
+            }
+            copy[i] = original[i];
+        }
+
+        return copy;
+    }
+    /**
+     * Returns a deepest copy of original.
+     * @param original a WeaponSize[] that cannot be null.
+     * @return a WeaponSize[] deepest copy of original.
+     * @throws IllegalArgumentException if original is null.
+     */
+    public static WeaponSize[] copyOf(WeaponSize[] original) {
+        checkObject("original", original);
+        WeaponSize[] copy = new WeaponSize[original.length];
+        for (int i = 0; i < original.length; i++) {
+            if (original[i] == null) {
+                copy[i] = original[i];
+                continue;
+            }
+            copy[i] = original[i];
         }
 
         return copy;
