@@ -1559,7 +1559,7 @@ public final class HelperMethods {
                 copy[i] = original[i];
                 continue;
             }
-            copy[i] = new Damage(original[i]);
+            copy[i] = original[i];
         }
 
         return copy;
@@ -1616,7 +1616,7 @@ public final class HelperMethods {
                 copy[i] = original[i];
                 continue;
             }
-            copy[i] = new Harm(original[i]);
+            copy[i] = original[i];
         }
 
         return copy;
