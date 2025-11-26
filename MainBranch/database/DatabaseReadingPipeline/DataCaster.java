@@ -48,6 +48,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTrig
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skill.skillData.SkillFamily;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.talent.TalentData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.unverifiedCoreBonus.CoreBonus;
+import Packages.CoreTypes.EntityMechanics.HarmSystem.damage.harm.HarmType;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.unverifiedStateData.StateData;
 import Packages.CoreTypes.lcpInfo.LCPDependency;
 import Packages.CoreTypes.lcpInfo.Version;
@@ -125,7 +126,7 @@ public class DataCaster {
     private static UnverifiedCoreBonus[] coreBonusesProcessed;
     private static StateData[] conditionsProcessed;
     private static DataTag[] dataTagsProcessed;
-    private static Tag[] tagsProcessed;
+    private static HarmType[] harmTypes;
     private static Manufacturer[] manufacturersProcessed;
     private static NPCFeature[] npcFeaturesProcessed;
     private static NPCTemplate[] npcTemplatesProcessed;
@@ -135,6 +136,7 @@ public class DataCaster {
     private static Reserve[] reservesProcessed;
     private static SkillData[] skillsProcessed;
     private static StateData[] statusesProcessed;
+    private static Tag[] tagsProcessed;
     private static TalentData[] talentsProcessed;
     private static WeaponSize[] weaponSizesProcessed;
     private static WeaponType[] weaponTypesProcessed;
@@ -824,7 +826,7 @@ public class DataCaster {
         TriState replace;
         // Optional properties
         JSONArray damageTypesArray;
-        DamageType[] damageTypes;
+        HarmType[] harmTypes;
         JSONArray rangeTypesArray;
         RangeType[] rangeTypes;
         JSONArray weaponTypesArray;
@@ -861,10 +863,9 @@ public class DataCaster {
         try {
             damageTypesArray = bonusData.getJSONArray("damage_types");
             try {
-                damageTypes = new DamageType[damageTypesArray.length()];
-                for (int i = 0; i < damageTypes.length; i++) {
-                    damageTypes[i] =
-                        toDamageType(damageTypesArray.getJSONObject(i));
+                harmTypes = new HarmType[damageTypesArray.length()];
+                for (int i = 0; i < harmTypes.length; i++) {
+                    harmTypes[i] = toHarmType(damageTypesArray.getString(i));
                 }
             } catch (JSONException exception) {
                 throw new IllegalStateException("Attempting to parse"
@@ -911,7 +912,7 @@ public class DataCaster {
             }
         } catch (JSONException exception) {}
 
-        return new Bonus(id, value, valueType, overwrite, replace, damageTypes,
+        return new Bonus(id, value, valueType, overwrite, replace, harmTypes,
             rangeTypes, weaponTypes, weaponSizes);
     }
     private static void processCoreBonuses(JSONObject[] coreBonusesData) {
@@ -1161,6 +1162,19 @@ public class DataCaster {
     private static Frame toFrame(JSONObject frameData) {
         // TODO: fill out
         return null;
+    }
+    private static HarmType toHarmType(String harmTypeName) {
+        HarmType harmType;
+
+        try {
+            return Database.getHarmType(harmTypeName);
+        } catch (NoSuchElementException exception) {
+            harmType = new HarmType(harmTypeName);
+            DataCaster.harmTypes = HelperMethods.append(DataCaster.harmTypes,
+                harmType);
+
+            return harmType;
+        }
     }
     private static IActionData toIActionData(JSONObject iActionDataData) {
         // TODO: fill out
@@ -1988,7 +2002,7 @@ public class DataCaster {
         DataCaster.conditionsProcessed = new StateData[0];
         DataCaster.coreBonusesProcessed = new UnverifiedCoreBonus[0];
         DataCaster.dataTagsProcessed = new DataTag[0];
-        DataCaster.tagsProcessed = new Tag[0];
+        DataCaster.harmTypes = new HarmType[0];
         DataCaster.manufacturersProcessed = new Manufacturer[0];
         DataCaster.npcFeaturesProcessed = new NPCFeature[0];
         DataCaster.npcTemplatesProcessed = new NPCTemplate[0];
@@ -1998,6 +2012,7 @@ public class DataCaster {
         DataCaster.reservesProcessed = new Reserve[0];
         DataCaster.skillsProcessed = new SkillData[0];
         DataCaster.statusesProcessed = new StateData[0];
+        DataCaster.tagsProcessed = new Tag[0];
         DataCaster.talentsProcessed = new TalentData[0];
         DataCaster.weaponSizesProcessed = new WeaponSize[0];
         DataCaster.weaponTypesProcessed = new WeaponType[0];
