@@ -6,46 +6,10 @@ import java.net.URL;
 import MainBranch.HelperMethods;
 import MainBranch.database.FileOperations;
 import Packages.CoreTypes.VueHTMLString;
+import Packages.CoreTypes.EntityMechanics.StateSystem.state.UnverifiedStateData;
 
-public class StateData {
-    // Required properties
-    /**
-     * This State's name (i.e. "Immobilized" or "Danger Zone").
-     * Can be any String except "". Cannot be null.
-     * Case-sensitive.
-     */
-    private String name;
-    /**
-     * The URL to this State's icon, represented as a String (i.e. TODO: add
-     *     example).
-     * Can be any String except "". Cannot be null.
-     * Case-insensitive and stored in lowercase.
-     */
-    private String iconURLRaw;
-    /**
-     * Whether this State is a status or condition.
-     * true: Status
-     * false: Condition
-     */
-    private boolean isStatus;
-    /**
-     * TODO: add documentation
-     * Can be any VueHTMLString except "". Cannot be null.
-     * Case-sensitive.
-     */
-    private VueHTMLString effects;
-    /**
-     * Whether mechs are affected by this State.
-     */
-    private boolean mechAffected;
-    /**
-     * Whether pilots are affected by this State.
-     */
-    private boolean pilotAffected;
-
-    // Optional properties
-    private URL iconURL;
-    private String terse;
+public class StateData extends UnverifiedStateData {
+    // Optional property
     /**
      * Any States which this State causes to exist.
      * Can be any StateData[] that is not of length 0 and does not contain null
@@ -56,17 +20,9 @@ public class StateData {
     public StateData(String name, String iconURL, boolean isStatus,
         String effects, boolean isMechAffected, boolean isPilotAffected,
         String terse, StateData[] stateEffects) {
-        // Required properties
-        setName(name);
-        setIconURLRaw(iconURL);
-        setIsStatus(isStatus);
-        setEffects(effects);
-        setMechAffected(isMechAffected);
-        setPilotAffected(isPilotAffected);
-
-        // Optional properties
-        // setIconURL omitted because it's already set by setIconURLRaw
-        setTerse(terse);
+        super(name, iconURL, isStatus, effects, isMechAffected, isPilotAffected,
+            terse, null);
+        // Optional property
         setStateEffects(stateEffects);
     }
     public StateData(String name, String iconURL, boolean isStatus,
@@ -75,69 +31,11 @@ public class StateData {
             null, null);
     }
 
-    // Required properties
-    public String getName() {
-        return name;
-    }
-    public String getIconURLRaw() {
-        return iconURLRaw;
-    }
-    public boolean isStatus() {
-        return isStatus;
-    }
-    public VueHTMLString getEffects() {
-        return effects;
-    }
-    public boolean isMechAffected() {
-        return mechAffected;
-    }
-    public boolean isPilotAffected() {
-        return pilotAffected;
-    }
-    // Optional properties
-    public URL getIconURL() {
-        return iconURL;
-    }
-    public String getTerse() {
-        return terse;
-    }
+    // Optional property
     public StateData[] getStateEffects() {
         return stateEffects;
     }
-    // Required properties
-    private void setName(String name) {
-        HelperMethods.checkString("New name", name);
-        this.name = name;
-    }
-    private void setIconURLRaw(String iconURLRaw) {
-        HelperMethods.checkString("iconURLRaw", iconURLRaw);
-        iconURLRaw = iconURLRaw.toLowerCase();
-        this.iconURLRaw = iconURLRaw;
-        setIconURL(iconURLRaw);
-    }
-    private void setIsStatus(boolean isStatus) {
-        this.isStatus = isStatus;
-    }
-    private void setEffects(VueHTMLString effects) {
-        HelperMethods.checkVueHTMLString("effects", effects);
-        this.effects = effects;
-    }
-    private void setMechAffected(boolean mechAffected) {
-        this.mechAffected = mechAffected;
-    }
-    private void setPilotAffected(boolean pilotAffected) {
-        this.pilotAffected = pilotAffected;
-    }
-    // Optional properties
-    private void setIconURL(URL iconURL) {
-        this.iconURL = iconURL;
-    }
-    private void setTerse(String terse) {
-        if (terse != null) {
-            HelperMethods.checkString("terse", terse);
-        }
-        this.terse = terse;
-    }
+    // Optional property
     /**
      * Sets this.stateEffects to the provided value.
      * @param stateEffects a StateData[] which cannot be of length 0 or contain
@@ -158,11 +56,11 @@ public class StateData {
         this.stateEffects = stateEffects;
     }
 
-    private void setEffects(String effects) {
+    protected void setEffects(String effects) {
         HelperMethods.checkString("effects", effects);
         setEffects(new VueHTMLString(effects));
     }
-    private void setIconURL(String iconURL) {
+    protected void setIconURL(String iconURL) {
         URL url = null;
 
         HelperMethods.checkString("iconURL", iconURL);
