@@ -4,44 +4,59 @@ import MainBranch.HelperMethods;
 
 /**
  * Represents a single "rule" - a piece of reference data from the rules.json
- *     file of a .lcp file. Contains the rule's name and data.
+ *     file of a .lcp file. Contains the rule's name, data, and a tree storing
+ *     the data's type.
  * 
  * Requires a rule name and data to be instantiated.
  * 
  * Unused at present.
  * 
- * Safety: This class does not have placeholder values and cannot be a
- *     placeholder. None of its properties have allowed values of null.
+ * Safety: None of this class' properties have allowed values of null.
  */
 public class Rule {
     // TODO: fill out
+    // Required properties
     private String name;
     private Object data;
 
+    // Helper property
+    private JSONTypeTree type;
+
     public Rule(String name, Object data) {
+        // Required properties
         setName(name);
         setData(data);
+        // setType not called because it's called by setData
     }
     public Rule(Rule rule) {
         this(rule.name, rule.data);
     }
 
+    // Required properties
     public String getName() {
         return name;
     }
     public Object getData() {
-        // TODO: make a copy of data - kinda difficult because it has multiple
-        //     possible types
-        return data;
+        return JSONTypeTree.copy(data, type);
     }
-    public void setName(String name) {
+    // Helper property
+    public JSONTypeTree getType() {
+        return type;
+    }
+    // Required properties
+    private void setName(String name) {
         HelperMethods.checkString("name", name);
         this.name = name;
     }
-    public void setData(Object data) {
+    private void setData(Object data) {
         HelperMethods.checkObject("data", data);
-        // TODO: make a copy of data - kinda difficult because it has multiple
-        //     possible types
+        setType(JSONTypeTree.constructTree(data));
+        data = JSONTypeTree.copy(data, this.type);
         this.data = data;
+    }
+    // Helper property
+    private void setType(JSONTypeTree type) {
+        HelperMethods.checkObject("type", type);
+        this.type = type;
     }
 }
