@@ -1,5 +1,6 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.iTagDataUnverified.iTagData.dataTag;
 
+import Packages.CoreTypes.TriState;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.iTagDataUnverified.iTagData.DataTag;
 
 /**
@@ -21,7 +22,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.
  */
 public final class Tag extends DataTag {
     public Tag(String id, String name, String description,
-        boolean filterIgnore) {
-        super(id, name, description, filterIgnore, false);
+        TriState filterIgnore) {
+        super(id, name, description, filterIgnore, TriState.FALSE);
     }
 }
