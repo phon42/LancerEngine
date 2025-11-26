@@ -894,7 +894,6 @@ public final class Mech implements Damageable {
         HelperMethods.checkObjectArray("New mech systems",
             systems);
         systems = HelperMethods.copyOf(systems);
-        // TODO: systems[0].name <- why is this visible?
         this.systems = systems;
     }
     /**
