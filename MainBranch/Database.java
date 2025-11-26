@@ -18,6 +18,7 @@ import Packages.CoreTypes.EntityMechanics.ActivationType;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
 import Packages.CoreTypes.EntityMechanics.NPCFeature;
 import Packages.CoreTypes.EntityMechanics.NPCTemplate;
+import Packages.CoreTypes.EntityMechanics.RangeType;
 import Packages.CoreTypes.EntityMechanics.WeaponSize;
 import Packages.CoreTypes.EntityMechanics.WeaponType;
 import Packages.CoreTypes.EntityMechanics.Actions.actionBase.Action;
@@ -157,6 +158,10 @@ public final class Database {
      * add documentation
      */
     private static PilotWeapon[] pilotWeapons;
+    /**
+     * add documentation
+     */
+    private static RangeType[] rangeTypes;
     /**
      * add documentation
      */
@@ -406,6 +411,7 @@ public final class Database {
         Database.pilotArmor = new PilotArmor[0];
         Database.pilotGear = new PilotGear[0];
         Database.pilotWeapons = new PilotWeapon[0];
+        Database.rangeTypes = new RangeType[0];
         Database.reserves = new Reserve[0];
         Database.rules = new Rule[0];
         Database.sitreps = new Sitrep[0];
@@ -655,6 +661,17 @@ public final class Database {
         }
         throw new NoSuchElementException("No pilot weapon found for pilot"
             + " weapon ID: " + pilotWeaponID);
+    }
+    public static RangeType getRangeType(String rangeTypeName) {
+        HelperMethods.checkObject("rangeTypeName", rangeTypeName);
+        rangeTypeName = rangeTypeName.toLowerCase();
+        for (RangeType rangeType : Database.rangeTypes) {
+            if (rangeTypeName.equals(rangeType.getName())) {
+                return rangeType;
+            }
+        }
+        throw new NoSuchElementException("No range type found for range type"
+            + " name: \"" + rangeTypeName + "\"");
     }
     public static Reserve getReserve(String reserveID) {
         HelperMethods.checkObject("reserveID", reserveID);
@@ -1077,7 +1094,7 @@ public final class Database {
             pilotGear);
     }
     /**
-     * Adds the provided PilotWeapon to Database.pilotWeapon.
+     * Adds the provided PilotWeapon to Database.pilotWeapons.
      * @param pilotWeapon a PilotWeapon which cannot be null.
      * @throws IllegalArgumentException if pilotWeapon is null.
      */
@@ -1087,6 +1104,17 @@ public final class Database {
         pilotWeapon = new PilotWeapon(pilotWeapon);
         Database.pilotWeapons = HelperMethods.append(Database.pilotWeapons,
             pilotWeapon);
+    }
+    /**
+     * Adds the provided RangeType to Database.rangeTypes.
+     * @param rangeType a RangeType which cannot be null.
+     * @throws IllegalArgumentException if rangeType is null.
+     */
+    public static void addRangeType(RangeType rangeType) {
+        checkOpen();
+        HelperMethods.checkObject("rangeType", rangeType);
+        Database.rangeTypes = HelperMethods.append(Database.rangeTypes,
+            rangeType);
     }
     /**
      * Adds the provided Reserve to Database.reserves.
