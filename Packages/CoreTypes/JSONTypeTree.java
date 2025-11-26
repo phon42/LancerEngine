@@ -303,10 +303,43 @@ public class JSONTypeTree {
     }
     /**
      * Creates a copy of original using type as a guide on how to copy it.
+     * @param original an Object which can either be composed of JSON types
+     *     (i.e. JSONObjects and JSONArrays) or base Java types (i.e. Objects
+     *     and Object[]s).
+     * @returns an Object consisting of a copy of the original, transformed into
+     *     base Java types if necessary.
+     */
+    public static Object copy(Object original, JSONTypeTree type) {
+        HelperMethods.checkObject("type", type);
+        if (type.type != JSONType.JSONOBJECT && type.type == JSONType.JSONARRAY)
+        {
+            return copyBase(original, type);
+        } else {
+            // it is necessary to determine whether original is made of base
+            //     Java types or JSON types
+            if (isOfJSONTypes(type)) {
+                return convert(original, type);
+            } else {
+                return copyBase(original, type);
+            }
+        }
+    }
+    public static boolean isOfJSONTypes(Object value) {
+        JSONType type;
+
+        if (value == null || value.equals(null)) {
+            return false;
+        }
+
+        // TODO: fill out
+        return true;
+    }
+    /**
+     * Creates a copy of original using type as a guide on how to copy it.
      * original is an Object that is composed of base Java types (i.e. Objects
      *     and Object[]s instead of JSONObjects and JSONArrays).
      */
-    public static Object copy(Object original, JSONTypeTree type) {
+    private static Object copyBase(Object original, JSONTypeTree type) {
         // TODO: fill out
         return original;
     }
@@ -317,7 +350,7 @@ public class JSONTypeTree {
      * Converts original to a copy that uses only base Java types (i.e. Objects
      *     and Object[]s instead of JSONObjects and JSONArrays).
      */
-    public static Object convert(Object original, JSONTypeTree type) {
+    private static Object convert(Object original, JSONTypeTree type) {
         // TODO: fill out
         return original;
     }
