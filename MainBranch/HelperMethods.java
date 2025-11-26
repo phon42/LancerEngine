@@ -7,6 +7,7 @@ import MainBranch.database.LCPCorrection;
 import MainBranch.database.fileOperations.json.JSONArray;
 import MainBranch.database.fileOperations.json.JSONObject;
 import Packages.CoreTypes.Callable;
+import Packages.CoreTypes.Counter;
 import Packages.CoreTypes.HTMLString;
 import Packages.CoreTypes.JSONTypeTree;
 import Packages.CoreTypes.LCPInfo;
@@ -31,6 +32,7 @@ import Packages.CoreTypes.EntityMechanics.WeaponType;
 import Packages.CoreTypes.EntityMechanics.Actions.actionBase.Action;
 import Packages.CoreTypes.EntityMechanics.Actions.actionBase.IActionData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.Deployable;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.IDeployableData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Mount;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.MechSystem;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.Weapon;
@@ -328,11 +330,30 @@ public final class HelperMethods {
     }
     /**
      * An alternate check to perform on an object array compared to
+     *     checkStringArray() that instead checks if the provided String[] is of
+     *     length 0, contains null elements, or elements that are "". Null
+     *     values for input are allowed.
+     * @param propertyName a String which cannot be "". Cannot be null.
+     * @param input a String[] which cannot be of length 0, contain null
+     *     elements, or elements that are "".
+     * @throws IllegalArgumentException if propertyName is null or "", input is
+     *     of length 0, or input contains null elements or elements that are "".
+     */
+    public static void checkStringArrayAlt(String propertyName, String[] input)
+    {
+        if (input != null) {
+            if (input.length == 0) {
+                throw new IllegalArgumentException(propertyName + " array is of"
+                    + " length 0");
+            }
+            checkStringArray(propertyName, input);
+        }
+    }
+    /**
+     * An alternate check to perform on an object array compared to
      *     checkObjectArray() that instead checks if the provided Object[] is of
      *     length 0 or contains null elements. Null values for input are
      *     allowed.
-     * Checks a provided Object[] to see if it is of length 0 or contains null
-     *     elements.
      * @param propertyName a String which cannot be "". Cannot be null.
      * @param input an Object[] which cannot be of length 0 or contain null
      *     elements.
@@ -1655,6 +1676,25 @@ public final class HelperMethods {
 
         return copy;
     }
+    /**
+     * Returns a deepest copy of original.
+     * @param original a Counter[] that cannot be null.
+     * @return a Counter[] deepest copy of original.
+     * @throws IllegalArgumentException if original is null.
+     */
+    public static Counter[] copyOf(Counter[] original) {
+        checkObject("original", original);
+        Counter[] copy = new Counter[original.length];
+        for (int i = 0; i < original.length; i++) {
+            if (original[i] == null) {
+                copy[i] = new Counter(original[i]);
+                continue;
+            }
+            copy[i] = original[i];
+        }
+
+        return copy;
+    }
     // TODO: check if this is needed, delete if not
     /**
      * Returns a deepest copy of original.
@@ -1747,6 +1787,42 @@ public final class HelperMethods {
                 continue;
             }
             copy[i] = new Deployable(original[i]);
+        }
+
+        return copy;
+    }
+    /**
+     * Returns a deepest copy of original.
+     * @param original an IActionData[] that cannot be null.
+     * @return an IActionData[] deepest copy of original.
+     * @throws IllegalArgumentException if original is null.
+     */
+    public static IActionData[] copyOf(IActionData[] original) {
+        checkObject("original", original);
+        IActionData[] copy = new IActionData[original.length];
+        for (int i = 0; i < original.length; i++) {
+            if (original[i] == null) {
+                copy[i] = original[i];
+                continue;
+            }
+        }
+
+        return copy;
+    }
+    /**
+     * Returns a deepest copy of original.
+     * @param original an IDeployableData[] that cannot be null.
+     * @return an IDeployableData[] deepest copy of original.
+     * @throws IllegalArgumentException if original is null.
+     */
+    public static IDeployableData[] copyOf(IDeployableData[] original) {
+        checkObject("original", original);
+        IDeployableData[] copy = new IDeployableData[original.length];
+        for (int i = 0; i < original.length; i++) {
+            if (original[i] == null) {
+                copy[i] = original[i];
+                continue;
+            }
         }
 
         return copy;
