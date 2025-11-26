@@ -678,7 +678,7 @@ public final class Database {
         reserveID = reserveID.toLowerCase();
         for (Reserve reserve : Database.reserves) {
             if (reserveID.equals(reserve.getID())) {
-                return new Reserve(reserve);
+                return reserve;
             }
         }
         throw new NoSuchElementException("No reserve found for reserve ID: "
@@ -1124,7 +1124,6 @@ public final class Database {
     public static void addReserve(Reserve reserve) {
         checkOpen();
         HelperMethods.checkObject("reserve", reserve);
-        reserve = new Reserve(reserve);
         Database.reserves = HelperMethods.append(Database.reserves, reserve);
     }
     /**
