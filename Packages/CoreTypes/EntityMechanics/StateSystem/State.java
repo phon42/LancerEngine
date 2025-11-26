@@ -1,5 +1,8 @@
 package Packages.CoreTypes.EntityMechanics.StateSystem;
 
+import java.util.NoSuchElementException;
+
+import MainBranch.Database;
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.Condition;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.Duration;
@@ -45,13 +48,41 @@ public class State {
      */
     protected String source;
 
-    // Optional property
+    // Optional properties
     /**
      * The State (if there is one) that caused this State to exist.
      * Can be any State. Can be null.
      */
     protected State causedBy;
+    /**
+     * The States (if there are any) that this State causes to exist.
+     * Can be any State[] that is not of length 0 or contains null elements. Can
+     *     be null.
+     */
+    protected State[] effects;
 
+    public State(StateData data, Duration duration, State causedBy,
+        State[] effects) {
+        // Required properties
+        setData(data);
+        setDuration(duration);
+
+        // Optional properties
+        setCausedBy(causedBy);
+        setEffects(effects);
+    }
+    public State(StateData data, Duration duration, String source,
+        State[] effects) {
+        // Required properties
+        setData(data);
+        setDuration(duration);
+
+        // Conditionally required property
+        setSource(source);
+
+        // Optional property
+        setEffects(effects);
+    }
     public State(StateData data, Duration duration, State causedBy) {
         // Required properties
         setData(data);
@@ -91,9 +122,12 @@ public class State {
     public String getSource() {
         return source;
     }
-    // Optional property
+    // Optional properties
     public State getCausedBy() {
         return causedBy;
+    }
+    public State[] getEffects() {
+        return HelperMethods.copyOf(effects);
     }
     // Required properties
     protected void setData(StateData data) {
@@ -115,12 +149,17 @@ public class State {
         HelperMethods.checkString("source", source);
         this.source = source;
     }
-    // Optional property
+    // Optional properties
     protected void setCausedBy(State causedBy) {
         if (causedBy != null) {
             causedBy = new State(causedBy);
         }
         this.causedBy = causedBy;
+    }
+    protected void setEffects(State[] effects) {
+        HelperMethods.checkObjectArrayAlt("effects", effects);
+        effects = HelperMethods.copyOf(effects);
+        this.effects = effects;
     }
 
     /**
@@ -205,5 +244,70 @@ public class State {
         }
         throw new IllegalStateException("Unable to convert this State (which"
             + " has a State.isStatus value of false) to a Status");
+    }
+    /**
+     * Adds a provided State effect to this.effects.
+     * @param effects a State which cannot be null.
+     * @throws IllegalArgumentException if effect is null.
+     */
+    public void addEffect(State effects) {
+        HelperMethods.checkObject("effects", effects);
+        setEffects(HelperMethods.append(this.effects, effects));
+    }
+    public State removeStateEffect(int index) {
+        State removedStateEffect;
+        State[] effects;
+
+        if (this.effects.length == 0) {
+            throw new IllegalArgumentException("Attempted to call"
+                + " State.removeEffect() when this.effects.length is 0");
+        }
+        if (index < 0 || index > this.effects.length) {
+            throw new IllegalArgumentException("index value: " + index + " is"
+                + " out of bounds for a State[] of length: "
+                + this.effects.length);
+        }
+        removedStateEffect = this.effects[index];
+        effects = new State[this.effects.length - 1];
+        for (int i = 0; i < effects.length; i++) {
+            if (i < index) {
+                effects[i] = this.effects[i];
+                continue;
+            }
+            if (i > index) {
+                effects[i] = this.effects[i - 1];
+            }
+        }
+        setEffects(effects);
+
+        return removedStateEffect;
+    }
+    /**
+     * Recursively checks whether any of the States this State has caused, or
+     *     any of the States they have caused, and so on, are of State.name
+     *     stateName.
+     * @param stateName a String containing a State.name value to search for.
+     *     Cannot be null.
+     * @return a boolean containing the result of the check.
+     */
+    public boolean hasState(String stateName) {
+        boolean isPresent = false;
+
+        HelperMethods.checkObject("stateName", stateName);
+        try {
+            Database.getState(stateName);
+        } catch (NoSuchElementException exception) {
+            return false;
+        }
+        // stateName is a valid State
+        for (State state : this.effects) {
+            if (state.getData().getName().equals(stateName)) {
+                isPresent = true;
+                break;
+            }
+            isPresent = isPresent || state.hasState(stateName);
+        }
+
+        return isPresent;
     }
 }
