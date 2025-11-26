@@ -2,6 +2,7 @@ package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable;
 
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.Damageable;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.IDeployableData;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.Damage;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.damage.Harm;
 import Packages.CoreTypes.Size;
@@ -10,73 +11,33 @@ import Packages.CoreTypes.Size;
  * See pgs. 58 and 68.
  */
 public class Deployable implements Damageable {
-    /**
-     * The deployable's size.
-     * Can be any Size. Cannot be null.
-     * Use Deployable.getSize() to get the raw value and Deployable.outputSize()
-     *     to obtain it properly formatted.
-     */
-    private Size size;
+    private IDeployableData data;
     /**
      * The deployable's current HP value.
-     * Must be a minimum of 0.
+     * Must be between 0 and this.data.HP (inclusive).
      */
     private int currentHP;
-    /**
-     * The deployable's max HP value.
-     * Must be a minimum of 1.
-     */
-    private int maxHP;
-    /**
-     * The deployable's armor value.
-     * Must be a minimum of 0.
-     */
-    private int armor;
-    /**
-     * The deployable's evasion value.
-     * Must be a minimum of 0.
-     */
-    private int evasion;
 
     public Deployable() {
         this(new Size(2), 0);
     }
     public Deployable(Size size, int armor) {
-        // default values from pg. 68
-        // max always before current
-        setSize(size);
-        setMaxHP(10 / 2 * size.getValue());
-        setCurrentHP(10 / 2 * size.getValue());
-        setArmor(armor);
-        setEvasion(5);
+        setData(new IDeployableData(size, armor));
+        setCurrentHP(this.data.getHP());
     }
     public Deployable(Deployable deployable) {
-        this(deployable.size, deployable.armor);
+        this(deployable.data.getSize(), deployable.data.getArmor());
     }
 
-    public Size getSize() {
-        return size;
+    public IDeployableData getData() {
+        return data;
     }
     public int getCurrentHP() {
         return currentHP;
     }
-    public int getMaxHP() {
-        return maxHP;
-    }
-    public int getArmor() {
-        return armor;
-    }
-    public int getEvasion() {
-        return evasion;
-    }
-    /**
-     * Sets this.size to the provided value.
-     * @param size a Size which cannot be null.
-     * @throws IllegalArgumentException if size is null.
-     */
-    private void setSize(Size size) {
-        HelperMethods.checkObject("New size", size);
-        this.size = size;
+    private void setData(IDeployableData data) {
+        HelperMethods.checkObject("data", data);
+        this.data = data;
     }
     /**
      * Sets this.currentHP to the provided value.
@@ -88,42 +49,11 @@ public class Deployable implements Damageable {
             throw new IllegalArgumentException("New currentHP value: "
                 + currentHP + " is < 0");
         }
-        if (this.maxHP < currentHP) {
+        if (this.data.getHP() < currentHP) {
             throw new IllegalArgumentException("currentHP value provided: "
-                + currentHP + " is > maxHP value: " + this.maxHP);
+                + currentHP + " is > maxHP value: " + this.data.getHP());
         }
         this.currentHP = currentHP;
-    }
-    /**
-     * Sets this.maxHP to the provided value.
-     * @param maxHP an int which cannot be < 1. Will print a warning if maxHP is
-     *     < this.currentHP.
-     * @throws IllegalArgumentException if maxHP is < 1.
-     */
-    private void setMaxHP(int maxHP) {
-        if (maxHP < 1) {
-            throw new IllegalArgumentException("New maxHP value: " + maxHP
-                + " is < 1");
-        }
-        if (maxHP < this.currentHP) {
-            HelperMethods.warn("maxHP value provided: " + maxHP + " is <"
-                + " currentHP value: " + this.currentHP);
-        }
-        this.maxHP = maxHP;
-    }
-    private void setArmor(int armor) {
-        if (armor < 0) {
-            throw new IllegalArgumentException("New armor value: " + armor
-                + " is < 0");
-        }
-        this.armor = armor;
-    }
-    private void setEvasion(int evasion) {
-        if (evasion < 0) {
-            throw new IllegalArgumentException("New evasion value: " + evasion
-                + " is < 0");
-        }
-        this.evasion = evasion;
     }
 
     /**
@@ -132,7 +62,7 @@ public class Deployable implements Damageable {
      * @return a String containing the requested output.
      */
     public String outputSize() {
-        return size.output();
+        return data.outputSize();
     }
     /**
      * Deals harm to this Deployable.
