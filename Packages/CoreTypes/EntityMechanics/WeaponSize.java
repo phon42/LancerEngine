@@ -3,6 +3,7 @@ package Packages.CoreTypes.EntityMechanics;
 import MainBranch.HelperMethods;
 
 public class WeaponSize {
+    private static int maxID = 0;
     /**
      * The weapon size's int id (i.e. 1 for a main weapon).
      * Can be any int.
@@ -45,14 +46,21 @@ public class WeaponSize {
         setName(name);
     }
 
+    public static int getMaxID() {
+        return maxID;
+    }
     public int getID() {
         return id;
     }
     public String getName() {
         return name;
     }
+    private static void setMaxID(int maxID) {
+        WeaponSize.maxID = maxID;
+    }
     private void setID(int id) {
         this.id = id;
+        setMaxID(Math.max(WeaponSize.maxID, this.id));
     }
     private void setName(String name) {
         HelperMethods.checkString("name", name);
