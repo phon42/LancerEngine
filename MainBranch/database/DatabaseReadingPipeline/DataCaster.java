@@ -1424,8 +1424,19 @@ public class DataCaster {
         DataCaster.rulesProcessed = rules;
     }
     private static Rule toRule(JSONObject ruleData) {
-        // TODO: fill out
-        return null;
+        String name;
+        Object data;
+
+        try {
+            name = ruleData.getString("name");
+            data = ruleData.get("description");
+        } catch (JSONException exception) {
+            throw new IllegalStateException("ruleData threw a JSONException"
+                + " during the required properties section of the object"
+                + " parsing, which is not allowed");
+        }
+
+        return new Rule(name, data);
     }
     private static void processSitreps(JSONObject[] sitrepsData) {
         Sitrep[] sitreps = new Sitrep[sitrepsData.length];
