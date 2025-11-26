@@ -881,7 +881,7 @@ public class DataCaster {
                 rangeTypes = new RangeType[rangeTypesArray.length()];
                 for (int i = 0; i < rangeTypes.length; i++) {
                     rangeTypes[i] =
-                        toRangeType(rangeTypesArray.getJSONObject(i));
+                        toRangeType(rangeTypesArray.getString(i));
                 }
             } catch (JSONException exception) {
                 throw new IllegalStateException("Attempting to parse"
@@ -1387,9 +1387,18 @@ public class DataCaster {
         // TODO: fill out
         return null;
     }
-    private static RangeType toRangeType(JSONObject rangeTypeData) {
-        // TODO: fill out
-        return null;
+    private static RangeType toRangeType(String rangeTypeName) {
+        RangeType rangeType;
+
+        try {
+            return Database.getRangeType(rangeTypeName);
+        } catch (NoSuchElementException exception) {
+            rangeType = new RangeType(RangeType.getMaxID() + 1,
+                rangeTypeName);
+            HelperMethods.append(DataCaster.rangeTypesProcessed, rangeType);
+
+            return rangeType;
+        }
     }
     private static void processReserves(JSONObject[] reservesData) {
         Reserve[] reserves = new Reserve[reservesData.length];
