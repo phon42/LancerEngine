@@ -798,6 +798,30 @@ public final class Database {
         throw new NoSuchElementException("No weapon found for weapon ID: "
             + weaponID);
     }
+    public static WeaponSize getWeaponSize(String weaponSizeName) {
+        HelperMethods.checkObject("weaponSizeName",
+            weaponSizeName);
+        weaponSizeName = weaponSizeName.toLowerCase();
+        for (WeaponSize weaponSize : Database.weaponSizes) {
+            if (weaponSizeName.equals(weaponSize.getName())) {
+                return weaponSize;
+            }
+        }
+        throw new NoSuchElementException("No weapon size found for weapon size"
+            + " name: " + weaponSizeName);
+    }
+    public static WeaponType getWeaponType(String weaponTypeName) {
+        HelperMethods.checkObject("weaponTypeName",
+            weaponTypeName);
+        weaponTypeName = weaponTypeName.toLowerCase();
+        for (WeaponType weaponType : Database.weaponTypes) {
+            if (weaponTypeName.equals(weaponType.getName())) {
+                return weaponType;
+            }
+        }
+        throw new NoSuchElementException("No weapon type found for weapon type"
+            + " name: " + weaponTypeName);
+    }
     public static FrameLicense getFrameLicense(String frameLicenseID) {
         HelperMethods.checkObject("frameLicenseID",
             frameLicenseID);
