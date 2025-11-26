@@ -1,4 +1,4 @@
-package Packages.CoreTypes.EntityMechanics.StateSystem.state;
+package Packages.CoreTypes.EntityMechanics.StateSystem.state.unverifiedStateData;
 
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;

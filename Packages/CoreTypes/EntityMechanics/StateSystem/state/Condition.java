@@ -1,6 +1,7 @@
 package Packages.CoreTypes.EntityMechanics.StateSystem.state;
 
 import Packages.CoreTypes.EntityMechanics.StateSystem.State;
+import Packages.CoreTypes.EntityMechanics.StateSystem.state.unverifiedStateData.StateData;
 
 /**
  * See pg. 78.

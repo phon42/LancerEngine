@@ -3,8 +3,8 @@ package Packages.CoreTypes.EntityMechanics.StateSystem;
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.Condition;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.Duration;
-import Packages.CoreTypes.EntityMechanics.StateSystem.state.StateData;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.Status;
+import Packages.CoreTypes.EntityMechanics.StateSystem.state.unverifiedStateData.StateData;
 
 /**
  * See pgs. 77 - 78.

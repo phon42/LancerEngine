@@ -41,7 +41,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTrig
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.talent.TalentData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.unverifiedCoreBonus.CoreBonus;
 import Packages.CoreTypes.EntityMechanics.LicenseSystem.FrameLicense;
-import Packages.CoreTypes.EntityMechanics.StateSystem.state.StateData;
+import Packages.CoreTypes.EntityMechanics.StateSystem.state.unverifiedStateData.StateData;
 
 /**
  * Represents nothing. Contains a set array of Frames to be used by
