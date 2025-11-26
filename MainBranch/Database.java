@@ -40,6 +40,8 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.p
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skill.SkillData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.talent.TalentData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.unverifiedCoreBonus.CoreBonus;
+import Packages.CoreTypes.EntityMechanics.HarmSystem.damage.DamageType;
+import Packages.CoreTypes.EntityMechanics.HarmSystem.damage.harm.HarmType;
 import Packages.CoreTypes.EntityMechanics.LicenseSystem.FrameLicense;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.unverifiedStateData.StateData;
 
@@ -106,6 +108,10 @@ public final class Database {
     /**
      * add documentation
      */
+    private static DamageType[] damageTypes;
+    /**
+     * add documentation
+     */
     private static DataTag[] dataTags;
     /**
      * add documentation
@@ -115,6 +121,10 @@ public final class Database {
      * Contains every frame's data for reference.
      */
     private static Frame[] frames;
+    /**
+     * add documentation
+     */
+    private static HarmType[] harmTypes;
     /**
      * add documentation
      */
@@ -247,6 +257,22 @@ public final class Database {
         //     https://github.com/massif-press/lancer-data?tab=readme-ov-file#activationtype
         addActivationType(new ActivationType("downtime"));
 
+        // Add allowed damage types
+        /**
+         * See pgs. 67 and 104.
+         */
+        addDamageType(new DamageType("Kinetic"));
+        addDamageType(new DamageType("Explosive"));
+        addDamageType(new DamageType("Energy"));
+        addDamageType(new DamageType("Burn"));
+
+        // Add allowed harm types
+        /**
+         * See pgs. 67 and 104.
+         */
+        addHarmType(new HarmType("Variable"));
+        addHarmType(new HarmType("Heat"));
+
         // Add allowed weapon sizes
         addWeaponSize(new WeaponSize(0, "Aux"));
         addWeaponSize(new WeaponSize(1, "Main"));
@@ -369,9 +395,11 @@ public final class Database {
         Database.backgrounds = new Background[0];
         Database.conditions = new StateData[0];
         Database.coreBonuses = new CoreBonus[0];
+        Database.damageTypes = new DamageType[0];
         Database.dataTags = new DataTag[0];
         Database.environments = new Environment[0];
         Database.frames = new Frame[0];
+        Database.harmTypes = new HarmType[0];
         Database.iActionData = new IActionData[0];
         Database.manufacturers = new Manufacturer[0];
         Database.modifications = new Modification[0];
@@ -495,6 +523,17 @@ public final class Database {
         throw new NoSuchElementException("No core bonus found for core bonus"
             + " ID: " + coreBonusID);
     }
+    public static DamageType getDamageType(String damageType) {
+        HelperMethods.checkObject("damageType", damageType);
+        damageType = damageType.toLowerCase();
+        for (DamageType type : Database.damageTypes) {
+            if (damageType.equals(type.getValue())) {
+                return type;
+            }
+        }
+        throw new NoSuchElementException("No data tag found for damage type"
+            + " name: " + damageType);
+    }
     public static DataTag getDataTag(String dataTagID) {
         HelperMethods.checkObject("dataTagID", dataTagID);
         dataTagID = dataTagID.toLowerCase();
@@ -537,6 +576,17 @@ public final class Database {
         }
         throw new NoSuchElementException("No frame found for frame enum: "
             + frameEnum);
+    }
+    public static HarmType getHarmType(String harmType) {
+        HelperMethods.checkObject("harmType", harmType);
+        harmType = harmType.toLowerCase();
+        for (HarmType type : Database.harmTypes) {
+            if (harmType.equals(type.getValue())) {
+                return type;
+            }
+        }
+        throw new NoSuchElementException("No data tag found for harm type"
+            + " name: " + harmType);
     }
     public static IActionData getIActionData(IActionData iActionDataName) {
         HelperMethods.checkObject("iActionDataName",
@@ -877,6 +927,18 @@ public final class Database {
             coreBonus);
     }
     /**
+     * Adds the provided DamageType to Database.damageTypes.
+     * @param damageType a DamageType which cannot be null.
+     * @throws IllegalArgumentException if damageType is null.
+     */
+    public static void addDamageType(DamageType damageType) {
+        checkOpen();
+        HelperMethods.checkObject("damageType", damageType);
+        Database.damageTypes = HelperMethods.append(Database.damageTypes,
+            damageType);
+        addHarmType(new HarmType(damageType.getValue()));
+    }
+    /**
      * Adds the provided DataTag to Database.dataTags.
      * @param dataTag a DataTag which cannot be null.
      * @throws IllegalArgumentException if dataTag is null.
@@ -907,6 +969,16 @@ public final class Database {
         checkOpen();
         HelperMethods.checkObject("frame", frame);
         Database.frames = HelperMethods.append(Database.frames, frame);
+    }
+    /**
+     * Adds the provided HarmType to Database.harmTypes.
+     * @param harmType a HarmType which cannot be null.
+     * @throws IllegalArgumentException if harmType is null.
+     */
+    public static void addHarmType(HarmType harmType) {
+        checkOpen();
+        HelperMethods.checkObject("harmType", harmType);
+        Database.harmTypes = HelperMethods.append(Database.harmTypes, harmType);
     }
     /**
      * Adds the provided IActionData to Database.frames.
