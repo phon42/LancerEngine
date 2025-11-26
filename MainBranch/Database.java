@@ -31,7 +31,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.unverifiedFrame.Frame;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.unverifiedFrame.frame.FrameEnum;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Bond;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Reserve;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.ReserveData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.UnverifiedCoreBonus;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Background.backgroundBase.Background;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Background.backgroundBase.UnverifiedBackground;
@@ -165,7 +165,7 @@ public final class Database {
     /**
      * add documentation
      */
-    private static Reserve[] reserves;
+    private static ReserveData[] reserves;
     /**
      * add documentation
      */
@@ -412,7 +412,7 @@ public final class Database {
         Database.pilotGear = new PilotGear[0];
         Database.pilotWeapons = new PilotWeapon[0];
         Database.rangeTypes = new RangeType[0];
-        Database.reserves = new Reserve[0];
+        Database.reserves = new ReserveData[0];
         Database.rules = new Rule[0];
         Database.sitreps = new Sitrep[0];
         Database.skills = new SkillData[0];
@@ -673,10 +673,10 @@ public final class Database {
         throw new NoSuchElementException("No range type found for range type"
             + " name: \"" + rangeTypeName + "\"");
     }
-    public static Reserve getReserve(String reserveID) {
+    public static ReserveData getReserve(String reserveID) {
         HelperMethods.checkObject("reserveID", reserveID);
         reserveID = reserveID.toLowerCase();
-        for (Reserve reserve : Database.reserves) {
+        for (ReserveData reserve : Database.reserves) {
             if (reserveID.equals(reserve.getID())) {
                 return reserve;
             }
@@ -1121,7 +1121,7 @@ public final class Database {
      * @param reserve a Reserve which cannot be null.
      * @throws IllegalArgumentException if reserve is null.
      */
-    public static void addReserve(Reserve reserve) {
+    public static void addReserve(ReserveData reserve) {
         checkOpen();
         HelperMethods.checkObject("reserve", reserve);
         Database.reserves = HelperMethods.append(Database.reserves, reserve);

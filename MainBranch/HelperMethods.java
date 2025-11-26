@@ -40,7 +40,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.iTagDataUnverified.iTagData.dataTag.Tag;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.unverifiedFrame.Frame;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Bond;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Reserve;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.ReserveData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Talent;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.UnverifiedCoreBonus;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Background.backgroundBase.Background;
@@ -1044,10 +1044,10 @@ public final class HelperMethods {
      *     end of it.
      * @throws IllegalArgumentException if array or newElement is null.
      */
-    public static Reserve[] append(Reserve[] array, Reserve newElement) {
+    public static ReserveData[] append(ReserveData[] array, ReserveData newElement) {
         HelperMethods.checkObject("array", array);
         HelperMethods.checkObject("newElement", newElement);
-        Reserve[] newArray = new Reserve[array.length + 1];
+        ReserveData[] newArray = new ReserveData[array.length + 1];
 
         for (int i = 0; i < newArray.length; i++) {
             if (i < array.length) {

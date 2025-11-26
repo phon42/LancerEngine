@@ -37,7 +37,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.iTagDataUnverified.iTagData.dataTag.Tag;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.unverifiedFrame.Frame;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Bond;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Reserve;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.ReserveData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.UnverifiedCoreBonus;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Background.backgroundBase.UnverifiedBackground;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.bond.BondPower;
@@ -134,7 +134,7 @@ public class DataCaster {
     private static PilotGear[] pilotGearProcessed;
     private static PilotWeapon[] pilotWeaponsProcessed;
     private static RangeType[] rangeTypesProcessed;
-    private static Reserve[] reservesProcessed;
+    private static ReserveData[] reservesProcessed;
     private static SkillData[] skillsProcessed;
     private static StateData[] statusesProcessed;
     private static Tag[] tagsProcessed;
@@ -1401,7 +1401,7 @@ public class DataCaster {
         }
     }
     private static void processReserves(JSONObject[] reservesData) {
-        Reserve[] reserves = new Reserve[reservesData.length];
+        ReserveData[] reserves = new ReserveData[reservesData.length];
 
         reservesData = performCorrections("reserves", reservesData);
         for (int i = 0; i < reserves.length; i++) {
@@ -1409,7 +1409,7 @@ public class DataCaster {
         }
         DataCaster.reservesProcessed = reserves;
     }
-    private static Reserve toReserve(JSONObject reserveData) {
+    private static ReserveData toReserve(JSONObject reserveData) {
         // TODO: fill out
         return null;
     }
@@ -2036,7 +2036,7 @@ public class DataCaster {
         DataCaster.pilotGearProcessed = new PilotGear[0];
         DataCaster.pilotWeaponsProcessed = new PilotWeapon[0];
         DataCaster.rangeTypesProcessed = new RangeType[0];
-        DataCaster.reservesProcessed = new Reserve[0];
+        DataCaster.reservesProcessed = new ReserveData[0];
         DataCaster.skillsProcessed = new SkillData[0];
         DataCaster.statusesProcessed = new StateData[0];
         DataCaster.tagsProcessed = new Tag[0];

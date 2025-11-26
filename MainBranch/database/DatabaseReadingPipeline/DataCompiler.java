@@ -16,7 +16,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Bond;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment.PilotArmor;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment.PilotGear;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment.PilotWeapon;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Reserve;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.ReserveData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.UnverifiedCoreBonus;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Background.backgroundBase.UnverifiedBackground;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skill.SkillData;
@@ -104,7 +104,7 @@ public class DataCompiler {
     private static PilotArmor[] pilotArmorData;
     private static PilotGear[] pilotGearData;
     private static PilotWeapon[] pilotWeapon;
-    private static Reserve[] reserveData;
+    private static ReserveData[] reserveData;
     private static SkillData[] skillData;
     private static StateData[] statusData;
     private static TalentData[] talentData;
@@ -192,7 +192,7 @@ public class DataCompiler {
         DataCompiler.pilotArmorData = (PilotArmor[]) data[14];
         DataCompiler.pilotGearData = (PilotGear[]) data[15];
         DataCompiler.pilotWeapon = (PilotWeapon[]) data[16];
-        DataCompiler.reserveData = (Reserve[]) data[17];
+        DataCompiler.reserveData = (ReserveData[]) data[17];
         DataCompiler.skillData = (SkillData[]) data[18];
         DataCompiler.statusData = (StateData[]) data[19];
         DataCompiler.talentData = (TalentData[]) data[20];
@@ -444,7 +444,7 @@ public class DataCompiler {
         DataCompiler.pilotArmorData = new PilotArmor[0];
         DataCompiler.pilotGearData = new PilotGear[0];
         DataCompiler.pilotWeapon = new PilotWeapon[0];
-        DataCompiler.reserveData = new Reserve[0];
+        DataCompiler.reserveData = new ReserveData[0];
         DataCompiler.skillData = new SkillData[0];
         DataCompiler.statusData = new StateData[0];
         DataCompiler.talentData = new TalentData[0];

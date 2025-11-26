@@ -6,7 +6,7 @@ import Packages.CoreTypes.TriState;
 import Packages.CoreTypes.VueHTMLString;
 import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.IDeployableData;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.reserve.ReserveType;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.reserveData.ReserveType;
 import Packages.CoreTypes.EntityMechanics.ISynergyData;
 import Packages.CoreTypes.EntityMechanics.Actions.actionBase.IActionData;
 
@@ -21,7 +21,7 @@ import Packages.CoreTypes.EntityMechanics.Actions.actionBase.IActionData;
  * Safety: This class does not have placeholder values and cannot be a
  *     placeholder. At least one of its properties has an allowed value of null.
  */
-public class Reserve {
+public class ReserveData {
     // Required properties
     /**
      * The id for this reserve (i.e. "reserve_skill").
@@ -95,7 +95,7 @@ public class Reserve {
     private String[] integrated;
     private String[] specialEquipment;
 
-    public Reserve(
+    public ReserveData(
         // Required properties
         String id, String name, ReserveType type, String label,
         // Semi-required property
@@ -123,7 +123,7 @@ public class Reserve {
         setIntegrated(integrated);
         setSpecialEquipment(specialEquipment);
     }
-    public Reserve(
+    public ReserveData(
         // Required properties
         String id, String name, ReserveType type, String label,
         // Semi-required property
@@ -284,7 +284,7 @@ public class Reserve {
 
     private void setConsumable(TriState consumable) {
         if (consumable == TriState.UNSET) {
-            setConsumable(Reserve.consumableDefault);
+            setConsumable(ReserveData.consumableDefault);
         } else {
             setConsumable(consumable.toBoolean());
         }
