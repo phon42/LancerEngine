@@ -10,8 +10,8 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.SkillTrig
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.Skill;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Talent;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment.PilotArmor;
-import Packages.CoreTypes.EntityMechanics.HarmSystem.Damage;
-import Packages.CoreTypes.EntityMechanics.HarmSystem.damage.Harm;
+import Packages.CoreTypes.EntityMechanics.HarmSystem.Harm;
+import Packages.CoreTypes.EntityMechanics.HarmSystem.harm.Damage;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.Condition;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.Status;
 import Packages.CoreTypes.Size;

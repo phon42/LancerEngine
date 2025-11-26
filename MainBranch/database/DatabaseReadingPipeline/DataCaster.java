@@ -48,7 +48,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTrig
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skill.skillData.SkillFamily;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.talent.TalentData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.unverifiedCoreBonus.CoreBonus;
-import Packages.CoreTypes.EntityMechanics.HarmSystem.damage.harmType.DamageType;
+import Packages.CoreTypes.EntityMechanics.HarmSystem.harm.harmType.DamageType;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.unverifiedStateData.StateData;
 import Packages.CoreTypes.lcpInfo.LCPDependency;
 import Packages.CoreTypes.lcpInfo.Version;

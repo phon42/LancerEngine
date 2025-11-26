@@ -51,10 +51,10 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.p
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment.PilotWeapon;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.Skill;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skill.SkillData;
-import Packages.CoreTypes.EntityMechanics.HarmSystem.Damage;
-import Packages.CoreTypes.EntityMechanics.HarmSystem.damage.Harm;
-import Packages.CoreTypes.EntityMechanics.HarmSystem.damage.HarmType;
-import Packages.CoreTypes.EntityMechanics.HarmSystem.damage.harmType.DamageType;
+import Packages.CoreTypes.EntityMechanics.HarmSystem.Harm;
+import Packages.CoreTypes.EntityMechanics.HarmSystem.harm.Damage;
+import Packages.CoreTypes.EntityMechanics.HarmSystem.harm.HarmType;
+import Packages.CoreTypes.EntityMechanics.HarmSystem.harm.harmType.DamageType;
 import Packages.CoreTypes.EntityMechanics.LicenseSystem.FrameLicense;
 import Packages.CoreTypes.EntityMechanics.StateSystem.State;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.Condition;

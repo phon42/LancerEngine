@@ -2,8 +2,8 @@ package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable;
 
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.Damageable;
-import Packages.CoreTypes.EntityMechanics.HarmSystem.Damage;
-import Packages.CoreTypes.EntityMechanics.HarmSystem.damage.Harm;
+import Packages.CoreTypes.EntityMechanics.HarmSystem.Harm;
+import Packages.CoreTypes.EntityMechanics.HarmSystem.harm.Damage;
 import Packages.CoreTypes.Size;
 
 /**

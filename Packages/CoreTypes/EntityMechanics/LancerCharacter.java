@@ -11,7 +11,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.unverified
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Loadout;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.SkillTriggersList;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Talent;
-import Packages.CoreTypes.EntityMechanics.HarmSystem.damage.Harm;
+import Packages.CoreTypes.EntityMechanics.HarmSystem.Harm;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.Condition;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.Status;
 

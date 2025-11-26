@@ -3,7 +3,7 @@ package Packages.CoreTypes.EntityMechanics;
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.JSONTypeTree;
 import Packages.CoreTypes.TriState;
-import Packages.CoreTypes.EntityMechanics.HarmSystem.damage.harmType.DamageType;
+import Packages.CoreTypes.EntityMechanics.HarmSystem.harm.harmType.DamageType;
 
 /**
  * See https://github.com/massif-press/lancer-data/blob/master/README.md#bonuses.

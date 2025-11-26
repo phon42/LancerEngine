@@ -6,7 +6,7 @@ import Packages.CoreTypes.TriState;
 import Packages.CoreTypes.VueHTMLString;
 import Packages.CoreTypes.EntityMechanics.SynergyLocation;
 import Packages.CoreTypes.EntityMechanics.Actions.ActionBase;
-import Packages.CoreTypes.EntityMechanics.HarmSystem.Damage;
+import Packages.CoreTypes.EntityMechanics.HarmSystem.harm.Damage;
 import Packages.CoreTypes.EntityMechanics.ActivationType;
 import Packages.CoreTypes.EntityMechanics.Frequency;
 import Packages.CoreTypes.EntityMechanics.RangeTag;
