@@ -317,22 +317,12 @@ public class JSONTypeTree {
         } else {
             // it is necessary to determine whether original is made of base
             //     Java types or JSON types
-            if (isOfJSONTypes(type)) {
+            if (JSONType.isOfJSONType(type)) {
                 return convert(original, type);
             } else {
                 return copyBase(original, type);
             }
         }
-    }
-    public static boolean isOfJSONTypes(Object value) {
-        JSONType type;
-
-        if (value == null || value.equals(null)) {
-            return false;
-        }
-
-        // TODO: fill out
-        return true;
     }
     /**
      * Creates a copy of original using type as a guide on how to copy it.
