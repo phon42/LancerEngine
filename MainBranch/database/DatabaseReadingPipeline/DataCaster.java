@@ -1,6 +1,7 @@
 package MainBranch.database.DatabaseReadingPipeline;
 
 import java.util.HashMap;
+import java.util.NoSuchElementException;
 import java.util.Set;
 import MainBranch.Database;
 import MainBranch.HelperMethods;
@@ -135,6 +136,8 @@ public class DataCaster {
     private static SkillData[] skillsProcessed;
     private static StateData[] statusesProcessed;
     private static TalentData[] talentsProcessed;
+    private static WeaponSize[] weaponSizesProcessed;
+    private static WeaponType[] weaponTypesProcessed;
     // ----less important
     private static Environment[] environmentsProcessed;
     private static Sitrep[] sitrepsProcessed;
@@ -1826,6 +1829,32 @@ public class DataCaster {
         // TODO: fill out
         return null;
     }
+    private static WeaponType toWeaponType(String weaponTypeName) {
+        WeaponType weaponType;
+
+        try {
+            return Database.getWeaponType(weaponTypeName);
+        } catch (NoSuchElementException exception) {
+            weaponType = new WeaponType(WeaponType.getMaxID() + 1,
+                weaponTypeName);
+            HelperMethods.append(DataCaster.weaponTypesProcessed, weaponType);
+
+            return weaponType;
+        }
+    }
+    private static WeaponSize toWeaponSize(String weaponSizeName) {
+        WeaponSize weaponSize;
+
+        try {
+            return Database.getWeaponSize(weaponSizeName);
+        } catch (NoSuchElementException exception) {
+            weaponSize = new WeaponSize(WeaponSize.getMaxID() + 1,
+                weaponSizeName);
+            HelperMethods.append(DataCaster.weaponSizesProcessed, weaponSize);
+
+            return weaponSize;
+        }
+    }
     private static void addActivationType(ActivationType activationType) {
         DataCaster.activationTypesProcessed =
             HelperMethods.append(DataCaster.activationTypesProcessed,
@@ -1887,6 +1916,8 @@ public class DataCaster {
             DataCaster.skillsProcessed,
             DataCaster.statusesProcessed,
             DataCaster.talentsProcessed,
+            DataCaster.weaponSizesProcessed,
+            DataCaster.weaponTypesProcessed,
             // ----less important
             DataCaster.environmentsProcessed,
             DataCaster.sitrepsProcessed,
@@ -1968,6 +1999,8 @@ public class DataCaster {
         DataCaster.skillsProcessed = new SkillData[0];
         DataCaster.statusesProcessed = new StateData[0];
         DataCaster.talentsProcessed = new TalentData[0];
+        DataCaster.weaponSizesProcessed = new WeaponSize[0];
+        DataCaster.weaponTypesProcessed = new WeaponType[0];
         // ----less important
         DataCaster.environmentsProcessed = new Environment[0];
         DataCaster.sitrepsProcessed = new Sitrep[0];
