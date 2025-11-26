@@ -3,6 +3,7 @@ package Packages.CoreTypes.EntityMechanics.HarmSystem.harm;
 import MainBranch.HelperMethods;
 import MainBranch.Roll;
 import MainBranch.roll.DiceExpression;
+import Packages.CoreTypes.EntityMechanics.HarmSystem.Harm;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.harm.harmType.DamageType;
 
 /**
@@ -11,7 +12,8 @@ import Packages.CoreTypes.EntityMechanics.HarmSystem.harm.harmType.DamageType;
  * Represents a much more concrete version of representing damage or harm than
  *     Harm. diceValue and flatValue have much stricter allowed values.
  */
-public class Damage {
+public class Damage extends Harm {
+    // TODO: figure out a way to override the documentation from Damage
     /**
      * The Damage's type (i.e. a DamageType representing kinetic).
      * Can be any DamageType. Cannot be null.
@@ -21,14 +23,14 @@ public class Damage {
      *     of damage that is caused by Burn and does NOT increment the number of
      *     Burn stacks on the target).
      */
-    private DamageType type;
+    // private DamageType type;
     /**
      * The amount of dice damage dealt (i.e. a DiceExpression representing
      *     "1d6", representing the "1d6" in "1d6+2").
      * Can be any DiceExpression. Can be null as long as this.flatValue is not
      *     0.
      */
-    protected DiceExpression diceValue;
+    // protected DiceExpression diceValue;
     /**
      * The amount of flat damage dealt (i.e. 2, representing the "2" in
      *     "1d6+2").
@@ -38,21 +40,15 @@ public class Damage {
 
     public Damage(DamageType damageType, DiceExpression damageDice,
         int damageFlatAmount) {
+        super();
         setType(damageType);
         setDiceValue(damageDice);
         setFlatValue(damageFlatAmount);
         checkValidity();
     }
-    protected Damage() {}
-    
+
     public DamageType getType() {
-        return type;
-    }
-    public DiceExpression getDiceValue() {
-        return diceValue;
-    }
-    public int getFlatValue() {
-        return flatValue;
+        return type.toDamageType();
     }
     private void setType(DamageType type) {
         HelperMethods.checkObject("type", type);
@@ -66,9 +62,11 @@ public class Damage {
      * @param diceValue a DiceExpression which can be any DiceExpression. Can be
      *     null.
      */
+    @Override
     protected void setDiceValue(DiceExpression diceValue) {
         this.diceValue = diceValue;
     }
+    @Override
     protected void setFlatValue(int flatValue) {
         if (flatValue < 0) {
             throw new IllegalArgumentException("flat value value: " + flatValue
@@ -90,7 +88,8 @@ public class Damage {
      * @throws IllegalArgumentException if this.diceValue and this.flatValue are
      *     set to an invalid combination of values.
      */
-    private void checkValidity() {
+    @Override
+    protected void checkValidity() {
         if (! isValid()) {
             throw new IllegalArgumentException("Cannot create a Damage object"
                 + " with a Damage.diceValue value of: \"" + this.diceValue
@@ -102,7 +101,8 @@ public class Damage {
      *     combination of values.
      * @return a boolean containing the result of the check.
      */
-    private boolean isValid() {
+    @Override
+    protected boolean isValid() {
         boolean isValidExpression = false;
 
         isValidExpression = this.diceValue == null;
@@ -121,6 +121,7 @@ public class Damage {
      * Evaluates the amount of damage listed to be dealt by this Damage object.
      * @return an int containing the result.
      */
+    @Override
     public int roll() {
         // damage is being rolled here
         if (this.diceValue == null) {

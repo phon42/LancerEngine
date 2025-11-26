@@ -4,42 +4,48 @@ import MainBranch.HelperMethods;
 import MainBranch.roll.DiceExpression;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.harm.Damage;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.harm.HarmType;
-import Packages.CoreTypes.EntityMechanics.HarmSystem.harm.harmType.DamageType;
 
 /**
  * See pgs. 67 and 104.
  */
-public class Harm extends Damage {
+public class Harm {
     /**
      * The Harm's type (i.e. a HarmType representing kinetic).
      * Can be any HarmType. Cannot be null.
      */
-    private HarmType type;
-    // TODO: figure out a way to override the documentation from Damage
+    protected HarmType type;
     /**
      * The amount of dice harm dealt (i.e. a DiceExpression representing "1d6",
      *     which in turn represents the "1d6" in "1d6+2").
      * Can be any DiceExpression. Can be null.
      */
-    // private DiceExpression diceValue;
-    // TODO: figure out a way to override the documentation from Damage
+    protected DiceExpression diceValue;
     /**
      * The amount of flat harm dealt (i.e. 2, representing the "2" in
      *     "1d6+2").
      * Must be a minimum of 1. Can be -1 if this.diceValue is null. Can be 0 if
      *     this.diceValue is a DiceExpression.
      */
-    // private int flatValue;
+    protected int flatValue;
 
     public Harm(HarmType harmType, DiceExpression harmDice, int harmFlatAmount)
     {
-        super();
         setType(harmType);
         setDiceValue(harmDice);
         setFlatValue(harmFlatAmount);
         checkValidity();
     }
+    protected Harm() {}
 
+    public HarmType getType() {
+        return type;
+    }
+    public DiceExpression getDiceValue() {
+        return diceValue;
+    }
+    public int getFlatValue() {
+        return flatValue;
+    }
     private void setType(HarmType type) {
         HelperMethods.checkObject("type", type);
         this.type = type;
@@ -51,7 +57,6 @@ public class Harm extends Damage {
      * @param diceValue a DiceExpression which can be any DiceExpression. Can be
      *     null.
      */
-    @Override
     protected void setDiceValue(DiceExpression diceValue) {
         this.diceValue = diceValue;
     }
@@ -61,7 +66,6 @@ public class Harm extends Damage {
      *     Harm.checkValidity() immediately after everything has been set.
      * @param flatValue an int which cannot be < -1.
      */
-    @Override
     protected void setFlatValue(int flatValue) {
         if (flatValue < -1) {
             throw new IllegalArgumentException("flat value value: " + flatValue
@@ -76,7 +80,7 @@ public class Harm extends Damage {
      * @throws IllegalArgumentException if this.diceValue and this.flatValue are
      *     set to an invalid combination of values.
      */
-    private void checkValidity() {
+    protected void checkValidity() {
         if (! isValid()) {
             throw new IllegalArgumentException("Cannot create a Harm object"
                 + " with a Harm.diceValue value of: " + this.diceValue + " and"
@@ -88,7 +92,7 @@ public class Harm extends Damage {
      *     combination of values.
      * @return a boolean containing the result of the check.
      */
-    private boolean isValid() {
+    protected boolean isValid() {
         boolean isNull = this.diceValue == null;
 
         if (isNull) {
@@ -137,8 +141,13 @@ public class Harm extends Damage {
                 + " Damage object");
         }
         try {
-            return new Damage(this.type, this.diceValue, this.flatValue);
+            return new Damage(this.type.toDamageType(), this.diceValue,
+                this.flatValue);
         } catch (IllegalArgumentException exception) {
+            throw new IllegalStateException("Cannot convert this Harm object to"
+                + " a Damage object for the following reason: "
+                + exception.getMessage());
+        } catch (IllegalStateException exception) {
             throw new IllegalStateException("Cannot convert this Harm object to"
                 + " a Damage object for the following reason: "
                 + exception.getMessage());
