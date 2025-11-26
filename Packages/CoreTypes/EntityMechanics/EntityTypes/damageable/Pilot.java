@@ -1,5 +1,7 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable;
 
+import java.util.NoSuchElementException;
+
 import MainBranch.Database;
 import MainBranch.HelperMethods;
 import MainBranch.Roll;
@@ -733,61 +735,25 @@ public final class Pilot implements Damageable {
     }
     /**
      * Sets this.statuses to the provided value.
-     * @param statuses a Status[] which cannot be null or contain elements with
-     *     invalid Status.name values as defined by Status.allowedPilotStatuses.
-     * @throws IllegalArgumentException if statuses is null or contains elements
-     *     with invalid Status.name values as defined by
-     *     Status.allowedPilotStatuses.
+     * @param statuses a Status[] which cannot be null or contain null elements.
+     * @throws IllegalArgumentException if statuses is null or contains null
+     *     elements.
      */
     public void setStatuses(Status[] statuses) {
-        boolean isValidStatus = false;
-        String statusString = "";
-
         HelperMethods.checkObjectArray("New statuses", statuses);
-        for (Status status : statuses) {
-            statusString = status.getName();
-            for (String allowedStatus : Status.allowedPilotStatuses) {
-                if (statusString.equals(allowedStatus)) {
-                    isValidStatus = true;
-                }
-            }
-            if (! isValidStatus) {
-                throw new IllegalArgumentException("New statuses array contains"
-                    + " an element with an invalid Status.name value: \""
-                    + statusString + "\"");
-            }
-        }
         statuses = HelperMethods.copyOf(statuses);
         this.statuses = statuses;
     }
     /**
      * Sets this.conditions to the provided value.
-     * @param conditions a Condition[] which cannot be null or contain elements
-     *     with invalid Condition.name values as defined by
-     *     Condition.allowedConditions.
+     * @param conditions a Condition[] which cannot be null or contain null
+     *     elements.
      * @throws IllegalArgumentException if conditions is null or contains
-     *     elements with invalid Condition.name values as defined by
-     *     Condition.allowedConditions.
+     *     null elements.
      */
     public void setConditions(Condition[] conditions) {
-        boolean isValidCondition = false;
-        String conditionString = "";
-
         HelperMethods.checkObjectArray("New conditions",
             conditions);
-        for (Condition condition : conditions) {
-            conditionString = condition.getName();
-            for (String allowedCondition : Condition.allowedConditions) {
-                if (conditionString.equals(allowedCondition)) {
-                    isValidCondition = true;
-                }
-            }
-            if (! isValidCondition) {
-                throw new IllegalArgumentException("New conditions array"
-                    + " contains an element with an invalid Condition.name"
-                    + " property: \"" + conditionString + "\"");
-            }
-        }
         conditions = HelperMethods.copyOf(conditions);
         this.conditions = conditions;
     }
@@ -871,30 +837,27 @@ public final class Pilot implements Damageable {
     /**
      * Adds the provided status to this.statuses.
      * @param newStatus a Status containing the new status. Must have a valid
-     *     Status.name property as defined by Status.allowedPilotStatuses.
+     *     Status.name property as defined by Database.statuses.
      * @param addDuplicate a boolean representing whether or not to add a second
      *     version of the same status if a status of the same name is already
      *     present in this.statuses.
      * @throws IllegalArgumentException if newStatus has a Status.name property
-     *     that is invalid as defined by Status.allowedPilotStatuses.
+     *     that is invalid as defined by Database.statuses.
      */
     public void addStatus(Status newStatus, boolean addDuplicate) {
-        boolean isValid = false;
         boolean containsStatus = false;
 
-        for (String status : Status.allowedPilotStatuses) {
-            if (newStatus.getName().equals(status)) {
-                isValid = true;
-                break;
-            }
-        }
-        if (! isValid) {
+        HelperMethods.checkObject("newStatus", newStatus);
+        try {
+            Database.getStatus(newStatus.getData().getName());
+        } catch (NoSuchElementException exception) {
             throw new IllegalArgumentException("newStatus' Status.name"
-                + " property: \"" + newStatus.getName() + "\" is an invalid"
-                + " status");
+                + " property: \"" + newStatus.getData().getName() + "\" is an"
+                + " invalid status");
         }
         for (Status status : this.statuses) {
-            if (status.getName().equals(newStatus.getName())) {
+            if (status.getData().getName()
+                .equals(newStatus.getData().getName())) {
                 containsStatus = true;
             }
         }
@@ -915,33 +878,30 @@ public final class Pilot implements Damageable {
     /**
      * Removes the provided status from this.statuses.
      * @param oldStatus a Status containing the status to be removed. Must have
-     *     a valid Status.name property as defined by
-     *     Status.allowedPilotStatuses.
+     *     a valid Status.name property as defined by Database.statuses.
      * @param removeAll a boolean representing whether to remove all statuses
      *     with the same Status.name property as oldStatus if multiple statuses
      *     of the same type are present, or just the specified one.
      * @throws IllegalArgumentException if oldStatus has an invalid Status.name
-     *     property as defined by Status.allowedPilotStatuses.
+     *     property as defined by Database.statuses.
      */
     public void removeStatus(Status oldStatus, boolean removeAll) {
-        boolean isValid = false;
         boolean areSame = false;
         Status[] newStatuses;
 
-        for (String status : Status.allowedPilotStatuses) {
-            if (oldStatus.getName().equals(status)) {
-                isValid = true;
-                break;
-            }
-        }
-        if (! isValid) {
+        HelperMethods.checkObject("oldStatus", oldStatus);
+        try {
+            Database.getStatus(oldStatus.getData().getName());
+        } catch (NoSuchElementException exception) {
             throw new IllegalArgumentException("oldStatus has an invalid"
-                + " Status.name property: \"" + oldStatus.getName() + "\"");
+                + " Status.name property: \"" + oldStatus.getData().getName()
+                + "\"");
         }
         for (int i = 0; i < this.statuses.length; i++) {
             if (removeAll) {
-                areSame = this.statuses[i].getName().equals(
-                    oldStatus.getName());
+                areSame =
+                    this.statuses[i].getData().getName()
+                    .equals(oldStatus.getData().getName());
             } else {
                 areSame = this.statuses[i].equals(oldStatus);
             }
@@ -985,16 +945,22 @@ public final class Pilot implements Damageable {
         boolean isPresent = false;
 
         HelperMethods.checkObject("stateType", stateType);
-        // TODO: check for stateType being valid
+        try {
+            Database.getState(stateType);
+        } catch (NoSuchElementException exception) {
+            return false;
+        }
         for (Condition condition : this.conditions) {
-            isPresent = isPresent || condition.getName().equals(stateType);
+            isPresent = isPresent
+                || condition.getData().getName().equals(stateType);
             isPresent = isPresent || condition.hasState(stateType);
         }
         if (isPresent) {
             return isPresent;
         }
         for (Status status : this.statuses) {
-            isPresent = isPresent || status.getName().equals(stateType);
+            isPresent = isPresent
+                || status.getData().getName().equals(stateType);
             isPresent = isPresent || status.hasState(stateType);
         }
 
@@ -1010,8 +976,10 @@ public final class Pilot implements Damageable {
     public void addCondition(Condition newCondition, boolean addDuplicate) {
         boolean containsCondition = false;
 
+        HelperMethods.checkObject("newCondition", newCondition);
         for (Condition condition : this.conditions) {
-            if (condition.getName().equals(newCondition.getName())) {
+            if (condition.getData().getName()
+                .equals(newCondition.getData().getName())) {
                 containsCondition = true;
             }
         }
@@ -1039,10 +1007,12 @@ public final class Pilot implements Damageable {
         boolean areSame = false;
         Condition[] newConditions;
 
+        HelperMethods.checkObject("oldCondition", oldCondition);
         for (int i = 0; i < this.conditions.length; i++) {
             if (removeAll) {
-                areSame = this.conditions[i].getName().equals(
-                    oldCondition.getName());
+                areSame =
+                    this.conditions[i].getData().getName()
+                    .equals(oldCondition.getData().getName());
             } else {
                 areSame = this.conditions[i].equals(oldCondition);
             }
@@ -1138,9 +1108,11 @@ public final class Pilot implements Damageable {
                     }
                     if (index != -1) {
                         if (bonus.isReplace()) {
-                            results[index] = bonus.getVal();
+                            results[index] =
+                                ((Integer) bonus.getValue()).intValue();
                         } else {
-                            results[index] += bonus.getVal();
+                            results[index] +=
+                                ((Integer) bonus.getValue()).intValue();
                         }
                         pilotBonusesFound[index] = true;
                     }
@@ -1336,8 +1308,8 @@ public final class Pilot implements Damageable {
         // burn check - see pg. 67.
         if (! Roll.evaluateCheck(Roll.check(3, this.mechSkills))) {
             // If the burn check fails
-            receiveDamage(new Damage("burn", null,
-                this.burn));
+            receiveDamage(new Damage(Database.getDamageType("burn"),
+                null, this.burn));
         }
     }
     /**
