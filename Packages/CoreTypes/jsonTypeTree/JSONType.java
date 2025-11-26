@@ -38,4 +38,20 @@ public enum JSONType {
         throw new IllegalArgumentException("value is of a type that is not"
             + " one of the accepted JSONType values");
     }
+    public static boolean isOfJSONType(Object value) {
+        JSONType type = null;
+
+        try {
+            type = determineType(value);
+        } catch (IllegalArgumentException exception) {}
+        if (type == null) {
+            return false;
+        }
+        if (type != JSONType.JSONARRAY && type != JSONType.JSONOBJECT) {
+            return false;
+        }
+
+        // type is either JSONType.JSONOBJECT or JSONType.JSONARRAY
+        return true;
+    }
 }
