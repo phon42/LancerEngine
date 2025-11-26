@@ -25,6 +25,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.
  * This class is immutable (in other words, no copies of it need to be created).
  */
 public class DataTag {
+    // Required properties
     /**
      * The id for this data tag (i.e. "tg_ai").
      * Can be any String except "". Cannot be null.
@@ -44,14 +45,6 @@ public class DataTag {
      */
     protected VueHTMLString description;
     /**
-     * Whether this data tag is always hidden.
-     */
-    protected boolean hidden;
-    /**
-     * Whether filtering algorithms should hide this data tag.
-     */
-    protected boolean filterIgnore;
-    /**
      * Whether this data tag requires a value of some kind.
      * Is TriState.TRUE if this.id is present in DataTag.valueIDs.
      * Is TriState.FALSE if this.id is not present in DataTag.valueIDs but
@@ -60,6 +53,25 @@ public class DataTag {
      * Can be any TriState. Cannot be null.
      */
     protected TriState acceptsValue;
+
+    // Semi-required (optional but has a specific default value other than null
+    //     when not provided) properties
+    /**
+     * Whether this data tag is always hidden.
+     */
+    protected boolean hidden;
+    /**
+     * The default value for DataTag.hidden.
+     */
+    private static final boolean hiddenDefault = false;
+    /**
+     * Whether filtering algorithms should hide this data tag.
+     */
+    protected boolean filterIgnore;
+    /**
+     * The default value for DataTag.filterIgnore.
+     */
+    private static final boolean filterIgnoreDefault = false;
 
     // Helper properties
     /**
@@ -108,13 +120,15 @@ public class DataTag {
     };
 
     public DataTag(String id, String name, String description,
-        boolean filterIgnore, boolean hidden) {
+        TriState filterIgnore, TriState hidden) {
+        // Required properties
         setID(id);
         setName(name);
         setDescription(description);
+        setAcceptsValue(calculateAcceptsValue());
+        // Semi-required properties
         setFilterIgnore(filterIgnore);
         setHidden(hidden);
-        setAcceptsValue(calculateAcceptsValue());
     }
 
     public String getID() {
@@ -154,11 +168,19 @@ public class DataTag {
             description);
         this.description = description;
     }
-    protected void setFilterIgnore(boolean filterIgnore) {
-        this.filterIgnore = filterIgnore;
+    protected void setFilterIgnore(TriState filterIgnore) {
+        if (filterIgnore == TriState.UNSET) {
+            this.filterIgnore = DataTag.filterIgnoreDefault;
+        } else {
+            this.filterIgnore = filterIgnore.toBoolean();
+        }
     }
-    protected void setHidden(boolean hidden) {
-        this.hidden = hidden;
+    protected void setHidden(TriState hidden) {
+        if (hidden == TriState.UNSET) {
+            this.hidden = DataTag.hiddenDefault;
+        } else {
+            this.hidden = hidden.toBoolean();
+        }
     }
     protected void setAcceptsValue(TriState acceptsValue) {
         HelperMethods.checkObject("acceptsValue", acceptsValue);
