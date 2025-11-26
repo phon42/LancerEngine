@@ -77,7 +77,7 @@ public class Deployable implements Damageable {
         Damage damage;
 
         HelperMethods.checkObject("harm", harm);
-        if (harm.getType().equals("variable")) {
+        if (harm.getType().getValue().equals("variable")) {
             throw new IllegalArgumentException("harm value has a Harm.type"
                 + " value of \"variable\"");
         }
@@ -86,9 +86,9 @@ public class Deployable implements Damageable {
                 + " harm.flatValue value: " + harm.getFlatValue() + " is < 1");
         }
         damage = harm.toDamage();
-        if (harm.getType().equals("heat")) {
+        if (harm.getType().getValue().equals("heat")) {
             receiveHeat(damage);
-        } else if (harm.getType().equals("burn")) {
+        } else if (harm.getType().getValue().equals("burn")) {
             receiveBurn(damage);
         } else {
             receiveDamage(damage);
@@ -131,7 +131,7 @@ public class Deployable implements Damageable {
         int heatAmount;
 
         HelperMethods.checkObject("heat", heat);
-        if (! heat.getType().equals("heat")) {
+        if (! heat.getType().getValue().equals("heat")) {
             throw new IllegalArgumentException("heat has a Damage.type value"
                 + " of: \"" + heat.getType() + "\"");
         }
@@ -151,7 +151,7 @@ public class Deployable implements Damageable {
         int burnAmount;
 
         HelperMethods.checkObject("burn", burn);
-        if (! burn.getType().equals("burn")) {
+        if (! burn.getType().getValue().equals("burn")) {
             throw new IllegalArgumentException("burn has a Damage.type value"
                 + " of: \"" + burn.getType() + "\"");
         }
