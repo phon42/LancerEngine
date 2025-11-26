@@ -40,8 +40,8 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.p
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skill.SkillData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.talent.TalentData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.unverifiedCoreBonus.CoreBonus;
-import Packages.CoreTypes.EntityMechanics.HarmSystem.damage.DamageType;
-import Packages.CoreTypes.EntityMechanics.HarmSystem.damage.harm.HarmType;
+import Packages.CoreTypes.EntityMechanics.HarmSystem.damage.HarmType;
+import Packages.CoreTypes.EntityMechanics.HarmSystem.damage.harmType.DamageType;
 import Packages.CoreTypes.EntityMechanics.LicenseSystem.FrameLicense;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.unverifiedStateData.StateData;
 
@@ -960,7 +960,7 @@ public final class Database {
         HelperMethods.checkObject("damageType", damageType);
         Database.damageTypes = HelperMethods.append(Database.damageTypes,
             damageType);
-        addHarmType(new HarmType(damageType.getValue()));
+        addHarmType(damageType);
     }
     /**
      * Adds the provided DataTag to Database.dataTags.

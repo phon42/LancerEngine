@@ -2,10 +2,10 @@ package Packages.CoreTypes.EntityMechanics.HarmSystem.damage;
 
 import MainBranch.HelperMethods;
 
-public class DamageType {
+public class HarmType {
     protected String value;
 
-    public DamageType(String value) {
+    public HarmType(String value) {
         setValue(value);
     }
 

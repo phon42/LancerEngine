@@ -3,7 +3,7 @@ package Packages.CoreTypes.EntityMechanics.HarmSystem;
 import MainBranch.HelperMethods;
 import MainBranch.Roll;
 import MainBranch.roll.DiceExpression;
-import Packages.CoreTypes.EntityMechanics.HarmSystem.damage.DamageType;
+import Packages.CoreTypes.EntityMechanics.HarmSystem.damage.harmType.DamageType;
 
 /**
  * See pgs. 67 and 104.

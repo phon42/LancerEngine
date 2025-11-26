@@ -3,7 +3,7 @@ package Packages.CoreTypes.EntityMechanics.HarmSystem.damage;
 import MainBranch.HelperMethods;
 import MainBranch.roll.DiceExpression;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.Damage;
-import Packages.CoreTypes.EntityMechanics.HarmSystem.damage.harm.HarmType;
+import Packages.CoreTypes.EntityMechanics.HarmSystem.damage.harmType.DamageType;
 
 /**
  * See pgs. 67 and 104.
@@ -111,7 +111,7 @@ public class Harm extends Damage {
      * @return an int containing the result.
      */
     public int roll() {
-        if (this.type.equals("variable")) {
+        if (this.type.getValue().equals("variable")) {
             throw new IllegalArgumentException("Cannot deal Variable damage."
                 + " Call Harm.toDamage() on this instead or create a Damage"
                 + "object with this Harm object's properties");
@@ -131,7 +131,7 @@ public class Harm extends Damage {
      *     invalid for a Damage object.
      */
     public Damage toDamage() {
-        if (this.type.equals("heat")) {
+        if (this.type.getValue().equals("heat")) {
             throw new IllegalStateException("Cannot convert Burn harm to a"
                 + " Damage object");
         }

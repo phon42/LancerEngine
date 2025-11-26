@@ -53,7 +53,8 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTrig
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skill.SkillData;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.Damage;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.damage.Harm;
-import Packages.CoreTypes.EntityMechanics.HarmSystem.damage.harm.HarmType;
+import Packages.CoreTypes.EntityMechanics.HarmSystem.damage.HarmType;
+import Packages.CoreTypes.EntityMechanics.HarmSystem.damage.harmType.DamageType;
 import Packages.CoreTypes.EntityMechanics.LicenseSystem.FrameLicense;
 import Packages.CoreTypes.EntityMechanics.StateSystem.State;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.Condition;
@@ -555,6 +556,31 @@ public final class HelperMethods {
         return newArray;
     }
     /**
+     * Appends the given DamageType element to the end of an existing
+     *     DamageType[].
+     * @param array a DamageType[] that cannot be null.
+     * @param newElement a DamageType that cannot be null to append to the end
+     *     of array.
+     * @return a DamageType[] consisting of array with newElement appended to
+     *     the end of it.
+     * @throws IllegalArgumentException if array or newElement is null.
+     */
+    public static DamageType[] append(DamageType[] array, DamageType newElement) {
+        HelperMethods.checkObject("array", array);
+        HelperMethods.checkObject("newElement", newElement);
+        DamageType[] newArray = new DamageType[array.length + 1];
+
+        for (int i = 0; i < newArray.length; i++) {
+            if (i < array.length) {
+                newArray[i] = array[i];
+                continue;
+            }
+            newArray[i] = newElement;
+        }
+        
+        return newArray;
+    }
+    /**
      * Appends the given DataTag element to the end of an existing DataTag[].
      * @param array a DataTag[] that cannot be null.
      * @param newElement a DataTag that cannot be null to append to the end of
@@ -656,10 +682,10 @@ public final class HelperMethods {
     }
     /**
      * Appends the given HarmType element to the end of an existing HarmType[].
-     * @param array an HarmType[] that cannot be null.
-     * @param newElement an HarmType that cannot be null to append to the end of
+     * @param array a HarmType[] that cannot be null.
+     * @param newElement a HarmType that cannot be null to append to the end of
      *     array.
-     * @return an HarmType[] consisting of array with newElement appended to the
+     * @return a HarmType[] consisting of array with newElement appended to the
      *     end of it.
      * @throws IllegalArgumentException if array or newElement is null.
      */
