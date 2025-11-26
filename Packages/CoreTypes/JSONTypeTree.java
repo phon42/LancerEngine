@@ -303,8 +303,21 @@ public class JSONTypeTree {
     }
     /**
      * Creates a copy of original using type as a guide on how to copy it.
+     * original is an Object that is composed of base Java types (i.e. Objects
+     *     and Object[]s instead of JSONObjects and JSONArrays).
      */
     public static Object copy(Object original, JSONTypeTree type) {
+        // TODO: fill out
+        return original;
+    }
+    /**
+     * Creates a copy of original using type as a guide on how to copy it.
+     * original is an Object that is composed of non-base Java types (i.e.
+     *     JSONObjects and JSONArrays instead of Objects and Object[]s).
+     * Converts original to a copy that uses only base Java types (i.e. Objects
+     *     and Object[]s instead of JSONObjects and JSONArrays).
+     */
+    public static Object convert(Object original, JSONTypeTree type) {
         // TODO: fill out
         return original;
     }
