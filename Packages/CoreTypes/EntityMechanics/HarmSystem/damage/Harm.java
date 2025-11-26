@@ -3,31 +3,24 @@ package Packages.CoreTypes.EntityMechanics.HarmSystem.damage;
 import MainBranch.HelperMethods;
 import MainBranch.roll.DiceExpression;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.Damage;
+import Packages.CoreTypes.EntityMechanics.HarmSystem.damage.harm.HarmType;
 
 /**
  * See pgs. 67 and 104.
  */
 public class Harm extends Damage {
+    /**
+     * The Harm's type (i.e. a HarmType representing kinetic).
+     * Can be any HarmType. Cannot be null.
+     */
+    private HarmType type;
     // TODO: figure out a way to override the documentation from Damage
     /**
-     * The Harm's type (i.e. "kinetic").
-     * Must be an allowed type as defined by Harm.allowedTypes. Cannot be null.
-     */
-    // private String type;
-    /**
-     * Contains an array of allowed harm types.
-     * Case-insensitive and stored in lowercase.
-     * See pgs. 67 and 104.
-     */
-    public static final String[] allowedTypes = new String[] {"kinetic",
-        "explosive", "energy", "variable", "burn", "heat"};
-    // TODO: figure out a way to override the documentation from Damage
-    /**
-     * The amount of dice harm dealt (i.e. "1d6", representing the "1d6" in
-     *     "1d6+2").
+     * The amount of dice harm dealt (i.e. a DiceExpression representing "1d6",
+     *     which in turn represents the "1d6" in "1d6+2").
      * Can be any DiceExpression. Can be null.
      */
-    // private String diceValue;
+    // private DiceExpression diceValue;
     // TODO: figure out a way to override the documentation from Damage
     /**
      * The amount of flat harm dealt (i.e. 2, representing the "2" in
@@ -37,31 +30,17 @@ public class Harm extends Damage {
      */
     // private int flatValue;
 
-    public Harm(String harmType, DiceExpression harmDice, int harmFlatAmount) {
-        super("kinetic", null, 1);
+    public Harm(HarmType harmType, DiceExpression harmDice, int harmFlatAmount)
+    {
+        super();
         setType(harmType);
         setDiceValue(harmDice);
         setFlatValue(harmFlatAmount);
         checkValidity();
     }
-    public Harm(Harm harm) {
-        super(new Damage("kinetic", null,
-            1));
-        setType(harm.type);
-        setDiceValue(harm.diceValue);
-        setFlatValue(harm.flatValue);
-        checkValidity();
-    }
 
-    @Override
-    protected void setType(String type) {
-        HelperMethods.checkString("type", type);
-        type = type.toLowerCase();
-        // TODO: create methods like this for all the checkable final arrays
-        if (! Harm.isValidType(type)) {
-            throw new IllegalArgumentException("type value: \"" + type + "\" is"
-                + " an invalid type");
-        }
+    private void setType(HarmType type) {
+        HelperMethods.checkObject("type", type);
         this.type = type;
     }
     /**
@@ -90,20 +69,6 @@ public class Harm extends Damage {
         this.flatValue = flatValue;
     }
 
-    /**
-     * Checks whether a provided String is a valid Harm.type value.
-     * @param type a String that cannot be null.
-     * @return a boolean containing the result of the check.
-     */
-    public static boolean isValidType(String type) {
-        HelperMethods.checkObject("type", type);
-        for (int i = 0; i < Harm.allowedTypes.length; i++) {
-            if (type.equals(Harm.allowedTypes[i])) {
-                return true;
-            }
-        }
-        return false;
-    }
     /**
      * Checks whether this.diceValue and this.flatValue are set to a valid
      *     combination of values. Throws an IllegalArgumentException if not.
