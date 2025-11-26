@@ -52,17 +52,21 @@ public class State {
      */
     protected State causedBy;
 
-    public State(StateData data, Duration duration, String source,
-        State causedBy) {
+    public State(StateData data, Duration duration, State causedBy) {
+        // Required properties
+        setData(data);
+        setDuration(duration);
+
+        // Optional property
+        setCausedBy(causedBy);
+    }
+    public State(StateData data, Duration duration, String source) {
         // Required properties
         setData(data);
         setDuration(duration);
 
         // Conditionally required property
         setSource(source);
-
-        // Optional property
-        setCausedBy(causedBy);
     }
     public State(State state) {
         // Required properties
@@ -142,7 +146,40 @@ public class State {
      * @return a boolean representing whether the two States are the same.
      */
     public boolean equals(State state) {
-        // TODO: fill out
+        if (state == null) {
+            return false;
+        }
+        if (! this.data.equals(state.data)) {
+            return false;
+        }
+        if (! this.duration.equals(state.duration)) {
+            return false;
+        }
+        if (this.source == null) {
+            if (state.source != null) {
+                return false;
+            }
+        } else {
+            if (state.source == null) {
+                return false;
+            }
+            if (! this.source.equals(state.source)) {
+                return false;
+            }
+        }
+        if (this.causedBy == null) {
+            if (state.causedBy != null) {
+                return false;
+            }
+        } else {
+            if (state.causedBy == null) {
+                return false;
+            }
+            if (! this.causedBy.equals(state.causedBy)) {
+                return false;
+            }
+        }
+
         return true;
     }
     public Condition toCondition() {
@@ -152,11 +189,19 @@ public class State {
                 + " Condition");
         }
 
-        return new Condition(data, duration, source, causedBy);
+        if (this.source == null) {
+            return new Condition(data, duration, causedBy);
+        } else {
+            return new Condition(data, duration, source);
+        }
     }
     public Status toStatus() {
         if (data.isStatus()) {
-            return new Status(data, duration, source, causedBy);
+            if (this.source == null) {
+                return new Status(data, duration, causedBy);
+            } else {
+                return new Status(data, duration, source);
+            }
         }
         throw new IllegalStateException("Unable to convert this State (which"
             + " has a State.isStatus value of false) to a Status");

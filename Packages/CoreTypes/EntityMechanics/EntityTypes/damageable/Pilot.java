@@ -1301,11 +1301,15 @@ public final class Pilot implements Damageable {
      */
     public void down() {
         // See pg. 49
-        Status downed = new Status("down and out", "Pilot (self)",
-            "until removed");
-        Condition stun = new Condition("stunned",
-            "down and out status", "source");
-        
+        Status downed = new Status(
+            Database.getStatus("down and out"),
+            new Duration("until removed"), "Pilot (self)"
+        );
+        Condition stun = new Condition(
+            Database.getStatus("stunned"),
+            new Duration("source"), "down and out status"
+        );
+
         downed.addEffect(stun);
         addStatus(downed);
         System.out.println("This Pilot has been downed");
