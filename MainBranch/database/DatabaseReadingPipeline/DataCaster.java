@@ -325,7 +325,7 @@ public class DataCaster {
         }
         if (! (DataCaster.dataTagsRaw == null
             || DataCaster.dataTagsRaw.length < 1)) {
-            processLCPTags(DataCaster.dataTagsRaw);
+            processDataTags(DataCaster.dataTagsRaw);
         }
         if (! (DataCaster.talentsRaw == null
             || DataCaster.talentsRaw.length < 1)) {
@@ -1158,6 +1158,19 @@ public class DataCaster {
         // TODO: fill out
         return null;
     }
+    private static IActionData toIActionData(JSONObject iActionDataData) {
+        // TODO: fill out
+        return null;
+    }
+    private static IDeployableData toIDeployableData(
+        JSONObject iDeployableDataData) {
+        // TODO: fill out
+        return null;
+    }
+    private static ISynergyData toISynergyData(JSONObject iSynergyDataData) {
+        // TODO: fill out
+        return null;
+    }
     private static void processManufacturers(JSONObject[] manufacturersData) {
         Manufacturer[] manufacturers =
             new Manufacturer[manufacturersData.length];
@@ -1693,10 +1706,6 @@ public class DataCaster {
 
         return new Table(propertyName, data);
     }
-    private static void processLCPTags(JSONObject[] lcpTagsData) {
-        processDataTags(lcpTagsData);
-        processTags(DataCaster.dataTagsProcessed);
-    }
     private static void processDataTags(JSONObject[] dataTagsData) {
         DataTag[] dataTags = new DataTag[dataTagsData.length];
 
@@ -1705,13 +1714,14 @@ public class DataCaster {
             dataTags[i] = toDataTag(dataTagsData[i]);
         }
         DataCaster.dataTagsProcessed = dataTags;
+        processTags(DataCaster.dataTagsProcessed);
     }
     private static DataTag toDataTag(JSONObject dataTagData) {
         String id;
         String name;
         String description;
-        boolean hidden = false;
-        boolean filterIgnore = false;
+        TriState hidden;
+        TriState filterIgnore;
 
         try {
             id = dataTagData.getString("id");
@@ -1723,11 +1733,16 @@ public class DataCaster {
                 + " parsing, which is not allowed");
         }
         try {
-            hidden = dataTagData.getBoolean("hidden");
-        } catch (JSONException exception) {}
+            hidden = TriState.toTriState(dataTagData.getBoolean("hidden"));
+        } catch (JSONException exception) {
+            hidden = TriState.UNSET;
+        }
         try {
-            filterIgnore = dataTagData.getBoolean("filter_ignore");
-        } catch (JSONException exception) {}
+            filterIgnore = TriState.toTriState(
+                dataTagData.getBoolean("filter_ignore"));
+        } catch (JSONException exception) {
+            filterIgnore = TriState.UNSET;
+        }
 
         return new DataTag(id, name, description, filterIgnore, hidden);
     }
