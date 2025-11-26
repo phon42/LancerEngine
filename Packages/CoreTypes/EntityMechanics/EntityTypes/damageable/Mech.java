@@ -409,7 +409,7 @@ public final class Mech implements Damageable {
         return operatorNotes;
     }
     public Size getSize() {
-        return new Size(size);
+        return size;
     }
     public int getCurrentStructure() {
         return currentStructure;
@@ -567,7 +567,6 @@ public final class Mech implements Damageable {
      */
     private void setSize(Size size) {
         HelperMethods.checkObject("New size", size);
-        size = new Size(size);
         this.size = size;
     }
     /**

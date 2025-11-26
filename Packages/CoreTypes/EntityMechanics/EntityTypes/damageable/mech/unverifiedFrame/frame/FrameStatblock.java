@@ -155,7 +155,7 @@ public class FrameStatblock {
     }
 
     public Size getSize() {
-        return new Size(size);
+        return size;
     }
     public int getStructure() {
         return structure;
@@ -203,7 +203,6 @@ public class FrameStatblock {
      */
     private void setSize(Size size) {
         HelperMethods.checkObject("New size", size);
-        size = new Size(size);
         this.size = size;
     }
     private void setStructure(int structure) {

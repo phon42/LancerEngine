@@ -55,7 +55,7 @@ public class Deployable implements Damageable {
     }
 
     public Size getSize() {
-        return new Size(size);
+        return size;
     }
     public int getCurrentHP() {
         return currentHP;
@@ -72,11 +72,10 @@ public class Deployable implements Damageable {
     /**
      * Sets this.size to the provided value.
      * @param size a Size which cannot be null.
-     * @throws IllegalArgumentException if size is not 1, 2, 4, 6, or 8.
+     * @throws IllegalArgumentException if size is null.
      */
     private void setSize(Size size) {
         HelperMethods.checkObject("New size", size);
-        size = new Size(size);
         this.size = size;
     }
     /**

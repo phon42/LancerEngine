@@ -12,9 +12,6 @@ public class Size {
     public Size(int value) {
         setValue(value);
     }
-    public Size(Size size) {
-        setValue(size.value);
-    }
 
     public int getValue() {
         return value;

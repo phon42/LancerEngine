@@ -51,7 +51,7 @@ public class Drone implements Damageable {
     }
 
     public Size getSize() {
-        return new Size(size);
+        return size;
     }
     public int getCurrentHP() {
         return currentHP;
@@ -72,7 +72,6 @@ public class Drone implements Damageable {
      */
     private void setSize(Size size) {
         HelperMethods.checkObject("New size", size);
-        size = new Size(size);
         this.size = size;
     }
     /**

@@ -57,7 +57,7 @@ public class TerrainUnit implements Damageable {
     }
 
     public Size getSize() {
-        return new Size(size);
+        return size;
     }
     public int getCurrentHP() {
         return currentHP;
