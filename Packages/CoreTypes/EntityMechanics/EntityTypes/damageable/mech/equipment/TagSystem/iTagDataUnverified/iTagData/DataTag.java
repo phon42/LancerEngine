@@ -210,7 +210,8 @@ public class DataTag {
                 + " with a DataTag.hidden value of true to a Tag");
         }
 
-        return new Tag(this.id, this.name, this.id, this.filterIgnore);
+        return new Tag(this.id, this.name, this.description.toString(),
+            TriState.toTriState(this.filterIgnore));
     }
     public static Tag[] toTags(DataTag[] dataTags) {
         int numValidTags = 0;
