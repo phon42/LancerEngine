@@ -44,14 +44,14 @@ public class TerrainUnit implements Damageable {
     private int evasion;
 
     public TerrainUnit() {
-        this(2, 0);
+        this(new Size(2), 0);
     }
-    public TerrainUnit(int size, int armor) {
+    public TerrainUnit(Size size, int armor) {
         // default values from pg. 68
         // max always before current
         setSize(size);
-        setMaxHP(10 / 2 * size);
-        setCurrentHP(10 / 2 * size);
+        setMaxHP(10 / 2 * size.getValue());
+        setCurrentHP(10 / 2 * size.getValue());
         setArmor(armor);
         setEvasion(5);
     }
@@ -73,15 +73,12 @@ public class TerrainUnit implements Damageable {
     }
     /**
      * Sets this.size to the provided value.
-     * @param size an int which must be 1, 2, 4, 6, or 8.
-     * @throws IllegalArgumentException if size is not 1, 2, 4, 6, or 8.
+     * @param size a Size which can be any Size. Cannot be null.
+     * @throws IllegalArgumentException if size is null.
      */
-    private void setSize(int size) {
-        if (size != 1 && size != 2 && size != 4 && size != 6 && size != 8) {
-            throw new IllegalArgumentException("New size: " + size + " is not"
-                + " one of the following valid values: 1, 2, 4, 6, or 8");
-        }
-        this.size = new Size(size);
+    private void setSize(Size size) {
+        HelperMethods.checkObject("size", size);
+        this.size = size;
     }
     /**
      * Sets this.currentHP to the provided value.
