@@ -23,6 +23,7 @@ import Packages.CoreTypes.EntityMechanics.Manufacturer;
 import Packages.CoreTypes.EntityMechanics.NPCFeature;
 import Packages.CoreTypes.EntityMechanics.NPCTemplate;
 import Packages.CoreTypes.EntityMechanics.RangeTag;
+import Packages.CoreTypes.EntityMechanics.RangeType;
 import Packages.CoreTypes.EntityMechanics.ISynergyData;
 import Packages.CoreTypes.EntityMechanics.SynergyLocation;
 import Packages.CoreTypes.EntityMechanics.WeaponSize;
@@ -976,6 +977,31 @@ public final class HelperMethods {
         HelperMethods.checkObject("array", array);
         HelperMethods.checkObject("newElement", newElement);
         PilotWeapon[] newArray = new PilotWeapon[array.length + 1];
+
+        for (int i = 0; i < newArray.length; i++) {
+            if (i < array.length) {
+                newArray[i] = array[i];
+                continue;
+            }
+            newArray[i] = newElement;
+        }
+        
+        return newArray;
+    }
+    /**
+     * Appends the given RangeType element to the end of an existing
+     *     RangeType[].
+     * @param array a RangeType[] that cannot be null.
+     * @param newElement a RangeType that cannot be null to append to the end of
+     *     array.
+     * @return a RangeType[] consisting of array with newElement appended to the
+     *     end of it.
+     * @throws IllegalArgumentException if array or newElement is null.
+     */
+    public static RangeType[] append(RangeType[] array, RangeType newElement) {
+        HelperMethods.checkObject("array", array);
+        HelperMethods.checkObject("newElement", newElement);
+        RangeType[] newArray = new RangeType[array.length + 1];
 
         for (int i = 0; i < newArray.length; i++) {
             if (i < array.length) {
