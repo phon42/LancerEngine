@@ -2257,6 +2257,25 @@ public final class HelperMethods {
     }
     /**
      * Returns a deepest copy of original.
+     * @param original an UnverifiedDataTag[] that cannot be null.
+     * @return an UnverifiedDataTag[] deepest copy of original.
+     * @throws IllegalArgumentException if original is null.
+     */
+    public static UnverifiedDataTag[] copyOf(UnverifiedDataTag[] original) {
+        checkObject("original", original);
+        UnverifiedDataTag[] copy = new UnverifiedDataTag[original.length];
+        for (int i = 0; i < original.length; i++) {
+            if (original[i] == null) {
+                copy[i] = original[i];
+                continue;
+            }
+            copy[i] = original[i];
+        }
+
+        return copy;
+    }
+    /**
+     * Returns a deepest copy of original.
      * @param original a URL[] that cannot be null.
      * @return a URL[] deepest copy of original.
      * @throws IllegalArgumentException if original is null.

@@ -7,8 +7,6 @@ import Packages.CoreTypes.EntityMechanics.ISynergyData;
 import Packages.CoreTypes.EntityMechanics.Actions.actionBase.IActionData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.IDeployableData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.UnverifiedDataTag;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.unverifiedDataTag.DataTag;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.unverifiedDataTag.Tag;
 
 public class UnverifiedPilotEquipment {
     // TODO: fill out
