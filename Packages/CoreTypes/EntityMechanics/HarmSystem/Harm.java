@@ -103,6 +103,7 @@ public class Harm {
     // Optional properties
     protected void setValue(MixedExpression value) {
         this.value = value;
+        unpackValue();
     }
     /**
      * Warning: this mutator DOES NOT protect any number of invalid cases. It is
@@ -143,6 +144,15 @@ public class Harm {
     protected void setFlatValue(int flatValue) {
         setFlatValue(new ConstantExpression(flatValue));
     }
+    protected void unpackValue() {
+        if (this.value == null) {
+            this.diceValue = null;
+            setFlatValue(new ConstantExpression(-1));
+        } else {
+            setDiceValue(this.value.getRandomComponent());
+            setFlatValue(this.value.getConstantComponent());
+        }
+    }
     /**
      * Checks whether this.diceValue and this.flatValue are set to a valid
      *     combination of values. Throws an IllegalArgumentException if not.
@@ -162,9 +172,7 @@ public class Harm {
      * @return a boolean containing the result of the check.
      */
     protected boolean isValid() {
-        boolean isNull = this.diceValue == null;
-
-        if (isNull) {
+        if (this.diceValue == null) {
             // this.flatValue is allowed to be -1 or any int > 0 in this case
             if (this.flatValue.getValue() == 0) {
                 // it is neither of those values
