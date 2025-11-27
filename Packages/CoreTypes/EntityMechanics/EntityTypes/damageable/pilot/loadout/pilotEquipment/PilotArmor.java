@@ -36,11 +36,6 @@ public class PilotArmor extends PilotEquipment {
         setBonuses(bonuses);
         setActions(actions);
     }
-    public PilotArmor(PilotArmor pilotArmor) {
-        this(pilotArmor.id, pilotArmor.name, pilotArmor.dataTags,
-            pilotArmor.description, pilotArmor.effect, pilotArmor.bonuses,
-            pilotArmor.actions);
-    }
 
     public Bonus[] getBonuses() {
         if (bonuses != null) {
@@ -57,23 +52,15 @@ public class PilotArmor extends PilotEquipment {
         return actions;
     }
     private void setBonuses(Bonus[] bonuses) {
+        HelperMethods.checkObjectArrayAlt("bonuses", bonuses);
         if (bonuses != null) {
-            if (bonuses.length == 0) {
-                throw new IllegalStateException("bonuses array is of length"
-                    + " 0");
-            }
-            HelperMethods.checkObjectArray("bonuses", bonuses);
             bonuses = HelperMethods.copyOf(bonuses);
         }
         this.bonuses = bonuses;
     }
     private void setActions(IActionData[] actions) {
+        HelperMethods.checkObjectArrayAlt("actions", actions);
         if (actions != null) {
-            if (actions.length == 0) {
-                throw new IllegalStateException("actions array is of length"
-                    + " 0");
-            }
-            HelperMethods.checkObjectArray("actions", actions);
             actions = HelperMethods.copyOf(actions);
         }
         this.actions = actions;

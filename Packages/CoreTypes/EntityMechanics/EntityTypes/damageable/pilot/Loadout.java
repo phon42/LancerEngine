@@ -83,9 +83,6 @@ public final class Loadout {
         return HelperMethods.copyOf(pilotGear);
     }
     public void setPilotArmor(PilotArmor pilotArmor) {
-        if (pilotArmor != null) {
-            pilotArmor = new PilotArmor(pilotArmor);
-        }
         this.pilotArmor = pilotArmor;
     }
     /**

@@ -634,7 +634,7 @@ public final class Database {
         pilotArmorID = pilotArmorID.toLowerCase();
         for (PilotArmor pilotArmor : Database.pilotArmor) {
             if (pilotArmorID.equals(pilotArmor.getID())) {
-                return new PilotArmor(pilotArmor);
+                return pilotArmor;
             }
         }
         throw new NoSuchElementException("No pilot armor found for pilot"
@@ -1077,7 +1077,6 @@ public final class Database {
     public static void addPilotArmor(PilotArmor pilotArmor) {
         checkOpen();
         HelperMethods.checkObject("pilotArmor", pilotArmor);
-        pilotArmor = new PilotArmor(pilotArmor);
         Database.pilotArmor = HelperMethods.append(Database.pilotArmor,
             pilotArmor);
     }
