@@ -131,12 +131,12 @@ public final class Weapon extends Equipment {
      *     defined by Database.manufacturerList. Cannot be null.
      * @param weaponLicense a License which can be any License. Cannot be null.
      * @param size a WeaponSize which can be any WeaponSize. Cannot be null.
-     * @param type an int which must be between 0 and 9 (inclusive).
+     * @param type a WeaponType which can be any WeaponType. Cannot be null.
      * @param harmDealt a Harm[] which cannot be null or contain null elements.
      * @param range a RangeTag[] which cannot be null or contain null elements.
      */
     public Weapon(String name, String manufacturer, License weaponLicense,
-        WeaponSize size, int type, Harm[] harmDealt, RangeTag[] range) {
+        WeaponSize size, WeaponType type, Harm[] harmDealt, RangeTag[] range) {
         this(name, manufacturer, weaponLicense, size, type, harmDealt);
         setRange(range);
     }
@@ -149,7 +149,7 @@ public final class Weapon extends Equipment {
      *     defined by Database.manufacturerList. Cannot be null.
      * @param weaponLicense a License which can be any License. Cannot be null.
      * @param size a WeaponSize which can be any WeaponSize. Cannot be null.
-     * @param type an int which must be between 0 and 9 (inclusive).
+     * @param type a WeaponType which can be any WeaponType. Cannot be null.
      * @param harmDealt a Harm[] which cannot be null or contain null elements.
      * @param range a RangeTag[] which cannot be null or contain null elements.
      * @param dataTags a DataTag[] which cannot be null, contain null elements,
@@ -157,7 +157,7 @@ public final class Weapon extends Equipment {
      *     Weapon.allowedNames.
      */
     public Weapon(String name, String manufacturer, License weaponLicense,
-        WeaponSize size, int type, Harm[] harmDealt, RangeTag[] range,
+        WeaponSize size, WeaponType type, Harm[] harmDealt, RangeTag[] range,
         DataTag[] dataTags) {
         this(name, manufacturer, weaponLicense, size, type, harmDealt, range);
         setDataTags(dataTags);
