@@ -17,6 +17,9 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Bond;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.reserve.ReserveData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.UnverifiedCoreBonus;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Background.backgroundBase.UnverifiedBackground;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Unverified.unverifiedPilotEquipment.UnverifiedPilotArmor;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Unverified.unverifiedPilotEquipment.UnverifiedPilotGear;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Unverified.unverifiedPilotEquipment.UnverifiedPilotWeapon;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Verified.pilotEquipment.PilotArmor;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Verified.pilotEquipment.PilotGear;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Verified.pilotEquipment.PilotWeapon;
@@ -103,9 +106,9 @@ public class DataCompiler {
     private static Manufacturer[] manufacturerData;
     private static NPCFeature[] npcFeatureData;
     private static NPCTemplate[] npcTemplateData;
-    private static PilotArmor[] pilotArmorData;
-    private static PilotGear[] pilotGearData;
-    private static PilotWeapon[] pilotWeapon;
+    private static UnverifiedPilotArmor[] pilotArmorData;
+    private static UnverifiedPilotGear[] pilotGearData;
+    private static UnverifiedPilotWeapon[] pilotWeapon;
     private static ReserveData[] reserveData;
     private static SkillData[] skillData;
     private static StateData[] statusData;
@@ -186,14 +189,13 @@ public class DataCompiler {
         DataCompiler.activationTypeData = (ActivationType[]) data[6];
         DataCompiler.conditionData = (StateData[]) data[7];
         DataCompiler.coreBonusData = (UnverifiedCoreBonus[]) data[8];
-        DataCompiler.dataTagData = (DataTagUnverified[]) data[9];
         DataCompiler.iTagDataData = (ITagData[]) data[10];
         DataCompiler.manufacturerData = (Manufacturer[]) data[11];
         DataCompiler.npcFeatureData = (NPCFeature[]) data[12];
         DataCompiler.npcTemplateData = (NPCTemplate[]) data[13];
-        DataCompiler.pilotArmorData = (PilotArmor[]) data[14];
-        DataCompiler.pilotGearData = (PilotGear[]) data[15];
-        DataCompiler.pilotWeapon = (PilotWeapon[]) data[16];
+        DataCompiler.pilotArmorData = (UnverifiedPilotArmor[]) data[14];
+        DataCompiler.pilotGearData = (UnverifiedPilotGear[]) data[15];
+        DataCompiler.pilotWeapon = (UnverifiedPilotWeapon[]) data[16];
         DataCompiler.reserveData = (ReserveData[]) data[17];
         DataCompiler.skillData = (SkillData[]) data[18];
         DataCompiler.statusData = (StateData[]) data[19];
@@ -383,13 +385,13 @@ public class DataCompiler {
             Database.addNPCTemplate(DataCompiler.npcTemplateData[i]);
         }
         for (int i = 0; i < DataCompiler.pilotArmorData.length; i++) {
-            Database.addPilotArmor(DataCompiler.pilotArmorData[i]);
+            Database.addUnverifiedPilotArmor(DataCompiler.pilotArmorData[i]);
         }
         for (int i = 0; i < DataCompiler.pilotGearData.length; i++) {
-            Database.addPilotGear(DataCompiler.pilotGearData[i]);
+            Database.addUnverifiedPilotGear(DataCompiler.pilotGearData[i]);
         }
         for (int i = 0; i < DataCompiler.pilotWeapon.length; i++) {
-            Database.addPilotWeapon(DataCompiler.pilotWeapon[i]);
+            Database.addUnverifiedPilotWeapon(DataCompiler.pilotWeapon[i]);
         }
         for (int i = 0; i < DataCompiler.reserveData.length; i++) {
             Database.addReserve(DataCompiler.reserveData[i]);
@@ -449,9 +451,9 @@ public class DataCompiler {
         DataCompiler.manufacturerData = new Manufacturer[0];
         DataCompiler.npcFeatureData = new NPCFeature[0];
         DataCompiler.npcTemplateData = new NPCTemplate[0];
-        DataCompiler.pilotArmorData = new PilotArmor[0];
-        DataCompiler.pilotGearData = new PilotGear[0];
-        DataCompiler.pilotWeapon = new PilotWeapon[0];
+        DataCompiler.pilotArmorData = new UnverifiedPilotArmor[0];
+        DataCompiler.pilotGearData = new UnverifiedPilotGear[0];
+        DataCompiler.pilotWeapon = new UnverifiedPilotWeapon[0];
         DataCompiler.reserveData = new ReserveData[0];
         DataCompiler.skillData = new SkillData[0];
         DataCompiler.statusData = new StateData[0];

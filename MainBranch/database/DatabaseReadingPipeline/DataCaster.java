@@ -131,7 +131,6 @@ public class DataCaster {
     private static UnverifiedCoreBonus[] coreBonusesProcessed;
     private static StateData[] conditionsProcessed;
     private static DamageType[] damageTypes;
-    private static DataTagUnverified[] dataTagsUnverifiedProcessed;
     private static ITagData[] iTagDataProcessed;
     private static Manufacturer[] manufacturersProcessed;
     private static NPCFeature[] npcFeaturesProcessed;
@@ -2263,7 +2262,6 @@ public class DataCaster {
             DataCaster.activationTypesProcessed,
             DataCaster.conditionsProcessed,
             DataCaster.coreBonusesProcessed,
-            DataCaster.dataTagsUnverifiedProcessed,
             DataCaster.iTagDataProcessed,
             DataCaster.manufacturersProcessed,
             DataCaster.npcFeaturesProcessed,
@@ -2348,7 +2346,6 @@ public class DataCaster {
         DataCaster.conditionsProcessed = new StateData[0];
         DataCaster.coreBonusesProcessed = new UnverifiedCoreBonus[0];
         DataCaster.damageTypes = new DamageType[0];
-        DataCaster.dataTagsUnverifiedProcessed = new DataTagUnverified[0];
         DataCaster.manufacturersProcessed = new Manufacturer[0];
         DataCaster.npcFeaturesProcessed = new NPCFeature[0];
         DataCaster.npcTemplatesProcessed = new NPCTemplate[0];
