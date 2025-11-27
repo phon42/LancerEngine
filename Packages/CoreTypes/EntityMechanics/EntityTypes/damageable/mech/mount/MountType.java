@@ -38,16 +38,13 @@ public class MountType {
     /**
      * The mount type's name (i.e. "aux").
      * Can be any String except "". Cannot be null.
-     * Case-insensitive and stored in lowercase. Cannot be null.
-     * 
-     * Use mountType.getName() to get the raw value and mountType.outputName()
-     *     to obtain it properly formatted.
+     * Case-sensitive.
      * 
      * Currently used values:
-     *     "aux", "aux/aux", "main", "flex", "main/aux", "heavy",
-     *     "integrated mount", "integrated weapon",
-     *     "integrated weapon core bonus",
-     *     "improved armament core bonus"
+     *     "Aux", "Aux/Aux", "Main", "Flex", "Main/Aux", "Heavy",
+     *     "Integrated Mount", "Integrated Weapon",
+     *     "Integrated Weapon Core Bonus",
+     *     "Improved Armament Core Bonus"
      */
     private String name;
 
@@ -144,7 +141,6 @@ public class MountType {
     }
     private void setName(String name) {
         HelperMethods.checkString("name", name);
-        name = name.toLowerCase();
         this.name = name;
     }
     // Optional properties
@@ -165,9 +161,6 @@ public class MountType {
         this.restrictedSizes = restrictedSizes;
     }
 
-    public String outputName() {
-        return HelperMethods.capitalizeFirst(name);
-    }
     public boolean isBaseType() {
         for (int i = 0; i < MountType.baseMountTypes.length; i++) {
             if (this.name.equals(MountType.baseMountTypes[i])) {
