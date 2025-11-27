@@ -109,6 +109,17 @@ public class DataTag {
         this.valueString = valueString;
     }
 
+    public Object getValue() {
+        if (this.valueString == null) {
+            return this.valueInt;
+        } else if (this.valueInt == -1) {
+            return this.valueString;
+        } else {
+            // you can throw a RuntimeException here if you want
+            // I'm not gonna
+            return null;
+        }
+    }
     private void verify() throws IllegalStateException {
         if (data.acceptsValue() == TriState.TRUE) {
             if (valueInt == -1 && valueString == null) {
