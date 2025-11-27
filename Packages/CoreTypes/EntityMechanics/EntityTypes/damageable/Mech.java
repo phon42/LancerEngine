@@ -8,6 +8,7 @@ import Packages.CoreTypes.EntityMechanics.Manufacturer;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.Damageable;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Mount;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.MechSystem;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.mount.MountType;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.unverifiedFrame.Frame;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.unverifiedFrame.frame.FrameEnum;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.unverifiedFrame.frame.FrameStatblock;
@@ -704,15 +705,13 @@ public final class Mech implements Damageable {
                 // in danger zone
                 addStatus(new Status(
                     Database.getStatus("danger zone"),
-                    new Duration("until removed"), "self",
-                    null
+                    new Duration("until removed"), "self"
                 ));
             } else {
                 // not in danger zone
                 removeStatus(new Status(
                     Database.getStatus("danger zone"),
-                    new Duration("until removed"), "self",
-                    null
+                    new Duration("until removed"), "self"
                 ));
             }
         }
@@ -864,6 +863,8 @@ public final class Mech implements Damageable {
      *     is null.
      */
     public void setMount(int mountIndex, Mount mount) {
+        MountType mountType;
+
         if (mountIndex < 0) {
             throw new IllegalArgumentException("mountIndex:" + mountIndex
                 + " is out of bounds for length " + this.mounts.length);
@@ -877,7 +878,7 @@ public final class Mech implements Damageable {
             this.mounts[mountIndex].getMountType())) {
             // the user was lazy and used new Mount(Weapon) instead of
             //     new Mount(mountType, Weapon)
-            String mountType = this.mounts[mountIndex].getMountType();
+            mountType = this.mounts[mountIndex].getMountType();
             mount = new Mount(mountType, mount.getWeapon());
         }
         mount = new Mount(mount);
@@ -1284,16 +1285,20 @@ public final class Mech implements Damageable {
         for (String coreBonus : coreBonuses) {
             if (coreBonus.equals("improved armament")) {
                 mounts = HelperMethods.add(mounts, 
-                    new Mount("improved armament core bonus",
-                        null, "",
+                    new Mount(
+                        Database.getMountType(
+                            "improved armament core bonus"),
+                        null, null,
                         "improved armament", null), 0);
             }
         }
         for (String coreBonus : coreBonuses) {
             if (coreBonus.equals("integrated weapon")) {
                 mounts = HelperMethods.add(mounts, 
-                    new Mount("integrated weapon core bonus",
-                        null, "",
+                    new Mount(
+                        Database.getMountType(
+                            "integrated weapon core bonus"),
+                        null, null,
                         "integrated weapon", null), 0);
             }
         }
@@ -1304,7 +1309,9 @@ public final class Mech implements Damageable {
                     weaponName += "I";
                 }
                 mounts = HelperMethods.add(mounts, 
-                    new Mount("integrated weapon",
+                    new Mount(
+                        Database.getMountType(
+                            "integrated weapon"),
                         Database.getWeapon(weaponName), "",
                         "", talent), 0);
             }
