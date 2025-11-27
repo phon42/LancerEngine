@@ -1,0 +1,108 @@
+package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Unverified.unverifiedPilotEquipment;
+
+import MainBranch.HelperMethods;
+import Packages.CoreTypes.EntityMechanics.Bonus;
+import Packages.CoreTypes.EntityMechanics.ISynergyData;
+import Packages.CoreTypes.EntityMechanics.RangeTag;
+import Packages.CoreTypes.EntityMechanics.Actions.actionBase.IActionData;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.IDeployableData;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.DataTagUnverified;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.dataTagUnverified.DataTag;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Unverified.UnverifiedPilotEquipment;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Verified.pilotEquipment.PilotWeapon;
+import Packages.CoreTypes.EntityMechanics.HarmSystem.Harm;
+
+public class UnverifiedPilotWeapon extends UnverifiedPilotEquipment {
+    // Optional properties
+    private String effect;
+    /**
+     * Can be any RangeTag[] that does not contain null elements. Cannot be
+     *     null.
+     */
+    private RangeTag[] range;
+    /**
+     * Can be any Harm[] that does not contain null elements. Cannot be null.
+     */
+    private Harm[] damage;
+
+    public UnverifiedPilotWeapon(
+        // PilotEquipment properties
+        String id, String name, String description,
+        DataTagUnverified[] dataTags, IActionData[] actions, Bonus[] bonuses,
+        ISynergyData[] synergies, IDeployableData[] deployables,
+        // Optional properties
+        String effect, RangeTag[] range, Harm[] damage
+    ) {
+        super(id, name, "Weapon", description, dataTags, actions, bonuses,
+            synergies, deployables);
+        setEffect(effect);
+        setRange(range);
+        setDamage(damage);
+    }
+    public UnverifiedPilotWeapon(
+        // PilotEquipment properties
+        String id, String name,
+        // Optional properties
+        String effect, RangeTag[] range, Harm[] damage
+    ) {
+        this(id, name, null, null, null,
+            null, null, null, effect, range,
+            damage);
+    }
+    public UnverifiedPilotWeapon(
+        // PilotEquipment properties
+        String id, String name, String description,
+        DataTagUnverified[] dataTags, IActionData[] actions, Bonus[] bonuses,
+        ISynergyData[] synergies, IDeployableData[] deployables
+    ) {
+        super(id, name, "Weapon", description, dataTags, actions, bonuses,
+            synergies, deployables);
+    }
+    public UnverifiedPilotWeapon(String id, String name) {
+        super(id, name, "Weapon");
+    }
+
+    // Optional properties
+    public String getEffect() {
+        return effect;
+    }
+    public RangeTag[] getRange() {
+        return HelperMethods.copyOf(range);
+    }
+    public Harm[] getDamage() {
+        return HelperMethods.copyOf(damage);
+    }
+    // Optional properties
+    private void setEffect(String effect) {
+        if (effect != null) {
+            HelperMethods.checkString("effect", effect);
+        }
+        this.effect = effect;
+    }
+    private void setRange(RangeTag[] range) {
+        HelperMethods.checkObjectArray("range", range);
+        range = HelperMethods.copyOf(range);
+        this.range = range;
+    }
+    private void setDamage(Harm[] damage) {
+        HelperMethods.checkObjectArray("damage", damage);
+        damage = HelperMethods.copyOf(damage);
+        this.damage = damage;
+    }
+
+    public PilotWeapon toPilotWeapon() {
+        DataTag[] dataTags = null;
+
+        if (this.dataTags == null) {
+            return new PilotWeapon(id, id, description, dataTags, actions,
+                bonuses, synergies, deployables);
+        }
+        dataTags = new DataTag[this.dataTags.length];
+        for (int i = 0; i < dataTags.length; i++) {
+            dataTags[i] = this.dataTags[i].toDataTag();
+        }
+
+        return new PilotWeapon(id, id, description, dataTags, actions, bonuses,
+            synergies, deployables);
+    }
+}

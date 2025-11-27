@@ -44,6 +44,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.bond.Bond
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.bond.BondQuestion;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Unverified.unverifiedPilotEquipment.UnverifiedPilotArmor;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Unverified.unverifiedPilotEquipment.UnverifiedPilotGear;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Unverified.unverifiedPilotEquipment.UnverifiedPilotWeapon;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Verified.pilotEquipment.PilotArmor;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Verified.pilotEquipment.PilotGear;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Verified.pilotEquipment.PilotWeapon;
@@ -137,7 +138,7 @@ public class DataCaster {
     private static NPCTemplate[] npcTemplatesProcessed;
     private static UnverifiedPilotArmor[] pilotArmorProcessed;
     private static UnverifiedPilotGear[] pilotGearProcessed;
-    private static PilotWeapon[] pilotWeaponsProcessed;
+    private static UnverifiedPilotWeapon[] pilotWeaponsProcessed;
     private static RangeType[] rangeTypesProcessed;
     private static ReserveData[] reservesProcessed;
     private static SkillData[] skillsProcessed;
@@ -1379,10 +1380,10 @@ public class DataCaster {
     }
     private static UnverifiedPilotArmor toPilotArmor(JSONObject pilotArmorData)
     {
-        // PilotEquipmentUnverified required properties
+        // UnverifiedPilotEquipment required properties
         String id;
         String name;
-        // PilotEquipmentUnverified optional properties
+        // UnverifiedPilotEquipment optional properties
         String description;
         JSONArray dataTagsArray;
         DataTagUnverified[] dataTags = null;
@@ -1395,7 +1396,7 @@ public class DataCaster {
         JSONArray deployablesArray;
         IDeployableData[] deployables = null;
 
-        // PilotEquipmentUnverified required properties
+        // UnverifiedPilotEquipment required properties
         try {
             id = pilotArmorData.getString("id");
             name = pilotArmorData.getString("name");
@@ -1404,7 +1405,7 @@ public class DataCaster {
                 + " JSONException during the required properties section of the"
                 + " object parsing, which is not allowed");
         }
-        // PilotEquipmentUnverified optional properties
+        // UnverifiedPilotEquipment optional properties
         description = getOptionalString(pilotArmorData,
             "description");
         try {
@@ -1499,10 +1500,10 @@ public class DataCaster {
         DataCaster.pilotGearProcessed = pilotGear;
     }
     private static UnverifiedPilotGear toPilotGear(JSONObject pilotGearData) {
-        // PilotEquipment required properties
+        // UnverifiedPilotEquipment required properties
         String id;
         String name;
-        // PilotEquipment optional properties
+        // UnverifiedPilotEquipment optional properties
         String description;
         JSONArray dataTagsArray;
         DataTagUnverified[] dataTags = null;
@@ -1515,7 +1516,7 @@ public class DataCaster {
         JSONArray deployablesArray;
         IDeployableData[] deployables = null;
 
-        // PilotEquipment required properties
+        // UnverifiedPilotEquipment required properties
         try {
             id = pilotGearData.getString("id");
             name = pilotGearData.getString("name");
@@ -1524,7 +1525,7 @@ public class DataCaster {
                 + " JSONException during the required properties section of the"
                 + " object parsing, which is not allowed");
         }
-        // PilotEquipment optional properties
+        // UnverifiedPilotEquipment optional properties
         description = getOptionalString(pilotGearData,
             "description");
         try {
@@ -1596,7 +1597,7 @@ public class DataCaster {
             bonuses, synergies, deployables);
     }
     private static void processPilotWeapons(JSONObject[] pilotWeaponsData) {
-        PilotWeapon[] pilotWeapons;
+        UnverifiedPilotWeapon[] pilotWeapons;
         int index = 0;
 
         // Counting the number of non-null elements
@@ -1607,7 +1608,7 @@ public class DataCaster {
             index++;
         }
         // Removing null elements
-        pilotWeapons = new PilotWeapon[index];
+        pilotWeapons = new UnverifiedPilotWeapon[index];
         index = 0;
         for (int i = 0; i < pilotWeaponsData.length; i++) {
             if (pilotWeaponsData[i] == null) {
@@ -1619,11 +1620,12 @@ public class DataCaster {
         }
         DataCaster.pilotWeaponsProcessed = pilotWeapons;
     }
-    private static PilotWeapon toPilotWeapon(JSONObject pilotWeaponData) {
-        // PilotEquipment required properties
+    private static UnverifiedPilotWeapon toPilotWeapon(
+        JSONObject pilotWeaponData) {
+        // UnverifiedPilotEquipment required properties
         String id;
         String name;
-        // PilotEquipment optional properties
+        // UnverifiedPilotEquipment optional properties
         String description;
         JSONArray dataTagsArray;
         DataTagUnverified[] dataTags;
@@ -1642,7 +1644,7 @@ public class DataCaster {
         JSONArray damageArray;
         Harm[] damage;
 
-        // PilotEquipment required properties
+        // UnverifiedPilotEquipment required properties
         try {
             id = pilotWeaponData.getString("id");
             name = pilotWeaponData.getString("name");
@@ -1651,7 +1653,7 @@ public class DataCaster {
                 + " JSONException during the required properties section of the"
                 + " object parsing, which is not allowed");
         }
-        // PilotEquipment optional properties
+        // UnverifiedPilotEquipment optional properties
         description = getOptionalString(pilotWeaponData,
             "description");
         try {
@@ -1744,9 +1746,8 @@ public class DataCaster {
             }
         } catch (JSONException exception) {}
 
-        // TODO: pass dataTags into this constructor
-        return new PilotWeapon(id, name, description, null, actions,
-            bonuses, synergies, deployables, effect, range, damage);
+        return new UnverifiedPilotWeapon(id, name, description, dataTags,
+            actions, bonuses, synergies, deployables, effect, range, damage);
     }
     private static RangeType toRangeType(String rangeTypeName) {
         RangeType rangeType;
@@ -2353,7 +2354,7 @@ public class DataCaster {
         DataCaster.npcTemplatesProcessed = new NPCTemplate[0];
         DataCaster.pilotArmorProcessed = new UnverifiedPilotArmor[0];
         DataCaster.pilotGearProcessed = new UnverifiedPilotGear[0];
-        DataCaster.pilotWeaponsProcessed = new PilotWeapon[0];
+        DataCaster.pilotWeaponsProcessed = new UnverifiedPilotWeapon[0];
         DataCaster.rangeTypesProcessed = new RangeType[0];
         DataCaster.reservesProcessed = new ReserveData[0];
         DataCaster.skillsProcessed = new SkillData[0];
