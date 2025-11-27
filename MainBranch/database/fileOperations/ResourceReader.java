@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.util.MissingResourceException;
@@ -88,12 +87,7 @@ public class ResourceReader {
         String pageExtension;
         String[] pathArray;
 
-        try {
-            resource = new URL(url);
-        } catch (MalformedURLException exception) {
-            throw new IllegalArgumentException("url: \"" + url + "\" caused a"
-                + " MalformedURLException to be thrown");
-        }
+        resource = FileOperations.toURLCaught(url);
         pageExtension = resource.getFile();
         pathArray = pageExtension.split("/");
         pageExtension = pathArray[pathArray.length - 1];
@@ -218,12 +212,7 @@ public class ResourceReader {
         InputStreamReader reader;
         int character;
 
-        try {
-            resource = new URL(fileURL);
-        } catch (MalformedURLException exception) {
-            throw new IllegalArgumentException("URL: \"" + fileURL + "\" caused"
-                + " a MalformedURLException to be thrown");
-        }
+        resource = FileOperations.toURLCaught(fileURL);
         try {
             stream = resource.openStream();
         } catch (IOException exception) {
