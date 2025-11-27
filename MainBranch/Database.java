@@ -645,7 +645,7 @@ public final class Database {
         pilotGearID = pilotGearID.toLowerCase();
         for (PilotGear pilotGear : Database.pilotGear) {
             if (pilotGearID.equals(pilotGear.getID())) {
-                return new PilotGear(pilotGear);
+                return pilotGear;
             }
         }
         throw new NoSuchElementException("No pilot gear found for pilot"
@@ -1089,7 +1089,6 @@ public final class Database {
     public static void addPilotGear(PilotGear pilotGear) {
         checkOpen();
         HelperMethods.checkObject("pilotGear", pilotGear);
-        pilotGear = new PilotGear(pilotGear);
         Database.pilotGear = HelperMethods.append(Database.pilotGear,
             pilotGear);
     }

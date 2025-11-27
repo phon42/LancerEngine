@@ -1955,7 +1955,7 @@ public final class HelperMethods {
                 copy[i] = original[i];
                 continue;
             }
-            copy[i] = new PilotGear(original[i]);
+            copy[i] = original[i];
         }
 
         return copy;

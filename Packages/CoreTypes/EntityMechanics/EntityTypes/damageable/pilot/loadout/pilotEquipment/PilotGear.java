@@ -2,7 +2,7 @@ package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.
 
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.EntityMechanics.Actions.actionBase.IActionData;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.Deployable;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.IDeployableData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.iTagDataUnverified.iTagData.DataTag;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.PilotEquipment;
 
@@ -27,19 +27,14 @@ public class PilotGear extends PilotEquipment {
     /**
      * Optional
      */
-    private Deployable[] deployables;
+    private IDeployableData[] deployables;
 
     public PilotGear(String id, String name, DataTag[] dataTags,
         String description, String effect, IActionData[] actions,
-        Deployable[] deployables) {
+        IDeployableData[] deployables) {
         super(id, name, "gear", dataTags, description, effect);
         setActions(actions);
         setDeployables(deployables);
-    }
-    public PilotGear(PilotGear pilotGear) {
-        this(pilotGear.id, pilotGear.name, pilotGear.dataTags,
-            pilotGear.description, pilotGear.effect, pilotGear.actions,
-            pilotGear.deployables);
     }
 
     public IActionData[] getActions() {
@@ -49,32 +44,24 @@ public class PilotGear extends PilotEquipment {
 
         return actions;
     }
-    public Deployable[] getDeployables() {
+    public IDeployableData[] getDeployables() {
         if (deployables != null) {
-            return HelperMethods.copyOf(deployables);
+            HelperMethods.copyOf(deployables);
         }
 
         return deployables;
     }
     private void setActions(IActionData[] actions) {
+        HelperMethods.checkObjectArrayAlt("actions", actions);
         if (actions != null) {
-            if (actions.length == 0) {
-                throw new IllegalArgumentException("actions array is of"
-                    + " length 0");
-            }
-            HelperMethods.checkObjectArray("actions", actions);
             actions = HelperMethods.copyOf(actions);
         }
         this.actions = actions;
     }
-    private void setDeployables(Deployable[] deployables) {
+    private void setDeployables(IDeployableData[] deployables) {
+        HelperMethods.checkObjectArrayAlt("deployables",
+            deployables);
         if (deployables != null) {
-            if (deployables.length == 0) {
-                throw new IllegalArgumentException("deployables array is of"
-                    + " length 0");
-            }
-            HelperMethods.checkObjectArray("deployables",
-                deployables);
             deployables = HelperMethods.copyOf(deployables);
         }
         this.deployables = deployables;
