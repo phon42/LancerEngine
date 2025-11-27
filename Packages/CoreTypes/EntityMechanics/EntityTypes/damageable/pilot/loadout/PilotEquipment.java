@@ -57,7 +57,7 @@ public class PilotEquipment {
 
     protected PilotEquipment(
         // Required properties
-        String id, VueHTMLString name, String type,
+        String id, String name, String type,
         // Optional properties
         String description, DataTag[] dataTags, IActionData[] actions,
         Bonus[] bonuses, ISynergyData[] synergies, IDeployableData[] deployables
@@ -72,7 +72,7 @@ public class PilotEquipment {
     }
     protected PilotEquipment(
         // Required properties
-        String id, VueHTMLString name, String type
+        String id, String name, String type
     ) {
         this(id, name, type, null, null, null,
             null, null, null);
@@ -140,7 +140,7 @@ public class PilotEquipment {
         this.id = id;
     }
     protected void setName(VueHTMLString name) {
-        HelperMethods.checkObject("name", name);
+        HelperMethods.checkVueHTMLString("name", name);
         this.name = name;
     }
     protected void setType(String type) {
@@ -196,5 +196,9 @@ public class PilotEquipment {
             deployables = HelperMethods.copyOf(deployables);
         }
         this.deployables = deployables;
+    }
+
+    protected void setName(String name) {
+        setName(new VueHTMLString(name));
     }
 }
