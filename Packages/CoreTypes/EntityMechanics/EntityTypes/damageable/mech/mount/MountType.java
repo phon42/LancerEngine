@@ -36,7 +36,7 @@ public class MountType {
      */
     private int id;
     /**
-     * The mount type's name (i.e. "aux").
+     * The mount type's name (i.e. "Aux").
      * Can be any String except "". Cannot be null.
      * Case-sensitive.
      * 
