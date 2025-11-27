@@ -21,7 +21,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.
  * 
  * Safety: N/A because this class cannot be instantiated.
  */
-public class PilotEquipmentUnverified {
+public class UnverifiedPilotEquipment {
     // TODO: fill out
     // Required properties
     protected String id;
@@ -55,7 +55,7 @@ public class PilotEquipmentUnverified {
      */
     protected IDeployableData[] deployables;
 
-    protected PilotEquipmentUnverified(
+    protected UnverifiedPilotEquipment(
         // Required properties
         String id, String name, String type,
         // Optional properties
@@ -70,7 +70,7 @@ public class PilotEquipmentUnverified {
         setDataTags(dataTags);
         setDescription(description);
     }
-    protected PilotEquipmentUnverified(
+    protected UnverifiedPilotEquipment(
         // Required properties
         String id, String name, String type
     ) {

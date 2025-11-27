@@ -42,8 +42,8 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Unverifie
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Background.backgroundBase.UnverifiedBackground;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.bond.BondPower;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.bond.BondQuestion;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Unverified.pilotEquipmentUnverified.PilotArmorUnverified;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Unverified.pilotEquipmentUnverified.PilotGearUnverified;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Unverified.unverifiedPilotEquipment.UnverifiedPilotArmor;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Unverified.unverifiedPilotEquipment.UnverifiedPilotGear;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Verified.pilotEquipment.PilotArmor;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Verified.pilotEquipment.PilotGear;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Verified.pilotEquipment.PilotWeapon;
@@ -135,8 +135,8 @@ public class DataCaster {
     private static Manufacturer[] manufacturersProcessed;
     private static NPCFeature[] npcFeaturesProcessed;
     private static NPCTemplate[] npcTemplatesProcessed;
-    private static PilotArmorUnverified[] pilotArmorProcessed;
-    private static PilotGearUnverified[] pilotGearProcessed;
+    private static UnverifiedPilotArmor[] pilotArmorProcessed;
+    private static UnverifiedPilotGear[] pilotGearProcessed;
     private static PilotWeapon[] pilotWeaponsProcessed;
     private static RangeType[] rangeTypesProcessed;
     private static ReserveData[] reservesProcessed;
@@ -1354,7 +1354,7 @@ public class DataCaster {
         DataCaster.processPilotGear(pilotGearData);
     }
     private static void processPilotArmor(JSONObject[] pilotArmorData) {
-        PilotArmorUnverified[] pilotArmor;
+        UnverifiedPilotArmor[] pilotArmor;
         int index = 0;
 
         // Counting the number of non-null elements
@@ -1365,7 +1365,7 @@ public class DataCaster {
             index++;
         }
         // Removing null elements
-        pilotArmor = new PilotArmorUnverified[index];
+        pilotArmor = new UnverifiedPilotArmor[index];
         index = 0;
         for (int i = 0; i < pilotArmorData.length; i++) {
             if (pilotArmorData[i] == null) {
@@ -1377,7 +1377,7 @@ public class DataCaster {
         }
         DataCaster.pilotArmorProcessed = pilotArmor;
     }
-    private static PilotArmorUnverified toPilotArmor(JSONObject pilotArmorData)
+    private static UnverifiedPilotArmor toPilotArmor(JSONObject pilotArmorData)
     {
         // PilotEquipmentUnverified required properties
         String id;
@@ -1471,11 +1471,11 @@ public class DataCaster {
             }
         } catch (JSONException exception) {}
 
-        return new PilotArmorUnverified(id, name, description, dataTags,
+        return new UnverifiedPilotArmor(id, name, description, dataTags,
             actions, bonuses, synergies, deployables);
     }
     private static void processPilotGear(JSONObject[] pilotGearData) {
-        PilotGearUnverified[] pilotGear;
+        UnverifiedPilotGear[] pilotGear;
         int index = 0;
 
         // Counting the number of non-null elements
@@ -1486,7 +1486,7 @@ public class DataCaster {
             index++;
         }
         // Removing null elements
-        pilotGear = new PilotGearUnverified[index];
+        pilotGear = new UnverifiedPilotGear[index];
         index = 0;
         for (int i = 0; i < pilotGearData.length; i++) {
             if (pilotGearData[i] == null) {
@@ -1498,7 +1498,7 @@ public class DataCaster {
         }
         DataCaster.pilotGearProcessed = pilotGear;
     }
-    private static PilotGearUnverified toPilotGear(JSONObject pilotGearData) {
+    private static UnverifiedPilotGear toPilotGear(JSONObject pilotGearData) {
         // PilotEquipment required properties
         String id;
         String name;
@@ -1592,7 +1592,7 @@ public class DataCaster {
         } catch (JSONException exception) {}
 
         // TODO: pass dataTags into this constructor
-        return new PilotGearUnverified(id, name, description, dataTags, actions,
+        return new UnverifiedPilotGear(id, name, description, dataTags, actions,
             bonuses, synergies, deployables);
     }
     private static void processPilotWeapons(JSONObject[] pilotWeaponsData) {
@@ -2351,8 +2351,8 @@ public class DataCaster {
         DataCaster.manufacturersProcessed = new Manufacturer[0];
         DataCaster.npcFeaturesProcessed = new NPCFeature[0];
         DataCaster.npcTemplatesProcessed = new NPCTemplate[0];
-        DataCaster.pilotArmorProcessed = new PilotArmorUnverified[0];
-        DataCaster.pilotGearProcessed = new PilotGearUnverified[0];
+        DataCaster.pilotArmorProcessed = new UnverifiedPilotArmor[0];
+        DataCaster.pilotGearProcessed = new UnverifiedPilotGear[0];
         DataCaster.pilotWeaponsProcessed = new PilotWeapon[0];
         DataCaster.rangeTypesProcessed = new RangeType[0];
         DataCaster.reservesProcessed = new ReserveData[0];
