@@ -1,5 +1,6 @@
 package Packages.CoreTypes;
 
+import java.util.ArrayList;
 import MainBranch.HelperMethods;
 import MainBranch.UserPreferences;
 
@@ -15,11 +16,11 @@ public class ColorData {
     // TODO: one issue with this is that it doesn't know when the color is no
     //     longer in use so the object never gets garbage collected and the
     //     ColorData.colors property will just endlessly grow
-    private static ColorData[] colors;
+    private static ArrayList<ColorData> colors;
 
     static {
         calcMax();
-        ColorData.colors = new ColorData[0];
+        ColorData.colors = new ArrayList<>();
     }
 
     public ColorData(int red, int green, int blue) {
@@ -88,17 +89,8 @@ public class ColorData {
         }
     }
     private static void addColor(ColorData newColor) {
-        ColorData[] newColors = new ColorData[ColorData.colors.length + 1];
-
         HelperMethods.checkObject("newColor", newColor);
-        for (int i = 0; i < newColors.length; i++) {
-            if (i == ColorData.colors.length) {
-                newColors[i] = newColor;
-                continue;
-            }
-            newColors[i] = ColorData.colors[i];
-        }
-        ColorData.colors = newColors;
+        ColorData.colors.add(newColor);
     }
     private void parseString(String colorString) {
         boolean containsHashtag;
@@ -212,8 +204,8 @@ public class ColorData {
         int oldMax = ColorData.maxValue;
 
         calcMax();
-        for (int i = 0; i < ColorData.colors.length; i++) {
-            ColorData.colors[i].updateResolution(oldMax);
+        for (int i = 0; i < ColorData.colors.size(); i++) {
+            ColorData.colors.get(i).updateResolution(oldMax);
         }
     }
     private void updateResolution(int oldMax) {
