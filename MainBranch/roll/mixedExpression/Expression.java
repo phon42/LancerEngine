@@ -88,7 +88,6 @@ public class Expression {
     protected void toDiceExpression(String diceExpression) {
         boolean containsKeepHighest = false;
         boolean containsKeepLowest = false;
-        boolean containsD = false;
         String[] substring;
         String[] substring2 = new String[0];
 
@@ -109,8 +108,8 @@ public class Expression {
         // splitting everything into two types: 'contains "d"' (all valid
         //     DiceExpressions) and 'doesn't contain "d"' (an invalid
         //     DiceExpression)
-        containsD = diceExpression.indexOf("d") != -1;
-        if (containsD) {
+        this.containsD = diceExpression.indexOf("d") != -1;
+        if (this.containsD) {
             this.rollNum = 1;
             this.maxRoll = 1;
             this.keep = 0;
@@ -238,7 +237,7 @@ public class Expression {
     public String toString() {
         String output = "";
 
-        if (! containsD) {
+        if (! this.containsD) {
             // "X"
             output += this.rollNum;
 
