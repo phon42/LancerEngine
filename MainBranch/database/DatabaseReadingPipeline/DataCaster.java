@@ -1792,8 +1792,21 @@ public class DataCaster {
             actions, bonuses, synergies, deployables, effect, range, damage);
     }
     private static RangeTag toRangeTag(JSONObject rangeTagData) {
-        // TODO: fill out
-        return null;
+        String rangeTypeName;
+        RangeType rangeType;
+        int value;
+
+        try {
+            rangeTypeName = rangeTagData.getString("type");
+            rangeType = toRangeType(rangeTypeName);
+            value = rangeTagData.getInt("val");
+        } catch (JSONException exception) {
+            throw new IllegalStateException("rangeTagData threw a JSONException"
+                + " during the required properties section of the object"
+                + " parsing, which is not allowed");
+        }
+
+        return new RangeTag(rangeType, value);
     }
     private static RangeType toRangeType(String rangeTypeName) {
         RangeType rangeType;
