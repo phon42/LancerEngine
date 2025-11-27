@@ -798,7 +798,7 @@ public final class Database {
         HelperMethods.checkObject("termName", termName);
         for (Term term : Database.terms) {
             if (termName.equals(term.getName())) {
-                return new Term(term);
+                return term;
             }
         }
         throw new NoSuchElementException("No term found for term name: "
@@ -1232,7 +1232,6 @@ public final class Database {
     public static void addTerm(Term term) {
         checkOpen();
         HelperMethods.checkObject("term", term);
-        term = new Term(term);
         Database.terms = HelperMethods.append(Database.terms, term);
     }
     /**

@@ -34,10 +34,6 @@ public class Term {
         setName(name);
         setDescription(description);
     }
-    public Term(Term term) {
-        setName(term.name);
-        setDescription(term.description);
-    }
 
     public String getName() {
         return name;
