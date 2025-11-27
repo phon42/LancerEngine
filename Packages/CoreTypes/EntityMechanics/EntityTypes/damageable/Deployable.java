@@ -23,10 +23,11 @@ public class Deployable implements Damageable {
     }
     public Deployable(Size size, int armor) {
         setData(new IDeployableData(size, armor));
-        setCurrentHP(this.data.getHP());
+        setCurrentHP(this.data.getStatblock().getHP());
     }
     public Deployable(Deployable deployable) {
-        this(deployable.data.getSize(), deployable.data.getArmor());
+        this(deployable.data.getSize(),
+            deployable.data.getStatblock().getArmor());
     }
 
     public IDeployableData getData() {
@@ -49,9 +50,10 @@ public class Deployable implements Damageable {
             throw new IllegalArgumentException("New currentHP value: "
                 + currentHP + " is < 0");
         }
-        if (this.data.getHP() < currentHP) {
+        if (this.data.getStatblock().getHP() < currentHP) {
             throw new IllegalArgumentException("currentHP value provided: "
-                + currentHP + " is > maxHP value: " + this.data.getHP());
+                + currentHP + " is > maxHP value: "
+                + this.data.getStatblock().getHP());
         }
         this.currentHP = currentHP;
     }
