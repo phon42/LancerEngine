@@ -2240,16 +2240,26 @@ public class DataCaster {
         DataCaster.weaponsProcessed = weapons;
     }
     private static Weapon toWeapon(JSONObject weaponData) {
-        // TODO: fill out
-        String id = null;
+        Weapon weapon;
+        String id;
 
         try {
-            Database.getWeapon(id);
-
-            return null;
+            id = weaponData.getString("id");
+        } catch (JSONException exception) {
+            throw new IllegalStateException("weaponData threw a JSONException"
+                + " during the required properties section of the object"
+                + " parsing, which is not allowed");
+        }
+        try {
+            return Database.getWeapon(id);
         } catch (NoSuchElementException exception) {
-            // return new Weapon();
-            return null;
+            // try parsing the weapon
+            // TODO: fill out
+            weapon = null; // weapon = new Weapon(id);
+            DataCaster.weaponsProcessed =
+                HelperMethods.append(DataCaster.weaponsProcessed, weapon);
+
+            return weapon;
         }
     }
     private static WeaponSize toWeaponSize(String weaponSizeName) {
