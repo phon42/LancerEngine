@@ -15,28 +15,45 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.P
  * 
  * Unused at present.
  * 
- * Safety: This class does not have placeholder values and cannot be a
- *     placeholder. At least one of its properties has an allowed value of null.
+ * Safety: At least one of this class' properties has an allowed value of null.
  */
 public class PilotArmor extends PilotEquipment {
     // TODO: fill out
+    // Optional properties
     /**
-     * Optional
+     * Can be any Bonus[] that is not of length 0 or contains null elements. Can
+     *     be null.
      */
     private Bonus[] bonuses;
     /**
-     * Optional
+     * Can be any IActionData[] that is not of length 0 or contains null
+     *     elements. Can be null.
      */
     private IActionData[] actions;
 
-    public PilotArmor(String id, String name, DataTag[] dataTags,
-        String description, String effect, Bonus[] bonuses,
-        IActionData[] actions) {
+    public PilotArmor(
+        // PilotEquipment properties
+        String id, String name, DataTag[] dataTags, String description,
+        String effect,
+        // Optional properties
+        Bonus[] bonuses, IActionData[] actions
+    ) {
+        // PilotEquipment properties
         super(id, name, "armor", dataTags, description, effect);
+        // Optional properties
         setBonuses(bonuses);
         setActions(actions);
     }
+    public PilotArmor(
+        // PilotEquipment properties
+        String id, String name, DataTag[] dataTags, String description,
+        String effect
+    ) {
+        // PilotEquipment properties
+        super(id, name, "armor", dataTags, description, effect);
+    }
 
+    // Optional properties
     public Bonus[] getBonuses() {
         if (bonuses != null) {
             return HelperMethods.copyOf(bonuses);
@@ -51,6 +68,7 @@ public class PilotArmor extends PilotEquipment {
 
         return actions;
     }
+    // Optional properties
     private void setBonuses(Bonus[] bonuses) {
         HelperMethods.checkObjectArrayAlt("bonuses", bonuses);
         if (bonuses != null) {

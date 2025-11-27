@@ -16,8 +16,7 @@ import Packages.CoreTypes.EntityMechanics.HarmSystem.Harm;
  * 
  * Unused at present.
  * 
- * Safety: This class does not have placeholder values and cannot be a
- *     placeholder. At least one of its properties has an allowed value of null.
+ * Safety: At least one of this class' properties has an allowed value of null.
  */
 public class PilotWeapon extends PilotEquipment {
     // Required properties
@@ -31,9 +30,16 @@ public class PilotWeapon extends PilotEquipment {
      */
     private Harm[] damage;
 
-    public PilotWeapon(String id, String name, DataTag[] dataTags,
-        String description, String effect, RangeTag[] range, Harm[] damage) {
+    public PilotWeapon(
+        // PilotEquipment properties
+        String id, String name, DataTag[] dataTags, String description,
+        String effect,
+        // Required properties
+        RangeTag[] range, Harm[] damage
+    ) {
+        // PilotEquipment properties
         super(id, name, "weapon", dataTags, description, effect);
+        // Required properties
         setRange(range);
         setDamage(damage);
     }

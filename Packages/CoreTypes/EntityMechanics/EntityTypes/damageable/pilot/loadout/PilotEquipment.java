@@ -92,10 +92,10 @@ public class PilotEquipment {
         this.tags = tags;
     }
     // Optional properties
-    private void setDescription(String description) {
+    protected void setDescription(String description) {
         this.description = description;
     }
-    private void setEffect(String effect) {
+    protected void setEffect(String effect) {
         this.effect = effect;
     }
 }

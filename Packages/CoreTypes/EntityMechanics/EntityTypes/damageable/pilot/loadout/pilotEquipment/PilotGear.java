@@ -15,28 +15,45 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.P
  * 
  * Unused at present.
  * 
- * Safety: This class does not have placeholder values and cannot be a
- *     placeholder. At least one of its properties has an allowed value of null.
+ * Safety: At least one of this class' properties has an allowed value of null.
  */
 public class PilotGear extends PilotEquipment {
     // TODO: fill out
+    // Optional properties
     /**
-     * Optional
+     * Can be any IActionData[] that is not of length 0 or contains null
+     *     elements. Can be null.
      */
     private IActionData[] actions;
     /**
-     * Optional
+     * Can be any IDeployableData[] that is not of length 0 or contains null
+     *     elements. Can be null.
      */
     private IDeployableData[] deployables;
 
-    public PilotGear(String id, String name, DataTag[] dataTags,
-        String description, String effect, IActionData[] actions,
-        IDeployableData[] deployables) {
+    public PilotGear(
+        // PilotEquipment properties
+        String id, String name, DataTag[] dataTags, String description,
+        String effect,
+        // Optional properties
+        IActionData[] actions, IDeployableData[] deployables
+    ) {
+        // PilotEquipment properties
         super(id, name, "gear", dataTags, description, effect);
+        // Optional properties
         setActions(actions);
         setDeployables(deployables);
     }
+    public PilotGear(
+        // PilotEquipment properties
+        String id, String name, DataTag[] dataTags, String description,
+        String effect
+    ) {
+        // PilotEquipment properties
+        super(id, name, "armor", dataTags, description, effect);
+    }
 
+    // Optional properties
     public IActionData[] getActions() {
         if (actions != null) {
             return HelperMethods.copyOf(actions);
@@ -51,6 +68,7 @@ public class PilotGear extends PilotEquipment {
 
         return deployables;
     }
+    // Optional properties
     private void setActions(IActionData[] actions) {
         HelperMethods.checkObjectArrayAlt("actions", actions);
         if (actions != null) {
