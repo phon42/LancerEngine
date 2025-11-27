@@ -234,6 +234,35 @@ public class Expression {
         }
     }
 
+    @Override
+    public String toString() {
+        String output = "";
+
+        if (! containsD) {
+            // "X"
+            output += this.rollNum;
+
+            return output;
+        }
+        // "d"
+        output += "d";
+        // "dY"
+        output += this.maxRoll;
+        if (containsX) {
+            // "XdY"
+            output = "" + this.rollNum + output;
+        }
+        if (this.containsKeep) {
+            // adding "kh"/"kl" to the end
+            output += (this.keep == 1 ? "kh" : "kl");
+            if (this.containsZ) {
+                // adding "Z"
+                output += this.keepNum;
+            }
+        }
+
+        return output;
+    }
     /**
      * Checks whether the provided String is a valid expression. In other words,
      *     if it is in one of the following forms:
