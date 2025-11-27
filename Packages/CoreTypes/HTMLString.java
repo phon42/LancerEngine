@@ -22,7 +22,7 @@ public class HTMLString implements Comparable<HTMLString>, CharSequence {
     public HTMLString(String input) {
         setRawValue(input);
     }
-    public HTMLString(HTMLString htmlString) {
+    private HTMLString(HTMLString htmlString) {
         setRawValue(htmlString.rawValue);
     }
     public HTMLString(StringBuffer buffer) {
