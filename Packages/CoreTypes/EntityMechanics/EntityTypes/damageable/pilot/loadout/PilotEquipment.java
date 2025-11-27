@@ -16,33 +16,43 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.
  */
 public class PilotEquipment {
     // TODO: fill out
+    // Required properties
     protected String id;
     protected String name;
     protected String type;
     protected DataTag[] dataTags;
     protected Tag[] tags;
+
+    // Optional properties
     /**
-     * Optional
+     * Can be any String except "". Can be null.
      * Case-sensitive.
      */
     protected String description;
     /**
-     * Optional
+     * Can be any String except "". Can be null.
      * Case-sensitive.
      */
     protected String effect;
 
-    protected PilotEquipment(String id, String name, String type,
-        DataTag[] dataTags, String description, String effect) {
+    protected PilotEquipment(
+        // Required properties
+        String id, String name, String type, DataTag[] dataTags,
+        // Optional properties
+        String description, String effect
+    ) {
+        // Required properties
         setID(id);
         setName(name);
         setType(type);
         setDataTags(dataTags);
         setTags(DataTag.toTags(dataTags));
+        // Optional properties
         setDescription(description);
         setEffect(effect);
     }
 
+    // Required properties
     public String getID() {
         return id;
     }
@@ -58,12 +68,14 @@ public class PilotEquipment {
     public Tag[] getTags() {
         return tags;
     }
+    // Optional properties
     public String getDescription() {
         return description;
     }
     public String getEffect() {
         return effect;
     }
+    // Required properties
     protected void setID(String id) {
         this.id = id;
     }
@@ -79,6 +91,7 @@ public class PilotEquipment {
     protected void setTags(Tag[] tags) {
         this.tags = tags;
     }
+    // Optional properties
     private void setDescription(String description) {
         this.description = description;
     }
