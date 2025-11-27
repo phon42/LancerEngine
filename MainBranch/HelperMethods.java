@@ -38,6 +38,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.Weapon;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.iTagDataUnverified.iTagData.DataTag;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.iTagDataUnverified.iTagData.dataTag.Tag;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.mount.MountType;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.unverifiedFrame.Frame;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Bond;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Talent;
@@ -870,6 +871,31 @@ public final class HelperMethods {
         HelperMethods.checkObject("array", array);
         HelperMethods.checkObject("newElement", newElement);
         MechSystem[] newArray = new MechSystem[array.length + 1];
+
+        for (int i = 0; i < newArray.length; i++) {
+            if (i < array.length) {
+                newArray[i] = array[i];
+                continue;
+            }
+            newArray[i] = newElement;
+        }
+        
+        return newArray;
+    }
+    /**
+     * Appends the given MountType element to the end of an existing
+     *     MountType[].
+     * @param array a MountType[] that cannot be null.
+     * @param newElement a MountType that cannot be null to append to the end of
+     *     array.
+     * @return a MountType[] consisting of array with newElement appended to the
+     *     end of it.
+     * @throws IllegalArgumentException if array or newElement is null.
+     */
+    public static MountType[] append(MountType[] array, MountType newElement) {
+        HelperMethods.checkObject("array", array);
+        HelperMethods.checkObject("newElement", newElement);
+        MountType[] newArray = new MountType[array.length + 1];
 
         for (int i = 0; i < newArray.length; i++) {
             if (i < array.length) {
