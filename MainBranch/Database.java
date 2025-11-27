@@ -28,6 +28,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.Weapon;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.iTagDataUnverified.iTagData.DataTag;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.iTagDataUnverified.iTagData.dataTag.Tag;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.mount.MountType;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.unverifiedFrame.Frame;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.unverifiedFrame.frame.FrameEnum;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Bond;
@@ -138,6 +139,10 @@ public final class Database {
      * add documentation
      */
     private static Modification[] modifications;
+    /**
+     * add documentation
+     */
+    private static MountType[] mountTypes;
     /**
      * add documentation
      */
@@ -408,6 +413,7 @@ public final class Database {
         Database.iActionData = new IActionData[0];
         Database.manufacturers = new Manufacturer[0];
         Database.modifications = new Modification[0];
+        Database.mountTypes = new MountType[0];
         Database.pilotArmor = new PilotArmor[0];
         Database.pilotGear = new PilotGear[0];
         Database.pilotWeapons = new PilotWeapon[0];
@@ -628,6 +634,17 @@ public final class Database {
         }
         throw new NoSuchElementException("No modification found for"
             + " modification ID: " + modificationID);
+    }
+    public static MountType getMountType(String mountTypeName) {
+        HelperMethods.checkObject("mountTypeName", mountTypeName);
+        mountTypeName = mountTypeName.toLowerCase();
+        for (MountType mountType : Database.mountTypes) {
+            if (mountTypeName.equals(mountType.getName())) {
+                return mountType;
+            }
+        }
+        throw new NoSuchElementException("No mount type found for mount type"
+            + " name: \"" + mountTypeName + "\"");
     }
     public static PilotArmor getPilotArmor(String pilotArmorID) {
         HelperMethods.checkObject("pilotArmorID", pilotArmorID);
@@ -1044,6 +1061,17 @@ public final class Database {
         manufacturer = new Manufacturer(manufacturer);
         Database.manufacturers = HelperMethods.append(Database.manufacturers,
             manufacturer);
+    }
+    /**
+     * Adds the provided MountType to Database.mountTypes.
+     * @param mountType a MountType which cannot be null.
+     * @throws IllegalArgumentException if mountType is null.
+     */
+    public static void addMountType(MountType mountType) {
+        checkOpen();
+        HelperMethods.checkObject("mountType", mountType);
+        Database.mountTypes = HelperMethods.append(Database.mountTypes,
+            mountType);
     }
     /**
      * Adds the provided NPCFeature to Database.npcFeatures.
