@@ -36,6 +36,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.IDep
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Mount;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.MechSystem;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.Weapon;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.UnverifiedDataTag;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.unverifiedDataTag.DataTag;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.unverifiedDataTag.Tag;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.mount.MountType;
@@ -1395,6 +1396,33 @@ public final class HelperMethods {
         HelperMethods.checkObject("newElement", newElement);
         UnverifiedCoreBonus[] newArray =
             new UnverifiedCoreBonus[array.length + 1];
+
+        for (int i = 0; i < newArray.length; i++) {
+            if (i < array.length) {
+                newArray[i] = array[i];
+                continue;
+            }
+            newArray[i] = newElement;
+        }
+        
+        return newArray;
+    }
+    /**
+     * Appends the given UnverifiedDataTag element to the end of an existing
+     *     UnverifiedDataTag[].
+     * @param array an UnverifiedDataTag[] that cannot be null.
+     * @param newElement an UnverifiedDataTag that cannot be null to append to
+     *     the end of array.
+     * @return an UnverifiedDataTag[] consisting of array with newElement
+     *     appended to the end of it.
+     * @throws IllegalArgumentException if array or newElement is null.
+     */
+    public static UnverifiedDataTag[] append(UnverifiedDataTag[] array,
+        UnverifiedDataTag newElement) {
+        HelperMethods.checkObject("array", array);
+        HelperMethods.checkObject("newElement", newElement);
+        UnverifiedDataTag[] newArray =
+            new UnverifiedDataTag[array.length + 1];
 
         for (int i = 0; i < newArray.length; i++) {
             if (i < array.length) {
