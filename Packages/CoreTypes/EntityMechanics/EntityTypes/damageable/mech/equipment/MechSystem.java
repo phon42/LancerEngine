@@ -106,7 +106,7 @@ public final class MechSystem extends Equipment {
     protected void setDataTags(DataTag[] dataTags) {
         boolean isValid;
 
-        checkDataTagsArray(dataTags);
+        HelperMethods.checkObjectArray("New data tags", dataTags);
         for (DataTag dataTag : dataTags) {
             isValid = false;
             for (String allowedDataTag : MechSystem.allowedNames) {

@@ -60,8 +60,7 @@ public class Equipment extends LicenseContent {
      *     element.
      */
     protected void setDataTags(DataTag[] dataTags) {
-        // This will throw an exception if tags is invalid
-        checkDataTagsArray(dataTags);
+        HelperMethods.checkObjectArray("New data tags", dataTags);
         dataTags = HelperMethods.copyOf(dataTags);
         this.dataTags = dataTags;
     }
@@ -103,17 +102,5 @@ public class Equipment extends LicenseContent {
         }
         throw new IllegalArgumentException("Requested data tag: \""
             + dataTagName + "\" could not be found.");
-    }
-    /**
-     * Checks a DataTag[] to see if it is a valid value for Equipment.dataTags.
-     *     Throws an IllegalArgumentException if not. Used in Equipment's
-     *     children's overridden setDataTags() methods.
-     * @param dataTags a DataTag[] to be checked.
-     * @return a boolean containing the result of the check.
-     * @throws IllegalArgumentException if the DataTag[] is invalid or contains
-     *     an invalid value for any number of reasons.
-     */
-    protected void checkDataTagsArray(DataTag[] dataTags) {
-        HelperMethods.checkObjectArray("New data tags", dataTags);
     }
 }

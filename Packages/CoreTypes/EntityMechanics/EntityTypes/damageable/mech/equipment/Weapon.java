@@ -6,6 +6,7 @@ import Packages.CoreTypes.EntityMechanics.RangeTag;
 import Packages.CoreTypes.EntityMechanics.WeaponSize;
 import Packages.CoreTypes.EntityMechanics.WeaponType;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Equipment;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.iTagDataUnverified.iTagData.DataTag;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.iTagDataUnverified.iTagData.dataTag.Tag;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.Harm;
 
@@ -14,7 +15,7 @@ import Packages.CoreTypes.EntityMechanics.HarmSystem.Harm;
  */
 /**
  * Represents a single weapon to be mounted on a mount. Contains information
- *     about that weapon such as its name, size, and tags.
+ *     about that weapon such as its name, size, and data tags.
  * 
  * Requires a weapon name and weapon size to be instantiated.
  * 
@@ -27,8 +28,9 @@ public final class Weapon extends Equipment {
     // TODO: fill out with some kind of way to attack
     // TODO: fucking deal with Ushabti Omnigun somehow
     /**
-     * Contains an array of allowed values for Weapon.tags' Tag.name values.
-     *     Case-sensitive.
+     * Contains an array of allowed values for Weapon.dataTags' DataTag.name
+     *     values.
+     * Case-sensitive.
      */
     public static final String[] allowedNames = new String[] {"Accurate",
         "Armor-Piercing (AP)", "Loading", "Ordnance", "Reliable X",
@@ -104,7 +106,7 @@ public final class Weapon extends Equipment {
     /**
      * Creates a new Weapon given a weapon name, manufacturer, the license the
      *     weapon belongs to, a weapon size, type, the amount of harm dealt, the
-     *     weapon's range, and an array of tags associated with it.
+     *     weapon's range, and an array of data tags associated with it.
      * @param name a String which cannot be null or "".
      * @param manufacturer a String which must be a valid manufacturer name as
      *     defined by Database.manufacturerList. Cannot be null.
@@ -113,15 +115,15 @@ public final class Weapon extends Equipment {
      * @param type an int which must be between 0 and 9 (inclusive).
      * @param harmDealt a Harm[] which cannot be null or contain null elements.
      * @param range a RangeTag[] which cannot be null or contain null elements.
-     * @param tags a Tag[] which cannot be null, contain null elements, or
-     *     elements with invalid Tag.name values, as defined by
+     * @param dataTags a DataTag[] which cannot be null, contain null elements,
+     *     or elements with invalid DataTag.name values, as defined by
      *     Weapon.allowedNames.
      */
     public Weapon(String name, String manufacturer, License weaponLicense,
         WeaponSize size, int type, Harm[] harmDealt, RangeTag[] range,
-        Tag[] tags) {
+        DataTag[] dataTags) {
         this(name, manufacturer, weaponLicense, size, type, harmDealt, range);
-        setTags(tags);
+        setDataTags(dataTags);
     }
 
     public WeaponSize getSize() {
@@ -163,21 +165,20 @@ public final class Weapon extends Equipment {
         this.range = range;
     }
     /**
-     * Sets this.tags to the provided value.
-     * @param tags a Tag[] which cannot be null, contain null elements, or
-     *     contain Tags with invalid Tag.name values as defined by
+     * Sets this.dataTags to the provided value.
+     * @param dataTags a DataTag[] which cannot be null, contain null elements,
+     *     or contain DataTags with invalid DataTag.name values as defined by
      *     Weapon.allowedNames.
-     * @throws IllegalArgumentException if tags includes an element with an
-     *     invalid Tag.name for a Weapon, as defined by Weapon.allowedNames.
+     * @throws IllegalArgumentException if dataTags includes an element with an
+     *     invalid DataTag.name value for a Weapon, as defined by
+     *     Weapon.allowedNames.
      */
     @Override
-    protected void setTags(Tag[] tags) {
+    protected void setDataTags(DataTag[] dataTags) {
         boolean isValid;
 
-        // Throws an IllegalArgumentException if tags is null or contains null
-        //     elements
-        checkTagsArray(tags);
-        for (Tag tag : tags) {
+        HelperMethods.checkObjectArray("dataTags", dataTags);
+        for (DataTag tag : dataTags) {
             isValid = false;
             for (String allowedTag : Weapon.allowedNames) {
                 if (tag.getName().equals(allowedTag)) {
@@ -191,7 +192,7 @@ public final class Weapon extends Equipment {
                     + tag.getName() + "\"");
             }
         }
-        tags = HelperMethods.copyOf(tags);
-        this.tags = tags;
+        dataTags = HelperMethods.copyOf(dataTags);
+        this.dataTags = dataTags;
     }
 }
