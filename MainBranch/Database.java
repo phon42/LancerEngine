@@ -302,34 +302,34 @@ public final class Database {
         // Add allowed mount sizes
         addMountType(
             new MountType(0, "Aux", new WeaponSize[] {
-                Database.getWeaponSize("aux")
+                Database.getWeaponSize("Aux")
             }, null)
         );
         addMountType(
             new MountType(1, "Aux/Aux", new WeaponSize[] {
-                Database.getWeaponSize("aux")
+                Database.getWeaponSize("Aux")
             }, null)
         );
         addMountType(
             new MountType(2, "Main", new WeaponSize[] {
-                Database.getWeaponSize("main")
+                Database.getWeaponSize("Main")
             }, null)
         );
         addMountType(
             new MountType(3, "Flex", new WeaponSize[] {
-                Database.getWeaponSize("aux"),
-                Database.getWeaponSize("main")
+                Database.getWeaponSize("Aux"),
+                Database.getWeaponSize("Main")
             }, null)
         );
         addMountType(
             new MountType(4, "Main/Aux", new WeaponSize[] {
-                Database.getWeaponSize("aux"),
-                Database.getWeaponSize("main")
+                Database.getWeaponSize("Aux"),
+                Database.getWeaponSize("Main")
             }, null)
         );
         addMountType(
             new MountType(5, "Heavy", new WeaponSize[] {
-                Database.getWeaponSize("heavy")
+                Database.getWeaponSize("Heavy")
             }, null)
         );
         addMountType(
@@ -343,14 +343,14 @@ public final class Database {
         addMountType(
             new MountType(8, "Integrated Weapon Core Bonus",
             new WeaponSize[] {
-                Database.getWeaponSize("aux")
+                Database.getWeaponSize("Aux")
             }, null)
         );
         addMountType(
             new MountType(9, "Improved Armament Core Bonus",
             new WeaponSize[] {
-                Database.getWeaponSize("aux"),
-                Database.getWeaponSize("main")
+                Database.getWeaponSize("Aux"),
+                Database.getWeaponSize("Main")
             }, null)
         );
 
@@ -908,7 +908,6 @@ public final class Database {
     public static WeaponSize getWeaponSize(String weaponSizeName) {
         HelperMethods.checkObject("weaponSizeName",
             weaponSizeName);
-        weaponSizeName = weaponSizeName.toLowerCase();
         for (WeaponSize weaponSize : Database.weaponSizes) {
             if (weaponSizeName.equals(weaponSize.getName())) {
                 return weaponSize;
