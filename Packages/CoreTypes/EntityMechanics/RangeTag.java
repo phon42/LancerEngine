@@ -7,20 +7,13 @@ import MainBranch.HelperMethods;
  */
 public class RangeTag {
     /**
-     * The RangeTag's type (i.e. "Blast").
-     * Must be an allowed type as defined by RangeTag.allowedTypes. Cannot be
-     *     null.
+     * The RangeTag's type (i.e. a RangeType representing "Range").
+     * Can be any RangeType. Cannot be null.
      */
-    private String type;
-    /**
-     * Contains an array of allowed range types.
-     * Case-insensitive and stored in lowercase.
-     */
-    public static final String[] allowedTypes = new String[] {"blast", "burst",
-        "cone", "line", "range", "threat", "thrown"};
+    private RangeType type;
     private int value;
 
-    public RangeTag(String rangeType, int value) {
+    public RangeTag(RangeType rangeType, int value) {
         setType(rangeType);
         setValue(value);
     }
@@ -29,19 +22,14 @@ public class RangeTag {
         setValue(rangeTag.value);
     }
 
-    public String getType() {
+    public RangeType getType() {
         return type;
     }
     public int getValue() {
         return value;
     }
-    private void setType(String type) {
-        HelperMethods.checkString("type", type);
-        type = type.toLowerCase();
-        if (! RangeTag.isValid(type)) {
-            throw new IllegalArgumentException("type value: \"" + type + "\" is"
-                + " an invalid type");
-        }
+    private void setType(RangeType type) {
+        HelperMethods.checkObject("type", type);
         this.type = type;
     }
     private void setValue(int value) {
@@ -53,17 +41,5 @@ public class RangeTag {
                 + " -1");
         }
         this.value = value;
-    }
-
-    public static boolean isValid(String type) {
-        boolean isValid = false;
-
-        for (int i = 0; i < RangeTag.allowedTypes.length; i++) {
-            if (type.equals(RangeTag.allowedTypes[i])) {
-                isValid = true;
-            }
-        }
-
-        return isValid;
     }
 }

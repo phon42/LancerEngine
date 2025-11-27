@@ -1,5 +1,6 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment;
 
+import MainBranch.Database;
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.Counter;
 import Packages.CoreTypes.VueHTMLString;
@@ -119,7 +120,9 @@ public final class Weapon extends Equipment {
         setType(type);
         setHarm(harmDealt);
         setRange(new RangeTag[] {
-            new RangeTag("threat", 1)
+            new RangeTag(
+                Database.getRangeType("threat"), 1
+            )
         });
     }
     /**
