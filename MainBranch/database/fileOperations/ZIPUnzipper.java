@@ -6,7 +6,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.FileSystemException;
 import java.nio.file.Path;
@@ -26,13 +25,7 @@ public class ZIPUnzipper {
 
         // all of this is just to get a ZipInputStream
         if (external) {
-            try {
-                url = new URL(zipResourceLocator);
-            } catch (MalformedURLException exception) {
-                throw new IllegalArgumentException("URL: \""
-                    + zipResourceLocator + "\" caused a MalformedURLException"
-                    + " to be thrown");
-            }
+            url = FileOperations.toURLCaught(zipResourceLocator);
             try {
                 inputStream = url.openStream();
             } catch (IOException exception) {
@@ -94,13 +87,8 @@ public class ZIPUnzipper {
         // getting the target directory path (designated in the original example
         //     as "destDir")
         if (external) {
-            try {
-                originZIPName = new URL(zipResourceLocator).getPath();
-            } catch (MalformedURLException exception) {
-                throw new IllegalArgumentException("URL: \""
-                    + zipResourceLocator + "\" caused a MalformedURLException"
-                    + " to be thrown");
-            }
+            originZIPName =
+                FileOperations.toURLCaught(zipResourceLocator).getPath();
             // TODO: check that this works
             originZIPName = originZIPName.replaceAll("/",
                 "");
