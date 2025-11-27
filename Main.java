@@ -89,11 +89,13 @@ public final class Main {
         );
         mechProperties = myCharacter.getMechProperties();
         mechProperties.put("mounts", new Mount[] {
-            new Mount("aux",
+            new Mount(
+                Database.getMountType("Aux"),
                 Database.getWeapon("Slag Cannon")
             ),
-            new Mount("aux",
-                Database.getWeapon("Vulture DMR"), "",
+            new Mount(
+                Database.getMountType("Aux"),
+                Database.getWeapon("Vulture DMR"), null,
                 "Overpower Caliber"
             )
         });
