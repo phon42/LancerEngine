@@ -30,7 +30,20 @@ public class Reserve {
         this.available = available;
     }
 
+    public void useAction() {
+        if (! this.available) {
+            throw new IllegalStateException("Cannot use this Reserve when it"
+                + " has already been used");
+        }
+        if (this.data.isConsumable()) {
+            setAvailable(false);
+        }
+    }
     public void use() {
+        if (! this.available) {
+            throw new IllegalStateException("Cannot use this Reserve when it"
+                + " has already been used");
+        }
         setAvailable(false);
     }
 }
