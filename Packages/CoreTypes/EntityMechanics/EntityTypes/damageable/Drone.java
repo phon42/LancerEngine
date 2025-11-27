@@ -148,7 +148,8 @@ public class Drone implements Damageable {
             throw new IllegalArgumentException("harm value has a Harm.type"
                 + " value of \"variable\"");
         }
-        if (harm.getDiceValue() == null && harm.getFlatValue() == 0) {
+        if (harm.getDiceValue() == null && harm.getFlatValue().getValue() == 0)
+        {
             throw new IllegalArgumentException("harm.diceValue is \"\" and"
                 + " harm.flatValue value: " + harm.getFlatValue() + " is < 1");
         }
@@ -176,7 +177,7 @@ public class Drone implements Damageable {
         HelperMethods.checkObject("damage", damage);
         // damage is being rolled here
         damageAmount = damage.getDiceValue().roll();
-        damageAmount += damage.getFlatValue();
+        damageAmount += damage.getFlatValue().getValue();
         damageToTake = Math.min(damageAmount, this.currentHP);
         newCurrentHP = this.currentHP - damageToTake;
         setCurrentHP(newCurrentHP);

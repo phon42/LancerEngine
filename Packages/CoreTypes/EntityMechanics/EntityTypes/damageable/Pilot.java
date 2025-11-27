@@ -1152,7 +1152,8 @@ public final class Pilot implements Damageable {
             throw new IllegalArgumentException("harm value has a Harm.type"
                 + " value of \"variable\"");
         }
-        if (harm.getDiceValue() == null && harm.getFlatValue() == 0) {
+        if (harm.getDiceValue() == null && harm.getFlatValue().getValue() == 0)
+        {
             throw new IllegalArgumentException("harm.diceValue is \"\" and"
                 + " harm.flatValue value: " + harm.getFlatValue() + " is < 1");
         }
