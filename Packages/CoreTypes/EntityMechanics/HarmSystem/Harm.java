@@ -46,12 +46,15 @@ public class Harm {
         setValue(value);
         checkValidity();
     }
-    public Harm(HarmType type, DiceExpression harmDice,
-        ConstantExpression harmFlatAmount) {
+    public Harm(HarmType type, DiceExpression diceValue,
+        ConstantExpression flatValue) {
         setType(type);
-        setDiceValue(harmDice);
-        setFlatValue(harmFlatAmount);
+        setDiceValue(diceValue);
+        setFlatValue(flatValue);
         checkValidity();
+    }
+    public Harm(HarmType type, String diceValue, int flatValue) {
+
     }
     protected Harm(MixedExpression value) {
         setValue(value);
@@ -59,6 +62,10 @@ public class Harm {
     protected Harm(DiceExpression harmDice, ConstantExpression harmFlatAmount) {
         setDiceValue(harmDice);
         setFlatValue(harmFlatAmount);
+    }
+    protected Harm(String diceValue, int flatValue) {
+        setDiceValue(diceValue);
+        setFlatValue(flatValue);
     }
     protected Harm() {}
 
@@ -119,6 +126,13 @@ public class Harm {
         output += " " + this.type.outputValue() + " harm";
 
         return output;
+    }
+    protected void setDiceValue(String diceValue) {
+        if (diceValue == null) {
+            this.diceValue = null;
+        } else {
+            setDiceValue(new DiceExpression(diceValue));
+        }
     }
     /**
      * Warning: this mutator DOES NOT protect any number of invalid cases. It is

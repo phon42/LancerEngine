@@ -61,6 +61,11 @@ public class Damage extends Harm {
         setType(type);
         checkValidity();
     }
+    public Damage(DamageType type, String diceValue, int flatValue) {
+        super(diceValue, flatValue);
+        setType(type);
+        checkValidity();
+    }
 
     // Required properties
     @Override
