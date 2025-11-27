@@ -1,0 +1,41 @@
+package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Unverified.pilotEquipmentUnverified;
+
+import Packages.CoreTypes.EntityMechanics.Bonus;
+import Packages.CoreTypes.EntityMechanics.ISynergyData;
+import Packages.CoreTypes.EntityMechanics.Actions.actionBase.IActionData;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.IDeployableData;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.DataTagUnverified;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.dataTagUnverified.DataTag;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Unverified.PilotEquipmentUnverified;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Verified.pilotEquipment.PilotArmor;
+
+public class PilotArmorUnverified extends PilotEquipmentUnverified {
+    public PilotArmorUnverified(
+        // PilotEquipment properties
+        String id, String name, String description,
+        DataTagUnverified[] dataTags, IActionData[] actions, Bonus[] bonuses,
+        ISynergyData[] synergies, IDeployableData[] deployables
+    ) {
+        super(id, name, "Armor", description, dataTags, actions, bonuses,
+            synergies, deployables);
+    }
+    public PilotArmorUnverified(String id, String name, String type) {
+        super(id, name, type);
+    }
+
+    public PilotArmor toPilotArmor() {
+        DataTag[] dataTags = null;
+
+        if (this.dataTags == null) {
+            return new PilotArmor(id, id, description, dataTags, actions,
+                bonuses, synergies, deployables);
+        }
+        dataTags = new DataTag[this.dataTags.length];
+        for (int i = 0; i < dataTags.length; i++) {
+            dataTags[i] = this.dataTags[i].toDataTag();
+        }
+
+        return new PilotArmor(id, id, description, dataTags, actions, bonuses,
+            synergies, deployables);
+    }
+}

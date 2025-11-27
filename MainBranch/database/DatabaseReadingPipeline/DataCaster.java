@@ -42,6 +42,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Unverifie
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Background.backgroundBase.UnverifiedBackground;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.bond.BondPower;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.bond.BondQuestion;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Unverified.pilotEquipmentUnverified.PilotArmorUnverified;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Verified.pilotEquipment.PilotArmor;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Verified.pilotEquipment.PilotGear;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Verified.pilotEquipment.PilotWeapon;
@@ -133,7 +134,7 @@ public class DataCaster {
     private static Manufacturer[] manufacturersProcessed;
     private static NPCFeature[] npcFeaturesProcessed;
     private static NPCTemplate[] npcTemplatesProcessed;
-    private static PilotArmor[] pilotArmorProcessed;
+    private static PilotArmorUnverified[] pilotArmorProcessed;
     private static PilotGear[] pilotGearProcessed;
     private static PilotWeapon[] pilotWeaponsProcessed;
     private static RangeType[] rangeTypesProcessed;
@@ -1352,7 +1353,7 @@ public class DataCaster {
         DataCaster.processPilotGear(pilotGearData);
     }
     private static void processPilotArmor(JSONObject[] pilotArmorData) {
-        PilotArmor[] pilotArmor;
+        PilotArmorUnverified[] pilotArmor;
         int index = 0;
 
         // Counting the number of non-null elements
@@ -1363,7 +1364,7 @@ public class DataCaster {
             index++;
         }
         // Removing null elements
-        pilotArmor = new PilotArmor[index];
+        pilotArmor = new PilotArmorUnverified[index];
         index = 0;
         for (int i = 0; i < pilotArmorData.length; i++) {
             if (pilotArmorData[i] == null) {
@@ -1375,14 +1376,15 @@ public class DataCaster {
         }
         DataCaster.pilotArmorProcessed = pilotArmor;
     }
-    private static PilotArmor toPilotArmor(JSONObject pilotArmorData) {
-        // PilotEquipment required properties
+    private static PilotArmorUnverified toPilotArmor(JSONObject pilotArmorData)
+    {
+        // PilotEquipmentUnverified required properties
         String id;
         String name;
-        // PilotEquipment optional properties
+        // PilotEquipmentUnverified optional properties
         String description;
         JSONArray dataTagsArray;
-        DataTagUnverified[] dataTags;
+        DataTagUnverified[] dataTags = null;
         JSONArray actionsArray;
         IActionData[] actions = null;
         JSONArray bonusesArray;
@@ -1392,7 +1394,7 @@ public class DataCaster {
         JSONArray deployablesArray;
         IDeployableData[] deployables = null;
 
-        // PilotEquipment required properties
+        // PilotEquipmentUnverified required properties
         try {
             id = pilotArmorData.getString("id");
             name = pilotArmorData.getString("name");
@@ -1401,7 +1403,7 @@ public class DataCaster {
                 + " JSONException during the required properties section of the"
                 + " object parsing, which is not allowed");
         }
-        // PilotEquipment optional properties
+        // PilotEquipmentUnverified optional properties
         description = getOptionalString(pilotArmorData,
             "description");
         try {
@@ -1468,9 +1470,8 @@ public class DataCaster {
             }
         } catch (JSONException exception) {}
 
-        // TODO: pass dataTags into this constructor
-        return new PilotArmor(id, name, description, null, actions,
-            bonuses, synergies, deployables);
+        return new PilotArmorUnverified(id, name, description, dataTags,
+            actions, bonuses, synergies, deployables);
     }
     private static void processPilotGear(JSONObject[] pilotGearData) {
         PilotGear[] pilotGear;
@@ -2349,7 +2350,7 @@ public class DataCaster {
         DataCaster.manufacturersProcessed = new Manufacturer[0];
         DataCaster.npcFeaturesProcessed = new NPCFeature[0];
         DataCaster.npcTemplatesProcessed = new NPCTemplate[0];
-        DataCaster.pilotArmorProcessed = new PilotArmor[0];
+        DataCaster.pilotArmorProcessed = new PilotArmorUnverified[0];
         DataCaster.pilotGearProcessed = new PilotGear[0];
         DataCaster.pilotWeaponsProcessed = new PilotWeapon[0];
         DataCaster.rangeTypesProcessed = new RangeType[0];
