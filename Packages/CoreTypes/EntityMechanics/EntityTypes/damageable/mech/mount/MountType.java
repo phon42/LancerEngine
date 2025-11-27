@@ -83,6 +83,16 @@ public class MountType {
      */
     private WeaponSize[] restrictedSizes;
 
+    // Helper properties
+    /**
+     * Contains an array of mount types that do not require talents, core
+     *     bonuses, or integrated weapons on the base frame to exist.
+     * Elements are case-insensitive and stored in lowercase.
+     */
+    private static final String[] baseMountTypes = {
+        "aux", "aux/aux", "flex", "heavy", "main", "main/aux"
+    };
+
     public MountType(int id, String name, WeaponSize[] allowedSizes,
         WeaponSize[] restrictedSizes) {
         HelperMethods.verifyConstructor();
@@ -157,5 +167,14 @@ public class MountType {
 
     public String outputName() {
         return HelperMethods.capitalizeFirst(name);
+    }
+    public boolean isBaseType() {
+        for (int i = 0; i < MountType.baseMountTypes.length; i++) {
+            if (this.name.equals(MountType.baseMountTypes[i])) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
