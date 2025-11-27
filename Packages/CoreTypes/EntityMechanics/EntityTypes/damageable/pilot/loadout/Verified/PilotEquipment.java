@@ -1,4 +1,4 @@
-package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout;
+package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Verified;
 
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.VueHTMLString;

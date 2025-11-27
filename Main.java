@@ -9,8 +9,8 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.unverified
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Loadout;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.SkillTriggersList;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Talent;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment.PilotGear;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment.PilotWeapon;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Verified.pilotEquipment.PilotGear;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Verified.pilotEquipment.PilotWeapon;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.Skill;
 
 /**
