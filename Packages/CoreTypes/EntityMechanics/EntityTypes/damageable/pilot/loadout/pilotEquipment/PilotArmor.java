@@ -18,14 +18,16 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.P
  * Safety: At least one of this class' properties has an allowed value of null.
  */
 public class PilotArmor extends PilotEquipment {
-    // TODO: fill out
     // Optional properties
     /**
+     * The pilot armor's bonuses (i.e. a Bonus representing a +3 to pilot HP).
      * Can be any Bonus[] that is not of length 0 or contains null elements. Can
      *     be null.
      */
     private Bonus[] bonuses;
     /**
+     * The pilot armor's actions (i.e. an IActionData representing the
+     *     "Activate Stealth Hardsuit" action).
      * Can be any IActionData[] that is not of length 0 or contains null
      *     elements. Can be null.
      */
