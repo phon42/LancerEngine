@@ -2,7 +2,7 @@ package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech;
 
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.dataTagUnverified.dataTag.DataTag;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.dataTagUnverified.DataTag;
 import Packages.CoreTypes.EntityMechanics.LicenseSystem.frameLicense.LicenseContent;
 
 /**
@@ -74,7 +74,7 @@ public class Equipment extends LicenseContent {
      */
     public boolean hasDataTag(String dataTagName) {
         for (DataTag dataTag : this.dataTags) {
-            if (dataTag.getName().equals(dataTagName)) {
+            if (dataTag.getData().getName().equals(dataTagName)) {
                 return true;
             }
         }
@@ -94,9 +94,9 @@ public class Equipment extends LicenseContent {
      * @throws IllegalArgumentException if the requested data tag could not be
      *     found.
      */
-    public int getDataTag(String dataTagName) {
+    public Object getDataTag(String dataTagName) {
         for (DataTag dataTag : this.dataTags) {
-            if (dataTag.getName().equals(dataTagName)) {
+            if (dataTag.getData().getName().equals(dataTagName)) {
                 return dataTag.getValue();
             }
         }

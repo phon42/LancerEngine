@@ -5,7 +5,7 @@ import Packages.CoreTypes.EntityMechanics.Actions.actionBase.IActionData;
 import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.Deployable;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Equipment;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.dataTagUnverified.dataTag.DataTag;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.dataTagUnverified.DataTag;
 import Packages.CoreTypes.EntityMechanics.License;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
 import Packages.CoreTypes.EntityMechanics.ISynergyData;
@@ -105,12 +105,14 @@ public final class MechSystem extends Equipment {
     @Override
     protected void setDataTags(DataTag[] dataTags) {
         boolean isValid;
+        String dataTagName;
 
         HelperMethods.checkObjectArray("New data tags", dataTags);
         for (DataTag dataTag : dataTags) {
             isValid = false;
+            dataTagName = dataTag.getData().getName();
             for (String allowedDataTag : MechSystem.allowedNames) {
-                if (dataTag.getName().equals(allowedDataTag)) {
+                if (dataTagName.equals(allowedDataTag)) {
                     isValid = true;
                     break;
                 }
@@ -118,7 +120,7 @@ public final class MechSystem extends Equipment {
             if (! isValid) {
                 throw new IllegalArgumentException("New data tags array"
                     + " includes a DataTag with an invalid data tag name for a"
-                    + " MechSystem: \"" + dataTag.getName() + "\"");
+                    + " MechSystem: \"" + dataTagName + "\"");
             }
         }
         dataTags = HelperMethods.copyOf(dataTags);
@@ -163,6 +165,7 @@ public final class MechSystem extends Equipment {
      */
     public String outputSystem(String outputType, int limitedSystemsBonus) {
         String outputString = "";
+        int limitedVal;
 
         outputType = outputType.toLowerCase();
         if (outputType.equals("mech build")) {
@@ -171,8 +174,8 @@ public final class MechSystem extends Equipment {
             outputString += this.name;
             if (this.hasDataTag("Limited X")) {
                 // add something like " x4"
-                outputString += " x" + (getDataTag("Limited X")
-                    + limitedSystemsBonus);
+                limitedVal = (Integer) getDataTag("Limited X");
+                outputString += " x" + (limitedVal + limitedSystemsBonus);
             }
         } else {
             return outputSystem(outputType);
