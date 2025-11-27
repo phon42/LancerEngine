@@ -4,6 +4,7 @@ import MainBranch.HelperMethods;
 import Packages.CoreTypes.JSONTypeTree;
 import Packages.CoreTypes.TriState;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.harm.harmType.DamageType;
+import Packages.CoreTypes.jsonTypeTree.JSONType;
 
 /**
  * See https://github.com/massif-press/lancer-data/blob/master/README.md#bonuses.
@@ -165,5 +166,9 @@ public class Bonus {
             weaponSizes = HelperMethods.copyOf(weaponSizes);
         }
         this.weaponSizes = weaponSizes;
+    }
+
+    public JSONType getValueSurfaceType() {
+        return valueType.getType();
     }
 }
