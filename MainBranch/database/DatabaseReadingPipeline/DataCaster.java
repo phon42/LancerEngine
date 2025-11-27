@@ -1479,7 +1479,7 @@ public class DataCaster {
             bonusesArray = pilotArmorData.getJSONArray("bonuses");
             try {
                 bonuses = new Bonus[bonusesArray.length()];
-                for (int i = 0; i < actions.length; i++) {
+                for (int i = 0; i < bonuses.length; i++) {
                     bonuses[i] = toBonus(bonusesArray.getJSONObject(i));
                 }
             } catch (JSONException exception) {
@@ -1491,7 +1491,7 @@ public class DataCaster {
             synergiesArray = pilotArmorData.getJSONArray("synergies");
             try {
                 synergies = new ISynergyData[synergiesArray.length()];
-                for (int i = 0; i < actions.length; i++) {
+                for (int i = 0; i < synergies.length; i++) {
                     synergies[i] = 
                         toISynergyData(synergiesArray.getJSONObject(i));
                 }
@@ -1504,7 +1504,7 @@ public class DataCaster {
             deployablesArray = pilotArmorData.getJSONArray("deployables");
             try {
                 deployables = new IDeployableData[deployablesArray.length()];
-                for (int i = 0; i < actions.length; i++) {
+                for (int i = 0; i < deployables.length; i++) {
                     deployables[i] =
                         toIDeployableData(deployablesArray.getJSONObject(i));
                 }
@@ -1599,7 +1599,7 @@ public class DataCaster {
             bonusesArray = pilotGearData.getJSONArray("bonuses");
             try {
                 bonuses = new Bonus[bonusesArray.length()];
-                for (int i = 0; i < actions.length; i++) {
+                for (int i = 0; i < bonuses.length; i++) {
                     bonuses[i] = toBonus(bonusesArray.getJSONObject(i));
                 }
             } catch (JSONException exception) {
@@ -1611,7 +1611,7 @@ public class DataCaster {
             synergiesArray = pilotGearData.getJSONArray("synergies");
             try {
                 synergies = new ISynergyData[synergiesArray.length()];
-                for (int i = 0; i < actions.length; i++) {
+                for (int i = 0; i < synergies.length; i++) {
                     synergies[i] = 
                         toISynergyData(synergiesArray.getJSONObject(i));
                 }
@@ -1624,7 +1624,7 @@ public class DataCaster {
             deployablesArray = pilotGearData.getJSONArray("deployables");
             try {
                 deployables = new IDeployableData[deployablesArray.length()];
-                for (int i = 0; i < actions.length; i++) {
+                for (int i = 0; i < deployables.length; i++) {
                     deployables[i] =
                         toIDeployableData(deployablesArray.getJSONObject(i));
                 }
@@ -1727,7 +1727,7 @@ public class DataCaster {
             bonusesArray = pilotWeaponData.getJSONArray("bonuses");
             try {
                 bonuses = new Bonus[bonusesArray.length()];
-                for (int i = 0; i < actions.length; i++) {
+                for (int i = 0; i < bonuses.length; i++) {
                     bonuses[i] = toBonus(bonusesArray.getJSONObject(i));
                 }
             } catch (JSONException exception) {
@@ -1739,7 +1739,7 @@ public class DataCaster {
             synergiesArray = pilotWeaponData.getJSONArray("synergies");
             try {
                 synergies = new ISynergyData[synergiesArray.length()];
-                for (int i = 0; i < actions.length; i++) {
+                for (int i = 0; i < synergies.length; i++) {
                     synergies[i] = 
                         toISynergyData(synergiesArray.getJSONObject(i));
                 }
@@ -1752,7 +1752,7 @@ public class DataCaster {
             deployablesArray = pilotWeaponData.getJSONArray("deployables");
             try {
                 deployables = new IDeployableData[deployablesArray.length()];
-                for (int i = 0; i < actions.length; i++) {
+                for (int i = 0; i < deployables.length; i++) {
                     deployables[i] =
                         toIDeployableData(deployablesArray.getJSONObject(i));
                 }
@@ -1767,8 +1767,8 @@ public class DataCaster {
             rangeArray = pilotWeaponData.getJSONArray("range");
             try {
                 range = new RangeTag[rangeArray.length()];
-                for (int i = 0; i < actions.length; i++) {
-                    range[i] = toRangeTag(rangeArray.getString(i));
+                for (int i = 0; i < range.length; i++) {
+                    range[i] = toRangeTag(rangeArray.getJSONObject(i));
                 }
             } catch (JSONException exception) {
                 throw new IllegalStateException("Attempting to parse"
@@ -1779,7 +1779,7 @@ public class DataCaster {
             damageArray = pilotWeaponData.getJSONArray("damage");
             try {
                 damage = new Harm[damageArray.length()];
-                for (int i = 0; i < actions.length; i++) {
+                for (int i = 0; i < damage.length; i++) {
                     damage[i] = toHarm(damageArray.getJSONObject(i));
                 }
             } catch (JSONException exception) {
@@ -1791,7 +1791,7 @@ public class DataCaster {
         return new UnverifiedPilotWeapon(id, name, description, dataTags,
             actions, bonuses, synergies, deployables, effect, range, damage);
     }
-    private static RangeTag toRangeTag(String rangeTagName) {
+    private static RangeTag toRangeTag(JSONObject rangeTagData) {
         // TODO: fill out
         return null;
     }
