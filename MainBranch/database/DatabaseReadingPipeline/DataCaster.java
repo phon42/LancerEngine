@@ -23,6 +23,7 @@ import Packages.CoreTypes.EntityMechanics.ISynergyData;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
 import Packages.CoreTypes.EntityMechanics.NPCFeature;
 import Packages.CoreTypes.EntityMechanics.NPCTemplate;
+import Packages.CoreTypes.EntityMechanics.RangeTag;
 import Packages.CoreTypes.EntityMechanics.RangeType;
 import Packages.CoreTypes.EntityMechanics.SynergyLocation;
 import Packages.CoreTypes.EntityMechanics.WeaponSize;
@@ -48,6 +49,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.reserve.R
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skill.SkillData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skill.skillData.SkillFamily;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.talent.TalentData;
+import Packages.CoreTypes.EntityMechanics.HarmSystem.Harm;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.harm.harmType.DamageType;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.unverifiedStateData.StateData;
 import Packages.CoreTypes.lcpInfo.LCPDependency;
@@ -1329,7 +1331,13 @@ public class DataCaster {
         pilotEquipmentData = performCorrections("pilot_gear",
             pilotEquipmentData);
         for (int i = 0; i < pilotEquipmentData.length; i++) {
-            type = pilotEquipmentData[i].getString("type");
+            try {
+                type = pilotEquipmentData[i].getString("type");
+            } catch (JSONException exception) {
+                throw new IllegalStateException("pilotEquipmentData threw a"
+                    + " JSONException during the required properties section of"
+                    + " the object parsing, which is not allowed");
+            }
             // add to the appropriate array
             if (type.equals("Armor")) {
                 pilotArmorData[i] = pilotEquipmentData[i];
@@ -1368,8 +1376,101 @@ public class DataCaster {
         DataCaster.pilotArmorProcessed = pilotArmor;
     }
     private static PilotArmor toPilotArmor(JSONObject pilotArmorData) {
-        // TODO: fill out
-        return null;
+        // PilotEquipment required properties
+        String id;
+        String name;
+        // PilotEquipment optional properties
+        String description;
+        JSONArray dataTagsArray;
+        DataTagUnverified[] dataTags;
+        JSONArray actionsArray;
+        IActionData[] actions = null;
+        JSONArray bonusesArray;
+        Bonus[] bonuses = null;
+        JSONArray synergiesArray;
+        ISynergyData[] synergies = null;
+        JSONArray deployablesArray;
+        IDeployableData[] deployables = null;
+
+        // PilotEquipment required properties
+        try {
+            id = pilotArmorData.getString("id");
+            name = pilotArmorData.getString("name");
+        } catch (JSONException exception) {
+            throw new IllegalStateException("pilotArmorData threw a"
+                + " JSONException during the required properties section of the"
+                + " object parsing, which is not allowed");
+        }
+        // PilotEquipment optional properties
+        description = getOptionalString(pilotArmorData,
+            "description");
+        try {
+            dataTagsArray = pilotArmorData.getJSONArray("tags");
+            try {
+                dataTags = new DataTagUnverified[dataTagsArray.length()];
+                for (int i = 0; i < dataTags.length; i++) {
+                    dataTags[i] = toDataTagUnverified(
+                        dataTagsArray.getJSONObject(i));
+                }
+            } catch (JSONException exception) {
+                throw new IllegalStateException("Attempting to parse"
+                    + " dataTagsArray threw a JSONException");
+            }
+        } catch (JSONException exception) {}
+        try {
+            actionsArray = pilotArmorData.getJSONArray("actions");
+            try {
+                actions = new IActionData[actionsArray.length()];
+                for (int i = 0; i < actions.length; i++) {
+                    actions[i] = toIActionData(actionsArray.getJSONObject(i));
+                }
+            } catch (JSONException exception) {
+                throw new IllegalStateException("Attempting to parse"
+                    + " actionsArray threw a JSONException");
+            }
+        } catch (JSONException exception) {}
+        try {
+            bonusesArray = pilotArmorData.getJSONArray("bonuses");
+            try {
+                bonuses = new Bonus[bonusesArray.length()];
+                for (int i = 0; i < actions.length; i++) {
+                    bonuses[i] = toBonus(bonusesArray.getJSONObject(i));
+                }
+            } catch (JSONException exception) {
+                throw new IllegalStateException("Attempting to parse"
+                    + " bonusesArray threw a JSONException");
+            }
+        } catch (JSONException exception) {}
+        try {
+            synergiesArray = pilotArmorData.getJSONArray("synergies");
+            try {
+                synergies = new ISynergyData[synergiesArray.length()];
+                for (int i = 0; i < actions.length; i++) {
+                    synergies[i] = 
+                        toISynergyData(synergiesArray.getJSONObject(i));
+                }
+            } catch (JSONException exception) {
+                throw new IllegalStateException("Attempting to parse"
+                    + " synergiesArray threw a JSONException");
+            }
+        } catch (JSONException exception) {}
+        try {
+            deployablesArray = pilotArmorData.getJSONArray("deployables");
+            try {
+                deployables = new IDeployableData[deployablesArray.length()];
+                for (int i = 0; i < actions.length; i++) {
+                    deployables[i] =
+                        toIDeployableData(deployablesArray.getJSONObject(i));
+                }
+            } catch (JSONException exception) {
+                throw new IllegalStateException("Attempting to parse"
+                    + " deployablesArray threw a JSONException");
+            }
+        } catch (JSONException exception) {}
+
+        // TODO: pass dataTags into this constructor
+        return new PilotArmor(id, name, description, null, actions,
+            bonuses, synergies, deployables);
     }
     private static void processPilotGear(JSONObject[] pilotGearData) {
         PilotGear[] pilotGear;
@@ -1396,8 +1497,101 @@ public class DataCaster {
         DataCaster.pilotGearProcessed = pilotGear;
     }
     private static PilotGear toPilotGear(JSONObject pilotGearData) {
-        // TODO: fill out
-        return null;
+        // PilotEquipment required properties
+        String id;
+        String name;
+        // PilotEquipment optional properties
+        String description;
+        JSONArray dataTagsArray;
+        DataTagUnverified[] dataTags;
+        JSONArray actionsArray;
+        IActionData[] actions = null;
+        JSONArray bonusesArray;
+        Bonus[] bonuses = null;
+        JSONArray synergiesArray;
+        ISynergyData[] synergies = null;
+        JSONArray deployablesArray;
+        IDeployableData[] deployables = null;
+
+        // PilotEquipment required properties
+        try {
+            id = pilotGearData.getString("id");
+            name = pilotGearData.getString("name");
+        } catch (JSONException exception) {
+            throw new IllegalStateException("pilotGearData threw a"
+                + " JSONException during the required properties section of the"
+                + " object parsing, which is not allowed");
+        }
+        // PilotEquipment optional properties
+        description = getOptionalString(pilotGearData,
+            "description");
+        try {
+            dataTagsArray = pilotGearData.getJSONArray("tags");
+            try {
+                dataTags = new DataTagUnverified[dataTagsArray.length()];
+                for (int i = 0; i < dataTags.length; i++) {
+                    dataTags[i] = toDataTagUnverified(
+                        dataTagsArray.getJSONObject(i));
+                }
+            } catch (JSONException exception) {
+                throw new IllegalStateException("Attempting to parse"
+                    + " dataTagsArray threw a JSONException");
+            }
+        } catch (JSONException exception) {}
+        try {
+            actionsArray = pilotGearData.getJSONArray("actions");
+            try {
+                actions = new IActionData[actionsArray.length()];
+                for (int i = 0; i < actions.length; i++) {
+                    actions[i] = toIActionData(actionsArray.getJSONObject(i));
+                }
+            } catch (JSONException exception) {
+                throw new IllegalStateException("Attempting to parse"
+                    + " actionsArray threw a JSONException");
+            }
+        } catch (JSONException exception) {}
+        try {
+            bonusesArray = pilotGearData.getJSONArray("bonuses");
+            try {
+                bonuses = new Bonus[bonusesArray.length()];
+                for (int i = 0; i < actions.length; i++) {
+                    bonuses[i] = toBonus(bonusesArray.getJSONObject(i));
+                }
+            } catch (JSONException exception) {
+                throw new IllegalStateException("Attempting to parse"
+                    + " bonusesArray threw a JSONException");
+            }
+        } catch (JSONException exception) {}
+        try {
+            synergiesArray = pilotGearData.getJSONArray("synergies");
+            try {
+                synergies = new ISynergyData[synergiesArray.length()];
+                for (int i = 0; i < actions.length; i++) {
+                    synergies[i] = 
+                        toISynergyData(synergiesArray.getJSONObject(i));
+                }
+            } catch (JSONException exception) {
+                throw new IllegalStateException("Attempting to parse"
+                    + " synergiesArray threw a JSONException");
+            }
+        } catch (JSONException exception) {}
+        try {
+            deployablesArray = pilotGearData.getJSONArray("deployables");
+            try {
+                deployables = new IDeployableData[deployablesArray.length()];
+                for (int i = 0; i < actions.length; i++) {
+                    deployables[i] =
+                        toIDeployableData(deployablesArray.getJSONObject(i));
+                }
+            } catch (JSONException exception) {
+                throw new IllegalStateException("Attempting to parse"
+                    + " deployablesArray threw a JSONException");
+            }
+        } catch (JSONException exception) {}
+
+        // TODO: pass dataTags into this constructor
+        return new PilotGear(id, name, description, null, actions,
+            bonuses, synergies, deployables);
     }
     private static void processPilotWeapons(JSONObject[] pilotWeaponsData) {
         PilotWeapon[] pilotWeapons;
@@ -1424,8 +1618,133 @@ public class DataCaster {
         DataCaster.pilotWeaponsProcessed = pilotWeapons;
     }
     private static PilotWeapon toPilotWeapon(JSONObject pilotWeaponData) {
-        // TODO: fill out
-        return null;
+        // PilotEquipment required properties
+        String id;
+        String name;
+        // PilotEquipment optional properties
+        String description;
+        JSONArray dataTagsArray;
+        DataTagUnverified[] dataTags;
+        JSONArray actionsArray;
+        IActionData[] actions = null;
+        JSONArray bonusesArray;
+        Bonus[] bonuses = null;
+        JSONArray synergiesArray;
+        ISynergyData[] synergies = null;
+        JSONArray deployablesArray;
+        IDeployableData[] deployables = null;
+        // Optional properties
+        String effect;
+        JSONArray rangeArray;
+        RangeTag[] range;
+        JSONArray damageArray;
+        Harm[] damage;
+
+        // PilotEquipment required properties
+        try {
+            id = pilotWeaponData.getString("id");
+            name = pilotWeaponData.getString("name");
+        } catch (JSONException exception) {
+            throw new IllegalStateException("pilotWeaponData threw a"
+                + " JSONException during the required properties section of the"
+                + " object parsing, which is not allowed");
+        }
+        // PilotEquipment optional properties
+        description = getOptionalString(pilotWeaponData,
+            "description");
+        try {
+            dataTagsArray = pilotWeaponData.getJSONArray("tags");
+            try {
+                dataTags = new DataTagUnverified[dataTagsArray.length()];
+                for (int i = 0; i < dataTags.length; i++) {
+                    dataTags[i] = toDataTagUnverified(
+                        dataTagsArray.getJSONObject(i));
+                }
+            } catch (JSONException exception) {
+                throw new IllegalStateException("Attempting to parse"
+                    + " dataTagsArray threw a JSONException");
+            }
+        } catch (JSONException exception) {}
+        try {
+            actionsArray = pilotWeaponData.getJSONArray("actions");
+            try {
+                actions = new IActionData[actionsArray.length()];
+                for (int i = 0; i < actions.length; i++) {
+                    actions[i] = toIActionData(actionsArray.getJSONObject(i));
+                }
+            } catch (JSONException exception) {
+                throw new IllegalStateException("Attempting to parse"
+                    + " actionsArray threw a JSONException");
+            }
+        } catch (JSONException exception) {}
+        try {
+            bonusesArray = pilotWeaponData.getJSONArray("bonuses");
+            try {
+                bonuses = new Bonus[bonusesArray.length()];
+                for (int i = 0; i < actions.length; i++) {
+                    bonuses[i] = toBonus(bonusesArray.getJSONObject(i));
+                }
+            } catch (JSONException exception) {
+                throw new IllegalStateException("Attempting to parse"
+                    + " bonusesArray threw a JSONException");
+            }
+        } catch (JSONException exception) {}
+        try {
+            synergiesArray = pilotWeaponData.getJSONArray("synergies");
+            try {
+                synergies = new ISynergyData[synergiesArray.length()];
+                for (int i = 0; i < actions.length; i++) {
+                    synergies[i] = 
+                        toISynergyData(synergiesArray.getJSONObject(i));
+                }
+            } catch (JSONException exception) {
+                throw new IllegalStateException("Attempting to parse"
+                    + " synergiesArray threw a JSONException");
+            }
+        } catch (JSONException exception) {}
+        try {
+            deployablesArray = pilotWeaponData.getJSONArray("deployables");
+            try {
+                deployables = new IDeployableData[deployablesArray.length()];
+                for (int i = 0; i < actions.length; i++) {
+                    deployables[i] =
+                        toIDeployableData(deployablesArray.getJSONObject(i));
+                }
+            } catch (JSONException exception) {
+                throw new IllegalStateException("Attempting to parse"
+                    + " deployablesArray threw a JSONException");
+            }
+        } catch (JSONException exception) {}
+        // Optional properties
+        effect = getOptionalString(pilotWeaponData, "effect");
+        try {
+            rangeArray = pilotWeaponData.getJSONArray("range");
+            try {
+                range = new RangeTag[rangeArray.length()];
+                for (int i = 0; i < actions.length; i++) {
+                    range[i] = toRangeTag(rangeArray.getJSONObject(i));
+                }
+            } catch (JSONException exception) {
+                throw new IllegalStateException("Attempting to parse"
+                    + " rangeArray threw a JSONException");
+            }
+        } catch (JSONException exception) {}
+        try {
+            damageArray = pilotWeaponData.getJSONArray("damage");
+            try {
+                damage = new Harm[damageArray.length()];
+                for (int i = 0; i < actions.length; i++) {
+                    damage[i] = toHarm(damageArray.getJSONObject(i));
+                }
+            } catch (JSONException exception) {
+                throw new IllegalStateException("Attempting to parse"
+                    + " damageArray threw a JSONException");
+            }
+        } catch (JSONException exception) {}
+
+        // TODO: pass dataTags into this constructor
+        return new PilotWeapon(id, name, description, null, actions,
+            bonuses, synergies, deployables, effect, range, damage);
     }
     private static RangeType toRangeType(String rangeTypeName) {
         RangeType rangeType;
