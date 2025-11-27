@@ -1,7 +1,12 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment;
 
 import MainBranch.HelperMethods;
+import Packages.CoreTypes.VueHTMLString;
+import Packages.CoreTypes.EntityMechanics.Bonus;
+import Packages.CoreTypes.EntityMechanics.ISynergyData;
 import Packages.CoreTypes.EntityMechanics.RangeTag;
+import Packages.CoreTypes.EntityMechanics.Actions.actionBase.IActionData;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.IDeployableData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.dataTagUnverified.DataTag;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.PilotEquipment;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.Harm;
@@ -19,7 +24,8 @@ import Packages.CoreTypes.EntityMechanics.HarmSystem.Harm;
  * Safety: At least one of this class' properties has an allowed value of null.
  */
 public class PilotWeapon extends PilotEquipment {
-    // Required properties
+    // Optional properties
+    private String effect;
     /**
      * Can be any RangeTag[] that does not contain null elements. Cannot be
      *     null.
@@ -30,32 +36,66 @@ public class PilotWeapon extends PilotEquipment {
      */
     private Harm[] damage;
 
-    public PilotWeapon(
+    private PilotWeapon(
         // PilotEquipment properties
-        String id, String name, DataTag[] dataTags, String description,
-        String effect,
-        // Required properties
-        RangeTag[] range, Harm[] damage
+        String id, VueHTMLString name, String type, String description,
+        DataTag[] dataTags, IActionData[] actions, Bonus[] bonuses,
+        ISynergyData[] synergies, IDeployableData[] deployables,
+        // Optional properties
+        String effect, RangeTag[] range, Harm[] damage
     ) {
-        // PilotEquipment properties
-        super(id, name, "weapon", dataTags, description, effect);
-        // Required properties
+        super(id, name, type, description, dataTags, actions, bonuses,
+            synergies, deployables);
+        setEffect(effect);
         setRange(range);
         setDamage(damage);
     }
+    private PilotWeapon(
+        // PilotEquipment properties
+        String id, VueHTMLString name, String type,
+        // Optional properties
+        String effect, RangeTag[] range, Harm[] damage
+    ) {
+        this(id, name, type, null, null, null,
+            null, null, null, effect, range,
+            damage);
+    }
+    private PilotWeapon(
+        // PilotEquipment properties
+        String id, VueHTMLString name, String type, String description,
+        DataTag[] dataTags, IActionData[] actions, Bonus[] bonuses,
+        ISynergyData[] synergies, IDeployableData[] deployables
+    ) {
+        super(id, name, type, description, dataTags, actions, bonuses,
+            synergies, deployables);
+    }
+    private PilotWeapon(String id, VueHTMLString name, String type) {
+        super(id, name, type);
+    }
 
+    // Optional properties
+    public String getEffect() {
+        return effect;
+    }
     public RangeTag[] getRange() {
         return HelperMethods.copyOf(range);
     }
     public Harm[] getDamage() {
         return HelperMethods.copyOf(damage);
     }
-    public void setRange(RangeTag[] range) {
+    // Optional properties
+    private void setEffect(String effect) {
+        if (effect != null) {
+            HelperMethods.checkString("effect", effect);
+        }
+        this.effect = effect;
+    }
+    private void setRange(RangeTag[] range) {
         HelperMethods.checkObjectArray("range", range);
         range = HelperMethods.copyOf(range);
         this.range = range;
     }
-    public void setDamage(Harm[] damage) {
+    private void setDamage(Harm[] damage) {
         HelperMethods.checkObjectArray("damage", damage);
         damage = HelperMethods.copyOf(damage);
         this.damage = damage;

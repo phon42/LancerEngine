@@ -1,6 +1,8 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment;
 
-import MainBranch.HelperMethods;
+import Packages.CoreTypes.VueHTMLString;
+import Packages.CoreTypes.EntityMechanics.Bonus;
+import Packages.CoreTypes.EntityMechanics.ISynergyData;
 import Packages.CoreTypes.EntityMechanics.Actions.actionBase.IActionData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.IDeployableData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.dataTagUnverified.DataTag;
@@ -18,70 +20,16 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.P
  * Safety: At least one of this class' properties has an allowed value of null.
  */
 public class PilotGear extends PilotEquipment {
-    // TODO: fill out
-    // Optional properties
-    /**
-     * Can be any IActionData[] that is not of length 0 or contains null
-     *     elements. Can be null.
-     */
-    private IActionData[] actions;
-    /**
-     * Can be any IDeployableData[] that is not of length 0 or contains null
-     *     elements. Can be null.
-     */
-    private IDeployableData[] deployables;
-
-    public PilotGear(
+    private PilotGear(
         // PilotEquipment properties
-        String id, String name, DataTag[] dataTags, String description,
-        String effect,
-        // Optional properties
-        IActionData[] actions, IDeployableData[] deployables
+        String id, VueHTMLString name, String type, String description,
+        DataTag[] dataTags, IActionData[] actions, Bonus[] bonuses,
+        ISynergyData[] synergies, IDeployableData[] deployables
     ) {
-        // PilotEquipment properties
-        super(id, name, "gear", dataTags, description, effect);
-        // Optional properties
-        setActions(actions);
-        setDeployables(deployables);
+        super(id, name, type, description, dataTags, actions, bonuses,
+            synergies, deployables);
     }
-    public PilotGear(
-        // PilotEquipment properties
-        String id, String name, DataTag[] dataTags, String description,
-        String effect
-    ) {
-        // PilotEquipment properties
-        super(id, name, "armor", dataTags, description, effect);
-    }
-
-    // Optional properties
-    public IActionData[] getActions() {
-        if (actions != null) {
-            return HelperMethods.copyOf(actions);
-        }
-
-        return actions;
-    }
-    public IDeployableData[] getDeployables() {
-        if (deployables != null) {
-            HelperMethods.copyOf(deployables);
-        }
-
-        return deployables;
-    }
-    // Optional properties
-    private void setActions(IActionData[] actions) {
-        HelperMethods.checkObjectArrayAlt("actions", actions);
-        if (actions != null) {
-            actions = HelperMethods.copyOf(actions);
-        }
-        this.actions = actions;
-    }
-    private void setDeployables(IDeployableData[] deployables) {
-        HelperMethods.checkObjectArrayAlt("deployables",
-            deployables);
-        if (deployables != null) {
-            deployables = HelperMethods.copyOf(deployables);
-        }
-        this.deployables = deployables;
+    private PilotGear(String id, VueHTMLString name, String type) {
+        super(id, name, type);
     }
 }
