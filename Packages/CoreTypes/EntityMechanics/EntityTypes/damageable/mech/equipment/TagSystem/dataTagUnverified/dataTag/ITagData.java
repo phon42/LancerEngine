@@ -3,7 +3,7 @@ package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.TriState;
 import Packages.CoreTypes.VueHTMLString;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.dataTagUnverified.dataTag.dataTag.Tag;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.dataTagUnverified.dataTag.iTagData.ITagDataUnhidden;
 
 /**
  * See
@@ -24,7 +24,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.
  * 
  * This class is immutable (in other words, no copies of it need to be created).
  */
-public class DataTag {
+public class ITagData {
     // Required properties
     /**
      * The id for this data tag (i.e. "tg_ai").
@@ -119,7 +119,7 @@ public class DataTag {
         "tg_set_damage_value", "tg_efficient", "tg_threat"
     };
 
-    public DataTag(String id, String name, String description,
+    public ITagData(String id, String name, String description,
         TriState filterIgnore, TriState hidden) {
         // Required properties
         setID(id);
@@ -170,14 +170,14 @@ public class DataTag {
     }
     protected void setFilterIgnore(TriState filterIgnore) {
         if (filterIgnore == TriState.UNSET) {
-            this.filterIgnore = DataTag.filterIgnoreDefault;
+            this.filterIgnore = ITagData.filterIgnoreDefault;
         } else {
             this.filterIgnore = filterIgnore.toBoolean();
         }
     }
     protected void setHidden(TriState hidden) {
         if (hidden == TriState.UNSET) {
-            this.hidden = DataTag.hiddenDefault;
+            this.hidden = ITagData.hiddenDefault;
         } else {
             this.hidden = hidden.toBoolean();
         }
@@ -191,12 +191,12 @@ public class DataTag {
         setDescription(new VueHTMLString(description));
     }
     private TriState calculateAcceptsValue() {
-        for (String valueID : DataTag.valueIDs) {
+        for (String valueID : ITagData.valueIDs) {
             if (this.id.equals(valueID)) {
                 return TriState.TRUE;
             }
         }
-        for (String dataTagID : DataTag.dataTagIDs) {
+        for (String dataTagID : ITagData.dataTagIDs) {
             if (this.id.equals(dataTagID)) {
                 return TriState.FALSE;
             }
@@ -204,18 +204,21 @@ public class DataTag {
 
         return TriState.UNSET;
     }
-    public Tag toTag() throws IllegalArgumentException {
+    public ITagDataUnhidden toUnhiddenTag() throws IllegalArgumentException {
         if (this.hidden) {
-            throw new IllegalArgumentException("Unable to convert a DataTag"
-                + " with a DataTag.hidden value of true to a Tag");
+            throw new IllegalArgumentException("Unable to convert an ITagData"
+                + " with a ITagData.hidden value of true to a"
+                + " ITagDataUnhidden");
         }
 
-        return new Tag(this.id, this.name, this.description.toString(),
-            TriState.toTriState(this.filterIgnore));
+        return new ITagDataUnhidden(
+            this.id, this.name, this.description.toString(),
+            TriState.toTriState(this.filterIgnore)
+        );
     }
-    public static Tag[] toTags(DataTag[] dataTags) {
+    public static ITagDataUnhidden[] toUnhiddenTags(ITagData[] dataTags) {
         int numValidTags = 0;
-        Tag[] tags;
+        ITagDataUnhidden[] tags;
 
         HelperMethods.checkObject("dataTags", dataTags);
         for (int i = 0; i < dataTags.length; i++) {
@@ -224,13 +227,13 @@ public class DataTag {
             }
             numValidTags++;
         }
-        tags = new Tag[numValidTags];
+        tags = new ITagDataUnhidden[numValidTags];
         numValidTags = 0;
         for (int i = 0; i < dataTags.length; i++) {
             if (dataTags[i] == null) {
                 continue;
             }
-            tags[numValidTags] = dataTags[i].toTag();
+            tags[numValidTags] = dataTags[i].toUnhiddenTag();
             numValidTags++;
         }
 

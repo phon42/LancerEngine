@@ -1,7 +1,7 @@
-package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.dataTagUnverified.dataTag.dataTag;
+package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.dataTagUnverified.dataTag.iTagData;
 
 import Packages.CoreTypes.TriState;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.dataTagUnverified.dataTag.DataTag;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.dataTagUnverified.dataTag.ITagData;
 
 /**
  * See pgs. 104 - 106.
@@ -20,8 +20,8 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.
  * 
  * This class is immutable (in other words, no copies of it need to be created).
  */
-public final class Tag extends DataTag {
-    public Tag(String id, String name, String description,
+public final class ITagDataUnhidden extends ITagData {
+    public ITagDataUnhidden(String id, String name, String description,
         TriState filterIgnore) {
         super(id, name, description, filterIgnore, TriState.FALSE);
     }
