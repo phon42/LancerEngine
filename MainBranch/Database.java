@@ -26,8 +26,10 @@ import Packages.CoreTypes.EntityMechanics.Actions.actionBase.IActionData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.MechSystem;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.Modification;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.Weapon;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.dataTagUnverified.dataTag.DataTag;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.dataTagUnverified.dataTag.dataTag.Tag;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.DataTagUnverified;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.dataTagUnverified.DataTag;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.dataTagUnverified.dataTag.ITagData;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.dataTagUnverified.dataTag.iTagData.ITagDataUnhidden;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.mount.MountType;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.unverifiedFrame.Frame;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.unverifiedFrame.frame.FrameEnum;
@@ -81,6 +83,10 @@ public final class Database {
      * add documentation
      */
     private static UnverifiedCoreBonus[] unverifiedCoreBonuses;
+    /**
+     * add documentation
+     */
+    private static DataTagUnverified[] unverifiedDataTags;
 
     // Verified data
     /**
@@ -114,10 +120,6 @@ public final class Database {
     /**
      * add documentation
      */
-    private static DataTag[] dataTags;
-    /**
-     * add documentation
-     */
     private static Environment[] environments;
     /**
      * Contains every frame's data for reference.
@@ -131,6 +133,14 @@ public final class Database {
      * add documentation
      */
     private static IActionData[] iActionData;
+    /**
+     * add documentation
+     */
+    private static ITagData[] iTagData;
+    /**
+     * add documentation
+     */
+    private static ITagDataUnhidden[] iTagDataUnhidden;
     /**
      * Contains every manufacturer for reference.
      */
@@ -195,10 +205,6 @@ public final class Database {
      * add documentation
      */
     private static Table[] tables;
-    /**
-     * add documentation
-     */
-    private static Tag[] tags;
     /**
      * add documentation
      */
@@ -443,6 +449,12 @@ public final class Database {
             addCoreBonus(unverifiedCoreBonus.toCoreBonus());
         }
         Database.unverifiedCoreBonuses = new UnverifiedCoreBonus[0];
+        for (DataTagUnverified unverifiedDataTag :
+            Database.unverifiedDataTags) {
+            // TODO: figure out a way to get these to their respective objects
+            unverifiedDataTag.toDataTag();
+        }
+        Database.unverifiedDataTags = new DataTagUnverified[0];
     }
     private static void checkOpen() {
         if (! isOpen()) {
@@ -457,6 +469,7 @@ public final class Database {
         // Unverified data
         Database.unverifiedBackgrounds = new UnverifiedBackground[0];
         Database.unverifiedCoreBonuses = new UnverifiedCoreBonus[0];
+        Database.unverifiedDataTags = new DataTagUnverified[0];
         // Verified data
         Database.actions = new Action[0];
         Database.activationTypes = new ActivationType[0];
@@ -464,11 +477,12 @@ public final class Database {
         Database.conditions = new StateData[0];
         Database.coreBonuses = new CoreBonus[0];
         Database.damageTypes = new DamageType[0];
-        Database.dataTags = new DataTag[0];
         Database.environments = new Environment[0];
         Database.frames = new Frame[0];
         Database.harmTypes = new HarmType[0];
         Database.iActionData = new IActionData[0];
+        Database.iTagData = new ITagData[0];
+        Database.iTagDataUnhidden = new ITagDataUnhidden[0];
         Database.manufacturers = new Manufacturer[0];
         Database.modifications = new Modification[0];
         Database.mountTypes = new MountType[0];
@@ -483,7 +497,6 @@ public final class Database {
         Database.statuses = new StateData[0];
         Database.systems = new MechSystem[0];
         Database.tables = new Table[0];
-        Database.tags = new Tag[0];
         Database.talents = new TalentData[0];
         Database.terms = new Term[0];
         Database.weapons = new Weapon[0];
@@ -604,16 +617,16 @@ public final class Database {
         throw new NoSuchElementException("No data tag found for damage type"
             + " name: " + damageType);
     }
-    public static DataTag getDataTag(String dataTagID) {
-        HelperMethods.checkObject("dataTagID", dataTagID);
-        dataTagID = dataTagID.toLowerCase();
-        for (DataTag dataTag : Database.dataTags) {
-            if (dataTagID.equals(dataTag.getID())) {
-                return dataTag;
+    public static ITagData getITagData(String iTagDataID) {
+        HelperMethods.checkObject("iTagDataID", iTagDataID);
+        iTagDataID = iTagDataID.toLowerCase();
+        for (ITagData iTagData : Database.iTagData) {
+            if (iTagDataID.equals(iTagData.getID())) {
+                return iTagData;
             }
         }
-        throw new NoSuchElementException("No data tag found for data tag ID: "
-            + dataTagID);
+        throw new NoSuchElementException("No ITagData object found for ITagData"
+            + " ID: " + iTagDataID);
     }
     public static Environment getEnvironment(String environmentID) {
         HelperMethods.checkObject("environmentID", environmentID);
@@ -847,16 +860,18 @@ public final class Database {
         throw new NoSuchElementException("No table found for table name: "
             + tableName);
     }
-    public static Tag getTag(String tagID) {
-        HelperMethods.checkObject("tagID", tagID);
-        tagID = tagID.toLowerCase();
-        for (Tag tag : Database.tags) {
-            if (tagID.equals(tag.getID())) {
-                return tag;
+    public static ITagDataUnhidden getITagDataUnhidden(
+        String iTagDataUnhiddenID) {
+        HelperMethods.checkObject("iTagDataUnhiddenID",
+            iTagDataUnhiddenID);
+        iTagDataUnhiddenID = iTagDataUnhiddenID.toLowerCase();
+        for (ITagDataUnhidden iTagDataUnhidden : Database.iTagDataUnhidden) {
+            if (iTagDataUnhiddenID.equals(iTagDataUnhidden.getID())) {
+                return iTagDataUnhidden;
             }
         }
-        throw new NoSuchElementException("No tag found for tag ID: "
-            + tagID);
+        throw new NoSuchElementException("No ITagDataUnhidden object found for"
+            + " ITagDataUnhidden ID: " + iTagDataUnhiddenID);
     }
     public static TalentData getTalent(String talentID) {
         HelperMethods.checkObject("talentID", talentID);
@@ -969,11 +984,26 @@ public final class Database {
      * @param coreBonus an UnverifiedCoreBonus which cannot be null.
      * @throws IllegalArgumentException if coreBonus is null.
      */
-    public static void addUnverifiedCoreBonus(UnverifiedCoreBonus coreBonus) {
+    public static void addUnverifiedCoreBonus(
+        UnverifiedCoreBonus unverifiedCoreBonus) {
         checkOpen();
-        HelperMethods.checkObject("coreBonus", coreBonus);
+        HelperMethods.checkObject("coreBonus",
+            unverifiedCoreBonus);
         Database.unverifiedCoreBonuses = HelperMethods.append(
-            Database.unverifiedCoreBonuses, coreBonus);
+            Database.unverifiedCoreBonuses, unverifiedCoreBonus);
+    }
+    /**
+     * Adds the provided DataTagUnverified to Database.unverifiedDataTags.
+     * @param unverifiedDataTag an DataTagUnverified which cannot be null.
+     * @throws IllegalArgumentException if unverifiedDataTag is null.
+     */
+    public static void addDataTagUnverified(DataTagUnverified unverifiedDataTag)
+    {
+        checkOpen();
+        HelperMethods.checkObject("unverifiedDataTag",
+            unverifiedDataTag);
+        Database.unverifiedDataTags = HelperMethods.append(
+            Database.unverifiedDataTags, unverifiedDataTag);
     }
     // Verified data
     /**
@@ -1055,14 +1085,14 @@ public final class Database {
         addHarmType(damageType);
     }
     /**
-     * Adds the provided DataTag to Database.dataTags.
-     * @param dataTag a DataTag which cannot be null.
-     * @throws IllegalArgumentException if dataTag is null.
+     * Adds the provided ITagData to Database.iTagData.
+     * @param iTagData an ITagData which cannot be null.
+     * @throws IllegalArgumentException if iTagData is null.
      */
-    public static void addDataTag(DataTag dataTag) {
+    public static void addITagData(ITagData iTagData) {
         checkOpen();
-        HelperMethods.checkObject("dataTag", dataTag);
-        Database.dataTags = HelperMethods.append(Database.dataTags, dataTag);
+        HelperMethods.checkObject("iTagData", iTagData);
+        Database.iTagData = HelperMethods.append(Database.iTagData, iTagData);
     }
     /**
      * Adds the provided Environment to Database.environments.
@@ -1290,14 +1320,16 @@ public final class Database {
         Database.tables = HelperMethods.append(Database.tables, table);
     }
     /**
-     * Adds the provided Tag to Database.tags.
-     * @param tag a Tag which cannot be null.
-     * @throws IllegalArgumentException if tag is null.
+     * Adds the provided ITagDataUnhidden to Database.iTagDataUnhidden.
+     * @param iTagDataUnhidden an ITagDataUnhidden which cannot be null.
+     * @throws IllegalArgumentException if iTagDataUnhidden is null.
      */
-    public static void addTag(Tag tag) {
+    public static void addITagDataUnhidden(ITagDataUnhidden iTagDataUnhidden) {
         checkOpen();
-        HelperMethods.checkObject("tag", tag);
-        Database.tags = HelperMethods.append(Database.tags, tag);
+        HelperMethods.checkObject("iTagDataUnhidden",
+            iTagDataUnhidden);
+        Database.iTagDataUnhidden =
+            HelperMethods.append(Database.iTagDataUnhidden, iTagDataUnhidden);
     }
     /**
      * Adds the provided TalentData to Database.talents.

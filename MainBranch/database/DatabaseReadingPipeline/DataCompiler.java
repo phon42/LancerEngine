@@ -10,8 +10,9 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.Modification;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.unverifiedFrame.Frame;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.Weapon;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.dataTagUnverified.dataTag.DataTag;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.dataTagUnverified.dataTag.dataTag.Tag;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.DataTagUnverified;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.dataTagUnverified.dataTag.ITagData;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.dataTagUnverified.dataTag.iTagData.ITagDataUnhidden;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Bond;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment.PilotArmor;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.pilotEquipment.PilotGear;
@@ -96,8 +97,9 @@ public class DataCompiler {
     private static ActivationType[] activationTypeData;
     private static StateData[] conditionData;
     private static UnverifiedCoreBonus[] coreBonusData;
-    private static DataTag[] dataTagData;
-    private static Tag[] tagData;
+    private static DataTagUnverified[] dataTagData;
+    private static ITagData[] iTagDataData;
+    private static ITagDataUnhidden[] iTagDataUnhiddenData;
     private static Manufacturer[] manufacturerData;
     private static NPCFeature[] npcFeatureData;
     private static NPCTemplate[] npcTemplateData;
@@ -184,8 +186,8 @@ public class DataCompiler {
         DataCompiler.activationTypeData = (ActivationType[]) data[6];
         DataCompiler.conditionData = (StateData[]) data[7];
         DataCompiler.coreBonusData = (UnverifiedCoreBonus[]) data[8];
-        DataCompiler.dataTagData = (DataTag[]) data[9];
-        DataCompiler.tagData = (Tag[]) data[10];
+        DataCompiler.dataTagData = (DataTagUnverified[]) data[9];
+        DataCompiler.iTagDataData = (ITagData[]) data[10];
         DataCompiler.manufacturerData = (Manufacturer[]) data[11];
         DataCompiler.npcFeatureData = (NPCFeature[]) data[12];
         DataCompiler.npcTemplateData = (NPCTemplate[]) data[13];
@@ -224,6 +226,8 @@ public class DataCompiler {
     }
     private static void extractContent() {
         // TODO: extract IActionData from core bonuses, mech systems, etc etc
+        // split ITagData into ITagData and ITagDataUnhidden, also split DataTag
+        //     into DataTag and Tag
     }
     private static void compileContent() {
         compileLicenseContent();
@@ -361,10 +365,13 @@ public class DataCompiler {
             Database.addUnverifiedCoreBonus(DataCompiler.coreBonusData[i]);
         }
         for (int i = 0; i < DataCompiler.dataTagData.length; i++) {
-            Database.addDataTag(DataCompiler.dataTagData[i]);
+            Database.addDataTagUnverified(DataCompiler.dataTagData[i]);
         }
-        for (int i = 0; i < DataCompiler.tagData.length; i++) {
-            Database.addTag(DataCompiler.tagData[i]);
+        for (int i = 0; i < DataCompiler.iTagDataData.length; i++) {
+            Database.addITagData(DataCompiler.iTagDataData[i]);
+        }
+        for (int i = 0; i < DataCompiler.iTagDataUnhiddenData.length; i++) {
+            Database.addITagDataUnhidden(DataCompiler.iTagDataUnhiddenData[i]);
         }
         for (int i = 0; i < DataCompiler.manufacturerData.length; i++) {
             Database.addManufacturer(DataCompiler.manufacturerData[i]);
@@ -436,8 +443,9 @@ public class DataCompiler {
         DataCompiler.activationTypeData = new ActivationType[0];
         DataCompiler.conditionData = new StateData[0];
         DataCompiler.coreBonusData = new UnverifiedCoreBonus[0];
-        DataCompiler.dataTagData = new DataTag[0];
-        DataCompiler.tagData = new Tag[0];
+        DataCompiler.dataTagData = new DataTagUnverified[0];
+        DataCompiler.iTagDataData = new ITagData[0];
+        DataCompiler.iTagDataUnhiddenData = new ITagDataUnhidden[0];
         DataCompiler.manufacturerData = new Manufacturer[0];
         DataCompiler.npcFeatureData = new NPCFeature[0];
         DataCompiler.npcTemplateData = new NPCTemplate[0];
