@@ -36,8 +36,8 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.IDep
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.MechSystem;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.Modification;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.Weapon;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.DataTagUnverified;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.dataTagUnverified.dataTag.ITagData;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.UnverifiedDataTag;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.unverifiedDataTag.dataTag.ITagData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.unverifiedFrame.Frame;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Bond;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.UnverifiedCoreBonus;
@@ -1428,7 +1428,7 @@ public class DataCaster {
         // UnverifiedPilotEquipment optional properties
         String description;
         JSONArray dataTagsArray;
-        DataTagUnverified[] dataTags = null;
+        UnverifiedDataTag[] dataTags = null;
         JSONArray actionsArray;
         IActionData[] actions = null;
         JSONArray bonusesArray;
@@ -1453,7 +1453,7 @@ public class DataCaster {
         try {
             dataTagsArray = pilotArmorData.getJSONArray("tags");
             try {
-                dataTags = new DataTagUnverified[dataTagsArray.length()];
+                dataTags = new UnverifiedDataTag[dataTagsArray.length()];
                 for (int i = 0; i < dataTags.length; i++) {
                     dataTags[i] = toDataTagUnverified(
                         dataTagsArray.getJSONObject(i));
@@ -1548,7 +1548,7 @@ public class DataCaster {
         // UnverifiedPilotEquipment optional properties
         String description;
         JSONArray dataTagsArray;
-        DataTagUnverified[] dataTags = null;
+        UnverifiedDataTag[] dataTags = null;
         JSONArray actionsArray;
         IActionData[] actions = null;
         JSONArray bonusesArray;
@@ -1573,7 +1573,7 @@ public class DataCaster {
         try {
             dataTagsArray = pilotGearData.getJSONArray("tags");
             try {
-                dataTags = new DataTagUnverified[dataTagsArray.length()];
+                dataTags = new UnverifiedDataTag[dataTagsArray.length()];
                 for (int i = 0; i < dataTags.length; i++) {
                     dataTags[i] = toDataTagUnverified(
                         dataTagsArray.getJSONObject(i));
@@ -1670,7 +1670,7 @@ public class DataCaster {
         // UnverifiedPilotEquipment optional properties
         String description;
         JSONArray dataTagsArray;
-        DataTagUnverified[] dataTags = null;
+        UnverifiedDataTag[] dataTags = null;
         JSONArray actionsArray;
         IActionData[] actions = null;
         JSONArray bonusesArray;
@@ -1701,7 +1701,7 @@ public class DataCaster {
         try {
             dataTagsArray = pilotWeaponData.getJSONArray("tags");
             try {
-                dataTags = new DataTagUnverified[dataTagsArray.length()];
+                dataTags = new UnverifiedDataTag[dataTagsArray.length()];
                 for (int i = 0; i < dataTags.length; i++) {
                     dataTags[i] = toDataTagUnverified(
                         dataTagsArray.getJSONObject(i));
@@ -2154,7 +2154,7 @@ public class DataCaster {
 
         return new Table(propertyName, data);
     }
-    private static DataTagUnverified toDataTagUnverified(
+    private static UnverifiedDataTag toDataTagUnverified(
         JSONObject dataTagUnverifiedData) {
         String id;
         int valueInt;
@@ -2170,15 +2170,15 @@ public class DataCaster {
         try {
             valueInt = dataTagUnverifiedData.getInt("val");
 
-            return new DataTagUnverified(id, valueInt);
+            return new UnverifiedDataTag(id, valueInt);
         } catch (JSONException exception) {}
         try {
             valueString = dataTagUnverifiedData.getString("val");
 
-            return new DataTagUnverified(id, valueString);
+            return new UnverifiedDataTag(id, valueString);
         } catch (JSONException exception) {}
 
-        return new DataTagUnverified(id);
+        return new UnverifiedDataTag(id);
     }
     private static void processTalents(JSONObject[] talentsData) {
         TalentData[] talents = new TalentData[talentsData.length];

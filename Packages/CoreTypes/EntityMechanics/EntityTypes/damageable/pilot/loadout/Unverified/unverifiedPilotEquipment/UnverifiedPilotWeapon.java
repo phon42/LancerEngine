@@ -6,8 +6,8 @@ import Packages.CoreTypes.EntityMechanics.ISynergyData;
 import Packages.CoreTypes.EntityMechanics.RangeTag;
 import Packages.CoreTypes.EntityMechanics.Actions.actionBase.IActionData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.IDeployableData;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.DataTagUnverified;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.dataTagUnverified.DataTag;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.UnverifiedDataTag;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.unverifiedDataTag.DataTag;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Unverified.UnverifiedPilotEquipment;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Verified.pilotEquipment.PilotWeapon;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.Harm;
@@ -28,7 +28,7 @@ public class UnverifiedPilotWeapon extends UnverifiedPilotEquipment {
     public UnverifiedPilotWeapon(
         // PilotEquipment properties
         String id, String name, String description,
-        DataTagUnverified[] dataTags, IActionData[] actions, Bonus[] bonuses,
+        UnverifiedDataTag[] dataTags, IActionData[] actions, Bonus[] bonuses,
         ISynergyData[] synergies, IDeployableData[] deployables,
         // Optional properties
         String effect, RangeTag[] range, Harm[] damage
@@ -52,7 +52,7 @@ public class UnverifiedPilotWeapon extends UnverifiedPilotEquipment {
     public UnverifiedPilotWeapon(
         // PilotEquipment properties
         String id, String name, String description,
-        DataTagUnverified[] dataTags, IActionData[] actions, Bonus[] bonuses,
+        UnverifiedDataTag[] dataTags, IActionData[] actions, Bonus[] bonuses,
         ISynergyData[] synergies, IDeployableData[] deployables
     ) {
         super(id, name, "Weapon", description, dataTags, actions, bonuses,

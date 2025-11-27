@@ -3,10 +3,10 @@ package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment
 import java.util.NoSuchElementException;
 import MainBranch.Database;
 import MainBranch.HelperMethods;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.dataTagUnverified.DataTag;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.dataTagUnverified.dataTag.ITagData;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.unverifiedDataTag.DataTag;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.unverifiedDataTag.dataTag.ITagData;
 
-public class DataTagUnverified {
+public class UnverifiedDataTag {
     // Required property
     /**
      * The id of the data tag this ITagDataUnverified object refers to (i.e.
@@ -38,15 +38,15 @@ public class DataTagUnverified {
      */
     private String valueString;
 
-    public DataTagUnverified(String id, String value) {
+    public UnverifiedDataTag(String id, String value) {
         this(id);
         setValueString(value);
     }
-    public DataTagUnverified(String id, int value) {
+    public UnverifiedDataTag(String id, int value) {
         this(id);
         setValueInt(value);
     }
-    public DataTagUnverified(String id) {
+    public UnverifiedDataTag(String id) {
         setID(id);
         this.valueInt = -1;
         this.valueString = null;

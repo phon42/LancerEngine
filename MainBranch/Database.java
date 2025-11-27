@@ -26,10 +26,10 @@ import Packages.CoreTypes.EntityMechanics.Actions.actionBase.IActionData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.MechSystem;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.Modification;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.Weapon;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.DataTagUnverified;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.dataTagUnverified.DataTag;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.dataTagUnverified.dataTag.ITagData;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.dataTagUnverified.dataTag.iTagData.ITagDataUnhidden;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.UnverifiedDataTag;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.unverifiedDataTag.DataTag;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.unverifiedDataTag.dataTag.ITagData;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.unverifiedDataTag.dataTag.iTagData.ITagDataUnhidden;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.mount.MountType;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.unverifiedFrame.Frame;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.unverifiedFrame.frame.FrameEnum;
@@ -86,7 +86,7 @@ public final class Database {
     /**
      * add documentation
      */
-    private static DataTagUnverified[] unverifiedDataTags;
+    private static UnverifiedDataTag[] unverifiedDataTags;
 
     // Verified data
     /**
@@ -449,12 +449,12 @@ public final class Database {
             addCoreBonus(unverifiedCoreBonus.toCoreBonus());
         }
         Database.unverifiedCoreBonuses = new UnverifiedCoreBonus[0];
-        for (DataTagUnverified unverifiedDataTag :
+        for (UnverifiedDataTag unverifiedDataTag :
             Database.unverifiedDataTags) {
             // TODO: figure out a way to get these to their respective objects
             unverifiedDataTag.toDataTag();
         }
-        Database.unverifiedDataTags = new DataTagUnverified[0];
+        Database.unverifiedDataTags = new UnverifiedDataTag[0];
     }
     private static void checkOpen() {
         if (! isOpen()) {
@@ -469,7 +469,7 @@ public final class Database {
         // Unverified data
         Database.unverifiedBackgrounds = new UnverifiedBackground[0];
         Database.unverifiedCoreBonuses = new UnverifiedCoreBonus[0];
-        Database.unverifiedDataTags = new DataTagUnverified[0];
+        Database.unverifiedDataTags = new UnverifiedDataTag[0];
         // Verified data
         Database.actions = new Action[0];
         Database.activationTypes = new ActivationType[0];
@@ -996,7 +996,7 @@ public final class Database {
      * @param unverifiedDataTag an DataTagUnverified which cannot be null.
      * @throws IllegalArgumentException if unverifiedDataTag is null.
      */
-    public static void addDataTagUnverified(DataTagUnverified unverifiedDataTag)
+    public static void addDataTagUnverified(UnverifiedDataTag unverifiedDataTag)
     {
         checkOpen();
         HelperMethods.checkObject("unverifiedDataTag",

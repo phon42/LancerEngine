@@ -6,9 +6,9 @@ import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.ISynergyData;
 import Packages.CoreTypes.EntityMechanics.Actions.actionBase.IActionData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.IDeployableData;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.DataTagUnverified;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.dataTagUnverified.DataTag;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.dataTagUnverified.Tag;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.UnverifiedDataTag;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.unverifiedDataTag.DataTag;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.unverifiedDataTag.Tag;
 
 public class UnverifiedPilotEquipment {
     // TODO: fill out
@@ -23,7 +23,7 @@ public class UnverifiedPilotEquipment {
      * Case-sensitive.
      */
     protected String description;
-    protected DataTagUnverified[] dataTags;
+    protected UnverifiedDataTag[] dataTags;
     /**
      * The pilot armor's actions (i.e. an IActionData representing the
      *     "Activate Stealth Hardsuit" action).
@@ -48,7 +48,7 @@ public class UnverifiedPilotEquipment {
         // Required properties
         String id, String name, String type,
         // Optional properties
-        String description, DataTagUnverified[] dataTags, IActionData[] actions,
+        String description, UnverifiedDataTag[] dataTags, IActionData[] actions,
         Bonus[] bonuses, ISynergyData[] synergies, IDeployableData[] deployables
     ) {
         // Required properties
@@ -81,7 +81,7 @@ public class UnverifiedPilotEquipment {
     public String getDescription() {
         return description;
     }
-    public DataTagUnverified[] getDataTags() {
+    public UnverifiedDataTag[] getDataTags() {
         if (dataTags != null) {
             return HelperMethods.copyOf(dataTags);
         }
@@ -136,7 +136,7 @@ public class UnverifiedPilotEquipment {
         }
         this.description = description;
     }
-    protected void setDataTags(DataTagUnverified[] dataTags) {
+    protected void setDataTags(UnverifiedDataTag[] dataTags) {
         HelperMethods.checkObjectArrayAlt("dataTags", dataTags);
         if (dataTags != null) {
             dataTags = HelperMethods.copyOf(dataTags);

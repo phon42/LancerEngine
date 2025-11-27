@@ -10,9 +10,9 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.Modification;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.unverifiedFrame.Frame;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.Weapon;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.DataTagUnverified;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.dataTagUnverified.dataTag.ITagData;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.dataTagUnverified.dataTag.iTagData.ITagDataUnhidden;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.UnverifiedDataTag;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.unverifiedDataTag.dataTag.ITagData;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.unverifiedDataTag.dataTag.iTagData.ITagDataUnhidden;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Bond;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.reserve.ReserveData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.UnverifiedCoreBonus;
@@ -100,7 +100,7 @@ public class DataCompiler {
     private static ActivationType[] activationTypeData;
     private static StateData[] conditionData;
     private static UnverifiedCoreBonus[] coreBonusData;
-    private static DataTagUnverified[] dataTagData;
+    private static UnverifiedDataTag[] dataTagData;
     private static ITagData[] iTagDataData;
     private static ITagDataUnhidden[] iTagDataUnhiddenData;
     private static Manufacturer[] manufacturerData;
@@ -445,7 +445,7 @@ public class DataCompiler {
         DataCompiler.activationTypeData = new ActivationType[0];
         DataCompiler.conditionData = new StateData[0];
         DataCompiler.coreBonusData = new UnverifiedCoreBonus[0];
-        DataCompiler.dataTagData = new DataTagUnverified[0];
+        DataCompiler.dataTagData = new UnverifiedDataTag[0];
         DataCompiler.iTagDataData = new ITagData[0];
         DataCompiler.iTagDataUnhiddenData = new ITagDataUnhidden[0];
         DataCompiler.manufacturerData = new Manufacturer[0];

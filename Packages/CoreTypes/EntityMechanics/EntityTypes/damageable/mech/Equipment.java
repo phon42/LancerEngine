@@ -2,7 +2,7 @@ package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech;
 
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.dataTagUnverified.DataTag;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.unverifiedDataTag.DataTag;
 import Packages.CoreTypes.EntityMechanics.LicenseSystem.frameLicense.LicenseContent;
 
 /**
