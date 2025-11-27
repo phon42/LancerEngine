@@ -1,4 +1,4 @@
-package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout;
+package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Unverified;
 
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.VueHTMLString;
@@ -6,6 +6,7 @@ import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.ISynergyData;
 import Packages.CoreTypes.EntityMechanics.Actions.actionBase.IActionData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.IDeployableData;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.DataTagUnverified;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.dataTagUnverified.DataTag;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.dataTagUnverified.Tag;
 
@@ -33,8 +34,7 @@ public class PilotEquipmentUnverified {
      * Case-sensitive.
      */
     protected String description;
-    protected DataTag[] dataTags;
-    protected Tag[] tags;
+    protected DataTagUnverified[] dataTags;
     /**
      * The pilot armor's actions (i.e. an IActionData representing the
      *     "Activate Stealth Hardsuit" action).
@@ -59,7 +59,7 @@ public class PilotEquipmentUnverified {
         // Required properties
         String id, String name, String type,
         // Optional properties
-        String description, DataTag[] dataTags, IActionData[] actions,
+        String description, DataTagUnverified[] dataTags, IActionData[] actions,
         Bonus[] bonuses, ISynergyData[] synergies, IDeployableData[] deployables
     ) {
         // Required properties
@@ -92,19 +92,12 @@ public class PilotEquipmentUnverified {
     public String getDescription() {
         return description;
     }
-    public DataTag[] getDataTags() {
+    public DataTagUnverified[] getDataTags() {
         if (dataTags != null) {
             return HelperMethods.copyOf(dataTags);
         }
 
         return dataTags;
-    }
-    public Tag[] getTags() {
-        if (tags != null) {
-            return HelperMethods.copyOf(tags);
-        }
-
-        return tags;
     }
     public IActionData[] getActions() {
         if (actions != null) {
@@ -154,19 +147,12 @@ public class PilotEquipmentUnverified {
         }
         this.description = description;
     }
-    protected void setDataTags(DataTag[] dataTags) {
+    protected void setDataTags(DataTagUnverified[] dataTags) {
         HelperMethods.checkObjectArrayAlt("dataTags", dataTags);
         if (dataTags != null) {
             dataTags = HelperMethods.copyOf(dataTags);
         }
         this.dataTags = dataTags;
-        if (dataTags != null) {
-            setTags(DataTag.toTags(dataTags));
-        }
-    }
-    protected void setTags(Tag[] tags) {
-        HelperMethods.checkObjectArrayAlt("tags", tags);
-        this.tags = tags;
     }
     protected void setActions(IActionData[] actions) {
         HelperMethods.checkObjectArrayAlt("actions", actions);
