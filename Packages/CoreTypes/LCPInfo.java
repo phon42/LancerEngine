@@ -151,8 +151,10 @@ public class LCPInfo {
     /**
      * A constructor using only the required properties.
      */
-    public LCPInfo(String name, String author, String description,
-        String version) {
+    public LCPInfo(
+        // Required properties
+        String name, String author, String description, String version
+    ) {
         this(name, author, description, version, TriState.UNSET,
             null, null, null, null,
             null);
