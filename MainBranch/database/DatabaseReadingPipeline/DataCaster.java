@@ -1739,15 +1739,10 @@ public class DataCaster {
     }
     private static Table toTable(JSONObject table) {
         String propertyName;
-        JSONArray dataArray;
-        Object[] data;
+        Object data;
 
         propertyName = table.getString("property_name");
-        dataArray = (JSONArray) table.get("value");
-        data = new Object[dataArray.length()];
-        for (int i = 0; i < dataArray.length(); i++) {
-            data[i] = dataArray.get(i);
-        }
+        data = table.getJSONArray("value");
 
         return new Table(propertyName, data);
     }
