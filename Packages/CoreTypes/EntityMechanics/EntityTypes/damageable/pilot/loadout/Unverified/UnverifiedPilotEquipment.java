@@ -10,17 +10,6 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.dataTagUnverified.DataTag;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.dataTagUnverified.Tag;
 
-/**
- * Represents a single piece of pilot equipment of any kind (be that armor,
- *     weapon, or gear). Contains information about that pilot equipment's id,
- *     name, type, data tags, and tags.
- * 
- * Cannot be instantiated.
- * 
- * Unused at present.
- * 
- * Safety: N/A because this class cannot be instantiated.
- */
 public class UnverifiedPilotEquipment {
     // TODO: fill out
     // Required properties
