@@ -8,6 +8,8 @@ import MainBranch.HelperMethods;
 import MainBranch.database.fileOperations.json.JSONArray;
 import MainBranch.database.fileOperations.json.JSONException;
 import MainBranch.database.fileOperations.json.JSONObject;
+import MainBranch.roll.MixedExpression;
+import MainBranch.roll.mixedExpression.ConstantExpression;
 import MainBranch.database.LCPCorrection;
 import Packages.CoreTypes.Rule;
 import Packages.CoreTypes.Table;
@@ -45,14 +47,12 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.bond.Bond
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Unverified.unverifiedPilotEquipment.UnverifiedPilotArmor;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Unverified.unverifiedPilotEquipment.UnverifiedPilotGear;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Unverified.unverifiedPilotEquipment.UnverifiedPilotWeapon;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Verified.pilotEquipment.PilotArmor;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Verified.pilotEquipment.PilotGear;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Verified.pilotEquipment.PilotWeapon;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.reserve.ReserveData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skill.SkillData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skill.skillData.SkillFamily;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.talent.TalentData;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.Harm;
+import Packages.CoreTypes.EntityMechanics.HarmSystem.harm.HarmType;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.harm.harmType.DamageType;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.unverifiedStateData.StateData;
 import Packages.CoreTypes.lcpInfo.LCPDependency;
@@ -130,7 +130,8 @@ public class DataCaster {
     private static ActivationType[] activationTypesProcessed;
     private static UnverifiedCoreBonus[] coreBonusesProcessed;
     private static StateData[] conditionsProcessed;
-    private static DamageType[] damageTypes;
+    private static DamageType[] damageTypesProcessed;
+    private static HarmType[] harmTypesProcessed;
     private static ITagData[] iTagDataProcessed;
     private static Manufacturer[] manufacturersProcessed;
     private static NPCFeature[] npcFeaturesProcessed;
@@ -1137,8 +1138,9 @@ public class DataCaster {
             return Database.getDamageType(damageTypeName);
         } catch (NoSuchElementException exception) {
             damageType = new DamageType(damageTypeName);
-            DataCaster.damageTypes =
-                HelperMethods.append(DataCaster.damageTypes, damageType);
+            DataCaster.damageTypesProcessed = HelperMethods.append(
+                DataCaster.damageTypesProcessed, damageType
+            );
 
             return damageType;
         }
@@ -1182,6 +1184,47 @@ public class DataCaster {
     private static Frame toFrame(JSONObject frameData) {
         // TODO: fill out
         return null;
+    }
+    private static Harm toHarm(JSONObject harmData) {
+        String typeString;
+        HarmType type;
+        int flatValue = 0;
+        String rawValue;
+
+        try {
+            typeString = harmData.getString("type");
+            type = toHarmType(typeString);
+            rawValue = getOptionalString(harmData, "val");
+            if (rawValue == null) {
+                flatValue = harmData.getInt("val");
+            }
+        } catch (JSONException exception) {
+            throw new IllegalStateException("harmData threw a JSONException"
+                + " during the required properties section of the object"
+                + " parsing, which is not allowed");
+        }
+
+        if (rawValue == null) {
+            return new Harm(type,
+                new MixedExpression(new ConstantExpression(flatValue))
+            );
+        } else {
+            return new Harm(type, new MixedExpression(rawValue));
+        }
+    }
+    private static HarmType toHarmType(String harmTypeString) {
+        HarmType harmType;
+
+        try {
+            harmType = Database.getHarmType(harmTypeString);
+        } catch (NoSuchElementException exception) {
+            harmType = new HarmType(harmTypeString);
+            DataCaster.harmTypesProcessed = HelperMethods.append(
+                DataCaster.harmTypesProcessed, harmType
+            );
+        }
+
+        return harmType;
     }
     private static IActionData toIActionData(JSONObject iActionDataData) {
         // TODO: fill out
@@ -1627,7 +1670,7 @@ public class DataCaster {
         // UnverifiedPilotEquipment optional properties
         String description;
         JSONArray dataTagsArray;
-        DataTagUnverified[] dataTags;
+        DataTagUnverified[] dataTags = null;
         JSONArray actionsArray;
         IActionData[] actions = null;
         JSONArray bonusesArray;
@@ -1639,9 +1682,9 @@ public class DataCaster {
         // Optional properties
         String effect;
         JSONArray rangeArray;
-        RangeTag[] range;
+        RangeTag[] range = null;
         JSONArray damageArray;
-        Harm[] damage;
+        Harm[] damage = null;
 
         // UnverifiedPilotEquipment required properties
         try {
@@ -1725,7 +1768,7 @@ public class DataCaster {
             try {
                 range = new RangeTag[rangeArray.length()];
                 for (int i = 0; i < actions.length; i++) {
-                    range[i] = toRangeTag(rangeArray.getJSONObject(i));
+                    range[i] = toRangeTag(rangeArray.getString(i));
                 }
             } catch (JSONException exception) {
                 throw new IllegalStateException("Attempting to parse"
@@ -1747,6 +1790,10 @@ public class DataCaster {
 
         return new UnverifiedPilotWeapon(id, name, description, dataTags,
             actions, bonuses, synergies, deployables, effect, range, damage);
+    }
+    private static RangeTag toRangeTag(String rangeTagName) {
+        // TODO: fill out
+        return null;
     }
     private static RangeType toRangeType(String rangeTypeName) {
         RangeType rangeType;
@@ -2262,6 +2309,8 @@ public class DataCaster {
             DataCaster.activationTypesProcessed,
             DataCaster.conditionsProcessed,
             DataCaster.coreBonusesProcessed,
+            DataCaster.damageTypesProcessed,
+            DataCaster.harmTypesProcessed,
             DataCaster.iTagDataProcessed,
             DataCaster.manufacturersProcessed,
             DataCaster.npcFeaturesProcessed,
@@ -2345,7 +2394,8 @@ public class DataCaster {
         DataCaster.activationTypesProcessed = new ActivationType[0];
         DataCaster.conditionsProcessed = new StateData[0];
         DataCaster.coreBonusesProcessed = new UnverifiedCoreBonus[0];
-        DataCaster.damageTypes = new DamageType[0];
+        DataCaster.damageTypesProcessed = new DamageType[0];
+        DataCaster.harmTypesProcessed = new HarmType[0];
         DataCaster.manufacturersProcessed = new Manufacturer[0];
         DataCaster.npcFeaturesProcessed = new NPCFeature[0];
         DataCaster.npcTemplatesProcessed = new NPCTemplate[0];
