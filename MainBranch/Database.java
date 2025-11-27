@@ -354,6 +354,15 @@ public final class Database {
             }, null)
         );
 
+        // Add allowed range types
+        addRangeType(new RangeType(0, "Range"));
+        addRangeType(new RangeType(1, "Threat"));
+        addRangeType(new RangeType(2, "Line"));
+        addRangeType(new RangeType(3, "Cone"));
+        addRangeType(new RangeType(4, "Blast"));
+        addRangeType(new RangeType(5, "Burst"));
+        addRangeType(new RangeType(6, "Thrown"));
+
         // Add allowed weapon types
         addWeaponType(new WeaponType(0, "CQB"));
         addWeaponType(new WeaponType(1, "Cannon"));

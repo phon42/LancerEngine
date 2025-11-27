@@ -15,6 +15,7 @@ public class RangeType {
      *     3 - Cone
      *     4 - Blast
      *     5 - Burst
+     *     6 - Thrown
      */
     private int id;
     /**
@@ -26,7 +27,7 @@ public class RangeType {
      *     to obtain it properly formatted.
      * 
      * Currently used values:
-     *     "range", "threat", "line", "cone", "blast", "burst"
+     *     "range", "threat", "line", "cone", "blast", "burst", "thrown"
      */
     private String name;
 
