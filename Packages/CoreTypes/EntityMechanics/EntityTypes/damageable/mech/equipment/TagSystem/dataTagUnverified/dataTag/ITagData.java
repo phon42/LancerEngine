@@ -121,6 +121,7 @@ public class ITagData {
 
     public ITagData(String id, String name, String description,
         TriState filterIgnore, TriState hidden) {
+        HelperMethods.verifyConstructor();
         // Required properties
         setID(id);
         setName(name);

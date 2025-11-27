@@ -4,6 +4,7 @@ import java.util.NoSuchElementException;
 import MainBranch.Database;
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.dataTagUnverified.DataTag;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.dataTagUnverified.dataTag.ITagData;
 
 public class DataTagUnverified {
     // Required property
@@ -99,23 +100,22 @@ public class DataTagUnverified {
         this.valueString = valueString;
     }
 
-    public DataTag toITagData() {
-        DataTag dataTag;
+    public DataTag toDataTag() {
+        ITagData iTagData;
 
         try {
-            dataTag = Database.getDataTag(this.id);
+            iTagData = Database.getITagData(this.id);
         } catch (NoSuchElementException exception) {
             throw new IllegalStateException("Unable to convert this"
-                + " ITagDataUnverified to a ITagData because the DataTag: \""
+                + " DataTagUnverified to a DataTag because the IDataTag: \""
                 + this.id + "\" could not be found in Database");
         }
-        if (this.valueInt > -1) {
-            return new DataTag(dataTag, this.valueInt);
+        if (this.valueString == null) {
+            return new DataTag(iTagData, this.valueInt);
+        } else if (this.valueInt != -1) {
+            return new DataTag(iTagData, this.valueString);
+        } else {
+            return new DataTag(iTagData);
         }
-        if (this.valueString != null) {
-            return new DataTag(dataTag, this.valueString);
-        }
-
-        return new DataTag(dataTag);
     }
 }

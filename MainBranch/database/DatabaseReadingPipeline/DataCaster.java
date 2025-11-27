@@ -33,8 +33,8 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.IDep
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.MechSystem;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.Modification;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.Weapon;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.dataTagUnverified.dataTag.DataTag;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.dataTagUnverified.dataTag.dataTag.Tag;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.DataTagUnverified;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.dataTagUnverified.dataTag.ITagData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.unverifiedFrame.Frame;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Bond;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.UnverifiedCoreBonus;
@@ -94,7 +94,7 @@ public class DataCaster {
     // ----the rest of the critical data types:
     private static JSONObject[] actionsRaw;
     private static JSONObject[] coreBonusesRaw;
-    private static JSONObject[] dataTagsRaw;
+    private static JSONObject[] iTagDataRaw;
     private static JSONObject[] manufacturersRaw;
     private static JSONObject[] npcFeaturesRaw;
     private static JSONObject[] npcTemplatesRaw;
@@ -126,7 +126,8 @@ public class DataCaster {
     private static UnverifiedCoreBonus[] coreBonusesProcessed;
     private static StateData[] conditionsProcessed;
     private static DamageType[] damageTypes;
-    private static DataTag[] dataTagsProcessed;
+    private static DataTagUnverified[] dataTagsUnverifiedProcessed;
+    private static ITagData[] iTagDataProcessed;
     private static Manufacturer[] manufacturersProcessed;
     private static NPCFeature[] npcFeaturesProcessed;
     private static NPCTemplate[] npcTemplatesProcessed;
@@ -137,7 +138,6 @@ public class DataCaster {
     private static ReserveData[] reservesProcessed;
     private static SkillData[] skillsProcessed;
     private static StateData[] statusesProcessed;
-    private static Tag[] tagsProcessed;
     private static TalentData[] talentsProcessed;
     private static WeaponSize[] weaponSizesProcessed;
     private static WeaponType[] weaponTypesProcessed;
@@ -219,7 +219,7 @@ public class DataCaster {
         // ----the rest of the critical data types:
         DataCaster.actionsRaw = (JSONObject[]) data[6];
         DataCaster.coreBonusesRaw = (JSONObject[]) data[7];
-        DataCaster.dataTagsRaw = (JSONObject[]) data[8];
+        DataCaster.iTagDataRaw = (JSONObject[]) data[8];
         DataCaster.manufacturersRaw = (JSONObject[]) data[9];
         DataCaster.npcFeaturesRaw = (JSONObject[]) data[10];
         DataCaster.npcTemplatesRaw = (JSONObject[]) data[11];
@@ -330,9 +330,9 @@ public class DataCaster {
             || DataCaster.tablesRaw.keySet().size() < 1)) {
             processTables(DataCaster.tablesRaw);
         }
-        if (! (DataCaster.dataTagsRaw == null
-            || DataCaster.dataTagsRaw.length < 1)) {
-            processDataTags(DataCaster.dataTagsRaw);
+        if (! (DataCaster.iTagDataRaw == null
+            || DataCaster.iTagDataRaw.length < 1)) {
+            processITagData(DataCaster.iTagDataRaw);
         }
         if (! (DataCaster.talentsRaw == null
             || DataCaster.talentsRaw.length < 1)) {
@@ -1188,6 +1188,46 @@ public class DataCaster {
         // TODO: fill out
         return null;
     }
+    private static void processITagData(JSONObject[] iTagDataData) {
+        ITagData[] iTagDataArray = new ITagData[iTagDataData.length];
+
+        iTagDataData = performCorrections("tags", iTagDataData);
+        for (int i = 0; i < iTagDataArray.length; i++) {
+            iTagDataArray[i] = toITagData(iTagDataData[i]);
+        }
+        DataCaster.iTagDataProcessed = iTagDataArray;
+    }
+    private static ITagData toITagData(JSONObject iTagDataData) {
+        String id;
+        String name;
+        String description;
+        TriState hidden;
+        TriState filterIgnore;
+
+        try {
+            id = iTagDataData.getString("id");
+            name = iTagDataData.getString("name");
+            description = iTagDataData.getString("description");
+        } catch (JSONException exception) {
+            throw new IllegalStateException("iTagDataData threw a JSONException"
+                + " during the required properties section of the object"
+                + " parsing, which is not allowed");
+        }
+        try {
+            hidden =
+                TriState.toTriState(iTagDataData.getBoolean("hidden"));
+        } catch (JSONException exception) {
+            hidden = TriState.UNSET;
+        }
+        try {
+            filterIgnore = TriState.toTriState(
+                iTagDataData.getBoolean("filter_ignore"));
+        } catch (JSONException exception) {
+            filterIgnore = TriState.UNSET;
+        }
+
+        return new ITagData(id, name, description, filterIgnore, hidden);
+    }
     private static ISynergyData toISynergyData(JSONObject iSynergyDataData) {
         // TODO: fill out
         return null;
@@ -1746,68 +1786,31 @@ public class DataCaster {
 
         return new Table(propertyName, data);
     }
-    private static void processDataTags(JSONObject[] dataTagsData) {
-        DataTag[] dataTags = new DataTag[dataTagsData.length];
-
-        dataTagsData = performCorrections("tags", dataTagsData);
-        for (int i = 0; i < dataTags.length; i++) {
-            dataTags[i] = toDataTag(dataTagsData[i]);
-        }
-        DataCaster.dataTagsProcessed = dataTags;
-        processTags(DataCaster.dataTagsProcessed);
-    }
-    private static DataTag toDataTag(JSONObject dataTagData) {
+    private static DataTagUnverified toDataTagUnverified(
+        JSONObject dataTagUnverifiedData) {
         String id;
-        String name;
-        String description;
-        TriState hidden;
-        TriState filterIgnore;
+        int valueInt;
+        String valueString;
 
         try {
-            id = dataTagData.getString("id");
-            name = dataTagData.getString("name");
-            description = dataTagData.getString("description");
+            id = dataTagUnverifiedData.getString("id");
         } catch (JSONException exception) {
-            throw new IllegalStateException("dataTagData threw a JSONException"
-                + " during the required properties section of the object"
-                + " parsing, which is not allowed");
+            throw new IllegalStateException("dataTagUnverifiedData threw a"
+                + " JSONException during the required properties section of the"
+                + "object parsing, which is not allowed");
         }
         try {
-            hidden = TriState.toTriState(dataTagData.getBoolean("hidden"));
-        } catch (JSONException exception) {
-            hidden = TriState.UNSET;
-        }
+            valueInt = dataTagUnverifiedData.getInt("val");
+
+            return new DataTagUnverified(id, valueInt);
+        } catch (JSONException exception) {}
         try {
-            filterIgnore = TriState.toTriState(
-                dataTagData.getBoolean("filter_ignore"));
-        } catch (JSONException exception) {
-            filterIgnore = TriState.UNSET;
-        }
+            valueString = dataTagUnverifiedData.getString("val");
 
-        return new DataTag(id, name, description, filterIgnore, hidden);
-    }
-    private static void processTags(DataTag[] tagsData) {
-        Tag[] tags;
-        int numTags = 0;
-        Tag[] newTags;
+            return new DataTagUnverified(id, valueString);
+        } catch (JSONException exception) {}
 
-        tags = new Tag[tagsData.length];
-        for (int i = 0; i < tagsData.length; i++) {
-            try {
-                tags[i] = tagsData[i].toTag();
-                numTags++;
-            } catch (IllegalArgumentException exception) {}
-        }
-        newTags = new Tag[numTags];
-        numTags = 0;
-        for (int i = 0; i < tags.length; i++) {
-            if (tags[i] == null) {
-                continue;
-            }
-            newTags[numTags] = tags[i];
-            numTags++;
-        }
-        DataCaster.tagsProcessed = newTags;
+        return new DataTagUnverified(id);
     }
     private static void processTalents(JSONObject[] talentsData) {
         TalentData[] talents = new TalentData[talentsData.length];
@@ -1938,8 +1941,8 @@ public class DataCaster {
             DataCaster.activationTypesProcessed,
             DataCaster.conditionsProcessed,
             DataCaster.coreBonusesProcessed,
-            DataCaster.dataTagsProcessed,
-            DataCaster.tagsProcessed,
+            DataCaster.dataTagsUnverifiedProcessed,
+            DataCaster.iTagDataProcessed,
             DataCaster.manufacturersProcessed,
             DataCaster.npcFeaturesProcessed,
             DataCaster.npcTemplatesProcessed,
@@ -1991,7 +1994,7 @@ public class DataCaster {
         // ----the rest of the critical data types:
         DataCaster.actionsRaw = new JSONObject[0];
         DataCaster.coreBonusesRaw = new JSONObject[0];
-        DataCaster.dataTagsRaw = new JSONObject[0];
+        DataCaster.iTagDataRaw = new JSONObject[0];
         DataCaster.manufacturersRaw = new JSONObject[0];
         DataCaster.npcFeaturesRaw = new JSONObject[0];
         DataCaster.npcTemplatesRaw = new JSONObject[0];
@@ -2023,7 +2026,7 @@ public class DataCaster {
         DataCaster.conditionsProcessed = new StateData[0];
         DataCaster.coreBonusesProcessed = new UnverifiedCoreBonus[0];
         DataCaster.damageTypes = new DamageType[0];
-        DataCaster.dataTagsProcessed = new DataTag[0];
+        DataCaster.dataTagsUnverifiedProcessed = new DataTagUnverified[0];
         DataCaster.manufacturersProcessed = new Manufacturer[0];
         DataCaster.npcFeaturesProcessed = new NPCFeature[0];
         DataCaster.npcTemplatesProcessed = new NPCTemplate[0];
@@ -2034,7 +2037,7 @@ public class DataCaster {
         DataCaster.reservesProcessed = new ReserveData[0];
         DataCaster.skillsProcessed = new SkillData[0];
         DataCaster.statusesProcessed = new StateData[0];
-        DataCaster.tagsProcessed = new Tag[0];
+        DataCaster.iTagDataProcessed = new ITagData[0];
         DataCaster.talentsProcessed = new TalentData[0];
         DataCaster.weaponSizesProcessed = new WeaponSize[0];
         DataCaster.weaponTypesProcessed = new WeaponType[0];
