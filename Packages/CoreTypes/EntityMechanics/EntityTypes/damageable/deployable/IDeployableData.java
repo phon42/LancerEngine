@@ -8,7 +8,7 @@ import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.ISynergyData;
 import Packages.CoreTypes.EntityMechanics.Actions.actionBase.IActionData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.iDeployableData.DeployableStatblock;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.iTagDataUnverified.ITagData;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.dataTagUnverified.DataTag;
 
 /**
  * See pgs. 58 and 68.
@@ -54,7 +54,7 @@ public class IDeployableData {
     private Bonus[] bonuses;
     private ISynergyData[] synergies;
     private Counter[] counter;
-    private ITagData[] tags;
+    private DataTag[] tags;
 
     public IDeployableData() {
         this(new Size(2), 0);

@@ -1,10 +1,10 @@
-package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.iTagDataUnverified;
+package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.dataTagUnverified;
 
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.TriState;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.iTagDataUnverified.iTagData.DataTag;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.dataTagUnverified.dataTag.DataTag;
 
-public class ITagData {
+public class DataTag {
     // Required property
     /**
      * The data tag this ITagData object refers to (i.e. a DataTag representing
@@ -40,21 +40,21 @@ public class ITagData {
      */
     private String valueString;
 
-    public ITagData(DataTag data, String value) {
+    public DataTag(DataTag data, String value) {
         setData(data);
         this.valueInt = -1;
         this.valueString = null;
         setValueString(value);
         verify();
     }
-    public ITagData(DataTag data, int value) {
+    public DataTag(DataTag data, int value) {
         setData(data);
         this.valueInt = -1;
         this.valueString = null;
         setValueInt(value);
         verify();
     }
-    public ITagData(DataTag data) {
+    public DataTag(DataTag data) {
         setData(data);
         this.valueInt = -1;
         this.valueString = null;

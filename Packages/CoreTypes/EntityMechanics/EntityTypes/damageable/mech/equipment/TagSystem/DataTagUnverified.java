@@ -3,10 +3,9 @@ package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment
 import java.util.NoSuchElementException;
 import MainBranch.Database;
 import MainBranch.HelperMethods;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.iTagDataUnverified.ITagData;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.iTagDataUnverified.iTagData.DataTag;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.dataTagUnverified.DataTag;
 
-public class ITagDataUnverified {
+public class DataTagUnverified {
     // Required property
     /**
      * The id of the data tag this ITagDataUnverified object refers to (i.e.
@@ -38,15 +37,15 @@ public class ITagDataUnverified {
      */
     private String valueString;
 
-    public ITagDataUnverified(String id, String value) {
+    public DataTagUnverified(String id, String value) {
         this(id);
         setValueString(value);
     }
-    public ITagDataUnverified(String id, int value) {
+    public DataTagUnverified(String id, int value) {
         this(id);
         setValueInt(value);
     }
-    public ITagDataUnverified(String id) {
+    public DataTagUnverified(String id) {
         setID(id);
         this.valueInt = -1;
         this.valueString = null;
@@ -100,7 +99,7 @@ public class ITagDataUnverified {
         this.valueString = valueString;
     }
 
-    public ITagData toITagData() {
+    public DataTag toITagData() {
         DataTag dataTag;
 
         try {
@@ -111,12 +110,12 @@ public class ITagDataUnverified {
                 + this.id + "\" could not be found in Database");
         }
         if (this.valueInt > -1) {
-            return new ITagData(dataTag, this.valueInt);
+            return new DataTag(dataTag, this.valueInt);
         }
         if (this.valueString != null) {
-            return new ITagData(dataTag, this.valueString);
+            return new DataTag(dataTag, this.valueString);
         }
 
-        return new ITagData(dataTag);
+        return new DataTag(dataTag);
     }
 }

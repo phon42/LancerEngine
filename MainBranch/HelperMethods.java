@@ -36,8 +36,8 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.IDep
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Mount;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.MechSystem;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.Weapon;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.iTagDataUnverified.iTagData.DataTag;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.iTagDataUnverified.iTagData.dataTag.Tag;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.dataTagUnverified.dataTag.DataTag;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.dataTagUnverified.dataTag.dataTag.Tag;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.mount.MountType;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.unverifiedFrame.Frame;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Bond;
