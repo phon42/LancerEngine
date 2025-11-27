@@ -23,6 +23,9 @@ public class MixedExpression {
         setRandomComponent(randomComponent);
         setConstantComponent(new ConstantExpression(0));
     }
+    public MixedExpression(String input) {
+        parseString(input);
+    }
 
     public DiceExpression getRandomComponent() {
         return randomComponent;
@@ -56,6 +59,96 @@ public class MixedExpression {
                 output += " + " + constantComponent;
             }
         }
+
+        return output;
+    }
+    private void parseString(String input) {
+        String[] splitInput;
+        String randomComponentString;
+        String constantComponentString;
+        DiceExpression randomComponent;
+        ConstantExpression constantComponent;
+
+        // Input sanitization
+        HelperMethods.checkString("input", input);
+        // Move from a String to two String components
+        if (input.indexOf("+") != -1) {
+            splitInput = input.split("+");
+            splitInput = processStringArray(splitInput);
+            randomComponentString = processComponent(splitInput[0],
+                false);
+            constantComponentString = processComponent(splitInput[1],
+                false);
+        } else if (input.indexOf("-") != -1) {
+            splitInput = input.split("-");
+            splitInput = processStringArray(splitInput);
+            randomComponentString = processComponent(splitInput[0],
+                false);
+            constantComponentString = processComponent(splitInput[1],
+                true);
+        } else {
+            randomComponentString = input;
+            if (! DiceExpression.isValid(randomComponentString)) {
+                constantComponentString = input;
+            } else {
+                constantComponentString = "";
+            }
+        }
+        // Move from Strings to objects
+        if (DiceExpression.isValid(randomComponentString)) {
+            randomComponent = new DiceExpression(randomComponentString);
+        } else {
+            randomComponent = null;
+        }
+        if (ConstantExpression.isValid(constantComponentString)) {
+            constantComponent = new ConstantExpression(constantComponentString);
+        } else {
+            constantComponent = new ConstantExpression(0);
+        }
+        // Use the processed material
+        setRandomComponent(randomComponent);
+        setConstantComponent(constantComponent);
+    }
+    private static String processComponent(String input,
+        boolean isNegative) {
+        if (input == null) {
+            return "";
+        } else {
+            if (isNegative) {
+                input = "-" + input;
+            }
+        }
+
+        return input;
+    }
+    private static String[] processStringArray(String[] input) {
+        String[] output = new String[2];
+        String randomStr;
+        String constantStr;
+
+        // Input sanitization
+        HelperMethods.checkObjectArray("input", input);
+        if (input.length == 0) {
+            throw new IllegalArgumentException("input array is of length 0");
+        }
+        // Preprocessing step
+        if (input[0].equals("")) {
+            input = HelperMethods.arraySlice(input, 1);
+        }
+        // Processing
+        if (input.length < 1) {
+            randomStr = "";
+        } else {
+            randomStr = input[0];
+        }
+        if (input.length < 2) {
+            constantStr = "";
+        } else {
+            constantStr = input[1];
+        }
+        // Prepare the output
+        output[0] = randomStr;
+        output[1] = constantStr;
 
         return output;
     }

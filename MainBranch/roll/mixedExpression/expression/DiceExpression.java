@@ -1,5 +1,6 @@
 package MainBranch.roll.mixedExpression.expression;
 
+import MainBranch.HelperMethods;
 import MainBranch.roll.mixedExpression.Expression;
 
 public class DiceExpression extends Expression {
@@ -30,9 +31,13 @@ public class DiceExpression extends Expression {
      *     above. Cannot be null.
      * @return a boolean containing the result of the check.
      */
-    public static boolean isValid(String diceExpression) {
+    public static boolean isValid(String diceExpression)
+        throws IllegalArgumentException {
+        HelperMethods.checkObject("diceExpression",
+            diceExpression);
         try {
             new DiceExpression(diceExpression);
+
             return true;
         } catch (IllegalArgumentException exception) {
             return false;
