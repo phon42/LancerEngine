@@ -3,10 +3,11 @@ package MainBranch.roll.diceExpression;
 import MainBranch.roll.DiceExpression;
 
 public class Expression extends DiceExpression {
-    private boolean containsD = false;
+    private boolean containsD;
 
     public Expression(String input) {
         super("1d20");
+        this.containsD = false;
         toExpression(input);
     }
 
