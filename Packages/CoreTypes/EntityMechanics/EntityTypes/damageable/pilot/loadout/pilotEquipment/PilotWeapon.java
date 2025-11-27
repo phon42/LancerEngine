@@ -51,24 +51,25 @@ public class PilotWeapon extends PilotEquipment {
     }
     public PilotWeapon(
         // PilotEquipment properties
-        String id, String name, String type,
+        String id, String name,
         // Optional properties
         String effect, RangeTag[] range, Harm[] damage
     ) {
-        this(id, name, type, null, null, null,
-            null, null, effect, range, damage);
+        this(id, name, null, null, null,
+            null, null, null, effect, range,
+            damage);
     }
     public PilotWeapon(
         // PilotEquipment properties
-        String id, String name, String type, String description,
-        DataTag[] dataTags, IActionData[] actions, Bonus[] bonuses,
-        ISynergyData[] synergies, IDeployableData[] deployables
+        String id, String name, String description, DataTag[] dataTags,
+        IActionData[] actions, Bonus[] bonuses, ISynergyData[] synergies,
+        IDeployableData[] deployables
     ) {
-        super(id, name, type, description, dataTags, actions, bonuses,
+        super(id, name, "Weapon", description, dataTags, actions, bonuses,
             synergies, deployables);
     }
-    public PilotWeapon(String id, String name, String type) {
-        super(id, name, type);
+    public PilotWeapon(String id, String name) {
+        super(id, name, "Weapon");
     }
 
     // Optional properties
