@@ -56,7 +56,7 @@ public class MountType {
      *     elements. Can be null.
      * 
      * When this.allowedSizes and this.restrictedSizes are both null, this mount
-     *     type does not accept any weapon sizes.
+     *     type accepts all weapon sizes.
      * When this.allowedSizes is non-null and this.restrictedSizes is null, this
      *     mount type accepts only the weapon sizes listed in this.allowedSizes.
      * When this.allowedSizes is null and this.restrictedSizes is non-null, this
@@ -71,7 +71,7 @@ public class MountType {
      *     elements. Can be null.
      * 
      * When this.allowedSizes and this.restrictedSizes are both null, this mount
-     *     type does not accept any weapon sizes.
+     *     type accepts all weapon sizes.
      * When this.allowedSizes is non-null and this.restrictedSizes is null, this
      *     mount type accepts only the weapon sizes listed in this.allowedSizes.
      * When this.allowedSizes is null and this.restrictedSizes is non-null, this
