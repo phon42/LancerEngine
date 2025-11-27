@@ -2,6 +2,7 @@ package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech;
 
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.Weapon;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.mount.MountType;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Talent;
 
 /**
@@ -20,85 +21,49 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Talent;
  *     placeholder. At least one of its properties has an allowed value of null.
  */
 public final class Mount {
+    // Required properties
     /**
-     * The mount's type.
-     * Must be one of the following values:
-     *     "aux", "aux/aux", "flex", "heavy", "main", "main/aux",
-     *     "integrated mount", "integrated weapon",
-     *     "integrated weapon core bonus",
-     *     "improved armament core bonus"
-     * See Mount.allowedMountTypes' documentation for more information on these
-     *     values.
-     * Case-insensitive and stored in lowercase. Cannot be null.
+     * The mount's type (i.e. a MountType representing an aux mount).
+     * Can be any MountType. Cannot be null.
      */
-    private String mountType;
-    /**
-     * Contains an array of all possible allowed mount types. Case-insensitive
-     *     and stored in lowercase.
-     * Details about the base mount types:
-     *     "flex" - a weapon mount which can take one main weapon OR two
-     *         auxilary weapons.
-     * 
-     * See the documentation on Weapon.size for more information.
-     * 
-     * Details about the non-base mount types:
-     *     "integrated mount" - for integrated weapons such as Caliban's Flayer
-     *         Shotgun.
-     *     "integrated weapon" - for integrated weapons such as the Prototype
-     *         weapon from the Engineer talent.
-     *     "integrated weapon core bonus" - for the Integrated Weapon core
-     *         bonus. Essentially the same as "aux".
-     *     "improved armament core bonus" - for the Improved Armament core
-     *         bonus. Essentially the same as "flex".
-     */
-    private static final String[] allowedMountTypes = {
-        "aux", "aux/aux", "flex", "heavy", "main", "main/aux",
-        "integrated mount", "integrated weapon", "integrated weapon core bonus",
-        "improved armament core bonus"
-    };
-    /**
-     * Contains an array of mount types that do not require talents, core
-     *     bonuses, or integrated weapons on the base frame to exist.
-     *     Case-insensitive and stored in lowercase.
-     */
-    private static final String[] baseMountTypes = {
-        "aux", "aux/aux", "flex", "heavy", "main", "main/aux"
-    };
-    /**
-     * The mount's weapon (if it has one).
-     * Can be any Weapon. Can be null.
-     */
-    private Weapon weapon;
+    private MountType mountType;
     /**
      * Whether the mount has any modifications.
      * Controlled automatically by Mount.setModification().
      */
     private boolean hasModification;
     /**
-     * The modifications applied to the mount (i.e. "molten wreathe"), if there
-     *     are any.
-     * Can be any String. Cannot be null. Case-insensitive and stored in
-     *     lowercase.
-     */
-    private String modification;
-    /**
      * Whether the mount is from or is affected by any core bonuses.
      * Controlled automatically by Mount.setCoreBonus().
      */
     private boolean hasCoreBonus;
-    /**
-     * The core bonuses applied to the mount (i.e.
-     *     "auto-stabilizing hardpoints"), if there are any.
-     * Can be any String. Cannot be null. Case-insensitive and stored in
-     *     lowercase.
-     */
-    private String coreBonus;
     /**
      * Whether the mount is from or is affected by any talents (at present this
      *     can only be Engineer or Weaponsmith).
      * Controlled automatically by Mount.setTalent().
      */
     private boolean hasTalent;
+
+    // Optional properties
+    /**
+     * The mount's weapon (if it has one).
+     * Can be any Weapon. Can be null.
+     */
+    private Weapon weapon;
+    /**
+     * The modifications applied to the mount (i.e. "molten wreathe"), if there
+     *     are any.
+     * Can be any String except "". Can be null.
+     * Case-insensitive and stored in lowercase.
+     */
+    private String modification;
+    /**
+     * The core bonuses applied to the mount (i.e.
+     *     "auto-stabilizing hardpoints"), if there are any.
+     * Can be any String except "". Can be null.
+     * Case-insensitive and stored in lowercase.
+     */
+    private String coreBonus;
     /**
      * The talents applied to the mount (i.e. the Engineer talent), if there are
      *     any.
@@ -109,43 +74,78 @@ public final class Mount {
     /**
      * Creates a new empty Mount with the provided mountType.
      */
-    public Mount(String mountType) {
-        this(mountType, null, "", "",
+    public Mount(
+        // Required properties
+        MountType mountType
+    ) {
+        this(mountType, null, null, null,
             null);
     }
     /**
      * Creates a new occupied Mount with the provided mountType and weapon.
      */
-    public Mount(String mountType, Weapon weapon) {
-        this(mountType, weapon, "", "", null);
-        // TODO: do this for all overloaded constructors
+    public Mount(
+        // Required properties
+        MountType mountType,
+        // Optional properties
+        Weapon weapon
+    ) {
+        this(mountType, weapon, null, null,
+            null);
         if (weapon == null) {
-            throw new IllegalArgumentException("Called Mount(String, null)."
-                + " Use Mount(String) instead");
+            throw new IllegalArgumentException("Called Mount(MountType, null)."
+                + " Use Mount(MountType) instead");
         }
     }
     /**
      * Creates a new occupied Mount with the provided mountType, weapon, and
      *     modification.
      */
-    public Mount(String mountType, Weapon weapon, String modification) {
-        this(mountType, weapon, modification, "", null);
+    public Mount(
+        // Required properties
+        MountType mountType,
+        // Optional properties
+        Weapon weapon, String modification) {
+        this(mountType, weapon, modification, null, null);
+        if (modification == null) {
+            throw new IllegalArgumentException("Called Mount(MountType, Weapon,"
+                + " null). Use Mount(MountType, Weapon) instead");
+        }
     }
     /**
      * Creates a new occupied Mount with the provided mountType, weapon,
      *     modification, and coreBonus.
      */
-    public Mount(String mountType, Weapon weapon, String modification,
-        String coreBonus) {
+    public Mount(
+        // Required properties
+        MountType mountType,
+        // Optional properties
+        Weapon weapon, String modification, String coreBonus) {
         this(mountType, weapon, modification, coreBonus, null);
+        if (coreBonus == null) {
+            throw new IllegalArgumentException("Called Mount(MountType, Weapon,"
+                + " String, null). Use Mount(MountType, Weapon, String)"
+                + " instead");
+        }
     }
     /**
      * Creates a new occupied Mount with the provided mountType, weapon,
      *     modification, coreBonus, and talent.
      */
-    public Mount(String mountType, Weapon weapon, String modification,
-        String coreBonus, Talent talent) {
+    public Mount(
+        // Required properties
+        MountType mountType,
+        // Optional properties
+        Weapon weapon, String modification, String coreBonus, Talent talent
+    ) {
+        if (talent == null) {
+            throw new IllegalArgumentException("Called Mount(MountType, Weapon,"
+                + " String, String, null). Use Mount(MountType, Weapon, String,"
+                + " String) instead");
+        }
+        // Required properties
         setMountType(mountType);
+        // Optional properties
         setWeapon(weapon);
         setModification(modification);
         setCoreBonus(coreBonus);
@@ -162,7 +162,7 @@ public final class Mount {
             mount.talent);
     }
 
-    public String getMountType() {
+    public MountType getMountType() {
         return mountType;
     }
     public Weapon getWeapon() {
@@ -195,26 +195,11 @@ public final class Mount {
     }
     /**
      * Sets this.mountType to the value provided.
-     * @param mountType a String that cannot be null or an invalid value, as
-     *     defined by Mount.allowedMountTypes.
-     * @throws IllegalArgumentException if mountType is null or an invalid
-     *     value, as defined by Mount.allowedMountTypes.
+     * @param mountType a MountType that can be any MountType. Cannot be null.
+     * @throws IllegalArgumentException if mountType is null.
      */
-    public void setMountType(String mountType) {
-        boolean isValidType = false;
-
-        HelperMethods.checkString("New mount type", mountType);
-        mountType = mountType.toLowerCase();
-        for (int i = 0; i < Mount.allowedMountTypes.length; i++) {
-            if (Mount.allowedMountTypes[i].equals(mountType)) {
-                isValidType = true;
-                break;
-            }
-        }
-        if (! isValidType) {
-            throw new IllegalArgumentException("New mount type is an invalid"
-                + " role value: \"" + mountType + "\"");
-        }
+    public void setMountType(MountType mountType) {
+        HelperMethods.checkObject("New mount type", mountType);
         this.mountType = mountType;
     }
     public void setWeapon(Weapon weapon) {
@@ -251,16 +236,13 @@ public final class Mount {
      */
     public void setCoreBonus(String coreBonus) {
         if (coreBonus == null) {
-            throw new IllegalArgumentException("New core bonus value is"
-                + " null");
-        }
-        if (coreBonus.equals("")) {
             hasCoreBonus = false;
         } else {
+            HelperMethods.checkString("coreBonus", coreBonus);
+            coreBonus = coreBonus.toLowerCase();
+            this.coreBonus = coreBonus;
             hasCoreBonus = true;
         }
-        coreBonus = coreBonus.toLowerCase();
-        this.coreBonus = coreBonus;
     }
     // Mutator for hasTalent removed purposefully
     /**
@@ -313,28 +295,23 @@ public final class Mount {
         //     "MAIN MOUNT: Assault Rifle (BOUNDER-Class Comp/Con) // Overpower"
         //     " Caliber"
         String outputString = "";
-        boolean isBaseType = false;
 
         outputType = outputType.toLowerCase();
         if (! (outputType.equals("mech build")
             || outputType.equals("full"))) {
             return outputString;
         }
-        for (int i = 0; i < Mount.baseMountTypes.length; i++) {
-            if (this.mountType.equals(Mount.baseMountTypes[i])) {
-                isBaseType = true;
-            }
-        }
-        if (isBaseType) {
-            outputString += this.mountType.toUpperCase();
+        if (this.mountType.isBaseType()) {
+            outputString += this.mountType.getName().toUpperCase();
             outputString += " MOUNT";
-        } else if (this.mountType.equals("integrated weapon")) {
+        } else if (this.mountType.getName()
+            .equals("integrated weapon")) {
             outputString += "Integrated";
-        } else if (this.mountType.equals(
-            "integrated weapon core bonus")) {
+        } else if (this.mountType.getName()
+            .equals("integrated weapon core bonus")) {
             outputString += "INTEGRATED WEAPON";
-        } else if (this.mountType.equals(
-            "improved armament core bonus")) {
+        } else if (this.mountType.getName()
+            .equals("improved armament core bonus")) {
             outputString += "FLEX MOUNT";
         }
         outputString += ":";
