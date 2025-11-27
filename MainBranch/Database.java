@@ -283,12 +283,70 @@ public final class Database {
         addHarmType(new HarmType("Variable"));
         addHarmType(new HarmType("Heat"));
 
+        // addMountType calls moved under addWeaponSize section because they
+        //     reference WeaponSizes
+
         // Add allowed weapon sizes
         addWeaponSize(new WeaponSize(0, "Aux"));
         addWeaponSize(new WeaponSize(1, "Main"));
         addWeaponSize(new WeaponSize(2, "Heavy"));
         addWeaponSize(new WeaponSize(3, "Superheavy"));
         addWeaponSize(new WeaponSize(4, "Ship-Class"));
+
+        // Add allowed mount sizes
+        addMountType(
+            new MountType(0, "Aux", new WeaponSize[] {
+                Database.getWeaponSize("aux")
+            }, null)
+        );
+        addMountType(
+            new MountType(1, "Aux/Aux", new WeaponSize[] {
+                Database.getWeaponSize("aux")
+            }, null)
+        );
+        addMountType(
+            new MountType(2, "Main", new WeaponSize[] {
+                Database.getWeaponSize("main")
+            }, null)
+        );
+        addMountType(
+            new MountType(3, "Flex", new WeaponSize[] {
+                Database.getWeaponSize("aux"),
+                Database.getWeaponSize("main")
+            }, null)
+        );
+        addMountType(
+            new MountType(4, "Main/Aux", new WeaponSize[] {
+                Database.getWeaponSize("aux"),
+                Database.getWeaponSize("main")
+            }, null)
+        );
+        addMountType(
+            new MountType(5, "Heavy", new WeaponSize[] {
+                Database.getWeaponSize("heavy")
+            }, null)
+        );
+        addMountType(
+            new MountType(6, "Integrated Mount", null,
+            null)
+        );
+        addMountType(
+            new MountType(7, "Integrated Weapon", null,
+            null)
+        );
+        addMountType(
+            new MountType(8, "Integrated Weapon Core Bonus",
+            new WeaponSize[] {
+                Database.getWeaponSize("aux")
+            }, null)
+        );
+        addMountType(
+            new MountType(9, "Improved Armament Core Bonus",
+            new WeaponSize[] {
+                Database.getWeaponSize("aux"),
+                Database.getWeaponSize("main")
+            }, null)
+        );
 
         // Add allowed weapon types
         addWeaponType(new WeaponType(0, "CQB"));
