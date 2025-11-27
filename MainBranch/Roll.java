@@ -2,7 +2,7 @@ package MainBranch;
 
 import java.util.Random;
 
-import MainBranch.roll.diceExpression.Expression;
+import MainBranch.roll.mixedExpression.Expression;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.Skill;
 
 /**
