@@ -1974,7 +1974,7 @@ public final class HelperMethods {
                 copy[i] = original[i];
                 continue;
             }
-            copy[i] = new PilotWeapon(original[i]);
+            copy[i] = original[i];
         }
 
         return copy;

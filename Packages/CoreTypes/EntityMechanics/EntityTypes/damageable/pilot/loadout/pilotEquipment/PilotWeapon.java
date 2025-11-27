@@ -20,7 +20,7 @@ import Packages.CoreTypes.EntityMechanics.HarmSystem.Harm;
  *     placeholder. At least one of its properties has an allowed value of null.
  */
 public class PilotWeapon extends PilotEquipment {
-    // TODO: fill out
+    // Required properties
     /**
      * Can be any RangeTag[] that does not contain null elements. Cannot be
      *     null.
@@ -36,11 +36,6 @@ public class PilotWeapon extends PilotEquipment {
         super(id, name, "weapon", dataTags, description, effect);
         setRange(range);
         setDamage(damage);
-    }
-    public PilotWeapon(PilotWeapon pilotWeapon) {
-        this(pilotWeapon.id, pilotWeapon.name, pilotWeapon.dataTags,
-            pilotWeapon.description, pilotWeapon.effect, pilotWeapon.range,
-            pilotWeapon.damage);
     }
 
     public RangeTag[] getRange() {

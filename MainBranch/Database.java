@@ -656,7 +656,7 @@ public final class Database {
         pilotWeaponID = pilotWeaponID.toLowerCase();
         for (PilotWeapon pilotWeapon : Database.pilotWeapons) {
             if (pilotWeaponID.equals(pilotWeapon.getID())) {
-                return new PilotWeapon(pilotWeapon);
+                return pilotWeapon;
             }
         }
         throw new NoSuchElementException("No pilot weapon found for pilot"
@@ -1099,7 +1099,6 @@ public final class Database {
     public static void addPilotWeapon(PilotWeapon pilotWeapon) {
         checkOpen();
         HelperMethods.checkObject("pilotWeapon", pilotWeapon);
-        pilotWeapon = new PilotWeapon(pilotWeapon);
         Database.pilotWeapons = HelperMethods.append(Database.pilotWeapons,
             pilotWeapon);
     }
