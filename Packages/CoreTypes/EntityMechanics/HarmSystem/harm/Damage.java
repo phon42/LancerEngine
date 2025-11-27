@@ -1,8 +1,9 @@
 package Packages.CoreTypes.EntityMechanics.HarmSystem.harm;
 
 import MainBranch.HelperMethods;
-import MainBranch.Roll;
-import MainBranch.roll.DiceExpression;
+import MainBranch.roll.MixedExpression;
+import MainBranch.roll.mixedExpression.ConstantExpression;
+import MainBranch.roll.mixedExpression.expression.DiceExpression;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.Harm;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.harm.harmType.DamageType;
 
@@ -13,7 +14,7 @@ import Packages.CoreTypes.EntityMechanics.HarmSystem.harm.harmType.DamageType;
  *     Harm. diceValue and flatValue have much stricter allowed values.
  */
 public class Damage extends Harm {
-    // TODO: figure out a way to override the documentation from Damage
+    // Required properties
     /**
      * The Damage's type (i.e. a DamageType representing kinetic).
      * Can be any DamageType. Cannot be null.
@@ -23,7 +24,24 @@ public class Damage extends Harm {
      *     of damage that is caused by Burn and does NOT increment the number of
      *     Burn stacks on the target).
      */
-    // private DamageType type;
+    private DamageType type;
+    // TODO: figure out a way to override the documentation from Harm
+    /**
+     * The amount of damage dealt (i.e. a MixedExpression representing "1d6+2").
+     * Can be any MixedExpression. Cannot be null.
+     */
+    // protected MixedExpression value;
+    // TODO: figure out a way to override the documentation from Harm
+    /**
+     * The amount of flat damage dealt (i.e. a ConstantExpression representing
+     *     2, representing the "2" in "1d6+2").
+     * Can be any ConstantExpression with a minimum value of 0. Cannot be null.
+     * Can be 0 if this.diceValue isn't null. Otherwise, must be a minimum of 1.
+     */
+    // protected ConstantExpression flatValue;
+
+    // Optional properties
+    // TODO: figure out a way to override the documentation from Harm
     /**
      * The amount of dice damage dealt (i.e. a DiceExpression representing
      *     "1d6", representing the "1d6" in "1d6+2").
@@ -31,57 +49,61 @@ public class Damage extends Harm {
      *     0.
      */
     // protected DiceExpression diceValue;
-    /**
-     * The amount of flat damage dealt (i.e. 2, representing the "2" in
-     *     "1d6+2").
-     * Must be a minimum of 1. Can be 0 as long as this.diceValue isn't null.
-     */
-    protected int flatValue;
 
-    public Damage(DamageType damageType, DiceExpression damageDice,
-        int damageFlatAmount) {
-        super();
-        setType(damageType);
-        setDiceValue(damageDice);
-        setFlatValue(damageFlatAmount);
+    public Damage(DamageType type, MixedExpression value) {
+        super(value);
+        setType(type);
+        checkValidity();
+    }
+    public Damage(DamageType type, DiceExpression diceValue,
+        ConstantExpression flatValue) {
+        super(diceValue, flatValue);
+        setType(type);
         checkValidity();
     }
 
+    // Required properties
+    @Override
     public DamageType getType() {
         return type.toDamageType();
     }
+    // Required properties
     private void setType(DamageType type) {
         HelperMethods.checkObject("type", type);
         this.type = type;
     }
-    /**
-     * Warning: this mutator DOES NOT protect against this.diceValue being set
-     *     to null while this.flatValue is 0. It is assumed that this will be
-     *     taken care of in Damage() by calling Damage.checkValidity()
-     *     immediately after everything has been set.
-     * @param diceValue a DiceExpression which can be any DiceExpression. Can be
-     *     null.
-     */
     @Override
-    protected void setDiceValue(DiceExpression diceValue) {
-        this.diceValue = diceValue;
+    protected void setValue(MixedExpression value) {
+        HelperMethods.checkObject("value", value);
+        this.value = value;
     }
+    // Optional properties
     @Override
-    protected void setFlatValue(int flatValue) {
-        if (flatValue < 0) {
-            throw new IllegalArgumentException("flat value value: " + flatValue
-                + " is < 0");
-        }
-        if (flatValue == 0) {
-            // diceValue must be a DiceExpression
-            if (this.diceValue == null) {
-                throw new IllegalArgumentException("Cannot set flatValue to a"
-                    + " value of 0 while Damage.diceValue is null");
-            }
+    protected void setFlatValue(ConstantExpression flatValue) {
+        int value;
+
+        HelperMethods.checkObject("flatValue", flatValue);
+        value = flatValue.getValue();
+        if (value < 0) {
+            throw new IllegalArgumentException("Cannot set this.flatValue to"
+                + " a ConstantExpression with a value: " + value + " that is <"
+                + " 0");
         }
         this.flatValue = flatValue;
     }
 
+    @Override
+    public String toString() {
+        String output;
+
+        output = this.value.toString();
+        if (this.diceValue != null && this.flatValue.getValue() > 0) {
+            output = "(" + output + ")";
+        }
+        output += " " + this.type.outputValue() + " damage";
+
+        return output;
+    }
     /**
      * Checks whether this.diceValue and this.flatValue are set to a valid
      *     combination of values. Throws an IllegalArgumentException if not.
@@ -103,14 +125,11 @@ public class Damage extends Harm {
      */
     @Override
     protected boolean isValid() {
-        boolean isValidExpression = false;
-
-        isValidExpression = this.diceValue == null;
         // this.diceValue must be a DiceExpression OR this.flatValue must not be
         //     0 (in which case this.diceValue can be null).
-        if (this.flatValue == 0) {
+        if (this.flatValue.getValue() == 0) {
             // this.diceValue must be a DiceExpression
-            if (! isValidExpression) {
+            if (this.diceValue == null) {
                 return false;
             }
         }
@@ -123,12 +142,7 @@ public class Damage extends Harm {
      */
     @Override
     public int roll() {
-        // damage is being rolled here
-        if (this.diceValue == null) {
-            return Roll.roll(this.flatValue);
-        }
-
-        return this.diceValue.roll() + Roll.roll(this.flatValue);
+        return this.value.roll();
     }
     public static Object[] splitDamageString(String input) {
         String[] damageParameters;
@@ -144,5 +158,16 @@ public class Damage extends Harm {
         }
 
         return new Object[] {diceInfo, flatInput};
+    }
+    @Override
+    public Damage toDamageOfType(DamageType type) {
+        HelperMethods.checkObject("type", type);
+        try {
+            return new Damage(type, this.value);
+        } catch (IllegalArgumentException exception) {
+            throw new IllegalStateException("Cannot change this Damage object's"
+                + " Damage.type value to \"" + type.getValue() + "\" for the"
+                + " following reason: " + exception.getMessage());
+        }
     }
 }
