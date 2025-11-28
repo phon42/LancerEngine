@@ -37,6 +37,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.Weapon;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.UnverifiedDataTag;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.unverifiedDataTag.dataTag.ITagData;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.mechSystem.SystemType;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.unverifiedFrame.Frame;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Bond;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.UnverifiedCoreBonus;
@@ -147,6 +148,7 @@ public class DataCaster {
     private static SkillData[] skillsProcessed;
     private static StateData[] statusesProcessed;
     private static SynergyLocation[] synergyLocationsProcessed;
+    private static SystemType[] systemTypesProcessed;
     private static TalentData[] talentsProcessed;
     private static WeaponSize[] weaponSizesProcessed;
     private static WeaponType[] weaponTypesProcessed;
@@ -1507,8 +1509,85 @@ public class DataCaster {
         return new ITagData(id, name, description, filterIgnore, hidden);
     }
     private static ISynergyData toISynergyData(JSONObject iSynergyDataData) {
-        // TODO: fill out
-        return null;
+        // Required properties
+        JSONArray synergyLocationsArray;
+        SynergyLocation[] synergyLocations;
+        String detail;
+        // Optional properties
+        JSONArray weaponTypesArray;
+        WeaponType[] weaponTypes = null;
+        JSONArray systemTypesArray;
+        SystemType[] systemTypes = null;
+        JSONArray weaponSizesArray;
+        WeaponSize[] weaponSizes = null;
+
+        // Required properties
+        try {
+            synergyLocationsArray =
+                iSynergyDataData.getJSONArray("locations");
+            try {
+                synergyLocations =
+                    new SynergyLocation[synergyLocationsArray.length()];
+                for (int i = 0; i < synergyLocations.length; i++) {
+                    synergyLocations[i] =
+                        toSynergyLocation(synergyLocationsArray.getString(i));
+                }
+            } catch (JSONException exception) {
+                throw new IllegalStateException("Attempting to parse"
+                    + " synergyLocationsArray threw a JSONException");
+            }
+            detail = iSynergyDataData.getString("detail");
+        } catch (JSONException exception) {
+            throw new IllegalStateException("iSynergyDataData threw a"
+                + " JSONException during the required properties section of the"
+                + " object parsing, which is not allowed");
+        }
+        // Optional properties
+        try {
+            weaponTypesArray =
+                iSynergyDataData.getJSONArray("weapon_types");
+            try {
+                weaponTypes = new WeaponType[weaponTypesArray.length()];
+                for (int i = 0; i < weaponTypes.length; i++) {
+                    weaponTypes[i] =
+                        toWeaponType(weaponTypesArray.getString(i));
+                }
+            } catch (JSONException exception) {
+                throw new IllegalStateException("Attempting to parse"
+                    + " weaponTypesArray threw a JSONException");
+            }
+        } catch (JSONException exception) {}
+        try {
+            systemTypesArray =
+                iSynergyDataData.getJSONArray("system_types");
+            try {
+                systemTypes = new SystemType[systemTypesArray.length()];
+                for (int i = 0; i < systemTypes.length; i++) {
+                    systemTypes[i] =
+                        toSystemType(systemTypesArray.getString(i));
+                }
+            } catch (JSONException exception) {
+                throw new IllegalStateException("Attempting to parse"
+                    + " systemTypesArray threw a JSONException");
+            }
+        } catch (JSONException exception) {}
+        try {
+            weaponSizesArray =
+                iSynergyDataData.getJSONArray("weapon_sizes");
+            try {
+                weaponSizes = new WeaponSize[weaponSizesArray.length()];
+                for (int i = 0; i < weaponSizes.length; i++) {
+                    weaponSizes[i] =
+                        toWeaponSize(weaponSizesArray.getString(i));
+                }
+            } catch (JSONException exception) {
+                throw new IllegalStateException("Attempting to parse"
+                    + " weaponSizesArray threw a JSONException");
+            }
+        } catch (JSONException exception) {}
+
+        return new ISynergyData(synergyLocations, detail, weaponTypes,
+            systemTypes, weaponSizes);
     }
     private static void processManufacturers(JSONObject[] manufacturersData) {
         Manufacturer[] manufacturers =
@@ -2323,6 +2402,21 @@ public class DataCaster {
         }
         DataCaster.statusesProcessed = statuses;
     }
+    private static SynergyLocation toSynergyLocation(
+        String synergyLocationString) {
+        SynergyLocation synergyLocation;
+
+        try {
+            return Database.getSynergyLocation(synergyLocationString);
+        } catch (NoSuchElementException exception) {
+            synergyLocation = new SynergyLocation(synergyLocationString);
+            DataCaster.synergyLocationsProcessed = HelperMethods.append(
+                DataCaster.synergyLocationsProcessed, synergyLocation
+            );
+
+            return synergyLocation;
+        }
+    }
     private static void processMechSystems(JSONObject[] mechSystemsData) {
         MechSystem[] mechSystems = new MechSystem[mechSystemsData.length];
 
@@ -2337,19 +2431,18 @@ public class DataCaster {
         // TODO: fill out
         return null;
     }
-    private static SynergyLocation toSynergyLocation(
-        String synergyLocationString) {
-        SynergyLocation synergyLocation;
+    private static SystemType toSystemType(String systemTypeString) {
+        SystemType systemType;
 
         try {
-            return Database.getSynergyLocation(synergyLocationString);
+            return Database.getSystemType(systemTypeString);
         } catch (NoSuchElementException exception) {
-            synergyLocation = new SynergyLocation(synergyLocationString);
-            DataCaster.synergyLocationsProcessed = HelperMethods.append(
-                DataCaster.synergyLocationsProcessed, synergyLocation
+            systemType = new SystemType(systemTypeString);
+            DataCaster.systemTypesProcessed = HelperMethods.append(
+                DataCaster.systemTypesProcessed, systemType
             );
 
-            return synergyLocation;
+            return systemType;
         }
     }
     private static void processTables(JSONObject tablesObject) {
@@ -2582,6 +2675,7 @@ public class DataCaster {
             DataCaster.skillsProcessed,
             DataCaster.statusesProcessed,
             DataCaster.synergyLocationsProcessed,
+            DataCaster.systemTypesProcessed,
             DataCaster.talentsProcessed,
             DataCaster.weaponSizesProcessed,
             DataCaster.weaponTypesProcessed,
@@ -2668,6 +2762,7 @@ public class DataCaster {
         DataCaster.skillsProcessed = new SkillData[0];
         DataCaster.statusesProcessed = new StateData[0];
         DataCaster.synergyLocationsProcessed = new SynergyLocation[0];
+        DataCaster.systemTypesProcessed = new SystemType[0];
         DataCaster.iActionDataProcessed = new IActionData[0];
         DataCaster.iTagDataProcessed = new ITagData[0];
         DataCaster.talentsProcessed = new TalentData[0];
