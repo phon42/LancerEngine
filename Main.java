@@ -139,11 +139,14 @@ public final class Main {
             "Overpower Caliber"
         });
         pilotProperties.put("talents", new Talent[] {
-            new Talent("Tactician", 3),
-            new Talent("Siege Specialist", 3),
-            new Talent("Spotter", 2),
-            new Talent("Walking Armory", 2),
-            new Talent("Leader", 2)
+            new Talent(Database.getTalent("t_tactician"),
+                3),
+            new Talent(Database.getTalent("t_siege_specialist"),
+                3),
+            new Talent(Database.getTalent("t_spotter"), 2),
+            new Talent(Database.getTalent("t_walking_armory"),
+                2),
+            new Talent(Database.getTalent("t_leader"), 2)
         });
         pilotProperties.put("loadout", new Loadout(
             Database.getPilotArmor("pg_mobility_hardsuit"),
