@@ -57,6 +57,10 @@ public class FrequencyType {
         this.acceptsValue = acceptsValue;
     }
 
+    @Override
+    public String toString() {
+        return value;
+    }
     private void processString(String input) {
         String value;
         int index;
@@ -105,7 +109,7 @@ public class FrequencyType {
         HelperMethods.checkObject("input", input);
         index = input.indexOf("X/");
         if (index == -1) {
-            input = input.replaceAll("[^0-9]", "");
+            input = input.replaceAll("[0-9]", "");
         }
 
         return input;
