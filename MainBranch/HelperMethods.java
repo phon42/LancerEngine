@@ -69,6 +69,7 @@ import Packages.CoreTypes.EntityMechanics.StateSystem.State;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.Condition;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.Status;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.unverifiedStateData.StateData;
+import Packages.CoreTypes.EntityMechanics.frequency.FrequencyType;
 import Packages.CoreTypes.lcpInfo.LCPDependency;
 import Packages.EventSystem.event.EventListener;
 
@@ -715,6 +716,32 @@ public final class HelperMethods {
         HelperMethods.checkObject("array", array);
         HelperMethods.checkObject("newElement", newElement);
         Frame[] newArray = new Frame[array.length + 1];
+
+        for (int i = 0; i < newArray.length; i++) {
+            if (i < array.length) {
+                newArray[i] = array[i];
+                continue;
+            }
+            newArray[i] = newElement;
+        }
+        
+        return newArray;
+    }
+    /**
+     * Appends the given FrequencyType element to the end of an existing
+     *     FrequencyType[].
+     * @param array a FrequencyType[] that cannot be null.
+     * @param newElement a FrequencyType that cannot be null to append to the
+     *     end of array.
+     * @return a FrequencyType[] consisting of array with newElement appended to
+     *     the end of it.
+     * @throws IllegalArgumentException if array or newElement is null.
+     */
+    public static FrequencyType[] append(FrequencyType[] array,
+        FrequencyType newElement) {
+        HelperMethods.checkObject("array", array);
+        HelperMethods.checkObject("newElement", newElement);
+        FrequencyType[] newArray = new FrequencyType[array.length + 1];
 
         for (int i = 0; i < newArray.length; i++) {
             if (i < array.length) {
