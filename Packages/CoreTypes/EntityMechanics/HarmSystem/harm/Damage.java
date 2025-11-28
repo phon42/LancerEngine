@@ -80,7 +80,7 @@ public class Damage extends Harm {
     @Override
     protected void setValue(MixedExpression value) {
         HelperMethods.checkObject("value", value);
-        this.value = value;
+        super.setValue(value);
     }
     // Optional properties
     @Override

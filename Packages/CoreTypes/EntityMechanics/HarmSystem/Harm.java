@@ -53,9 +53,6 @@ public class Harm {
         setFlatValue(flatValue);
         checkValidity();
     }
-    public Harm(HarmType type, String diceValue, int flatValue) {
-
-    }
     protected Harm(MixedExpression value) {
         setValue(value);
     }
