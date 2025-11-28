@@ -269,7 +269,7 @@ public class ActionBase {
     }
     // Conditionally required properties
     public Frequency getFrequency() {
-        return new Frequency(frequency);
+        return frequency;
     }
     public VueHTMLString getTrigger() {
         if (trigger == null) {
@@ -343,7 +343,6 @@ public class ActionBase {
     // Conditionally required properties
     protected void setFrequency(Frequency frequency) {
         HelperMethods.checkObject("frequency", frequency);
-        frequency = new Frequency(frequency);
         this.frequency = frequency;
     }
     protected void setTrigger(VueHTMLString trigger) {

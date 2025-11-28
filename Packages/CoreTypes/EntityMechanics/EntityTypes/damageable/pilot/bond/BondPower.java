@@ -108,7 +108,7 @@ public class BondPower {
         return prerequisite;
     }
     public Frequency getFrequency() {
-        return new Frequency(frequency);
+        return frequency;
     }
     // Required properties
     private void setName(String name) {
@@ -141,9 +141,6 @@ public class BondPower {
         this.prerequisite = prerequisite;
     }
     private void setFrequency(Frequency frequency) {
-        if (frequency != null) {
-            frequency = new Frequency(frequency);
-        }
         this.frequency = frequency;
     }
 }
