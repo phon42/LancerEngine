@@ -257,6 +257,10 @@ public final class Database {
     public static void initialize() {
         final String begin = "=== Initializing database ======================="
             + "===============================";
+        final String setupBegin = "========= Setting up default allowed values "
+            + "====================================";
+        final String setupDone = "========= Allowed values setup complete ====="
+            + "===================================";
         final String done = "=== Database initialization complete ============="
             + "==============================";
         ExternalLCP externalLCP;
@@ -270,6 +274,8 @@ public final class Database {
         clear();
 
         open();
+        System.out.println(setupBegin);
+
         // Add allowed activation types
         addActivationType(new ActivationType("free", "free"));
         addActivationType(new ActivationType("protocol",
@@ -537,6 +543,8 @@ public final class Database {
         addWeaponType(new WeaponType(7, "Spool Weapon"));
         addWeaponType(new WeaponType(8, "???"));
         addWeaponType(new WeaponType(9, "Special"));
+
+        System.out.println(setupDone);
         close();
 
         // Add LCP corrections
