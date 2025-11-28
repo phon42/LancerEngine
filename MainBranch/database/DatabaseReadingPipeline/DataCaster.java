@@ -589,14 +589,12 @@ public class DataCaster {
         // Conditionally required properties - ActionBase
         String frequencyString;
         Frequency frequency = null;
-        String triggerString;
-        VueHTMLString trigger = null;
+        String trigger = null;
         // Optional properties - ActionBase
         JSONArray synergyLocationsArray;
         String synergyLocationsString;
         SynergyLocation[] synergyLocations = null;
-        String initString;
-        VueHTMLString init = null;
+        String init = null;
         // Optional properties - Action
         String terse;
         String log;
@@ -657,10 +655,7 @@ public class DataCaster {
             frequencyString = actionData.getString("frequency");
             frequency = new Frequency(frequencyString);
         } catch (JSONException exception) {}
-        try {
-            triggerString = actionData.getString("trigger");
-            trigger = new VueHTMLString(triggerString);
-        } catch (JSONException exception) {}
+        trigger = getOptionalString(actionData, "trigger");
         // Optional properties - ActionBase
         try {
             synergyLocationsArray =
@@ -673,10 +668,7 @@ public class DataCaster {
                     new SynergyLocation(synergyLocationsString);
             }
         } catch (JSONException exception) {}
-        try {
-            initString = actionData.getString("init");
-            init = new VueHTMLString(initString);
-        } catch (JSONException exception) {}
+        init = getOptionalString(actionData, "init");
         // Optional properties - Action
         terse = getOptionalString(actionData, "terse");
         log = getOptionalString(actionData, "log");
