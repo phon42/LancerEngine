@@ -105,10 +105,16 @@ public class IActionData extends ActionBase {
         // Optional properties
         setRange(rangeTags);
         setDamage(damage);
+        // Verify everything
+        verifyProperties();
     }
     public IActionData(String actionName, ActivationType activation,
         String detailedDescription) {
-        super(actionName, activation, detailedDescription);
+        this(actionName, activation, detailedDescription, TriState.UNSET,
+            TriState.UNSET, null, TriState.UNSET, null,
+            null, null, null,
+            null, -1, TriState.UNSET, null,
+            null);
     }
     // If passed an item name instead of an action name
     public IActionData(
@@ -134,6 +140,14 @@ public class IActionData extends ActionBase {
     }
     public IActionData(IActionData iActionData) {
         super(iActionData);
+        // Semi-required properties
+        setCost(iActionData.cost);
+        setTechAttack(iActionData.techAttack);
+        // Optional properties
+        setRange(iActionData.range);
+        setDamage(iActionData.damage);
+        // Verify everything
+        verifyProperties();
     }
 
     // Semi-required properties
@@ -166,27 +180,8 @@ public class IActionData extends ActionBase {
         }
         this.cost = cost;
     }
-    private void setTechAttack(TriState techAttack) {
-        boolean value;
-        String activation;
-
-        HelperMethods.checkObject("techAttack", techAttack);
-        if (techAttack == TriState.UNSET) {
-            this.techAttack = IActionData.techAttackDefault;
-            return;
-        }
-        value = techAttack.toBoolean();
-        activation = this.activation.getValue();
-        if (value) {
-            // this.activation MUST be a tech attack of some kind
-            if (! (activation.equals("quick tech")
-                || activation.equals("full tech"))) {
-                throw new IllegalArgumentException("Attempted to set"
-                    + " this.techAttack to true when this.activation is: \""
-                    + activation + "\" (not \"quick tech\" or \"full tech\")");
-            }
-        }
-        this.techAttack = value;
+    private void setTechAttack(boolean techAttack) {
+        this.techAttack = techAttack;
     }
     // Optional properties
     private void setRange(RangeTag[] range) {
@@ -209,5 +204,27 @@ public class IActionData extends ActionBase {
         itemName = itemName.toUpperCase();
 
         return "Activate " + itemName;
+    }
+    private void setTechAttack(TriState techAttack) {
+        boolean value;
+        String activation;
+
+        HelperMethods.checkObject("techAttack", techAttack);
+        if (techAttack == TriState.UNSET) {
+            setTechAttack(IActionData.techAttackDefault);
+            return;
+        }
+        value = techAttack.toBoolean();
+        activation = this.activation.getValue();
+        if (value) {
+            // this.activation MUST be a tech attack of some kind
+            if (! (activation.equals("quick tech")
+                || activation.equals("full tech"))) {
+                throw new IllegalArgumentException("Attempted to set"
+                    + " this.techAttack to true when this.activation is: \""
+                    + activation + "\" (not \"quick tech\" or \"full tech\")");
+            }
+        }
+        setTechAttack(value);
     }
 }

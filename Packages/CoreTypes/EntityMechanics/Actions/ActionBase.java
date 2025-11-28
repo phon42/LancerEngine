@@ -210,8 +210,6 @@ public class ActionBase {
         setMethod(method);
         setSynergyLocations(synergyLocations);
         setInit(requiredInitialConditions);
-        // Verify everything
-        verifyProperties();
         // Helper property
         setType(calculateType());
     }
@@ -241,8 +239,6 @@ public class ActionBase {
         setMethod(actionBase.method);
         setSynergyLocations(actionBase.synergyLocations);
         setInit(actionBase.init);
-        // Verify everything
-        verifyProperties();
         // Helper property
         setType(calculateType());
     }
@@ -349,8 +345,8 @@ public class ActionBase {
 
         if (frequency == null) {
             try {
-                type = Database.getFrequencyType("Unlimited");
-                frequency = new Frequency(type);
+                type = Database.getFrequencyType("X/round");
+                frequency = new Frequency(type, 1);
             } catch (NoSuchElementException exception) {}
         }
         HelperMethods.checkObject("frequency", frequency);
@@ -406,8 +402,9 @@ public class ActionBase {
     protected void setTrigger(String trigger) {
         if (trigger == null) {
             this.trigger = null;
+        } else {
+            setTrigger(new VueHTMLString(trigger));
         }
-        setTrigger(new VueHTMLString(trigger));
     }
     protected void setHideActive(TriState hideActive) {
         if (hideActive == TriState.UNSET) {
@@ -419,8 +416,9 @@ public class ActionBase {
     protected void setInit(String init) {
         if (init == null) {
             this.init = null;
+        } else {
+            setInit(new VueHTMLString(init));
         }
-        setInit(new VueHTMLString(init));
     }
     protected void verifyProperties() {
         boolean isValidFreq1;

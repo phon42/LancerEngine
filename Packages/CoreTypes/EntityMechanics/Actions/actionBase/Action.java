@@ -1,8 +1,11 @@
 package Packages.CoreTypes.EntityMechanics.Actions.actionBase;
 
+import java.util.NoSuchElementException;
+import MainBranch.Database;
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.Callable;
 import Packages.CoreTypes.EntityMechanics.Actions.ActionBase;
+import Packages.CoreTypes.EntityMechanics.frequency.FrequencyType;
 import Packages.CoreTypes.EntityMechanics.ActivationType;
 import Packages.CoreTypes.EntityMechanics.Frequency;
 import Packages.CoreTypes.EntityMechanics.SynergyLocation;
@@ -129,6 +132,7 @@ public class Action extends ActionBase {
         // Optional properties
         setTerse(terse);
         setLog(log);
+        // Verify everything
         verifyProperties();
     }
     public Action(String name, ActivationType activation,
@@ -139,6 +143,7 @@ public class Action extends ActionBase {
         // Semi-required properties
         setIgnoreUsed(TriState.UNSET);
         setHeatCost(-1);
+        // Verify everything
         verifyProperties();
     }
     public Action(Action action) {
@@ -151,6 +156,7 @@ public class Action extends ActionBase {
         // Optional properties
         setTerse(action.terse);
         setLog(action.log);
+        // Verify everything
         verifyProperties();
     }
 
@@ -179,13 +185,9 @@ public class Action extends ActionBase {
         this.id = id;
     }
     // Semi-required properties
-    private void setIgnoreUsed(TriState ignoreUsed) {
-        HelperMethods.checkObject("ignoreUsed", ignoreUsed);
-        if (ignoreUsed == TriState.UNSET) {
-            this.ignoreUsed = Action.ignoreUsedDefault;
-            return;
-        }
-        this.ignoreUsed = ignoreUsed.toBoolean();
+    private void setIgnoreUsed(boolean ignoreUsed) {
+        this.ignoreUsed = ignoreUsed;
+        calculateFrequency();
     }
     private void setHeatCost(int heatCost) {
         if (heatCost < 0) {
@@ -214,21 +216,51 @@ public class Action extends ActionBase {
         this.log = log;
     }
 
+    private void calculateFrequency() {
+        FrequencyType frequencyType;
+
+        if (this.ignoreUsed) {
+            try {
+                frequencyType =
+                    Database.getFrequencyType("Unlimited");
+                setFrequency(new Frequency(frequencyType));
+            } catch (NoSuchElementException exception) {}
+        } else {
+            try {
+                frequencyType =
+                    Database.getFrequencyType("X/round");
+                setFrequency(new Frequency(frequencyType, 1));
+            } catch (NoSuchElementException exception) {}
+        }
+    }
+    private void setIgnoreUsed(TriState ignoreUsed) {
+        HelperMethods.checkObject("ignoreUsed", ignoreUsed);
+        if (ignoreUsed == TriState.UNSET) {
+            this.ignoreUsed = Action.ignoreUsedDefault;
+            return;
+        }
+        setIgnoreUsed(ignoreUsed.toBoolean());
+    }
     @Override
     protected void verifyProperties() {
+        boolean isValidFreq;
+
         super.verifyProperties();
         if (! this.activation.getType().equals("reaction")) {
             // do nothing, because this.frequency cannot be null.
             if (this.ignoreUsed) {
-                if (! this.frequency.getType().equals("unlimited")) {
+                isValidFreq = this.frequency.getType().getValue()
+                    .equals("Unlimited");
+                if (! isValidFreq) {
                     throw new IllegalStateException("this.frequency cannot"
-                        + " be anything other than \"unlimited\" when"
+                        + " be anything other than \"Unlimited\" when"
                         + " this.activation is not a reaction and"
                         + " this.ignoreUsed is true");
                 }
             } else {
-                if (! (this.frequency.getType().equals("X/round")
-                    && this.frequency.getValue() == 1)) {
+                isValidFreq = this.frequency.getType().getValue()
+                    .equals("X/round");
+                if (! (isValidFreq && this.frequency.getValue() == 1)) {
                     throw new IllegalStateException("this.frequency cannot"
                         + " be anything other than \"1/round\" when"
                         + " this.activation is not a reaction and"
