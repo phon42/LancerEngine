@@ -56,6 +56,7 @@ import Packages.CoreTypes.EntityMechanics.HarmSystem.harm.Damage;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.harm.HarmType;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.harm.harmType.DamageType;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.unverifiedStateData.StateData;
+import Packages.CoreTypes.EntityMechanics.frequency.FrequencyType;
 import Packages.CoreTypes.lcpInfo.LCPDependency;
 import Packages.CoreTypes.lcpInfo.Version;
 import Packages.CoreTypes.lcpInfo.lcpDependency.SemverVersion;
@@ -133,6 +134,7 @@ public class DataCaster {
     private static UnverifiedCoreBonus[] coreBonusesProcessed;
     private static StateData[] conditionsProcessed;
     private static DamageType[] damageTypesProcessed;
+    private static FrequencyType[] frequencyTypesProcessed;
     private static HarmType[] harmTypesProcessed;
     private static IActionData[] iActionDataProcessed;
     private static ITagData[] iTagDataProcessed;
@@ -726,6 +728,21 @@ public class DataCaster {
         return new UnverifiedBackground(id, name, description,
             null);
     }
+    private static ActivationType toActivationType(String activationTypeString)
+    {
+        ActivationType activationType;
+
+        try {
+            return Database.getActivationType(activationTypeString);
+        } catch (JSONException exception) {
+            activationType = new ActivationType(activationTypeString);
+            DataCaster.activationTypesProcessed = HelperMethods.append(
+                DataCaster.activationTypesProcessed, activationType
+            );
+
+            return activationType;
+        }
+    }
     private static void processBonds(JSONObject[] bondsData) {
         Bond[] bonds = new Bond[bondsData.length];
 
@@ -1187,6 +1204,37 @@ public class DataCaster {
     private static Frame toFrame(JSONObject frameData) {
         // TODO: fill out
         return null;
+    }
+    private static Frequency toFrequency(String frequencyString) {
+        String frequencyTypeRoot;
+        FrequencyType type;
+        int value;
+        Frequency frequency;
+
+        frequencyTypeRoot = FrequencyType.inputToRoot(frequencyString);
+        try {
+            try {
+                value = HelperMethods.parseInt(frequencyString);
+            } catch (IllegalStateException exception) {
+                value = -1;
+            }
+            type = Database.getFrequencyTypeByRoot(frequencyTypeRoot);
+            frequency = new Frequency(type, value);
+        } catch (NoSuchElementException exception) {
+            try {
+                value = HelperMethods.parseInt(frequencyString);
+                type = new FrequencyType("X" + frequencyTypeRoot);
+            } catch (IllegalStateException exception2) {
+                value = -1;
+                type = new FrequencyType(frequencyTypeRoot);
+            }
+            DataCaster.frequencyTypesProcessed = HelperMethods.append(
+                DataCaster.frequencyTypesProcessed, type
+            );
+            frequency = new Frequency(type, value);
+        }
+
+        return frequency;
     }
     private static Harm toHarm(JSONObject harmData) {
         String typeString;
@@ -2484,6 +2532,7 @@ public class DataCaster {
             DataCaster.conditionsProcessed,
             DataCaster.coreBonusesProcessed,
             DataCaster.damageTypesProcessed,
+            DataCaster.frequencyTypesProcessed,
             DataCaster.harmTypesProcessed,
             DataCaster.iActionDataProcessed,
             DataCaster.iTagDataProcessed,
@@ -2570,6 +2619,7 @@ public class DataCaster {
         DataCaster.conditionsProcessed = new StateData[0];
         DataCaster.coreBonusesProcessed = new UnverifiedCoreBonus[0];
         DataCaster.damageTypesProcessed = new DamageType[0];
+        DataCaster.frequencyTypesProcessed = new FrequencyType[0];
         DataCaster.harmTypesProcessed = new HarmType[0];
         DataCaster.manufacturersProcessed = new Manufacturer[0];
         DataCaster.npcFeaturesProcessed = new NPCFeature[0];
