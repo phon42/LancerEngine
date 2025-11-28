@@ -29,6 +29,14 @@ public class Frequency {
     public Frequency(String input) {
         processInput(input);
     }
+    public Frequency(FrequencyType type, int value) {
+        setType(type);
+        setValue(value);
+    }
+    public Frequency(FrequencyType type) {
+        setType(type);
+        setValue(-1);
+    }
 
     // Required property
     public FrequencyType getType() {
@@ -73,6 +81,14 @@ public class Frequency {
         this.value = value;
     }
 
+    @Override
+    public String toString() {
+        if (type.acceptsValue()) {
+            return value + type.getRoot();
+        } else {
+            return type.getValue();
+        }
+    }
     private void processInput(String input) {
         String type;
 
