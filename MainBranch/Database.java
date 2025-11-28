@@ -664,6 +664,18 @@ public final class Database {
         throw new NoSuchElementException("No frequency type found for frequency"
             + " type: " + frequencyType);
     }
+    public static FrequencyType getFrequencyTypeByRoot(String frequencyTypeRoot)
+    {
+        HelperMethods.checkObject("frequencyTypeRoot",
+            frequencyTypeRoot);
+        for (FrequencyType frequencyType : Database.frequencyTypes) {
+            if (frequencyTypeRoot.equals(frequencyType.getRoot())) {
+                return frequencyType;
+            }
+        }
+        throw new NoSuchElementException("No frequency type found for frequency"
+            + " type root: " + frequencyTypeRoot);
+    }
     public static Frame getFrame(String frameID) {
         HelperMethods.checkObject("frameID", frameID);
         frameID = frameID.toLowerCase();
