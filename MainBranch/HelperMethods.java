@@ -1159,6 +1159,30 @@ public final class HelperMethods {
         return newArray;
     }
     /**
+     * Appends the given SkillData element to the end of an existing Skill[].
+     * @param array a SkillData[] that cannot be null.
+     * @param newElement a SkillData that cannot be null to append to the end of
+     *     array.
+     * @return a SkillData[] consisting of array with newElement appended to the
+     *     end of it.
+     * @throws IllegalArgumentException if array or newElement is null.
+     */
+    public static SkillData[] append(SkillData[] array, SkillData newElement) {
+        HelperMethods.checkObject("array", array);
+        HelperMethods.checkObject("newElement", newElement);
+        SkillData[] newArray = new SkillData[array.length + 1];
+
+        for (int i = 0; i < newArray.length; i++) {
+            if (i < array.length) {
+                newArray[i] = array[i];
+                continue;
+            }
+            newArray[i] = newElement;
+        }
+        
+        return newArray;
+    }
+    /**
      * Appends the given Sitrep element to the end of an existing Sitrep[].
      * @param array a Sitrep[] that cannot be null.
      * @param newElement a Sitrep that cannot be null to append to the end of
@@ -1256,18 +1280,20 @@ public final class HelperMethods {
         return newArray;
     }
     /**
-     * Appends the given SkillData element to the end of an existing Skill[].
-     * @param array a SkillData[] that cannot be null.
-     * @param newElement a SkillData that cannot be null to append to the end of
-     *     array.
-     * @return a SkillData[] consisting of array with newElement appended to the
-     *     end of it.
+     * Appends the given SynergyLocation element to the end of an existing
+     *     SynergyLocation[].
+     * @param array a SynergyLocation[] that cannot be null.
+     * @param newElement a SynergyLocation that cannot be null to append to the
+     *     end of array.
+     * @return a SynergyLocation[] consisting of array with newElement appended
+     *     to the end of it.
      * @throws IllegalArgumentException if array or newElement is null.
      */
-    public static SkillData[] append(SkillData[] array, SkillData newElement) {
+    public static SynergyLocation[] append(SynergyLocation[] array,
+        SynergyLocation newElement) {
         HelperMethods.checkObject("array", array);
         HelperMethods.checkObject("newElement", newElement);
-        SkillData[] newArray = new SkillData[array.length + 1];
+        SynergyLocation[] newArray = new SynergyLocation[array.length + 1];
 
         for (int i = 0; i < newArray.length; i++) {
             if (i < array.length) {
