@@ -22,30 +22,22 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTrig
  */
 public final class Skill {
     /**
-     * The id of the skill trigger (i.e. "sk_act_unseen_or_unheard").
-     * Can be any String except "". Cannot be null.
-     * Case-insensitive and stored in lowercase.
+     * The actual skill that this Skill object contains (i.e. a SkillData
+     *     representing Apply Fists to Faces).
+     * Can be any SkillData. Cannot be null.
      */
-    private String id;
-    /**
-     * The name of the skill trigger (i.e. "Apply Fists to Faces").
-     * Can be any String except "". Cannot be null.
-     * Case-sensitive.
-     */
-    private String name;
+    private SkillData data;
     /**
      * The level at which the skill trigger is held.
      * Must be one of the following values:
      *     2, 4, 6
      */
     private int level;
-    /**
-     * The actual skill that this Skill object contains (i.e. a SkillData
-     *     representing Apply Fists to Faces).
-     * Can be any SkillData. Cannot be null.
-     */
-    private SkillData skillData;
 
+    public Skill(SkillData data, int level) {
+        setData(data);
+        setLevel(level);
+    }
     /**
      * Creates a new Skill with the provided skill trigger identifier and skill
      *     trigger level.
@@ -71,42 +63,24 @@ public final class Skill {
                     + " valid skill id or skill name");
             }
         }
-        setSkillData(data);
-        setID(data.getID());
-        setName(data.getName());
-    }
-    /**
-     * Creates a copy of the provided Skill.
-     * @param skill a Skill to be copied.
-     * @return a Skill copy of the provided Skill.
-     */
-    public Skill(Skill skill) {
-        HelperMethods.checkObject("skill", skill);
-        setName(skill.name);
-        setLevel(skill.level);
-        setSkillData(skill.skillData);
+        setData(data);
+        setLevel(level);
     }
 
-    public String getID() {
-        return id;
-    }
-    public String getName() {
-        return name;
+    public SkillData getData() {
+        return data;
     }
     public int getLevel() {
         return level;
     }
-    public SkillData getSkill() {
-        return new SkillData(skillData);
-    }
-    private void setID(String id) {
-        HelperMethods.checkString("id", id);
-        id = id.toLowerCase();
-        this.id = id;
-    }
-    private void setName(String name) {
-        HelperMethods.checkString("New name", name);
-        this.name = name;
+    /**
+     * Sets this.data to the provided value.
+     * @param data a SkillData which cannot be null.
+     * @throws IllegalArgumentException if data is null.
+     */
+    private void setData(SkillData data) {
+        HelperMethods.checkObject("data", data);
+        this.data = data;
     }
     /**
      * Sets this.level to the provided value.
@@ -120,16 +94,6 @@ public final class Skill {
         }
         this.level = level;
     }
-    /**
-     * Sets this.skillData to the provided value.
-     * @param skillData a SkillData which cannot be null.
-     * @throws IllegalArgumentException if skillData is null.
-     */
-    private void setSkillData(SkillData skillData) {
-        HelperMethods.checkObject("skillData", skillData);
-        skillData = new SkillData(skillData);
-        this.skillData = skillData;
-    }
 
     /**
      * Generates a String representation of this Skill.
@@ -137,7 +101,7 @@ public final class Skill {
      */
     @Override
     public String toString() {
-        return getName() + " (+" + getLevel() + ")";
+        return data.getName() + " (+" + getLevel() + ")";
     }
     /**
      * Compares this Skill object and obj. If they are the same class, returns
@@ -153,7 +117,8 @@ public final class Skill {
         if (obj.getClass() != getClass()) {
             return false;
         }
-        return true;
+
+        return equals((Skill) obj);
     }
     /**
      * Compares this Skill object and skill. If they have the same property
@@ -165,7 +130,7 @@ public final class Skill {
         if (skill == null) {
             return false;
         }
-        if (! skill.getName().equals(this.name)) {
+        if (! skill.getData().equals(this.data)) {
             return false;
         }
         if (skill.getLevel() != this.level) {

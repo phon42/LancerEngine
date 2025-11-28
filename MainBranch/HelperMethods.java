@@ -2256,7 +2256,7 @@ public final class HelperMethods {
                 copy[i] = original[i];
                 continue;
             }
-            copy[i] = new Skill(original[i]);
+            copy[i] = original[i];
         }
 
         return copy;
@@ -2383,7 +2383,7 @@ public final class HelperMethods {
                 copy[i] = original[i];
                 continue;
             }
-            copy[i] = new TalentRank(original[i]);
+            copy[i] = original[i];
         }
 
         return copy;

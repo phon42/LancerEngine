@@ -57,7 +57,7 @@ public final class SkillTriggersList {
      */
     public boolean hasSkill(String skillName) {
         for (Skill skill : this.skills) {
-            if (skill.getName().equals(skillName)) {
+            if (skill.getData().getName().equals(skillName)) {
                 return true;
             }
         }
@@ -75,8 +75,8 @@ public final class SkillTriggersList {
      */
     public Skill getSkill(String skillName) {
         for (Skill skill : this.skills) {
-            if (skill.getName().equals(skillName)) {
-                return new Skill(skill);
+            if (skill.getData().getName().equals(skillName)) {
+                return skill;
             }
         }
 
