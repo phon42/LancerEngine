@@ -2,6 +2,9 @@ package MainBranch;
 
 import java.math.BigDecimal;
 import java.net.URL;
+import java.text.NumberFormat;
+import java.text.ParseException;
+
 import MainBranch.database.FileOperations;
 import MainBranch.database.LCPCorrection;
 import MainBranch.database.fileOperations.json.JSONArray;
@@ -231,6 +234,24 @@ public final class HelperMethods {
         }
         
         return num - 1;
+    }
+    public static int parseInt(String input) throws IllegalArgumentException,
+        IllegalStateException {
+        Number result;
+
+        result = parseNumber(input);
+
+        return result.intValue();
+    }
+    public static Number parseNumber(String input)
+        throws IllegalArgumentException, IllegalStateException {
+        checkObject("input", input);
+        try {
+            return NumberFormat.getInstance().parse(input);
+        } catch (ParseException exception) {
+            throw new IllegalStateException("Attempting to parse: \"" + input
+                + "\" threw a ParseException");
+        }
     }
     /**
      * Checks a provided String[] to see if it is null, contains null elements,
