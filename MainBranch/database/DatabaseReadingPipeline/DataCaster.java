@@ -52,12 +52,14 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTrig
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skill.skillData.SkillFamily;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.talent.TalentData;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.Harm;
+import Packages.CoreTypes.EntityMechanics.HarmSystem.harm.Damage;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.harm.HarmType;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.harm.harmType.DamageType;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.unverifiedStateData.StateData;
 import Packages.CoreTypes.lcpInfo.LCPDependency;
 import Packages.CoreTypes.lcpInfo.Version;
 import Packages.CoreTypes.lcpInfo.lcpDependency.SemverVersion;
+import Packages.CoreTypes.Callable;
 import Packages.CoreTypes.Counter;
 import Packages.CoreTypes.JSONTypeTree;
 import Packages.CoreTypes.LCPInfo;
@@ -132,6 +134,7 @@ public class DataCaster {
     private static StateData[] conditionsProcessed;
     private static DamageType[] damageTypesProcessed;
     private static HarmType[] harmTypesProcessed;
+    private static IActionData[] iActionDataProcessed;
     private static ITagData[] iTagDataProcessed;
     private static Manufacturer[] manufacturersProcessed;
     private static NPCFeature[] npcFeaturesProcessed;
@@ -1227,8 +1230,142 @@ public class DataCaster {
         return harmType;
     }
     private static IActionData toIActionData(JSONObject iActionDataData) {
-        // TODO: fill out
-        return null;
+        // ActionBase required properties
+        String name;
+        String activationString;
+        ActivationType activation;
+        String detailedDescription;
+        // ActionBase semi-required properties
+        TriState pilot;
+        TriState mech;
+        JSONArray confirmArray;
+        String[] confirm;
+        TriState hideActive;
+        // ActionBase conditionally required properties
+        String frequencyString;
+        Frequency frequency;
+        String trigger;
+        // ActionBase optional properties
+        JSONArray synergyLocationsArray;
+        SynergyLocation[] synergyLocations;
+        String init;
+        // Semi-required properties
+        int cost = -1;
+        TriState techAttack;
+        // Optional properties
+        JSONArray rangeTagsArray;
+        RangeTag[] rangeTags;
+        JSONArray damageArray;
+        Damage[] damage;
+        // Result
+        IActionData iActionData;
+
+        try {
+            name = iActionDataData.getString("name");
+        } catch (JSONException exception) {
+            throw new IllegalStateException("iActionDataData threw a"
+                + " JSONException during the required properties section of the"
+                + " object parsing, which is not allowed");
+        }
+        try {
+            return Database.getIActionData(name);
+        } catch (NoSuchElementException exception) {
+            try {
+                activationString = iActionDataData.getString("activation");
+                activation = toActivationType(activationString);
+                detailedDescription = iActionDataData.getString("detail");
+            } catch (JSONException exception2) {
+                throw new IllegalStateException("iActionDataData threw a"
+                    + " JSONException during the required properties section of the"
+                    + " object parsing, which is not allowed");
+            }
+            // ActionBase semi-required properties
+            pilot = getTriState(iActionDataData, "pilot");
+            mech = getTriState(iActionDataData, "mech");
+            try {
+                confirmArray = iActionDataData.getJSONArray("confirm");
+                try {
+                    confirm = new String[confirmArray.length()];
+                    for (int i = 0; i < confirm.length; i++) {
+                        confirm[i] = confirmArray.getString(i);
+                    }
+                } catch (JSONException exception2) {
+                    throw new IllegalStateException("Parsing confirmArray"
+                        + " threw a JSONException");
+                }
+            } catch (JSONException exception2) {}
+            hideActive = getTriState(iActionDataData,
+                "hide_active");
+            // ActionBase conditionally required properties
+            frequencyString = getOptionalString(iActionDataData,
+                "frequency");
+            if (frequencyString != null) {
+                frequency = toFrequency(frequencyString);
+            }
+            trigger = getOptionalString(iActionDataData,
+                "trigger");
+            // ActionBase optional properties
+            try {
+                synergyLocationsArray =
+                    iActionDataData.getJSONArray("synergies");
+                try {
+                    synergyLocations =
+                        new SynergyLocation[synergyLocationsArray.length()];
+                    for (int i = 0; i < synergyLocations.length; i++) {
+                        synergyLocations[i] = toSynergyLocation(
+                            synergyLocationsArray.getJSONObject(i)
+                        );
+                    }
+                } catch (JSONException exception2) {
+                    throw new IllegalStateException("Attempting to parse"
+                        + " synergyLocationsArray threw a JSONException");
+                }
+            } catch (JSONException exception2) {}
+            init = getOptionalString(iActionDataData, "init");
+            // Semi-required properties
+            try {
+                cost = iActionDataData.getInt("cost");
+            } catch (JSONException exception2) {}
+            techAttack = getTriState(iActionDataData,
+                "tech_attack");
+            // Optional properties
+            try {
+                rangeTagsArray =
+                    iActionDataData.getJSONArray("range_tags");
+                try {
+                    rangeTags = new RangeTag[rangeTagsArray.length()];
+                    for (int i = 0; i < rangeTags.length; i++) {
+                        rangeTags[i] =
+                            toRangeTag(rangeTagsArray.getJSONObject(i));
+                    }
+                } catch (JSONException exception2) {
+                    throw new IllegalStateException("Attempting to parse"
+                        + " rangeTagsArray threw a JSONException");
+                }
+            } catch (JSONException exception2) {}
+            try {
+                damageArray = iActionDataData.getJSONArray("damage");
+                try {
+                    damage = new Damage[damageArray.length()];
+                    for (int i = 0; i < rangeTags.length; i++) {
+                        damage[i] = toDamage(damageArray.getJSONObject(i));
+                    }
+                } catch (JSONException exception2) {
+                    throw new IllegalStateException("Attempting to parse"
+                        + " damageArray threw a JSONException");
+                }
+            } catch (JSONException exception2) {}
+
+            iActionData = new IActionData(name, activation, detailedDescription,
+                pilot, mech, confirm, hideActive, frequency, trigger,
+                null, synergyLocations, init, cost, techAttack,
+                rangeTags, damage);
+            DataCaster.iActionDataProcessed = HelperMethods.append(
+                DataCaster.iActionDataProcessed, iActionData
+            );
+
+            return iActionData;
+        }
     }
     private static IDeployableData toIDeployableData(
         JSONObject iDeployableDataData) {
@@ -2318,6 +2455,20 @@ public class DataCaster {
 
         return null;
     }
+    private static TriState getTriState(JSONObject originObject,
+        String propertyName) {
+        boolean result;
+
+        HelperMethods.checkObject("originObject", originObject);
+        HelperMethods.checkString("propertyName", propertyName);
+        try {
+            result = originObject.getBoolean(propertyName);
+
+            return TriState.toTriState(result);
+        } catch (JSONException exception) {
+            return TriState.UNSET;
+        }
+    }
     private static Object[] packData() {
         Object[] data = new Object[] {
             // ----absolutely critical data:
@@ -2334,6 +2485,7 @@ public class DataCaster {
             DataCaster.coreBonusesProcessed,
             DataCaster.damageTypesProcessed,
             DataCaster.harmTypesProcessed,
+            DataCaster.iActionDataProcessed,
             DataCaster.iTagDataProcessed,
             DataCaster.manufacturersProcessed,
             DataCaster.npcFeaturesProcessed,
@@ -2429,6 +2581,7 @@ public class DataCaster {
         DataCaster.reservesProcessed = new ReserveData[0];
         DataCaster.skillsProcessed = new SkillData[0];
         DataCaster.statusesProcessed = new StateData[0];
+        DataCaster.iActionDataProcessed = new IActionData[0];
         DataCaster.iTagDataProcessed = new ITagData[0];
         DataCaster.talentsProcessed = new TalentData[0];
         DataCaster.weaponSizesProcessed = new WeaponSize[0];
