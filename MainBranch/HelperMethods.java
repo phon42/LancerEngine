@@ -2171,7 +2171,7 @@ public final class HelperMethods {
                 copy[i] = original[i];
                 continue;
             }
-            copy[i] = new ISynergyData(original[i]);
+            copy[i] = original[i];
         }
 
         return copy;
@@ -2190,7 +2190,7 @@ public final class HelperMethods {
                 copy[i] = original[i];
                 continue;
             }
-            copy[i] = new SynergyLocation(original[i]);
+            copy[i] = original[i];
         }
 
         return copy;

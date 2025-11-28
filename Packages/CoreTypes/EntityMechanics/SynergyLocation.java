@@ -5,5 +5,4 @@ public class SynergyLocation {
     String value;
 
     public SynergyLocation(String value) {}
-    public SynergyLocation(SynergyLocation synergyLocation) {}
 }

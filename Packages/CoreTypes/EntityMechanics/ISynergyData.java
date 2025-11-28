@@ -6,5 +6,4 @@ public class ISynergyData {
     private String[] locations;
 
     public ISynergyData(String synergy) {}
-    public ISynergyData(ISynergyData synergy) {}
 }
