@@ -186,10 +186,10 @@ public class ActionBase {
         // Semi-required properties
         TriState pilot, TriState mech, String[] confirm, TriState hideActive,
         // Conditionally required properties
-        Frequency frequency, VueHTMLString trigger,
+        Frequency frequency, String trigger,
         // Optional properties
         Callable method, SynergyLocation[] synergyLocations,
-        VueHTMLString requiredInitialConditions
+        String requiredInitialConditions
     ) {
         HelperMethods.verifyConstructor();
         // Required properties
@@ -199,7 +199,7 @@ public class ActionBase {
         // Semi-required properties
         setPilotAndMech(pilot, mech);
         setConfirm(confirm);
-        calculateHideActive(hideActive);
+        setHideActive(hideActive);
         // Conditionally required properties
         setFrequency(calculateFrequency(frequency));
         setTrigger(trigger);
@@ -393,12 +393,24 @@ public class ActionBase {
             setMech(mech.toBoolean());
         }
     }
-    protected void calculateHideActive(TriState hideActive) {
+    protected void setTrigger(String trigger) {
+        if (trigger == null) {
+            this.trigger = null;
+        }
+        setTrigger(new VueHTMLString(trigger));
+    }
+    protected void setHideActive(TriState hideActive) {
         if (hideActive == TriState.UNSET) {
             this.hideActive = ActionBase.hideActiveDefault;
         } else {
             this.hideActive = hideActive.toBoolean();
         }
+    }
+    protected void setInit(String init) {
+        if (init == null) {
+            this.init = null;
+        }
+        setInit(new VueHTMLString(init));
     }
     protected void verifyProperties() {
         if (this.activation.getType().equals("reaction")) {

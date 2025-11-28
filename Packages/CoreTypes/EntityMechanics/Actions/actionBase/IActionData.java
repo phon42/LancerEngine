@@ -3,7 +3,6 @@ package Packages.CoreTypes.EntityMechanics.Actions.actionBase;
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.Callable;
 import Packages.CoreTypes.TriState;
-import Packages.CoreTypes.VueHTMLString;
 import Packages.CoreTypes.EntityMechanics.SynergyLocation;
 import Packages.CoreTypes.EntityMechanics.Actions.ActionBase;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.harm.Damage;
@@ -90,9 +89,8 @@ public class IActionData extends ActionBase {
         String actionName, ActivationType activation,
         String detailedDescription, TriState pilot, TriState mech,
         String[] confirm, TriState hideActive, Frequency frequency,
-        VueHTMLString trigger, Callable method,
-        SynergyLocation[] synergyLocations,
-        VueHTMLString requiredInitialConditions,
+        String trigger, Callable method, SynergyLocation[] synergyLocations,
+        String requiredInitialConditions,
         // Semi-required properties
         int cost, TriState techAttack,
         // Optional properties
@@ -117,8 +115,8 @@ public class IActionData extends ActionBase {
         // ActionBase properties
         ActivationType activation, String detailedDescription, String itemName,
         TriState pilot, TriState mech, String[] confirm, TriState hideActive,
-        Frequency frequency, VueHTMLString trigger, Callable method,
-        VueHTMLString requiredInitialConditions,
+        Frequency frequency, String trigger, Callable method,
+        String requiredInitialConditions,
         // Semi-required properties
         int cost, TriState techAttack,
         // Optional properties
