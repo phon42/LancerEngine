@@ -30,6 +30,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.UnverifiedDataTag;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.unverifiedDataTag.dataTag.ITagData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.unverifiedDataTag.dataTag.iTagData.ITagDataUnhidden;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.mechSystem.SystemType;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.mount.MountType;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.unverifiedFrame.Frame;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.unverifiedFrame.frame.FrameEnum;
@@ -206,6 +207,10 @@ public final class Database {
      * add documentation
      */
     private static SynergyLocation[] synergyLocations;
+    /**
+     * add documentation
+     */
+    private static SystemType[] systemTypes;
     /**
      * Contains every mech system for reference.
      */
@@ -678,6 +683,7 @@ public final class Database {
         Database.skills = new SkillData[0];
         Database.statuses = new StateData[0];
         Database.synergyLocations = new SynergyLocation[0];
+        Database.systemTypes = new SystemType[0];
         Database.systems = new MechSystem[0];
         Database.tables = new Table[0];
         Database.talents = new TalentData[0];
@@ -1052,8 +1058,19 @@ public final class Database {
                 return synergyLocation;
             }
         }
-        throw new NoSuchElementException("No system location found for synergy"
+        throw new NoSuchElementException("No synergy location found for synergy"
             + " location name: " + synergyLocationName);
+    }
+    public static SystemType getSystemType(String systemTypeName) {
+        HelperMethods.checkObject("systemTypeName",
+            systemTypeName);
+        for (SystemType systemType : Database.systemTypes) {
+            if (systemTypeName.equals(systemType.getValue())) {
+                return systemType;
+            }
+        }
+        throw new NoSuchElementException("No system type found for system type"
+            + " name: " + systemTypeName);
     }
     public static MechSystem getSystem(String systemID) {
         HelperMethods.checkObject("systemID", systemID);
@@ -1535,6 +1552,17 @@ public final class Database {
             synergyLocation);
         Database.synergyLocations =
             HelperMethods.append(Database.synergyLocations, synergyLocation);
+    }
+    /**
+     * Adds the provided SystemType to Database.systemTypes.
+     * @param systemType a SystemType which cannot be null.
+     * @throws IllegalArgumentException if systemType is null.
+     */
+    public static void addSystemType(SystemType systemType) {
+        checkOpen();
+        HelperMethods.checkObject("systemType", systemType);
+        Database.systemTypes = HelperMethods.append(Database.systemTypes,
+            systemType);
     }
     /**
      * Adds the provided MechSystem to Database.systems.
