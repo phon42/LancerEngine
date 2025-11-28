@@ -251,12 +251,17 @@ public final class Database {
     private Database() {}
 
     public static void initialize() {
+        final String begin = "=== Initializing database ======================="
+            + "===============================";
+        final String done = "=== Database initialization complete ============="
+            + "==============================";
         ExternalLCP externalLCP;
         LCPCorrection correction1;
         LCPCorrection correction2;
         Set<String> keys;
         String[] keysArray;
 
+        System.out.println(begin);
         // Initialize the database's properties
         clear();
 
@@ -435,6 +440,7 @@ public final class Database {
             DatabaseReader.readExternalLCP(externalLCP, true,
                 true);
         }
+        System.out.println(done);
     }
     public static boolean isOpen() {
         return Database.open;
