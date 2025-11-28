@@ -19,6 +19,7 @@ import Packages.CoreTypes.EntityMechanics.Manufacturer;
 import Packages.CoreTypes.EntityMechanics.NPCFeature;
 import Packages.CoreTypes.EntityMechanics.NPCTemplate;
 import Packages.CoreTypes.EntityMechanics.RangeType;
+import Packages.CoreTypes.EntityMechanics.SynergyLocation;
 import Packages.CoreTypes.EntityMechanics.WeaponSize;
 import Packages.CoreTypes.EntityMechanics.WeaponType;
 import Packages.CoreTypes.EntityMechanics.Actions.actionBase.Action;
@@ -203,6 +204,10 @@ public final class Database {
      */
     private static StateData[] statuses;
     /**
+     * add documentation
+     */
+    private static SynergyLocation[] synergyLocations;
+    /**
      * Contains every mech system for reference.
      */
     private static MechSystem[] systems;
@@ -308,6 +313,148 @@ public final class Database {
 
         // addMountType calls moved under addWeaponSize section because they
         //     reference WeaponSizes
+
+        // Add allowed synergy locations
+        addSynergyLocation(new SynergyLocation(
+            "active_effects",
+            "The Active Effects panel near the top of the Active"
+                + " Mode view"
+        ));
+        addSynergyLocation(new SynergyLocation(
+            "rest",
+            "A panel near the top of the Active Mode:Rest view"
+        ));
+        addSynergyLocation(new SynergyLocation(
+            "weapon",
+            "The body of the equipped weapon item panel in a"
+                + " loadout, as well as in the Skirmish/Barrage action modals"
+        ));
+        addSynergyLocation(new SynergyLocation(
+            "system",
+            "The body of the equipped system item panel in a"
+                + " loadout, as well as in the Activation Action modals"
+        ));
+        addSynergyLocation(new SynergyLocation(
+            "deployable",
+            "Deployment action for deployable, deployable panel"
+                + " body"
+        ));
+        addSynergyLocation(new SynergyLocation(
+            "drone",
+            "Deployment action for drone, drone panel body"
+        ));
+        addSynergyLocation(new SynergyLocation(
+            "move",
+            "Next to the move pip bar, also within the Move"
+                + " menu/move Action tab"
+        ));
+        addSynergyLocation(new SynergyLocation(
+            "boost",
+            "Next to the Boost button, within the Boost Action"
+                + " modal"
+        ));
+        addSynergyLocation(new SynergyLocation(
+            "structure",
+            "Next to the structure pip tracker in the Active Mode:"
+                + " Combat view"
+        ));
+        addSynergyLocation(new SynergyLocation(
+            "armor",
+            "Next to the armor pip tracker in the Active Mode:"
+                + " Combat view"
+        ));
+        addSynergyLocation(new SynergyLocation(
+            "hp",
+            "Next to the HP pip tracker in the Active Mode: Combat"
+                + " view"
+        ));
+        addSynergyLocation(new SynergyLocation(
+            "overshield",
+            "Next to the overshield pip tracker in the Active"
+                + " Mode: Combat view"
+        ));
+        addSynergyLocation(new SynergyLocation(
+            "stress",
+            "Next to the reactor stress pip tracker in the Active"
+                + " Mode: Combat view"
+        ));
+        addSynergyLocation(new SynergyLocation(
+            "heat",
+            "Next to the heat pip tracker in the Active Mode:"
+                + " Combat view"
+        ));
+        addSynergyLocation(new SynergyLocation(
+            "repair",
+            "Next to the repair capacity pip tracker in the Active"
+                + " Mode: Combat view"
+        ));
+        addSynergyLocation(new SynergyLocation(
+            "core_power",
+            "Next to the CORE power pip tracker in the Active"
+                + " Mode: Combat view"
+        ));
+        addSynergyLocation(new SynergyLocation(
+            "overcharge",
+            "Next to the overcharge pip tracker in the Active"
+                + " Mode: Combat view"
+        ));
+        addSynergyLocation(new SynergyLocation(
+            "ram", "Ram Action modal"
+        ));
+        addSynergyLocation(new SynergyLocation(
+            "grapple", "Grapple Action modal"
+        ));
+        addSynergyLocation(new SynergyLocation(
+            "tech_attack", "Tech Attack Action modal"
+        ));
+        addSynergyLocation(new SynergyLocation(
+            "overcharge", "Overcharge Action modal"
+        ));
+        addSynergyLocation(new SynergyLocation(
+            "skill_check", "Skill Check Action modal"
+        ));
+        addSynergyLocation(new SynergyLocation(
+            "overwatch", "Overwatch Action modal"
+        ));
+        addSynergyLocation(new SynergyLocation(
+            "improvised_attack",
+            "Improvised Attack Action modal"
+        ));
+        addSynergyLocation(new SynergyLocation(
+            "disengage", "Disengage Action modal"
+        ));
+        addSynergyLocation(new SynergyLocation(
+            "dismount", "Dismount Action modal"
+        ));
+        addSynergyLocation(new SynergyLocation(
+            "stabilize", "Stabilize Action modal"
+        ));
+        addSynergyLocation(new SynergyLocation(
+            "tech", "Quick and Full Tech Attack modals"
+        ));
+        addSynergyLocation(new SynergyLocation(
+            "lock_on", "Lock On Action modal"
+        ));
+        addSynergyLocation(new SynergyLocation(
+            "hull", "mouseover tooltip for HULL stat"
+        ));
+        addSynergyLocation(new SynergyLocation(
+            "agility", "mouseover tooltip for AGILITY stat"
+        ));
+        addSynergyLocation(new SynergyLocation(
+            "systems", "mouseover tooltip for SYSTEMS stat"
+        ));
+        addSynergyLocation(new SynergyLocation(
+            "engineering",
+            "mouseover tooltip for ENGINEERING stat"
+        ));
+        addSynergyLocation(new SynergyLocation(
+            "pilot_weapon",
+            "Pilot Weapon panel and action modal"
+        ));
+        addSynergyLocation(new SynergyLocation(
+            "cascade", "Cascade warning panel"
+        ));
 
         // Add allowed weapon sizes
         addWeaponSize(new WeaponSize(0, "Aux"));
@@ -523,6 +670,7 @@ public final class Database {
         Database.sitreps = new Sitrep[0];
         Database.skills = new SkillData[0];
         Database.statuses = new StateData[0];
+        Database.synergyLocations = new SynergyLocation[0];
         Database.systems = new MechSystem[0];
         Database.tables = new Table[0];
         Database.talents = new TalentData[0];
@@ -887,6 +1035,18 @@ public final class Database {
         }
         throw new NoSuchElementException("No status found for status name: "
             + statusName);
+    }
+    public static SynergyLocation getSynergyLocation(
+        String synergyLocationName) {
+        HelperMethods.checkObject("synergyLocationName",
+            synergyLocationName);
+        for (SynergyLocation synergyLocation : Database.synergyLocations) {
+            if (synergyLocationName.equals(synergyLocation.getValue())) {
+                return synergyLocation;
+            }
+        }
+        throw new NoSuchElementException("No system location found for synergy"
+            + " location name: " + synergyLocationName);
     }
     public static MechSystem getSystem(String systemID) {
         HelperMethods.checkObject("systemID", systemID);
@@ -1356,6 +1516,18 @@ public final class Database {
         checkOpen();
         HelperMethods.checkObject("status", status);
         Database.statuses = HelperMethods.append(Database.statuses, status);
+    }
+    /**
+     * Adds the provided SynergyLocation to Database.synergyLocations.
+     * @param synergyLocation a SynergyLocation which cannot be null.
+     * @throws IllegalArgumentException if synergyLocation is null.
+     */
+    public static void addSynergyLocation(SynergyLocation synergyLocation) {
+        checkOpen();
+        HelperMethods.checkObject("synergyLocation",
+            synergyLocation);
+        Database.synergyLocations =
+            HelperMethods.append(Database.synergyLocations, synergyLocation);
     }
     /**
      * Adds the provided MechSystem to Database.systems.
