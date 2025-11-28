@@ -45,6 +45,11 @@ public class TalentRank {
             null, null, null,
             null);
     }
+    public TalentRank(String name, String description) {
+        this(name, description, TriState.UNSET, null, null,
+            null, null, null,
+            null);
+    }
 
     // Required properties
     public String getName() {
