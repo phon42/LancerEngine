@@ -48,6 +48,7 @@ import Packages.CoreTypes.EntityMechanics.HarmSystem.harm.HarmType;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.harm.harmType.DamageType;
 import Packages.CoreTypes.EntityMechanics.LicenseSystem.FrameLicense;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.unverifiedStateData.StateData;
+import Packages.CoreTypes.EntityMechanics.frequency.FrequencyType;
 
 /**
  * Represents nothing. Contains a set array of Frames to be used by
@@ -117,6 +118,10 @@ public final class Database {
      * add documentation
      */
     private static DamageType[] damageTypes;
+    /**
+     * add documentation
+     */
+    private static FrequencyType[] frequencyTypes;
     /**
      * add documentation
      */
@@ -486,6 +491,7 @@ public final class Database {
         Database.conditions = new StateData[0];
         Database.coreBonuses = new CoreBonus[0];
         Database.damageTypes = new DamageType[0];
+        Database.frequencyTypes = new FrequencyType[0];
         Database.environments = new Environment[0];
         Database.frames = new Frame[0];
         Database.harmTypes = new HarmType[0];
@@ -647,6 +653,16 @@ public final class Database {
         }
         throw new NoSuchElementException("No environment found for"
             + " environment ID: " + environmentID);
+    }
+    public static FrequencyType getFrequencyType(String frequencyType) {
+        HelperMethods.checkObject("frequencyType", frequencyType);
+        for (FrequencyType type : Database.frequencyTypes) {
+            if (frequencyType.equals(type.getValue())) {
+                return type;
+            }
+        }
+        throw new NoSuchElementException("No frequency type found for frequency"
+            + " type: " + frequencyType);
     }
     public static Frame getFrame(String frameID) {
         HelperMethods.checkObject("frameID", frameID);
@@ -1091,6 +1107,17 @@ public final class Database {
         Database.damageTypes = HelperMethods.append(Database.damageTypes,
             damageType);
         addHarmType(damageType);
+    }
+    /**
+     * Adds the provided FrequencyType to Database.frequencyTypes.
+     * @param frequencyType a FrequencyType which cannot be null.
+     * @throws IllegalArgumentException if frequencyType is null.
+     */
+    public static void addFrequencyType(FrequencyType frequencyType) {
+        checkOpen();
+        HelperMethods.checkObject("frequencyType", frequencyType);
+        Database.frequencyTypes = HelperMethods.append(Database.frequencyTypes,
+            frequencyType);
     }
     /**
      * Adds the provided ITagData to Database.iTagData.
