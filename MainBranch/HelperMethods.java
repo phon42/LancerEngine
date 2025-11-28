@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.net.URL;
 import java.text.NumberFormat;
 import java.text.ParseException;
-
 import MainBranch.database.FileOperations;
 import MainBranch.database.LCPCorrection;
 import MainBranch.database.fileOperations.json.JSONArray;
@@ -41,6 +40,8 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.Weapon;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.UnverifiedDataTag;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.unverifiedDataTag.DataTag;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.unverifiedDataTag.dataTag.ITagData;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.unverifiedDataTag.dataTag.iTagData.ITagDataUnhidden;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.unverifiedDataTag.Tag;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.mount.MountType;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.unverifiedFrame.Frame;
@@ -792,6 +793,56 @@ public final class HelperMethods {
         HelperMethods.checkObject("array", array);
         HelperMethods.checkObject("newElement", newElement);
         IActionData[] newArray = new IActionData[array.length + 1];
+
+        for (int i = 0; i < newArray.length; i++) {
+            if (i < array.length) {
+                newArray[i] = array[i];
+                continue;
+            }
+            newArray[i] = newElement;
+        }
+        
+        return newArray;
+    }
+    /**
+     * Appends the given ITagData element to the end of an existing ITagData[].
+     * @param array an ITagData[] that cannot be null.
+     * @param newElement an ITagData that cannot be null to append to the end of
+     *     array.
+     * @return an ITagData[] consisting of array with newElement appended to the
+     *     end of it.
+     * @throws IllegalArgumentException if array or newElement is null.
+     */
+    public static ITagData[] append(ITagData[] array, ITagData newElement) {
+        HelperMethods.checkObject("array", array);
+        HelperMethods.checkObject("newElement", newElement);
+        ITagData[] newArray = new ITagData[array.length + 1];
+
+        for (int i = 0; i < newArray.length; i++) {
+            if (i < array.length) {
+                newArray[i] = array[i];
+                continue;
+            }
+            newArray[i] = newElement;
+        }
+        
+        return newArray;
+    }
+    /**
+     * Appends the given ITagDataUnhidden element to the end of an existing
+     *     ITagDataUnhidden[].
+     * @param array an ITagDataUnhidden[] that cannot be null.
+     * @param newElement an ITagDataUnhidden that cannot be null to append to
+     *     the end of array.
+     * @return an ITagDataUnhidden[] consisting of array with newElement
+     *     appended to the end of it.
+     * @throws IllegalArgumentException if array or newElement is null.
+     */
+    public static ITagDataUnhidden[] append(ITagDataUnhidden[] array,
+        ITagDataUnhidden newElement) {
+        HelperMethods.checkObject("array", array);
+        HelperMethods.checkObject("newElement", newElement);
+        ITagDataUnhidden[] newArray = new ITagDataUnhidden[array.length + 1];
 
         for (int i = 0; i < newArray.length; i++) {
             if (i < array.length) {
