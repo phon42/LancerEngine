@@ -72,4 +72,42 @@ public class FrequencyType {
             setAcceptsValue(false);
         }
     }
+    public static String toRoot(String input) {
+        int index;
+
+        HelperMethods.checkObject("input", input);
+        index = input.indexOf("X/");
+        if (index != -1) {
+            return baseToRoot(input);
+        } else {
+            return inputToRoot(input);
+        }
+    }
+    public static String baseToRoot(String input) {
+        int index;
+
+        HelperMethods.checkObject("input", input);
+        index = input.indexOf("X/");
+        if (index != -1) {
+            try {
+                input = input.substring(0, index)
+                    + input.substring(index + 1);
+            } catch (IndexOutOfBoundsException exception) {
+                input = "";
+            }
+        }
+
+        return input;
+    }
+    public static String inputToRoot(String input) {
+        int index;
+
+        HelperMethods.checkObject("input", input);
+        index = input.indexOf("X/");
+        if (index == -1) {
+            input = input.replaceAll("[^0-9]", "");
+        }
+
+        return input;
+    }
 }

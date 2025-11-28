@@ -77,15 +77,15 @@ public class Frequency {
         String type;
 
         HelperMethods.checkString("input", input);
-        if (input.indexOf("X/") == -1) {
+        if (input.indexOf("X/") != -1) {
+            // should expect a value
+            type = FrequencyType.baseToRoot(input);
+            setType(Database.getFrequencyType(type));
+            setValue(HelperMethods.parseInt(input));
+        } else {
             // no value
             setType(Database.getFrequencyType(input));
             setValue(-1);
-        } else {
-            // should expect a value
-            type = input.replaceAll("[^0-9]", "");
-            setType(Database.getFrequencyType(type));
-            setValue(HelperMethods.parseInt(input));
         }
     }
 }
