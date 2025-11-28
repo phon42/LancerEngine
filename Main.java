@@ -112,10 +112,18 @@ public final class Main {
 
         pilotProperties = myCharacter.getPilotProperties();
         pilotProperties.put("player", "Luna");
-        pilotProperties.put("background", "e");
-        pilotProperties.put("biography", "e");
-        pilotProperties.put("appearance", "e");
-        pilotProperties.put("playerNotes", "e");
+        pilotProperties.put(
+            "background", "sample background text here"
+        );
+        pilotProperties.put(
+            "biography", "sample biography text here"
+        );
+        pilotProperties.put(
+            "appearance", "sample appearance description here"
+        );
+        pilotProperties.put(
+            "playerNotes", "sample player notes here"
+        );
         pilotProperties.put("skills", new SkillTriggersList(
             new Skill[] {
                 new Skill("Apply Fists to Faces",
