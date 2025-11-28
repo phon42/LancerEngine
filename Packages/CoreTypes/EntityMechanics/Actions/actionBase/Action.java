@@ -237,22 +237,4 @@ public class Action extends ActionBase {
             }
         }
     }
-    @Override
-    protected Frequency calculateFrequency(Frequency frequency) {
-        if (this.activation.getType().equals("reaction")) {
-            // this.frequency is required; therefore, it can be any frequency
-            //     but cannot be null
-            return frequency;
-        } else {
-            if (frequency == null) {
-                if (this.ignoreUsed) {
-                    return new Frequency("unlimited");
-                } else {
-                    return new Frequency("1/round");
-                }
-            } else {
-                return frequency;
-            }
-        }
-    }
 }

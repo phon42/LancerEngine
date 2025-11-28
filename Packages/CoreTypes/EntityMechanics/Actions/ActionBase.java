@@ -1,11 +1,14 @@
 package Packages.CoreTypes.EntityMechanics.Actions;
 
 import java.util.HashMap;
+import java.util.NoSuchElementException;
+import MainBranch.Database;
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.Callable;
 import Packages.CoreTypes.EntityMechanics.ActivationType;
 import Packages.CoreTypes.EntityMechanics.Frequency;
 import Packages.CoreTypes.EntityMechanics.SynergyLocation;
+import Packages.CoreTypes.EntityMechanics.frequency.FrequencyType;
 import Packages.CoreTypes.VueHTMLString;
 import Packages.CoreTypes.TriState;
 
@@ -201,7 +204,7 @@ public class ActionBase {
         setConfirm(confirm);
         setHideActive(hideActive);
         // Conditionally required properties
-        setFrequency(calculateFrequency(frequency));
+        setFrequency(frequency);
         setTrigger(trigger);
         // Optional properties
         setMethod(method);
@@ -342,6 +345,14 @@ public class ActionBase {
     }
     // Conditionally required properties
     protected void setFrequency(Frequency frequency) {
+        FrequencyType type;
+
+        if (frequency == null) {
+            try {
+                type = Database.getFrequencyType("Unlimited");
+                frequency = new Frequency(type);
+            } catch (NoSuchElementException exception) {}
+        }
         HelperMethods.checkObject("frequency", frequency);
         this.frequency = frequency;
     }
@@ -412,6 +423,9 @@ public class ActionBase {
         setInit(new VueHTMLString(init));
     }
     protected void verifyProperties() {
+        boolean isValidFreq1;
+        boolean isValidFreq2;
+
         if (this.activation.getType().equals("reaction")) {
             // do nothing about this.frequency, because this.frequency cannot be
             //     null.
@@ -421,6 +435,15 @@ public class ActionBase {
             }
             // do nothing further about this.trigger because it cannot be ""
         } else {
+            isValidFreq1 =
+                this.frequency.getType().getValue().equals("X/round");
+            isValidFreq2 = this.frequency.getType().getValue()
+                .equals("Unlimited");
+            if (! (isValidFreq1 || isValidFreq2)) {
+                throw new IllegalStateException("this.frequency.type.value"
+                    + " must be either \"X/round\" or \"Unlimited\" when"
+                    + " this.activation.type is \"reaction\"");
+            }
             if (this.trigger != null) {
                 throw new IllegalStateException("this.trigger must be null"
                     + " when this.activation is not a reaction");
@@ -450,14 +473,5 @@ public class ActionBase {
         }
 
         return result;
-    }
-    protected Frequency calculateFrequency(Frequency frequency) {
-        if (this.activation.getType().equals("reaction")) {
-            // this.frequency is required; therefore, it can be any frequency
-            //     but cannot be null
-            return frequency;
-        }
-
-        return frequency;
     }
 }
