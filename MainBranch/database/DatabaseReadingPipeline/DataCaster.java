@@ -653,7 +653,7 @@ public class DataCaster {
         // Conditionally required properties - ActionBase
         try {
             frequencyString = actionData.getString("frequency");
-            frequency = new Frequency(frequencyString);
+            frequency = toFrequency(frequencyString);
         } catch (JSONException exception) {}
         trigger = getOptionalString(actionData, "trigger");
         // Optional properties - ActionBase
@@ -1203,6 +1203,8 @@ public class DataCaster {
         int value;
         Frequency frequency;
 
+        HelperMethods.checkObject("frequencyString",
+            frequencyString);
         frequencyTypeRoot = FrequencyType.inputToRoot(frequencyString);
         try {
             try {
