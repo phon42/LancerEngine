@@ -15,7 +15,6 @@ import Packages.CoreTypes.Rule;
 import Packages.CoreTypes.Table;
 import Packages.CoreTypes.Term;
 import Packages.CoreTypes.TriState;
-import Packages.CoreTypes.VueHTMLString;
 import Packages.CoreTypes.BattlefieldMechanics.Environment;
 import Packages.CoreTypes.BattlefieldMechanics.Sitrep;
 import Packages.CoreTypes.EntityMechanics.ActivationType;
@@ -60,7 +59,6 @@ import Packages.CoreTypes.EntityMechanics.frequency.FrequencyType;
 import Packages.CoreTypes.lcpInfo.LCPDependency;
 import Packages.CoreTypes.lcpInfo.Version;
 import Packages.CoreTypes.lcpInfo.lcpDependency.SemverVersion;
-import Packages.CoreTypes.Callable;
 import Packages.CoreTypes.Counter;
 import Packages.CoreTypes.JSONTypeTree;
 import Packages.CoreTypes.LCPInfo;
@@ -148,6 +146,7 @@ public class DataCaster {
     private static ReserveData[] reservesProcessed;
     private static SkillData[] skillsProcessed;
     private static StateData[] statusesProcessed;
+    private static SynergyLocation[] synergyLocationsProcessed;
     private static TalentData[] talentsProcessed;
     private static WeaponSize[] weaponSizesProcessed;
     private static WeaponType[] weaponTypesProcessed;
@@ -1143,6 +1142,33 @@ public class DataCaster {
             }
         }
     }
+    private static Damage toDamage(JSONObject damageData) {
+        String typeString;
+        DamageType type;
+        int flatValue = 0;
+        String rawValue;
+
+        try {
+            typeString = damageData.getString("type");
+            type = toDamageType(typeString);
+            rawValue = getOptionalString(damageData, "val");
+            if (rawValue == null) {
+                flatValue = damageData.getInt("val");
+            }
+        } catch (JSONException exception) {
+            throw new IllegalStateException("damageData threw a JSONException"
+                + " during the required properties section of the object"
+                + " parsing, which is not allowed");
+        }
+
+        if (rawValue == null) {
+            return new Damage(type,
+                new MixedExpression(new ConstantExpression(flatValue))
+            );
+        } else {
+            return new Damage(type, new MixedExpression(rawValue));
+        }        
+    }
     private static DamageType toDamageType(String damageTypeName) {
         DamageType damageType;
 
@@ -1156,6 +1182,32 @@ public class DataCaster {
 
             return damageType;
         }
+    }
+    private static UnverifiedDataTag toDataTagUnverified(
+        JSONObject dataTagUnverifiedData) {
+        String id;
+        int valueInt;
+        String valueString;
+
+        try {
+            id = dataTagUnverifiedData.getString("id");
+        } catch (JSONException exception) {
+            throw new IllegalStateException("dataTagUnverifiedData threw a"
+                + " JSONException during the required properties section of the"
+                + "object parsing, which is not allowed");
+        }
+        try {
+            valueInt = dataTagUnverifiedData.getInt("val");
+
+            return new UnverifiedDataTag(id, valueInt);
+        } catch (JSONException exception) {}
+        try {
+            valueString = dataTagUnverifiedData.getString("val");
+
+            return new UnverifiedDataTag(id, valueString);
+        } catch (JSONException exception) {}
+
+        return new UnverifiedDataTag(id);
     }
     private static void processEnvironments(JSONObject[] environmentsData) {
         Environment[] environments = new Environment[environmentsData.length];
@@ -1281,24 +1333,24 @@ public class DataCaster {
         TriState pilot;
         TriState mech;
         JSONArray confirmArray;
-        String[] confirm;
+        String[] confirm = null;
         TriState hideActive;
         // ActionBase conditionally required properties
         String frequencyString;
-        Frequency frequency;
+        Frequency frequency = null;
         String trigger;
         // ActionBase optional properties
         JSONArray synergyLocationsArray;
-        SynergyLocation[] synergyLocations;
+        SynergyLocation[] synergyLocations = null;
         String init;
         // Semi-required properties
         int cost = -1;
         TriState techAttack;
         // Optional properties
         JSONArray rangeTagsArray;
-        RangeTag[] rangeTags;
+        RangeTag[] rangeTags = null;
         JSONArray damageArray;
-        Damage[] damage;
+        Damage[] damage = null;
         // Result
         IActionData iActionData;
 
@@ -1355,7 +1407,7 @@ public class DataCaster {
                         new SynergyLocation[synergyLocationsArray.length()];
                     for (int i = 0; i < synergyLocations.length; i++) {
                         synergyLocations[i] = toSynergyLocation(
-                            synergyLocationsArray.getJSONObject(i)
+                            synergyLocationsArray.getString(i)
                         );
                     }
                 } catch (JSONException exception2) {
@@ -1389,7 +1441,7 @@ public class DataCaster {
                 damageArray = iActionDataData.getJSONArray("damage");
                 try {
                     damage = new Damage[damageArray.length()];
-                    for (int i = 0; i < rangeTags.length; i++) {
+                    for (int i = 0; i < damage.length; i++) {
                         damage[i] = toDamage(damageArray.getJSONObject(i));
                     }
                 } catch (JSONException exception2) {
@@ -2285,6 +2337,21 @@ public class DataCaster {
         // TODO: fill out
         return null;
     }
+    private static SynergyLocation toSynergyLocation(
+        String synergyLocationString) {
+        SynergyLocation synergyLocation;
+
+        try {
+            return Database.getSynergyLocation(synergyLocationString);
+        } catch (NoSuchElementException exception) {
+            synergyLocation = new SynergyLocation(synergyLocationString);
+            DataCaster.synergyLocationsProcessed = HelperMethods.append(
+                DataCaster.synergyLocationsProcessed, synergyLocation
+            );
+
+            return synergyLocation;
+        }
+    }
     private static void processTables(JSONObject tablesObject) {
         Set<String> keys;
         JSONObject[] tablesData;
@@ -2345,32 +2412,6 @@ public class DataCaster {
         data = table.getJSONArray("value");
 
         return new Table(propertyName, data);
-    }
-    private static UnverifiedDataTag toDataTagUnverified(
-        JSONObject dataTagUnverifiedData) {
-        String id;
-        int valueInt;
-        String valueString;
-
-        try {
-            id = dataTagUnverifiedData.getString("id");
-        } catch (JSONException exception) {
-            throw new IllegalStateException("dataTagUnverifiedData threw a"
-                + " JSONException during the required properties section of the"
-                + "object parsing, which is not allowed");
-        }
-        try {
-            valueInt = dataTagUnverifiedData.getInt("val");
-
-            return new UnverifiedDataTag(id, valueInt);
-        } catch (JSONException exception) {}
-        try {
-            valueString = dataTagUnverifiedData.getString("val");
-
-            return new UnverifiedDataTag(id, valueString);
-        } catch (JSONException exception) {}
-
-        return new UnverifiedDataTag(id);
     }
     private static void processTalents(JSONObject[] talentsData) {
         TalentData[] talents = new TalentData[talentsData.length];
@@ -2540,6 +2581,7 @@ public class DataCaster {
             DataCaster.reservesProcessed,
             DataCaster.skillsProcessed,
             DataCaster.statusesProcessed,
+            DataCaster.synergyLocationsProcessed,
             DataCaster.talentsProcessed,
             DataCaster.weaponSizesProcessed,
             DataCaster.weaponTypesProcessed,
@@ -2625,6 +2667,7 @@ public class DataCaster {
         DataCaster.reservesProcessed = new ReserveData[0];
         DataCaster.skillsProcessed = new SkillData[0];
         DataCaster.statusesProcessed = new StateData[0];
+        DataCaster.synergyLocationsProcessed = new SynergyLocation[0];
         DataCaster.iActionDataProcessed = new IActionData[0];
         DataCaster.iTagDataProcessed = new ITagData[0];
         DataCaster.talentsProcessed = new TalentData[0];
