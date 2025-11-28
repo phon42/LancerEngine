@@ -7,7 +7,6 @@ import Packages.CoreTypes.EntityMechanics.ActivationType;
 import Packages.CoreTypes.EntityMechanics.Frequency;
 import Packages.CoreTypes.EntityMechanics.SynergyLocation;
 import Packages.CoreTypes.TriState;
-import Packages.CoreTypes.VueHTMLString;
 
 /**
  * See pgs. 61 - 64, 68 - 76, and 107 for more information.
@@ -110,9 +109,8 @@ public class Action extends ActionBase {
         // ActionBase properties
         String name, ActivationType activation, String detailedDescription,
         TriState pilot, TriState mech, String[] confirm, TriState hideActive,
-        Frequency frequency, VueHTMLString trigger, Callable method,
-        SynergyLocation[] synergyLocations,
-        VueHTMLString requiredInitialConditions,
+        Frequency frequency, String trigger, Callable method,
+        SynergyLocation[] synergyLocations, String requiredInitialConditions,
         // Action required properties
         String id,
         // Action semi-required properties
