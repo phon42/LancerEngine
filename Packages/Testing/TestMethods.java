@@ -1684,26 +1684,6 @@ public final class TestMethods {
         return test1 && test2 && test3 && test4 && test5;
     }
     /**
-     * Tests Talent.copyOf().
-     * @return a boolean representing whether the method passed.
-     */
-    private static boolean runTalentCopyOfTests() {
-        Talent original = new Talent("validTalent", 1);
-        Talent copy;
-        boolean test1 = false;
-        boolean test2 = false;
-
-        copy = new Talent(original);
-        if (original != copy) {
-            test1 = true;
-        }
-        if (original.equals(copy)) {
-            test2 = true;
-        }
-
-        return test1 && test2;
-    }
-    /**
      * Tests Talent.outputName().
      * @return a boolean representing whether the method passed.
      */

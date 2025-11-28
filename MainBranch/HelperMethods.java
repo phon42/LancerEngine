@@ -2364,7 +2364,7 @@ public final class HelperMethods {
                 copy[i] = original[i];
                 continue;
             }
-            copy[i] = new Talent(original[i]);
+            copy[i] = original[i];
         }
 
         return copy;

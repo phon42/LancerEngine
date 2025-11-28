@@ -1,14 +1,16 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot;
 
 import MainBranch.HelperMethods;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.talent.TalentData;
+
 /**
  * See pgs. 35 and 90 - 103.
  */
 /**
- * Represents a single talent of the pilot. Contains the talent's name, as well
+ * Represents a single talent of the pilot. Contains the talent's data, as well
  *     as the level at which it is held.
  * 
- * Requires a talent name as well as a talent level to be instantiated.
+ * Requires a talent data as well as a talent level to be instantiated.
  * 
  * Used in Pilot.
  * 
@@ -17,46 +19,34 @@ import MainBranch.HelperMethods;
  */
 public final class Talent {
     /**
-     * The name of the talent (i.e. "ace").
-     * Case-insensitive and stored in lowercase. Can be any String except "".
-     *     Cannot be null.
-     * Use Talent.getName() to get the raw value and Talent.outputName() to
-     *     obtain it properly formatted.
+     * The talent's data (i.e. a TalentData object representing the Ace talent).
+     * Can be any TalentData. Cannot be null.
      */
-    private String name;
+    private TalentData data;
     /**
      * Must be between 1 and 3 (inclusive).
      */
     private int level;
 
     /**
-     * Creates a new Talent with the provided talent name and talent level.
-     * @param talentName a String which cannot be null or "".
-     * @param talentLevel an int which must be between 1 and 3 (inclusive).
+     * Creates a new Talent with the provided talent data and talent level.
+     * @param data a TalentData which cannot be null.
+     * @param level an int which must be between 1 and 3 (inclusive).
      */
-    public Talent(String talentName, int talentLevel) {
-        setName(talentName);
-        setLevel(talentLevel);
-    }
-    /**
-     * Creates a copy of the provided Talent.
-     * @param talent a Talent to be copied.
-     * @return a Talent copy of the provided Talent.
-     */
-    public Talent(Talent talent) {
-        this(talent.name, talent.level);
+    public Talent(TalentData data, int level) {
+        setData(data);
+        setLevel(level);
     }
 
-    public String getName() {
-        return name;
+    public TalentData getData() {
+        return data;
     }
     public int getLevel() {
         return level;
     }
-    private void setName(String name) {
-        HelperMethods.checkString("New name", name);
-        name = name.toLowerCase();
-        this.name = name;
+    private void setData(TalentData data) {
+        HelperMethods.checkObject("data", data);
+        this.data = data;
     }
     /**
      * Sets this.level to the provided value.
@@ -81,7 +71,7 @@ public final class Talent {
      */
     @Override
     public String toString() {
-        return outputName() + " " + getLevel();
+        return data.getName() + " " + getLevel();
     }
     /**
      * Compares this Talent object and obj. If they are the same class, returns
@@ -97,7 +87,8 @@ public final class Talent {
         if (obj.getClass() != getClass()) {
             return false;
         }
-        return true;
+
+        return equals((Talent) obj);
     }
     /**
      * Compares this Talent object and talent. If they have the same property
@@ -109,20 +100,13 @@ public final class Talent {
         if (talent == null) {
             return false;
         }
-        if (! talent.getName().equals(this.name)) {
+        if (! talent.getData().equals(this.data)) {
             return false;
         }
         if (talent.getLevel() != this.level) {
             return false;
         }
+
         return true;
-    }
-    /**
-     * Returns this.name, properly formatted (i.e. "combined arms" becomes
-     *     "Combined Arms").
-     * @return a String containing this.name, properly formatted.
-     */
-    public String outputName() {
-        return HelperMethods.toProperCase(name);
     }
 }

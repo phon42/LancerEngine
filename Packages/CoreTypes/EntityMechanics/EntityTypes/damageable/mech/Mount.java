@@ -188,10 +188,7 @@ public final class Mount {
         return hasTalent;
     }
     public Talent getTalent() {
-        if (talent == null) {
-            return talent;
-        }
-        return new Talent(talent);
+        return talent;
     }
     /**
      * Sets this.mountType to the value provided.
@@ -253,12 +250,7 @@ public final class Mount {
      * @param talent a Talent that can be any Talent. Can also be null.
      */
     public void setTalent(Talent talent) {
-        if (talent == null) {
-            this.hasTalent = false;
-        } else {
-            this.hasTalent = true;
-            talent = new Talent(talent);
-        }
+        this.hasTalent = (talent != null);
         this.talent = talent;
     }
 
