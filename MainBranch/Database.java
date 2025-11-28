@@ -287,6 +287,13 @@ public final class Database {
         addDamageType(new DamageType("Energy"));
         addDamageType(new DamageType("Burn"));
 
+        // Add allowed frequency types
+        addFrequencyType(new FrequencyType("Unlimited"));
+        addFrequencyType(new FrequencyType("X/round"));
+        addFrequencyType(new FrequencyType("X/scene"));
+        addFrequencyType(new FrequencyType("X/encounter"));
+        addFrequencyType(new FrequencyType("X/mission"));
+
         // Add allowed harm types
         /**
          * See pgs. 67 and 104.
