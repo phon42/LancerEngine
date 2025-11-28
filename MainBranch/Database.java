@@ -680,7 +680,7 @@ public final class Database {
         throw new NoSuchElementException("No data tag found for harm type"
             + " name: " + harmType);
     }
-    public static IActionData getIActionData(IActionData iActionDataName) {
+    public static IActionData getIActionData(String iActionDataName) {
         HelperMethods.checkObject("iActionDataName",
             iActionDataName);
         for (IActionData iActionDataObject : Database.iActionData) {
