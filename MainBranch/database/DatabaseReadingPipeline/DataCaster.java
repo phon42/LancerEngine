@@ -51,6 +51,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.reserve.R
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skill.SkillData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skill.skillData.SkillFamily;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.talent.TalentData;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.talent.talentData.TalentRank;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.Harm;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.harm.Damage;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.harm.HarmType;
@@ -2516,8 +2517,149 @@ public class DataCaster {
         DataCaster.talentsProcessed = talents;
     }
     private static TalentData toTalent(JSONObject talentData) {
-        // TODO: fill out
-        return null;
+        String id;
+        String name;
+        String icon;
+        String terse;
+        String description;
+        JSONArray ranksArray;
+        TalentRank[] ranks;
+
+        try {
+            id = talentData.getString("id");
+            name = talentData.getString("name");
+            icon = talentData.getString("icon");
+            terse = talentData.getString("terse");
+            description = talentData.getString("description");
+            ranksArray = talentData.getJSONArray("ranks");
+            try {
+                ranks = new TalentRank[ranksArray.length()];
+                for (int i = 0; i < ranks.length; i++) {
+                    ranks[i] = toTalentRank(ranksArray.getJSONObject(i));
+                }
+            } catch (JSONException exception) {
+                throw new IllegalStateException("Attempting to parse"
+                    + " ranksArray threw a JSONException");
+            }
+        } catch (JSONException exception) {
+            throw new IllegalStateException("talentData threw a JSONException"
+                + " during the required properties section of the object"
+                + " parsing, which is not allowed");
+        }
+
+        return new TalentData(id, name, icon, terse, description, ranks);
+    }
+    private static TalentRank toTalentRank(JSONObject talentRankData) {
+        // Required properties
+        String name;
+        String description;
+
+        // Semi-required property
+        TriState exclusive;
+
+        // Optional properties
+        JSONArray synergiesArray;
+        ISynergyData[] synergies = null;
+        JSONArray actionsArray;
+        IActionData[] actions = null;
+        JSONArray countersArray;
+        Counter[] counters = null;
+        JSONArray bonusesArray;
+        Bonus[] bonuses = null;
+        JSONArray integratedArray;
+        String[] integrated = null;
+        JSONArray specialEquipmentArray;
+        String[] specialEquipment = null;
+
+        // Required properties
+        try {
+            name = talentRankData.getString("name");
+            description = talentRankData.getString("description");
+        } catch (JSONException exception) {
+            throw new IllegalStateException("talentRankData threw a"
+                + " JSONException during the required properties section of the"
+                + " object parsing, which is not allowed");
+        }
+        // Semi-required property
+        exclusive = getTriState(talentRankData, "exclusive");
+        // Optional properties
+        try {
+            synergiesArray = talentRankData.getJSONArray("synergies");
+            try {
+                synergies = new ISynergyData[synergiesArray.length()];
+                for (int i = 0; i < synergies.length; i++) {
+                    synergies[i] =
+                        toISynergyData(synergiesArray.getJSONObject(i));
+                }
+            } catch (JSONException exception) {
+                throw new IllegalStateException("Attempting to parse"
+                    + " synergiesArray threw a JSONException");
+            }
+        } catch (JSONException exception) {}
+        try {
+            actionsArray = talentRankData.getJSONArray("actions");
+            try {
+                actions = new IActionData[actionsArray.length()];
+                for (int i = 0; i < actions.length; i++) {
+                    actions[i] = toIActionData(actionsArray.getJSONObject(i));
+                }
+            } catch (JSONException exception) {
+                throw new IllegalStateException("Attempting to parse"
+                    + " actionsArray threw a JSONException");
+            }
+        } catch (JSONException exception) {}
+        try {
+            countersArray = talentRankData.getJSONArray("counters");
+            try {
+                counters = new Counter[countersArray.length()];
+                for (int i = 0; i < counters.length; i++) {
+                    counters[i] = toCounter(countersArray.getJSONObject(i));
+                }
+            } catch (JSONException exception) {
+                throw new IllegalStateException("Attempting to parse"
+                    + " countersArray threw a JSONException");
+            }
+        } catch (JSONException exception) {}
+        try {
+            bonusesArray = talentRankData.getJSONArray("bonuses");
+            try {
+                bonuses = new Bonus[bonusesArray.length()];
+                for (int i = 0; i < bonuses.length; i++) {
+                    bonuses[i] = toBonus(bonusesArray.getJSONObject(i));
+                }
+            } catch (JSONException exception) {
+                throw new IllegalStateException("Attempting to parse"
+                    + " bonusesArray threw a JSONException");
+            }
+        } catch (JSONException exception) {}
+        try {
+            integratedArray = talentRankData.getJSONArray("integrated");
+            try {
+                integrated = new String[integratedArray.length()];
+                for (int i = 0; i < integrated.length; i++) {
+                    integrated[i] = integratedArray.getString(i);
+                }
+            } catch (JSONException exception) {
+                throw new IllegalStateException("Attempting to parse"
+                    + " integratedArray threw a JSONException");
+            }
+        } catch (JSONException exception) {}
+        try {
+            specialEquipmentArray =
+                talentRankData.getJSONArray("special_equipment");
+            try {
+                specialEquipment = new String[specialEquipmentArray.length()];
+                for (int i = 0; i < specialEquipment.length; i++) {
+                    specialEquipment[i] = specialEquipmentArray.getString(i);
+                }
+            } catch (JSONException exception) {
+                throw new IllegalStateException("Attempting to parse"
+                    + " specialEquipmentArray threw a JSONException");
+            }
+        } catch (JSONException exception) {}
+
+        return new TalentRank(name, description, exclusive, synergies, actions,
+            counters, bonuses, integrated, specialEquipment);
     }
     private static void processTerms(JSONObject[] termsData) {
         Term[] terms;
