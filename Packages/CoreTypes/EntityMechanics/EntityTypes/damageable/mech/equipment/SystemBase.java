@@ -11,11 +11,14 @@ public class SystemBase extends Equipment {
     //     when not provided) properties
     /**
      * Can be any SystemType. Cannot be null.
+     * Default value: a SystemType representing "System".
      * 
      * If passed a SystemType that is null, sets this.type to a SystemType
      *     representing "System".
      */
     protected SystemType type;
+    // typeDefault removed because the relevant value only becomes accessible at
+    //     runtime
     /**
      * Must be a minimum of 0.
      * Default value: 0.
