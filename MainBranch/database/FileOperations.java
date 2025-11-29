@@ -63,13 +63,9 @@ public class FileOperations {
 
         return url;
     }
-    public static JSONData[] readResource(String resourceLocator,
+    public static String[] readResource(String resourceLocator,
         boolean external, boolean addToCache) {
         return ResourceReader.read(resourceLocator, external, addToCache);
-    }
-    public static String[] readResourceRaw(String resourceLocator,
-        boolean external, boolean addToCache) {
-        return ResourceReader.readRaw(resourceLocator, external, addToCache);
     }
     public static JSONData parseJSONText(String jsonData) {
         return ResourceParser.parseJSONText(jsonData);

@@ -106,17 +106,17 @@ public class Cache {
      *     retrieves the file's "name" property, and returns it.
      */
     public static String peekLCPInfo(String url) {
-        String[] fileData;
+        JSONData[] fileData;
         JSONData fileObject;
         JSONObject file;
 
-        fileData = FileOperations.readResource(url, true,
+        fileData = FileOperations.readAndParseResource(url, true,
             false);
         if (fileData.length > 1) {
             throw new IllegalStateException("URL: \"" + url + "\" contained"
                 + " more than 1 file");
         }
-        fileObject = FileOperations.parseJSONText(fileData[0]);
+        fileObject = fileData[0];
         if (! (fileObject instanceof JSONObject)) {
             throw new IllegalStateException("URL: \"" + url + "\" did not yield"
                 + " a JSONObject");

@@ -266,7 +266,7 @@ public class DataReader {
      */
     private static void readJSON(String jsonPath, boolean external,
         boolean addToCache, Path targetFolderPath, boolean provideOutput) {
-        String[] data = null;
+        String[] data;
         String[] resourceInfo;
         String resourceString;
 
@@ -281,7 +281,7 @@ public class DataReader {
         // 2. A valid *JSON* file path.
         // TODO: complete
         // Parse the .json file
-        data = FileOperations.readResourceRaw(jsonPath, external, addToCache);
+        data = FileOperations.readResource(jsonPath, external, addToCache);
         if (data.length > 1) {
             throw new IllegalStateException("Resource path: \"" + jsonPath
                 + "\" lead to a .json file which resulted in more than one"
