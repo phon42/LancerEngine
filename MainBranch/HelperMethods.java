@@ -60,6 +60,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.talent.Ta
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.talent.talentData.TalentRank;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.unverifiedCoreBonus.CoreBonus;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.reserve.ReserveData;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.reserve.reserveData.ReserveType;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.Skill;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skill.SkillData;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.Harm;
@@ -1163,18 +1164,45 @@ public final class HelperMethods {
         return newArray;
     }
     /**
-     * Appends the given Reserve element to the end of an existing Reserve[].
-     * @param array a Reserve[] that cannot be null.
-     * @param newElement a Reserve that cannot be null to append to the end of
-     *     array.
-     * @return a Reserve[] consisting of array with newElement appended to the
-     *     end of it.
+     * Appends the given ReserveData element to the end of an existing
+     *     ReserveData[].
+     * @param array a ReserveData[] that cannot be null.
+     * @param newElement a ReserveData that cannot be null to append to the end
+     *     of array.
+     * @return a ReserveData[] consisting of array with newElement appended to
+     *     the end of it.
      * @throws IllegalArgumentException if array or newElement is null.
      */
     public static ReserveData[] append(ReserveData[] array, ReserveData newElement) {
         HelperMethods.checkObject("array", array);
         HelperMethods.checkObject("newElement", newElement);
         ReserveData[] newArray = new ReserveData[array.length + 1];
+
+        for (int i = 0; i < newArray.length; i++) {
+            if (i < array.length) {
+                newArray[i] = array[i];
+                continue;
+            }
+            newArray[i] = newElement;
+        }
+        
+        return newArray;
+    }
+    /**
+     * Appends the given ReserveType element to the end of an existing
+     *     ReserveType[].
+     * @param array a ReserveType[] that cannot be null.
+     * @param newElement a ReserveType that cannot be null to append to the end
+     *     of array.
+     * @return a ReserveType[] consisting of array with newElement appended to
+     *     the end of it.
+     * @throws IllegalArgumentException if array or newElement is null.
+     */
+    public static ReserveType[] append(ReserveType[] array,
+        ReserveType newElement) {
+        HelperMethods.checkObject("array", array);
+        HelperMethods.checkObject("newElement", newElement);
+        ReserveType[] newArray = new ReserveType[array.length + 1];
 
         for (int i = 0; i < newArray.length; i++) {
             if (i < array.length) {
