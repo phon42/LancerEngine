@@ -16,8 +16,6 @@ import Packages.CoreTypes.BattlefieldMechanics.Environment;
 import Packages.CoreTypes.BattlefieldMechanics.Sitrep;
 import Packages.CoreTypes.EntityMechanics.ActivationType;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
-import Packages.CoreTypes.EntityMechanics.NPCFeature;
-import Packages.CoreTypes.EntityMechanics.NPCTemplate;
 import Packages.CoreTypes.EntityMechanics.RangeType;
 import Packages.CoreTypes.EntityMechanics.SynergyLocation;
 import Packages.CoreTypes.EntityMechanics.WeaponSize;
@@ -49,6 +47,8 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.unverifie
 import Packages.CoreTypes.EntityMechanics.HarmSystem.harm.HarmType;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.harm.harmType.DamageType;
 import Packages.CoreTypes.EntityMechanics.LicenseSystem.FrameLicense;
+import Packages.CoreTypes.EntityMechanics.NPCs.NPCFeature;
+import Packages.CoreTypes.EntityMechanics.NPCs.NPCTemplate;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.unverifiedStateData.StateData;
 import Packages.CoreTypes.EntityMechanics.frequency.FrequencyType;
 
