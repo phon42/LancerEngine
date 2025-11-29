@@ -9,8 +9,7 @@ package Packages.CoreTypes.EntityMechanics;
  * 
  * Unused at present.
  * 
- * Safety: This class does not have placeholder values and cannot be a
- *     placeholder. None of its properties have allowed values of null.
+ * Safety: At least one of this class' properties has an allowed value of null.
  */
 public class NPCTemplate {
     // TODO: fill out
@@ -22,5 +21,4 @@ public class NPCTemplate {
     private int power;
 
     public NPCTemplate() {}
-    public NPCTemplate(NPCTemplate npcTemplate) {}
 }
