@@ -11,10 +11,9 @@ package Packages.CoreTypes.EntityMechanics.NPCs;
  * 
  * Safety: At least one of this class' properties has an allowed value of null.
  */
-public class NPCTemplate {
+public class NPCTemplate extends NPCBase {
     // TODO: fill out
-    private String id;
-    private String name;
+    // Required properties
     private String description;
     private String[] baseFeatures;
     private String[] optionalFeatures;

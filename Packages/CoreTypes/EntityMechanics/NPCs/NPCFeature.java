@@ -12,10 +12,9 @@ package Packages.CoreTypes.EntityMechanics.NPCs;
  * 
  * Safety: At least one of this class' properties has an allowed value of null.
  */
-public class NPCFeature {
+public class NPCFeature extends NPCBase {
     // TODO: fill out
-    private String id;
-    private String name;
+    // Required properties
     private Object origin;
     private boolean locked;
     private String type;
