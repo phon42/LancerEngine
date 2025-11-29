@@ -8,14 +8,14 @@ public class SystemType {
 
     // Required property
     /**
-     * This system type's value (i.e. "Mech System").
+     * The broad category this system type falls into (i.e. "Mech System").
      * Can be any String except "". Cannot be null.
      * Case-sensitive.
      * 
      * Currently used values:
      *     "Mech System", "Weapon"
      */
-    protected String value;
+    protected String category;
 
     // Semi-required (optional but has a specific default value other than null
     //     when not provided) property
@@ -29,27 +29,27 @@ public class SystemType {
      */
     protected int id;
 
-    public SystemType(String value, int id) {
+    public SystemType(String category, int id) {
         HelperMethods.verifyConstructor();
-        setValue(value);
+        setCategory(category);
         setID(id);
     }
-    public SystemType(String value) {
-        this(value, SystemType.maxID + 1);
+    public SystemType(String category) {
+        this(category, SystemType.maxID + 1);
     }
 
     // Required property
-    public String getValue() {
-        return value;
+    public String getCategory() {
+        return category;
     }
     // Semi-required property
     public int getID() {
         return id;
     }
     // Required property
-    protected void setValue(String value) {
-        HelperMethods.checkString("value", value);
-        this.value = value;
+    protected void setCategory(String category) {
+        HelperMethods.checkString("category", category);
+        this.category = category;
     }
     // Semi-required property
     protected void setID(int id) {

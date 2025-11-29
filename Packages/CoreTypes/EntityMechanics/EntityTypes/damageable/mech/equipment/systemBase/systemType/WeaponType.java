@@ -6,12 +6,12 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.
 public final class WeaponType extends SystemType {
     // TODO: figure out a way to override the documentation from SystemType
     /**
-     * This weapon type's value.
+     * The broad category this weapon type falls into.
      * Must be "Weapon".
      */
-    // protected String value;
+    // protected String category;
     /**
-     * The weapon type's detailed value (i.e. "CQB").
+     * The weapon type's exact value (i.e. "CQB").
      * Can be any String except "". Cannot be null.
      * Case-sensitive.
      * 
@@ -21,24 +21,24 @@ public final class WeaponType extends SystemType {
      * 
      * See pg. 33.
      */
-    private String detailedValue;
+    private String value;
 
-    public WeaponType(String detailedValue) {
+    public WeaponType(String value) {
         super("Weapon");
-        setDetailedValue(detailedValue);
+        setValue(value);
     }
 
     // Required properties
-    public String getDetailedValue() {
-        return detailedValue;
+    public String getValue() {
+        return value;
     }
     // Required properties
     @Override
-    protected void setValue(String value) {
-        this.value = "Weapon";
+    protected void setCategory(String category) {
+        this.category = "Weapon";
     }
-    private void setDetailedValue(String detailedValue) {
-        HelperMethods.checkString("detailedValue", detailedValue);
-        this.detailedValue = detailedValue;
+    private void setValue(String value) {
+        HelperMethods.checkString("value", value);
+        this.value = value;
     }
 }

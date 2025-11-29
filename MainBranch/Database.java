@@ -1095,16 +1095,16 @@ public final class Database {
         throw new NoSuchElementException("No synergy location found for synergy"
             + " location name: " + synergyLocationName);
     }
-    public static SystemType getSystemType(String systemTypeName) {
-        HelperMethods.checkObject("systemTypeName",
-            systemTypeName);
+    public static SystemType getSystemType(String systemTypeCategory) {
+        HelperMethods.checkObject("systemTypeCategory",
+            systemTypeCategory);
         for (SystemType systemType : Database.systemTypes) {
-            if (systemTypeName.equals(systemType.getValue())) {
+            if (systemTypeCategory.equals(systemType.getCategory())) {
                 return systemType;
             }
         }
         throw new NoSuchElementException("No system type found for system type"
-            + " name: " + systemTypeName);
+            + " category: " + systemTypeCategory);
     }
     public static MechSystem getMechSystem(String mechSystemID) {
         HelperMethods.checkObject("mechSystemID", mechSystemID);
@@ -1195,16 +1195,16 @@ public final class Database {
         throw new NoSuchElementException("No weapon size found for weapon size"
             + " name: " + weaponSizeName);
     }
-    public static WeaponType getWeaponType(String weaponTypeDetailedValue) {
-        HelperMethods.checkObject("weaponTypeDetailedValue",
-            weaponTypeDetailedValue);
+    public static WeaponType getWeaponType(String weaponTypeValue) {
+        HelperMethods.checkObject("weaponTypeValue",
+            weaponTypeValue);
         for (WeaponType weaponType : Database.weaponTypes) {
-            if (weaponTypeDetailedValue.equals(weaponType.getDetailedValue())) {
+            if (weaponTypeValue.equals(weaponType.getValue())) {
                 return weaponType;
             }
         }
         throw new NoSuchElementException("No weapon type found for weapon type"
-            + " detailed value: " + weaponTypeDetailedValue);
+            + " value: " + weaponTypeValue);
     }
     public static FrameLicense getFrameLicense(String frameLicenseID) {
         HelperMethods.checkObject("frameLicenseID",
@@ -1443,7 +1443,7 @@ public final class Database {
      * @param mechSystemType a MechSystemType which cannot be null.
      * @throws IllegalArgumentException if mechSystemType is null.
      */
-    public static void addMechSystemType(SystemType mechSystemType) {
+    public static void addMechSystemType(MechSystemType mechSystemType) {
         checkOpen();
         HelperMethods.checkObject("mechSystemType",
             mechSystemType);

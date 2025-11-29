@@ -2933,14 +2933,13 @@ public class DataCaster {
             return weaponSize;
         }
     }
-    private static WeaponType toWeaponType(String weaponTypeName) {
+    private static WeaponType toWeaponType(String weaponTypeValue) {
         WeaponType weaponType;
 
         try {
-            return Database.getWeaponType(weaponTypeName);
+            return Database.getWeaponType(weaponTypeValue);
         } catch (NoSuchElementException exception) {
-            weaponType = new WeaponType(WeaponType.getMaxID() + 1,
-                weaponTypeName);
+            weaponType = new WeaponType(weaponTypeValue);
             HelperMethods.append(DataCaster.weaponTypesProcessed, weaponType);
 
             return weaponType;
