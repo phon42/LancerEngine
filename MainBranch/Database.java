@@ -160,6 +160,10 @@ public final class Database {
     /**
      * add documentation
      */
+    private static MechSystemType[] mechSystemTypes;
+    /**
+     * add documentation
+     */
     private static Modification[] modifications;
     /**
      * add documentation
@@ -694,6 +698,7 @@ public final class Database {
         Database.iTagDataUnhidden = new ITagDataUnhidden[0];
         Database.manufacturers = new Manufacturer[0];
         Database.mechSystems = new MechSystem[0];
+        Database.mechSystemTypes = new MechSystemType[0];
         Database.modifications = new Modification[0];
         Database.mountTypes = new MountType[0];
         Database.pilotArmor = new PilotArmor[0];
@@ -928,6 +933,28 @@ public final class Database {
         throw new NoSuchElementException("No manufacturer found for"
             + " manufacturer ID: " + manufacturerID);
     }
+    public static MechSystem getMechSystem(String mechSystemID) {
+        HelperMethods.checkObject("mechSystemID", mechSystemID);
+        mechSystemID = mechSystemID.toLowerCase();
+        for (MechSystem mechSystem : Database.mechSystems) {
+            if (mechSystemID.equals(mechSystem.getID())) {
+                return mechSystem;
+            }
+        }
+        throw new NoSuchElementException("No mech system found for mech"
+            + " system ID: " + mechSystemID);
+    }
+    public static MechSystem getMechSystemByName(String mechSystemName) {
+        HelperMethods.checkObject("mechSystemName",
+            mechSystemName);
+        for (MechSystem mechSystem : Database.mechSystems) {
+            if (mechSystemName.equals(mechSystem.getName())) {
+                return mechSystem;
+            }
+        }
+        throw new NoSuchElementException("No mech system found for mech"
+            + " system name: " + mechSystemName);
+    }
     public static Modification getModification(String modificationID) {
         HelperMethods.checkObject("modificationID",
             modificationID);
@@ -1105,28 +1132,6 @@ public final class Database {
         }
         throw new NoSuchElementException("No system type found for system type"
             + " category: " + systemTypeCategory);
-    }
-    public static MechSystem getMechSystem(String mechSystemID) {
-        HelperMethods.checkObject("mechSystemID", mechSystemID);
-        mechSystemID = mechSystemID.toLowerCase();
-        for (MechSystem mechSystem : Database.mechSystems) {
-            if (mechSystemID.equals(mechSystem.getID())) {
-                return mechSystem;
-            }
-        }
-        throw new NoSuchElementException("No mech system found for mech"
-            + " system ID: " + mechSystemID);
-    }
-    public static MechSystem getMechSystemByName(String mechSystemName) {
-        HelperMethods.checkObject("mechSystemName",
-            mechSystemName);
-        for (MechSystem mechSystem : Database.mechSystems) {
-            if (mechSystemName.equals(mechSystem.getName())) {
-                return mechSystem;
-            }
-        }
-        throw new NoSuchElementException("No mech system found for mech"
-            + " system name: " + mechSystemName);
     }
     public static Table getTable(String tableName) {
         HelperMethods.checkObject("tableName", tableName);
