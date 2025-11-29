@@ -32,6 +32,11 @@ public class ReserveType {
         setID(id);
         setName(name);
     }
+    public ReserveType(String name) {
+        HelperMethods.verifyConstructor();
+        setID(ReserveType.maxID + 1);
+        setName(name);
+    }
 
     public static int getMaxID() {
         return maxID;
