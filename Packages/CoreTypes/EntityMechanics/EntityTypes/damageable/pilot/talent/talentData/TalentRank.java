@@ -121,34 +121,46 @@ public class TalentRank {
     // Optional properties
     private void setSynergies(ISynergyData[] synergies) {
         HelperMethods.checkObjectArrayAlt("synergies", synergies);
-        synergies = HelperMethods.copyOf(synergies);
+        if (synergies != null) {
+            synergies = HelperMethods.copyOf(synergies);
+        }
         this.synergies = synergies;
     }
     private void setActions(IActionData[] actions) {
         HelperMethods.checkObjectArrayAlt("actions", actions);
-        actions = HelperMethods.copyOf(actions);
+        if (actions != null) {
+            actions = HelperMethods.copyOf(actions);
+        }
         this.actions = actions;
     }
     private void setCounters(Counter[] counters) {
         HelperMethods.checkObjectArrayAlt("counters", counters);
-        counters = HelperMethods.copyOf(counters);
+        if (counters != null) {
+            counters = HelperMethods.copyOf(counters);
+        }
         this.counters = counters;
     }
     private void setBonuses(Bonus[] bonuses) {
         HelperMethods.checkObjectArrayAlt("bonuses", bonuses);
-        bonuses = HelperMethods.copyOf(bonuses);
+        if (bonuses != null) {
+            bonuses = HelperMethods.copyOf(bonuses);
+        }
         this.bonuses = bonuses;
     }
     private void setIntegrated(String[] integrated) {
         HelperMethods.checkStringArrayAlt("integrated",
             integrated);
-        integrated = HelperMethods.copyOf(integrated);
+        if (integrated != null) {
+            integrated = HelperMethods.copyOf(integrated);
+        }
         this.integrated = integrated;
     }
     private void setSpecialEquipment(String[] specialEquipment) {
         HelperMethods.checkStringArrayAlt("specialEquipment",
             specialEquipment);
-        specialEquipment = HelperMethods.copyOf(specialEquipment);
+        if (specialEquipment != null) {
+            specialEquipment = HelperMethods.copyOf(specialEquipment);
+        }
         this.specialEquipment = specialEquipment;
     }
 
