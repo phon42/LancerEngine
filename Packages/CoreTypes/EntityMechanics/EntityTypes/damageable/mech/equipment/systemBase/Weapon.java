@@ -7,15 +7,20 @@ import Packages.CoreTypes.VueHTMLString;
 import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.ISynergyData;
 import Packages.CoreTypes.EntityMechanics.License;
+import Packages.CoreTypes.EntityMechanics.Manufacturer;
 import Packages.CoreTypes.EntityMechanics.RangeTag;
 import Packages.CoreTypes.EntityMechanics.WeaponSize;
 import Packages.CoreTypes.EntityMechanics.WeaponType;
 import Packages.CoreTypes.EntityMechanics.Actions.actionBase.IActionData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.IDeployableData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Equipment;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.SystemBase;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.unverifiedDataTag.DataTag;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.systemBase.mechSystem.SystemType;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.systemBase.weapon.IWeaponProfile;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.mount.MountType;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.Harm;
+import Packages.CoreTypes.EntityMechanics.HarmSystem.harm.Damage;
 
 /**
  * See pgs. 33 and 104.
@@ -31,22 +36,20 @@ import Packages.CoreTypes.EntityMechanics.HarmSystem.Harm;
  * Safety: This class has placeholder values and can be a placeholder. At least
  *     one of its properties has an allowed value of null.
  */
-public final class Weapon extends Equipment {
+public final class Weapon extends SystemBase {
     // TODO: fill out with some kind of way to attack
     // TODO: fucking deal with Ushabti Omnigun somehow
     // Required properties
-    /**
-     * The weapon's size (i.e. a WeaponSize representing a main weapon).
-     * Can be any WeaponSize. Cannot be null.
-     */
-    private WeaponSize size;
+    private MountType mount;
     /**
      * The weapon's type (i.e. a WeaponType representing a CQB weapon).
      * Can be any WeaponType. Cannot be null.
      */
-    private WeaponType type;
+    private WeaponType weaponType;
 
-    // Semi-required properties
+    // Semi-required (optional but has a specific default value other than null
+    //     when not provided) properties
+    private int cost;
     private boolean barrage;
     private boolean skirmish;
     private boolean noAttack;
@@ -54,28 +57,30 @@ public final class Weapon extends Equipment {
     private boolean noCoreBonus;
     private boolean noBonus;
     private boolean noSynergy;
+    // TODO: make sure to account for multiple possible ranges
+    /**
+     * The weapon's range (i.e. a RangeTag[] containing a RangeTag representing
+     *     Range 10).
+     * Can be any RangeTag[] that is not of length 0 or contains null elements.
+     *     Cannot be null.
+     * Default value: a RangeTag[] containing a single RangeTag representing
+     *     Threat 1.
+     * 
+     * If passed a RangeTag[] that is null or of length 0, sets this.range to
+     *     the default value.
+     */
+    private RangeTag[] range;
+    // rangeDefault removed because the relevant value only becomes accessible
+    //     at runtime
 
     // Optional properties
-    /**
-     * Must be a minimum of 0.
-     */
-    private int cost;
     /**
      * The weapon's damage, including heat and burn (i.e. a Harm[] containing
      *     a Harm representing 10 Kinetic, 2 Heat, or 3 Burn).
      * Can be any Harm[] that is not of length 0 or contains null elements. Can
      *     be null.
      */
-    private Harm[] harm;
-    // TODO: make sure to account for multiple possible ranges
-    /**
-     * The weapon's range (i.e. a RangeTag[] containing a RangeTag representing
-     *     Range 10).
-     * Can be any RangeTag[] that is not of length 0 or contains null elements.
-     *     Can be null.
-     */
-    private RangeTag[] range;
-    private int systemPoints;
+    private Harm[] damage;
     private VueHTMLString effect;
     private VueHTMLString onAttack;
     private VueHTMLString onHit;
@@ -86,10 +91,17 @@ public final class Weapon extends Equipment {
     private IDeployableData[] deployables;
     private Counter[] counters;
     private String[] integrated;
-    private String[] specialEquipment;
+    private String[] special_equipment;
     private IWeaponProfile[] profiles;
 
     // Helper properties
+    /**
+     * The weapon's size (i.e. a WeaponSize representing a main weapon).
+     * Can be any WeaponSize. Cannot be null.
+     */
+    private WeaponSize size;
+
+    // Reference properties
     /**
      * Contains an array of allowed values for Weapon.dataTags' DataTag.name
      *     values.
@@ -103,74 +115,60 @@ public final class Weapon extends Equipment {
         "Quick Action", "X/Round", "Danger Zone", "AI", "Free Action"};
 
     /**
-     * Creates a new Weapon given a weapon name, manufacturer, the license the
-     *     weapon belongs to, a weapon size, type, and the amount of harm dealt.
-     * @param name a String which cannot be null or "".
-     * @param manufacturer a String which must be a valid manufacturer name as
-     *     defined by Database.manufacturerList. Cannot be null.
-     * @param weaponLicense a License which can be any License. Cannot be null.
-     * @param size a WeaponSize which can be any WeaponSize. Cannot be null.
-     * @param type a WeaponType which can be any WeaponType. Cannot be null.
-     * @param harmDealt a Harm[] which cannot be null or contain null elements.
+     * Verbose constructor for non-GMS content.
+     * Takes in as a parameter the semi-required property SystemBase.spCost.
      */
-    public Weapon(String name, String manufacturer, License weaponLicense,
-        WeaponSize size, WeaponType type, Harm[] harmDealt) {
-        super(name, manufacturer, weaponLicense);
-        setSize(size);
-        setType(type);
-        setHarm(harmDealt);
-        setRange(new RangeTag[] {
-            new RangeTag(
-                Database.getRangeType("threat"), 1
-            )
-        });
+    public Weapon(
+        // SystemBase properties
+        String id, String name, Manufacturer manufacturer, String licenseID,
+        String licenseName, int licenseLevel, String description,
+        DataTag[] dataTags, int spCost
+    ) {
+        // SystemBase properties
+        super(id, name, manufacturer, licenseID, licenseName, licenseLevel,
+            description, dataTags, null, spCost);
     }
     /**
-     * Creates a new Weapon given a weapon name, manufacturer, the license the
-     *     weapon belongs to, a weapon size, type, the amount of harm dealt, and
-     *     the weapon's range.
-     * @param name a String which cannot be null or "".
-     * @param manufacturer a String which must be a valid manufacturer name as
-     *     defined by Database.manufacturerList. Cannot be null.
-     * @param weaponLicense a License which can be any License. Cannot be null.
-     * @param size a WeaponSize which can be any WeaponSize. Cannot be null.
-     * @param type a WeaponType which can be any WeaponType. Cannot be null.
-     * @param harmDealt a Harm[] which cannot be null or contain null elements.
-     * @param range a RangeTag[] which cannot be null or contain null elements.
+     * Abbreviated constructor for GMS content.
+     * Takes in as a parameter the semi-required property SystemBase.spCost.
      */
-    public Weapon(String name, String manufacturer, License weaponLicense,
-        WeaponSize size, WeaponType type, Harm[] harmDealt, RangeTag[] range) {
-        this(name, manufacturer, weaponLicense, size, type, harmDealt);
-        setRange(range);
+    public Weapon(
+        // SystemBase properties
+        String id, String name, String licenseID, String licenseName,
+        String description, DataTag[] dataTags, int spCost
+    ) {
+        // SystemBase properties
+        super(id, name, licenseID, licenseName, description, dataTags,
+            null, spCost);
     }
     /**
-     * Creates a new Weapon given a weapon name, manufacturer, the license the
-     *     weapon belongs to, a weapon size, type, the amount of harm dealt, the
-     *     weapon's range, and an array of data tags associated with it.
-     * @param name a String which cannot be null or "".
-     * @param manufacturer a String which must be a valid manufacturer name as
-     *     defined by Database.manufacturerList. Cannot be null.
-     * @param weaponLicense a License which can be any License. Cannot be null.
-     * @param size a WeaponSize which can be any WeaponSize. Cannot be null.
-     * @param type a WeaponType which can be any WeaponType. Cannot be null.
-     * @param harmDealt a Harm[] which cannot be null or contain null elements.
-     * @param range a RangeTag[] which cannot be null or contain null elements.
-     * @param dataTags a DataTag[] which cannot be null, contain null elements,
-     *     or elements with invalid DataTag.name values, as defined by
-     *     Weapon.allowedNames.
+     * Verbose constructor for non-GMS content.
+     * Does not take in any semi-required properties as parameters.
      */
-    public Weapon(String name, String manufacturer, License weaponLicense,
-        WeaponSize size, WeaponType type, Harm[] harmDealt, RangeTag[] range,
-        DataTag[] dataTags) {
-        this(name, manufacturer, weaponLicense, size, type, harmDealt, range);
-        setDataTags(dataTags);
+    public Weapon(
+        // SystemBase properties
+        String id, String name, Manufacturer manufacturer, String licenseID,
+        String licenseName, int licenseLevel, String description,
+        DataTag[] dataTags
+    ) {
+        this(id, name, manufacturer, licenseID, licenseName, licenseLevel,
+            description, dataTags, -1);
+    }
+    /**
+     * Abbreviated constructor for GMS content.
+     * Does not take in any semi-required properties as parameters.
+     */
+    public Weapon(
+        // SystemBase properties
+        String id, String name, String licenseID, String licenseName,
+        String description, DataTag[] dataTags
+    ) {
+        this(id, name, licenseID, licenseName, description, dataTags, -1);
     }
 
-    public WeaponSize getSize() {
-        return size;
-    }
-    public WeaponType getType() {
-        return type;
+    // Required properties
+    public WeaponType getWeaponType() {
+        return weaponType;
     }
     public Harm[] getHarm() {
         return harm;
@@ -178,32 +176,13 @@ public final class Weapon extends Equipment {
     public RangeTag[] getRange() {
         return range;
     }
-    private void setSize(WeaponSize size) {
-        HelperMethods.checkObject("size", size);
-        this.size = size;
+    // Semi-required properties
+    // Optional properties
+    // Helper properties
+    public WeaponSize getSize() {
+        return size;
     }
-    private void setType(WeaponType type) {
-        HelperMethods.checkObject("type", type);
-        this.type = type;
-    }
-    public void setHarm(Harm[] harm) {
-        HelperMethods.checkObjectArray("harm", harm);
-        if (harm.length < 1) {
-            throw new IllegalArgumentException("harm.length value: "
-                + harm.length + " is < 1");
-        }
-        harm = HelperMethods.copyOf(harm);
-        this.harm = harm;
-    }
-    public void setRange(RangeTag[] range) {
-        HelperMethods.checkObjectArray("range", range);
-        if (range.length < 1) {
-            throw new IllegalArgumentException("range.length value: "
-                + range.length + " is < 1");
-        }
-        range = HelperMethods.copyOf(range);
-        this.range = range;
-    }
+    // Inherited properties
     /**
      * Sets this.dataTags to the provided value.
      * @param dataTags a DataTag[] which cannot be null, contain null elements,
@@ -236,5 +215,42 @@ public final class Weapon extends Equipment {
         }
         dataTags = HelperMethods.copyOf(dataTags);
         this.dataTags = dataTags;
+    }
+    @Override
+    protected void setType(SystemType type) {
+        if (type == null) {
+            type = Database.getSystemType("Weapon");
+        }
+        this.type = type;
+    }
+    // Required properties
+    private void setWeaponType(WeaponType weaponType) {
+        HelperMethods.checkObject("weaponType", weaponType);
+        this.weaponType = weaponType;
+    }
+    private void setHarm(Harm[] harm) {
+        HelperMethods.checkObjectArray("harm", harm);
+        if (harm.length < 1) {
+            throw new IllegalArgumentException("harm.length value: "
+                + harm.length + " is < 1");
+        }
+        harm = HelperMethods.copyOf(harm);
+        this.harm = harm;
+    }
+    private void setRange(RangeTag[] range) {
+        HelperMethods.checkObjectArray("range", range);
+        if (range.length < 1) {
+            throw new IllegalArgumentException("range.length value: "
+                + range.length + " is < 1");
+        }
+        range = HelperMethods.copyOf(range);
+        this.range = range;
+    }
+    // Semi-required properties
+    // Optional properties
+    // Helper properties
+    private void setSize(WeaponSize size) {
+        HelperMethods.checkObject("size", size);
+        this.size = size;
     }
 }
