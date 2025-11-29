@@ -1,4 +1,6 @@
-package Packages.CoreTypes.EntityMechanics.NPCs;
+package Packages.CoreTypes.EntityMechanics.NPCs.npcBase;
+
+import Packages.CoreTypes.EntityMechanics.NPCs.NPCBase;
 
 /**
  * Represents a single NPC feature. Contains information about the feature's

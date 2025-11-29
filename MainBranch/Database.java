@@ -47,8 +47,8 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.unverifie
 import Packages.CoreTypes.EntityMechanics.HarmSystem.harm.HarmType;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.harm.harmType.DamageType;
 import Packages.CoreTypes.EntityMechanics.LicenseSystem.FrameLicense;
-import Packages.CoreTypes.EntityMechanics.NPCs.NPCFeature;
-import Packages.CoreTypes.EntityMechanics.NPCs.NPCTemplate;
+import Packages.CoreTypes.EntityMechanics.NPCs.npcBase.NPCFeature;
+import Packages.CoreTypes.EntityMechanics.NPCs.npcBase.NPCTemplate;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.unverifiedStateData.StateData;
 import Packages.CoreTypes.EntityMechanics.frequency.FrequencyType;
 

@@ -27,8 +27,8 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTrig
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.talent.TalentData;
 import Packages.CoreTypes.EntityMechanics.LicenseSystem.FrameLicense;
 import Packages.CoreTypes.EntityMechanics.LicenseSystem.frameLicense.LicenseContent;
-import Packages.CoreTypes.EntityMechanics.NPCs.NPCFeature;
-import Packages.CoreTypes.EntityMechanics.NPCs.NPCTemplate;
+import Packages.CoreTypes.EntityMechanics.NPCs.npcBase.NPCFeature;
+import Packages.CoreTypes.EntityMechanics.NPCs.npcBase.NPCTemplate;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.unverifiedStateData.StateData;
 import Packages.CoreTypes.EntityMechanics.ActivationType;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
