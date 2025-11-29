@@ -4,13 +4,12 @@ import MainBranch.HelperMethods;
 
 public class SystemType {
     /**
-     * This system type's value (i.e. "AI").
+     * This system type's value (i.e. "Mech System").
      * Can be any String except "". Cannot be null.
      * Case-sensitive.
      * 
      * Currently used values:
-     *     "AI", "Deployable", "Drone", "Flight System", "Shield", "System",
-     *         "Tech", "Weapon"
+     *     "Mech System", "Weapon"
      */
     protected String value;
 

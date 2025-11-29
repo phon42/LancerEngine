@@ -471,6 +471,10 @@ public final class Database {
             "cascade", "Cascade warning panel"
         ));
 
+        // Add allowed system types
+        addSystemType(new SystemType("Mech System"));
+        addSystemType(new SystemType("Weapon"));
+
         // Add allowed weapon sizes
         addWeaponSize(new WeaponSize(0, "Aux"));
         addWeaponSize(new WeaponSize(1, "Main"));
