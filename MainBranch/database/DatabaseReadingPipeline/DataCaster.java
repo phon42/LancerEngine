@@ -57,6 +57,8 @@ import Packages.CoreTypes.EntityMechanics.HarmSystem.harm.HarmType;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.harm.harmType.DamageType;
 import Packages.CoreTypes.EntityMechanics.NPCs.npcBase.NPCFeature;
 import Packages.CoreTypes.EntityMechanics.NPCs.npcBase.NPCTemplate;
+import Packages.CoreTypes.EntityMechanics.NPCs.npcBase.npcFeature.NPCOrigin;
+import Packages.CoreTypes.EntityMechanics.NPCs.npcBase.npcFeature.NPCSystemType;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.unverifiedStateData.StateData;
 import Packages.CoreTypes.EntityMechanics.frequency.FrequencyType;
 import Packages.CoreTypes.lcpInfo.LCPDependency;
@@ -1587,9 +1589,155 @@ public class DataCaster {
         }
         DataCaster.npcFeaturesProcessed = npcFeatures;
     }
-    private static NPCFeature toNPCFeature(JSONObject npcFeatureData) {
+    private static NPCOrigin toNPCOrigin(JSONObject npcOriginData) {
         // TODO: fill out
         return null;
+    }
+    private static NPCSystemType toNPCSystemType(String npcSystemTypeString) {
+        NPCSystemType npcSystemType;
+
+        try {
+            return Database.getNPCSystemType(npcSystemTypeString);
+        } catch (NoSuchElementException exception) {
+            npcSystemType = new NPCSystemType(npcSystemTypeString);
+            DataCaster.npcSystemTypesProcessed = HelperMethods.append(
+                DataCaster.npcSystemTypesProcessed, npcSystemType
+            );
+
+            return npcSystemType;
+        }
+    }
+    private static UnverifiedNPCFeature toNPCFeature(JSONObject npcFeatureData)
+    {
+        // NPCBase required properties
+        String id;
+        String name;
+        // Required properties
+        JSONObject originObject;
+        NPCOrigin origin;
+        String typeString;
+        NPCSystemType type;
+        String effect;
+        boolean locked;
+        // Conditionally required properties
+        String weaponTypeString;
+        WeaponType weaponType;
+        JSONObject damageObject;
+        JSONObject damageObject2;
+        Harm[] damage;
+        JSONArray rangeArray;
+        RangeTag[] range;
+        String onHit;
+        // Conditionally semi-required properties
+        JSONArray attackBonusArray;
+        int[] attackBonus;
+        JSONArray accuracyArray;
+        int[] accuracy;
+        // Optional properties
+        JSONObject bonusObject;
+        Bonus bonus;
+        JSONArray tagsArray;
+        UnverifiedDataTag[] tags;
+
+        try {
+            // NPCBase required properties
+            id = npcFeatureData.getString("id");
+            name = npcFeatureData.getString("name");
+            // Required properties
+            originObject = npcFeatureData.getJSONObject("origin");
+            origin = toNPCOrigin(originObject);
+            typeString = npcFeatureData.getString("type");
+            type = toNPCSystemType(typeString);
+            effect = npcFeatureData.getString("effect");
+            locked = npcFeatureData.getBoolean("locked");
+        } catch (JSONException exception) {
+            throw new IllegalStateException("npcFeatureData threw a"
+                + " JSONException during the required properties section of the"
+                + " object parsing, which is not allowed");
+        }
+        // Conditionally required properties
+        try {
+            weaponTypeString = npcFeatureData.getString("weapon_type");
+            weaponType = toWeaponType(weaponTypeString);
+        } catch (JSONException exception) {}
+        try {
+            damageObject = npcFeatureData.getJSONObject("damage");
+            try {
+                damage =
+                    new Harm[damageObject.getJSONArray("damage").length()];
+                for (int i = 0; i < damage.length; i++) {
+                    damageObject2 = new JSONObject();
+                    damageObject2.put(
+                        "type", damageObject.getString("type")
+                    );
+                    damageObject2.put( "damage",
+                        damageObject.getJSONArray("damage").getInt(i));
+                    damage[i] = toHarm(damageObject2);
+                }
+            } catch (JSONException exception) {
+                throw new IllegalStateException("Attempting to parse"
+                    + " damageObject threw a JSONException");
+            }
+        } catch (JSONException exception) {}
+        try {
+            rangeArray = npcFeatureData.getJSONArray("range");
+            try {
+                range = new RangeTag[rangeArray.length()];
+                for (int i = 0; i < range.length; i++) {
+                    range[i] = toRangeTag(rangeArray.getJSONObject(i));
+                }
+            } catch (JSONException exception) {
+                throw new IllegalStateException("Attempting to parse"
+                    + " rangeArray threw a JSONException");
+            }
+        } catch (JSONException exception) {}
+        onHit = getOptionalString(originObject, "on_hit");
+        // Conditionally semi-required properties
+        try {
+            attackBonusArray = npcFeatureData.getJSONArray("attack_bonus");
+            try {
+                attackBonus = new int[attackBonusArray.length()];
+                for (int i = 0; i < attackBonus.length; i++) {
+                    attackBonus[i] = attackBonusArray.getInt(i);
+                }
+            } catch (JSONException exception) {
+                throw new IllegalStateException("Attempting to parse"
+                    + " attackBonusArray threw a JSONException");
+            }
+        } catch (JSONException exception) {}
+        try {
+            accuracyArray = npcFeatureData.getJSONArray("attack_bonus");
+            try {
+                accuracy = new int[accuracyArray.length()];
+                for (int i = 0; i < accuracy.length; i++) {
+                    accuracy[i] = accuracyArray.getInt(i);
+                }
+            } catch (JSONException exception) {
+                throw new IllegalStateException("Attempting to parse"
+                    + " accuracyArray threw a JSONException");
+            }
+        } catch (JSONException exception) {}
+        // Optional properties
+        try {
+            bonusObject = npcFeatureData.getJSONObject("bonus");
+            bonus = toBonus(bonusObject);
+        } catch (JSONException exception) {}
+        try {
+            tagsArray = npcFeatureData.getJSONArray("tags");
+            try {
+                tags = new UnverifiedDataTag[tagsArray.length()];
+                for (int i = 0; i < tags.length; i++) {
+                    tags[i] = toUnverifiedDataTag(tagsArray.getJSONObject(i));
+                }
+            } catch (JSONException exception) {
+                throw new IllegalStateException("Attempting to parse"
+                    + " tagsArray threw a JSONException");
+            }
+        } catch (JSONException exception) {}
+
+        return new UnverifiedNPCFeature(id, name, origin, type, effect, locked,
+            weaponType, damage, range, onHit, attackBonus, accuracy, bonus,
+            tags);
     }
     private static void processNPCTemplates(JSONObject[] npcTemplatesData) {
         NPCTemplate[] npcTemplates = new NPCTemplate[npcTemplatesData.length];
