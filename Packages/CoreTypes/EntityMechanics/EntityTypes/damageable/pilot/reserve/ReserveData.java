@@ -101,7 +101,7 @@ public class ReserveData {
         // Semi-required property
         TriState consumable,
         // Optional properties
-        VueHTMLString description, IActionData[] actions, Bonus[] bonuses,
+        String description, IActionData[] actions, Bonus[] bonuses,
         ISynergyData[] synergies, IDeployableData[] deployables,
         Counter[] counters, String[] integrated, String[] specialEquipment
     ) {
@@ -132,6 +132,14 @@ public class ReserveData {
         this(id, name, type, label, consumable, null, null,
             null, null, null, null,
             null, null);
+    }
+    public ReserveData(
+        // Required properties
+        String id, String name, ReserveType type, String label
+    ) {
+        this(id, name, type, label, TriState.UNSET, null,
+            null, null, null, null,
+            null, null, null);
     }
 
     // Required properties
@@ -288,5 +296,11 @@ public class ReserveData {
         } else {
             setConsumable(consumable.toBoolean());
         }
+    }
+    private void setDescription(String description) {
+        if (description == null) {
+            this.description = null;
+        }
+        setDescription(new VueHTMLString(description));
     }
 }
