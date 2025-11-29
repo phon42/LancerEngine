@@ -1,4 +1,4 @@
-package Packages.CoreTypes.EntityMechanics;
+package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.systemBase.systemType;
 
 import MainBranch.HelperMethods;
 

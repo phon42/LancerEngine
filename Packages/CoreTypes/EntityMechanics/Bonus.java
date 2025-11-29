@@ -3,6 +3,7 @@ package Packages.CoreTypes.EntityMechanics;
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.JSONTypeTree;
 import Packages.CoreTypes.TriState;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.systemBase.systemType.WeaponType;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.harm.harmType.DamageType;
 import Packages.CoreTypes.jsonTypeTree.JSONType;
 
