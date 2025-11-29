@@ -254,11 +254,10 @@ public class ReserveData {
         this.bonuses = bonuses;
     }
     private void setSynergies(ISynergyData[] synergies) {
-        HelperMethods.checkObjectArray("synergies", synergies);
-        if (synergies.length == 0) {
-            throw new IllegalArgumentException("synergies is length 0");
+        HelperMethods.checkObjectArrayAlt("synergies", synergies);
+        if (synergies != null) {
+            synergies = HelperMethods.copyOf(synergies);
         }
-        synergies = HelperMethods.copyOf(synergies);
         this.synergies = synergies;
     }
     private void setDeployables(IDeployableData[] deployables) {
