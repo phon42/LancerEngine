@@ -560,16 +560,16 @@ public final class Database {
         addRangeType(new RangeType(6, "Thrown"));
 
         // Add allowed weapon types
-        addWeaponType(new WeaponType(0, "CQB"));
-        addWeaponType(new WeaponType(1, "Cannon"));
-        addWeaponType(new WeaponType(2, "Launcher"));
-        addWeaponType(new WeaponType(3, "Melee"));
-        addWeaponType(new WeaponType(4, "Nexus"));
-        addWeaponType(new WeaponType(5, "Rifle"));
-        addWeaponType(new WeaponType(6, "Drone Weapon"));
-        addWeaponType(new WeaponType(7, "Spool Weapon"));
-        addWeaponType(new WeaponType(8, "???"));
-        addWeaponType(new WeaponType(9, "Special"));
+        addWeaponType(new WeaponType("CQB"));
+        addWeaponType(new WeaponType("Cannon"));
+        addWeaponType(new WeaponType("Launcher"));
+        addWeaponType(new WeaponType("Melee"));
+        addWeaponType(new WeaponType("Nexus"));
+        addWeaponType(new WeaponType("Rifle"));
+        addWeaponType(new WeaponType("Drone Weapon"));
+        addWeaponType(new WeaponType("Spool Weapon"));
+        addWeaponType(new WeaponType("???"));
+        addWeaponType(new WeaponType("Special"));
 
         System.out.println(setupDone);
         close();
@@ -1195,17 +1195,16 @@ public final class Database {
         throw new NoSuchElementException("No weapon size found for weapon size"
             + " name: " + weaponSizeName);
     }
-    public static WeaponType getWeaponType(String weaponTypeName) {
-        HelperMethods.checkObject("weaponTypeName",
-            weaponTypeName);
-        weaponTypeName = weaponTypeName.toLowerCase();
+    public static WeaponType getWeaponType(String weaponTypeDetailedValue) {
+        HelperMethods.checkObject("weaponTypeDetailedValue",
+            weaponTypeDetailedValue);
         for (WeaponType weaponType : Database.weaponTypes) {
-            if (weaponTypeName.equals(weaponType.getName())) {
+            if (weaponTypeDetailedValue.equals(weaponType.getDetailedValue())) {
                 return weaponType;
             }
         }
         throw new NoSuchElementException("No weapon type found for weapon type"
-            + " name: " + weaponTypeName);
+            + " detailed value: " + weaponTypeDetailedValue);
     }
     public static FrameLicense getFrameLicense(String frameLicenseID) {
         HelperMethods.checkObject("frameLicenseID",
@@ -1717,6 +1716,7 @@ public final class Database {
         HelperMethods.checkObject("weaponType", weaponType);
         Database.weaponTypes = HelperMethods.append(Database.weaponTypes,
             weaponType);
+        addSystemType(weaponType);
     }
     public static void addFrameLicense(FrameLicense frameLicense) {
         checkOpen();
