@@ -2169,7 +2169,7 @@ public final class HelperMethods {
                 copy[i] = original[i];
                 continue;
             }
-            copy[i] = new MechSystem(original[i]);
+            copy[i] = original[i];
         }
 
         return copy;

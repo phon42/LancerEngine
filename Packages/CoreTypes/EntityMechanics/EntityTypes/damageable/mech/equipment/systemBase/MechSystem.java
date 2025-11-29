@@ -2,11 +2,12 @@ package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment
 
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.EntityMechanics.Actions.actionBase.IActionData;
+import Packages.CoreTypes.Counter;
+import Packages.CoreTypes.VueHTMLString;
 import Packages.CoreTypes.EntityMechanics.Bonus;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.Deployable;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Equipment;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.IDeployableData;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.SystemBase;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.unverifiedDataTag.DataTag;
-import Packages.CoreTypes.EntityMechanics.License;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
 import Packages.CoreTypes.EntityMechanics.ISynergyData;
 
@@ -21,7 +22,19 @@ import Packages.CoreTypes.EntityMechanics.ISynergyData;
  * Safety: This class has placeholder values but cannot be a placeholder. At
  *     least one of its properties has an allowed value of null.
  */
-public final class MechSystem extends Equipment {
+public final class MechSystem extends SystemBase {
+    // Optional properties
+    private VueHTMLString description;
+    private VueHTMLString effect;
+    private IActionData[] actions;
+    private Bonus[] bonuses;
+    private ISynergyData[] synergies;
+    private IDeployableData[] deployables;
+    private Counter[] counters;
+    private String[] integrated;
+    private String[] specialEquipment;
+
+    // Reference properties
     /**
      * Contains an array of allowed values for MechSystem.tags' Tag.name values.
      *     Case-sensitive.
@@ -31,66 +44,57 @@ public final class MechSystem extends Equipment {
         "Drone", "Shield", "Heat X (Self)", "Protocol", "Overshield",
         "Full Action", "Quick Tech", "Invade", "Reaction", "Full Tech",
         "X/Round", "Danger Zone", "X/Turn"};
-    // Required properties
-    private int spCost;
-    // Optional properties
-    private String effect;
-    private IActionData[] actions;
-    private Deployable[] deployables;
-    private Bonus[] bonuses;
-    private ISynergyData[] synergies;
 
     /**
      * Verbose constructor for non-GMS content.
+     * Takes in as a parameter the semi-required property SystemBase.spCost.
      */
-    public MechSystem(String id, String name, Manufacturer manufacturer,
-        String licenseID, String licenseName, int licenseLevel,
-        String description, DataTag[] dataTags, int spCost,
-        String effect, IActionData[] actions, Deployable[] deployables,
-        Bonus[] bonuses, ISynergyData[] synergies) {
+    public MechSystem(
+        // SystemBase properties
+        String id, String name, Manufacturer manufacturer, String licenseID,
+        String licenseName, int licenseLevel, String description,
+        DataTag[] dataTags, int spCost
+    ) {
+        // SystemBase properties
         super(id, name, manufacturer, licenseID, licenseName, licenseLevel,
-            description, dataTags);
-        // Required properties
-        setSpCost(spCost);
-        // Optional properties
-        setEffect(effect);
-        setActions(actions);
-        setDeployables(deployables);
-        setBonuses(bonuses);
-        setSynergy(synergies);
+            description, dataTags, null, spCost);
     }
     /**
      * Abbreviated constructor for GMS content.
+     * Takes in as a parameter the semi-required property SystemBase.spCost.
      */
-    public MechSystem(String id, String name, String licenseID,
-        String licenseName, String description, DataTag[] dataTags, int spCost,
-        String effect, IActionData[] actions, Deployable[] deployables,
-        Bonus[] bonuses, ISynergyData[] synergies) {
-        super(id, name, licenseID, licenseName, description, dataTags);
-        // Required properties
-        setSpCost(spCost);
-        // Optional properties
-        setEffect(effect);
-        setActions(actions);
-        setDeployables(deployables);
-        setBonuses(bonuses);
-        setSynergy(synergies);
+    public MechSystem(
+        // SystemBase properties
+        String id, String name, String licenseID, String licenseName,
+        String description, DataTag[] dataTags, int spCost
+    ) {
+        // SystemBase properties
+        super(id, name, licenseID, licenseName, description, dataTags,
+            null, spCost);
     }
     /**
-     * Creates a deep copy of the provided MechSystem.
-     * @param mechSystem a MechSystem to be copied.
-     * @return a MechSystem deep copy of the provided MechSystem.
+     * Verbose constructor for non-GMS content.
+     * Does not take in any semi-required properties as parameters.
      */
-    public MechSystem(MechSystem mechSystem) {
-        super(mechSystem);
-        // Required properties
-        setSpCost(mechSystem.spCost);
-        // Optional properties
-        setEffect(mechSystem.effect);
-        setActions(mechSystem.actions);
-        setDeployables(mechSystem.deployables);
-        setBonuses(mechSystem.bonuses);
-        setSynergy(mechSystem.synergies);
+    public MechSystem(
+        // SystemBase properties
+        String id, String name, Manufacturer manufacturer, String licenseID,
+        String licenseName, int licenseLevel, String description,
+        DataTag[] dataTags
+    ) {
+        this(id, name, manufacturer, licenseID, licenseName, licenseLevel,
+            description, dataTags, -1);
+    }
+    /**
+     * Abbreviated constructor for GMS content.
+     * Does not take in any semi-required properties as parameters.
+     */
+    public MechSystem(
+        // SystemBase properties
+        String id, String name, String licenseID, String licenseName,
+        String description, DataTag[] dataTags
+    ) {
+        this(id, name, licenseID, licenseName, description, dataTags, -1);
     }
 
     /**

@@ -1094,7 +1094,7 @@ public final class Database {
         systemID = systemID.toLowerCase();
         for (MechSystem system : Database.systems) {
             if (systemID.equals(system.getID())) {
-                return new MechSystem(system);
+                return system;
             }
         }
         throw new NoSuchElementException("No mech system found for mech"
@@ -1598,7 +1598,6 @@ public final class Database {
     public static void addSystem(MechSystem system) {
         checkOpen();
         HelperMethods.checkObject("system", system);
-        system = new MechSystem(system);
         Database.systems = HelperMethods.append(Database.systems, system);
     }
     /**
