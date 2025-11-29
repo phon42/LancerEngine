@@ -3,7 +3,7 @@ package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.systemBase.SystemType;
 
-public class MechSystemType extends SystemType {
+public final class MechSystemType extends SystemType {
     // Required properties
     // TODO: figure out a way to override the documentation from SystemType
     /**
@@ -12,9 +12,13 @@ public class MechSystemType extends SystemType {
      */
     // protected String value;
     /**
-     * This mech system type's detailed value (unable to provide an example).
+     * This mech system type's detailed value (i.e. "AI").
      * Can be any String except "". Cannot be null.
      * Case-sensitive.
+     * 
+     * Currently used values:
+     *     "AI", "Deployable", "Drone", "Flight System", "Shield", "System",
+     *         "Tech"
      */
     private String detailedValue;
 

@@ -29,6 +29,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.systemBase.MechSystem;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.systemBase.SystemType;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.systemBase.Weapon;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.systemBase.systemType.MechSystemType;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.mount.MountType;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.unverifiedFrame.Frame;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.unverifiedFrame.frame.FrameEnum;
@@ -326,6 +327,9 @@ public final class Database {
         addHarmType(new HarmType("Variable"));
         addHarmType(new HarmType("Heat"));
 
+        // addMechSystemType calls moved under addSystemType section because
+        //     they reference SystemTypes
+
         // addMountType calls moved under addWeaponSize section because they
         //     reference WeaponSizes
 
@@ -474,6 +478,15 @@ public final class Database {
         // Add allowed system types
         addSystemType(new SystemType("Mech System"));
         addSystemType(new SystemType("Weapon"));
+
+        // Add allowed mech system types
+        addMechSystemType(new MechSystemType("AI"));
+        addMechSystemType(new MechSystemType("Deployable"));
+        addMechSystemType(new MechSystemType("Drone"));
+        addMechSystemType(new MechSystemType("Flight System"));
+        addMechSystemType(new MechSystemType("Shield"));
+        addMechSystemType(new MechSystemType("System"));
+        addMechSystemType(new MechSystemType("Tech"));
 
         // Add allowed weapon sizes
         addWeaponSize(new WeaponSize(0, "Aux"));
@@ -1425,6 +1438,19 @@ public final class Database {
         manufacturer = new Manufacturer(manufacturer);
         Database.manufacturers = HelperMethods.append(Database.manufacturers,
             manufacturer);
+    }
+    /**
+     * Adds the provided MechSystemType to Database.mechSystemTypes.
+     * @param mechSystemType a MechSystemType which cannot be null.
+     * @throws IllegalArgumentException if mechSystemType is null.
+     */
+    public static void addMechSystemType(SystemType mechSystemType) {
+        checkOpen();
+        HelperMethods.checkObject("mechSystemType",
+            mechSystemType);
+        Database.mechSystemTypes = HelperMethods.append(
+            Database.mechSystemTypes, mechSystemType);
+        addSystemType(mechSystemType);
     }
     /**
      * Adds the provided MountType to Database.mountTypes.
