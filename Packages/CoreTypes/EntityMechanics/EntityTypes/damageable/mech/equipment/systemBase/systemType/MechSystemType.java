@@ -1,29 +1,39 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.systemBase.systemType;
 
 import MainBranch.HelperMethods;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.systemBase.SystemType;
 
-public class MechSystemType {
+public class MechSystemType extends SystemType {
+    // Required properties
+    // TODO: figure out a way to override the documentation from SystemType
     /**
-     * This mech system type's value (i.e. "AI").
+     * This mech system type's value.
+     * Must be "Mech System".
+     */
+    // protected String value;
+    /**
+     * This mech system type's detailed value (unable to provide an example).
      * Can be any String except "". Cannot be null.
      * Case-sensitive.
-     * 
-     * Currently used values:
-     *     "AI", "Deployable", "Drone", "Flight System", "Shield", "System",
-     *         "Tech"
      */
-    private String value;
+    private String detailedValue;
 
-    public MechSystemType(String value) {
-        HelperMethods.verifyConstructor();
-        setValue(value);
+    public MechSystemType(String detailedValue) {
+        super("Mech System");
+        setDetailedValue(detailedValue);
     }
 
-    public String getValue() {
-        return value;
+    // Required properties
+    public String getDetailedValue() {
+        return detailedValue;
     }
-    private void setValue(String value) {
-        HelperMethods.checkString("value", value);
-        this.value = value;
+    // Required properties
+    @Override
+    protected void setValue(String value) {
+        this.value = "Mech System";
+    }
+    private void setDetailedValue(String detailedValue) {
+        HelperMethods.checkString("detailedValue", detailedValue);
+        this.detailedValue = detailedValue;
     }
 }
