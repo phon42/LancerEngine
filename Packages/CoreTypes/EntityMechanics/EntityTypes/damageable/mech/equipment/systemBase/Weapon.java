@@ -14,7 +14,7 @@ import Packages.CoreTypes.EntityMechanics.Actions.actionBase.IActionData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.IDeployableData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Equipment;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.unverifiedDataTag.DataTag;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.weapon.IWeaponProfile;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.systemBase.weapon.IWeaponProfile;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.Harm;
 
 /**
