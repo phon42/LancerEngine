@@ -11,6 +11,9 @@ public class RangeTag {
      * Can be any RangeType. Cannot be null.
      */
     private RangeType type;
+    /**
+     * Must be a minimum of -1. Cannot be 0.
+     */
     private int value;
 
     public RangeTag(RangeType rangeType, int value) {
