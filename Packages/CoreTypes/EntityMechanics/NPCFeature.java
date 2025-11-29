@@ -10,8 +10,7 @@ package Packages.CoreTypes.EntityMechanics;
  * 
  * Unused at present.
  * 
- * Safety: This class does not have placeholder values and cannot be a
- *     placeholder. At least one of its properties has an allowed value of null.
+ * Safety: At least one of this class' properties has an allowed value of null.
  */
 public class NPCFeature {
     // TODO: fill out
@@ -23,5 +22,4 @@ public class NPCFeature {
     private String effect;
 
     public NPCFeature() {}
-    public NPCFeature(NPCFeature npcFeature) {}
 }
