@@ -147,6 +147,7 @@ public class DataCaster {
     private static UnverifiedPilotWeapon[] pilotWeaponsProcessed;
     private static RangeType[] rangeTypesProcessed;
     private static ReserveData[] reservesProcessed;
+    private static ReserveType[] reserveTypesProcessed;
     private static SkillData[] skillsProcessed;
     private static StateData[] statusesProcessed;
     private static SynergyLocation[] synergyLocationsProcessed;
@@ -2101,10 +2102,8 @@ public class DataCaster {
         String typeString;
         ReserveType type;
         String label;
-
         // Semi-required property
         TriState consumable;
-
         // Optional properties
         String description;
         JSONArray actionsArray;
@@ -2209,8 +2208,18 @@ public class DataCaster {
             specialEquipment);
     }
     private static ReserveType toReserveType(String reserveString) {
-        // TODO: fill out
-        return null;
+        ReserveType reserveType;
+
+        try {
+            return Database.getReserveType(reserveString);
+        } catch (NoSuchElementException exception) {
+            reserveType = new ReserveType(reserveString);
+            DataCaster.reserveTypesProcessed = HelperMethods.append(
+                DataCaster.reserveTypesProcessed, reserveType
+            );
+
+            return reserveType;
+        }
     }
     private static void processRules(JSONObject rulesObject) {
         Set<String> keys;
@@ -2882,6 +2891,7 @@ public class DataCaster {
             DataCaster.pilotWeaponsProcessed,
             DataCaster.rangeTypesProcessed,
             DataCaster.reservesProcessed,
+            DataCaster.reserveTypesProcessed,
             DataCaster.skillsProcessed,
             DataCaster.statusesProcessed,
             DataCaster.synergyLocationsProcessed,
@@ -2969,6 +2979,7 @@ public class DataCaster {
         DataCaster.pilotWeaponsProcessed = new UnverifiedPilotWeapon[0];
         DataCaster.rangeTypesProcessed = new RangeType[0];
         DataCaster.reservesProcessed = new ReserveData[0];
+        DataCaster.reserveTypesProcessed = new ReserveType[0];
         DataCaster.skillsProcessed = new SkillData[0];
         DataCaster.statusesProcessed = new StateData[0];
         DataCaster.synergyLocationsProcessed = new SynergyLocation[0];
