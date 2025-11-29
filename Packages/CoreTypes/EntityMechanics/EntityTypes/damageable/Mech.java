@@ -7,7 +7,7 @@ import Packages.CoreTypes.EntityMechanics.License;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.Damageable;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Mount;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.MechSystem;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.systemBase.MechSystem;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.mount.MountType;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.unverifiedFrame.Frame;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.unverifiedFrame.frame.FrameEnum;
