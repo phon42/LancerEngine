@@ -66,19 +66,6 @@ public final class TalentData {
         setDescription(longDescription);
         setRanks(talentRanksData);
     }
-    /**
-     * Creates a copy of the provided TalentData.
-     * @param talentData a TalentData to be copied.
-     * @return a TalentData copy of the provided TalentData.
-     */
-    public TalentData(TalentData talentData) {
-        setID(talentData.id);
-        setName(talentData.name);
-        setIcon(talentData.icon);
-        setTerse(talentData.terse);
-        setDescription(talentData.description);
-        setRanks(talentData.ranks);
-    }
 
     public String getID() {
         return id;
@@ -110,15 +97,15 @@ public final class TalentData {
         HelperMethods.checkString("icon", icon);
         this.icon = icon;
     }
-    public void setTerse(String terse) {
+    private void setTerse(String terse) {
         HelperMethods.checkString("terse", terse);
         this.terse = terse;
     }
-    public void setDescription(String description) {
+    private void setDescription(String description) {
         HelperMethods.checkString("description", description);
         this.description = description;
     }
-    public void setRanks(TalentRank[] ranks) {
+    private void setRanks(TalentRank[] ranks) {
         HelperMethods.checkObjectArray("ranks", ranks);
         if (ranks.length != 3) {
             throw new IllegalArgumentException("ranks array is of length: "

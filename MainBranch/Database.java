@@ -1112,7 +1112,7 @@ public final class Database {
         talentID = talentID.toLowerCase();
         for (TalentData talent : Database.talents) {
             if (talentID.equals(talent.getID())) {
-                return new TalentData(talent);
+                return talent;
             }
         }
         throw new NoSuchElementException("No talent found for talent ID: "
@@ -1606,7 +1606,6 @@ public final class Database {
     public static void addTalent(TalentData talent) {
         checkOpen();
         HelperMethods.checkObject("talent", talent);
-        talent = new TalentData(talent);
         Database.talents = HelperMethods.append(Database.talents, talent);
     }
     /**
