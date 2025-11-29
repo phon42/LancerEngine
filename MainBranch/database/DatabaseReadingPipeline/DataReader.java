@@ -6,6 +6,8 @@ import MainBranch.HelperMethods;
 import MainBranch.UserPreferences;
 import MainBranch.database.FileOperations;
 import MainBranch.database.DatabaseReadingPipeline.DatabaseResourceInfo.DatabaseResourceInfo;
+import MainBranch.database.fileOperations.JSON;
+import MainBranch.database.fileOperations.json.JSONData;
 import MainBranch.database.fileOperations.json.JSONException;
 import MainBranch.database.fileOperations.json.JSONObject;
 
@@ -124,21 +126,16 @@ public class DataReader {
     }
     private static String readDBResourceInfoItem(String resourceName,
         DatabaseResourceInfo item, boolean external) {
-        Object[] lcpInfoData;
+        JSONData[] lcpInfoData;
+        JSONObject lcpInfoObject;
 
         if (resourceName.equals(item.getName())) {
             lcpInfoData = FileOperations.readAndParseResource(
                 item.getPath(), external, false);
-            if (lcpInfoData.length != 1) {
-                throw new IllegalStateException("JSON file yielded"
-                    + " either no data or the data of more than 1"
-                    + " file");
-            }
-            if (lcpInfoData[0] instanceof JSONObject) {
-                try {
-                    return ((JSONObject) lcpInfoData[0]).getString("name");
-                } catch (JSONException exception) {}
-            }
+            lcpInfoObject = JSON.toJSONObject(lcpInfoData);
+            try {
+                return lcpInfoObject.getString("name");
+            } catch (JSONException exception) {}
         }
 
         return null;
@@ -236,7 +233,7 @@ public class DataReader {
         FileOperations.deleteDirectory(unzippedDirectoryPath);
     }
     /**
-     * Reads a directory's contents by calling DatabaseReader.readJSON() on
+     * Reads a directory's contents by calling DataParser.parseJSON() on
      *     every file within.
      * @param directoryPath a String which must contain a valid directory path.
      *     Is assumed to be a directory. Cannot be null.
@@ -250,7 +247,7 @@ public class DataReader {
             System.out.println("Reading all files under local directory at"
                 + " path: \"" + directoryPath + "\"");
         }
-        // call readJSON on every file within
+        // call parseJSON on every file within
         fileData = FileOperations.readAllInDirectoryIterable(directoryPath,
             addToCache);
         for (String[] jsonFile : fileData) {

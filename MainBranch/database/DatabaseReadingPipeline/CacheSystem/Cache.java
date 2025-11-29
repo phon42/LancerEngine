@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import MainBranch.HelperMethods;
 import MainBranch.UserPreferences;
 import MainBranch.database.FileOperations;
+import MainBranch.database.fileOperations.JSON;
 import MainBranch.database.fileOperations.json.JSONData;
 import MainBranch.database.fileOperations.json.JSONException;
 import MainBranch.database.fileOperations.json.JSONObject;
@@ -50,39 +51,25 @@ public class Cache {
     private static Path findAndCheck(String lcpName,
         String fileNameToSearchFor, Path searchDirectory) {
         Path lcpInfoPath;
-        Object[] lcpInfoJSON;
+        JSONData[] lcpInfoJSON;
+        JSONObject lcpInfoObject;
         String name;
 
         lcpInfoPath = findFileWithName(fileNameToSearchFor, searchDirectory);
         if (lcpInfoPath != null) {
             lcpInfoJSON = FileOperations.readAndParseResource(
                 lcpInfoPath.toString(), false, false);
+            lcpInfoObject = JSON.toJSONObject(lcpInfoJSON);
             try {
-                HelperMethods.checkObjectArray("lcpInfoJSON",
-                    lcpInfoJSON);
-            } catch (IllegalArgumentException exception) {
-                throw new IllegalStateException("Attempting to read one of the"
-                    + " files in the cache returned null values of some kind");
-            }
-            if (lcpInfoJSON.length != 1) {
-                throw new IllegalStateException("Attempting to read one"
-                    + " of the files in the cache returned either no"
-                    + " content or the contents of more than 1 file");
-            }
-            if (lcpInfoJSON[0] instanceof JSONObject) {
-                try {
-                    name =
-                        ((JSONObject) lcpInfoJSON[0])
-                        .getString("name");
-                    if (lcpName.equals(name)) {
-                        // we've found it!
-                        return searchDirectory;
-                    }
-                } catch (JSONException exception) {
-                    // found a file with the right name but it didn't have a
-                    //     "name" property
-                    // throw an exception if you want but I'm not gonna
+                name = lcpInfoObject.getString("name");
+                if (lcpName.equals(name)) {
+                    // we've found it!
+                    return searchDirectory;
                 }
+            } catch (JSONException exception) {
+                // found a file with the right name but it didn't have a
+                //     "name" property
+                // throw an exception if you want but I'm not gonna
             }
         }
 
@@ -107,21 +94,11 @@ public class Cache {
      */
     public static String peekLCPInfo(String url) {
         JSONData[] fileData;
-        JSONData fileObject;
         JSONObject file;
 
         fileData = FileOperations.readAndParseResource(url, true,
             false);
-        if (fileData.length > 1) {
-            throw new IllegalStateException("URL: \"" + url + "\" contained"
-                + " more than 1 file");
-        }
-        fileObject = fileData[0];
-        if (! (fileObject instanceof JSONObject)) {
-            throw new IllegalStateException("URL: \"" + url + "\" did not yield"
-                + " a JSONObject");
-        }
-        file = (JSONObject) fileObject;
+        file = JSON.toJSONObject(fileData);
         try {
             return file.getString("name");
         } catch (JSONException exception) {
