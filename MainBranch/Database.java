@@ -153,6 +153,10 @@ public final class Database {
      */
     private static Manufacturer[] manufacturers;
     /**
+     * Contains every mech system for reference.
+     */
+    private static MechSystem[] mechSystems;
+    /**
      * add documentation
      */
     private static Modification[] modifications;
@@ -216,10 +220,6 @@ public final class Database {
      * add documentation
      */
     private static SystemType[] systemTypes;
-    /**
-     * Contains every mech system for reference.
-     */
-    private static MechSystem[] systems;
     /**
      * add documentation
      */
@@ -676,6 +676,7 @@ public final class Database {
         Database.iTagData = new ITagData[0];
         Database.iTagDataUnhidden = new ITagDataUnhidden[0];
         Database.manufacturers = new Manufacturer[0];
+        Database.mechSystems = new MechSystem[0];
         Database.modifications = new Modification[0];
         Database.mountTypes = new MountType[0];
         Database.pilotArmor = new PilotArmor[0];
@@ -690,7 +691,6 @@ public final class Database {
         Database.statuses = new StateData[0];
         Database.synergyLocations = new SynergyLocation[0];
         Database.systemTypes = new SystemType[0];
-        Database.systems = new MechSystem[0];
         Database.tables = new Table[0];
         Database.talents = new TalentData[0];
         Database.terms = new Term[0];
@@ -1089,16 +1089,16 @@ public final class Database {
         throw new NoSuchElementException("No system type found for system type"
             + " name: " + systemTypeName);
     }
-    public static MechSystem getSystem(String systemID) {
-        HelperMethods.checkObject("systemID", systemID);
-        systemID = systemID.toLowerCase();
-        for (MechSystem system : Database.systems) {
-            if (systemID.equals(system.getID())) {
-                return system;
+    public static MechSystem getMechSystem(String mechSystemID) {
+        HelperMethods.checkObject("mechSystemID", mechSystemID);
+        mechSystemID = mechSystemID.toLowerCase();
+        for (MechSystem mechSystem : Database.mechSystems) {
+            if (mechSystemID.equals(mechSystem.getID())) {
+                return mechSystem;
             }
         }
         throw new NoSuchElementException("No mech system found for mech"
-            + " system ID: " + systemID);
+            + " system ID: " + mechSystemID);
     }
     public static Table getTable(String tableName) {
         HelperMethods.checkObject("tableName", tableName);
@@ -1591,14 +1591,16 @@ public final class Database {
             systemType);
     }
     /**
-     * Adds the provided MechSystem to Database.systems.
-     * @param system a MechSystem which cannot be null.
-     * @throws IllegalArgumentException if system is null.
+     * Adds the provided MechSystem to Database.mechSystems.
+     * @param mechSystem a MechSystem which cannot be null.
+     * @throws IllegalArgumentException if mechSystem is null.
      */
-    public static void addSystem(MechSystem system) {
+    public static void addSystem(MechSystem mechSystem) {
         checkOpen();
-        HelperMethods.checkObject("system", system);
-        Database.systems = HelperMethods.append(Database.systems, system);
+        HelperMethods.checkObject("mechSystem", mechSystem);
+        Database.mechSystems = HelperMethods.append(
+            Database.mechSystems, mechSystem
+        );
     }
     /**
      * Adds the provided Table to Database.tables.

@@ -91,7 +91,7 @@ public class DataCompiler {
     private static FrameLicense[] frameLicenseData;
     private static LicenseContent[] licenseContentData;
     private static Frame[] frameData;
-    private static MechSystem[] systemData;
+    private static MechSystem[] mechSystemData;
     private static Modification[] modificationData;
     private static Weapon[] weaponData;
     // ----the rest of the critical data types:
@@ -181,7 +181,7 @@ public class DataCompiler {
         DataCompiler.lcpInfoData = (LCPInfo[]) data[0];
         // ----some critical data types:
         DataCompiler.frameData = (Frame[]) data[1];
-        DataCompiler.systemData = (MechSystem[]) data[2];
+        DataCompiler.mechSystemData = (MechSystem[]) data[2];
         DataCompiler.modificationData = (Modification[]) data[3];
         DataCompiler.weaponData = (Weapon[]) data[4];
         // ----the rest of the critical data types:
@@ -227,7 +227,7 @@ public class DataCompiler {
         flushData();
     }
     private static void extractContent() {
-        // TODO: extract IActionData from core bonuses, mech systems, etc etc
+        // TODO: extract IActionData from core bonuses, systems, etc etc
         // split ITagData into ITagData and ITagDataUnhidden, also split DataTag
         //     into DataTag and Tag
     }
@@ -240,7 +240,7 @@ public class DataCompiler {
         LicenseContent[] licenseContent;
         LicenseContent[] newLicenseContent;
         int numEquipment = DataCompiler.frameData.length
-            + DataCompiler.systemData.length
+            + DataCompiler.mechSystemData.length
             + DataCompiler.modificationData.length
             + DataCompiler.weaponData.length;
         int numValid = 0;
@@ -436,7 +436,7 @@ public class DataCompiler {
         DataCompiler.frameLicenseData = new FrameLicense[0];
         DataCompiler.licenseContentData = new LicenseContent[0];
         DataCompiler.frameData = new Frame[0];
-        DataCompiler.systemData = new MechSystem[0];
+        DataCompiler.mechSystemData = new MechSystem[0];
         DataCompiler.modificationData = new Modification[0];
         DataCompiler.weaponData = new Weapon[0];
         // ----the rest of the critical data types:

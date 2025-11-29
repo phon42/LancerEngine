@@ -2818,8 +2818,8 @@ public final class TestMethods {
         Frame frame2;
         Mount mount1;
         Mount mount2;
-        MechSystem system1;
-        MechSystem system2;
+        MechSystem mechSystem1;
+        MechSystem mechSystem2;
         boolean test1 = false;
         boolean test2 = false;
         boolean test3 = true;
@@ -2860,13 +2860,13 @@ public final class TestMethods {
             Database.getWeapon("Vulture DMR"),
             "", "Overpower Caliber"));
         original.setSystems(new MechSystem[] {
-            Database.getSystem("Pattern-A Smoke Charges"),
-            Database.getSystem("Seismic Ripper"),
-            Database.getSystem("High-Stress Mag Clamps"),
-            Database.getSystem("ATHENA-Class NHP"),
-            Database.getSystem("Markerlight"),
-            Database.getSystem("IMMOLATE"),
-            Database.getSystem("Wandering Nightmare")
+            Database.getMechSystem("Pattern-A Smoke Charges"),
+            Database.getMechSystem("Seismic Ripper"),
+            Database.getMechSystem("High-Stress Mag Clamps"),
+            Database.getMechSystem("ATHENA-Class NHP"),
+            Database.getMechSystem("Markerlight"),
+            Database.getMechSystem("IMMOLATE"),
+            Database.getMechSystem("Wandering Nightmare")
         });
         copy = new Mech(original);
         if (original != copy) {
@@ -3097,24 +3097,24 @@ public final class TestMethods {
                 }
             }
         }
-        if (original.getSystems().getClass() == MechSystem[].class
+        if (original.getSystems().getClass() == System[].class
             && original.getSystems().getClass() == copy.getSystems().getClass()
             && original.getSystems().length == copy.getSystems().length) {
             for (int i = 0; i < original.getSystems().length; i++) {
-                system1 = original.getSystems()[i];
-                system2 = copy.getSystems()[i];
-                if (! system1.getName().equals(system2.getName())) {
+                mechSystem1 = original.getSystems()[i];
+                mechSystem2 = copy.getSystems()[i];
+                if (! mechSystem1.getName().equals(mechSystem2.getName())) {
                     test31 = false;
                     break;
                 }
-                if (system1.hasTag("Limited X") !=
-                    system2.hasTag("Limited X")) {
+                if (mechSystem1.hasTag("Limited X") !=
+                    mechSystem2.hasTag("Limited X")) {
                     test31 = false;
                     break;
                 }
-                if (system1.hasTag("Limited X")) {
-                    if (system1.getTag("Limited X") !=
-                        system2.getTag("Limited X")) {
+                if (mechSystem1.hasTag("Limited X")) {
+                    if (mechSystem1.getTag("Limited X") !=
+                        mechSystem2.getTag("Limited X")) {
                         test31 = false;
                         break;
                     }

@@ -99,7 +99,7 @@ public class DataCaster {
     private static JSONObject[] lcpManifestsRaw;
     // ----some critical data types:
     private static JSONObject[] framesRaw;
-    private static JSONObject[] systemsRaw;
+    private static JSONObject[] mechSystemsRaw;
     private static JSONObject[] modificationsRaw;
     private static JSONObject[] weaponsRaw;
     // ----the rest of the critical data types:
@@ -128,7 +128,7 @@ public class DataCaster {
     private static LCPInfo[] lcpInfoProcessed;
     // ----some critical data types:
     private static Frame[] framesProcessed;
-    private static MechSystem[] systemsProcessed;
+    private static MechSystem[] mechSystemsProcessed;
     private static Modification[] modificationsProcessed;
     private static Weapon[] weaponsProcessed;
     // ----the rest of the critical data types:
@@ -229,7 +229,7 @@ public class DataCaster {
         DataCaster.lcpManifestsRaw = (JSONObject[]) data[1];
         // ----some critical data types:
         DataCaster.framesRaw = (JSONObject[]) data[2];
-        DataCaster.systemsRaw = (JSONObject[]) data[3];
+        DataCaster.mechSystemsRaw = (JSONObject[]) data[3];
         DataCaster.modificationsRaw = (JSONObject[]) data[4];
         DataCaster.weaponsRaw = (JSONObject[]) data[5];
         // ----the rest of the critical data types:
@@ -338,9 +338,9 @@ public class DataCaster {
         {
             processStates(DataCaster.statesRaw);
         }
-        if (! (DataCaster.systemsRaw == null
-            || DataCaster.systemsRaw.length < 1)) {
-            processMechSystems(DataCaster.systemsRaw);
+        if (! (DataCaster.mechSystemsRaw == null
+            || DataCaster.mechSystemsRaw.length < 1)) {
+            processMechSystems(DataCaster.mechSystemsRaw);
         }
         if (! (DataCaster.tablesRaw == null
             || DataCaster.tablesRaw.keySet().size() < 1)) {
@@ -1564,6 +1564,17 @@ public class DataCaster {
         return new Manufacturer(id, name, logo, light, dark, quote, logoURL,
             description);
     }
+    private static void processMechSystems(JSONObject[] mechSystemsData) {
+        MechSystem[] mechSystems;
+
+        mechSystemsData = performCorrections("systems",
+            mechSystemsData);
+        mechSystems = new MechSystem[mechSystemsData.length];
+        for (int i = 0; i < mechSystems.length; i++) {
+            mechSystems[i] = toMechSystem(mechSystemsData[i]);
+        }
+        DataCaster.mechSystemsProcessed = mechSystems;
+    }
     private static void processModifications(JSONObject[] modificationsData) {
         Modification[] modifications =
             new Modification[modificationsData.length];
@@ -2615,16 +2626,6 @@ public class DataCaster {
             return synergyLocation;
         }
     }
-    private static void processMechSystems(JSONObject[] mechSystemsData) {
-        MechSystem[] mechSystems = new MechSystem[mechSystemsData.length];
-
-        mechSystemsData = performCorrections("systems",
-            mechSystemsData);
-        for (int i = 0; i < mechSystems.length; i++) {
-            mechSystems[i] = toMechSystem(mechSystemsData[i]);
-        }
-        DataCaster.systemsProcessed = mechSystems;
-    }
     private static MechSystem toMechSystem(JSONObject mechSystemData) {
         // TODO: fill out
         return null;
@@ -3017,7 +3018,7 @@ public class DataCaster {
             DataCaster.lcpInfoProcessed,
             // ----some critical data types:
             DataCaster.framesProcessed,
-            DataCaster.systemsProcessed,
+            DataCaster.mechSystemsProcessed,
             DataCaster.modificationsProcessed,
             DataCaster.weaponsProcessed,
             // ----the rest of the critical data types:
@@ -3078,7 +3079,7 @@ public class DataCaster {
         DataCaster.lcpManifestsRaw = new JSONObject[0];
         // ----some critical data types:
         DataCaster.framesRaw = new JSONObject[0];
-        DataCaster.systemsRaw = new JSONObject[0];
+        DataCaster.mechSystemsRaw = new JSONObject[0];
         DataCaster.modificationsRaw = new JSONObject[0];
         DataCaster.weaponsRaw = new JSONObject[0];
         // ----the rest of the critical data types:
@@ -3107,7 +3108,7 @@ public class DataCaster {
         DataCaster.lcpInfoProcessed = new LCPInfo[0];
         // ----some critical data types:
         DataCaster.framesProcessed = new Frame[0];
-        DataCaster.systemsProcessed = new MechSystem[0];
+        DataCaster.mechSystemsProcessed = new MechSystem[0];
         DataCaster.modificationsProcessed = new Modification[0];
         DataCaster.weaponsProcessed = new Weapon[0];
         // ----the rest of the critical data types:

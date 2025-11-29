@@ -13,8 +13,8 @@ import Packages.CoreTypes.EntityMechanics.LicenseSystem.frameLicense.LicenseCont
  * See pg. 31.
  */
 /**
- * Represents a license (the actual thing that contains frames, mech systems,
- *     etc, not the licenses and ranks to which a pilot has access, which is
+ * Represents a license (the actual thing that contains frames, systems, etc,
+ *     not the licenses and ranks to which a pilot has access, which is
  *     represented by the License class). Contains information about what lies
  *     on each of three ranks of the license.
  * 

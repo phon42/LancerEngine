@@ -100,13 +100,13 @@ public final class Main {
             )
         });
         mechProperties.put("systems", new MechSystem[] {
-            Database.getSystem("Pattern-A Smoke Charges"),
-            Database.getSystem("Seismic Ripper"),
-            Database.getSystem("High-Stress Mag Clamps"),
-            Database.getSystem("ATHENA-Class NHP"),
-            Database.getSystem("Markerlight"),
-            Database.getSystem("IMMOLATE"),
-            Database.getSystem("Wandering Nightmare")
+            Database.getMechSystem("Pattern-A Smoke Charges"),
+            Database.getMechSystem("Seismic Ripper"),
+            Database.getMechSystem("High-Stress Mag Clamps"),
+            Database.getMechSystem("ATHENA-Class NHP"),
+            Database.getMechSystem("Markerlight"),
+            Database.getMechSystem("IMMOLATE"),
+            Database.getMechSystem("Wandering Nightmare")
         });
         myCharacter.setMechProperties(mechProperties);
 
