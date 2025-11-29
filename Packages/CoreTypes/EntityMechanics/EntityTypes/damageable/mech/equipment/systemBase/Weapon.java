@@ -16,7 +16,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.IDep
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Equipment;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.SystemBase;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.unverifiedDataTag.DataTag;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.systemBase.systemType.SystemType;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.systemBase.systemType.MechSystemType;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.systemBase.weapon.IWeaponProfile;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.mount.MountType;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.Harm;
@@ -217,7 +217,7 @@ public final class Weapon extends SystemBase {
         this.dataTags = dataTags;
     }
     @Override
-    protected void setType(SystemType type) {
+    protected void setType(MechSystemType type) {
         if (type == null) {
             type = Database.getSystemType("Weapon");
         }

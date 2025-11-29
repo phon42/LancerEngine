@@ -2,11 +2,11 @@ package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment
 
 import MainBranch.HelperMethods;
 
-public class SystemType {
+public class MechSystemType {
     /**
-     * This system type's value (i.e. "AI").
+     * This mech system type's value (i.e. "AI").
      * Can be any String except "". Cannot be null.
-     * Case-insensitive.
+     * Case-sensitive.
      * 
      * Currently used values:
      *     "AI", "Deployable", "Drone", "Flight System", "Shield", "System",
@@ -14,7 +14,7 @@ public class SystemType {
      */
     private String value;
 
-    public SystemType(String value) {
+    public MechSystemType(String value) {
         HelperMethods.verifyConstructor();
         setValue(value);
     }

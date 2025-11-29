@@ -34,8 +34,9 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.UnverifiedDataTag;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.unverifiedDataTag.dataTag.ITagData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.systemBase.MechSystem;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.systemBase.SystemType;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.systemBase.Weapon;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.systemBase.systemType.SystemType;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.systemBase.systemType.MechSystemType;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.unverifiedFrame.Frame;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Bond;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.UnverifiedCoreBonus;
@@ -142,6 +143,7 @@ public class DataCaster {
     private static IActionData[] iActionDataProcessed;
     private static ITagData[] iTagDataProcessed;
     private static Manufacturer[] manufacturersProcessed;
+    private static MechSystemType[] mechSystemTypesProcessed;
     private static NPCFeature[] npcFeaturesProcessed;
     private static NPCTemplate[] npcTemplatesProcessed;
     private static UnverifiedPilotArmor[] pilotArmorProcessed;
@@ -3032,6 +3034,7 @@ public class DataCaster {
             DataCaster.iActionDataProcessed,
             DataCaster.iTagDataProcessed,
             DataCaster.manufacturersProcessed,
+            DataCaster.mechSystemTypesProcessed,
             DataCaster.npcFeaturesProcessed,
             DataCaster.npcTemplatesProcessed,
             DataCaster.pilotArmorProcessed,
@@ -3120,6 +3123,7 @@ public class DataCaster {
         DataCaster.frequencyTypesProcessed = new FrequencyType[0];
         DataCaster.harmTypesProcessed = new HarmType[0];
         DataCaster.manufacturersProcessed = new Manufacturer[0];
+        DataCaster.mechSystemTypesProcessed = new MechSystemType[0];
         DataCaster.npcFeaturesProcessed = new NPCFeature[0];
         DataCaster.npcTemplatesProcessed = new NPCTemplate[0];
         DataCaster.pilotArmorProcessed = new UnverifiedPilotArmor[0];

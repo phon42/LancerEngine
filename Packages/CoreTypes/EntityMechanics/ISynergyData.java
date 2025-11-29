@@ -2,7 +2,7 @@ package Packages.CoreTypes.EntityMechanics;
 
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.VueHTMLString;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.systemBase.systemType.SystemType;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.systemBase.SystemType;
 
 public class ISynergyData {
     // TODO: fill out
