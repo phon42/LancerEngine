@@ -40,6 +40,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.systemBase.MechSystem;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.systemBase.SystemType;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.systemBase.Weapon;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.systemBase.systemType.MechSystemType;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.systemBase.systemType.WeaponType;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.unverifiedDataTag.Tag;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.mount.MountType;
@@ -1374,6 +1375,32 @@ public final class HelperMethods {
         HelperMethods.checkObject("array", array);
         HelperMethods.checkObject("newElement", newElement);
         SynergyLocation[] newArray = new SynergyLocation[array.length + 1];
+
+        for (int i = 0; i < newArray.length; i++) {
+            if (i < array.length) {
+                newArray[i] = array[i];
+                continue;
+            }
+            newArray[i] = newElement;
+        }
+        
+        return newArray;
+    }
+    /**
+     * Appends the given MechSystemType element to the end of an existing
+     *     MechSystemType[].
+     * @param array a MechSystemType[] that cannot be null.
+     * @param newElement a MechSystemType that cannot be null to append to the
+     *     end of array.
+     * @return a MechSystemType[] consisting of array with newElement appended
+     *     to the end of it.
+     * @throws IllegalArgumentException if array or newElement is null.
+     */
+    public static MechSystemType[] append(MechSystemType[] array,
+        MechSystemType newElement) {
+        HelperMethods.checkObject("array", array);
+        HelperMethods.checkObject("newElement", newElement);
+        MechSystemType[] newArray = new MechSystemType[array.length + 1];
 
         for (int i = 0; i < newArray.length; i++) {
             if (i < array.length) {
