@@ -2063,6 +2063,24 @@ public final class HelperMethods {
     }
     /**
      * Returns a deepest copy of original.
+     * @param original an ITagData[] that cannot be null.
+     * @return an ITagData[] deepest copy of original.
+     * @throws IllegalArgumentException if original is null.
+     */
+    public static ITagData[] copyOf(ITagData[] original) {
+        checkObject("original", original);
+        ITagData[] copy = new ITagData[original.length];
+        for (int i = 0; i < original.length; i++) {
+            if (original[i] == null) {
+                copy[i] = original[i];
+                continue;
+            }
+        }
+
+        return copy;
+    }
+    /**
+     * Returns a deepest copy of original.
      * @param original a Harm[] that cannot be null.
      * @return a Harm[] deepest copy of original.
      * @throws IllegalArgumentException if original is null.
