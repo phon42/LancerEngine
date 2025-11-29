@@ -1100,6 +1100,17 @@ public final class Database {
         throw new NoSuchElementException("No mech system found for mech"
             + " system ID: " + mechSystemID);
     }
+    public static MechSystem getMechSystemByName(String mechSystemName) {
+        HelperMethods.checkObject("mechSystemName",
+            mechSystemName);
+        for (MechSystem mechSystem : Database.mechSystems) {
+            if (mechSystemName.equals(mechSystem.getName())) {
+                return mechSystem;
+            }
+        }
+        throw new NoSuchElementException("No mech system found for mech"
+            + " system name: " + mechSystemName);
+    }
     public static Table getTable(String tableName) {
         HelperMethods.checkObject("tableName", tableName);
         tableName = tableName.toLowerCase();
