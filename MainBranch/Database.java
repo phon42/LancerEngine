@@ -1430,7 +1430,6 @@ public final class Database {
     public static void addNPCFeature(NPCFeature npcFeature) {
         checkOpen();
         HelperMethods.checkObject("npcFeature", npcFeature);
-        npcFeature = new NPCFeature(npcFeature);
         Database.npcFeatures = HelperMethods.append(Database.npcFeatures,
             npcFeature);
     }
@@ -1442,7 +1441,6 @@ public final class Database {
     public static void addNPCTemplate(NPCTemplate npcTemplate) {
         checkOpen();
         HelperMethods.checkObject("npcTemplate", npcTemplate);
-        npcTemplate = new NPCTemplate(npcTemplate);
         Database.npcTemplates = HelperMethods.append(Database.npcTemplates,
             npcTemplate);
     }
