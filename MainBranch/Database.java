@@ -42,6 +42,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.V
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Verified.pilotEquipment.PilotGear;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Verified.pilotEquipment.PilotWeapon;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.reserve.ReserveData;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.reserve.reserveData.ReserveType;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skill.SkillData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.talent.TalentData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.unverifiedCoreBonus.CoreBonus;
@@ -187,6 +188,10 @@ public final class Database {
      * add documentation
      */
     private static ReserveData[] reserves;
+    /**
+     * add documentation
+     */
+    private static ReserveType[] reserveTypes;
     /**
      * add documentation
      */
@@ -678,6 +683,7 @@ public final class Database {
         Database.pilotWeapons = new PilotWeapon[0];
         Database.rangeTypes = new RangeType[0];
         Database.reserves = new ReserveData[0];
+        Database.reserveTypes = new ReserveType[0];
         Database.rules = new Rule[0];
         Database.sitreps = new Sitrep[0];
         Database.skills = new SkillData[0];
@@ -982,6 +988,17 @@ public final class Database {
         }
         throw new NoSuchElementException("No reserve found for reserve ID: "
             + reserveID);
+    }
+    public static ReserveType getReserveType(String reserveTypeID) {
+        HelperMethods.checkObject("reserveTypeID", reserveTypeID);
+        reserveTypeID = reserveTypeID.toLowerCase();
+        for (ReserveType reserve : Database.reserveTypes) {
+            if (reserveTypeID.equals(reserve.getID())) {
+                return reserve;
+            }
+        }
+        throw new NoSuchElementException("No reserve type found for reserve"
+            + " type ID: " + reserveTypeID);
     }
     public static Rule getRule(String ruleName) {
         HelperMethods.checkObject("ruleName", ruleName);
@@ -1482,6 +1499,17 @@ public final class Database {
         checkOpen();
         HelperMethods.checkObject("reserve", reserve);
         Database.reserves = HelperMethods.append(Database.reserves, reserve);
+    }
+    /**
+     * Adds the provided ReserveType to Database.reserveTypes.
+     * @param reserveType a ReserveType which cannot be null.
+     * @throws IllegalArgumentException if reserveType is null.
+     */
+    public static void addReserveType(ReserveType reserveType) {
+        checkOpen();
+        HelperMethods.checkObject("reserveType", reserveType);
+        Database.reserveTypes = HelperMethods.append(Database.reserveTypes,
+            reserveType);
     }
     /**
      * Adds the provided Rule to Database.rules.
