@@ -119,7 +119,7 @@ public class ResourceReader {
     }
     /**
      * Reads the provided .lcp file by converting it to a .zip, then calling
-     *     DatabaseReader.readZIP().
+     *     ResourceReader.readZIP().
      * @param lcpPath a String which must contain a valid file path. Is assumed
      *     to be a .lcp file. Cannot be null.
      */
@@ -129,7 +129,7 @@ public class ResourceReader {
     }
     /**
      * Unzips the provided .zip file before calling
-     *     DatabaseReader.readAllInZIP() on its contents.
+     *     ResourceReader.readAllInDirectory() on its contents.
      * @param zipPath a String which must contain a valid file path. Is assumed
      *     to be a .zip file. Cannot be null.
      */
@@ -153,8 +153,8 @@ public class ResourceReader {
         return zipContents;
     }
     /**
-     * Reads a directory's contents by calling DatabaseReader.readJSON() on
-     *     every file within.
+     * Reads a directory's contents by calling ResourceReader.readResourceRaw()
+     *     on every file within.
      * @param directoryPath a String which must contain a valid directory path.
      *     Is assumed to be a directory. Cannot be null.
      */
@@ -175,7 +175,7 @@ public class ResourceReader {
         return directoryContents;
     }
     /**
-     * Reads the provided .json file, then calls DatabaseReader.parseJSONFile()
+     * Reads the provided .json file, then calls ResourceReader.readFile()
      *     to parse its data.
      * @param jsonPath a String which must contain a valid file path. Must be a
      *     .json file. Cannot be null.
