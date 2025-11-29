@@ -1151,32 +1151,6 @@ public class DataCaster {
             return damageType;
         }
     }
-    private static UnverifiedDataTag toDataTagUnverified(
-        JSONObject dataTagUnverifiedData) {
-        String id;
-        int valueInt;
-        String valueString;
-
-        try {
-            id = dataTagUnverifiedData.getString("id");
-        } catch (JSONException exception) {
-            throw new IllegalStateException("dataTagUnverifiedData threw a"
-                + " JSONException during the required properties section of the"
-                + "object parsing, which is not allowed");
-        }
-        try {
-            valueInt = dataTagUnverifiedData.getInt("val");
-
-            return new UnverifiedDataTag(id, valueInt);
-        } catch (JSONException exception) {}
-        try {
-            valueString = dataTagUnverifiedData.getString("val");
-
-            return new UnverifiedDataTag(id, valueString);
-        } catch (JSONException exception) {}
-
-        return new UnverifiedDataTag(id);
-    }
     private static void processEnvironments(JSONObject[] environmentsData) {
         Environment[] environments = new Environment[environmentsData.length];
 
@@ -1720,7 +1694,7 @@ public class DataCaster {
             try {
                 dataTags = new UnverifiedDataTag[dataTagsArray.length()];
                 for (int i = 0; i < dataTags.length; i++) {
-                    dataTags[i] = toDataTagUnverified(
+                    dataTags[i] = toUnverifiedDataTag(
                         dataTagsArray.getJSONObject(i));
                 }
             } catch (JSONException exception) {
@@ -1840,7 +1814,7 @@ public class DataCaster {
             try {
                 dataTags = new UnverifiedDataTag[dataTagsArray.length()];
                 for (int i = 0; i < dataTags.length; i++) {
-                    dataTags[i] = toDataTagUnverified(
+                    dataTags[i] = toUnverifiedDataTag(
                         dataTagsArray.getJSONObject(i));
                 }
             } catch (JSONException exception) {
@@ -1967,7 +1941,7 @@ public class DataCaster {
             try {
                 dataTags = new UnverifiedDataTag[dataTagsArray.length()];
                 for (int i = 0; i < dataTags.length; i++) {
-                    dataTags[i] = toDataTagUnverified(
+                    dataTags[i] = toUnverifiedDataTag(
                         dataTagsArray.getJSONObject(i));
                 }
             } catch (JSONException exception) {
@@ -2736,6 +2710,32 @@ public class DataCaster {
         } catch (NoSuchElementException exception) {
             return new Term(name, description);
         }
+    }
+    private static UnverifiedDataTag toUnverifiedDataTag(
+        JSONObject unverifiedDataTagData) {
+        String id;
+        int valueInt;
+        String valueString;
+
+        try {
+            id = unverifiedDataTagData.getString("id");
+        } catch (JSONException exception) {
+            throw new IllegalStateException("unverifiedDataTagData threw a"
+                + " JSONException during the required properties section of the"
+                + "object parsing, which is not allowed");
+        }
+        try {
+            valueInt = unverifiedDataTagData.getInt("val");
+
+            return new UnverifiedDataTag(id, valueInt);
+        } catch (JSONException exception) {}
+        try {
+            valueString = unverifiedDataTagData.getString("val");
+
+            return new UnverifiedDataTag(id, valueString);
+        } catch (JSONException exception) {}
+
+        return new UnverifiedDataTag(id);
     }
     private static void processWeapons(JSONObject[] weaponsData) {
         Weapon[] weapons = new Weapon[weaponsData.length];
