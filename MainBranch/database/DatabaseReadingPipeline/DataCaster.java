@@ -1899,7 +1899,6 @@ public class DataCaster {
             }
         } catch (JSONException exception) {}
 
-        // TODO: pass dataTags into this constructor
         return new UnverifiedPilotGear(id, name, description, dataTags, actions,
             bonuses, synergies, deployables);
     }
