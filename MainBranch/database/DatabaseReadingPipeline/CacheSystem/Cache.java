@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import MainBranch.HelperMethods;
 import MainBranch.UserPreferences;
 import MainBranch.database.FileOperations;
+import MainBranch.database.fileOperations.json.JSONData;
 import MainBranch.database.fileOperations.json.JSONException;
 import MainBranch.database.fileOperations.json.JSONObject;
 
@@ -106,10 +107,10 @@ public class Cache {
      */
     public static String peekLCPInfo(String url) {
         String[] fileData;
-        Object fileObject;
+        JSONData fileObject;
         JSONObject file;
 
-        fileData = FileOperations.readResourceRaw(url, true,
+        fileData = FileOperations.readResource(url, true,
             false);
         if (fileData.length > 1) {
             throw new IllegalStateException("URL: \"" + url + "\" contained"

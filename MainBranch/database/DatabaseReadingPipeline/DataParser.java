@@ -3,6 +3,7 @@ package MainBranch.database.DatabaseReadingPipeline;
 import java.nio.file.Paths;
 import MainBranch.database.FileOperations;
 import MainBranch.database.fileOperations.json.JSONArray;
+import MainBranch.database.fileOperations.json.JSONData;
 import MainBranch.database.fileOperations.json.JSONObject;
 import MainBranch.HelperMethods;
 
@@ -54,7 +55,7 @@ public class DataParser {
      *     assumed to be the contents of a .json file. Cannot be null.
      */
     public static void parseJSON(String jsonPath, String fileData) {
-        Object data;
+        JSONData data;
         String fileName;
         JSONObject[] convertedData;
         JSONArray jsonArray;

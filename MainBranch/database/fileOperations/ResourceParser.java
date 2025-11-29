@@ -1,20 +1,20 @@
 package MainBranch.database.fileOperations;
 
+import MainBranch.database.fileOperations.json.JSONData;
 import MainBranch.database.fileOperations.json.JSONException;
 
 public class ResourceParser {
     // prevent user from instantiating this class
     private ResourceParser() {}
 
-    public static Object parseJSONText(String jsonData) {
-        Object result;
+    public static JSONData parseJSONText(String jsonData) {
+        JSONData result;
 
         if (jsonData.charAt(0) == '[') {
             // it's a JSONArray (hopefully)
-            // if it throws a JSONException, it's fine, just let it go off, it's
-            //     a RuntimeException
             try {
                 result = JSON.toJSONArray(jsonData);
+
                 return result;
             } catch (JSONException exception) {
                 throw new IllegalArgumentException("jsonData contained \"[\""
@@ -25,6 +25,7 @@ public class ResourceParser {
         }
         try {
             result = JSON.toJSONObject(jsonData);
+
             return result;
         } catch (JSONException exception) {
             throw new IllegalArgumentException("jsonData did not contain \"[\""

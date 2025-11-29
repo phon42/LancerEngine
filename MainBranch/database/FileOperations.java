@@ -71,16 +71,16 @@ public class FileOperations {
         boolean external, boolean addToCache) {
         return ResourceReader.readRaw(resourceLocator, external, addToCache);
     }
-    public static Object parseJSONText(String jsonData) {
+    public static JSONData parseJSONText(String jsonData) {
         return ResourceParser.parseJSONText(jsonData);
     }
-    public static Object[] readAndParseResource(String resourceLocator,
+    public static JSONData[] readAndParseResource(String resourceLocator,
         boolean external, boolean addToCache) {
         String[] resourceData;
-        Object[] parsedJSON;
+        JSONData[] parsedJSON;
 
-        resourceData = readResourceRaw(resourceLocator, external, addToCache);
-        parsedJSON = new Object[resourceData.length];
+        resourceData = readResource(resourceLocator, external, addToCache);
+        parsedJSON = new JSONData[resourceData.length];
         for (int i = 0; i < resourceData.length; i++) {
             if (resourceData[i] == null) {
                 parsedJSON[i] = null;
