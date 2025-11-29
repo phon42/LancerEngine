@@ -48,6 +48,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.U
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Unverified.unverifiedPilotEquipment.UnverifiedPilotGear;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Unverified.unverifiedPilotEquipment.UnverifiedPilotWeapon;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.reserve.ReserveData;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.reserve.reserveData.ReserveType;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skill.SkillData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skill.skillData.SkillFamily;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.talent.TalentData;
@@ -582,8 +583,7 @@ public class DataCaster {
         // Semi-required properties - ActionBase
         TriState pilot;
         TriState mech;
-        JSONArray confirmArray;
-        String[] confirm = null;
+        String[] confirm;
         TriState hideActive;
         // Semi-required properties - Action
         TriState ignoreUsed;
@@ -629,13 +629,7 @@ public class DataCaster {
         } catch (JSONException exception) {
             mech = TriState.UNSET;
         }
-        try {
-            confirmArray = actionData.getJSONArray("confirm");
-            confirm = new String[confirmArray.length()];
-            for (int i = 0; i < confirm.length; i++) {
-                confirm[i] = confirmArray.getString(i);
-            }
-        } catch (JSONException exception) {}
+        confirm = getOptionalStringArray(actionData, "confirm");
         try {
             hideActive = TriState.toTriState(
                 actionData.getBoolean("hideActive"));
@@ -697,7 +691,6 @@ public class DataCaster {
         String name;
         String description;
         // Optional property
-        JSONArray skillsArray;
         String[] skills;
 
         // Required properties
@@ -711,16 +704,10 @@ public class DataCaster {
                 + " object parsing, which is not allowed");
         }
         // Optional property
-        try {
-            skillsArray = backgroundData.getJSONArray("skills");
-            skills = new String[skillsArray.length()];
-            for (int i = 0; i < skills.length; i++) {
-                skills[i] = skillsArray.getString(i);
-            }
-        } catch (JSONException exception) {}
+        skills = getOptionalStringArray(backgroundData, "skills");
 
         return new UnverifiedBackground(id, name, description,
-            null);
+            skills);
     }
     private static ActivationType toActivationType(String activationTypeString)
     {
@@ -967,9 +954,7 @@ public class DataCaster {
         IDeployableData[] deployables = null;
         JSONArray countersArray;
         Counter[] counters = null;
-        JSONArray integratedArray;
         String[] integrated = null;
-        JSONArray specialEquipmentArray;
         String[] specialEquipment = null;
 
         // Required properties
@@ -1049,31 +1034,10 @@ public class DataCaster {
                     + " countersArray threw a JSONException");
             }
         } catch (JSONException exception) {}
-        try {
-            integratedArray = coreBonusData.getJSONArray("integrated");
-            try {
-                integrated = new String[integratedArray.length()];
-                for (int i = 0; i < integrated.length; i++) {
-                    integrated[i] = integratedArray.getString(i);
-                }
-            } catch (JSONException exception) {
-                throw new IllegalStateException("Attempting to process"
-                    + " integratedArray threw a JSONException");
-            }
-        } catch (JSONException exception) {}
-        try {
-            specialEquipmentArray = coreBonusData.getJSONArray(
-                "special_equipment");
-            try {
-                specialEquipment = new String[specialEquipmentArray.length()];
-                for (int i = 0; i < specialEquipment.length; i++) {
-                    specialEquipment[i] = specialEquipmentArray.getString(i);
-                }
-            } catch (JSONException exception) {
-                throw new IllegalStateException("Attempting to process"
-                    + " specialEquipmentArray threw a JSONException");
-            }
-        } catch (JSONException exception) {}
+        integrated = getOptionalStringArray(coreBonusData,
+            "integrated");
+        specialEquipment = getOptionalStringArray(coreBonusData,
+            "special_equipment");
 
         return new UnverifiedCoreBonus(id, name, source, effect, description,
             mountedEffect, actions, bonuses, synergies, deployables, counters,
@@ -1335,8 +1299,7 @@ public class DataCaster {
         // ActionBase semi-required properties
         TriState pilot;
         TriState mech;
-        JSONArray confirmArray;
-        String[] confirm = null;
+        String[] confirm;
         TriState hideActive;
         // ActionBase conditionally required properties
         String frequencyString;
@@ -1379,18 +1342,8 @@ public class DataCaster {
             // ActionBase semi-required properties
             pilot = getTriState(iActionDataData, "pilot");
             mech = getTriState(iActionDataData, "mech");
-            try {
-                confirmArray = iActionDataData.getJSONArray("confirm");
-                try {
-                    confirm = new String[confirmArray.length()];
-                    for (int i = 0; i < confirm.length; i++) {
-                        confirm[i] = confirmArray.getString(i);
-                    }
-                } catch (JSONException exception2) {
-                    throw new IllegalStateException("Parsing confirmArray"
-                        + " threw a JSONException");
-                }
-            } catch (JSONException exception2) {}
+            confirm = getOptionalStringArray(iActionDataData,
+                "confirm");
             hideActive = getTriState(iActionDataData,
                 "hide_active");
             // ActionBase conditionally required properties
@@ -2142,6 +2095,120 @@ public class DataCaster {
         DataCaster.reservesProcessed = reserves;
     }
     private static ReserveData toReserve(JSONObject reserveData) {
+        // Required properties
+        String id;
+        String name;
+        String typeString;
+        ReserveType type;
+        String label;
+
+        // Semi-required property
+        TriState consumable;
+
+        // Optional properties
+        String description;
+        JSONArray actionsArray;
+        IActionData[] actions = null;
+        JSONArray bonusesArray;
+        Bonus[] bonuses = null;
+        JSONArray synergiesArray;
+        ISynergyData[] synergies = null;
+        JSONArray deployablesArray;
+        IDeployableData[] deployables = null;
+        JSONArray countersArray;
+        Counter[] counters = null;
+        String[] integrated;
+        String[] specialEquipment;
+
+        // Required properties
+        try {
+            id = reserveData.getString("id");
+            name = reserveData.getString("name");
+            typeString = reserveData.getString("type");
+            type = toReserveType(typeString);
+            label = reserveData.getString("label");
+        } catch (JSONException exception) {
+            throw new IllegalStateException("reserveData threw a JSONException"
+                + " during the required properties section of the object"
+                + " parsing, which is not allowed");
+        }
+        // Semi-required property
+        consumable = getTriState(reserveData, "consumable");
+        // Optional properties
+        description = getOptionalString(reserveData,
+            "description");
+        try {
+            actionsArray = reserveData.getJSONArray("actions");
+            try {
+                actions = new IActionData[actionsArray.length()];
+                for (int i = 0; i < actions.length; i++) {
+                    actions[i] = toIActionData(actionsArray.getJSONObject(i));
+                }
+            } catch (JSONException exception) {
+                throw new IllegalStateException("Attempting to parse"
+                    + " actionsArray threw an IllegalStateException");
+            }
+        } catch (JSONException exception) {}
+        try {
+            bonusesArray = reserveData.getJSONArray("bonuses");
+            try {
+                bonuses = new Bonus[bonusesArray.length()];
+                for (int i = 0; i < bonuses.length; i++) {
+                    bonuses[i] = toBonus(bonusesArray.getJSONObject(i));
+                }
+            } catch (JSONException exception) {
+                throw new IllegalStateException("Attempting to parse"
+                    + " bonusesArray threw an IllegalStateException");
+            }
+        } catch (JSONException exception) {}
+        try {
+            synergiesArray = reserveData.getJSONArray("synergies");
+            try {
+                synergies = new ISynergyData[synergiesArray.length()];
+                for (int i = 0; i < synergies.length; i++) {
+                    synergies[i] =
+                        toISynergyData(synergiesArray.getJSONObject(i));
+                }
+            } catch (JSONException exception) {
+                throw new IllegalStateException("Attempting to parse"
+                    + " synergiesArray threw an IllegalStateException");
+            }
+        } catch (JSONException exception) {}
+        try {
+            deployablesArray = reserveData.getJSONArray("deployables");
+            try {
+                deployables = new IDeployableData[deployablesArray.length()];
+                for (int i = 0; i < deployables.length; i++) {
+                    deployables[i] =
+                        toIDeployableData(deployablesArray.getJSONObject(i));
+                }
+            } catch (JSONException exception) {
+                throw new IllegalStateException("Attempting to parse"
+                    + " deployablesArray threw an IllegalStateException");
+            }
+        } catch (JSONException exception) {}
+        try {
+            countersArray = reserveData.getJSONArray("counters");
+            try {
+                counters = new Counter[countersArray.length()];
+                for (int i = 0; i < counters.length; i++) {
+                    counters[i] = toCounter(countersArray.getJSONObject(i));
+                }
+            } catch (JSONException exception) {
+                throw new IllegalStateException("Attempting to parse"
+                    + " countersArray threw an IllegalStateException");
+            }
+        } catch (JSONException exception) {}
+        integrated = getOptionalStringArray(reserveData,
+            "integrated");
+        specialEquipment = getOptionalStringArray(reserveData,
+            "special_equipment");
+
+        return new ReserveData(id, name, type, label, consumable, description,
+            actions, bonuses, synergies, deployables, counters, integrated,
+            specialEquipment);
+    }
+    private static ReserveType toReserveType(String reserveString) {
         // TODO: fill out
         return null;
     }
@@ -2566,9 +2633,7 @@ public class DataCaster {
         Counter[] counters = null;
         JSONArray bonusesArray;
         Bonus[] bonuses = null;
-        JSONArray integratedArray;
         String[] integrated = null;
-        JSONArray specialEquipmentArray;
         String[] specialEquipment = null;
 
         // Required properties
@@ -2632,31 +2697,10 @@ public class DataCaster {
                     + " bonusesArray threw a JSONException");
             }
         } catch (JSONException exception) {}
-        try {
-            integratedArray = talentRankData.getJSONArray("integrated");
-            try {
-                integrated = new String[integratedArray.length()];
-                for (int i = 0; i < integrated.length; i++) {
-                    integrated[i] = integratedArray.getString(i);
-                }
-            } catch (JSONException exception) {
-                throw new IllegalStateException("Attempting to parse"
-                    + " integratedArray threw a JSONException");
-            }
-        } catch (JSONException exception) {}
-        try {
-            specialEquipmentArray =
-                talentRankData.getJSONArray("special_equipment");
-            try {
-                specialEquipment = new String[specialEquipmentArray.length()];
-                for (int i = 0; i < specialEquipment.length; i++) {
-                    specialEquipment[i] = specialEquipmentArray.getString(i);
-                }
-            } catch (JSONException exception) {
-                throw new IllegalStateException("Attempting to parse"
-                    + " specialEquipmentArray threw a JSONException");
-            }
-        } catch (JSONException exception) {}
+        integrated = getOptionalStringArray(talentRankData,
+            "integrated");
+        specialEquipment = getOptionalStringArray(talentRankData,
+            "special_equipment");
 
         return new TalentRank(name, description, exclusive, synergies, actions,
             counters, bonuses, integrated, specialEquipment);
@@ -2785,6 +2829,30 @@ public class DataCaster {
             return TriState.toTriState(result);
         } catch (JSONException exception) {
             return TriState.UNSET;
+        }
+    }
+    private static String[] getOptionalStringArray(JSONObject originObject,
+        String propertyName) {
+        JSONArray resultArray;
+        String[] result;
+
+        HelperMethods.checkObject("originObject", originObject);
+        HelperMethods.checkString("propertyName", propertyName);
+        try {
+            resultArray = originObject.getJSONArray(propertyName);
+            try {
+                result = new String[resultArray.length()];
+                for (int i = 0; i < result.length; i++) {
+                    result[i] = resultArray.getString(i);
+                }
+            } catch (JSONException exception) {
+                throw new IllegalStateException("Attempting to parse"
+                    + " resultArray threw a JSONException");
+            }
+
+            return result;
+        } catch (JSONException exception) {
+            return null;
         }
     }
     private static Object[] packData() {
