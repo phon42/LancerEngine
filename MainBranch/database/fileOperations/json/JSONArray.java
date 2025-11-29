@@ -60,7 +60,7 @@ import java.util.Map;
  * @author JSON.org
  * @version 2016-08/15
  */
-public class JSONArray implements Iterable<Object> {
+public class JSONArray implements Iterable<Object>, JSONData {
 
     /**
      * The arrayList where the JSONArray's properties are kept.
