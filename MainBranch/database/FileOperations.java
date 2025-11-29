@@ -22,6 +22,7 @@ import MainBranch.database.fileOperations.FileWriter;
 import MainBranch.database.fileOperations.ResourceParser;
 import MainBranch.database.fileOperations.ResourceReader;
 import MainBranch.database.fileOperations.ZIPUnzipper;
+import MainBranch.database.fileOperations.json.JSONData;
 
 public class FileOperations {
     // prevent user from instantiating this class
@@ -62,9 +63,13 @@ public class FileOperations {
 
         return url;
     }
-    public static String[] readResource(String resourceLocator,
+    public static JSONData[] readResource(String resourceLocator,
         boolean external, boolean addToCache) {
         return ResourceReader.read(resourceLocator, external, addToCache);
+    }
+    public static String[] readResourceRaw(String resourceLocator,
+        boolean external, boolean addToCache) {
+        return ResourceReader.readRaw(resourceLocator, external, addToCache);
     }
     public static Object parseJSONText(String jsonData) {
         return ResourceParser.parseJSONText(jsonData);
@@ -74,7 +79,7 @@ public class FileOperations {
         String[] resourceData;
         Object[] parsedJSON;
 
-        resourceData = readResource(resourceLocator, external, addToCache);
+        resourceData = readResourceRaw(resourceLocator, external, addToCache);
         parsedJSON = new Object[resourceData.length];
         for (int i = 0; i < resourceData.length; i++) {
             if (resourceData[i] == null) {

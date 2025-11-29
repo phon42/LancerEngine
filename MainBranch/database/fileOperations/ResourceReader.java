@@ -9,13 +9,38 @@ import java.net.URL;
 import java.nio.file.Path;
 import java.util.MissingResourceException;
 import MainBranch.database.FileOperations;
+import MainBranch.database.fileOperations.json.JSONData;
+import MainBranch.database.fileOperations.json.JSONException;
 import MainBranch.HelperMethods;
 
 public class ResourceReader {
     // prevent user from instantiating this class
     private ResourceReader() {}
 
-    public static String[] read(String resourceLocator, boolean external,
+    public static JSONData[] read(String resourceLocator, boolean external,
+        boolean addToCache) throws IllegalStateException {
+        String[] data;
+        JSONData[] result;
+
+        data = readRaw(resourceLocator, external, addToCache);
+        result = new JSONData[data.length];
+        for (int i = 0; i < result.length; i++) {
+            try {
+                result[i] = JSON.toJSONArray(data[i]);
+            } catch (JSONException exception) {
+                try {
+                    result[i] = JSON.toJSONObject(data[i]);
+                } catch (JSONException exception2) {
+                    throw new IllegalStateException("Unable to convert the"
+                        + " provided file contents to JSON objects of some"
+                        + " kind");
+                }
+            }
+        }
+
+        return result;
+    }
+    public static String[] readRaw(String resourceLocator, boolean external,
         boolean addToCache) {
         String extension;
 
@@ -168,7 +193,7 @@ public class ResourceReader {
         fileNames = FileOperations.getAllFilenamesInDirectory(directoryPath);
         directoryContents = new String[fileNames.length];
         for (int i = 0; i < fileNames.length; i++) {
-            directoryContents[i] = FileOperations.readResource(
+            directoryContents[i] = FileOperations.readResourceRaw(
                 fileNames[i].toString(), false, addToCache)[0];
         }
 

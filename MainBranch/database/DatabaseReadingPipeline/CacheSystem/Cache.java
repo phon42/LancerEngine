@@ -109,7 +109,7 @@ public class Cache {
         Object fileObject;
         JSONObject file;
 
-        fileData = FileOperations.readResource(url, true,
+        fileData = FileOperations.readResourceRaw(url, true,
             false);
         if (fileData.length > 1) {
             throw new IllegalStateException("URL: \"" + url + "\" contained"
