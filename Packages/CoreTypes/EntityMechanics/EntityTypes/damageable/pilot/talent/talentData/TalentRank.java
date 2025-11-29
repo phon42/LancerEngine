@@ -26,7 +26,7 @@ public class TalentRank {
 
     public TalentRank(String name, String description, TriState exclusive,
         ISynergyData[] synergies, IActionData[] actions, Counter[] counters,
-        Bonus[] bonuses, String[] integrated, String[] specialEquipment[]) {
+        Bonus[] bonuses, String[] integrated, String[] specialEquipment) {
         // Required properties
         setName(name);
         setDescription(description);
