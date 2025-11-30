@@ -49,9 +49,9 @@ public class CounterData {
     private boolean defaultValuePresent;
 
     /**
-     * Counter.min:              PROVIDED
-     * Counter.max:              PROVIDED
-     * Counter.defaultValue:     PROVIDED
+     * CounterData.min:              PROVIDED
+     * CounterData.max:              PROVIDED
+     * CounterData.defaultValue:     PROVIDED
      */
     public CounterData(String id, String name, int minimumValue,
         int maximumValue, int defaultValue) {
@@ -66,9 +66,9 @@ public class CounterData {
         setDefaultValuePresent(true);
     }
     /**
-     * Counter.min:              PROVIDED
-     * Counter.max:              PROVIDED
-     * Counter.defaultValue: NOT PROVIDED
+     * CounterData.min:              PROVIDED
+     * CounterData.max:              PROVIDED
+     * CounterData.defaultValue: NOT PROVIDED
      */
     public CounterData(String id, String name, int minimumValue,
         int maximumValue) {
@@ -83,9 +83,9 @@ public class CounterData {
         setDefaultValuePresent(false);
     }
     /**
-     * Counter.min:              PROVIDED
-     * Counter.max:          NOT PROVIDED
-     * Counter.defaultValue:     PROVIDED
+     * CounterData.min:              PROVIDED
+     * CounterData.max:          NOT PROVIDED
+     * CounterData.defaultValue:     PROVIDED
      */
     public CounterData(String id, String name, int minimumValue,
         Object maximumValue, int defaultValue) {
@@ -100,9 +100,9 @@ public class CounterData {
         setDefaultValuePresent(true);
     }
     /**
-     * Counter.min:              PROVIDED
-     * Counter.max:          NOT PROVIDED
-     * Counter.defaultValue: NOT PROVIDED
+     * CounterData.min:              PROVIDED
+     * CounterData.max:          NOT PROVIDED
+     * CounterData.defaultValue: NOT PROVIDED
      */
     public CounterData(String id, String name, int minimumValue) {
         // Required properties
@@ -116,9 +116,9 @@ public class CounterData {
         setDefaultValuePresent(false);
     }
     /**
-     * Counter.min:          NOT PROVIDED
-     * Counter.max:              PROVIDED
-     * Counter.defaultValue:     PROVIDED
+     * CounterData.min:          NOT PROVIDED
+     * CounterData.max:              PROVIDED
+     * CounterData.defaultValue:     PROVIDED
      */
     public CounterData(String id, String name, Object minimumValue,
         int maximumValue, int defaultValue) {
@@ -133,9 +133,9 @@ public class CounterData {
         setDefaultValuePresent(true);
     }
     /**
-     * Counter.min:          NOT PROVIDED
-     * Counter.max:              PROVIDED
-     * Counter.defaultValue: NOT PROVIDED
+     * CounterData.min:          NOT PROVIDED
+     * CounterData.max:              PROVIDED
+     * CounterData.defaultValue: NOT PROVIDED
      */
     public CounterData(String id, String name, Object minimumValue,
         int maximumValue) {
@@ -150,9 +150,9 @@ public class CounterData {
         setDefaultValuePresent(false);
     }
     /**
-     * Counter.min:          NOT PROVIDED
-     * Counter.max:          NOT PROVIDED
-     * Counter.defaultValue:     PROVIDED
+     * CounterData.min:          NOT PROVIDED
+     * CounterData.max:          NOT PROVIDED
+     * CounterData.defaultValue:     PROVIDED
      */
     public CounterData(String id, String name, Object minimumValue,
         Object maximumValue, int defaultValue) {
@@ -167,9 +167,9 @@ public class CounterData {
         setDefaultValuePresent(true);
     }
     /**
-     * Counter.min:          NOT PROVIDED
-     * Counter.max:          NOT PROVIDED
-     * Counter.defaultValue: NOT PROVIDED
+     * CounterData.min:          NOT PROVIDED
+     * CounterData.max:          NOT PROVIDED
+     * CounterData.defaultValue: NOT PROVIDED
      */
     public CounterData(String id, String name) {
         // Required properties
@@ -212,24 +212,24 @@ public class CounterData {
         return defaultValuePresent;
     }
     // Required properties
-    public void setID(String id) {
+    private void setID(String id) {
         HelperMethods.checkString("id", id);
         id = id.toLowerCase();
         this.id = id;
     }
-    public void setName(String name) {
+    private void setName(String name) {
         HelperMethods.checkString("name", name);
         this.name = name;
     }
     // Semi-required properties
-    public void setMin(int min) {
+    private void setMin(int min) {
         this.min = min;
     }
-    public void setMax(int max) {
+    private void setMax(int max) {
         this.max = max;
     }
     // Technically optional property
-    public void setDefaultValue(int defaultValue) {
+    private void setDefaultValue(int defaultValue) {
         this.defaultValue = defaultValue;
     }
     // Helper property
