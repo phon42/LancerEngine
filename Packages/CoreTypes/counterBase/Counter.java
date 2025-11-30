@@ -92,14 +92,38 @@ public class Counter extends CounterBase implements Iterable<Integer> {
     }
     // Required property
     private void setCurrent(int current) {
-        current = bound(this.min, current, this.max);
+        if (current < this.min) {
+            throw new IllegalArgumentException("current: " + current + " is <"
+                + " this.min: " + this.min);
+        }
+        if (current < this.max) {
+            throw new IllegalArgumentException("current: " + current + " is <"
+                + " this.max: " + this.max);
+        }
         this.current = current;
     }
 
     public Iterator<Integer> iterator() {
         return new CounterIterator(this);
     }
+    // Special mutators
     public void increment() {
-        setCurrent(current + 1);
+        increment(1);
+    }
+    public void increment(int amount) {
+        setCurrent(current + amount);
+    }
+    public void decrement() {
+        decrement(1);
+    }
+    public void decrement(int amount) {
+        setCurrent(current - amount);
+    }
+    // Special accessors
+    public boolean isMin() {
+        return current == min;
+    }
+    public boolean isMax() {
+        return current == max;
     }
 }
