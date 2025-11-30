@@ -1,6 +1,8 @@
 package Packages.CoreTypes;
 
-public class Counter extends CounterBase {
+import java.util.Iterator;
+
+public class Counter extends CounterBase implements Iterable<Integer> {
     /**
      * Counter.min:              PROVIDED
      * Counter.max:              PROVIDED
@@ -65,5 +67,9 @@ public class Counter extends CounterBase {
         setMax(counter.max);
         setDefaultValue(counter.defaultValue);
         setDefaultValuePresent(counter.defaultValuePresent);
+    }
+
+    public Iterator<Integer> iterator() {
+        return new CounterIterator(this);
     }
 }
