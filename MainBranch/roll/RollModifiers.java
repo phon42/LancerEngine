@@ -1,6 +1,6 @@
 package MainBranch.roll;
 
-public class RollConditions {
+public class RollModifiers {
     // Required property
     /**
      * The flat modifier applied directly to a roll (i.e. 2, representing a +2
@@ -32,17 +32,17 @@ public class RollConditions {
      */
     public static final int flatModifierDefault = 0;
 
-    public RollConditions(int flatModifier, int accuracy, int difficulty) {
+    public RollModifiers(int flatModifier, int accuracy, int difficulty) {
         setFlatModifier(flatModifier);
         setAccuracy(accuracy);
         setDifficulty(difficulty);
     }
-    public RollConditions(int flatModifier, int accuracy) {
-        this(flatModifier, accuracy, RollConditions.difficultyDefault);
+    public RollModifiers(int flatModifier, int accuracy) {
+        this(flatModifier, accuracy, RollModifiers.difficultyDefault);
     }
-    public RollConditions(int flatModifier) {
-        this(flatModifier, RollConditions.accuracyDefault,
-            RollConditions.difficultyDefault);
+    public RollModifiers(int flatModifier) {
+        this(flatModifier, RollModifiers.accuracyDefault,
+            RollModifiers.difficultyDefault);
     }
 
     // Required property
@@ -63,22 +63,22 @@ public class RollConditions {
     // Semi-required properties
     private void setAccuracy(int accuracy) {
         if (accuracy < 0) {
-            accuracy = RollConditions.accuracyDefault;
+            accuracy = RollModifiers.accuracyDefault;
         }
         this.accuracy = accuracy;
     }
     private void setDifficulty(int difficulty) {
         if (difficulty < 0) {
-            difficulty = RollConditions.difficultyDefault;
+            difficulty = RollModifiers.difficultyDefault;
         }
         this.difficulty = difficulty;
     }
 
-    public RollConditions normalize() {
+    public RollModifiers normalize() {
         int modifier = this.accuracy - this.difficulty;
         int accuracy = modifier > 0 ? modifier : 0;
         int difficulty = modifier < 0 ? - modifier : 0;
 
-        return new RollConditions(modifier, accuracy, difficulty);
+        return new RollModifiers(modifier, accuracy, difficulty);
     }
 }
