@@ -31,6 +31,7 @@ import Packages.CoreTypes.EntityMechanics.Actions.actionBase.Action;
 import Packages.CoreTypes.EntityMechanics.Actions.actionBase.IActionData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.Deployable;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.IDeployableData;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.UnverifiedIDeployableData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Mount;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.UnverifiedDataTag;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.unverifiedDataTag.DataTag;
@@ -2504,6 +2505,27 @@ public final class HelperMethods {
     public static UnverifiedDataTag[] copyOf(UnverifiedDataTag[] original) {
         checkObject("original", original);
         UnverifiedDataTag[] copy = new UnverifiedDataTag[original.length];
+        for (int i = 0; i < original.length; i++) {
+            if (original[i] == null) {
+                copy[i] = original[i];
+                continue;
+            }
+            copy[i] = original[i];
+        }
+
+        return copy;
+    }
+    /**
+     * Returns a deepest copy of original.
+     * @param original an UnverifiedIDeployableData[] that cannot be null.
+     * @return an UnverifiedIDeployableData[] deepest copy of original.
+     * @throws IllegalArgumentException if original is null.
+     */
+    public static UnverifiedIDeployableData[] copyOf(
+        UnverifiedIDeployableData[] original) {
+        checkObject("original", original);
+        UnverifiedIDeployableData[] copy = 
+            new UnverifiedIDeployableData[original.length];
         for (int i = 0; i < original.length; i++) {
             if (original[i] == null) {
                 copy[i] = original[i];
