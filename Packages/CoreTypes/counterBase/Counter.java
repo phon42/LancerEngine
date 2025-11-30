@@ -105,17 +105,21 @@ public class Counter extends CounterBase implements Iterable<Integer> {
 
     @Override
     public String toString() {
-        String output;
-
-        output = String.format(
-            "(Min) - Current - (Max)\n(%d) - %d - (%d)", this.min,
-            this.current, this.max
-        );
-        if (this.defaultValuePresent) {
-            output += "\nDefault: " + this.defaultValue;
+        if (defaultValuePresent) {
+            return toString(min, current, max, defaultValue);
+        } else {
+            return toString(min, current, max);
         }
-
-        return output;
+    }
+    @Override
+    protected String toString(int min, int current, int max) {
+        return String.format(
+            "(Min) - Current - (Max)\n(%d) - %d - (%d)", this.min,
+            this.max
+        );
+    }
+    protected String toString(int min, int current, int max, int defaultValue) {
+        return toString(min, current, max) + "\nDefault value: " + defaultValue;
     }
     public Iterator<Integer> iterator() {
         return new CounterIterator(this);

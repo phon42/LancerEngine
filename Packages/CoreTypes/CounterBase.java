@@ -193,15 +193,17 @@ public class CounterBase {
 
     @Override
     public String toString() {
-        String output;
-
-        output = String.format("Min - Max\n%d - %d", this.min,
-            this.max);
-        if (this.defaultValuePresent) {
-            output += "\nDefault: " + this.defaultValue;
+        if (defaultValuePresent) {
+            return toString(min, max, defaultValue);
+        } else {
+            return toString(min, max);
         }
-
-        return output;
+    }
+    protected String toString(int min, int max) {
+        return String.format("Min - Max\n%d - %d", this.min, this.max);
+    }
+    protected String toString(int min, int max, int defaultValue) {
+        return toString(min, max) + "\nDefault value: " + defaultValue;
     }
     protected int bound(int min, int input, int max) {
         if (max < min) {
