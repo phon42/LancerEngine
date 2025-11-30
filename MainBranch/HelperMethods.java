@@ -2710,7 +2710,7 @@ public final class HelperMethods {
     public static <
         UnvType extends UnverifiedData<UnvType, VerType>,
         VerType
-    > Object[] verifyArray(UnvType[] input) {
+    > VerType[] verifyArray(UnvType[] input) {
         ArrayList<VerType> result;
 
         checkObjectArray("input", input);
