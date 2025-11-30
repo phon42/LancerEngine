@@ -47,16 +47,17 @@ public class FileOperations {
         return url;
     }
     public static URL toURLCaught(String urlString) throws
-        IllegalArgumentException {
+        IllegalStateException {
         URL url;
 
+        HelperMethods.checkObject("urlString", urlString);
         try {
             url = FileOperations.toURL(urlString);
         } catch (URISyntaxException exception) {
-            throw new IllegalArgumentException("URL: \"" + urlString + "\""
+            throw new IllegalStateException("URL: \"" + urlString + "\""
                 + " caused a URISyntaxException to be thrown");
         } catch (MalformedURLException exception) {
-            throw new IllegalArgumentException("URL: \"" + urlString + "\""
+            throw new IllegalStateException("URL: \"" + urlString + "\""
                 + " caused a MalformedURLException to be thrown");
         }
 

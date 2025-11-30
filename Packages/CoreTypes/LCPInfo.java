@@ -204,7 +204,7 @@ public class LCPInfo {
         }
         try {
             return FileOperations.toURLCaught(imageURL.toString());
-        } catch (IllegalArgumentException exception) {
+        } catch (IllegalStateException exception) {
             return null;
         }
     }
@@ -217,7 +217,7 @@ public class LCPInfo {
         }
         try {
             return FileOperations.toURLCaught(website.toString());
-        } catch (IllegalArgumentException exception) {
+        } catch (IllegalStateException exception) {
             return null;
         }
     }
@@ -331,7 +331,7 @@ public class LCPInfo {
         } else {
             try {
                 url = FileOperations.toURLCaught(imageURLRaw);
-            } catch (IllegalArgumentException exception) {
+            } catch (IllegalStateException exception) {
                 url = null;
             }
             setImageURL(url);
@@ -345,7 +345,7 @@ public class LCPInfo {
         } else {
             try {
                 url = FileOperations.toURLCaught(this.websiteRaw);
-            } catch (IllegalArgumentException exception) {
+            } catch (IllegalStateException exception) {
                 url = null;
             }
         }

@@ -66,7 +66,10 @@ public class StateData extends UnverifiedStateData {
         HelperMethods.checkString("iconURL", iconURL);
         try {
             url = FileOperations.toURLCaught(iconURL);
-        } catch (IllegalArgumentException exception) {}
+        } catch (IllegalStateException exception) {
+        } catch (IllegalArgumentException exception) {
+            // Means the input String was not an absolute URL
+        }
         setIconURL(url);
     }
     /**

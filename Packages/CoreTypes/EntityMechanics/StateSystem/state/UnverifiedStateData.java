@@ -167,7 +167,7 @@ public class UnverifiedStateData {
         HelperMethods.checkString("iconURL", iconURL);
         try {
             url = FileOperations.toURLCaught(iconURL);
-        } catch (IllegalArgumentException exception) {}
+        } catch (IllegalStateException exception) {}
         setIconURL(url);
     }
     public StateData toStateData() {
