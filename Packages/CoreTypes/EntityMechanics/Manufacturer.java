@@ -1,9 +1,9 @@
 package Packages.CoreTypes.EntityMechanics;
 
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Path;
 import MainBranch.HelperMethods;
+import MainBranch.database.FileOperations;
 import Packages.CoreTypes.ColorData;
 import Packages.CoreTypes.VueHTMLString;
 
@@ -193,9 +193,7 @@ public class Manufacturer {
             HelperMethods.checkString("logoURLRaw", logoURLRaw);
         }
         this.logoURLRaw = logoURLRaw;
-        try {
-            url = new URL(logoURLRaw);
-        } catch (MalformedURLException exception) {}
+        url = FileOperations.toURLCaught(logoURLRaw);
         setLogoURL(url);
     }
     private void setDescription(VueHTMLString description) {
