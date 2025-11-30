@@ -3,6 +3,7 @@ package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable;
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.Counter;
 import Packages.CoreTypes.Size;
+import Packages.CoreTypes.TriState;
 import Packages.CoreTypes.EntityMechanics.ActivationType;
 import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.ISynergyData;
@@ -18,13 +19,37 @@ public class IDeployableData {
     private String name;
     private String type;
     private String detail;
-    // TODO: work these properties out
-    private boolean availableToPilots;
-    private boolean availableToMechs;
 
-    // Semi-required property
+    // Semi-required (optional but has a specific default value other than null
+    //     when not provided) properties
+    /**
+     * Whether this deployable is available to be used by pilots.
+     */
+    private boolean pilot;
+    /**
+     * Whether this deployable is available to be used by mechs.
+     */
+    private boolean mech;
+    /**
+     * The number of copies of the deployable that are spawned per activation.
+     * Must be a minimum of 1.
+     * 
+     * Default value: 1.
+     */
     private int instances;
     private static final int instancesDefault = 1;
+    /**
+     * The number of limited charges activating this deployable costs.
+     * If the parent item is a limited-use item, this amount will be deducted
+     *     from the parent item's number of limited-use charges upon this
+     *     deployable being activated.
+     * Likewise, the recall action for this deployable refunds (this.cost)
+     *     limited charges, while the deactivation action refunds none.
+     * Can be any int.
+     * Default value: 1.
+     */
+    private int cost;
+    private static final int costDefault = 1;
 
     // Conditionally required property
     /**
@@ -34,6 +59,8 @@ public class IDeployableData {
      *     Can be any Size. Cannot be null.
      * When not required:
      *     Must be null.
+     * Can be any Size. Can be null.
+     * 
      * Use IDeployableData.getSize() to get the raw value and
      *     IDeployableData.outputSize() to obtain it properly formatted.
      */
@@ -44,7 +71,6 @@ public class IDeployableData {
     private ActivationType deactivation;
     private ActivationType recall;
     private ActivationType redeploy;
-    private int cost;
     /**
      * The statblock associated with this IDeployableData (example unhelpful).
      * Can be any DeployableStatblock. Can be null.
@@ -56,8 +82,63 @@ public class IDeployableData {
     private Counter[] counter;
     private DataTag[] tags;
 
-    public IDeployableData() {
-        this(new Size(2), 0);
+    public IDeployableData(
+        // Required properties
+        String name, String type, String detail,
+        // Semi-required properties
+        TriState pilot, TriState mech, int instances, int cost,
+        // Conditionally required property
+        Size size,
+        // Optional properties
+        ActivationType activation, ActivationType deactivation,
+        ActivationType recall, ActivationType redeploy,
+        DeployableStatblock statblock, IActionData[] actions, Bonus[] bonuses,
+        ISynergyData[] synergies, Counter[] counter, DataTag[] tags
+    ) {
+        HelperMethods.verifyConstructor();
+        // Required properties
+        setName(name);
+        setType(type);
+        setDetail(detail);
+        // Semi-required properties
+        setPilotAndMech(pilot, mech);
+        setInstances(instances);
+        // Conditionally required property
+        setSize(size);
+        // Optional properties
+    }
+    public IDeployableData(
+        // Required properties
+        String name, String type, String detail,
+        // Semi-required properties
+        TriState pilot, TriState mech, int instances, int cost,
+        // Conditionally required property
+        Size size
+    ) {
+        this(name, type, detail, pilot, mech, instances, cost, size,
+            null, null, null, null,
+            null, null, null, null,
+            null, null);
+    }
+    public IDeployableData(
+        // Required properties
+        String name, String type, String detail,
+        // Semi-required properties
+        TriState pilot, TriState mech, int instances, int cost
+    ) {
+        this(name, type, detail, pilot, mech, instances, cost, null,
+            null, null, null, null,
+            null, null, null, null,
+            null, null);
+    }
+    public IDeployableData(
+        // Required properties
+        String name, String type, String detail
+    ) {
+        this(name, type, detail, TriState.UNSET, TriState.UNSET, -1, 0,
+            null, null, null, null,
+            null, null, null, null,
+            null, null, null);
     }
     public IDeployableData(Size size, int armor) {
         // default values from pg. 68
@@ -65,13 +146,8 @@ public class IDeployableData {
         setSize(size);
         setStatblock(new DeployableStatblock(size, armor));
     }
-    public IDeployableData(String name, String type, String detail,
-        boolean availToPilots, boolean availToMechs) {
-        setName(name);
-        setType(type);
-        setDetail(detail);
-        setAvailableToPilots(availToPilots);
-        setAvailableToMechs(availToMechs);
+    public IDeployableData() {
+        this(new Size(2), 0);
     }
 
     // Required properties
@@ -84,13 +160,16 @@ public class IDeployableData {
     public String getDetail() {
         return detail;
     }
+    // Semi-required properties
     public boolean isAvailableToPilots() {
-        return availableToPilots;
+        return pilot;
     }
     public boolean isAvailableToMechs() {
-        return availableToMechs;
+        return mech;
     }
-    // Semi-required property
+    public int getInstances() {
+        return instances;
+    }
     // Conditionally required property
     // Optional properties
     public Size getSize() {
@@ -113,27 +192,59 @@ public class IDeployableData {
         HelperMethods.checkString("detail", detail);
         this.detail = detail;
     }
-    private void setAvailableToPilots(boolean availableToPilots) {
-        this.availableToPilots = availableToPilots;
+    // Semi-required properties
+    private void setPilot(boolean pilot) {
+        this.pilot = pilot;
     }
-    private void setAvailableToMechs(boolean availableToMechs) {
-        this.availableToMechs = availableToMechs;
+    private void setMech(boolean mech) {
+        this.mech = mech;
     }
-    // Semi-required property
+    private void setInstances(int instances) {
+        if (instances < 1) {
+            instances = IDeployableData.instancesDefault;
+        }
+        this.instances = instances;
+    }
     // Conditionally required property
-    // Optional properties
-    /**
-     * Sets this.size to the provided value.
-     * @param size a Size which cannot be null.
-     * @throws IllegalArgumentException if size is null.
-     */
     private void setSize(Size size) {
+        if (isMine()) {
+            if (size != null) {
+                throw new IllegalArgumentException("size is not null");
+            }
+        } else {
+            HelperMethods.checkObject("size", size);
+        }
         this.size = size;
     }
+    // Optional properties
     private void setStatblock(DeployableStatblock statblock) {
         this.statblock = statblock;
     }
 
+    public String outputType() {
+        return HelperMethods.capitalizeFirst(type);
+    }
+    private void setPilotAndMech(TriState pilot, TriState mech) {
+        if (pilot == TriState.TRUE) {
+            if (mech == TriState.UNSET) {
+                setPilot(true);
+                setMech(false);
+
+                return;
+            }
+        } else if (pilot == TriState.UNSET) {
+            if (mech == TriState.UNSET) {
+                setPilot(false);
+                setMech(true);
+
+                return;
+            }
+        }
+        throw new IllegalStateException("Unexpected case");
+    }
+    private boolean isMine() {
+        return this.type.equals("Mine");
+    }
     /**
      * A helper method which outputs the deployable's size, formatted properly
      *     so that it is human-readable.
@@ -141,8 +252,5 @@ public class IDeployableData {
      */
     public String outputSize() {
         return size.output();
-    }
-    public String outputType() {
-        return HelperMethods.capitalizeFirst(type);
     }
 }
