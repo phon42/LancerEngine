@@ -15,6 +15,7 @@ import Packages.CoreTypes.LCPInfo;
 import Packages.CoreTypes.Rule;
 import Packages.CoreTypes.Table;
 import Packages.CoreTypes.Term;
+import Packages.CoreTypes.UnverifiedData;
 import Packages.CoreTypes.VueHTMLString;
 import Packages.CoreTypes.BattlefieldMechanics.Environment;
 import Packages.CoreTypes.BattlefieldMechanics.Sitrep;
@@ -2702,5 +2703,13 @@ public final class HelperMethods {
     }
     public static void alert(String alertText) {
         System.out.println("[ ALERT ]: " + alertText);
+    }
+    public static <
+        UnvType extends UnverifiedData<UnvType, VerType>,
+        VerType
+    > VerType verify(UnvType input) {
+        checkObject("input", input);
+
+        return input.verify();
     }
 }
