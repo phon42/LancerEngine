@@ -33,7 +33,6 @@ public class IDeployableData {
     /**
      * The number of copies of the deployable that are spawned per activation.
      * Must be a minimum of 1.
-     * 
      * Default value: 1.
      */
     private int instances;
@@ -51,35 +50,59 @@ public class IDeployableData {
     private int cost;
     private static final int costDefault = 1;
 
-    // Conditionally required property
+    // Semi- and conditionally required properties
     /**
      * The deployable's size.
      * Required when this.type is not "Mine".
      * When required:
      *     Can be any Size. Cannot be null.
+     *     Default value: Size 1.
      * When not required:
      *     Must be null.
+     *     No default value.
      * Can be any Size. Can be null.
      * 
      * Use IDeployableData.getSize() to get the raw value and
      *     IDeployableData.outputSize() to obtain it properly formatted.
      */
     private Size size;
-
-    // Optional properties
-    private ActivationType activation;
-    private ActivationType deactivation;
-    private ActivationType recall;
-    private ActivationType redeploy;
+    private static final Size sizeDefault = new Size(2);
     /**
      * The statblock associated with this IDeployableData (example unhelpful).
+     * Required when this.type is not "Mine".
+     * When required:
+     *     Can be any DeployableStatblock. Cannot be null.
+     *     Default value: The default statblock for a deployable.
+     * When not required:
+     *     Must be null.
+     *     No default value.
      * Can be any DeployableStatblock. Can be null.
      */
     private DeployableStatblock statblock;
+    private static final DeployableStatblock statblockDefault =
+        new DeployableStatblock(IDeployableData.sizeDefault, 0);
+
+    // Optional properties
+    /**
+     * Can be any ActivationType. Can be null.
+     */
+    private ActivationType activation;
+    /**
+     * Can be any ActivationType. Can be null.
+     */
+    private ActivationType deactivation;
+    /**
+     * Can be any ActivationType. Can be null.
+     */
+    private ActivationType recall;
+    /**
+     * Can be any ActivationType. Can be null.
+     */
+    private ActivationType redeploy;
     private IActionData[] actions;
     private Bonus[] bonuses;
     private ISynergyData[] synergies;
-    private CounterData[] counter;
+    private CounterData[] counters;
     private DataTag[] tags;
 
     public IDeployableData(
@@ -87,13 +110,13 @@ public class IDeployableData {
         String name, String type, String detail,
         // Semi-required properties
         TriState pilot, TriState mech, int instances, int cost,
-        // Conditionally required property
-        Size size,
+        // Semi- and conditionally required properties
+        Size size, DeployableStatblock statblock,
         // Optional properties
         ActivationType activation, ActivationType deactivation,
-        ActivationType recall, ActivationType redeploy,
-        DeployableStatblock statblock, IActionData[] actions, Bonus[] bonuses,
-        ISynergyData[] synergies, CounterData[] counter, DataTag[] tags
+        ActivationType recall, ActivationType redeploy, IActionData[] actions,
+        Bonus[] bonuses, ISynergyData[] synergies, CounterData[] counters,
+        DataTag[] tags
     ) {
         HelperMethods.verifyConstructor();
         // Required properties
@@ -103,7 +126,8 @@ public class IDeployableData {
         // Semi-required properties
         setPilotAndMech(pilot, mech);
         setInstances(instances);
-        // Conditionally required property
+        setCost(cost);
+        // Semi- and conditionally required properties
         setSize(size);
         // Optional properties
     }
@@ -112,11 +136,24 @@ public class IDeployableData {
         String name, String type, String detail,
         // Semi-required properties
         TriState pilot, TriState mech, int instances, int cost,
-        // Conditionally required property
+        // Semi- and conditionally required property
         Size size
     ) {
         this(name, type, detail, pilot, mech, instances, cost, size,
             null, null, null, null,
+            null, null, null, null,
+            null, null);
+    }
+    public IDeployableData(
+        // Required properties
+        String name, String type, String detail,
+        // Semi-required properties
+        TriState pilot, TriState mech,
+        // Semi- and conditionally required properties
+        Size size, DeployableStatblock statblock
+    ) {
+        this(name, type, detail, pilot, mech, -1, IDeployableData.costDefault,
+            size, statblock, null, null, null,
             null, null, null, null,
             null, null);
     }
@@ -135,10 +172,11 @@ public class IDeployableData {
         // Required properties
         String name, String type, String detail
     ) {
-        this(name, type, detail, TriState.UNSET, TriState.UNSET, -1, 0,
+        this(name, type, detail, TriState.UNSET, TriState.UNSET, -1,
+            IDeployableData.costDefault, null, null,
             null, null, null, null,
             null, null, null, null,
-            null, null, null);
+            null);
     }
     public IDeployableData(Size size, int armor) {
         // default values from pg. 68
@@ -170,14 +208,17 @@ public class IDeployableData {
     public int getInstances() {
         return instances;
     }
-    // Conditionally required property
-    // Optional properties
+    public int getCost() {
+        return cost;
+    }
+    // Semi- and conditionally required properties
     public Size getSize() {
         return size;
     }
     public DeployableStatblock getStatblock() {
         return statblock;
     }
+    // Optional properties
     // Required properties
     private void setName(String name) {
         HelperMethods.checkString("name", name);
@@ -205,21 +246,43 @@ public class IDeployableData {
         }
         this.instances = instances;
     }
-    // Conditionally required property
+    private void setCost(int cost) {
+        this.cost = cost;
+    }
+    // Semi- and conditionally required properties
     private void setSize(Size size) {
-        if (isMine()) {
+        if (! isMine()) {
+            // Required
+            // Can be any Size. Cannot be null.
+            if (size == null) {
+                size = IDeployableData.sizeDefault;
+            }
+        } else {
+            // Not required
+            // Must be null.
             if (size != null) {
                 throw new IllegalArgumentException("size is not null");
             }
-        } else {
-            HelperMethods.checkObject("size", size);
         }
         this.size = size;
     }
-    // Optional properties
     private void setStatblock(DeployableStatblock statblock) {
+        if (! isMine()) {
+            // Required
+            // Can be any DeployableStatblock. Cannot be null.
+            if (statblock == null) {
+                statblock = IDeployableData.statblockDefault;
+            }
+        } else {
+            // Not required
+            // Must be null.
+            if (statblock != null) {
+                throw new IllegalArgumentException("statblock is not null");
+            }
+        }
         this.statblock = statblock;
     }
+    // Optional properties
 
     public String outputType() {
         return HelperMethods.capitalizeFirst(type);
