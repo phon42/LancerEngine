@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.net.URL;
 import java.text.NumberFormat;
 import java.text.ParseException;
+import java.util.ArrayList;
+
 import MainBranch.database.FileOperations;
 import MainBranch.database.LCPCorrection;
 import MainBranch.database.fileOperations.json.JSONArray;
@@ -2703,6 +2705,22 @@ public final class HelperMethods {
     }
     public static void alert(String alertText) {
         System.out.println("[ ALERT ]: " + alertText);
+    }
+    @SuppressWarnings("unchecked")
+    public static <
+        UnvType extends UnverifiedData<UnvType, VerType>,
+        VerType
+    > Object[] verifyArray(UnvType[] input) {
+        ArrayList<VerType> result;
+
+        checkObjectArray("input", input);
+        result = new ArrayList<>();
+        for (int i = 0; i < input.length; i++) {
+            result.add(verify(input[i]));
+        }
+
+        // let's see how well this works
+        return result.toArray((VerType[]) new Object[input.length]);
     }
     public static <
         UnvType extends UnverifiedData<UnvType, VerType>,
