@@ -44,6 +44,35 @@ public class CounterBase {
         setDefaultValuePresent(false);
     }
 
+    // Semi-required properties
+    public int getMin() {
+        return min;
+    }
+    public int getMax() {
+        return max;
+    }
+    // Optional property
+    public int getDefaultValue() {
+        return defaultValue;
+    }
+    // Helper property
+    public boolean isDefaultValuePresent() {
+        return defaultValuePresent;
+    }
+    // Semi-required properties
+    protected void setMin(int min) {
+        min = bound(CounterBase.minDefault, min, this.max);
+        this.min = min;
+    }
+    protected void setMax(int max) {
+        max = bound(this.min, max, CounterBase.maxDefault);
+        this.max = max;
+    }
+    // Optional property
+    protected void setDefaultValue(int defaultValue) {
+        defaultValue = bound(this.min, defaultValue, this.max);
+        this.defaultValue = defaultValue;
+    }
     // Helper property
     protected void setDefaultValuePresent(boolean defaultValuePresent) {
         this.defaultValuePresent = defaultValuePresent;
