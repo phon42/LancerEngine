@@ -1,9 +1,10 @@
 package Packages.CoreTypes.counterBase;
 
+import java.util.Iterator;
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.CounterBase;
 
-public class CounterData extends CounterBase {
+public class CounterData extends CounterBase implements Iterable<Integer> {
     // Required properties
     /**
      * The id of this counter (i.e. "ctr_brawler").
@@ -119,14 +120,13 @@ public class CounterData extends CounterBase {
     }
 
     public Counter toCounter() {
-        Counter counter;
-
-        counter = new Counter();
-        counter.setMin(this.min);
-        counter.setMax(this.max);
-        counter.setDefaultValue(this.defaultValue);
-        counter.setDefaultValuePresent(this.defaultValuePresent);
-
-        return counter;
+        if (this.defaultValuePresent) {
+            return new Counter(this.min, this.max, this.defaultValue);
+        } else {
+            return new Counter(this.min, this.max);
+        }
+    }
+    public Iterator<Integer> iterator() {
+        return toCounter().iterator();
     }
 }
