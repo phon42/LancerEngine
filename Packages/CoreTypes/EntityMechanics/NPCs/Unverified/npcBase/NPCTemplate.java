@@ -1,7 +1,7 @@
-package Packages.CoreTypes.EntityMechanics.NPCs.npcBase;
+package Packages.CoreTypes.EntityMechanics.NPCs.Unverified.npcBase;
 
 import MainBranch.HelperMethods;
-import Packages.CoreTypes.EntityMechanics.NPCs.NPCBase;
+import Packages.CoreTypes.EntityMechanics.NPCs.Unverified.NPCBase;
 
 /**
  * Represents a single NPC template. Contains information about its features and
