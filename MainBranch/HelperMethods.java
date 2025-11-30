@@ -1948,7 +1948,7 @@ public final class HelperMethods {
         CounterData[] copy = new CounterData[original.length];
         for (int i = 0; i < original.length; i++) {
             if (original[i] == null) {
-                copy[i] = new CounterData(original[i]);
+                copy[i] = original[i];
                 continue;
             }
             copy[i] = original[i];
