@@ -12,6 +12,7 @@ import MainBranch.roll.MixedExpression;
 import MainBranch.roll.mixedExpression.ConstantExpression;
 import MainBranch.database.LCPCorrection;
 import Packages.CoreTypes.Rule;
+import Packages.CoreTypes.Size;
 import Packages.CoreTypes.Table;
 import Packages.CoreTypes.Term;
 import Packages.CoreTypes.TriState;
@@ -29,8 +30,10 @@ import Packages.CoreTypes.EntityMechanics.WeaponSize;
 import Packages.CoreTypes.EntityMechanics.Actions.actionBase.Action;
 import Packages.CoreTypes.EntityMechanics.Actions.actionBase.IActionData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.IDeployableData;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.iDeployableData.DeployableStatblock;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.Modification;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.UnverifiedDataTag;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.unverifiedDataTag.DataTag;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.unverifiedDataTag.dataTag.ITagData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.systemBase.MechSystem;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.systemBase.SystemType;
@@ -1155,6 +1158,89 @@ public class DataCaster {
             return damageType;
         }
     }
+    private static DeployableStatblock toDeployableStatblock(
+        JSONObject deployableStatblockData) {
+        JSONObject data = deployableStatblockData;
+        int[] statValues = new int[10];
+        String[] propertyNames = new String[] {
+            "hp", "armor", "evasion", "edef", "heatcap", "repcap",
+            "sensor_range", "tech_attack", "save", "speed", "sp"
+        };
+        boolean[] statsProvided = new boolean[10];
+        int[] defaultStats = DeployableStatblock.getDefaultStats();
+        Size size;
+
+        for (int i = 0; i < statsProvided.length; i++) {
+            try {
+                statValues[i] = data.getInt(propertyNames[i]);
+                statsProvided[i] = true;
+            } catch (JSONException exception) {
+                statValues[i] = defaultStats[i];
+            }
+        }
+        if (! statsProvided[0]) {
+            try {
+                size = new Size(data.getBigDecimal("size"));
+                statValues[0] = 10 / 2 * size.getValue();
+                statsProvided[0] = true;
+            } catch (JSONException exception) {
+                throw new IllegalStateException("deployableStatblockData threw"
+                    + " a JSONException during the required properties section"
+                    + " of the object parsing, which is not allowed");
+            }
+        }
+        if (anyInRange(statsProvided, 5)) {
+            return new DeployableStatblock(statValues[0], statValues[1],
+                statValues[2], statValues[3], statValues[4]);
+        }
+        if (statsProvided[4]) {
+            return new DeployableStatblock(statValues[0], statValues[1],
+                statValues[2], statValues[3]);
+        }
+        if (statsProvided[3]) {
+            return new DeployableStatblock(statValues[0], statValues[1],
+                statValues[2], statValues[3]);
+        }
+        if (statsProvided[2]) {
+            return new DeployableStatblock(statValues[0], statValues[1],
+                statValues[2]);
+        }
+        if (statsProvided[1]) {
+            return new DeployableStatblock(statValues[0], statValues[1]);
+        }
+        if (statsProvided[0]) {
+            return new DeployableStatblock(statValues[0]);
+        }
+        throw new IllegalArgumentException("Unable to extract any data from"
+            + " the provided JSONObject");
+    }
+    private static boolean anyInRange(boolean[] input, int start) {
+        HelperMethods.checkObject("input", input);
+
+        return anyInRange(input, start, input.length - 1);
+    }
+    private static boolean anyInRange(boolean[] input, int start, int end) {
+        boolean result = false;
+
+        HelperMethods.checkObject("input", input);
+        if (start < 0 || start >= input.length) {
+            throw new IllegalArgumentException("Index " + start + " out of"
+                + " bounds for a boolean[] of length " + input.length);
+        }
+        if (end < 0 || end >= input.length) {
+            throw new IllegalArgumentException("Index " + end + " out of"
+                + " bounds for a boolean[] of length " + input.length);
+        }
+        if (start > end) {
+            throw new IllegalArgumentException("start: " + start + " is > end: "
+                + end);
+        }
+        for (int i = start; i <= end; i++) {
+            result |= input[i];
+        }
+
+        return result;
+    }
     private static void processEnvironments(JSONObject[] environmentsData) {
         Environment[] environments = new Environment[environmentsData.length];
 
@@ -1398,8 +1484,137 @@ public class DataCaster {
     }
     private static IDeployableData toIDeployableData(
         JSONObject iDeployableDataData) {
-        // TODO: fill out
-        return null;
+        // Required properties
+        String name;
+        String type;
+        String detail;
+        // Semi-required properties
+        String activationString;
+        ActivationType activation = null;
+        int instances = IDeployableData.instancesDefault;
+        int cost = IDeployableData.costDefault;
+        TriState pilot;
+        TriState mech;
+        // Semi- and conditionally required properties
+        Size size = null;
+        DeployableStatblock statblock = null;
+        // Optional properties
+        String deactivationString;
+        ActivationType deactivation = null;
+        String recallString;
+        ActivationType recall = null;
+        String redeployString;
+        ActivationType redeploy = null;
+        JSONArray actionsArray;
+        IActionData[] actions = null;
+        JSONArray bonusesArray;
+        Bonus[] bonuses = null;
+        JSONArray synergiesArray;
+        ISynergyData[] synergies = null;
+        JSONArray countersArray;
+        CounterData[] counters = null;
+        UnverifiedDataTag[] tags = null;
+
+        // Required properties
+        try {
+            name = iDeployableDataData.getString("name");
+            type = iDeployableDataData.getString("type");
+            detail = iDeployableDataData.getString("detail");
+        } catch (JSONException exception) {
+            throw new IllegalStateException("iDeployableDataData threw a"
+                + " JSONException during the required properties section of the"
+                + " object parsing, which is not allowed");
+        }
+        // Semi-required properties
+        try {
+            activationString = iDeployableDataData.getString("activation");
+            activation = toActivationType(activationString);
+        } catch (JSONException exception) {}
+        try {
+            instances = iDeployableDataData.getInt("instances");
+        } catch (JSONException exception) {}
+        try {
+            cost = iDeployableDataData.getInt("cost");
+        } catch (JSONException exception) {}
+        pilot = getTriState(iDeployableDataData, "pilot");
+        mech = getTriState(iDeployableDataData, "mech");
+        // Semi- and conditionally required properties
+        try {
+            size = new Size(iDeployableDataData.getBigDecimal("size"));
+        } catch (JSONException exception) {}
+        try {
+            statblock = toDeployableStatblock(iDeployableDataData);
+        } catch (IllegalStateException exception) {}
+        // Optional properties
+        deactivationString = getOptionalString(iDeployableDataData,
+            "deactivation");
+        if (deactivationString != null) {
+            deactivation = toActivationType(deactivationString);
+        }
+        recallString = getOptionalString(iDeployableDataData,
+            "recall");
+        if (recallString != null) {
+            recall = toActivationType(recallString);
+        }
+        redeployString = getOptionalString(iDeployableDataData,
+            "redeploy");
+        if (redeployString != null) {
+            redeploy = toActivationType(redeployString);
+        }
+        try {
+            actionsArray = iDeployableDataData.getJSONArray("actions");
+            try {
+                actions = new IActionData[actionsArray.length()];
+                for (int i = 0; i < actions.length; i++) {
+                    actions[i] = toIActionData(actionsArray.getJSONObject(i));
+                }
+            } catch (JSONException exception) {
+                throw new IllegalStateException("Attempting to parse"
+                    + " actionsArray threw a JSONException");
+            }
+        } catch (JSONException exception) {}
+        try {
+            bonusesArray = iDeployableDataData.getJSONArray("bonuses");
+            try {
+                bonuses = new Bonus[bonusesArray.length()];
+                for (int i = 0; i < bonuses.length; i++) {
+                    bonuses[i] = toBonus(bonusesArray.getJSONObject(i));
+                }
+            } catch (JSONException exception) {
+                throw new IllegalStateException("Attempting to parse"
+                    + " bonusesArray threw a JSONException");
+            }
+        } catch (JSONException exception) {}
+        try {
+            synergiesArray = iDeployableDataData.getJSONArray("synergies");
+            try {
+                synergies = new ISynergyData[synergiesArray.length()];
+                for (int i = 0; i < synergies.length; i++) {
+                    synergies[i] =
+                        toISynergyData(synergiesArray.getJSONObject(i));
+                }
+            } catch (JSONException exception) {
+                throw new IllegalStateException("Attempting to parse"
+                    + " synergiesArray threw a JSONException");
+            }
+        } catch (JSONException exception) {}
+        try {
+            countersArray = iDeployableDataData.getJSONArray("counters");
+            try {
+                counters = new CounterData[countersArray.length()];
+                for (int i = 0; i < counters.length; i++) {
+                    counters[i] = toCounter(countersArray.getJSONObject(i));
+                }
+            } catch (JSONException exception) {
+                throw new IllegalStateException("Attempting to parse"
+                    + " countersArray threw a JSONException");
+            }
+        } catch (JSONException exception) {}
+
+        // TODO: pass tags to the constructor
+        return new IDeployableData(name, type, detail, activation, instances,
+            cost, pilot, mech, size, statblock, deactivation, recall, redeploy,
+            actions, bonuses, synergies, counters, null);
     }
     private static void processITagData(JSONObject[] iTagDataData) {
         ITagData[] iTagDataArray = new ITagData[iTagDataData.length];
