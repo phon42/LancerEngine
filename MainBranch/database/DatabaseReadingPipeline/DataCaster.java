@@ -51,6 +51,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.U
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Unverified.unverifiedPilotEquipment.UnverifiedPilotGear;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Unverified.unverifiedPilotEquipment.UnverifiedPilotWeapon;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.reserve.ReserveData;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.reserve.UnverifiedReserveData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.reserve.reserveData.ReserveType;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skill.SkillData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skill.skillData.SkillFamily;
@@ -60,6 +61,7 @@ import Packages.CoreTypes.EntityMechanics.HarmSystem.Harm;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.harm.Damage;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.harm.HarmType;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.harm.harmType.DamageType;
+import Packages.CoreTypes.EntityMechanics.NPCs.Unverified.unverifiedNPCBase.UnverifiedNPCFeature;
 import Packages.CoreTypes.EntityMechanics.NPCs.Verified.verifiedNPCBase.NPCFeature;
 import Packages.CoreTypes.EntityMechanics.NPCs.Verified.verifiedNPCBase.NPCTemplate;
 import Packages.CoreTypes.EntityMechanics.NPCs.Verified.verifiedNPCBase.npcFeature.NPCOrigin;
@@ -148,13 +150,13 @@ public class DataCaster {
     private static ITagData[] iTagDataProcessed;
     private static Manufacturer[] manufacturersProcessed;
     private static MechSystemType[] mechSystemTypesProcessed;
-    private static NPCFeature[] npcFeaturesProcessed;
+    private static UnverifiedNPCFeature[] npcFeaturesProcessed;
     private static NPCTemplate[] npcTemplatesProcessed;
     private static UnverifiedPilotArmor[] pilotArmorProcessed;
     private static UnverifiedPilotGear[] pilotGearProcessed;
     private static UnverifiedPilotWeapon[] pilotWeaponsProcessed;
     private static RangeType[] rangeTypesProcessed;
-    private static ReserveData[] reservesProcessed;
+    private static UnverifiedReserveData[] reservesProcessed;
     private static ReserveType[] reserveTypesProcessed;
     private static SkillData[] skillsProcessed;
     private static StateData[] statusesProcessed;
@@ -1809,7 +1811,8 @@ public class DataCaster {
         return null;
     }
     private static void processNPCFeatures(JSONObject[] npcFeaturesData) {
-        NPCFeature[] npcFeatures = new NPCFeature[npcFeaturesData.length];
+        UnverifiedNPCFeature[] npcFeatures =
+            new UnverifiedNPCFeature[npcFeaturesData.length];
 
         npcFeaturesData = performCorrections("npcFeatures",
             npcFeaturesData);
@@ -1850,23 +1853,23 @@ public class DataCaster {
         boolean locked;
         // Conditionally required properties
         String weaponTypeString;
-        WeaponType weaponType;
+        WeaponType weaponType = null;
         JSONObject damageObject;
         JSONObject damageObject2;
-        Harm[] damage;
+        Harm[] damage = null;
         JSONArray rangeArray;
-        RangeTag[] range;
+        RangeTag[] range = null;
         String onHit;
         // Conditionally semi-required properties
         JSONArray attackBonusArray;
-        int[] attackBonus;
+        int[] attackBonus = null;
         JSONArray accuracyArray;
-        int[] accuracy;
+        int[] accuracy = null;
         // Optional properties
         JSONObject bonusObject;
-        Bonus bonus;
+        Bonus bonus = null;
         JSONArray tagsArray;
-        UnverifiedDataTag[] tags;
+        UnverifiedDataTag[] tags = null;
 
         try {
             // NPCBase required properties
@@ -2052,7 +2055,7 @@ public class DataCaster {
         JSONArray synergiesArray;
         ISynergyData[] synergies = null;
         JSONArray deployablesArray;
-        IDeployableData[] deployables = null;
+        UnverifiedIDeployableData[] deployables = null;
 
         // UnverifiedPilotEquipment required properties
         try {
@@ -2119,7 +2122,8 @@ public class DataCaster {
         try {
             deployablesArray = pilotArmorData.getJSONArray("deployables");
             try {
-                deployables = new IDeployableData[deployablesArray.length()];
+                deployables =
+                    new UnverifiedIDeployableData[deployablesArray.length()];
                 for (int i = 0; i < deployables.length; i++) {
                     deployables[i] =
                         toIDeployableData(deployablesArray.getJSONObject(i));
@@ -2172,7 +2176,7 @@ public class DataCaster {
         JSONArray synergiesArray;
         ISynergyData[] synergies = null;
         JSONArray deployablesArray;
-        IDeployableData[] deployables = null;
+        UnverifiedIDeployableData[] deployables = null;
 
         // UnverifiedPilotEquipment required properties
         try {
@@ -2239,7 +2243,8 @@ public class DataCaster {
         try {
             deployablesArray = pilotGearData.getJSONArray("deployables");
             try {
-                deployables = new IDeployableData[deployablesArray.length()];
+                deployables =
+                    new UnverifiedIDeployableData[deployablesArray.length()];
                 for (int i = 0; i < deployables.length; i++) {
                     deployables[i] =
                         toIDeployableData(deployablesArray.getJSONObject(i));
@@ -2293,7 +2298,7 @@ public class DataCaster {
         JSONArray synergiesArray;
         ISynergyData[] synergies = null;
         JSONArray deployablesArray;
-        IDeployableData[] deployables = null;
+        UnverifiedIDeployableData[] deployables = null;
         // Optional properties
         String effect;
         JSONArray rangeArray;
@@ -2366,7 +2371,8 @@ public class DataCaster {
         try {
             deployablesArray = pilotWeaponData.getJSONArray("deployables");
             try {
-                deployables = new IDeployableData[deployablesArray.length()];
+                deployables =
+                    new UnverifiedIDeployableData[deployablesArray.length()];
                 for (int i = 0; i < deployables.length; i++) {
                     deployables[i] =
                         toIDeployableData(deployablesArray.getJSONObject(i));
@@ -2437,7 +2443,8 @@ public class DataCaster {
         }
     }
     private static void processReserves(JSONObject[] reservesData) {
-        ReserveData[] reserves = new ReserveData[reservesData.length];
+        UnverifiedReserveData[] reserves =
+            new UnverifiedReserveData[reservesData.length];
 
         reservesData = performCorrections("reserves", reservesData);
         for (int i = 0; i < reserves.length; i++) {
@@ -2445,7 +2452,7 @@ public class DataCaster {
         }
         DataCaster.reservesProcessed = reserves;
     }
-    private static ReserveData toReserve(JSONObject reserveData) {
+    private static UnverifiedReserveData toReserve(JSONObject reserveData) {
         // Required properties
         String id;
         String name;
@@ -2463,7 +2470,7 @@ public class DataCaster {
         JSONArray synergiesArray;
         ISynergyData[] synergies = null;
         JSONArray deployablesArray;
-        IDeployableData[] deployables = null;
+        UnverifiedIDeployableData[] deployables = null;
         JSONArray countersArray;
         CounterData[] counters = null;
         String[] integrated;
@@ -2526,7 +2533,8 @@ public class DataCaster {
         try {
             deployablesArray = reserveData.getJSONArray("deployables");
             try {
-                deployables = new IDeployableData[deployablesArray.length()];
+                deployables =
+                    new UnverifiedIDeployableData[deployablesArray.length()];
                 for (int i = 0; i < deployables.length; i++) {
                     deployables[i] =
                         toIDeployableData(deployablesArray.getJSONObject(i));
@@ -2553,9 +2561,9 @@ public class DataCaster {
         specialEquipment = getOptionalStringArray(reserveData,
             "special_equipment");
 
-        return new ReserveData(id, name, type, label, consumable, description,
-            actions, bonuses, synergies, deployables, counters, integrated,
-            specialEquipment);
+        return new UnverifiedReserveData(id, name, type, label, consumable,
+            description, actions, bonuses, synergies, deployables, counters,
+            integrated, specialEquipment);
     }
     private static ReserveType toReserveType(String reserveString) {
         ReserveType reserveType;
@@ -3339,13 +3347,13 @@ public class DataCaster {
         DataCaster.harmTypesProcessed = new HarmType[0];
         DataCaster.manufacturersProcessed = new Manufacturer[0];
         DataCaster.mechSystemTypesProcessed = new MechSystemType[0];
-        DataCaster.npcFeaturesProcessed = new NPCFeature[0];
+        DataCaster.npcFeaturesProcessed = new UnverifiedNPCFeature[0];
         DataCaster.npcTemplatesProcessed = new NPCTemplate[0];
         DataCaster.pilotArmorProcessed = new UnverifiedPilotArmor[0];
         DataCaster.pilotGearProcessed = new UnverifiedPilotGear[0];
         DataCaster.pilotWeaponsProcessed = new UnverifiedPilotWeapon[0];
         DataCaster.rangeTypesProcessed = new RangeType[0];
-        DataCaster.reservesProcessed = new ReserveData[0];
+        DataCaster.reservesProcessed = new UnverifiedReserveData[0];
         DataCaster.reserveTypesProcessed = new ReserveType[0];
         DataCaster.skillsProcessed = new SkillData[0];
         DataCaster.statusesProcessed = new StateData[0];
