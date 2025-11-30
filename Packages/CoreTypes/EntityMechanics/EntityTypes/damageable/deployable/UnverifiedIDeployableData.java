@@ -434,11 +434,10 @@ public class UnverifiedIDeployableData
     }
     @Override
     public IDeployableData verify() {
-        DataTag[] tags;
+        DataTag[] tags = null;
 
-        if (this.tags == null) {
-            tags = null;
-        } else {
+        if (this.tags != null) {
+            tags = HelperMethods.verifyArray(this.tags);
             tags = new DataTag[this.tags.length];
             for (int i = 0; i < this.tags.length; i++) {
                 tags[i] = this.tags[i].verify();

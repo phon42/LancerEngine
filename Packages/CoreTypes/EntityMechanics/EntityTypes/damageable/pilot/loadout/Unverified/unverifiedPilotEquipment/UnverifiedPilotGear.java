@@ -1,5 +1,6 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Unverified.unverifiedPilotEquipment;
 
+import MainBranch.HelperMethods;
 import Packages.CoreTypes.UnverifiedData;
 import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.ISynergyData;
@@ -40,16 +41,10 @@ public class UnverifiedPilotGear extends UnverifiedPilotEquipment
         IDeployableData[] deployables = null;
 
         if (this.dataTags != null) {
-            dataTags = new DataTag[this.dataTags.length];
-            for (int i = 0; i < dataTags.length; i++) {
-                dataTags[i] = this.dataTags[i].verify();
-            }
+            dataTags = HelperMethods.verifyArray(this.dataTags);
         }
         if (this.deployables != null) {
-            deployables = new IDeployableData[this.deployables.length];
-            for (int i = 0; i < deployables.length; i++) {
-                deployables[i] = this.deployables[i].verify();
-            }
+            deployables = HelperMethods.verifyArray(this.deployables);
         }
 
         return new PilotGear(this.id, this.name.toString(), this.description,

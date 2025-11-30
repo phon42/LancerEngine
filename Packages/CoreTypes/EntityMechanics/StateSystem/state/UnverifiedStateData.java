@@ -169,11 +169,13 @@ public class UnverifiedStateData
     }
     @Override
     public StateData verify() {
-        StateData[] stateEffects;
+        StateData[] stateEffects = null;
 
-        stateEffects = new StateData[this.stateEffects.length];
-        for (int i = 0; i < stateEffects.length; i++) {
-            stateEffects[i] = Database.getState(this.stateEffects[i]);
+        if (this.stateEffects != null) {
+            stateEffects = new StateData[this.stateEffects.length];
+            for (int i = 0; i < stateEffects.length; i++) {
+                stateEffects[i] = Database.getState(this.stateEffects[i]);
+            }
         }
 
         return new StateData(this.name, this.iconURLRaw, this.isStatus,

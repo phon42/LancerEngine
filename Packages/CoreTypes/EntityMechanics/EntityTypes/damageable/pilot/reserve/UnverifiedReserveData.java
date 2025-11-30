@@ -306,10 +306,7 @@ public class UnverifiedReserveData
         IDeployableData[] deployables = null;
 
         if (this.deployables != null) {
-            deployables = new IDeployableData[this.deployables.length];
-            for (int i = 0; i < deployables.length; i++) {
-                deployables[i] = this.deployables[i].verify();
-            }
+            deployables = HelperMethods.verifyArray(this.deployables);
         }
 
         return new ReserveData(this.id, this.name, this.type, this.label,

@@ -94,10 +94,7 @@ public class UnverifiedCoreBonus
                 + " value of: \"" + this.source + "\"");
         }
         if (this.deployables != null) {
-            deployables = new IDeployableData[this.deployables.length];
-            for (int i = 0; i < this.deployables.length; i++) {
-                deployables[i] = this.deployables[i].verify();
-            }
+            deployables = HelperMethods.verifyArray(this.deployables);
         }
 
         return new CoreBonus(this.id, this.name, source, this.mountedEffect,

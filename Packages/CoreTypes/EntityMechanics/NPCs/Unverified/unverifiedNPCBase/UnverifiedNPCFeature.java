@@ -120,12 +120,12 @@ public class UnverifiedNPCFeature extends UnverifiedNPCBase
      */
     private Bonus bonus;
     /**
-     * Can be any UnverifiedDataTag[] that is not of length 0 and does not contain null
-     *     elements. Can be null.
+     * Can be any UnverifiedDataTag[] that is not of length 0 and does not
+     *     contain null elements. Can be null.
      * 
-     * If passed an UnverifiedDataTag[] of length 0, sets this.tags to null.
+     * If passed an UnverifiedDataTag[] of length 0, sets this.dataTags to null.
      */
-    private UnverifiedDataTag[] tags;
+    private UnverifiedDataTag[] dataTags;
 
     public UnverifiedNPCFeature(
         // NCPBase properties
@@ -137,7 +137,7 @@ public class UnverifiedNPCFeature extends UnverifiedNPCBase
         // Conditionally semi-required properties
         int[] attackBonus, int[] accuracy,
         // Optional properties
-        Bonus bonus, UnverifiedDataTag[] tags
+        Bonus bonus, UnverifiedDataTag[] dataTags
     ) {
         HelperMethods.verifyConstructor();
         // NCPBase properties
@@ -157,7 +157,7 @@ public class UnverifiedNPCFeature extends UnverifiedNPCBase
         setAccuracy(accuracy);
         // Optional properties
         setBonus(bonus);
-        setTags(tags);
+        setDataTags(dataTags);
     }
     public UnverifiedNPCFeature(
         // NCPBase properties
@@ -247,12 +247,12 @@ public class UnverifiedNPCFeature extends UnverifiedNPCBase
     public Bonus getBonus() {
         return bonus;
     }
-    public UnverifiedDataTag[] getTags() {
-        if (tags != null) {
-            return HelperMethods.copyOf(tags);
+    public UnverifiedDataTag[] getDataTags() {
+        if (dataTags != null) {
+            return HelperMethods.copyOf(dataTags);
         }
 
-        return tags;
+        return dataTags;
     }
     // Required properties
     private void setOrigin(NPCOrigin origin) {
@@ -368,15 +368,15 @@ public class UnverifiedNPCFeature extends UnverifiedNPCBase
     private void setBonus(Bonus bonus) {
         this.bonus = bonus;
     }
-    private void setTags(UnverifiedDataTag[] tags) {
-        if (tags != null) {
-            if (tags.length == 0) {
-                tags = null;
+    private void setDataTags(UnverifiedDataTag[] dataTags) {
+        if (dataTags != null) {
+            if (dataTags.length == 0) {
+                dataTags = null;
             }
-            HelperMethods.checkObjectArray("tags", tags);
-            tags = HelperMethods.copyOf(tags);
+            HelperMethods.checkObjectArray("dataTags", dataTags);
+            dataTags = HelperMethods.copyOf(dataTags);
         }
-        this.tags = tags;
+        this.dataTags = dataTags;
     }
 
     @Override
@@ -391,11 +391,8 @@ public class UnverifiedNPCFeature extends UnverifiedNPCBase
     public NPCFeature verify() {
         DataTag[] dataTags = null;
 
-        if (this.tags != null) {
-            dataTags = new DataTag[this.tags.length];
-            for (int i = 0; i < dataTags.length; i++) {
-                dataTags[i] = this.tags[i].verify();
-            }
+        if (this.dataTags != null) {
+            dataTags = HelperMethods.verifyArray(this.dataTags);
         }
 
         return new NPCFeature(this.id, this.name, this.origin, this.type,
