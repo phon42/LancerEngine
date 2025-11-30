@@ -1,7 +1,7 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable;
 
 import MainBranch.HelperMethods;
-import Packages.CoreTypes.Counter;
+import Packages.CoreTypes.CounterData;
 import Packages.CoreTypes.Size;
 import Packages.CoreTypes.TriState;
 import Packages.CoreTypes.EntityMechanics.ActivationType;
@@ -79,7 +79,7 @@ public class IDeployableData {
     private IActionData[] actions;
     private Bonus[] bonuses;
     private ISynergyData[] synergies;
-    private Counter[] counter;
+    private CounterData[] counter;
     private DataTag[] tags;
 
     public IDeployableData(
@@ -93,7 +93,7 @@ public class IDeployableData {
         ActivationType activation, ActivationType deactivation,
         ActivationType recall, ActivationType redeploy,
         DeployableStatblock statblock, IActionData[] actions, Bonus[] bonuses,
-        ISynergyData[] synergies, Counter[] counter, DataTag[] tags
+        ISynergyData[] synergies, CounterData[] counter, DataTag[] tags
     ) {
         HelperMethods.verifyConstructor();
         // Required properties

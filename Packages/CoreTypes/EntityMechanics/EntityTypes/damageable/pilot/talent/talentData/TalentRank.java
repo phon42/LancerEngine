@@ -1,7 +1,7 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.talent.talentData;
 
 import MainBranch.HelperMethods;
-import Packages.CoreTypes.Counter;
+import Packages.CoreTypes.CounterData;
 import Packages.CoreTypes.TriState;
 import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.ISynergyData;
@@ -19,13 +19,13 @@ public class TalentRank {
     // Optional properties
     private ISynergyData[] synergies;
     private IActionData[] actions;
-    private Counter[] counters;
+    private CounterData[] counters;
     private Bonus[] bonuses;
     private String[] integrated;
     private String[] specialEquipment;
 
     public TalentRank(String name, String description, TriState exclusive,
-        ISynergyData[] synergies, IActionData[] actions, Counter[] counters,
+        ISynergyData[] synergies, IActionData[] actions, CounterData[] counters,
         Bonus[] bonuses, String[] integrated, String[] specialEquipment) {
         // Required properties
         setName(name);
@@ -77,7 +77,7 @@ public class TalentRank {
 
         return actions;
     }
-    public Counter[] getCounters() {
+    public CounterData[] getCounters() {
         if (counters != null) {
             return HelperMethods.copyOf(counters);
         }
@@ -133,7 +133,7 @@ public class TalentRank {
         }
         this.actions = actions;
     }
-    private void setCounters(Counter[] counters) {
+    private void setCounters(CounterData[] counters) {
         HelperMethods.checkObjectArrayAlt("counters", counters);
         if (counters != null) {
             counters = HelperMethods.copyOf(counters);

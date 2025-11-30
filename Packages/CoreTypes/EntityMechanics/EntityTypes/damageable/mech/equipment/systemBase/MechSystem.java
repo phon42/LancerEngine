@@ -2,7 +2,7 @@ package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment
 
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.EntityMechanics.Actions.actionBase.IActionData;
-import Packages.CoreTypes.Counter;
+import Packages.CoreTypes.CounterData;
 import Packages.CoreTypes.VueHTMLString;
 import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.IDeployableData;
@@ -30,7 +30,7 @@ public final class MechSystem extends SystemBase {
     private Bonus[] bonuses;
     private ISynergyData[] synergies;
     private IDeployableData[] deployables;
-    private Counter[] counters;
+    private CounterData[] counters;
     private String[] integrated;
     private String[] specialEquipment;
 

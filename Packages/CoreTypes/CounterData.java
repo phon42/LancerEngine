@@ -2,7 +2,7 @@ package Packages.CoreTypes;
 
 import MainBranch.HelperMethods;
 
-public class Counter {
+public class CounterData {
     // Required properties
     /**
      * The id of this counter (i.e. "ctr_brawler").
@@ -53,78 +53,79 @@ public class Counter {
      * Counter.max:              PROVIDED
      * Counter.defaultValue:     PROVIDED
      */
-    public Counter(String id, String name, int minimumValue, int maximumValue,
-        int defaultValue) {
-        // Required properties
-        this(id, name);
-        // Semi-required properties
-        setMin(minimumValue);
-        setMax(maximumValue);
-        // Technically optional property
-        setDefaultValue(defaultValue);
-        // Helper property
-        setDefaultValuePresent(true);
-    }
-    /**
-     * Counter.min:              PROVIDED
-     * Counter.max:              PROVIDED
-     * Counter.defaultValue: NOT PROVIDED
-     */
-    public Counter(String id, String name, int minimumValue, int maximumValue) {
-        // Required properties
-        this(id, name);
-        // Semi-required properties
-        setMin(minimumValue);
-        setMax(maximumValue);
-        // Technically optional property
-        setDefaultValue(0);
-        // Helper property
-        setDefaultValuePresent(false);
-    }
-    /**
-     * Counter.min:              PROVIDED
-     * Counter.max:          NOT PROVIDED
-     * Counter.defaultValue:     PROVIDED
-     */
-    public Counter(String id, String name, int minimumValue,
-        Object maximumValue, int defaultValue) {
-        // Required properties
-        this(id, name);
-        // Semi-required properties
-        setMin(minimumValue);
-        setMax(Counter.maxDefault);
-        // Technically optional property
-        setDefaultValue(defaultValue);
-        // Helper property
-        setDefaultValuePresent(true);
-    }
-    /**
-     * Counter.min:              PROVIDED
-     * Counter.max:          NOT PROVIDED
-     * Counter.defaultValue: NOT PROVIDED
-     */
-    public Counter(String id, String name, int minimumValue) {
-        // Required properties
-        this(id, name);
-        // Semi-required properties
-        setMin(minimumValue);
-        setMax(Counter.maxDefault);
-        // Technically optional property
-        setDefaultValue(0);
-        // Helper property
-        setDefaultValuePresent(false);
-    }
-    /**
-     * Counter.min:          NOT PROVIDED
-     * Counter.max:              PROVIDED
-     * Counter.defaultValue:     PROVIDED
-     */
-    public Counter(String id, String name, Object minimumValue,
+    public CounterData(String id, String name, int minimumValue,
         int maximumValue, int defaultValue) {
         // Required properties
         this(id, name);
         // Semi-required properties
-        setMin(Counter.minDefault);
+        setMin(minimumValue);
+        setMax(maximumValue);
+        // Technically optional property
+        setDefaultValue(defaultValue);
+        // Helper property
+        setDefaultValuePresent(true);
+    }
+    /**
+     * Counter.min:              PROVIDED
+     * Counter.max:              PROVIDED
+     * Counter.defaultValue: NOT PROVIDED
+     */
+    public CounterData(String id, String name, int minimumValue,
+        int maximumValue) {
+        // Required properties
+        this(id, name);
+        // Semi-required properties
+        setMin(minimumValue);
+        setMax(maximumValue);
+        // Technically optional property
+        setDefaultValue(0);
+        // Helper property
+        setDefaultValuePresent(false);
+    }
+    /**
+     * Counter.min:              PROVIDED
+     * Counter.max:          NOT PROVIDED
+     * Counter.defaultValue:     PROVIDED
+     */
+    public CounterData(String id, String name, int minimumValue,
+        Object maximumValue, int defaultValue) {
+        // Required properties
+        this(id, name);
+        // Semi-required properties
+        setMin(minimumValue);
+        setMax(CounterData.maxDefault);
+        // Technically optional property
+        setDefaultValue(defaultValue);
+        // Helper property
+        setDefaultValuePresent(true);
+    }
+    /**
+     * Counter.min:              PROVIDED
+     * Counter.max:          NOT PROVIDED
+     * Counter.defaultValue: NOT PROVIDED
+     */
+    public CounterData(String id, String name, int minimumValue) {
+        // Required properties
+        this(id, name);
+        // Semi-required properties
+        setMin(minimumValue);
+        setMax(CounterData.maxDefault);
+        // Technically optional property
+        setDefaultValue(0);
+        // Helper property
+        setDefaultValuePresent(false);
+    }
+    /**
+     * Counter.min:          NOT PROVIDED
+     * Counter.max:              PROVIDED
+     * Counter.defaultValue:     PROVIDED
+     */
+    public CounterData(String id, String name, Object minimumValue,
+        int maximumValue, int defaultValue) {
+        // Required properties
+        this(id, name);
+        // Semi-required properties
+        setMin(CounterData.minDefault);
         setMax(maximumValue);
         // Technically optional property
         setDefaultValue(defaultValue);
@@ -136,12 +137,12 @@ public class Counter {
      * Counter.max:              PROVIDED
      * Counter.defaultValue: NOT PROVIDED
      */
-    public Counter(String id, String name, Object minimumValue,
+    public CounterData(String id, String name, Object minimumValue,
         int maximumValue) {
         // Required properties
         this(id, name);
         // Semi-required properties
-        setMin(Counter.minDefault);
+        setMin(CounterData.minDefault);
         setMax(maximumValue);
         // Technically optional property
         setDefaultValue(0);
@@ -153,13 +154,13 @@ public class Counter {
      * Counter.max:          NOT PROVIDED
      * Counter.defaultValue:     PROVIDED
      */
-    public Counter(String id, String name, Object minimumValue,
+    public CounterData(String id, String name, Object minimumValue,
         Object maximumValue, int defaultValue) {
         // Required properties
         this(id, name);
         // Semi-required properties
-        setMin(Counter.minDefault);
-        setMax(Counter.maxDefault);
+        setMin(CounterData.minDefault);
+        setMax(CounterData.maxDefault);
         // Technically optional property
         setDefaultValue(defaultValue);
         // Helper property
@@ -170,19 +171,19 @@ public class Counter {
      * Counter.max:          NOT PROVIDED
      * Counter.defaultValue: NOT PROVIDED
      */
-    public Counter(String id, String name) {
+    public CounterData(String id, String name) {
         // Required properties
         setID(id);
         setName(name);
         // Semi-required properties
-        setMin(Counter.minDefault);
-        setMax(Counter.maxDefault);
+        setMin(CounterData.minDefault);
+        setMax(CounterData.maxDefault);
         // Technically optional property
         setDefaultValue(0);
         // Helper property
         setDefaultValuePresent(false);
     }
-    public Counter(Counter counter) {
+    public CounterData(CounterData counter) {
         this(counter.id, counter.name, counter.min, counter.max,
             counter.defaultValue);
         setDefaultValuePresent(counter.defaultValuePresent);

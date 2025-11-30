@@ -65,7 +65,7 @@ import Packages.CoreTypes.EntityMechanics.frequency.FrequencyType;
 import Packages.CoreTypes.lcpInfo.LCPDependency;
 import Packages.CoreTypes.lcpInfo.Version;
 import Packages.CoreTypes.lcpInfo.lcpDependency.SemverVersion;
-import Packages.CoreTypes.Counter;
+import Packages.CoreTypes.CounterData;
 import Packages.CoreTypes.JSONTypeTree;
 import Packages.CoreTypes.LCPInfo;
 
@@ -958,7 +958,7 @@ public class DataCaster {
         JSONArray deployablesArray;
         IDeployableData[] deployables = null;
         JSONArray countersArray;
-        Counter[] counters = null;
+        CounterData[] counters = null;
         String[] integrated = null;
         String[] specialEquipment = null;
 
@@ -1030,7 +1030,7 @@ public class DataCaster {
         try {
             countersArray = coreBonusData.getJSONArray("counters");
             try {
-                counters = new Counter[countersArray.length()];
+                counters = new CounterData[countersArray.length()];
                 for (int i = 0; i < counters.length; i++) {
                     counters[i] = toCounter(countersArray.getJSONObject(i));
                 }
@@ -1048,7 +1048,7 @@ public class DataCaster {
             mountedEffect, actions, bonuses, synergies, deployables, counters,
             integrated, specialEquipment);
     }
-    private static Counter toCounter(JSONObject counterData) {
+    private static CounterData toCounter(JSONObject counterData) {
         // Main properties
         String id;
         String name;
@@ -1084,32 +1084,32 @@ public class DataCaster {
         if (defaultValuePresent) {
             if (maxPresent) {
                 if (minPresent) {
-                    return new Counter(id, name, min, max, defaultValue);
+                    return new CounterData(id, name, min, max, defaultValue);
                 } else {
-                    return new Counter(id, name, null, max,
+                    return new CounterData(id, name, null, max,
                         defaultValue);
                 }
             } else {
                 if (minPresent) {
-                    return new Counter(id, name, min, null,
+                    return new CounterData(id, name, min, null,
                         defaultValue);
                 } else {
-                    return new Counter(id, name, null,
+                    return new CounterData(id, name, null,
                         null, defaultValue);
                 }
             }
         } else {
             if (maxPresent) {
                 if (minPresent) {
-                    return new Counter(id, name, min, max);
+                    return new CounterData(id, name, min, max);
                 } else {
-                    return new Counter(id, name, null, max);
+                    return new CounterData(id, name, null, max);
                 }
             } else {
                 if (minPresent) {
-                    return new Counter(id, name, min);
+                    return new CounterData(id, name, min);
                 } else {
-                    return new Counter(id, name);
+                    return new CounterData(id, name);
                 }
             }
         }
@@ -2249,7 +2249,7 @@ public class DataCaster {
         JSONArray deployablesArray;
         IDeployableData[] deployables = null;
         JSONArray countersArray;
-        Counter[] counters = null;
+        CounterData[] counters = null;
         String[] integrated;
         String[] specialEquipment;
 
@@ -2323,7 +2323,7 @@ public class DataCaster {
         try {
             countersArray = reserveData.getJSONArray("counters");
             try {
-                counters = new Counter[countersArray.length()];
+                counters = new CounterData[countersArray.length()];
                 for (int i = 0; i < counters.length; i++) {
                     counters[i] = toCounter(countersArray.getJSONObject(i));
                 }
@@ -2763,7 +2763,7 @@ public class DataCaster {
         JSONArray actionsArray;
         IActionData[] actions = null;
         JSONArray countersArray;
-        Counter[] counters = null;
+        CounterData[] counters = null;
         JSONArray bonusesArray;
         Bonus[] bonuses = null;
         String[] integrated = null;
@@ -2809,7 +2809,7 @@ public class DataCaster {
         try {
             countersArray = talentRankData.getJSONArray("counters");
             try {
-                counters = new Counter[countersArray.length()];
+                counters = new CounterData[countersArray.length()];
                 for (int i = 0; i < counters.length; i++) {
                     counters[i] = toCounter(countersArray.getJSONObject(i));
                 }

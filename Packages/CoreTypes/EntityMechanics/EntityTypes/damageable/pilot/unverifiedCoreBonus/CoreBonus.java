@@ -1,7 +1,7 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.unverifiedCoreBonus;
 
 import MainBranch.HelperMethods;
-import Packages.CoreTypes.Counter;
+import Packages.CoreTypes.CounterData;
 import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.ISynergyData;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
@@ -25,7 +25,7 @@ public class CoreBonus extends UnverifiedCoreBonus {
         // Optional properties
         String mountedEffect, IActionData[] actions, Bonus[] bonuses,
         ISynergyData[] synergies, IDeployableData[] deployables,
-        Counter[] counters, String[] integrated, String[] specialEquipment
+        CounterData[] counters, String[] integrated, String[] specialEquipment
     ) {
         super(id, name, "", effect, description, mountedEffect, actions,
             null, synergies, deployables, counters, integrated,

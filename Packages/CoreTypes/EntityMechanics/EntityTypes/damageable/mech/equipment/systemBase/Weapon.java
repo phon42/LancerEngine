@@ -2,7 +2,7 @@ package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment
 
 import MainBranch.Database;
 import MainBranch.HelperMethods;
-import Packages.CoreTypes.Counter;
+import Packages.CoreTypes.CounterData;
 import Packages.CoreTypes.VueHTMLString;
 import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.ISynergyData;
@@ -88,7 +88,7 @@ public final class Weapon extends SystemBase {
     private Bonus[] bonuses;
     private ISynergyData[] synergies;
     private IDeployableData[] deployables;
-    private Counter[] counters;
+    private CounterData[] counters;
     private String[] integrated;
     private String[] special_equipment;
     private IWeaponProfile[] profiles;

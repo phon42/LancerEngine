@@ -9,7 +9,7 @@ import MainBranch.database.LCPCorrection;
 import MainBranch.database.fileOperations.json.JSONArray;
 import MainBranch.database.fileOperations.json.JSONObject;
 import Packages.CoreTypes.Callable;
-import Packages.CoreTypes.Counter;
+import Packages.CoreTypes.CounterData;
 import Packages.CoreTypes.HTMLString;
 import Packages.CoreTypes.JSONTypeTree;
 import Packages.CoreTypes.LCPInfo;
@@ -1943,12 +1943,12 @@ public final class HelperMethods {
      * @return a Counter[] deepest copy of original.
      * @throws IllegalArgumentException if original is null.
      */
-    public static Counter[] copyOf(Counter[] original) {
+    public static CounterData[] copyOf(CounterData[] original) {
         checkObject("original", original);
-        Counter[] copy = new Counter[original.length];
+        CounterData[] copy = new CounterData[original.length];
         for (int i = 0; i < original.length; i++) {
             if (original[i] == null) {
-                copy[i] = new Counter(original[i]);
+                copy[i] = new CounterData(original[i]);
                 continue;
             }
             copy[i] = original[i];

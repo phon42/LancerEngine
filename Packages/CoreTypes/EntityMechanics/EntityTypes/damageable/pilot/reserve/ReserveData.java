@@ -1,7 +1,7 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.reserve;
 
 import MainBranch.HelperMethods;
-import Packages.CoreTypes.Counter;
+import Packages.CoreTypes.CounterData;
 import Packages.CoreTypes.TriState;
 import Packages.CoreTypes.VueHTMLString;
 import Packages.CoreTypes.EntityMechanics.Bonus;
@@ -91,7 +91,7 @@ public class ReserveData {
      *     elements. Can be null.
      */
     private IDeployableData[] deployables;
-    private Counter[] counters;
+    private CounterData[] counters;
     private String[] integrated;
     private String[] specialEquipment;
 
@@ -103,7 +103,7 @@ public class ReserveData {
         // Optional properties
         String description, IActionData[] actions, Bonus[] bonuses,
         ISynergyData[] synergies, IDeployableData[] deployables,
-        Counter[] counters, String[] integrated, String[] specialEquipment
+        CounterData[] counters, String[] integrated, String[] specialEquipment
     ) {
         HelperMethods.verifyConstructor();
         // Required properties
@@ -191,7 +191,7 @@ public class ReserveData {
 
         return deployables;
     }
-    public Counter[] getCounters() {
+    public CounterData[] getCounters() {
         if (counters != null) {
             return HelperMethods.copyOf(counters);
         }
@@ -265,7 +265,7 @@ public class ReserveData {
             deployables);
         this.deployables = deployables;
     }
-    private void setCounters(Counter[] counters) {
+    private void setCounters(CounterData[] counters) {
         HelperMethods.checkObjectArrayAlt("counters", counters);
         if (counters != null) {
             counters = HelperMethods.copyOf(counters);
