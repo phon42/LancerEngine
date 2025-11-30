@@ -34,7 +34,7 @@ public class IDeployableData {
      * Default value: 1.
      */
     private int instances;
-    private static final int instancesDefault = 1;
+    public static final int instancesDefault = 1;
     /**
      * The number of limited charges activating this deployable costs.
      * If the parent item is a limited-use item, this amount will be deducted
@@ -46,7 +46,7 @@ public class IDeployableData {
      * Default value: 1.
      */
     private int cost;
-    private static final int costDefault = 1;
+    public static final int costDefault = 1;
     /**
      * Whether this deployable is available to be used by pilots.
      */
