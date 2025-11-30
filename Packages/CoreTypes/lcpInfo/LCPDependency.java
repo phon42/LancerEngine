@@ -1,8 +1,8 @@
 package Packages.CoreTypes.lcpInfo;
 
-import java.net.MalformedURLException;
 import java.net.URL;
 import MainBranch.HelperMethods;
+import MainBranch.database.FileOperations;
 import Packages.CoreTypes.lcpInfo.lcpDependency.SemverVersion;
 
 /**
@@ -76,11 +76,7 @@ public class LCPDependency {
         return linkRaw;
     }
     public URL getLink() {
-        try {
-            return new URL(link.toString());
-        } catch (MalformedURLException exception) {
-            return null;
-        }
+        return link;
     }
     // Required properties
     private void setName(String name) {
@@ -109,9 +105,7 @@ public class LCPDependency {
         URL url = null;
 
         if (this.linkRaw != null) {
-            try {
-                url = new URL(this.linkRaw);
-            } catch (MalformedURLException exception) {}
+            url = FileOperations.toURLCaught(this.linkRaw);
         }
         setLink(url);
     }
