@@ -32,6 +32,7 @@ import Packages.CoreTypes.EntityMechanics.Actions.actionBase.IActionData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.IDeployableData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.UnverifiedIDeployableData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.iDeployableData.DeployableStatblock;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.UnverifiedFrame;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.Modification;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.UnverifiedDataTag;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.unverifiedDataTag.DataTag;
@@ -134,7 +135,7 @@ public class DataCaster {
     // ----absolutely critical data:
     private static LCPInfo[] lcpInfoProcessed;
     // ----some critical data types:
-    private static Frame[] framesProcessed;
+    private static UnverifiedFrame[] framesProcessed;
     private static MechSystem[] mechSystemsProcessed;
     private static Modification[] modificationsProcessed;
     private static Weapon[] weaponsProcessed;
@@ -1273,7 +1274,7 @@ public class DataCaster {
         return new Environment(id, name, description);
     }
     private static void processFrames(JSONObject[] framesData) {
-        Frame[] frames = new Frame[framesData.length];
+        UnverifiedFrame[] frames = new UnverifiedFrame[framesData.length];
 
         framesData = performCorrections("frames", framesData);
         for (int i = 0; i < framesData.length; i++) {
@@ -1281,7 +1282,7 @@ public class DataCaster {
         }
         DataCaster.framesProcessed = frames;
     }
-    private static Frame toFrame(JSONObject frameData) {
+    private static UnverifiedFrame toFrame(JSONObject frameData) {
         // TODO: fill out
         return null;
     }
@@ -3333,7 +3334,7 @@ public class DataCaster {
         // ----absolutely critical data:
         DataCaster.lcpInfoProcessed = new LCPInfo[0];
         // ----some critical data types:
-        DataCaster.framesProcessed = new Frame[0];
+        DataCaster.framesProcessed = new UnverifiedFrame[0];
         DataCaster.mechSystemsProcessed = new MechSystem[0];
         DataCaster.modificationsProcessed = new Modification[0];
         DataCaster.weaponsProcessed = new Weapon[0];
