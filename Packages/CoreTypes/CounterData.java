@@ -116,4 +116,16 @@ public class CounterData extends CounterBase {
         HelperMethods.checkString("name", name);
         this.name = name;
     }
+
+    public Counter toCounter() {
+        Counter counter;
+
+        counter = new Counter();
+        counter.setMin(this.min);
+        counter.setMax(this.max);
+        counter.setDefaultValue(this.defaultValue);
+        counter.setDefaultValuePresent(this.defaultValuePresent);
+
+        return counter;
+    }
 }
