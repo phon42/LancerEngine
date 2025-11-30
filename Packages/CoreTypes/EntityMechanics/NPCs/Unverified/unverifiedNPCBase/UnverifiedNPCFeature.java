@@ -8,7 +8,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.systemBase.systemType.WeaponType;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.Harm;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.harm.HarmType;
-import Packages.CoreTypes.EntityMechanics.NPCs.Verified.VerifiedNPCBase;
+import Packages.CoreTypes.EntityMechanics.NPCs.Unverified.UnverifiedNPCBase;
 import Packages.CoreTypes.EntityMechanics.NPCs.Verified.verifiedNPCBase.npcFeature.NPCOrigin;
 import Packages.CoreTypes.EntityMechanics.NPCs.Verified.verifiedNPCBase.npcFeature.NPCSystemType;
 
@@ -24,7 +24,7 @@ import Packages.CoreTypes.EntityMechanics.NPCs.Verified.verifiedNPCBase.npcFeatu
  * 
  * Safety: At least one of this class' properties has an allowed value of null.
  */
-public class UnverifiedNPCFeature extends VerifiedNPCBase {
+public class UnverifiedNPCFeature extends UnverifiedNPCBase {
     // Required properties
     /**
      * Can be any NPCOrigin. Cannot be null.
