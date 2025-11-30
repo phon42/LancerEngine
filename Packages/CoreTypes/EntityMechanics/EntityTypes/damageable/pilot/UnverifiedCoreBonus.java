@@ -10,6 +10,7 @@ import Packages.CoreTypes.EntityMechanics.Manufacturer;
 import Packages.CoreTypes.EntityMechanics.ISynergyData;
 import Packages.CoreTypes.EntityMechanics.Actions.actionBase.IActionData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.IDeployableData;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.UnverifiedIDeployableData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.unverifiedCoreBonus.CoreBonus;
 import Packages.CoreTypes.counterBase.CounterData;
 
@@ -32,7 +33,7 @@ public class UnverifiedCoreBonus {
     protected IActionData[] actions;
     protected Bonus[] bonuses;
     protected ISynergyData[] synergies;
-    protected IDeployableData[] deployables;
+    protected UnverifiedIDeployableData[] deployables;
     protected CounterData[] counters;
     protected String[] integrated;
     protected String[] specialEquipment;
@@ -43,7 +44,7 @@ public class UnverifiedCoreBonus {
         String description,
         // Optional properties
         String mountedEffect, IActionData[] actions, Bonus[] bonuses,
-        ISynergyData[] synergies, IDeployableData[] deployables,
+        ISynergyData[] synergies, UnverifiedIDeployableData[] deployables,
         CounterData[] counters, String[] integrated, String[] specialEquipment
     ) {
         HelperMethods.verifyConstructor();
@@ -72,6 +73,7 @@ public class UnverifiedCoreBonus {
 
     public CoreBonus toCoreBonus() {
         Manufacturer source;
+        IDeployableData[] deployables = null;
 
         try {
             source = Database.getManufacturer(this.source);
@@ -80,10 +82,16 @@ public class UnverifiedCoreBonus {
                 + " UnverifiedCoreBonus with an UnverifiedCoreBonus.source"
                 + " value of: \"" + this.source + "\"");
         }
+        if (this.deployables != null) {
+            deployables = new IDeployableData[this.deployables.length];
+            for (int i = 0; i < this.deployables.length; i++) {
+                deployables[i] = this.deployables[i].toIDeployableData();
+            }
+        }
 
         return new CoreBonus(this.id, this.name, source, this.mountedEffect,
             effect.getRawValue(), description.getRawValue(), this.actions,
-            this.bonuses, this.synergies, this.deployables, this.counters,
+            this.bonuses, this.synergies, deployables, this.counters,
             this.integrated, this.specialEquipment);
     }
 }
