@@ -141,13 +141,23 @@ public class CounterData extends CounterBase implements Iterable<Integer> {
             this.id, this.name, min, max, defaultValue
         );
     }
-    // "Curr: %d\n(Min: %d - Max: %d - Def: %d)"
     public Counter toCounter() {
         if (this.defaultValuePresent) {
             return new Counter(this.min, this.max, this.defaultValue);
         } else {
             return new Counter(this.min, this.max);
         }
+    }
+    public static Counter[] toCounter(CounterData[] input) {
+        Counter[] result;
+
+        HelperMethods.checkObjectArray("input", input);
+        result = new Counter[input.length];
+        for (int i = 0; i < input.length; i++) {
+            result[i] = input[i].toCounter();
+        }
+
+        return result;
     }
     public Iterator<Integer> iterator() {
         return toCounter().iterator();
