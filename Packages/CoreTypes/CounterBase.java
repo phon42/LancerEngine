@@ -41,7 +41,12 @@ public class CounterBase {
         // Optional property
         this.defaultValue = 0;
         // Helper property
-        this.defaultValuePresent = false;
+        setDefaultValuePresent(false);
+    }
+
+    // Helper property
+    protected void setDefaultValuePresent(boolean defaultValuePresent) {
+        this.defaultValuePresent = defaultValuePresent;
     }
 
     protected int bound(int min, int input, int max) {
