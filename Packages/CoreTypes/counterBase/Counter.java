@@ -96,13 +96,27 @@ public class Counter extends CounterBase implements Iterable<Integer> {
             throw new IllegalArgumentException("current: " + current + " is <"
                 + " this.min: " + this.min);
         }
-        if (current < this.max) {
+        if (current > this.max) {
             throw new IllegalArgumentException("current: " + current + " is <"
                 + " this.max: " + this.max);
         }
         this.current = current;
     }
 
+    @Override
+    public String toString() {
+        String output;
+
+        output = String.format(
+            "(Min) - Current - (Max)\n(%d) - %d - (%d)", this.min,
+            this.current, this.max
+        );
+        if (this.defaultValuePresent) {
+            output += "\nDefault: " + this.defaultValue;
+        }
+
+        return output;
+    }
     public Iterator<Integer> iterator() {
         return new CounterIterator(this);
     }

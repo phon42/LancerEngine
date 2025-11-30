@@ -191,8 +191,20 @@ public class CounterBase {
         this.defaultValuePresent = defaultValuePresent;
     }
 
+    @Override
+    public String toString() {
+        String output;
+
+        output = String.format("Min - Max\n%d - %d", this.min,
+            this.max);
+        if (this.defaultValuePresent) {
+            output += "\nDefault: " + this.defaultValue;
+        }
+
+        return output;
+    }
     protected int bound(int min, int input, int max) {
-        if (min < max) {
+        if (max < min) {
             throw new IllegalArgumentException("min: " + min + " is < max: "
                 + max);
         }
