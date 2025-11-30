@@ -30,6 +30,7 @@ import Packages.CoreTypes.EntityMechanics.WeaponSize;
 import Packages.CoreTypes.EntityMechanics.Actions.actionBase.Action;
 import Packages.CoreTypes.EntityMechanics.Actions.actionBase.IActionData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.IDeployableData;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.UnverifiedIDeployableData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.iDeployableData.DeployableStatblock;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.Modification;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.UnverifiedDataTag;
@@ -959,7 +960,7 @@ public class DataCaster {
         JSONArray synergiesArray;
         ISynergyData[] synergies = null;
         JSONArray deployablesArray;
-        IDeployableData[] deployables = null;
+        UnverifiedIDeployableData[] deployables = null;
         JSONArray countersArray;
         CounterData[] counters = null;
         String[] integrated = null;
@@ -1020,7 +1021,8 @@ public class DataCaster {
         try {
             deployablesArray = coreBonusData.getJSONArray("deployables");
             try {
-                deployables = new IDeployableData[deployablesArray.length()];
+                deployables =
+                    new UnverifiedIDeployableData[deployablesArray.length()];
                 for (int i = 0; i < deployables.length; i++) {
                     deployables[i] =
                         toIDeployableData(deployablesArray.getJSONObject(i));
@@ -1482,7 +1484,7 @@ public class DataCaster {
             return iActionData;
         }
     }
-    private static IDeployableData toIDeployableData(
+    private static UnverifiedIDeployableData toIDeployableData(
         JSONObject iDeployableDataData) {
         // Required properties
         String name;
@@ -1611,10 +1613,9 @@ public class DataCaster {
             }
         } catch (JSONException exception) {}
 
-        // TODO: pass tags to the constructor
-        return new IDeployableData(name, type, detail, activation, instances,
-            cost, pilot, mech, size, statblock, deactivation, recall, redeploy,
-            actions, bonuses, synergies, counters, null);
+        return new UnverifiedIDeployableData(name, type, detail, activation,
+            instances, cost, pilot, mech, size, statblock, deactivation, recall,
+            redeploy, actions, bonuses, synergies, counters, tags);
     }
     private static void processITagData(JSONObject[] iTagDataData) {
         ITagData[] iTagDataArray = new ITagData[iTagDataData.length];
