@@ -1833,6 +1833,21 @@ public final class HelperMethods {
     }
     /**
      * Returns a deep copy of original.
+     * @param original a boolean[] that cannot be null.
+     * @return a boolean[] deep copy of original.
+     * @throws IllegalArgumentException if original is null.
+     */
+    public static boolean[] copyOf(boolean[] original) {
+        checkObject("original", original);
+        boolean[] copy = new boolean[original.length];
+        for (int i = 0; i < original.length; i++) {
+            copy[i] = original[i];
+        }
+
+        return copy;
+    }
+    /**
+     * Returns a deep copy of original.
      * @param original an int[] that cannot be null.
      * @return an int[] deep copy of original.
      * @throws IllegalArgumentException if original is null.
