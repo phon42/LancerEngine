@@ -61,6 +61,23 @@ public class DeployableStatblock {
      */
     private int speed;
 
+    // Reference property
+    /**
+     * default values from pg. 68 and from the Everest frame
+     */
+    private static final int[] defaultStats = new int[] {
+        10, // HP
+        0, // Armor
+        5, // Evasion
+        10, // E-Defense
+        6, // Heat Capacity
+        5, // Repair Capacity
+        10, // Sensors
+        0, // Tech Attack
+        10, // Save Target
+        0 // Speed
+    };
+
     public DeployableStatblock(
         // Semi-required properties
         int hp, int armor, int evasion,
@@ -87,14 +104,26 @@ public class DeployableStatblock {
         setSaveTarget(saveTarget);
         setSpeed(speed);
     }
+    public DeployableStatblock(int hp, int armor, int evasion, int eDefense,
+        int heatCap) {
+        this(hp, armor, evasion, eDefense);
+        setHeatCapacity(heatCap);
+        this.stats[4] = true;
+    }
     public DeployableStatblock(int hp, int armor, int evasion, int eDefense) {
+        this(hp, armor, evasion);
+        setEDefense(eDefense);
+        this.stats[3] = true;
+    }
+    public DeployableStatblock(int hp, int armor, int evasion) {
+        this(hp, armor);
+        setEvasion(evasion);
+        this.stats[2] = true;
+    }
+    public DeployableStatblock(int hp, int armor) {
         this(hp);
         setArmor(armor);
-        setEvasion(evasion);
-        setEDefense(eDefense);
         this.stats[1] = true;
-        this.stats[2] = true;
-        this.stats[3] = true;
     }
     public DeployableStatblock(Size size, int armor, int evasion, int eDefense)
     {
@@ -120,15 +149,19 @@ public class DeployableStatblock {
         this.stats[0] = true;
     }
     public DeployableStatblock(int hp) {
-        // default values from pg. 68 and from the Everest frame
         this(
             // Semi-required properties
-            hp, 0, 5,
+            hp, DeployableStatblock.defaultStats[1],
+            DeployableStatblock.defaultStats[2],
             // Semi-required property
-            10,
+            DeployableStatblock.defaultStats[3],
             // Semi-required properties
-            6, 5, 10, 0,
-            10, 0
+            DeployableStatblock.defaultStats[4],
+            DeployableStatblock.defaultStats[5],
+            DeployableStatblock.defaultStats[6],
+            DeployableStatblock.defaultStats[7],
+            DeployableStatblock.defaultStats[8],
+            DeployableStatblock.defaultStats[9]
         );
         this.stats[0] = true;
     }
@@ -169,6 +202,10 @@ public class DeployableStatblock {
     }
     public int getSpeed() {
         return speed;
+    }
+    // Reference property
+    public static int[] getDefaultStats() {
+        return HelperMethods.copyOf(DeployableStatblock.defaultStats);
     }
     // Required property
     private void setStats(boolean[] stats) {
