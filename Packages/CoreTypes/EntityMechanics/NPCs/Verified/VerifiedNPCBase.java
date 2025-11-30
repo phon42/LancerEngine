@@ -2,7 +2,7 @@ package Packages.CoreTypes.EntityMechanics.NPCs.Verified;
 
 import MainBranch.HelperMethods;
 
-public class NPCBase {
+public class VerifiedNPCBase {
     // TODO: fill out
     // Required properties
     /**
@@ -16,7 +16,7 @@ public class NPCBase {
      */
     protected String name;
 
-    protected NPCBase(String id, String name) {
+    protected VerifiedNPCBase(String id, String name) {
         HelperMethods.verifyConstructor();
         setID(id);
         setName(name);

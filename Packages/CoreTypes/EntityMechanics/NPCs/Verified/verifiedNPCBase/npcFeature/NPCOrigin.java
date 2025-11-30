@@ -1,4 +1,4 @@
-package Packages.CoreTypes.EntityMechanics.NPCs.Verified.npcBase.npcFeature;
+package Packages.CoreTypes.EntityMechanics.NPCs.Verified.verifiedNPCBase.npcFeature;
 
 import MainBranch.HelperMethods;
 

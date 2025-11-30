@@ -1,4 +1,4 @@
-package Packages.CoreTypes.EntityMechanics.NPCs.Verified.npcBase;
+package Packages.CoreTypes.EntityMechanics.NPCs.Verified.verifiedNPCBase;
 
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.EntityMechanics.Bonus;
@@ -8,9 +8,9 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.systemBase.systemType.WeaponType;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.Harm;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.harm.HarmType;
-import Packages.CoreTypes.EntityMechanics.NPCs.Verified.NPCBase;
-import Packages.CoreTypes.EntityMechanics.NPCs.Verified.npcBase.npcFeature.NPCOrigin;
-import Packages.CoreTypes.EntityMechanics.NPCs.Verified.npcBase.npcFeature.NPCSystemType;
+import Packages.CoreTypes.EntityMechanics.NPCs.Verified.VerifiedNPCBase;
+import Packages.CoreTypes.EntityMechanics.NPCs.Verified.verifiedNPCBase.npcFeature.NPCOrigin;
+import Packages.CoreTypes.EntityMechanics.NPCs.Verified.verifiedNPCBase.npcFeature.NPCSystemType;
 
 /**
  * Represents a single NPC feature. Contains information about the feature's
@@ -24,7 +24,7 @@ import Packages.CoreTypes.EntityMechanics.NPCs.Verified.npcBase.npcFeature.NPCSy
  * 
  * Safety: At least one of this class' properties has an allowed value of null.
  */
-public class NPCFeature extends NPCBase {
+public class NPCFeature extends VerifiedNPCBase {
     // TODO: fill out
     // Required properties
     /**

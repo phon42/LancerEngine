@@ -1,7 +1,7 @@
-package Packages.CoreTypes.EntityMechanics.NPCs.Verified.npcBase;
+package Packages.CoreTypes.EntityMechanics.NPCs.Verified.verifiedNPCBase;
 
 import MainBranch.HelperMethods;
-import Packages.CoreTypes.EntityMechanics.NPCs.Verified.NPCBase;
+import Packages.CoreTypes.EntityMechanics.NPCs.Verified.VerifiedNPCBase;
 
 /**
  * Represents a single NPC template. Contains information about its features and
@@ -14,7 +14,7 @@ import Packages.CoreTypes.EntityMechanics.NPCs.Verified.NPCBase;
  * 
  * Safety: At least one of this class' properties has an allowed value of null.
  */
-public class NPCTemplate extends NPCBase {
+public class NPCTemplate extends VerifiedNPCBase {
     // TODO: fill out
     // Required properties
     /**
