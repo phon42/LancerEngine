@@ -9,7 +9,6 @@ import MainBranch.database.LCPCorrection;
 import MainBranch.database.fileOperations.json.JSONArray;
 import MainBranch.database.fileOperations.json.JSONObject;
 import Packages.CoreTypes.Callable;
-import Packages.CoreTypes.CounterData;
 import Packages.CoreTypes.HTMLString;
 import Packages.CoreTypes.JSONTypeTree;
 import Packages.CoreTypes.LCPInfo;
@@ -74,6 +73,7 @@ import Packages.CoreTypes.EntityMechanics.StateSystem.state.Condition;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.Status;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.unverifiedStateData.StateData;
 import Packages.CoreTypes.EntityMechanics.frequency.FrequencyType;
+import Packages.CoreTypes.counterBase.CounterData;
 import Packages.CoreTypes.lcpInfo.LCPDependency;
 import Packages.EventSystem.event.EventListener;
 

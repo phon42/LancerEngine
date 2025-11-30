@@ -62,10 +62,10 @@ import Packages.CoreTypes.EntityMechanics.NPCs.npcBase.npcFeature.NPCOrigin;
 import Packages.CoreTypes.EntityMechanics.NPCs.npcBase.npcFeature.NPCSystemType;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.unverifiedStateData.StateData;
 import Packages.CoreTypes.EntityMechanics.frequency.FrequencyType;
+import Packages.CoreTypes.counterBase.CounterData;
 import Packages.CoreTypes.lcpInfo.LCPDependency;
 import Packages.CoreTypes.lcpInfo.Version;
 import Packages.CoreTypes.lcpInfo.lcpDependency.SemverVersion;
-import Packages.CoreTypes.CounterData;
 import Packages.CoreTypes.JSONTypeTree;
 import Packages.CoreTypes.LCPInfo;
 

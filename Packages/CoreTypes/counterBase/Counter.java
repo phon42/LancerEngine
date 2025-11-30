@@ -1,6 +1,8 @@
-package Packages.CoreTypes;
+package Packages.CoreTypes.counterBase;
 
 import java.util.Iterator;
+
+import Packages.CoreTypes.CounterBase;
 
 public class Counter extends CounterBase implements Iterable<Integer> {
     /**

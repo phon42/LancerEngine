@@ -1,6 +1,7 @@
-package Packages.CoreTypes;
+package Packages.CoreTypes.counterBase;
 
 import MainBranch.HelperMethods;
+import Packages.CoreTypes.CounterBase;
 
 public class CounterData extends CounterBase {
     // Required properties

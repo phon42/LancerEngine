@@ -1,7 +1,6 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable;
 
 import MainBranch.HelperMethods;
-import Packages.CoreTypes.CounterData;
 import Packages.CoreTypes.Size;
 import Packages.CoreTypes.TriState;
 import Packages.CoreTypes.EntityMechanics.ActivationType;
@@ -10,6 +9,7 @@ import Packages.CoreTypes.EntityMechanics.ISynergyData;
 import Packages.CoreTypes.EntityMechanics.Actions.actionBase.IActionData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.iDeployableData.DeployableStatblock;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.unverifiedDataTag.DataTag;
+import Packages.CoreTypes.counterBase.CounterData;
 
 /**
  * See pgs. 58 and 68.
