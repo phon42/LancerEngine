@@ -25,7 +25,7 @@ public class CounterIterator implements Iterator<Integer> {
     }
 
     public boolean hasNext() {
-        return counter.isMax();
+        return ! counter.isMax();
     }
     public Integer next() {
         counter.increment();
