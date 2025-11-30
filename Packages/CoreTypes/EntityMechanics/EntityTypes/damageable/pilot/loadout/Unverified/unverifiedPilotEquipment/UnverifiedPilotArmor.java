@@ -4,6 +4,7 @@ import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.ISynergyData;
 import Packages.CoreTypes.EntityMechanics.Actions.actionBase.IActionData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.IDeployableData;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.UnverifiedIDeployableData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.UnverifiedDataTag;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.unverifiedDataTag.DataTag;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Unverified.UnverifiedPilotEquipment;
@@ -14,7 +15,7 @@ public class UnverifiedPilotArmor extends UnverifiedPilotEquipment {
         // PilotEquipment properties
         String id, String name, String description,
         UnverifiedDataTag[] dataTags, IActionData[] actions, Bonus[] bonuses,
-        ISynergyData[] synergies, IDeployableData[] deployables
+        ISynergyData[] synergies, UnverifiedIDeployableData[] deployables
     ) {
         super(id, name, "Armor", description, dataTags, actions, bonuses,
             synergies, deployables);
@@ -25,17 +26,22 @@ public class UnverifiedPilotArmor extends UnverifiedPilotEquipment {
 
     public PilotArmor toPilotArmor() {
         DataTag[] dataTags = null;
+        IDeployableData[] deployables = null;
 
-        if (this.dataTags == null) {
-            return new PilotArmor(id, id, description, dataTags, actions,
-                bonuses, synergies, deployables);
+        if (this.dataTags != null) {
+            dataTags = new DataTag[this.dataTags.length];
+            for (int i = 0; i < dataTags.length; i++) {
+                dataTags[i] = this.dataTags[i].toDataTag();
+            }
         }
-        dataTags = new DataTag[this.dataTags.length];
-        for (int i = 0; i < dataTags.length; i++) {
-            dataTags[i] = this.dataTags[i].toDataTag();
+        if (this.deployables != null) {
+            deployables = new IDeployableData[this.deployables.length];
+            for (int i = 0; i < deployables.length; i++) {
+                deployables[i] = this.deployables[i].toIDeployableData();
+            }
         }
 
-        return new PilotArmor(id, id, description, dataTags, actions, bonuses,
-            synergies, deployables);
+        return new PilotArmor(this.id, this.name.toString(), this.description,
+            dataTags, this.actions, this.bonuses, this.synergies, deployables);
     }
 }
