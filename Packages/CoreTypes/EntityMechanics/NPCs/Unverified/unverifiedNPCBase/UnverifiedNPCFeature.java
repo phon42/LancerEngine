@@ -1,6 +1,7 @@
 package Packages.CoreTypes.EntityMechanics.NPCs.Unverified.unverifiedNPCBase;
 
 import MainBranch.HelperMethods;
+import Packages.CoreTypes.UnverifiedData;
 import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.RangeTag;
 import Packages.CoreTypes.EntityMechanics.RangeType;
@@ -26,7 +27,8 @@ import Packages.CoreTypes.EntityMechanics.NPCs.Verified.verifiedNPCBase.npcFeatu
  * 
  * Safety: At least one of this class' properties has an allowed value of null.
  */
-public class UnverifiedNPCFeature extends UnverifiedNPCBase {
+public class UnverifiedNPCFeature extends UnverifiedNPCBase
+    implements UnverifiedData<UnverifiedNPCFeature, NPCFeature> {
     // Required properties
     /**
      * Can be any NPCOrigin. Cannot be null.
@@ -377,21 +379,30 @@ public class UnverifiedNPCFeature extends UnverifiedNPCBase {
         this.tags = tags;
     }
 
-    private boolean isWeapon() {
-        return type.getValue().equals("Weapon");
+    @Override
+    public Class<UnverifiedNPCFeature> getUnverifiedType() {
+        return UnverifiedNPCFeature.class;
     }
-    public NPCFeature toNPCFeature() {
+    @Override
+    public Class<NPCFeature> getVerifiedType() {
+        return NPCFeature.class;
+    }
+    @Override
+    public NPCFeature verify() {
         DataTag[] dataTags = null;
 
         if (this.tags != null) {
             dataTags = new DataTag[this.tags.length];
             for (int i = 0; i < dataTags.length; i++) {
-                dataTags[i] = this.tags[i].toDataTag();
+                dataTags[i] = this.tags[i].verify();
             }
         }
 
         return new NPCFeature(this.id, this.name, this.origin, this.type,
             this.effect, this.locked, this.weaponType, this.damage, this.range,
             this.onHit, this.attackBonus, this.accuracy, this.bonus, dataTags);
+    }
+    private boolean isWeapon() {
+        return type.getValue().equals("Weapon");
     }
 }

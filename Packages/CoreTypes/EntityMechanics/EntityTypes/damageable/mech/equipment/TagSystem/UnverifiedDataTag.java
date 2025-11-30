@@ -3,10 +3,12 @@ package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment
 import java.util.NoSuchElementException;
 import MainBranch.Database;
 import MainBranch.HelperMethods;
+import Packages.CoreTypes.UnverifiedData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.unverifiedDataTag.DataTag;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.unverifiedDataTag.dataTag.ITagData;
 
-public class UnverifiedDataTag {
+public class UnverifiedDataTag
+    implements UnverifiedData<UnverifiedDataTag, DataTag> {
     // Required property
     /**
      * The id of the data tag this ITagDataUnverified object refers to (i.e.
@@ -100,7 +102,16 @@ public class UnverifiedDataTag {
         this.valueString = valueString;
     }
 
-    public DataTag toDataTag() {
+    @Override
+    public Class<UnverifiedDataTag> getUnverifiedType() {
+        return UnverifiedDataTag.class;
+    }
+    @Override
+    public Class<DataTag> getVerifiedType() {
+        return DataTag.class;
+    }
+    @Override
+    public DataTag verify() {
         ITagData iTagData;
 
         try {

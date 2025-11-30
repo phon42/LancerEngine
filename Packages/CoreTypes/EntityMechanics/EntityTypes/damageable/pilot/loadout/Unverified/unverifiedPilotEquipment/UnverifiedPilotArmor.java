@@ -1,5 +1,6 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Unverified.unverifiedPilotEquipment;
 
+import Packages.CoreTypes.UnverifiedData;
 import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.ISynergyData;
 import Packages.CoreTypes.EntityMechanics.Actions.actionBase.IActionData;
@@ -10,7 +11,8 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Unverified.UnverifiedPilotEquipment;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Verified.pilotEquipment.PilotArmor;
 
-public class UnverifiedPilotArmor extends UnverifiedPilotEquipment {
+public class UnverifiedPilotArmor extends UnverifiedPilotEquipment
+    implements UnverifiedData<UnverifiedPilotArmor, PilotArmor> {
     public UnverifiedPilotArmor(
         // PilotEquipment properties
         String id, String name, String description,
@@ -24,20 +26,29 @@ public class UnverifiedPilotArmor extends UnverifiedPilotEquipment {
         super(id, name, type);
     }
 
-    public PilotArmor toPilotArmor() {
+    @Override
+    public Class<UnverifiedPilotArmor> getUnverifiedType() {
+        return UnverifiedPilotArmor.class;
+    }
+    @Override
+    public Class<PilotArmor> getVerifiedType() {
+        return PilotArmor.class;
+    }
+    @Override
+    public PilotArmor verify() {
         DataTag[] dataTags = null;
         IDeployableData[] deployables = null;
 
         if (this.dataTags != null) {
             dataTags = new DataTag[this.dataTags.length];
             for (int i = 0; i < dataTags.length; i++) {
-                dataTags[i] = this.dataTags[i].toDataTag();
+                dataTags[i] = this.dataTags[i].verify();
             }
         }
         if (this.deployables != null) {
             deployables = new IDeployableData[this.deployables.length];
             for (int i = 0; i < deployables.length; i++) {
-                deployables[i] = this.deployables[i].toIDeployableData();
+                deployables[i] = this.deployables[i].verify();
             }
         }
 

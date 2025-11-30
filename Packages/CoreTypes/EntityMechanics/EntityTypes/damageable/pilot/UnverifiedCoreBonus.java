@@ -4,6 +4,7 @@ import java.util.NoSuchElementException;
 
 import MainBranch.Database;
 import MainBranch.HelperMethods;
+import Packages.CoreTypes.UnverifiedData;
 import Packages.CoreTypes.VueHTMLString;
 import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
@@ -14,7 +15,8 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.Unve
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.unverifiedCoreBonus.CoreBonus;
 import Packages.CoreTypes.counterBase.CounterData;
 
-public class UnverifiedCoreBonus {
+public class UnverifiedCoreBonus
+    implements UnverifiedData<UnverifiedCoreBonus, CoreBonus> {
     // TODO: fill out
     // Required properties
     /**
@@ -71,7 +73,16 @@ public class UnverifiedCoreBonus {
     }
     // Optional properties
 
-    public CoreBonus toCoreBonus() {
+    @Override
+    public Class<UnverifiedCoreBonus> getUnverifiedType() {
+        return UnverifiedCoreBonus.class;
+    }
+    @Override
+    public Class<CoreBonus> getVerifiedType() {
+        return CoreBonus.class;
+    }
+    @Override
+    public CoreBonus verify() {
         Manufacturer source;
         IDeployableData[] deployables = null;
 
@@ -85,7 +96,7 @@ public class UnverifiedCoreBonus {
         if (this.deployables != null) {
             deployables = new IDeployableData[this.deployables.length];
             for (int i = 0; i < this.deployables.length; i++) {
-                deployables[i] = this.deployables[i].toIDeployableData();
+                deployables[i] = this.deployables[i].verify();
             }
         }
 

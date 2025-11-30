@@ -653,18 +653,18 @@ public final class Database {
     private static void verifyData() {
         for (UnverifiedBackground unverifiedBackground :
             Database.unverifiedBackgrounds) {
-            addBackground(unverifiedBackground.toBackground());
+            addBackground(unverifiedBackground.verify());
         }
         Database.unverifiedBackgrounds = new UnverifiedBackground[0];
         for (UnverifiedCoreBonus unverifiedCoreBonus :
             Database.unverifiedCoreBonuses) {
-            addCoreBonus(unverifiedCoreBonus.toCoreBonus());
+            addCoreBonus(unverifiedCoreBonus.verify());
         }
         Database.unverifiedCoreBonuses = new UnverifiedCoreBonus[0];
         for (UnverifiedDataTag unverifiedDataTag :
             Database.unverifiedDataTags) {
             // TODO: figure out a way to get these to their respective objects
-            unverifiedDataTag.toDataTag();
+            unverifiedDataTag.verify();
         }
         Database.unverifiedDataTags = new UnverifiedDataTag[0];
     }

@@ -1,6 +1,7 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech;
 
 import MainBranch.HelperMethods;
+import Packages.CoreTypes.UnverifiedData;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.unverifiedFrame.Frame;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.unverifiedFrame.frame.CoreSystem;
@@ -8,7 +9,8 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.unverified
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.unverifiedFrame.frame.FrameStatblock;
 import Packages.CoreTypes.EntityMechanics.LicenseSystem.frameLicense.LicenseContent;
 
-public class UnverifiedFrame extends LicenseContent {
+public class UnverifiedFrame extends LicenseContent
+    implements UnverifiedData<UnverifiedFrame, Frame> {
     // TODO: figure out a way to override the documentation from LicenseContent
     /**
      * The frame's ID (i.e. "mf_swallowtail_ranger").
@@ -323,6 +325,19 @@ public class UnverifiedFrame extends LicenseContent {
         this.coreSystem = coreSystem;
     }
 
+    @Override
+    public Class<UnverifiedFrame> getUnverifiedType() {
+        return UnverifiedFrame.class;
+    }
+    @Override
+    public Class<Frame> getVerifiedType() {
+        return Frame.class;
+    }
+    @Override
+    public Frame verify() {
+        // TODO: fill out
+        return null;
+    }
     /**
      * Returns this.name, properly formatted (i.e. "swallowtail (ranger
      *     variant)" becomes "Swallowtail (Ranger Variant)" and "death's head"
@@ -331,9 +346,5 @@ public class UnverifiedFrame extends LicenseContent {
      */
     public String outputName() {
         return HelperMethods.toProperCase(name);
-    }
-    public Frame toFrame() {
-        // TODO: fill out
-        return null;
     }
 }

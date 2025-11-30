@@ -4,6 +4,7 @@ import MainBranch.Database;
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.Size;
 import Packages.CoreTypes.TriState;
+import Packages.CoreTypes.UnverifiedData;
 import Packages.CoreTypes.EntityMechanics.ActivationType;
 import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.ISynergyData;
@@ -16,7 +17,8 @@ import Packages.CoreTypes.counterBase.CounterData;
 /**
  * See pgs. 58 and 68.
  */
-public class UnverifiedIDeployableData {
+public class UnverifiedIDeployableData
+    implements UnverifiedData<UnverifiedIDeployableData, IDeployableData> {
     // Required properties
     private String name;
     private String type;
@@ -422,6 +424,34 @@ public class UnverifiedIDeployableData {
         this.tags = tags;
     }
 
+    @Override
+    public Class<UnverifiedIDeployableData> getUnverifiedType() {
+        return UnverifiedIDeployableData.class;
+    }
+    @Override
+    public Class<IDeployableData> getVerifiedType() {
+        return IDeployableData.class;
+    }
+    @Override
+    public IDeployableData verify() {
+        DataTag[] tags;
+
+        if (this.tags == null) {
+            tags = null;
+        } else {
+            tags = new DataTag[this.tags.length];
+            for (int i = 0; i < this.tags.length; i++) {
+                tags[i] = this.tags[i].verify();
+            }
+        }
+
+        return new IDeployableData(this.name, this.type, this.detail,
+            this.activation, this.instances, this.cost,
+            TriState.toTriState(this.pilot), TriState.toTriState(this.mech),
+            this.size, this.statblock, this.deactivation, this.recall,
+            this.redeploy, this.actions, this.bonuses, this.synergies,
+            this.counters, tags);
+    }
     public String outputType() {
         return HelperMethods.capitalizeFirst(type);
     }
@@ -453,24 +483,5 @@ public class UnverifiedIDeployableData {
      */
     public String outputSize() {
         return size.output();
-    }
-    public IDeployableData toIDeployableData() {
-        DataTag[] tags;
-
-        if (this.tags == null) {
-            tags = null;
-        } else {
-            tags = new DataTag[this.tags.length];
-            for (int i = 0; i < this.tags.length; i++) {
-                tags[i] = this.tags[i].toDataTag();
-            }
-        }
-
-        return new IDeployableData(this.name, this.type, this.detail,
-            this.activation, this.instances, this.cost,
-            TriState.toTriState(this.pilot), TriState.toTriState(this.mech),
-            this.size, this.statblock, this.deactivation, this.recall,
-            this.redeploy, this.actions, this.bonuses, this.synergies,
-            this.counters, tags);
     }
 }

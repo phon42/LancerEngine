@@ -1,7 +1,9 @@
 package Packages.CoreTypes.EntityMechanics.NPCs.Unverified.unverifiedNPCBase;
 
 import MainBranch.HelperMethods;
+import Packages.CoreTypes.UnverifiedData;
 import Packages.CoreTypes.EntityMechanics.NPCs.Unverified.UnverifiedNPCBase;
+import Packages.CoreTypes.EntityMechanics.NPCs.Verified.verifiedNPCBase.NPCTemplate;
 
 /**
  * Represents a single NPC template. Contains information about its features and
@@ -14,7 +16,8 @@ import Packages.CoreTypes.EntityMechanics.NPCs.Unverified.UnverifiedNPCBase;
  * 
  * Safety: At least one of this class' properties has an allowed value of null.
  */
-public class UnverifiedNPCTemplate extends UnverifiedNPCBase {
+public class UnverifiedNPCTemplate extends UnverifiedNPCBase
+    implements UnverifiedData<UnverifiedNPCTemplate, NPCTemplate> {
     // Required properties
     /**
      * Can be any String except "". Cannot be null.
@@ -120,5 +123,19 @@ public class UnverifiedNPCTemplate extends UnverifiedNPCBase {
             }
         }
         this.optionalFeatures = optionalFeatures;
+    }
+
+    @Override
+    public Class<UnverifiedNPCTemplate> getUnverifiedType() {
+        return UnverifiedNPCTemplate.class;
+    }
+    @Override
+    public Class<NPCTemplate> getVerifiedType() {
+        return NPCTemplate.class;
+    }
+    @Override
+    public NPCTemplate verify() {
+        // TODO: fill out
+        return null;
     }
 }

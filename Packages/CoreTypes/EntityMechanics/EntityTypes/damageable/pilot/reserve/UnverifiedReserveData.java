@@ -2,6 +2,7 @@ package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.reserve;
 
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.TriState;
+import Packages.CoreTypes.UnverifiedData;
 import Packages.CoreTypes.VueHTMLString;
 import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.IDeployableData;
@@ -22,7 +23,8 @@ import Packages.CoreTypes.EntityMechanics.Actions.actionBase.IActionData;
  * Safety: This class does not have placeholder values and cannot be a
  *     placeholder. At least one of its properties has an allowed value of null.
  */
-public class UnverifiedReserveData {
+public class UnverifiedReserveData
+    implements UnverifiedData<UnverifiedReserveData, ReserveData> {
     // Required properties
     /**
      * The id for this reserve (i.e. "reserve_skill").
@@ -291,6 +293,30 @@ public class UnverifiedReserveData {
         this.specialEquipment = specialEquipment;
     }
 
+    @Override
+    public Class<UnverifiedReserveData> getUnverifiedType() {
+        return UnverifiedReserveData.class;
+    }
+    @Override
+    public Class<ReserveData> getVerifiedType() {
+        return ReserveData.class;
+    }
+    @Override
+    public ReserveData verify() {
+        IDeployableData[] deployables = null;
+
+        if (this.deployables != null) {
+            deployables = new IDeployableData[this.deployables.length];
+            for (int i = 0; i < deployables.length; i++) {
+                deployables[i] = this.deployables[i].verify();
+            }
+        }
+
+        return new ReserveData(this.id, this.name, this.type, this.label,
+            TriState.toTriState(this.consumable), this.description.toString(),
+            this.actions, this.bonuses, this.synergies, deployables,
+            this.counters, this.integrated, this.specialEquipment);
+    }
     private void setConsumable(TriState consumable) {
         if (consumable == TriState.UNSET) {
             setConsumable(UnverifiedReserveData.consumableDefault);
@@ -303,20 +329,5 @@ public class UnverifiedReserveData {
             this.description = null;
         }
         setDescription(new VueHTMLString(description));
-    }
-    public ReserveData toReserveData() {
-        IDeployableData[] deployables = null;
-
-        if (this.deployables != null) {
-            deployables = new IDeployableData[this.deployables.length];
-            for (int i = 0; i < deployables.length; i++) {
-                deployables[i] = this.deployables[i].toIDeployableData();
-            }
-        }
-
-        return new ReserveData(this.id, this.name, this.type, this.label,
-            TriState.toTriState(this.consumable), this.description.toString(),
-            this.actions, this.bonuses, this.synergies, deployables,
-            this.counters, this.integrated, this.specialEquipment);
     }
 }

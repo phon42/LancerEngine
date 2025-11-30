@@ -2,6 +2,7 @@ package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Backgrou
 
 import MainBranch.Database;
 import MainBranch.HelperMethods;
+import Packages.CoreTypes.UnverifiedData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Background.BackgroundBase;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skill.SkillData;
 
@@ -19,7 +20,8 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTrig
  * 
  * Safety: At least one of this class' properties has an allowed value of null.
  */
-public class UnverifiedBackground extends BackgroundBase {
+public class UnverifiedBackground extends BackgroundBase
+    implements UnverifiedData<UnverifiedBackground, Background> {
     // Optional property
     /**
      * The skills that might be appropriate to choose for this background as
@@ -77,7 +79,16 @@ public class UnverifiedBackground extends BackgroundBase {
         this.skillStrings = skillStrings;
     }
 
-    public Background toBackground() {
+    @Override
+    public Class<UnverifiedBackground> getUnverifiedType() {
+        return UnverifiedBackground.class;
+    }
+    @Override
+    public Class<Background> getVerifiedType() {
+        return Background.class;
+    }
+    @Override
+    public Background verify() {
         SkillData[] skills;
 
         skills = new SkillData[this.skillStrings.length];
