@@ -2,6 +2,7 @@ package MainBranch;
 
 import java.util.Random;
 
+import MainBranch.roll.RollModifiers;
 import MainBranch.roll.mixedExpression.Expression;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.Skill;
 
@@ -531,7 +532,7 @@ public final class Roll {
         difficulty += backgroundInvoked == -1 ? 1 : 0;
         accuracy += teamwork ? 1 : 0;
 
-        return roll(bonus, accuracy, difficulty);
+        return roll(new RollModifiers(bonus, accuracy, difficulty));
     }
     /**
      * Helper method for check(Skill, int, int, boolean, int, boolean). Allows
@@ -635,7 +636,7 @@ public final class Roll {
         }
         bonus = mechSkills[skillIndex];
 
-        return roll(bonus, accuracy, difficulty);
+        return roll(new RollModifiers(bonus, accuracy, difficulty));
     }
     /**
      * Helper method for check(int, int[], int, int). Allows the method to be
@@ -697,27 +698,24 @@ public final class Roll {
     }
     /**
      * Rolls an attack roll.
-     * @param bonus an int containing the bonus to add to the roll. Can be any
-     *     int.
-     * @param accuracy an int containing the number of accuracy dice applied.
-     *     Must be a minimum of 0.
-     * @param difficulty an int containing the number of difficulty dice
-     *     applied. Must be a minimum of 0.
+     * @param modifiers a RollModifiers containing the modifiers to apply to the
+     *     roll which can be any RollModifiers. Cannot be null.
      * @return an int containing the result of the roll.
      * @throws IllegalArgumentException if any parameters are invalid.
      */
-    public static int attack(int bonus, int accuracy, int difficulty) {
+    public static int attack(RollModifiers modifiers) {
         // See pg. 13
-        if (accuracy < 0) {
-            throw new IllegalArgumentException("accuracy value: " + accuracy
-                + " is < 0");
+        HelperMethods.checkObject("modifiers", modifiers);
+        if (modifiers.getAccuracy() < 0) {
+            throw new IllegalArgumentException("accuracy value: "
+                + modifiers.getAccuracy() + " is < 0");
         }
-        if (difficulty < 0) {
-            throw new IllegalArgumentException("difficulty value: " + difficulty
-                + " is < 0");
+        if (modifiers.getDifficulty() < 0) {
+            throw new IllegalArgumentException("difficulty value: "
+                + modifiers.getDifficulty() + " is < 0");
         }
 
-        return roll(bonus, accuracy, difficulty);
+        return roll(modifiers);
     }
     /**
      * Rolls a save.
@@ -772,24 +770,23 @@ public final class Roll {
         }
         bonus = mechSkills[skillIndex];
 
-        return roll(bonus, accuracy, difficulty);
+        return roll(new RollModifiers(bonus, accuracy, difficulty));
     }
     /**
      * Rolls a check, attack roll, or save.
-     * @param bonus an int containing the bonus value to apply to the roll. Can
-     *     be any int.
-     * @param accuracy an int containing the number of accuracy dice to apply to
-     *     the roll. Must be a minimum of 0. Assumed to be valid.
-     * @param difficulty an int containing the number of difficulty dice to
-     *     apply to the roll. Must be a minimum of 0. Assumed to be valid.
+     * @param modifiers a RollModifiers containing the modifiers to apply to the
+     *     roll which can be any RollModifiers. Cannot be null.
      * @return an int containing the result of the check.
      */
-    private static int roll(int bonus, int accuracy, int difficulty) {
+    private static int roll(RollModifiers modifiers) {
         // See pg. 13
-        int result = roll("d20");
+        int result;
 
-        result += bonus;
-        result += rollAccDiff(accuracy, difficulty);
+        HelperMethods.checkObject("modifiers", modifiers);
+        result = roll("d20");
+        result += modifiers.getFlatModifier();
+        result += rollAccDiff(modifiers.getAccuracy(),
+            modifiers.getDifficulty());
 
         return result;
     }
