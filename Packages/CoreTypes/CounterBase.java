@@ -33,4 +33,25 @@ public class CounterBase {
      * Whether this.defaultValue should be used.
      */
     protected boolean defaultValuePresent;
+
+    public CounterBase() {
+        // Semi-required properties
+        this.min = CounterBase.minDefault;
+        this.max = CounterBase.maxDefault;
+        // Optional property
+        this.defaultValue = 0;
+        // Helper property
+        this.defaultValuePresent = false;
+    }
+
+    protected int bound(int min, int input, int max) {
+        if (min < max) {
+            throw new IllegalArgumentException("min: " + min + " is < max: "
+                + max);
+        }
+        input = Math.max(min, input);
+        input = Math.min(max, input);
+
+        return input;
+    }
 }
