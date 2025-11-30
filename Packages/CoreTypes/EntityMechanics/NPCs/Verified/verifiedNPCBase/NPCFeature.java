@@ -4,7 +4,7 @@ import MainBranch.HelperMethods;
 import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.RangeTag;
 import Packages.CoreTypes.EntityMechanics.RangeType;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.unverifiedDataTag.dataTag.ITagData;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.unverifiedDataTag.DataTag;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.systemBase.systemType.WeaponType;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.Harm;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.harm.HarmType;
@@ -117,12 +117,12 @@ public class NPCFeature extends VerifiedNPCBase {
      */
     private Bonus bonus;
     /**
-     * Can be any ITagData[] that is not of length 0 and does not contain null
+     * Can be any DataTag[] that is not of length 0 and does not contain null
      *     elements. Can be null.
      * 
-     * If passed an ITagData[] of length 0, sets this.tags to null.
+     * If passed an DataTag[] of length 0, sets this.tags to null.
      */
-    private ITagData[] tags;
+    private DataTag[] tags;
 
     public NPCFeature(
         // NCPBase properties
@@ -134,7 +134,7 @@ public class NPCFeature extends VerifiedNPCBase {
         // Conditionally semi-required properties
         int[] attackBonus, int[] accuracy,
         // Optional properties
-        Bonus bonus, ITagData[] tags
+        Bonus bonus, DataTag[] tags
     ) {
         HelperMethods.verifyConstructor();
         // NCPBase properties
@@ -244,7 +244,7 @@ public class NPCFeature extends VerifiedNPCBase {
     public Bonus getBonus() {
         return bonus;
     }
-    public ITagData[] getTags() {
+    public DataTag[] getTags() {
         if (tags != null) {
             return HelperMethods.copyOf(tags);
         }
@@ -365,7 +365,7 @@ public class NPCFeature extends VerifiedNPCBase {
     private void setBonus(Bonus bonus) {
         this.bonus = bonus;
     }
-    private void setTags(ITagData[] tags) {
+    private void setTags(DataTag[] tags) {
         if (tags != null) {
             if (tags.length == 0) {
                 tags = null;
