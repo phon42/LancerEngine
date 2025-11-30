@@ -1,5 +1,6 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable;
 
+import MainBranch.Database;
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.Size;
 import Packages.CoreTypes.TriState;
@@ -23,13 +24,10 @@ public class IDeployableData {
     // Semi-required (optional but has a specific default value other than null
     //     when not provided) properties
     /**
-     * Whether this deployable is available to be used by pilots.
+     * Can be any ActivationType. Cannot be null.
+     * Default value: an ActivationType representing "Quick".
      */
-    private boolean pilot;
-    /**
-     * Whether this deployable is available to be used by mechs.
-     */
-    private boolean mech;
+    private ActivationType activation;
     /**
      * The number of copies of the deployable that are spawned per activation.
      * Must be a minimum of 1.
@@ -49,6 +47,14 @@ public class IDeployableData {
      */
     private int cost;
     private static final int costDefault = 1;
+    /**
+     * Whether this deployable is available to be used by pilots.
+     */
+    private boolean pilot;
+    /**
+     * Whether this deployable is available to be used by mechs.
+     */
+    private boolean mech;
 
     // Semi- and conditionally required properties
     /**
@@ -86,10 +92,6 @@ public class IDeployableData {
     /**
      * Can be any ActivationType. Can be null.
      */
-    private ActivationType activation;
-    /**
-     * Can be any ActivationType. Can be null.
-     */
     private ActivationType deactivation;
     /**
      * Can be any ActivationType. Can be null.
@@ -99,24 +101,44 @@ public class IDeployableData {
      * Can be any ActivationType. Can be null.
      */
     private ActivationType redeploy;
+    /**
+     * Can be any IActionData[] that is not of length 0 and does not contain
+     *     null elements. Can be null.
+     */
     private IActionData[] actions;
+    /**
+     * Can be any Bonus[] that is not of length 0 and does not contain null
+     *     elements. Can be null.
+     */
     private Bonus[] bonuses;
+    /**
+     * Can be any ISynergyData[] that is not of length 0 and does not contain
+     *     null elements. Can be null.
+     */
     private ISynergyData[] synergies;
+    /**
+     * Can be any CounterData[] that is not of length 0 and does not contain
+     *     null elements. Can be null.
+     */
     private CounterData[] counters;
+    /**
+     * Can be any DataTag[] that is not of length 0 and does not contain null
+     *     elements. Can be null.
+     */
     private DataTag[] tags;
 
     public IDeployableData(
         // Required properties
         String name, String type, String detail,
         // Semi-required properties
-        TriState pilot, TriState mech, int instances, int cost,
+        ActivationType activation, int instances, int cost, TriState pilot,
+        TriState mech,
         // Semi- and conditionally required properties
         Size size, DeployableStatblock statblock,
         // Optional properties
-        ActivationType activation, ActivationType deactivation,
-        ActivationType recall, ActivationType redeploy, IActionData[] actions,
-        Bonus[] bonuses, ISynergyData[] synergies, CounterData[] counters,
-        DataTag[] tags
+        ActivationType deactivation, ActivationType recall,
+        ActivationType redeploy, IActionData[] actions, Bonus[] bonuses,
+        ISynergyData[] synergies, CounterData[] counters, DataTag[] tags
     ) {
         HelperMethods.verifyConstructor();
         // Required properties
@@ -124,23 +146,33 @@ public class IDeployableData {
         setType(type);
         setDetail(detail);
         // Semi-required properties
-        setPilotAndMech(pilot, mech);
+        setActivation(deactivation);
         setInstances(instances);
         setCost(cost);
+        setPilotAndMech(pilot, mech);
         // Semi- and conditionally required properties
         setSize(size);
         // Optional properties
+        setDeactivation(deactivation);
+        setRecall(recall);
+        setRedeploy(redeploy);
+        setActions(actions);
+        setBonuses(bonuses);
+        setSynergies(synergies);
+        setCounters(counters);
+        setTags(tags);
     }
     public IDeployableData(
         // Required properties
         String name, String type, String detail,
         // Semi-required properties
-        TriState pilot, TriState mech,
+        ActivationType activation, int instances, int cost, TriState pilot,
+        TriState mech,
         // Semi- and conditionally required properties
         Size size, DeployableStatblock statblock
     ) {
-        this(name, type, detail, pilot, mech, -1, IDeployableData.costDefault,
-            size, statblock, null, null, null,
+        this(name, type, detail, activation, -1, IDeployableData.costDefault,
+            pilot, mech, size, statblock, null, null,
             null, null, null, null,
             null, null);
     }
@@ -148,22 +180,24 @@ public class IDeployableData {
         // Required properties
         String name, String type, String detail,
         // Semi-required properties
-        TriState pilot, TriState mech, int instances, int cost,
-        // Semi- and conditionally required property
+        ActivationType activation, int instances, int cost, TriState pilot,
+        TriState mech,
+        // Semi- and conditionally required properties
         Size size
     ) {
-        this(name, type, detail, pilot, mech, instances, cost, size,
+        this(name, type, detail, activation, instances, cost, pilot, mech, size,
             null, null, null, null,
             null, null, null, null,
-            null, null);
+            null);
     }
     public IDeployableData(
         // Required properties
         String name, String type, String detail,
         // Semi-required properties
-        TriState pilot, TriState mech, int instances, int cost
+        ActivationType activation, int instances, int cost, TriState pilot,
+        TriState mech
     ) {
-        this(name, type, detail, pilot, mech, instances, cost, null,
+        this(name, type, detail, activation, instances, cost, pilot, mech,
             null, null, null, null,
             null, null, null, null,
             null, null);
@@ -172,11 +206,11 @@ public class IDeployableData {
         // Required properties
         String name, String type, String detail
     ) {
-        this(name, type, detail, TriState.UNSET, TriState.UNSET, -1,
-            IDeployableData.costDefault, null, null,
+        this(name, type, detail, null, -1,
+            IDeployableData.costDefault, TriState.UNSET, TriState.UNSET,
             null, null, null, null,
             null, null, null, null,
-            null);
+            null, null);
     }
     public IDeployableData(Size size, int armor) {
         // default values from pg. 68
@@ -199,17 +233,20 @@ public class IDeployableData {
         return detail;
     }
     // Semi-required properties
-    public boolean isAvailableToPilots() {
-        return pilot;
-    }
-    public boolean isAvailableToMechs() {
-        return mech;
+    public ActivationType getActivation() {
+        return activation;
     }
     public int getInstances() {
         return instances;
     }
     public int getCost() {
         return cost;
+    }
+    public boolean isPilot() {
+        return pilot;
+    }
+    public boolean isMech() {
+        return mech;
     }
     // Semi- and conditionally required properties
     public Size getSize() {
@@ -219,6 +256,50 @@ public class IDeployableData {
         return statblock;
     }
     // Optional properties
+    public ActivationType getDeactivation() {
+        return deactivation;
+    }
+    public ActivationType getRecall() {
+        return recall;
+    }
+    public ActivationType getRedeploy() {
+        return redeploy;
+    }
+    public IActionData[] getActions() {
+        if (actions != null) {
+            return HelperMethods.copyOf(actions);
+        }
+
+        return actions;
+    }
+    public Bonus[] getBonuses() {
+        if (bonuses != null) {
+            return HelperMethods.copyOf(bonuses);
+        }
+
+        return bonuses;
+    }
+    public ISynergyData[] getSynergies() {
+        if (synergies != null) {
+            return HelperMethods.copyOf(synergies);
+        }
+
+        return synergies;
+    }
+    public CounterData[] getCounters() {
+        if (counters != null) {
+            return HelperMethods.copyOf(counters);
+        }
+
+        return counters;
+    }
+    public DataTag[] getTags() {
+        if (tags != null) {
+            return HelperMethods.copyOf(tags);
+        }
+
+        return tags;
+    }
     // Required properties
     private void setName(String name) {
         HelperMethods.checkString("name", name);
@@ -234,11 +315,12 @@ public class IDeployableData {
         this.detail = detail;
     }
     // Semi-required properties
-    private void setPilot(boolean pilot) {
-        this.pilot = pilot;
-    }
-    private void setMech(boolean mech) {
-        this.mech = mech;
+    private void setActivation(ActivationType activation) {
+        if (activation == null) {
+            activation =
+                Database.getActivationType("Quick");
+        }
+        this.activation = activation;
     }
     private void setInstances(int instances) {
         if (instances < 1) {
@@ -248,6 +330,12 @@ public class IDeployableData {
     }
     private void setCost(int cost) {
         this.cost = cost;
+    }
+    private void setPilot(boolean pilot) {
+        this.pilot = pilot;
+    }
+    private void setMech(boolean mech) {
+        this.mech = mech;
     }
     // Semi- and conditionally required properties
     private void setSize(Size size) {
@@ -283,6 +371,50 @@ public class IDeployableData {
         this.statblock = statblock;
     }
     // Optional properties
+    private void setDeactivation(ActivationType deactivation) {
+        this.deactivation = deactivation;
+    }
+    private void setRecall(ActivationType recall) {
+        this.recall = recall;
+    }
+    private void setRedeploy(ActivationType redeploy) {
+        this.redeploy = redeploy;
+    }
+    private void setActions(IActionData[] actions) {
+        HelperMethods.checkObjectArrayAlt("actions", actions);
+        if (actions != null) {
+            actions = HelperMethods.copyOf(actions);
+        }
+        this.actions = actions;
+    }
+    private void setBonuses(Bonus[] bonuses) {
+        HelperMethods.checkObjectArrayAlt("bonuses", bonuses);
+        if (bonuses != null) {
+            bonuses = HelperMethods.copyOf(bonuses);
+        }
+        this.bonuses = bonuses;
+    }
+    private void setSynergies(ISynergyData[] synergies) {
+        HelperMethods.checkObjectArrayAlt("synergies", synergies);
+        if (synergies != null) {
+            synergies = HelperMethods.copyOf(synergies);
+        }
+        this.synergies = synergies;
+    }
+    private void setCounters(CounterData[] counters) {
+        HelperMethods.checkObjectArrayAlt("counters", counters);
+        if (counters != null) {
+            counters = HelperMethods.copyOf(counters);
+        }
+        this.counters = counters;
+    }
+    private void setTags(DataTag[] tags) {
+        HelperMethods.checkObjectArrayAlt("tags", tags);
+        if (tags != null) {
+            tags = HelperMethods.copyOf(tags);
+        }
+        this.tags = tags;
+    }
 
     public String outputType() {
         return HelperMethods.capitalizeFirst(type);
