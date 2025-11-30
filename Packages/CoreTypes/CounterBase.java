@@ -39,7 +39,8 @@ public class CounterBase {
      * CounterBase.max:              PROVIDED
      * CounterBase.defaultValue:     PROVIDED
      */
-    protected CounterBase(int minimumValue, int maximumValue, int defaultValue) {
+    protected CounterBase(int minimumValue, int maximumValue, int defaultValue)
+    {
         this();
         // Semi-required properties
         setMin(minimumValue);
@@ -69,8 +70,8 @@ public class CounterBase {
      * CounterBase.max:          NOT PROVIDED
      * CounterBase.defaultValue:     PROVIDED
      */
-    protected CounterBase(int minimumValue, Object maximumValue, int defaultValue)
-    {
+    protected CounterBase(int minimumValue, Object maximumValue,
+        int defaultValue) {
         this();
         // Semi-required properties
         setMin(minimumValue);
@@ -98,8 +99,8 @@ public class CounterBase {
      * CounterBase.max:              PROVIDED
      * CounterBase.defaultValue:     PROVIDED
      */
-    protected CounterBase(Object minimumValue, int maximumValue, int defaultValue)
-    {
+    protected CounterBase(Object minimumValue, int maximumValue,
+        int defaultValue) {
         this();
         // Semi-required properties
         setMax(maximumValue);
