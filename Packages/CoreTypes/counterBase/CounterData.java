@@ -119,6 +119,29 @@ public class CounterData extends CounterBase implements Iterable<Integer> {
         this.name = name;
     }
 
+    @Override
+    public String toString() {
+        if (defaultValuePresent) {
+            return toString(min, max, defaultValue);
+        } else {
+            return toString(min, max);
+        }
+    }
+    @Override
+    protected String toString(int min, int max) {
+        return String.format(
+            "ID: \"%s\"\nName: \"%s\"\n(Min: %d - Max: %d)", this.id,
+            this.name, min, max
+        );
+    }
+    @Override
+    protected String toString(int min, int max, int defaultValue) {
+        return String.format(
+            "ID: \"%s\"\nName: \"%s\"\n(Min: %d - Max: %d - Def: %d)",
+            this.id, this.name, min, max, defaultValue
+        );
+    }
+    // "Curr: %d\n(Min: %d - Max: %d - Def: %d)"
     public Counter toCounter() {
         if (this.defaultValuePresent) {
             return new Counter(this.min, this.max, this.defaultValue);

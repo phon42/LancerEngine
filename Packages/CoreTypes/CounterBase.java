@@ -200,10 +200,11 @@ public class CounterBase {
         }
     }
     protected String toString(int min, int max) {
-        return String.format("Min - Max\n%d - %d", this.min, this.max);
+        return String.format("(Min: %d - Max: %d)", min, max);
     }
     protected String toString(int min, int max, int defaultValue) {
-        return toString(min, max) + "\nDefault value: " + defaultValue;
+        return String.format("(Min: %d - Max: %d - Def: %d)", min, max,
+            defaultValue);
     }
     protected int bound(int min, int input, int max) {
         if (max < min) {

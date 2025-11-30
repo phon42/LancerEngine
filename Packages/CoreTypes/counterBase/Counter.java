@@ -113,13 +113,12 @@ public class Counter extends CounterBase implements Iterable<Integer> {
     }
     @Override
     protected String toString(int min, int current, int max) {
-        return String.format(
-            "(Min) - Current - (Max)\n(%d) - %d - (%d)", this.min,
-            this.max
-        );
+        return String.format("Curr: %d\n(Min: %d - Max: %d)", current,
+            min, max);
     }
     protected String toString(int min, int current, int max, int defaultValue) {
-        return toString(min, current, max) + "\nDefault value: " + defaultValue;
+        return String.format("Curr: %d\n(Min: %d - Max: %d - Def: %d)",
+            current, min, max, defaultValue);
     }
     public Iterator<Integer> iterator() {
         return new CounterIterator(this);
