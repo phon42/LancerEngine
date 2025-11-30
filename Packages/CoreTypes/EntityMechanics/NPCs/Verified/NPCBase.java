@@ -1,4 +1,4 @@
-package Packages.CoreTypes.EntityMechanics.NPCs.Unverified;
+package Packages.CoreTypes.EntityMechanics.NPCs.Verified;
 
 import MainBranch.HelperMethods;
 
