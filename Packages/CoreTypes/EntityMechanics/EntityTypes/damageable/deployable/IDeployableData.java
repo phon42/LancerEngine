@@ -135,12 +135,12 @@ public class IDeployableData {
         // Required properties
         String name, String type, String detail,
         // Semi-required properties
-        TriState pilot, TriState mech, int instances, int cost,
-        // Semi- and conditionally required property
-        Size size
+        TriState pilot, TriState mech,
+        // Semi- and conditionally required properties
+        Size size, DeployableStatblock statblock
     ) {
-        this(name, type, detail, pilot, mech, instances, cost, size,
-            null, null, null, null,
+        this(name, type, detail, pilot, mech, -1, IDeployableData.costDefault,
+            size, statblock, null, null, null,
             null, null, null, null,
             null, null);
     }
@@ -148,12 +148,12 @@ public class IDeployableData {
         // Required properties
         String name, String type, String detail,
         // Semi-required properties
-        TriState pilot, TriState mech,
-        // Semi- and conditionally required properties
-        Size size, DeployableStatblock statblock
+        TriState pilot, TriState mech, int instances, int cost,
+        // Semi- and conditionally required property
+        Size size
     ) {
-        this(name, type, detail, pilot, mech, -1, IDeployableData.costDefault,
-            size, statblock, null, null, null,
+        this(name, type, detail, pilot, mech, instances, cost, size,
+            null, null, null, null,
             null, null, null, null,
             null, null);
     }
