@@ -2,7 +2,7 @@ package Packages.CoreTypes;
 
 import MainBranch.HelperMethods;
 
-public class CounterData {
+public class CounterData extends CounterBase {
     // Required properties
     /**
      * The id of this counter (i.e. "ctr_brawler").
