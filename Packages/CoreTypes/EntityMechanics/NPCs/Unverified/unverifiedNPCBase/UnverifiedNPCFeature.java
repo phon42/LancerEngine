@@ -4,11 +4,13 @@ import MainBranch.HelperMethods;
 import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.RangeTag;
 import Packages.CoreTypes.EntityMechanics.RangeType;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.unverifiedDataTag.dataTag.ITagData;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.UnverifiedDataTag;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.unverifiedDataTag.DataTag;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.systemBase.systemType.WeaponType;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.Harm;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.harm.HarmType;
 import Packages.CoreTypes.EntityMechanics.NPCs.Unverified.UnverifiedNPCBase;
+import Packages.CoreTypes.EntityMechanics.NPCs.Verified.verifiedNPCBase.NPCFeature;
 import Packages.CoreTypes.EntityMechanics.NPCs.Verified.verifiedNPCBase.npcFeature.NPCOrigin;
 import Packages.CoreTypes.EntityMechanics.NPCs.Verified.verifiedNPCBase.npcFeature.NPCSystemType;
 
@@ -116,12 +118,12 @@ public class UnverifiedNPCFeature extends UnverifiedNPCBase {
      */
     private Bonus bonus;
     /**
-     * Can be any ITagData[] that is not of length 0 and does not contain null
+     * Can be any UnverifiedDataTag[] that is not of length 0 and does not contain null
      *     elements. Can be null.
      * 
-     * If passed an ITagData[] of length 0, sets this.tags to null.
+     * If passed an UnverifiedDataTag[] of length 0, sets this.tags to null.
      */
-    private ITagData[] tags;
+    private UnverifiedDataTag[] tags;
 
     public UnverifiedNPCFeature(
         // NCPBase properties
@@ -133,7 +135,7 @@ public class UnverifiedNPCFeature extends UnverifiedNPCBase {
         // Conditionally semi-required properties
         int[] attackBonus, int[] accuracy,
         // Optional properties
-        Bonus bonus, ITagData[] tags
+        Bonus bonus, UnverifiedDataTag[] tags
     ) {
         HelperMethods.verifyConstructor();
         // NCPBase properties
@@ -243,7 +245,7 @@ public class UnverifiedNPCFeature extends UnverifiedNPCBase {
     public Bonus getBonus() {
         return bonus;
     }
-    public ITagData[] getTags() {
+    public UnverifiedDataTag[] getTags() {
         if (tags != null) {
             return HelperMethods.copyOf(tags);
         }
@@ -364,7 +366,7 @@ public class UnverifiedNPCFeature extends UnverifiedNPCBase {
     private void setBonus(Bonus bonus) {
         this.bonus = bonus;
     }
-    private void setTags(ITagData[] tags) {
+    private void setTags(UnverifiedDataTag[] tags) {
         if (tags != null) {
             if (tags.length == 0) {
                 tags = null;
@@ -377,5 +379,19 @@ public class UnverifiedNPCFeature extends UnverifiedNPCBase {
 
     private boolean isWeapon() {
         return type.getValue().equals("Weapon");
+    }
+    public NPCFeature toNPCFeature() {
+        DataTag[] dataTags = null;
+
+        if (this.tags != null) {
+            dataTags = new DataTag[this.tags.length];
+            for (int i = 0; i < dataTags.length; i++) {
+                dataTags[i] = this.tags[i].toDataTag();
+            }
+        }
+
+        return new NPCFeature(this.id, this.name, this.origin, this.type,
+            this.effect, this.locked, this.weaponType, this.damage, this.range,
+            this.onHit, this.attackBonus, this.accuracy, this.bonus, dataTags);
     }
 }
