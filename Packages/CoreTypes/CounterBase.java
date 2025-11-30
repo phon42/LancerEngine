@@ -34,7 +34,113 @@ public class CounterBase {
      */
     protected boolean defaultValuePresent;
 
-    public CounterBase() {
+    /**
+     * CounterBase.min:              PROVIDED
+     * CounterBase.max:              PROVIDED
+     * CounterBase.defaultValue:     PROVIDED
+     */
+    protected CounterBase(int minimumValue, int maximumValue, int defaultValue) {
+        this();
+        // Semi-required properties
+        setMin(minimumValue);
+        setMax(maximumValue);
+        // Optional property
+        setDefaultValue(defaultValue);
+        // Helper property
+        setDefaultValuePresent(true);
+    }
+    /**
+     * CounterBase.min:              PROVIDED
+     * CounterBase.max:              PROVIDED
+     * CounterBase.defaultValue: NOT PROVIDED
+     */
+    protected CounterBase(int minimumValue, int maximumValue) {
+        this();
+        // Semi-required properties
+        setMin(minimumValue);
+        setMax(maximumValue);
+        // Optional property
+        setDefaultValue(0);
+        // Helper property
+        setDefaultValuePresent(false);
+    }
+    /**
+     * CounterBase.min:              PROVIDED
+     * CounterBase.max:          NOT PROVIDED
+     * CounterBase.defaultValue:     PROVIDED
+     */
+    protected CounterBase(int minimumValue, Object maximumValue, int defaultValue)
+    {
+        this();
+        // Semi-required properties
+        setMin(minimumValue);
+        // Optional property
+        setDefaultValue(defaultValue);
+        // Helper property
+        setDefaultValuePresent(true);
+    }
+    /**
+     * CounterBase.min:              PROVIDED
+     * CounterBase.max:          NOT PROVIDED
+     * CounterBase.defaultValue: NOT PROVIDED
+     */
+    protected CounterBase(int minimumValue) {
+        this();
+        // Semi-required properties
+        setMin(minimumValue);
+        // Optional property
+        setDefaultValue(0);
+        // Helper property
+        setDefaultValuePresent(false);
+    }
+    /**
+     * CounterBase.min:          NOT PROVIDED
+     * CounterBase.max:              PROVIDED
+     * CounterBase.defaultValue:     PROVIDED
+     */
+    protected CounterBase(Object minimumValue, int maximumValue, int defaultValue)
+    {
+        this();
+        // Semi-required properties
+        setMax(maximumValue);
+        // Optional property
+        setDefaultValue(defaultValue);
+        // Helper property
+        setDefaultValuePresent(true);
+    }
+    /**
+     * CounterBase.min:          NOT PROVIDED
+     * CounterBase.max:              PROVIDED
+     * CounterBase.defaultValue: NOT PROVIDED
+     */
+    protected CounterBase(Object minimumValue, int maximumValue) {
+        this();
+        // Semi-required properties
+        setMax(maximumValue);
+        // Optional property
+        setDefaultValue(0);
+        // Helper property
+        setDefaultValuePresent(false);
+    }
+    /**
+     * CounterBase.min:          NOT PROVIDED
+     * CounterBase.max:          NOT PROVIDED
+     * CounterBase.defaultValue:     PROVIDED
+     */
+    protected CounterBase(Object minimumValue, Object maximumValue,
+        int defaultValue) {
+        this();
+        // Optional property
+        setDefaultValue(defaultValue);
+        // Helper property
+        setDefaultValuePresent(true);
+    }
+    /**
+     * CounterBase.min:          NOT PROVIDED
+     * CounterBase.max:          NOT PROVIDED
+     * CounterBase.defaultValue: NOT PROVIDED
+     */
+    protected CounterBase() {
         // Semi-required properties
         this.min = CounterBase.minDefault;
         this.max = CounterBase.maxDefault;
@@ -42,6 +148,12 @@ public class CounterBase {
         this.defaultValue = 0;
         // Helper property
         setDefaultValuePresent(false);
+    }
+    protected CounterBase(CounterBase counterBase) {
+        setMin(counterBase.min);
+        setMax(counterBase.max);
+        setDefaultValue(counterBase.defaultValue);
+        setDefaultValuePresent(counterBase.defaultValuePresent);
     }
 
     // Semi-required properties
