@@ -193,7 +193,9 @@ public class Manufacturer {
             HelperMethods.checkString("logoURLRaw", logoURLRaw);
         }
         this.logoURLRaw = logoURLRaw;
-        url = FileOperations.toURLCaught(logoURLRaw);
+        if (logoURLRaw != null) {
+            url = FileOperations.toURLCaught(logoURLRaw);
+        }
         setLogoURL(url);
     }
     private void setDescription(VueHTMLString description) {
