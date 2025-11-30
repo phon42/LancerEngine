@@ -5,7 +5,7 @@ import Packages.CoreTypes.VueHTMLString;
 import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.ISynergyData;
 import Packages.CoreTypes.EntityMechanics.Actions.actionBase.IActionData;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.IDeployableData;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.UnverifiedIDeployableData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.UnverifiedDataTag;
 
 public class UnverifiedPilotEquipment {
@@ -37,17 +37,18 @@ public class UnverifiedPilotEquipment {
     protected Bonus[] bonuses;
     protected ISynergyData[] synergies;
     /**
-     * Can be any IDeployableData[] that is not of length 0 or contains null
+     * Can be any UnverifiedIDeployableData[] that is not of length 0 or contains null
      *     elements. Can be null.
      */
-    protected IDeployableData[] deployables;
+    protected UnverifiedIDeployableData[] deployables;
 
     protected UnverifiedPilotEquipment(
         // Required properties
         String id, String name, String type,
         // Optional properties
         String description, UnverifiedDataTag[] dataTags, IActionData[] actions,
-        Bonus[] bonuses, ISynergyData[] synergies, IDeployableData[] deployables
+        Bonus[] bonuses, ISynergyData[] synergies,
+        UnverifiedIDeployableData[] deployables
     ) {
         // Required properties
         setID(id);
@@ -107,7 +108,7 @@ public class UnverifiedPilotEquipment {
 
         return synergies;
     }
-    public IDeployableData[] getDeployables() {
+    public UnverifiedIDeployableData[] getDeployables() {
         if (deployables != null) {
             HelperMethods.copyOf(deployables);
         }
@@ -162,7 +163,7 @@ public class UnverifiedPilotEquipment {
         }
         this.synergies = synergies;
     }
-    protected void setDeployables(IDeployableData[] deployables) {
+    protected void setDeployables(UnverifiedIDeployableData[] deployables) {
         HelperMethods.checkObjectArrayAlt("deployables",
             deployables);
         if (deployables != null) {
