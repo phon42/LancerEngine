@@ -436,6 +436,32 @@ public final class HelperMethods {
         
         return newIntArray;
     }
+    @SuppressWarnings("unchecked")
+    /**
+     * Appends the given Type element to the end of an existing Type[].
+     * @param array a Type[] that cannot be null.
+     * @param newElement a Type that cannot be null to append to the end of
+     *     array.
+     * @return a Type[] consisting of array with newElement appended to the end
+     *     of it.
+     * @throws IllegalArgumentException if array or newElement is null.
+     */
+    public static <Type> Type[] append(Type[] array, Type newElement) {
+        Type[] newArray;
+
+        HelperMethods.checkObject("array", array);
+        HelperMethods.checkObject("newElement", newElement);
+        newArray = (Type[]) new Object[array.length + 1];
+        for (int i = 0; i < newArray.length; i++) {
+            if (i < array.length) {
+                newArray[i] = array[i];
+                continue;
+            }
+            newArray[i] = newElement;
+        }
+        
+        return newArray;
+    }
     /**
      * Appends the given String element to the end of an existing String[].
      * @param array a String[] that cannot be null.
@@ -1859,6 +1885,24 @@ public final class HelperMethods {
     public static int[] copyOf(int[] original) {
         checkObject("original", original);
         int[] copy = new int[original.length];
+        for (int i = 0; i < original.length; i++) {
+            copy[i] = original[i];
+        }
+
+        return copy;
+    }
+    @SuppressWarnings("unchecked")
+    /**
+     * Returns a deep copy of original.
+     * @param original a Type[] that cannot be null.
+     * @return a Type[] deep copy of original.
+     * @throws IllegalArgumentException if original is null.
+     */
+    public static <Type> Type[] copyOf(Type[] original) {
+        Type[] copy;
+
+        checkObject("original", original);
+        copy = (Type[]) new Object[original.length];
         for (int i = 0; i < original.length; i++) {
             copy[i] = original[i];
         }
