@@ -5,20 +5,17 @@ import MainBranch.HelperMethods;
 import Packages.CoreTypes.VueHTMLString;
 import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.ISynergyData;
-import Packages.CoreTypes.EntityMechanics.License;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
 import Packages.CoreTypes.EntityMechanics.RangeTag;
 import Packages.CoreTypes.EntityMechanics.WeaponSize;
 import Packages.CoreTypes.EntityMechanics.Actions.actionBase.IActionData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.IDeployableData;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Equipment;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.SystemBase;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.unverifiedDataTag.DataTag;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.systemBase.systemType.WeaponType;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.systemBase.weapon.IWeaponProfile;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.mount.MountType;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.Harm;
-import Packages.CoreTypes.EntityMechanics.HarmSystem.harm.Damage;
 import Packages.CoreTypes.counterBase.CounterData;
 
 /**
@@ -90,7 +87,7 @@ public final class Weapon extends SystemBase {
     private IDeployableData[] deployables;
     private CounterData[] counters;
     private String[] integrated;
-    private String[] special_equipment;
+    private String[] specialEquipment;
     private IWeaponProfile[] profiles;
 
     // Helper properties
@@ -169,8 +166,8 @@ public final class Weapon extends SystemBase {
     public WeaponType getWeaponType() {
         return weaponType;
     }
-    public Harm[] getHarm() {
-        return harm;
+    public Harm[] getDamage() {
+        return damage;
     }
     public RangeTag[] getRange() {
         return range;
@@ -227,14 +224,14 @@ public final class Weapon extends SystemBase {
         HelperMethods.checkObject("weaponType", weaponType);
         this.weaponType = weaponType;
     }
-    private void setHarm(Harm[] harm) {
-        HelperMethods.checkObjectArray("harm", harm);
-        if (harm.length < 1) {
-            throw new IllegalArgumentException("harm.length value: "
-                + harm.length + " is < 1");
+    private void setDamage(Harm[] damage) {
+        HelperMethods.checkObjectArray("damage", damage);
+        if (damage.length < 1) {
+            throw new IllegalArgumentException("damage.length value: "
+                + damage.length + " is < 1");
         }
-        harm = HelperMethods.copyOf(harm);
-        this.harm = harm;
+        damage = HelperMethods.copyOf(damage);
+        this.damage = damage;
     }
     private void setRange(RangeTag[] range) {
         HelperMethods.checkObjectArray("range", range);
