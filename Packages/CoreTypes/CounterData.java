@@ -17,37 +17,6 @@ public class CounterData extends CounterBase {
      */
     private String name;
 
-    // Semi-required (optional but has a specific default value other than null
-    //     when not provided) properties
-    /**
-     * The minimum value of this counter (i.e. 1).
-     * Can be any int.
-     */
-    private int min;
-    private static final int minDefault = Integer.MIN_VALUE;
-    /**
-     * The maximum value of this counter (i.e. 6).
-     * Can be any int.
-     */
-    private int max;
-    private static final int maxDefault = Integer.MAX_VALUE;
-
-    // Technically optional property but since it's an int we're gonna have to
-    //     do something different
-    /**
-     * The default value of this counter (i.e. 6).
-     * Can be any int.
-     * 
-     * Is only used when this.defaultValuePresent is true.
-     */
-    private int defaultValue;
-
-    // Helper property
-    /**
-     * Whether this.defaultValue should be used.
-     */
-    private boolean defaultValuePresent;
-
     /**
      * CounterData.min:              PROVIDED
      * CounterData.max:              PROVIDED
@@ -55,15 +24,9 @@ public class CounterData extends CounterBase {
      */
     public CounterData(String id, String name, int minimumValue,
         int maximumValue, int defaultValue) {
-        // Required properties
-        this(id, name);
-        // Semi-required properties
-        setMin(minimumValue);
-        setMax(maximumValue);
-        // Technically optional property
-        setDefaultValue(defaultValue);
-        // Helper property
-        setDefaultValuePresent(true);
+        super(minimumValue, maximumValue, defaultValue);
+        setID(id);
+        setName(name);
     }
     /**
      * CounterData.min:              PROVIDED
@@ -72,15 +35,9 @@ public class CounterData extends CounterBase {
      */
     public CounterData(String id, String name, int minimumValue,
         int maximumValue) {
-        // Required properties
-        this(id, name);
-        // Semi-required properties
-        setMin(minimumValue);
-        setMax(maximumValue);
-        // Technically optional property
-        setDefaultValue(0);
-        // Helper property
-        setDefaultValuePresent(false);
+        super(minimumValue, maximumValue);
+        setID(id);
+        setName(name);
     }
     /**
      * CounterData.min:              PROVIDED
@@ -89,15 +46,9 @@ public class CounterData extends CounterBase {
      */
     public CounterData(String id, String name, int minimumValue,
         Object maximumValue, int defaultValue) {
-        // Required properties
-        this(id, name);
-        // Semi-required properties
-        setMin(minimumValue);
-        setMax(CounterData.maxDefault);
-        // Technically optional property
-        setDefaultValue(defaultValue);
-        // Helper property
-        setDefaultValuePresent(true);
+        super(minimumValue, null, defaultValue);
+        setID(id);
+        setName(name);
     }
     /**
      * CounterData.min:              PROVIDED
@@ -105,15 +56,9 @@ public class CounterData extends CounterBase {
      * CounterData.defaultValue: NOT PROVIDED
      */
     public CounterData(String id, String name, int minimumValue) {
-        // Required properties
-        this(id, name);
-        // Semi-required properties
-        setMin(minimumValue);
-        setMax(CounterData.maxDefault);
-        // Technically optional property
-        setDefaultValue(0);
-        // Helper property
-        setDefaultValuePresent(false);
+        super(minimumValue);
+        setID(id);
+        setName(name);
     }
     /**
      * CounterData.min:          NOT PROVIDED
@@ -122,15 +67,9 @@ public class CounterData extends CounterBase {
      */
     public CounterData(String id, String name, Object minimumValue,
         int maximumValue, int defaultValue) {
-        // Required properties
-        this(id, name);
-        // Semi-required properties
-        setMin(CounterData.minDefault);
-        setMax(maximumValue);
-        // Technically optional property
-        setDefaultValue(defaultValue);
-        // Helper property
-        setDefaultValuePresent(true);
+        super(null, maximumValue, defaultValue);
+        setID(id);
+        setName(name);
     }
     /**
      * CounterData.min:          NOT PROVIDED
@@ -139,15 +78,9 @@ public class CounterData extends CounterBase {
      */
     public CounterData(String id, String name, Object minimumValue,
         int maximumValue) {
-        // Required properties
-        this(id, name);
-        // Semi-required properties
-        setMin(CounterData.minDefault);
-        setMax(maximumValue);
-        // Technically optional property
-        setDefaultValue(0);
-        // Helper property
-        setDefaultValuePresent(false);
+        super(null, maximumValue);
+        setID(id);
+        setName(name);
     }
     /**
      * CounterData.min:          NOT PROVIDED
@@ -156,37 +89,14 @@ public class CounterData extends CounterBase {
      */
     public CounterData(String id, String name, Object minimumValue,
         Object maximumValue, int defaultValue) {
-        // Required properties
-        this(id, name);
-        // Semi-required properties
-        setMin(CounterData.minDefault);
-        setMax(CounterData.maxDefault);
-        // Technically optional property
-        setDefaultValue(defaultValue);
-        // Helper property
-        setDefaultValuePresent(true);
-    }
-    /**
-     * CounterData.min:          NOT PROVIDED
-     * CounterData.max:          NOT PROVIDED
-     * CounterData.defaultValue: NOT PROVIDED
-     */
-    public CounterData(String id, String name) {
-        // Required properties
+        super(null, null, defaultValue);
         setID(id);
         setName(name);
-        // Semi-required properties
-        setMin(CounterData.minDefault);
-        setMax(CounterData.maxDefault);
-        // Technically optional property
-        setDefaultValue(0);
-        // Helper property
-        setDefaultValuePresent(false);
     }
-    public CounterData(CounterData counter) {
-        this(counter.id, counter.name, counter.min, counter.max,
-            counter.defaultValue);
-        setDefaultValuePresent(counter.defaultValuePresent);
+    public CounterData(String id, String name) {
+        super();
+        setID(id);
+        setName(name);
     }
 
     // Required properties
@@ -195,21 +105,6 @@ public class CounterData extends CounterBase {
     }
     public String getName() {
         return name;
-    }
-    // Semi-required properties
-    public int getMin() {
-        return min;
-    }
-    public int getMax() {
-        return max;
-    }
-    // Technically optional property
-    public int getDefaultValue() {
-        return defaultValue;
-    }
-    // Helper property
-    public boolean isDefaultValuePresent() {
-        return defaultValuePresent;
     }
     // Required properties
     private void setID(String id) {
@@ -220,20 +115,5 @@ public class CounterData extends CounterBase {
     private void setName(String name) {
         HelperMethods.checkString("name", name);
         this.name = name;
-    }
-    // Semi-required properties
-    private void setMin(int min) {
-        this.min = min;
-    }
-    private void setMax(int max) {
-        this.max = max;
-    }
-    // Technically optional property
-    private void setDefaultValue(int defaultValue) {
-        this.defaultValue = defaultValue;
-    }
-    // Helper property
-    private void setDefaultValuePresent(boolean defaultValuePresent) {
-        this.defaultValuePresent = defaultValuePresent;
     }
 }
