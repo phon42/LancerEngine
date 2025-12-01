@@ -4,7 +4,7 @@ import MainBranch.HelperMethods;
 import Packages.CoreTypes.TriState;
 import Packages.CoreTypes.VueHTMLString;
 import Packages.CoreTypes.EntityMechanics.Bonus;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.IDeployableData;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.iDeployableBase.IDeployableData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.reserve.reserveData.ReserveType;
 import Packages.CoreTypes.counterBase.CounterData;
 import Packages.CoreTypes.EntityMechanics.ISynergyData;

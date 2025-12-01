@@ -1,4 +1,4 @@
-package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable;
+package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.iDeployableBase;
 
 import MainBranch.Database;
 import MainBranch.HelperMethods;
@@ -9,7 +9,7 @@ import Packages.CoreTypes.EntityMechanics.ActivationType;
 import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.ISynergyData;
 import Packages.CoreTypes.EntityMechanics.Actions.actionBase.IActionData;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.iDeployableData.DeployableStatblock;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.iDeployableBase.iDeployableData.DeployableStatblock;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.UnverifiedDataTag;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.unverifiedDataTag.DataTag;
 import Packages.CoreTypes.counterBase.CounterData;
