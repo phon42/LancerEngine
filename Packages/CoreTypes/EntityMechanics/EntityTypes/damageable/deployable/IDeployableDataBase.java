@@ -8,11 +8,11 @@ import Packages.CoreTypes.EntityMechanics.ActivationType;
 import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.ISynergyData;
 import Packages.CoreTypes.EntityMechanics.Actions.actionBase.IActionData;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.iDeployableBase.IDeployableData;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.iDeployableBase.iDeployableData.DeployableStatblock;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.iDeployableDataBase.IDeployableData;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.iDeployableDataBase.iDeployableData.DeployableStatblock;
 import Packages.CoreTypes.counterBase.CounterData;
 
-public class IDeployableBase {
+public class IDeployableDataBase {
     // Required properties
     protected String name;
     protected String type;
@@ -83,7 +83,7 @@ public class IDeployableBase {
      */
     protected DeployableStatblock statblock;
     protected static final DeployableStatblock statblockDefault =
-        new DeployableStatblock(IDeployableBase.sizeDefault);
+        new DeployableStatblock(IDeployableDataBase.sizeDefault);
 
     // Optional properties
     /**
@@ -119,7 +119,7 @@ public class IDeployableBase {
      */
     protected CounterData[] counters;
 
-    public IDeployableBase(
+    public IDeployableDataBase(
         // Required properties
         String name, String type, String detail,
         // Semi-required properties
@@ -153,7 +153,7 @@ public class IDeployableBase {
         setSynergies(synergies);
         setCounters(counters);
     }
-    public IDeployableBase(
+    public IDeployableDataBase(
         // Required properties
         String name, String type, String detail,
         // Semi-required properties
@@ -166,7 +166,7 @@ public class IDeployableBase {
             statblock, null, null, null,
             null, null, null, null);
     }
-    public IDeployableBase(
+    public IDeployableDataBase(
         // Required properties
         String name, String type, String detail,
         // Semi-required properties
@@ -179,7 +179,7 @@ public class IDeployableBase {
             null, null, null, null,
             null, null, null, null);
     }
-    public IDeployableBase(
+    public IDeployableDataBase(
         // Required properties
         String name, String type, String detail,
         // Semi-required properties
@@ -191,7 +191,7 @@ public class IDeployableBase {
             null, null, null, null,
             null);
     }
-    public IDeployableBase(
+    public IDeployableDataBase(
         // Required properties
         String name, String type, String detail
     ) {
@@ -201,13 +201,13 @@ public class IDeployableBase {
             null, null, null, null,
             null, null, null);
     }
-    public IDeployableBase(Size size, int armor) {
+    public IDeployableDataBase(Size size, int armor) {
         // default values from pg. 68
         // max always before current
         setSize(size);
         setStatblock(new DeployableStatblock(size, armor));
     }
-    public IDeployableBase() {
+    public IDeployableDataBase() {
         this(new Size(2), 0);
     }
 
@@ -325,7 +325,7 @@ public class IDeployableBase {
             // Required
             // Can be any Size. Cannot be null.
             if (size == null) {
-                size = IDeployableBase.sizeDefault;
+                size = IDeployableDataBase.sizeDefault;
             }
         } else {
             // Not required
@@ -341,7 +341,7 @@ public class IDeployableBase {
             // Required
             // Can be any DeployableStatblock. Cannot be null.
             if (statblock == null) {
-                statblock = IDeployableBase.statblockDefault;
+                statblock = IDeployableDataBase.statblockDefault;
             }
         } else {
             // Not required

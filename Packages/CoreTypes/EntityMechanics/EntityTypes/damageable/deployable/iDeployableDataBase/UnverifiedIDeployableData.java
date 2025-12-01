@@ -1,4 +1,4 @@
-package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.iDeployableBase;
+package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.iDeployableDataBase;
 
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.Size;
@@ -7,8 +7,8 @@ import Packages.CoreTypes.EntityMechanics.ActivationType;
 import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.ISynergyData;
 import Packages.CoreTypes.EntityMechanics.Actions.actionBase.IActionData;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.IDeployableBase;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.iDeployableBase.iDeployableData.DeployableStatblock;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.IDeployableDataBase;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.iDeployableDataBase.iDeployableData.DeployableStatblock;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.UnverifiedDataTag;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.unverifiedDataTag.DataTag;
 import Packages.CoreTypes.counterBase.CounterData;
@@ -16,7 +16,7 @@ import Packages.CoreTypes.counterBase.CounterData;
 /**
  * See pgs. 58 and 68.
  */
-public class UnverifiedIDeployableData extends IDeployableBase {
+public class UnverifiedIDeployableData extends IDeployableDataBase {
     // Optional property
     /**
      * Can be any UnverifiedDataTag[] that is not of length 0 and does not
@@ -25,7 +25,7 @@ public class UnverifiedIDeployableData extends IDeployableBase {
     private UnverifiedDataTag[] tags;
 
     public UnverifiedIDeployableData(
-        // IDeployableBase properties
+        // IDeployableDataBase properties
         String name, String type, String detail, ActivationType activation,
         int instances, int cost, TriState pilot, TriState mech, Size size,
         DeployableStatblock statblock, ActivationType deactivation,
@@ -41,7 +41,7 @@ public class UnverifiedIDeployableData extends IDeployableBase {
         setTags(tags);
     }
     public UnverifiedIDeployableData(
-        // IDeployableBase properties
+        // IDeployableDataBase properties
         String name, String type, String detail, ActivationType activation,
         int instances, int cost, TriState pilot, TriState mech, Size size,
         DeployableStatblock statblock, ActivationType deactivation,
@@ -53,7 +53,7 @@ public class UnverifiedIDeployableData extends IDeployableBase {
             synergies, counters, null);
     }
     public UnverifiedIDeployableData(
-        // IDeployableBase properties
+        // IDeployableDataBase properties
         String name, String type, String detail, ActivationType activation,
         int instances, int cost, TriState pilot, TriState mech, Size size,
         DeployableStatblock statblock
@@ -64,7 +64,7 @@ public class UnverifiedIDeployableData extends IDeployableBase {
             null);
     }
     public UnverifiedIDeployableData(
-        // IDeployableBase properties
+        // IDeployableDataBase properties
         String name, String type, String detail, ActivationType activation,
         int instances, int cost, TriState pilot, TriState mech, Size size
     ) {
@@ -74,7 +74,7 @@ public class UnverifiedIDeployableData extends IDeployableBase {
             null);
     }
     public UnverifiedIDeployableData(
-        // IDeployableBase properties
+        // IDeployableDataBase properties
         String name, String type, String detail, ActivationType activation,
         int instances, int cost, TriState pilot, TriState mech
     ) {
@@ -84,12 +84,12 @@ public class UnverifiedIDeployableData extends IDeployableBase {
             null, null);
     }
     public UnverifiedIDeployableData(
-        // IDeployableBase properties
+        // IDeployableDataBase properties
         String name, String type, String detail
     ) {
         this(name, type, detail, null,
-            IDeployableBase.instancesDefault,
-            IDeployableBase.costDefault,
+            IDeployableDataBase.instancesDefault,
+            IDeployableDataBase.costDefault,
             TriState.UNSET, TriState.UNSET, null, null,
             null, null, null, null,
             null, null, null, null);
