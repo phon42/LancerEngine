@@ -5,7 +5,6 @@ import java.util.NoSuchElementException;
 import MainBranch.Database;
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.UnverifiedData;
-import Packages.CoreTypes.VueHTMLString;
 import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
 import Packages.CoreTypes.EntityMechanics.ISynergyData;
@@ -15,63 +14,89 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.iDep
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.unverifiedCoreBonus.CoreBonus;
 import Packages.CoreTypes.counterBase.CounterData;
 
-public class UnverifiedCoreBonus
+public class UnverifiedCoreBonus extends CoreBonusBase
     implements UnverifiedData<UnverifiedCoreBonus, CoreBonus> {
-    // TODO: fill out
-    // Required properties
-    /**
-     * The ID of this core bonus (i.e. "").
-     * Can be any String except "". Cannot be null.
-     * Case-insensitive and stored in lowercase.
-     */
-    protected String id;
-    protected String name;
+    // Required property
     private String source;
-    protected VueHTMLString effect;
-    protected VueHTMLString description;
-
-    // Optional properties
-    protected String mountedEffect;
-    protected IActionData[] actions;
-    protected Bonus[] bonuses;
-    protected ISynergyData[] synergies;
-    protected UnverifiedIDeployableData[] deployables;
-    protected CounterData[] counters;
-    protected String[] integrated;
-    protected String[] specialEquipment;
+    // Optional property
+    private UnverifiedIDeployableData[] deployables;
 
     public UnverifiedCoreBonus(
-        // Required properties
-        String id, String name, String source, String effect,
-        String description,
-        // Optional properties
+        // CoreBonusBase properties
+        String id, String name, String effect, String description,
         String mountedEffect, IActionData[] actions, Bonus[] bonuses,
-        ISynergyData[] synergies, UnverifiedIDeployableData[] deployables,
-        CounterData[] counters, String[] integrated, String[] specialEquipment
+        ISynergyData[] synergies, CounterData[] counters, String[] integrated,
+        String[] specialEquipment,
+        // Required property
+        String source,
+        // Optional property
+        UnverifiedIDeployableData[] deployables
     ) {
-        HelperMethods.verifyConstructor();
-        // Required properties
-        // Optional properties
+        super(id, name, effect, description, mountedEffect, actions, bonuses,
+            synergies, counters, integrated, specialEquipment);
+        setSource(source);
+        setDeployables(deployables);
     }
-    public UnverifiedCoreBonus(String id, String name, String source,
-        String effect, String description) {
-        this(id, name, source, effect, description, null,
+    public UnverifiedCoreBonus(
+        // CoreBonusBase properties
+        String id, String name, String effect, String description,
+        String mountedEffect, IActionData[] actions, Bonus[] bonuses,
+        ISynergyData[] synergies, CounterData[] counters, String[] integrated,
+        String[] specialEquipment,
+        // Required property
+        String source
+    ) {
+        this(id, name, effect, description, mountedEffect, actions, bonuses,
+            synergies, counters, integrated, specialEquipment, source,
+            null);
+    }
+    public UnverifiedCoreBonus(
+        // CoreBonusBase properties
+        String id, String name, String effect, String description,
+        // Required property
+        String source,
+        // Optional property
+        UnverifiedIDeployableData[] deployables
+    ) {
+        this(id, name, effect, description, null, null,
             null, null, null, null,
-            null, null, null);
+            null, source, deployables);
+    }
+    public UnverifiedCoreBonus(
+        // CoreBonusBase properties
+        String id, String name, String effect, String description,
+        // Required property
+        String source
+    ) {
+        this(id, name, effect, description, source, null);
     }
 
-    // Required properties
-    public String getID() {
-        return id;
+    // Required property
+    public String getSource() {
+        return source;
     }
-    // Optional properties
-    // Required properties
-    protected void setID(String id) {
-        HelperMethods.checkString("id", id);
-        id = id.toLowerCase();
-        this.id = id;
+    // Optional property
+    public UnverifiedIDeployableData[] getDeployables() {
+        if (deployables == null) {
+            return deployables;
+        }
+
+        return HelperMethods.copyOf(deployables);
     }
-    // Optional properties
+    // Required property
+    private void setSource(String source) {
+        HelperMethods.checkString("source", source);
+        this.source = source;
+    }
+    // Optional property
+    private void setDeployables(UnverifiedIDeployableData[] deployables) {
+        HelperMethods.checkObjectArrayAlt("deployables",
+            deployables);
+        if (deployables != null) {
+            deployables = HelperMethods.copyOf(deployables);
+        }
+        this.deployables = deployables;
+    }
 
     @Override
     public Class<UnverifiedCoreBonus> getUnverifiedType() {
@@ -97,9 +122,9 @@ public class UnverifiedCoreBonus
             deployables = HelperMethods.verifyArray(this.deployables);
         }
 
-        return new CoreBonus(this.id, this.name, source, this.mountedEffect,
+        return new CoreBonus(this.id, this.name, this.mountedEffect,
             effect.getRawValue(), description.getRawValue(), this.actions,
-            this.bonuses, this.synergies, deployables, this.counters,
-            this.integrated, this.specialEquipment);
+            this.bonuses, this.synergies, this.counters,
+            this.integrated, this.specialEquipment, source, deployables);
     }
 }
