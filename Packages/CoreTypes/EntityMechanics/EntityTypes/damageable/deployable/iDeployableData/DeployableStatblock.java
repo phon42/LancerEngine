@@ -1,5 +1,6 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.iDeployableData;
 
+import java.util.Arrays;
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.Size;
 
@@ -87,9 +88,13 @@ public class DeployableStatblock {
         int heatCap, int repairCap, int sensors, int techAttack, int saveTarget,
         int speed
     ) {
+        boolean[] stats;
+
         HelperMethods.verifyConstructor();
         // Required property
-        setStats(new boolean[10]);
+        stats = new boolean[10];
+        Arrays.fill(stats, true);
+        setStats(stats);
         // Semi-required properties
         setHP(hp);
         setArmor(armor);
@@ -127,25 +132,26 @@ public class DeployableStatblock {
     }
     public DeployableStatblock(Size size, int armor, int evasion, int eDefense)
     {
-        this(size, evasion, eDefense);
-        setArmor(armor);
-        this.stats[1] = true;
-    }
-    public DeployableStatblock(Size size, int evasion, int eDefense) {
-        this(size, evasion);
+        this(size, armor, evasion);
         setEDefense(eDefense);
         this.stats[3] = true;
     }
-    public DeployableStatblock(Size size, int evasion) {
-        this(size);
+    public DeployableStatblock(Size size, int armor, int evasion) {
+        this(size, armor);
         setEvasion(evasion);
         this.stats[2] = true;
+    }
+    public DeployableStatblock(Size size, int armor) {
+        this(size);
+        setArmor(armor);
+        this.stats[1] = true;
     }
     public DeployableStatblock() {
         this(new Size(2));
     }
     public DeployableStatblock(Size size) {
         this(10 / 2 * size.getValue());
+        setStats(new boolean[10]);
         this.stats[0] = true;
     }
     public DeployableStatblock(int hp) {
