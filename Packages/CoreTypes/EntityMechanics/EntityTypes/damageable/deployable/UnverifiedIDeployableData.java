@@ -46,10 +46,10 @@ public class UnverifiedIDeployableData
      * Likewise, the recall action for this deployable refunds (this.cost)
      *     limited charges, while the deactivation action refunds none.
      * Can be any int.
-     * Default value: 1.
+     * Default value: 0.
      */
     private int cost;
-    public static final int costDefault = 1;
+    public static final int costDefault = 0;
     /**
      * Whether this deployable is available to be used by pilots.
      */
@@ -91,9 +91,7 @@ public class UnverifiedIDeployableData
      */
     private DeployableStatblock statblock;
     private static final DeployableStatblock statblockDefault =
-        new DeployableStatblock(
-            UnverifiedIDeployableData.sizeDefault, 0
-        );
+        new DeployableStatblock(UnverifiedIDeployableData.sizeDefault);
 
     // Optional properties
     /**
@@ -179,10 +177,10 @@ public class UnverifiedIDeployableData
         // Semi- and conditionally required properties
         Size size, DeployableStatblock statblock
     ) {
-        this(name, type, detail, activation, -1,
-            UnverifiedIDeployableData.costDefault, pilot, mech, size, statblock,
+        this(name, type, detail, activation, instances, cost, pilot, mech, size,
+            statblock, null, null, null,
             null, null, null, null,
-            null, null, null, null);
+            null);
     }
     public UnverifiedIDeployableData(
         // Required properties
@@ -214,11 +212,12 @@ public class UnverifiedIDeployableData
         // Required properties
         String name, String type, String detail
     ) {
-        this(name, type, detail, null, -1,
-            UnverifiedIDeployableData.costDefault, TriState.UNSET,
-            TriState.UNSET, null, null, null,
+        this(name, type, detail, null,
+            UnverifiedIDeployableData.instancesDefault,
+            UnverifiedIDeployableData.costDefault,
+            TriState.UNSET, TriState.UNSET, null, null,
             null, null, null, null,
-            null, null, null);
+            null, null, null, null);
     }
     public UnverifiedIDeployableData(Size size, int armor) {
         // default values from pg. 68
