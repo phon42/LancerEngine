@@ -1,12 +1,12 @@
-package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech;
+package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frameBase;
 
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.UnverifiedData;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.unverifiedFrame.Frame;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.unverifiedFrame.frame.CoreSystem;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.unverifiedFrame.frame.FrameEnum;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.unverifiedFrame.frame.FrameStatblock;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Mount;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frameBase.frame.CoreSystem;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frameBase.frame.FrameEnum;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frameBase.frame.FrameStatblock;
 import Packages.CoreTypes.EntityMechanics.LicenseSystem.frameLicense.LicenseContent;
 
 public class UnverifiedFrame extends LicenseContent
@@ -131,13 +131,9 @@ public class UnverifiedFrame extends LicenseContent
      */
     private String variant;
     /**
-     * "frame"
-     */
-    private String dataType;
-    /**
      * {}
      */
-    private Object[] aptitude;
+    private boolean specialty;
 
     /**
      * Creates a new UnverifiedFrame using every possible property.
