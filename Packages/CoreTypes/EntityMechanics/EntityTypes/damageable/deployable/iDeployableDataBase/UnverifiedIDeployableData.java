@@ -3,6 +3,7 @@ package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.iDe
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.Size;
 import Packages.CoreTypes.TriState;
+import Packages.CoreTypes.UnverifiedData;
 import Packages.CoreTypes.EntityMechanics.ActivationType;
 import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.ISynergyData;
@@ -16,7 +17,8 @@ import Packages.CoreTypes.counterBase.CounterData;
 /**
  * See pgs. 58 and 68.
  */
-public class UnverifiedIDeployableData extends IDeployableDataBase {
+public class UnverifiedIDeployableData extends IDeployableDataBase
+    implements UnverifiedData<UnverifiedIDeployableData, IDeployableData> {
     // Optional property
     /**
      * Can be any UnverifiedDataTag[] that is not of length 0 and does not
