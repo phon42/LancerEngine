@@ -43,10 +43,10 @@ public class IDeployableData {
      * Likewise, the recall action for this deployable refunds (this.cost)
      *     limited charges, while the deactivation action refunds none.
      * Can be any int.
-     * Default value: 1.
+     * Default value: 0.
      */
     private int cost;
-    public static final int costDefault = 1;
+    public static final int costDefault = 0;
     /**
      * Whether this deployable is available to be used by pilots.
      */
@@ -86,7 +86,7 @@ public class IDeployableData {
      */
     private DeployableStatblock statblock;
     private static final DeployableStatblock statblockDefault =
-        new DeployableStatblock(IDeployableData.sizeDefault, 0);
+        new DeployableStatblock(IDeployableData.sizeDefault);
 
     // Optional properties
     /**
@@ -171,10 +171,10 @@ public class IDeployableData {
         // Semi- and conditionally required properties
         Size size, DeployableStatblock statblock
     ) {
-        this(name, type, detail, activation, -1, IDeployableData.costDefault,
-            pilot, mech, size, statblock, null, null,
+        this(name, type, detail, activation, instances, cost, pilot, mech, size,
+            statblock, null, null, null,
             null, null, null, null,
-            null, null);
+            null);
     }
     public IDeployableData(
         // Required properties
@@ -206,11 +206,11 @@ public class IDeployableData {
         // Required properties
         String name, String type, String detail
     ) {
-        this(name, type, detail, null, -1,
-            IDeployableData.costDefault, TriState.UNSET, TriState.UNSET,
+        this(name, type, detail, null,
+            IDeployableData.instancesDefault, IDeployableData.costDefault,
+            TriState.UNSET, TriState.UNSET, null, null,
             null, null, null, null,
-            null, null, null, null,
-            null, null);
+            null, null, null, null);
     }
     public IDeployableData(Size size, int armor) {
         // default values from pg. 68
