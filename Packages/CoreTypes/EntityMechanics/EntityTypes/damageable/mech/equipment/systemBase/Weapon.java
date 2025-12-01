@@ -2,7 +2,9 @@ package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment
 
 import MainBranch.Database;
 import MainBranch.HelperMethods;
+import Packages.CoreTypes.TriState;
 import Packages.CoreTypes.VueHTMLString;
+import Packages.CoreTypes.EntityMechanics.ActivationType;
 import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.ISynergyData;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
@@ -45,15 +47,33 @@ public final class Weapon extends SystemBase {
 
     // Semi-required (optional but has a specific default value other than null
     //     when not provided) properties
+    /**
+     * Can be any int.
+     * Default value: 0.
+     */
     private int cost;
+    public static final int costDefault = 0;
+    /**
+     * Default value: true.
+     */
     private boolean barrage;
+    private static final boolean barrageDefault = true;
+    /**
+     * Default value is automatically determined based on this.activation type.
+     * If this.activation is a quick action, the default value is false.
+     * If this.activation is a full action, the default value is true.
+     */
     private boolean skirmish;
     private boolean noAttack;
+    private static final boolean noAttackDefault = false;
     private boolean noMods;
+    private static final boolean noModsDefault = false;
     private boolean noCoreBonus;
+    private static final boolean noCoreBonusDefault = false;
     private boolean noBonus;
+    private static final boolean noBonusDefault = false;
     private boolean noSynergy;
-    // TODO: make sure to account for multiple possible ranges
+    private static final boolean noSynergyDefault = false;
     /**
      * The weapon's range (i.e. a RangeTag[] containing a RangeTag representing
      *     Range 10).
@@ -81,13 +101,45 @@ public final class Weapon extends SystemBase {
     private VueHTMLString onAttack;
     private VueHTMLString onHit;
     private VueHTMLString onCrit;
+    /**
+     * Can be any IActionData[] that is not of length 0 or contains null
+     *     elements. Can be null.
+     */
     private IActionData[] actions;
+    /**
+     * Can be any Bonus[] that is not of length 0 or contains null elements. Can
+     *     be null.
+     */
     private Bonus[] bonuses;
+    /**
+     * Can be any ISynergyData[] that is not of length 0 or contains null
+     *     elements. Can be null.
+     */
     private ISynergyData[] synergies;
+    /**
+     * Can be any IDeployableData[] that is not of length 0 or contains null
+     *     elements. Can be null.
+     */
     private IDeployableData[] deployables;
+    /**
+     * Can be any CounterData[] that is not of length 0 or contains null
+     *     elements. Can be null.
+     */
     private CounterData[] counters;
+    /**
+     * Can be any String[] that is not of length 0 or contains null elements or
+     *     elements that are "". Can be null.
+     */
     private String[] integrated;
+    /**
+     * Can be any String[] that is not of length 0 or contains null elements or
+     *     elements that are "". Can be null.
+     */
     private String[] specialEquipment;
+    /**
+     * Can be any IWeaponProfile[] that is not of length 0 or contains null
+     *     elements. Can be null.
+     */
     private IWeaponProfile[] profiles;
 
     // Helper properties
@@ -96,6 +148,12 @@ public final class Weapon extends SystemBase {
      * Can be any WeaponSize. Cannot be null.
      */
     private WeaponSize size;
+    /**
+     * The action required to activate this weapon (i.e. an ActivationType
+     *     representing a quick action).
+     * Can be either a quick action or a full action. Cannot be null.
+     */
+    private ActivationType activation;
 
     // Reference properties
     /**
@@ -113,29 +171,210 @@ public final class Weapon extends SystemBase {
     /**
      * Verbose constructor for non-GMS content.
      * Takes in as a parameter the semi-required property SystemBase.spCost.
+     * Takes in as parameters Weapon's semi-required properties.
+     * Takes in as parameters Weapon's optional properties.
      */
     public Weapon(
         // SystemBase properties
         String id, String name, Manufacturer manufacturer, String licenseID,
         String licenseName, int licenseLevel, String description,
-        DataTag[] dataTags, int spCost
+        DataTag[] dataTags, int spCost,
+        // Required properties
+        MountType mount, WeaponType weaponType,
+        // Semi-required properties
+        int cost, TriState barrage, TriState skirmish, TriState noAttack,
+        TriState noMods, TriState noCoreBonus, TriState noBonus,
+        TriState noSynergy, RangeTag[] range,
+        // Optional properties
+        Harm[] damage, String effect, String onAttack, String onHit,
+        String onCrit, IActionData[] actions, Bonus[] bonuses,
+        ISynergyData[] synergies, IDeployableData[] deployables,
+        CounterData[] counters, String[] integrated, String[] specialEquipment,
+        IWeaponProfile[] profiles
     ) {
         // SystemBase properties
         super(id, name, manufacturer, licenseID, licenseName, licenseLevel,
             description, dataTags, null, spCost);
+        // Required properties
+        setMount(mount);
+        setWeaponType(weaponType);
+        // Semi-required properties
+        setCost(cost);
+        setBarrage(barrage);
+        // setSkirmish moved below the helper properties section because it is
+        //     dependent on this.activation
+        setNoAttack(noAttack);
+        setNoMods(noMods);
+        setNoCoreBonus(noCoreBonus);
+        setNoBonus(noBonus);
+        setNoSynergy(noSynergy);
+        setRange(range);
+        // Optional properties
+        setDamage(damage);
+        setEffect(effect);
+        setOnAttack(onAttack);
+        setOnHit(onHit);
+        setOnCrit(onCrit);
+        setActions(actions);
+        setBonuses(bonuses);
+        setSynergies(synergies);
+        setDeployables(deployables);
+        setCounters(counters);
+        setIntegrated(integrated);
+        setSpecialEquipment(specialEquipment);
+        setProfiles(profiles);
+        // Helper properties
+        calculateHelperProperties();
+
+        setSkirmish(skirmish);
     }
     /**
      * Abbreviated constructor for GMS content.
      * Takes in as a parameter the semi-required property SystemBase.spCost.
+     * Takes in as parameters Weapon's semi-required properties.
+     * Takes in as parameters Weapon's optional properties.
      */
     public Weapon(
         // SystemBase properties
         String id, String name, String licenseID, String licenseName,
-        String description, DataTag[] dataTags, int spCost
+        String description, DataTag[] dataTags, int spCost,
+        // Required properties
+        MountType mount, WeaponType weaponType,
+        // Semi-required properties
+        int cost, TriState barrage, TriState skirmish, TriState noAttack,
+        TriState noMods, TriState noCoreBonus, TriState noBonus,
+        TriState noSynergy, RangeTag[] range,
+        // Optional properties
+        Harm[] damage, String effect, String onAttack, String onHit,
+        String onCrit, IActionData[] actions, Bonus[] bonuses,
+        ISynergyData[] synergies, IDeployableData[] deployables,
+        CounterData[] counters, String[] integrated, String[] specialEquipment,
+        IWeaponProfile[] profiles
     ) {
         // SystemBase properties
         super(id, name, licenseID, licenseName, description, dataTags,
             null, spCost);
+        // Required properties
+        setMount(mount);
+        setWeaponType(weaponType);
+        // Semi-required properties
+        setCost(cost);
+        setBarrage(barrage);
+        // setSkirmish moved below the helper properties section because it is
+        //     dependent on this.activation
+        setNoAttack(noAttack);
+        setNoMods(noMods);
+        setNoCoreBonus(noCoreBonus);
+        setNoBonus(noBonus);
+        setNoSynergy(noSynergy);
+        setRange(range);
+        // Optional properties
+        setDamage(damage);
+        setEffect(effect);
+        setOnAttack(onAttack);
+        setOnHit(onHit);
+        setOnCrit(onCrit);
+        setActions(actions);
+        setBonuses(bonuses);
+        setSynergies(synergies);
+        setDeployables(deployables);
+        setCounters(counters);
+        setIntegrated(integrated);
+        setSpecialEquipment(specialEquipment);
+        setProfiles(profiles);
+        // Helper properties
+        calculateHelperProperties();
+
+        setSkirmish(skirmish);
+    }
+    /**
+     * Verbose constructor for non-GMS content.
+     * Takes in as a parameter the semi-required property SystemBase.spCost.
+     * Takes in as parameters Weapon's semi-required properties.
+     * Does not take in any of Weapon's optional properties as parameters.
+     */
+    public Weapon(
+        // SystemBase properties
+        String id, String name, Manufacturer manufacturer, String licenseID,
+        String licenseName, int licenseLevel, String description,
+        DataTag[] dataTags, int spCost,
+        // Required properties
+        MountType mount, WeaponType weaponType,
+        // Semi-required properties
+        int cost, TriState barrage, TriState skirmish, TriState noAttack,
+        TriState noMods, TriState noCoreBonus, TriState noBonus,
+        TriState noSynergy, RangeTag[] range
+    ) {
+        this(id, name, manufacturer, licenseID, licenseName, licenseLevel,
+            description, dataTags, spCost, mount, weaponType,
+            Weapon.costDefault, TriState.UNSET, TriState.UNSET, TriState.UNSET,
+            TriState.UNSET, TriState.UNSET, TriState.UNSET, TriState.UNSET,
+            null, null, null, null, null,
+            null, null, null, null,
+            null, null, null,
+            null, null);
+    }
+    /**
+     * Abbreviated constructor for GMS content.
+     * Takes in as a parameter the semi-required property SystemBase.spCost.
+     * Takes in as parameters Weapon's semi-required properties.
+     * Does not take in any of Weapon's optional properties as parameters.
+     */
+    public Weapon(
+        // SystemBase properties
+        String id, String name, String licenseID, String licenseName,
+        String description, DataTag[] dataTags, int spCost,
+        // Required properties
+        MountType mount, WeaponType weaponType,
+        // Semi-required properties
+        int cost, TriState barrage, TriState skirmish, TriState noAttack,
+        TriState noMods, TriState noCoreBonus, TriState noBonus,
+        TriState noSynergy, RangeTag[] range
+    ) {
+        this(id, name, licenseID, licenseName, description, dataTags, spCost,
+            mount, weaponType, Weapon.costDefault, TriState.UNSET,
+            TriState.UNSET, TriState.UNSET, TriState.UNSET, TriState.UNSET,
+            TriState.UNSET, TriState.UNSET, null, null,
+            null, null, null, null,
+            null, null, null, null,
+            null, null, null,
+            null);
+    }
+    /**
+     * Verbose constructor for non-GMS content.
+     * Takes in as a parameter the semi-required property SystemBase.spCost.
+     * Does not take in any of Weapon's semi-required properties as parameters.
+     */
+    public Weapon(
+        // SystemBase properties
+        String id, String name, Manufacturer manufacturer, String licenseID,
+        String licenseName, int licenseLevel, String description,
+        DataTag[] dataTags, int spCost,
+        // Required properties
+        MountType mount, WeaponType weaponType
+    ) {
+        this(id, name, manufacturer, licenseID, licenseName, licenseLevel,
+            description, dataTags, spCost, mount, weaponType,
+            Weapon.costDefault, TriState.UNSET, TriState.UNSET, TriState.UNSET,
+            TriState.UNSET, TriState.UNSET, TriState.UNSET, TriState.UNSET,
+            null);
+    }
+    /**
+     * Abbreviated constructor for GMS content.
+     * Takes in as a parameter the semi-required property SystemBase.spCost.
+     * Does not take in any of Weapon's semi-required properties as parameters.
+     */
+    public Weapon(
+        // SystemBase properties
+        String id, String name, String licenseID, String licenseName,
+        String description, DataTag[] dataTags, int spCost,
+        // Required properties
+        MountType mount, WeaponType weaponType
+    ) {
+        this(id, name, licenseID, licenseName, description, dataTags, spCost,
+            mount, weaponType, Weapon.costDefault, TriState.UNSET,
+            TriState.UNSET, TriState.UNSET, TriState.UNSET, TriState.UNSET,
+            TriState.UNSET, TriState.UNSET, null);
     }
     /**
      * Verbose constructor for non-GMS content.
@@ -145,10 +384,12 @@ public final class Weapon extends SystemBase {
         // SystemBase properties
         String id, String name, Manufacturer manufacturer, String licenseID,
         String licenseName, int licenseLevel, String description,
-        DataTag[] dataTags
+        DataTag[] dataTags,
+        // Required properties
+        MountType mount, WeaponType weaponType
     ) {
         this(id, name, manufacturer, licenseID, licenseName, licenseLevel,
-            description, dataTags, -1);
+            description, dataTags, Weapon.spCostDefault, mount, weaponType);
     }
     /**
      * Abbreviated constructor for GMS content.
@@ -157,26 +398,131 @@ public final class Weapon extends SystemBase {
     public Weapon(
         // SystemBase properties
         String id, String name, String licenseID, String licenseName,
-        String description, DataTag[] dataTags
+        String description, DataTag[] dataTags,
+        // Required properties
+        MountType mount, WeaponType weaponType
     ) {
-        this(id, name, licenseID, licenseName, description, dataTags, -1);
+        this(id, name, licenseID, licenseName, description, dataTags,
+            Weapon.spCostDefault, mount, weaponType);
     }
 
     // Required properties
+    public MountType getMount() {
+        return mount;
+    }
     public WeaponType getWeaponType() {
         return weaponType;
     }
-    public Harm[] getDamage() {
-        return damage;
+    // Semi-required properties
+    public int getCost() {
+        return cost;
+    }
+    public boolean isBarrage() {
+        return barrage;
+    }
+    public boolean isSkirmish() {
+        return skirmish;
+    }
+    public boolean isNoAttack() {
+        return noAttack;
+    }
+    public boolean isNoMods() {
+        return noMods;
+    }
+    public boolean isNoCoreBonus() {
+        return noCoreBonus;
+    }
+    public boolean isNoBonus() {
+        return noBonus;
+    }
+    public boolean isNoSynergy() {
+        return noSynergy;
     }
     public RangeTag[] getRange() {
-        return range;
+        return HelperMethods.copyOf(range);
     }
-    // Semi-required properties
     // Optional properties
+    public Harm[] getDamage() {
+        if (damage == null) {
+            return damage;
+        }
+
+        return HelperMethods.copyOf(damage);
+    }
+    public VueHTMLString getEffect() {
+        return effect;
+    }
+    public VueHTMLString getOnAttack() {
+        return onAttack;
+    }
+    public VueHTMLString getOnHit() {
+        return onHit;
+    }
+    public VueHTMLString getOnCrit() {
+        return onCrit;
+    }
+    public IActionData[] getActions() {
+        if (actions == null) {
+            return actions;
+        }
+
+        return HelperMethods.copyOf(actions);
+    }
+    public Bonus[] getBonuses() {
+        if (bonuses == null) {
+            return bonuses;
+        }
+
+        return HelperMethods.copyOf(bonuses);
+    }
+    public ISynergyData[] getSynergies() {
+        if (synergies == null) {
+            return synergies;
+        }
+
+        return HelperMethods.copyOf(synergies);
+    }
+    public IDeployableData[] getDeployables() {
+        if (deployables == null) {
+            return deployables;
+        }
+
+        return HelperMethods.copyOf(deployables);
+    }
+    public CounterData[] getCounters() {
+        if (counters == null) {
+            return counters;
+        }
+
+        return HelperMethods.copyOf(counters);
+    }
+    public String[] getIntegrated() {
+        if (integrated == null) {
+            return integrated;
+        }
+
+        return HelperMethods.copyOf(integrated);
+    }
+    public String[] getSpecialEquipment() {
+        if (specialEquipment == null) {
+            return specialEquipment;
+        }
+
+        return HelperMethods.copyOf(specialEquipment);
+    }
+    public IWeaponProfile[] getProfiles() {
+        if (profiles == null) {
+            return profiles;
+        }
+
+        return HelperMethods.copyOf(profiles);
+    }
     // Helper properties
     public WeaponSize getSize() {
         return size;
+    }
+    public ActivationType getActivation() {
+        return activation;
     }
     // Inherited properties
     /**
@@ -220,18 +566,38 @@ public final class Weapon extends SystemBase {
         this.type = type;
     }
     // Required properties
+    private void setMount(MountType mount) {
+        HelperMethods.checkObject("mount", mount);
+        this.mount = mount;
+    }
     private void setWeaponType(WeaponType weaponType) {
         HelperMethods.checkObject("weaponType", weaponType);
         this.weaponType = weaponType;
     }
-    private void setDamage(Harm[] damage) {
-        HelperMethods.checkObjectArray("damage", damage);
-        if (damage.length < 1) {
-            throw new IllegalArgumentException("damage.length value: "
-                + damage.length + " is < 1");
-        }
-        damage = HelperMethods.copyOf(damage);
-        this.damage = damage;
+    // Semi-required properties
+    private void setCost(int cost) {
+        this.cost = cost;
+    }
+    private void setBarrage(boolean barrage) {
+        this.barrage = barrage;
+    }
+    private void setSkirmish(boolean skirmish) {
+        this.skirmish = skirmish;
+    }
+    private void setNoAttack(boolean noAttack) {
+        this.noAttack = noAttack;
+    }
+    private void setNoMods(boolean noMods) {
+        this.noMods = noMods;
+    }
+    private void setNoCoreBonus(boolean noCoreBonus) {
+        this.noCoreBonus = noCoreBonus;
+    }
+    private void setNoBonus(boolean noBonus) {
+        this.noBonus = noBonus;
+    }
+    private void setNoSynergy(boolean noSynergy) {
+        this.noSynergy = noSynergy;
     }
     private void setRange(RangeTag[] range) {
         HelperMethods.checkObjectArray("range", range);
@@ -242,11 +608,183 @@ public final class Weapon extends SystemBase {
         range = HelperMethods.copyOf(range);
         this.range = range;
     }
-    // Semi-required properties
     // Optional properties
+    private void setDamage(Harm[] damage) {
+        HelperMethods.checkObjectArrayAlt("damage", damage);
+        if (damage != null) {
+            damage = HelperMethods.copyOf(damage);
+        }
+        this.damage = damage;
+    }
+    private void setEffect(VueHTMLString effect) {
+        this.effect = effect;
+    }
+    private void setOnAttack(VueHTMLString onAttack) {
+        this.onAttack = onAttack;
+    }
+    private void setOnHit(VueHTMLString onHit) {
+        this.onHit = onHit;
+    }
+    private void setOnCrit(VueHTMLString onCrit) {
+        this.onCrit = onCrit;
+    }
+    private void setActions(IActionData[] actions) {
+        HelperMethods.checkObjectArrayAlt("actions", actions);
+        if (actions != null) {
+            actions = HelperMethods.copyOf(actions);
+        }
+        this.actions = actions;
+    }
+    private void setBonuses(Bonus[] bonuses) {
+        HelperMethods.checkObjectArrayAlt("bonuses", bonuses);
+        if (bonuses != null) {
+            bonuses = HelperMethods.copyOf(bonuses);
+        }
+        this.bonuses = bonuses;
+    }
+    private void setSynergies(ISynergyData[] synergies) {
+        HelperMethods.checkObjectArrayAlt("synergies", synergies);
+        if (synergies != null) {
+            synergies = HelperMethods.copyOf(synergies);
+        }
+        this.synergies = synergies;
+    }
+    private void setDeployables(IDeployableData[] deployables) {
+        HelperMethods.checkObjectArrayAlt("deployables",
+            deployables);
+        if (deployables != null) {
+            deployables = HelperMethods.copyOf(deployables);
+        }
+        this.deployables = deployables;
+    }
+    private void setCounters(CounterData[] counters) {
+        HelperMethods.checkObjectArrayAlt("counters", counters);
+        if (counters != null) {
+            counters = HelperMethods.copyOf(counters);
+        }
+        this.counters = counters;
+    }
+    private void setIntegrated(String[] integrated) {
+        HelperMethods.checkStringArrayAlt("integrated",
+            integrated);
+        if (integrated != null) {
+            integrated = HelperMethods.copyOf(integrated);
+        }
+        this.integrated = integrated;
+    }
+    private void setSpecialEquipment(String[] specialEquipment) {
+        HelperMethods.checkStringArrayAlt("specialEquipment",
+            specialEquipment);
+        if (specialEquipment != null) {
+            specialEquipment = HelperMethods.copyOf(specialEquipment);
+        }
+        this.specialEquipment = specialEquipment;
+    }
+    private void setProfiles(IWeaponProfile[] profiles) {
+        HelperMethods.checkObjectArrayAlt("profiles", profiles);
+        if (profiles != null) {
+            profiles = HelperMethods.copyOf(profiles);
+        }
+        this.profiles = profiles;
+    }
     // Helper properties
     private void setSize(WeaponSize size) {
         HelperMethods.checkObject("size", size);
         this.size = size;
+    }
+    private void setActivation(ActivationType activation) {
+        HelperMethods.checkObject("activation", activation);
+        if (! (activation.getType().equals("quick")
+            || activation.getType().equals("full"))) {
+            throw new IllegalArgumentException("activation.type is: \""
+                + activation.getType() + "\" which is neither \"quick\" nor"
+                + " \"full\"");
+        }
+        this.activation = activation;
+    }
+
+    private void setBarrage(TriState barrage) {
+        if (barrage == TriState.UNSET) {
+            this.barrage = Weapon.barrageDefault;
+        } else {
+            setBarrage(barrage.toBoolean());
+        }
+    }
+    private void setSkirmish(TriState skirmish) {
+        if (skirmish == TriState.UNSET) {
+            setSkirmish(calculateSkirmishDefault());
+        } else {
+            setSkirmish(skirmish.toBoolean());
+        }
+    }
+    private void setNoAttack(TriState noAttack) {
+        if (noAttack == TriState.UNSET) {
+            setNoAttack(Weapon.noAttackDefault);
+        } else {
+            setNoAttack(noAttack.toBoolean());
+        }
+    }
+    private void setNoMods(TriState noMods) {
+        if (noMods == TriState.UNSET) {
+            setNoMods(Weapon.noModsDefault);
+        } else {
+            setNoMods(noMods.toBoolean());
+        }
+    }
+    private void setNoCoreBonus(TriState noCoreBonus) {
+        if (noCoreBonus == TriState.UNSET) {
+            setNoCoreBonus(Weapon.noCoreBonusDefault);
+        } else {
+            setNoCoreBonus(noCoreBonus.toBoolean());
+        }
+    }
+    private void setNoBonus(TriState noBonus) {
+        if (noBonus == TriState.UNSET) {
+            setNoBonus(Weapon.noBonusDefault);
+        } else {
+            setNoBonus(noBonus.toBoolean());
+        }
+    }
+    private void setNoSynergy(TriState noSynergy) {
+        if (noSynergy == TriState.UNSET) {
+            setNoSynergy(Weapon.noSynergyDefault);
+        } else {
+            setNoSynergy(noSynergy.toBoolean());
+        }
+    }
+    private void setEffect(String effect) {
+        if (effect == null) {
+            this.effect = null;
+        } else {
+            setEffect(new VueHTMLString(effect));
+        }
+    }
+    private void setOnAttack(String onAttack) {
+        if (onAttack == null) {
+            this.onAttack = null;
+        } else {
+            setOnAttack(new VueHTMLString(onAttack));
+        }
+    }
+    private void setOnHit(String onHit) {
+        if (onHit == null) {
+            this.onHit = null;
+        } else {
+            setOnHit(new VueHTMLString(onHit));
+        }
+    }
+    private void setOnCrit(String onCrit) {
+        if (onCrit == null) {
+            this.onCrit = null;
+        } else {
+            setOnCrit(new VueHTMLString(onCrit));
+        }
+    }
+    private boolean calculateSkirmishDefault() {
+        // TODO: fill out
+        return true;
+    }
+    private void calculateHelperProperties() {
+        // TODO: fill out
     }
 }
