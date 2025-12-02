@@ -8,9 +8,10 @@ import Packages.CoreTypes.EntityMechanics.License;
  *     mech system, mech weapon, or weapon modification. Contains nothing by
  *     default.
  * 
- * Requires nothing to be instantialized.
+ * Requires a content ID, name, license ID, license level, and description to be
+ *     instantialized.
  * 
- * Unused but extended by many classes.
+ * Unused but extended by LicenseContent and UnverifiedLicenseContent.
  * 
  * At least one of this class' properties has an allowed value of null.
  */

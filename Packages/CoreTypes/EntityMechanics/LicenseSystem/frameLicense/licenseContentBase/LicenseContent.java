@@ -10,7 +10,8 @@ import Packages.CoreTypes.EntityMechanics.LicenseSystem.frameLicense.LicenseCont
  *     mech system, mech weapon, or weapon modification. Contains nothing by
  *     default.
  * 
- * Requires nothing to be instantialized.
+ * Requires a content ID, name, manufacturer, license ID, license level, and
+ *     description to be instantialized.
  * 
  * Unused but extended by many classes.
  * 
