@@ -1,8 +1,9 @@
-package Packages.CoreTypes.EntityMechanics.LicenseSystem.frameLicense;
+package Packages.CoreTypes.EntityMechanics.LicenseSystem.frameLicense.licenseContentBase;
 
 import MainBranch.Database;
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
+import Packages.CoreTypes.EntityMechanics.LicenseSystem.frameLicense.LicenseContentBase;
 
 /**
  * Represents anything that can be put into a FrameLicense, such as a frame,

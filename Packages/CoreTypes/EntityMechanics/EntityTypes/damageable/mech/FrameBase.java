@@ -6,7 +6,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frameBase.
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frameBase.frame.CoreSystem;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frameBase.frame.FrameEnum;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frameBase.frame.FrameStatblock;
-import Packages.CoreTypes.EntityMechanics.LicenseSystem.frameLicense.LicenseContent;
+import Packages.CoreTypes.EntityMechanics.LicenseSystem.frameLicense.licenseContentBase.LicenseContent;
 
 public class FrameBase extends LicenseContent {
     // TODO: figure out a way to override the documentation from LicenseContent
