@@ -14,8 +14,7 @@ import Packages.CoreTypes.EntityMechanics.LicenseSystem.frameLicense.LicenseCont
  * 
  * Unused but extended by many classes.
  * 
- * Safety: This class does not have placeholder values and cannot be a
- *     placeholder. At least one of its properties has an allowed value of null.
+ * At least one of this class' properties has an allowed value of null.
  */
 public class LicenseContent extends LicenseContentBase {
     // Required property
