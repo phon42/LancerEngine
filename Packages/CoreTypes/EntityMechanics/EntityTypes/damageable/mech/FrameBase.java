@@ -181,22 +181,6 @@ public class FrameBase extends LicenseContent {
         setMounts(mounts);
         setCoreSystem(coreSystem);
     }
-    /**
-     * Creates a deepest copy of the provided FrameBase.
-     * @param frame a FrameBase to be copied.
-     * @return a FrameBase deepest copy of the provided FrameBase.
-     */
-    public FrameBase(FrameBase frameBase) {
-        // make sure to use the proper accessor method instead of .<property> if
-        //     the property's type is mutable
-        super(frameBase);
-        setRole(frameBase.role);
-        setStats(frameBase.statblock);
-        setTraits(frameBase.traits);
-        setMounts(frameBase.mounts);
-        setCoreSystem(frameBase.coreSystem);
-        setFrameEnum(frameBase.frameEnum);
-    }
 
     public String getID() {
         return id;
