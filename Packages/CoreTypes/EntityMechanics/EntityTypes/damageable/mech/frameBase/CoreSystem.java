@@ -1,4 +1,4 @@
-package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frameBase.frame;
+package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frameBase;
 
 import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.Deployable;

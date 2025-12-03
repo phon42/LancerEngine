@@ -2,10 +2,10 @@ package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech;
 
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frameBase.CoreSystem;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frameBase.Frame;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frameBase.frame.CoreSystem;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frameBase.frame.FrameEnum;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frameBase.frame.FrameStatblock;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frameBase.FrameEnum;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frameBase.FrameStatblock;
 import Packages.CoreTypes.EntityMechanics.LicenseSystem.frameLicense.licenseContentBase.LicenseContent;
 
 public class FrameBase extends LicenseContent {

@@ -5,7 +5,7 @@ import Packages.CoreTypes.EntityMechanics.License;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.Mech;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Mount;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.systemBase.MechSystem;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frameBase.frame.FrameEnum;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frameBase.FrameEnum;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Loadout;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.SkillTriggersList;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Talent;

@@ -2,9 +2,6 @@ package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frameBase
 
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Mount;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frameBase.frame.CoreSystem;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frameBase.frame.FrameEnum;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frameBase.frame.FrameStatblock;
 
 /**
  * See pg. 32.
