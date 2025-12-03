@@ -1034,7 +1034,11 @@ public class DataCaster {
                 throw new IllegalStateException("Attempting to process"
                     + " deployablesArray threw a JSONException");
             }
-        } catch (JSONException exception) {}
+        } catch (JSONException exception) {
+            throw new IllegalStateException("coreBonusData threw a"
+                + " JSONException during the required properties section of the"
+                + " object parsing, which is not allowed");
+        }
         try {
             countersArray = coreBonusData.getJSONArray("counters");
             try {
@@ -1052,9 +1056,9 @@ public class DataCaster {
         specialEquipment = getOptionalStringArray(coreBonusData,
             "special_equipment");
 
-        return new UnverifiedCoreBonus(id, name, source, effect, description,
-            mountedEffect, actions, bonuses, synergies, deployables, counters,
-            integrated, specialEquipment);
+        return new UnverifiedCoreBonus(id, name, effect, description,
+            mountedEffect, actions, bonuses, synergies, counters, integrated,
+            specialEquipment, source, deployables);
     }
     private static CounterData toCounter(JSONObject counterData) {
         // Main properties
