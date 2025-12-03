@@ -32,9 +32,12 @@ public class UnverifiedCoreBonus extends CoreBonusBase
         // Optional property
         UnverifiedIDeployableData[] deployables
     ) {
+        // CoreBonusBase properties
         super(id, name, effect, description, mountedEffect, actions, bonuses,
             synergies, counters, integrated, specialEquipment);
+        // Required property
         setSource(source);
+        // Optional property
         setDeployables(deployables);
     }
     public UnverifiedCoreBonus(

@@ -31,9 +31,12 @@ public class CoreBonus extends CoreBonusBase {
         // Optional property
         IDeployableData[] deployables
     ) {
+        // CoreBonusBase properties
         super(id, name, effect, description, mountedEffect, actions, bonuses,
             synergies, counters, integrated, specialEquipment);
+        // Required property
         setSource(source);
+        // Optional property
         setDeployables(deployables);
     }
     public CoreBonus(
