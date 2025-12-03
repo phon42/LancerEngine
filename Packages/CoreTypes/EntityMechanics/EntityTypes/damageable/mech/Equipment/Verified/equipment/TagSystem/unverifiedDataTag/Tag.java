@@ -1,22 +1,21 @@
-package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.unverifiedDataTag;
+package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Equipment.Verified.equipment.TagSystem.unverifiedDataTag;
 
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.TriState;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.unverifiedDataTag.dataTag.ITagData;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.equipment.TagSystem.unverifiedDataTag.dataTag.iTagData.ITagDataUnhidden;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Equipment.Verified.equipment.TagSystem.unverifiedDataTag.dataTag.iTagData.ITagDataUnhidden;
 
-public class DataTag {
+public class Tag {
     // Required property
     /**
-     * The data tag this DataTag object refers to (i.e. a ITagData representing
-     *     the AI tag).
-     * Can be any ITagData. Cannot be null.
+     * The data tag this Tag object refers to (i.e. a Tag representing the AI
+     *     tag).
+     * Can be any ITagDataUnhidden. Cannot be null.
      */
-    private ITagData data;
+    private ITagDataUnhidden data;
 
     // Optional properties
     /**
-     * The int value that this DataTag object holds (example unhelpful).
+     * The int value that this Tag object holds (example unhelpful).
      * When this.valueString is not null:
      *     Must be -1.
      * When this.valueString is null:
@@ -28,7 +27,7 @@ public class DataTag {
      */
     private int valueInt;
     /**
-     * The String value that this DataTag object holds (i.e. "X").
+     * The String value that this Tag object holds (i.e. "X").
      * When this.valueInt is -1:
      *     Must be null.
      * When this.valueInt is > -1:
@@ -41,21 +40,21 @@ public class DataTag {
      */
     private String valueString;
 
-    public DataTag(ITagData data, String value) {
+    public Tag(ITagDataUnhidden data, String value) {
         setData(data);
         this.valueInt = -1;
         this.valueString = null;
         setValueString(value);
         verify();
     }
-    public DataTag(ITagData data, int value) {
+    public Tag(ITagDataUnhidden data, int value) {
         setData(data);
         this.valueInt = -1;
         this.valueString = null;
         setValueInt(value);
         verify();
     }
-    public DataTag(ITagData data) {
+    public Tag(ITagDataUnhidden data) {
         setData(data);
         this.valueInt = -1;
         this.valueString = null;
@@ -63,7 +62,7 @@ public class DataTag {
     }
 
     // Required property
-    public ITagData getData() {
+    public ITagDataUnhidden getData() {
         return data;
     }
     // Optional properties
@@ -74,7 +73,7 @@ public class DataTag {
         return valueString;
     }
     // Required property
-    private void setData(ITagData data) {
+    private void setData(ITagDataUnhidden data) {
         HelperMethods.checkObject("data", data);
         this.data = data;
     }
@@ -109,17 +108,6 @@ public class DataTag {
         this.valueString = valueString;
     }
 
-    public Object getValue() {
-        if (this.valueString == null) {
-            return this.valueInt;
-        } else if (this.valueInt == -1) {
-            return this.valueString;
-        } else {
-            // you can throw a RuntimeException here if you want
-            // I'm not gonna
-            return null;
-        }
-    }
     private void verify() throws IllegalStateException {
         if (data.acceptsValue() == TriState.TRUE) {
             if (valueInt == -1 && valueString == null) {
@@ -141,44 +129,5 @@ public class DataTag {
         }
         // otherwise this.data.acceptsValue is TriState.UNSET in which case we
         //     don't do any verification
-    }
-    public Tag toTag() throws IllegalArgumentException {
-        ITagDataUnhidden data;
-
-        if (this.data.isHidden()) {
-            throw new IllegalArgumentException("Unable to convert a DataTag"
-                + " with a DataTag.data.hidden value of true to a Tag");
-        }
-        data = this.data.toUnhiddenTag();
-        if (this.valueString == null) {
-            return new Tag(data, this.valueInt);
-        } else if (this.valueInt != -1) {
-            return new Tag(data, this.valueString);
-        } else {
-            return new Tag(data);
-        }
-    }
-    public static Tag[] toTags(DataTag[] dataTags) {
-        int numValidTags = 0;
-        Tag[] tags;
-
-        HelperMethods.checkObject("dataTags", dataTags);
-        for (int i = 0; i < dataTags.length; i++) {
-            if (dataTags[i] == null) {
-                continue;
-            }
-            numValidTags++;
-        }
-        tags = new Tag[numValidTags];
-        numValidTags = 0;
-        for (int i = 0; i < dataTags.length; i++) {
-            if (dataTags[i] == null) {
-                continue;
-            }
-            tags[numValidTags] = dataTags[i].toTag();
-            numValidTags++;
-        }
-
-        return tags;
     }
 }
