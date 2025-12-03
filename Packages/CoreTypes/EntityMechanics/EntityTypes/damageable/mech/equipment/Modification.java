@@ -123,17 +123,6 @@ public class Modification extends Equipment {
         setAddedRange(addedRange);
         setAddedDataTags(addedDataTags);
     }
-    public Modification(Modification modification) {
-        super(modification);
-        setSpCost(modification.spCost);
-        setAllowedTypes(modification.allowedTypes);
-        setEffect(modification.effect);
-        setAddedDamage(modification.addedDamage);
-        setRestrictedSizes(modification.restrictedSizes);
-        setActions(modification.actions);
-        setAddedRange(modification.addedRange);
-        setAddedDataTags(modification.addedDataTags);
-    }
 
     // Required properties
     public int getSpCost() {

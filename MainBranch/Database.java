@@ -961,7 +961,7 @@ public final class Database {
         modificationID = modificationID.toLowerCase();
         for (Modification modification : Database.modifications) {
             if (modificationID.equals(modification.getID())) {
-                return new Modification(modification);
+                return modification;
             }
         }
         throw new NoSuchElementException("No modification found for"

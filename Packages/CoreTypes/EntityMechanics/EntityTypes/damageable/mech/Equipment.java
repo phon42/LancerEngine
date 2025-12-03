@@ -49,10 +49,6 @@ public class Equipment extends LicenseContent {
         super(id, name, licenseID, licenseName, description);
         setDataTags(dataTags);
     }
-    protected Equipment(Equipment equipment) {
-        super(equipment);
-        setDataTags(equipment.dataTags);
-    }
 
     /**
      * Is overridden in all of Equipment's children.
