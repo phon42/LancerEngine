@@ -1,9 +1,10 @@
 package Packages.CoreTypes.EntityMechanics.SynergyLocationSystem.Verified;
 
 import MainBranch.HelperMethods;
+import Packages.CoreTypes.EntityMechanics.SynergyLocationSystem.SynergyLocationBase;
 
 // TODO: fill out
-public class SynergyLocation {
+public class SynergyLocation extends SynergyLocationBase {
     // Required property
     /**
      * This synergy location's id (i.e. "active_effects").
