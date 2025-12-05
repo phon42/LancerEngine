@@ -7,7 +7,7 @@ import Packages.CoreTypes.UnverifiedData;
 import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.ISynergyData;
 import Packages.CoreTypes.EntityMechanics.Actions.Verified.actionBase.IActionData;
-import Packages.CoreTypes.EntityMechanics.ActivationTypeSystem.ActivationType;
+import Packages.CoreTypes.EntityMechanics.ActivationTypeSystem.Verified.ActivationType;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.IDeployableDataBase;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.iDeployableDataBase.iDeployableData.DeployableStatblock;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Equipment.Verified.equipment.TagSystem.UnverifiedDataTag;
