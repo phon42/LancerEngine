@@ -49,9 +49,9 @@ public class ActionBaseBase {
      */
     protected boolean pilot;
     /**
-     * The default value for Action.pilot.
+     * The default value for ActionBaseBase.pilot.
      */
-    private static final boolean pilotDefault = false;
+    protected static final boolean pilotDefault = false;
     /**
      * Whether this action can be used while in a mech.
      * Default value: true.
@@ -60,7 +60,7 @@ public class ActionBaseBase {
     /**
      * The default value for ActionBaseBase.mech.
      */
-    private static final boolean mechDefault = true;
+    protected static final boolean mechDefault = true;
     /**
      * An array of lines of flavor text that can be printed out when this action
      *     is executed (i.e. a String[] containing the String "REACTOR LIMITER"
@@ -73,7 +73,7 @@ public class ActionBaseBase {
     /**
      * The default value for ActionBaseBase.confirm.
      */
-    private static final String[] confirmDefault = new String[] {"ACTIVATION"
+    protected static final String[] confirmDefault = new String[] {"ACTIVATION"
         + " CONFIRMED."};
     /**
      * Unknown purpose.
@@ -85,7 +85,7 @@ public class ActionBaseBase {
     /**
      * The default value for ActionBaseBase.hideActive.
      */
-    private static final boolean hideActiveDefault = false;
+    protected static final boolean hideActiveDefault = false;
 
     // Conditionally required properties
     /**
@@ -135,7 +135,7 @@ public class ActionBaseBase {
     /**
      * Stores a HashMap helpful in calculating ActionBaseBase.type.
      */
-    private static final HashMap<String, String> typeMap = new HashMap<>();
+    protected static final HashMap<String, String> typeMap = new HashMap<>();
 
     static {
         ActionBaseBase.typeMap.put("free", "free");
