@@ -2,7 +2,7 @@ package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.bond;
 
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.TriState;
-import Packages.CoreTypes.EntityMechanics.Frequency;
+import Packages.CoreTypes.EntityMechanics.FrequencySystem.Verified.Frequency;
 
 /**
  * Represents a single bond power. Contains information about the bond power's

@@ -1,8 +1,8 @@
-package Packages.CoreTypes.EntityMechanics;
+package Packages.CoreTypes.EntityMechanics.FrequencySystem.Verified;
 
 import MainBranch.Database;
 import MainBranch.HelperMethods;
-import Packages.CoreTypes.EntityMechanics.frequency.FrequencyType;
+import Packages.CoreTypes.EntityMechanics.FrequencySystem.Verified.frequency.FrequencyType;
 
 public class Frequency {
     // Required property

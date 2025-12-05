@@ -1,4 +1,4 @@
-package Packages.CoreTypes.EntityMechanics.frequency;
+package Packages.CoreTypes.EntityMechanics.FrequencySystem.Verified.frequency;
 
 import MainBranch.HelperMethods;
 
