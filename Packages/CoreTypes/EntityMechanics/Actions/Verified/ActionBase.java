@@ -236,12 +236,12 @@ public class ActionBase extends ActionBaseBase {
             || this.name.equals("Boost")) {
             result = "move";
         } else {
-            if (ActionBase.typeMap.containsKey(activationType)) {
-                result = ActionBase.typeMap.get(activationType);
+            if (ActionBaseBase.typeMap.containsKey(activationType)) {
+                result = ActionBaseBase.typeMap.get(activationType);
             } else {
                 throw new IllegalStateException("this.activation.type is: \""
                     + activationType + "\" which could not be found within"
-                    + " ActionBase.typeMap");
+                    + " ActionBaseBase.typeMap");
             }
         }
 
