@@ -14,13 +14,12 @@ import Packages.CoreTypes.TriState;
 /**
  * Represents the shared properties of a single action of any type, be it
  *     verified or unverified data. Contains information about the action's
- *     name, activation speed, and a detailed description of what it does, among
- *     other properties.
+ *     name and a detailed description of what it does, among other properties.
  * 
- * Requires an action name, activation speed, and a detailed description to be
+ * Requires an action name and a detailed description of the action to be
  *     instantiated.
  * 
- * Used in myriad other classes.
+ * Used in ActionBase and UnverifiedActionBase.
  * 
  * Safety: At least one of this class' properties has an allowed value of null.
  */
@@ -137,6 +136,7 @@ public class ActionBaseBase {
      */
     protected static final HashMap<String, String> typeMap = new HashMap<>();
 
+    // TODO: create some way to modify this table
     static {
         ActionBaseBase.typeMap.put("free", "free");
         ActionBaseBase.typeMap.put("protocol", "free");
@@ -172,32 +172,41 @@ public class ActionBaseBase {
         // Optional properties
         setMethod(method);
         setInit(requiredInitialConditions);
-        // Helper property
-        setType(calculateType());
+    }
+    protected ActionBaseBase(
+        // Required properties
+        String name, String detailedDescription,
+        // Semi-required properties
+        TriState pilot, TriState mech, String[] confirm, TriState hideActive,
+        // Conditionally required property
+        String trigger
+    ) {
+        this(name, detailedDescription, pilot, mech, confirm, hideActive,
+            trigger, null, null);
+    }
+    protected ActionBaseBase(
+        // Required properties
+        String name, String detailedDescription,
+        // Semi-required properties
+        TriState pilot, TriState mech, String[] confirm, TriState hideActive
+    ) {
+        this(name, detailedDescription, pilot, mech, confirm, hideActive,
+            null, null, null);
+    }
+    protected ActionBaseBase(
+        // Required properties
+        String name, String detailedDescription,
+        // Conditionally required property
+        String trigger
+    ) {
+        this(name, detailedDescription, TriState.UNSET, TriState.UNSET,
+            null, TriState.UNSET, trigger, null,
+            null);
     }
     protected ActionBaseBase(String name, String detailedDescription) {
         this(name, detailedDescription, TriState.UNSET, TriState.UNSET,
             null, TriState.UNSET, null, null,
             null);
-    }
-    protected ActionBaseBase(ActionBaseBase actionBase) {
-        HelperMethods.checkObject("actionBase", actionBase);
-        // Required properties
-        setName(actionBase.name);
-        setDetail(actionBase.detail);
-        // Semi-required properties
-        setMethod(actionBase.method);
-        setPilot(actionBase.pilot);
-        setMech(actionBase.mech);
-        setConfirm(actionBase.confirm);
-        setHideActive(actionBase.hideActive);
-        // Conditionally required property
-        setTrigger(actionBase.trigger);
-        // Optional properties
-        setMethod(actionBase.method);
-        setInit(actionBase.init);
-        // Helper property
-        setType(calculateType());
     }
 
     // Required properties
@@ -256,10 +265,6 @@ public class ActionBaseBase {
         HelperMethods.checkObject("detail", detail);
         this.detail = detail;
     }
-    protected void setDetail(String detail) {
-        HelperMethods.checkString("detail", detail);
-        setDetail(new VueHTMLString(detail));
-    }
     // Semi-optional properties
     protected void setPilot(boolean pilot) {
         this.pilot = pilot;
@@ -298,13 +303,15 @@ public class ActionBaseBase {
     }
     // Helper property
     protected void setType(String type) {
-        if (type != null) {
-            HelperMethods.checkStringAlt("type", type);
-            type = type.toLowerCase();
-        }
+        HelperMethods.checkString("type", type);
+        type = type.toLowerCase();
         this.type = type;
     }
 
+    protected void setDetail(String detail) {
+        HelperMethods.checkObject("detail", detail);
+        setDetail(new VueHTMLString(detail));
+    }
     protected void setPilotAndMech(TriState pilot, TriState mech) {
         HelperMethods.checkObject("pilot", pilot);
         HelperMethods.checkObject("mech", mech);
@@ -340,13 +347,17 @@ public class ActionBaseBase {
             setInit(new VueHTMLString(init));
         }
     }
+    /**
+     * Should be overridden in every direct child.
+     */
     protected void verifyProperties() {
     }
     /**
      * Calculates the correct value for the helper property ActionBaseBase.type.
+     * Should be overridden in every direct child.
      * @return a String containing the correct value.
      */
     protected String calculateType() {
-        return null;
+        return "free";
     }
 }
