@@ -5,14 +5,6 @@ import Packages.CoreTypes.EntityMechanics.SynergyLocationSystem.SynergyLocationB
 
 // TODO: fill out
 public class SynergyLocation extends SynergyLocationBase {
-    // Required property
-    /**
-     * This synergy location's id (i.e. "active_effects").
-     * Can be any String except "". Cannot be null.
-     * Case-insensitive and stored in lowercase.
-     */
-    private String id;
-
     // Optional property
     /**
      * A short description for developers of what this synergy location actually
@@ -24,27 +16,16 @@ public class SynergyLocation extends SynergyLocationBase {
     private String description;
 
     public SynergyLocation(String id, String description) {
-        HelperMethods.verifyConstructor();
-        setID(id);
+        super(id);
         setDescription(description);
     }
     public SynergyLocation(String id) {
         this(id, null);
     }
 
-    // Required property
-    public String getID() {
-        return id;
-    }
     // Optional property
     public String getDescription() {
         return description;
-    }
-    // Required property
-    private void setID(String id) {
-        HelperMethods.checkString("id", id);
-        id = id.toLowerCase();
-        this.id = id;
     }
     // Optional property
     public void setDescription(String description) {
