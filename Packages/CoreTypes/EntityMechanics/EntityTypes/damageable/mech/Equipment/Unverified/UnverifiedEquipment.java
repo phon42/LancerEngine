@@ -78,43 +78,4 @@ public class UnverifiedEquipment extends UnverifiedLicenseContent {
         dataTags = HelperMethods.copyOf(dataTags);
         this.dataTags = dataTags;
     }
-
-    /**
-     * Searches for a specified data tag. Returns whether the search was
-     *     successful.
-     * @param dataTagName a String containing the name of the data tag to be
-     *     searched for.
-     * @return a boolean containing the result of the search.
-     */
-    public boolean hasDataTag(String dataTagName) {
-        for (DataTag dataTag : this.dataTags) {
-            if (dataTag.getData().getName().equals(dataTagName)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-    /**
-     * Searches for a specified data tag. If the data tag is present, returns
-     *     the value attached to the requested data tag. This value only makes
-     *     sense for certain data tags, such as "Limited X", and will not make
-     *     sense for others, such as "AI". Since int's default value is 0, this
-     *     method will return an int whether it is valid data or not, so it is
-     *     best to check the data tag name first.
-     * @param dataTagName a String containing the name of the data tag to be
-     *     searched for.
-     * @return an int containing the value attached to the requested data tag.
-     * @throws IllegalArgumentException if the requested data tag could not be
-     *     found.
-     */
-    public Object getDataTag(String dataTagName) {
-        for (DataTag dataTag : this.dataTags) {
-            if (dataTag.getData().getName().equals(dataTagName)) {
-                return dataTag.getValue();
-            }
-        }
-        throw new IllegalArgumentException("Requested data tag: \""
-            + dataTagName + "\" could not be found.");
-    }
 }
