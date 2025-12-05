@@ -4,8 +4,7 @@ import MainBranch.HelperMethods;
 
 /**
  * Represents an activation type, either verified or unverified. Contains
- *     information about that activation type's type and a helper property
- *     related to it.
+ *     information about that activation type's value.
  * 
  * Requires an activation type value to be instantiated.
  * 
