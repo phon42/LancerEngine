@@ -1,5 +1,6 @@
 package Packages.CoreTypes.EntityMechanics.ActivationTypeSystem;
 
+import java.util.NoSuchElementException;
 import MainBranch.Database;
 import MainBranch.HelperMethods;
 
@@ -27,7 +28,7 @@ public class ActivationType extends ActivationTypeBase {
 
     public ActivationType(String value) {
         super(value);
-        calculateType();
+        setType(calculateType());
     }
     public ActivationType(String value, String type) {
         super(value);
@@ -45,33 +46,11 @@ public class ActivationType extends ActivationTypeBase {
         this.type = type;
     }
 
-    private void calculateType() {
-        boolean isNull = false;
-        ActivationType activationType;
-        int index = 0;
-        boolean hasBeenFound = false;
-
-        while (! isNull) {
-            // this is essentially a for loop but we don't know the length of
-            //     Database.activationTypes
-            isNull = false;
-            try {
-                activationType = Database.getActivationTypeByIndex(index);
-                // if it didn't throw an exception (the index is valid):
-                if (this.value.equals(activationType.getValue())) {
-                    setType(activationType.getType());
-                    hasBeenFound = true;
-                    break;
-                }
-            } catch (IllegalArgumentException exception) {
-                // needed so we can exit the loop once we reach the end of
-                //     Database.activationTypes
-                isNull = true;
-            }
-            index++;
-        }
-        if (! hasBeenFound) {
-            setType("free");
+    protected String calculateType() {
+        try {
+            return Database.getActivationType(this.value).getType();
+        } catch (NoSuchElementException exception) {
+            return "free";
         }
     }
 }
