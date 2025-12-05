@@ -7,7 +7,7 @@ import Packages.CoreTypes.EntityMechanics.ActivationTypeSystem.ActivationTypeBas
 
 /**
  * Represents a verified activation type. Contains information about that
- *     activation type's type and a helper property related to it.
+ *     activation type's value and a helper property related to it.
  * 
  * Requires an activation type value to be instantiated.
  * 
