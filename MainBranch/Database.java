@@ -1103,16 +1103,16 @@ public final class Database {
             + statusName);
     }
     public static SynergyLocation getSynergyLocation(
-        String synergyLocationName) {
-        HelperMethods.checkObject("synergyLocationName",
-            synergyLocationName);
+        String synergyLocationID) {
+        HelperMethods.checkObject("synergyLocationID",
+            synergyLocationID);
         for (SynergyLocation synergyLocation : Database.synergyLocations) {
-            if (synergyLocationName.equals(synergyLocation.getValue())) {
+            if (synergyLocationID.equals(synergyLocation.getID())) {
                 return synergyLocation;
             }
         }
         throw new NoSuchElementException("No synergy location found for synergy"
-            + " location name: " + synergyLocationName);
+            + " location ID: " + synergyLocationID);
     }
     public static SystemType getSystemType(String systemTypeCategory) {
         HelperMethods.checkObject("systemTypeCategory",
