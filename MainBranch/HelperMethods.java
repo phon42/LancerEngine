@@ -361,6 +361,20 @@ public final class HelperMethods {
         checkString(propertyName, input.getRawValue());
     }
     /**
+     * Checks a provided String to see if it is "". Null values for input are
+     *     allowed.
+     * @param propertyName a String which cannot be "". Cannot be null.
+     * @param input a String which cannot be "". Can be null.
+     * @throws IllegalArgumentException if propertyName or input are "" or
+     *     propertyName is null.
+     */
+    public static void checkStringAlt(String propertyName, String input) {
+        HelperMethods.checkString("propertyName", propertyName);
+        if (input != null) {
+            HelperMethods.checkString(propertyName, input);
+        }
+    }
+    /**
      * An alternate check to perform on an object array compared to
      *     checkStringArray() that instead checks if the provided String[] is of
      *     length 0, contains null elements, or elements that are "". Null
