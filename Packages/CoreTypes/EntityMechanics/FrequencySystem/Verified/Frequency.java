@@ -4,6 +4,18 @@ import MainBranch.Database;
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.EntityMechanics.FrequencySystem.Verified.frequency.FrequencyType;
 
+/**
+ * Represents a verified frequency. Contains information about that frequency's
+ *     type and value.
+ * 
+ * Requires a frequency type to be instantiated.
+ * 
+ * Used in ActionBase and its children, as well as BondPower.
+ * 
+ * Safety: None of this class' properties have allowed values of null.
+ * 
+ * This class is immutable (in other words, no copies of it need to be created).
+ */
 public class Frequency {
     // Required property
     /**
