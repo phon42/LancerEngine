@@ -23,39 +23,57 @@ public class UnverifiedEquipment extends UnverifiedLicenseContent {
     //     Charge D/D 288 action for Weapon)
     // TODO: add some way for DataTags to be automatically added based on an
     //     equipment's contents
+    // Optional property
     /**
      * Contains an array of all of this equipment's data tags (i.e. DataTag
      *     elements representing an "AI" or "Limited X" data tag).
-     * Can be any DataTag[]. Cannot be null or contain null elements.
+     * Can be any DataTag[] that is not of length 0 and does not contain null
+     *     elements. Can be null.
      */
     protected DataTag[] dataTags;
 
     /**
      * Verbose constructor for non-GMS content.
      */
-    protected UnverifiedEquipment(String id, String name, String manufacturer,
-        String licenseID, String licenseName, int licenseLevel,
-        String description, DataTag[] dataTags) {
+    protected UnverifiedEquipment(
+        // UnverifiedLicenseContent properties
+        String id, String name, String manufacturer, String licenseID,
+        String licenseName, int licenseLevel, String description,
+        // Optional property
+        DataTag[] dataTags
+    ) {
+        // UnverifiedLicenseContent properties
         super(id, name, manufacturer, licenseID, licenseName, licenseLevel,
             description);
+        // Optional property
         setDataTags(dataTags);
     }
     /**
      * Abbreviated constructor for GMS content.
      */
-    protected UnverifiedEquipment(String id, String name, String licenseID,
-        String licenseName, String description, DataTag[] dataTags) {
+    protected UnverifiedEquipment(
+        // UnverifiedLicenseContent properties
+        String id, String name, String licenseID, String licenseName,
+        String description,
+        // Optional property
+        DataTag[] dataTags
+    ) {
+        // UnverifiedLicenseContent properties
         super(id, name, licenseID, licenseName, description);
+        // Optional property
         setDataTags(dataTags);
     }
 
+    // getDataTags purposefully removed
     /**
      * Is overridden in all of UnverifiedEquipment's children.
-     * @throws IllegalArgumentException if dataTags is null or includes a null
-     *     element.
+     * Is overridden in all of Equipment's children.
+     * @throws IllegalArgumentException if dataTags is of length 0 or includes
+     *     null elements.
      */
     protected void setDataTags(DataTag[] dataTags) {
-        HelperMethods.checkObjectArray("New data tags", dataTags);
+        HelperMethods.checkObjectArrayAlt("New data tags",
+            dataTags);
         dataTags = HelperMethods.copyOf(dataTags);
         this.dataTags = dataTags;
     }
