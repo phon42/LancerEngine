@@ -2,7 +2,6 @@ package Packages.CoreTypes.EntityMechanics.LicenseSystem.frameLicense.licenseCon
 
 import MainBranch.Database;
 import MainBranch.HelperMethods;
-import Packages.CoreTypes.UnverifiedData;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
 import Packages.CoreTypes.EntityMechanics.LicenseSystem.frameLicense.LicenseContentBase;
 
@@ -18,8 +17,7 @@ import Packages.CoreTypes.EntityMechanics.LicenseSystem.frameLicense.LicenseCont
  * 
  * At least one of this class' properties has an allowed value of null.
  */
-public class UnverifiedLicenseContent extends LicenseContentBase
-    implements UnverifiedData<UnverifiedLicenseContent, LicenseContent> {
+public class UnverifiedLicenseContent extends LicenseContentBase {
     // Required property
     /**
      * The manufacturer providing this license content (i.e. "GMS").
@@ -77,16 +75,6 @@ public class UnverifiedLicenseContent extends LicenseContentBase
         }
         this.licenseLevel = licenseLevel;
     }
-
-    @Override
-    public Class<UnverifiedLicenseContent> getUnverifiedType() {
-        return UnverifiedLicenseContent.class;
-    }
-    @Override
-    public Class<LicenseContent> getVerifiedType() {
-        return LicenseContent.class;
-    }
-    @Override
     public LicenseContent verify() {
         Manufacturer manufacturer;
 
