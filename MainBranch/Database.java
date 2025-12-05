@@ -783,14 +783,6 @@ public final class Database {
         throw new NoSuchElementException("No activation type found for"
             + " activation type value: " + activationTypeValue);
     }
-    public static ActivationType getActivationTypeByIndex(int index) {
-        if (index < 0 || index >= Database.activationTypes.length) {
-            throw new IllegalArgumentException("index: " + index + " is out of"
-                + " bounds for length: " + Database.activationTypes.length);
-        }
-
-        return Database.activationTypes[index];
-    }
     public static Background getBackground(String backgroundID) {
         HelperMethods.checkObject("backgroundID", backgroundID);
         backgroundID = backgroundID.toLowerCase();
