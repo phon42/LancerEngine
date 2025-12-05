@@ -76,6 +76,7 @@ import Packages.CoreTypes.EntityMechanics.StateSystem.State;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.Condition;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.Status;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.unverifiedStateData.StateData;
+import Packages.CoreTypes.EntityMechanics.SynergyLocationSystem.Unverified.UnverifiedSynergyLocation;
 import Packages.CoreTypes.EntityMechanics.SynergyLocationSystem.Verified.SynergyLocation;
 import Packages.CoreTypes.counterBase.CounterData;
 import Packages.CoreTypes.lcpInfo.LCPDependency;
@@ -2561,6 +2562,27 @@ public final class HelperMethods {
         checkObject("original", original);
         UnverifiedIDeployableData[] copy = 
             new UnverifiedIDeployableData[original.length];
+        for (int i = 0; i < original.length; i++) {
+            if (original[i] == null) {
+                copy[i] = original[i];
+                continue;
+            }
+            copy[i] = original[i];
+        }
+
+        return copy;
+    }
+    /**
+     * Returns a deepest copy of original.
+     * @param original an UnverifiedSynergyLocation[] that cannot be null.
+     * @return an UnverifiedSynergyLocation[] deepest copy of original.
+     * @throws IllegalArgumentException if original is null.
+     */
+    public static UnverifiedSynergyLocation[] copyOf(
+        UnverifiedSynergyLocation[] original) {
+        checkObject("original", original);
+        UnverifiedSynergyLocation[] copy = 
+            new UnverifiedSynergyLocation[original.length];
         for (int i = 0; i < original.length; i++) {
             if (original[i] == null) {
                 copy[i] = original[i];
