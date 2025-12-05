@@ -59,8 +59,8 @@ public class ActionBase extends ActionBaseBase {
      * An array of locations that this action is connected to (i.e. a
      *     SynergyLocation[] containing a SynergyLocation representing
      *     "overcharge").
-     * Can be any SynergyLocation[] that does not contain null elements. Can be
-     *     null.
+     * Can be any SynergyLocation[] that is not of length 0 and does not contain
+     *     null elements. Can be null.
      */
     private SynergyLocation[] synergyLocations;
 
@@ -172,13 +172,11 @@ public class ActionBase extends ActionBaseBase {
     }
     // Optional property
     private void setSynergyLocations(SynergyLocation[] synergyLocations) {
-        if (synergyLocations == null) {
-            this.synergyLocations = synergyLocations;
-            return;
-        }
-        HelperMethods.checkObjectArray("synergyLocations",
+        HelperMethods.checkObjectArrayAlt("synergyLocations",
             synergyLocations);
-        synergyLocations = HelperMethods.copyOf(synergyLocations);
+        if (synergyLocations != null) {
+            synergyLocations = HelperMethods.copyOf(synergyLocations);
+        }
         this.synergyLocations = synergyLocations;
     }
 
