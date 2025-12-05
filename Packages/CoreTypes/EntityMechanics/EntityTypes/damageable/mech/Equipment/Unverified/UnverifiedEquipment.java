@@ -1,7 +1,7 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Equipment.Unverified;
 
 import MainBranch.HelperMethods;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Equipment.Verified.equipment.TagSystem.unverifiedDataTag.DataTag;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Equipment.Verified.equipment.TagSystem.UnverifiedDataTag;
 import Packages.CoreTypes.EntityMechanics.LicenseSystem.frameLicense.licenseContentBase.UnverifiedLicenseContent;
 
 /**
@@ -25,12 +25,13 @@ public class UnverifiedEquipment extends UnverifiedLicenseContent {
     //     equipment's contents
     // Optional property
     /**
-     * Contains an array of all of this equipment's data tags (i.e. DataTag
-     *     elements representing an "AI" or "Limited X" data tag).
-     * Can be any DataTag[] that is not of length 0 and does not contain null
-     *     elements. Can be null.
+     * Contains an array of all of this equipment's data tags (i.e.
+     *     UnverifiedDataTag elements representing an "AI" or "Limited X" data
+     *     tag).
+     * Can be any UnverifiedDataTag[] that is not of length 0 and does not
+     *     contain null elements. Can be null.
      */
-    protected DataTag[] dataTags;
+    protected UnverifiedDataTag[] dataTags;
 
     /**
      * Verbose constructor for non-GMS content.
@@ -40,7 +41,7 @@ public class UnverifiedEquipment extends UnverifiedLicenseContent {
         String id, String name, String manufacturer, String licenseID,
         String licenseName, int licenseLevel, String description,
         // Optional property
-        DataTag[] dataTags
+        UnverifiedDataTag[] dataTags
     ) {
         // UnverifiedLicenseContent properties
         super(id, name, manufacturer, licenseID, licenseName, licenseLevel,
@@ -56,7 +57,7 @@ public class UnverifiedEquipment extends UnverifiedLicenseContent {
         String id, String name, String licenseID, String licenseName,
         String description,
         // Optional property
-        DataTag[] dataTags
+        UnverifiedDataTag[] dataTags
     ) {
         // UnverifiedLicenseContent properties
         super(id, name, licenseID, licenseName, description);
@@ -71,7 +72,7 @@ public class UnverifiedEquipment extends UnverifiedLicenseContent {
      * @throws IllegalArgumentException if dataTags is of length 0 or includes
      *     null elements.
      */
-    protected void setDataTags(DataTag[] dataTags) {
+    protected void setDataTags(UnverifiedDataTag[] dataTags) {
         HelperMethods.checkObjectArrayAlt("New data tags",
             dataTags);
         dataTags = HelperMethods.copyOf(dataTags);
