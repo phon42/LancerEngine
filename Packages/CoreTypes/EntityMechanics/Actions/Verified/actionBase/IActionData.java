@@ -3,11 +3,11 @@ package Packages.CoreTypes.EntityMechanics.Actions.Verified.actionBase;
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.Callable;
 import Packages.CoreTypes.TriState;
-import Packages.CoreTypes.EntityMechanics.SynergyLocation;
 import Packages.CoreTypes.EntityMechanics.Actions.Verified.ActionBase;
 import Packages.CoreTypes.EntityMechanics.ActivationTypeSystem.Verified.ActivationType;
 import Packages.CoreTypes.EntityMechanics.FrequencySystem.Verified.Frequency;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.harm.Damage;
+import Packages.CoreTypes.EntityMechanics.SynergyLocationSystem.Verified.SynergyLocation;
 import Packages.CoreTypes.EntityMechanics.RangeTag;
 
 /**

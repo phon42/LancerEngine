@@ -1,4 +1,4 @@
-package Packages.CoreTypes.EntityMechanics;
+package Packages.CoreTypes.EntityMechanics.SynergyLocationSystem.Verified;
 
 import MainBranch.HelperMethods;
 

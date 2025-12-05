@@ -16,7 +16,6 @@ import Packages.CoreTypes.BattlefieldMechanics.Environment;
 import Packages.CoreTypes.BattlefieldMechanics.Sitrep;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
 import Packages.CoreTypes.EntityMechanics.RangeType;
-import Packages.CoreTypes.EntityMechanics.SynergyLocation;
 import Packages.CoreTypes.EntityMechanics.WeaponSize;
 import Packages.CoreTypes.EntityMechanics.Actions.Verified.actionBase.Action;
 import Packages.CoreTypes.EntityMechanics.Actions.Verified.actionBase.IActionData;
@@ -52,6 +51,7 @@ import Packages.CoreTypes.EntityMechanics.LicenseSystem.FrameLicense;
 import Packages.CoreTypes.EntityMechanics.NPCs.Verified.verifiedNPCBase.NPCFeature;
 import Packages.CoreTypes.EntityMechanics.NPCs.Verified.verifiedNPCBase.NPCTemplate;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.unverifiedStateData.StateData;
+import Packages.CoreTypes.EntityMechanics.SynergyLocationSystem.Verified.SynergyLocation;
 
 /**
  * Represents nothing. Contains a set array of Frames to be used by

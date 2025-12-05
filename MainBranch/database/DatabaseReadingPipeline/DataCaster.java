@@ -23,7 +23,6 @@ import Packages.CoreTypes.EntityMechanics.ISynergyData;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
 import Packages.CoreTypes.EntityMechanics.RangeTag;
 import Packages.CoreTypes.EntityMechanics.RangeType;
-import Packages.CoreTypes.EntityMechanics.SynergyLocation;
 import Packages.CoreTypes.EntityMechanics.WeaponSize;
 import Packages.CoreTypes.EntityMechanics.Actions.Verified.actionBase.Action;
 import Packages.CoreTypes.EntityMechanics.Actions.Verified.actionBase.IActionData;
@@ -69,6 +68,7 @@ import Packages.CoreTypes.EntityMechanics.NPCs.Verified.verifiedNPCBase.NPCTempl
 import Packages.CoreTypes.EntityMechanics.NPCs.Verified.verifiedNPCBase.npcFeature.NPCOrigin;
 import Packages.CoreTypes.EntityMechanics.NPCs.Verified.verifiedNPCBase.npcFeature.NPCSystemType;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.unverifiedStateData.StateData;
+import Packages.CoreTypes.EntityMechanics.SynergyLocationSystem.Verified.SynergyLocation;
 import Packages.CoreTypes.counterBase.CounterData;
 import Packages.CoreTypes.lcpInfo.LCPDependency;
 import Packages.CoreTypes.lcpInfo.Version;

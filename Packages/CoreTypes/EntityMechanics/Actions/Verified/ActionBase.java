@@ -4,11 +4,11 @@ import java.util.NoSuchElementException;
 import MainBranch.Database;
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.Callable;
-import Packages.CoreTypes.EntityMechanics.SynergyLocation;
 import Packages.CoreTypes.EntityMechanics.Actions.ActionBaseBase;
 import Packages.CoreTypes.EntityMechanics.ActivationTypeSystem.Verified.ActivationType;
 import Packages.CoreTypes.EntityMechanics.FrequencySystem.Verified.Frequency;
 import Packages.CoreTypes.EntityMechanics.FrequencySystem.Verified.frequency.FrequencyType;
+import Packages.CoreTypes.EntityMechanics.SynergyLocationSystem.Verified.SynergyLocation;
 import Packages.CoreTypes.TriState;
 
 /**
