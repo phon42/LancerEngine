@@ -10,7 +10,7 @@ import MainBranch.HelperMethods;
  * 
  * Requires an activation type value to be instantiated.
  * 
- * Unused at present.
+ * Used in ActionBase, IDeployableData and its children.
  * 
  * Safety: None of this class' properties have allowed values of null.
  * 
