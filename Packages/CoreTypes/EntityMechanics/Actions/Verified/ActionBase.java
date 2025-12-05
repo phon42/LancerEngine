@@ -96,14 +96,9 @@ public class ActionBase extends ActionBaseBase {
         // Conditionally required property
         Frequency frequency
     ) {
-        super(name, detailedDescription, pilot, mech, confirm, hideActive,
-            trigger);
-        // Required property
-        setActivation(activation);
-        // Conditionally required property
-        setFrequency(frequency);
-        // Helper property
-        setType(calculateType());
+        this(name, detailedDescription, pilot, mech, confirm, hideActive,
+            trigger, null, null, activation,
+            frequency, null);
     }
     protected ActionBase(
         // ActionBaseBase properties
@@ -112,11 +107,9 @@ public class ActionBase extends ActionBaseBase {
         // Required property
         ActivationType activation
     ) {
-        super(name, detailedDescription, pilot, mech, confirm, hideActive);
-        // Required property
-        setActivation(activation);
-        // Helper property
-        setType(calculateType());
+        this(name, detailedDescription, pilot, mech, confirm, hideActive,
+            null, null, null,
+            activation, null, null);
     }
     protected ActionBase(
         // ActionBaseBase properties
@@ -126,13 +119,10 @@ public class ActionBase extends ActionBaseBase {
         // Conditionally required property
         Frequency frequency
     ) {
-        super(name, detailedDescription, trigger);
-        // Required property
-        setActivation(activation);
-        // Conditionally required property
-        setFrequency(frequency);
-        // Helper property
-        setType(calculateType());
+        this(name, detailedDescription, null, null, null,
+            null, trigger, null,
+            null, activation, frequency,
+            null);
     }
     protected ActionBase(
         // ActionBaseBase properties
@@ -140,11 +130,10 @@ public class ActionBase extends ActionBaseBase {
         // Required property
         ActivationType activation
     ) {
-        super(name, detailedDescription);
-        // Required property
-        setActivation(activation);
-        // Helper property
-        setType(calculateType());
+        this(name, detailedDescription, null, null, null,
+            null, null, null,
+            null, activation, null,
+            null);
     }
 
     // Required property
