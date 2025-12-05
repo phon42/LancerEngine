@@ -5,8 +5,8 @@ import Packages.CoreTypes.Callable;
 import Packages.CoreTypes.TriState;
 import Packages.CoreTypes.EntityMechanics.SynergyLocation;
 import Packages.CoreTypes.EntityMechanics.Actions.Verified.ActionBase;
+import Packages.CoreTypes.EntityMechanics.ActivationTypeSystem.ActivationType;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.harm.Damage;
-import Packages.CoreTypes.EntityMechanics.ActivationType;
 import Packages.CoreTypes.EntityMechanics.Frequency;
 import Packages.CoreTypes.EntityMechanics.RangeTag;
 
@@ -199,6 +199,11 @@ public class IActionData extends ActionBase {
         this.damage = damage;
     }
 
+    public static String itemNameToActionName(String itemName) {
+        HelperMethods.checkString("itemName", itemName);
+
+        return "Activate " + itemName;
+    }
     private static String toActionName(String itemName) {
         HelperMethods.checkString("itemName", itemName);
         itemName = itemName.toUpperCase();
