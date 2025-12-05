@@ -10,7 +10,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.iDep
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.reserve.reserveData.ReserveType;
 import Packages.CoreTypes.counterBase.CounterData;
 import Packages.CoreTypes.EntityMechanics.ISynergyData;
-import Packages.CoreTypes.EntityMechanics.Actions.actionBase.IActionData;
+import Packages.CoreTypes.EntityMechanics.Actions.Verified.actionBase.IActionData;
 
 /**
  * Represents a single reserve. Contains information about the reserve's id,

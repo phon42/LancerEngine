@@ -1,14 +1,14 @@
-package Packages.CoreTypes.EntityMechanics.Actions.actionBase;
+package Packages.CoreTypes.EntityMechanics.Actions.Verified.actionBase;
 
 import java.util.NoSuchElementException;
 import MainBranch.Database;
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.Callable;
-import Packages.CoreTypes.EntityMechanics.Actions.ActionBase;
 import Packages.CoreTypes.EntityMechanics.frequency.FrequencyType;
 import Packages.CoreTypes.EntityMechanics.ActivationType;
 import Packages.CoreTypes.EntityMechanics.Frequency;
 import Packages.CoreTypes.EntityMechanics.SynergyLocation;
+import Packages.CoreTypes.EntityMechanics.Actions.Verified.ActionBase;
 import Packages.CoreTypes.TriState;
 
 /**
