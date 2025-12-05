@@ -6,12 +6,12 @@ import MainBranch.HelperMethods;
 import Packages.CoreTypes.EntityMechanics.ActivationTypeSystem.ActivationTypeBase;
 
 /**
- * Represents an activation type. Contains information about that activation
- *     type's type and a helper property related to it.
+ * Represents a verified activation type. Contains information about that
+ *     activation type's type and a helper property related to it.
  * 
  * Requires an activation type value to be instantiated.
  * 
- * Used in ActionBase, IDeployableData and its children.
+ * Used in ActionBase and its children, as well as IDeployableData.
  * 
  * Safety: None of this class' properties have allowed values of null.
  * 
