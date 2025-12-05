@@ -167,7 +167,6 @@ public class ActionBase extends ActionBaseBase {
                 frequency = new Frequency(type, 1);
             } catch (NoSuchElementException exception) {}
         }
-        HelperMethods.checkObject("frequency", frequency);
         this.frequency = frequency;
     }
     // Optional property
