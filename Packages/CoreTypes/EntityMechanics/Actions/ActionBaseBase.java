@@ -298,8 +298,10 @@ public class ActionBaseBase {
     }
     // Helper property
     protected void setType(String type) {
-        HelperMethods.checkString("type", type);
-        type = type.toLowerCase();
+        if (type != null) {
+            HelperMethods.checkStringAlt("type", type);
+            type = type.toLowerCase();
+        }
         this.type = type;
     }
 
