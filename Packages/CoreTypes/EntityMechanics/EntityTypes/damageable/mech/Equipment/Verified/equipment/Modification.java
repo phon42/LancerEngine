@@ -46,6 +46,7 @@ public class Modification extends Equipment {
      * Case-sensitive.
      */
     private String effect;
+
     // Optional properties
     // TODO: might actually be Harm[] if a variable damage type is allowed
     /**
@@ -88,17 +89,25 @@ public class Modification extends Equipment {
     /**
      * Verbose constructor for non-GMS content.
      */
-    public Modification(String id, String name, Manufacturer manufacturer,
-        String licenseID, String licenseName, int licenseLevel,
-        String description, DataTag[] dataTags, int spCost,
-        String[] allowedTypes, String effect, Damage[] addedDamage,
-        String[] restrictedSizes, IActionData[] actions, RangeTag[] addedRange,
-        DataTag[] addedDataTags) {
+    public Modification(
+        // Equipment properties
+        String id, String name, Manufacturer manufacturer, String licenseID,
+        String licenseName, int licenseLevel, String description,
+        DataTag[] dataTags,
+        // Required properties
+        int spCost, String[] allowedTypes, String effect,
+        // Optional properties
+        Damage[] addedDamage, String[] restrictedSizes, IActionData[] actions,
+        RangeTag[] addedRange, DataTag[] addedDataTags
+    ) {
+        // Equipment properties
         super(id, name, manufacturer, licenseID, licenseName, licenseLevel,
             description, dataTags);
+        // Required properties
         setSpCost(spCost);
         setAllowedTypes(allowedTypes);
         setEffect(effect);
+        // Optional properties
         setAddedDamage(addedDamage);
         setRestrictedSizes(restrictedSizes);
         setActions(actions);
@@ -108,15 +117,23 @@ public class Modification extends Equipment {
     /**
      * Abbreviated constructor for GMS content.
      */
-    public Modification(String id, String name, String licenseID,
-        String licenseName, String description, DataTag[] dataTags, int spCost,
-        String[] allowedTypes, String effect, Damage[] addedDamage,
-        String[] restrictedSizes, IActionData[] actions, RangeTag[] addedRange,
-        DataTag[] addedDataTags) {
+    public Modification(
+        // Equipment properties
+        String id, String name, String licenseID, String licenseName,
+        String description, DataTag[] dataTags,
+        // Required properties
+        int spCost, String[] allowedTypes, String effect,
+        // Optional properties
+        Damage[] addedDamage, String[] restrictedSizes, IActionData[] actions,
+        RangeTag[] addedRange, DataTag[] addedDataTags
+    ) {
+        // Equipment properties
         super(id, name, licenseID, licenseName, description, dataTags);
+        // Required properties
         setSpCost(spCost);
         setAllowedTypes(allowedTypes);
         setEffect(effect);
+        // Optional properties
         setAddedDamage(addedDamage);
         setRestrictedSizes(restrictedSizes);
         setActions(actions);
