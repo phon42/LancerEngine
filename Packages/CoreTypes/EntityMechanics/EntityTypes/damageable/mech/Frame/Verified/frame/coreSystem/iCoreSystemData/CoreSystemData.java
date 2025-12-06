@@ -4,6 +4,7 @@ import MainBranch.HelperMethods;
 import Packages.CoreTypes.VueHTMLString.VueHTMLString;
 
 public class CoreSystemData {
+    // TODO: fill out
     // Required property
     private String name;
 
@@ -11,6 +12,7 @@ public class CoreSystemData {
     private VueHTMLString description;
 
     public CoreSystemData(String name, String description) {
+        HelperMethods.verifyConstructor();
         setName(name);
         setDescription(description);
     }
