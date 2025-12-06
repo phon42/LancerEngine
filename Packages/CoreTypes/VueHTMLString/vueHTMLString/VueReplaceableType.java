@@ -4,7 +4,7 @@ public class VueReplaceableType {
     protected VueReplaceableType() {}
     protected VueReplaceableType(VueReplaceableType vueReplaceableType) {}
 
-    protected VueReplaceableType replace(String replacement) {
+    public VueReplaceableType replace(String replacement) {
         VueReplaceableType copy = new VueReplaceableType(this);
 
         return copy;
