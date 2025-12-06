@@ -73,11 +73,11 @@ import Packages.CoreTypes.EntityMechanics.NPCs.Verified.verifiedNPCBase.npcFeatu
 import Packages.CoreTypes.EntityMechanics.NPCs.Verified.verifiedNPCBase.npcFeature.NPCSystemType;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.unverifiedStateData.StateData;
 import Packages.CoreTypes.EntityMechanics.SynergyLocationSystem.Verified.SynergyLocation;
-import Packages.CoreTypes.lcpInfo.LCPDependency;
-import Packages.CoreTypes.lcpInfo.Version;
-import Packages.CoreTypes.lcpInfo.lcpDependency.SemverVersion;
+import Packages.CoreTypes.LCPInfo.LCPInfo;
+import Packages.CoreTypes.LCPInfo.lcpInfo.LCPDependency;
+import Packages.CoreTypes.LCPInfo.lcpInfo.Version;
+import Packages.CoreTypes.LCPInfo.lcpInfo.lcpDependency.SemverVersion;
 import Packages.CoreTypes.JSONTypeTree;
-import Packages.CoreTypes.LCPInfo;
 
 public class DataCaster {
     // receive JSON data as an Object[] containing JSONObject[]s and JSONObjects

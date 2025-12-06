@@ -8,7 +8,6 @@ import MainBranch.database.ExternalLCP;
 import MainBranch.database.LCPCorrection;
 import MainBranch.database.DatabaseReadingPipeline.DatabaseReader;
 import MainBranch.database.fileOperations.json.JSONObject;
-import Packages.CoreTypes.LCPInfo;
 import Packages.CoreTypes.Rule;
 import Packages.CoreTypes.Table;
 import Packages.CoreTypes.Term;
@@ -52,6 +51,7 @@ import Packages.CoreTypes.EntityMechanics.NPCs.Verified.verifiedNPCBase.NPCFeatu
 import Packages.CoreTypes.EntityMechanics.NPCs.Verified.verifiedNPCBase.NPCTemplate;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.unverifiedStateData.StateData;
 import Packages.CoreTypes.EntityMechanics.SynergyLocationSystem.Verified.SynergyLocation;
+import Packages.CoreTypes.LCPInfo.LCPInfo;
 
 /**
  * Represents nothing. Contains a set array of Frames to be used by

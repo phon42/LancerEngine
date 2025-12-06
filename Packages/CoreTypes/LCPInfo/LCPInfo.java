@@ -1,11 +1,12 @@
-package Packages.CoreTypes;
+package Packages.CoreTypes.LCPInfo;
 
 import java.net.URL;
 import MainBranch.HelperMethods;
 import MainBranch.database.FileOperations;
+import Packages.CoreTypes.TriState;
+import Packages.CoreTypes.LCPInfo.lcpInfo.LCPDependency;
+import Packages.CoreTypes.LCPInfo.lcpInfo.Version;
 import Packages.CoreTypes.VueHTMLString.VueHTMLString;
-import Packages.CoreTypes.lcpInfo.LCPDependency;
-import Packages.CoreTypes.lcpInfo.Version;
 
 /**
  * From https://github.com/massif-press/lancer-data/blob/master/README.md#lcp-structure.

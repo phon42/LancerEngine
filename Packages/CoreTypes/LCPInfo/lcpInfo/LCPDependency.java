@@ -1,9 +1,9 @@
-package Packages.CoreTypes.lcpInfo;
+package Packages.CoreTypes.LCPInfo.lcpInfo;
 
 import java.net.URL;
 import MainBranch.HelperMethods;
 import MainBranch.database.FileOperations;
-import Packages.CoreTypes.lcpInfo.lcpDependency.SemverVersion;
+import Packages.CoreTypes.LCPInfo.lcpInfo.lcpDependency.SemverVersion;
 
 /**
  * From https://github.com/massif-press/lancer-data/blob/master/README.md#lcp-dependencies.

@@ -1,4 +1,4 @@
-package Packages.CoreTypes.lcpInfo.lcpDependency;
+package Packages.CoreTypes.LCPInfo.lcpInfo.lcpDependency;
 
 import java.util.ArrayList;
 import java.util.Iterator;

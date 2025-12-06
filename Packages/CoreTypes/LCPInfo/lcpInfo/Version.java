@@ -1,4 +1,4 @@
-package Packages.CoreTypes.lcpInfo;
+package Packages.CoreTypes.LCPInfo.lcpInfo;
 
 /**
  * From https://github.com/massif-press/lancer-data/blob/master/README.md#lcp-structure.
