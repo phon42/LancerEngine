@@ -6,6 +6,7 @@ import MainBranch.Roll;
 import Packages.CoreTypes.EntityMechanics.License;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.Damageable;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.MechStatblock;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Mount;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Equipment.Verified.equipment.systemBase.MechSystem;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frameBase.Frame;
@@ -64,145 +65,10 @@ public final class Mech implements Damageable {
 
     // frame attributes - size, structure, HP, etc. - see pgs. 33 - 34.
     /**
-     * The mech's size.
-     * Can be any Size. Cannot be null.
-     * Use Mech.getSize() to get the raw value and Mech.outputSize() to obtain
-     *     it properly formatted.
-     * 
-     * "Depending on their chassis, mechs stand anything from 3 to 15 meters
-     *     tall."
-     * - pg. 30
-     * "SIZE doesn’t always represent a precise height and width – it describes
-     *     an area of influence. Not all characters are physically as tall as
-     *     the space they can control around them. For example, most SIZE 1
-     *     mechs are taller than 10 feet."
-     * - pg. 59
-     * 
-     * See pgs. 30, 32, 59.
+     * The current stats of this mech.
+     * Can be any MechStatblock. Cannot be null.
      */
-    private Size size;
-
-    // health and structure
-    /**
-     * The mech's current structure value.
-     * Must be between 0 and this.maxStructure (inclusive).
-     * 
-     * See pg. 80.
-     */
-    private int currentStructure;
-    /**
-     * The mech's max structure value.
-     * Must be a minimum of 1.
-     * 
-     * See pg. 80.
-     */
-    private int maxStructure;
-    /**
-     * The mech's current HP value.
-     * Must be between 0 and this.maxHP (inclusive).
-     */
-    private int currentHP;
-    /**
-     * The mech's max HP value.
-     * Must be a minimum of 1.
-     */
-    private int maxHP;
-    /**
-     * The mech's armor value.
-     * Must be a minimum of 0.
-     */
-    private int armor;
-
-    // heat and stress
-    /**
-     * The mech's current stress value.
-     * Must be between 0 and this.maxStress (inclusive).
-     * 
-     * See pg. 81.
-     */
-    private int currentStress;
-    /**
-     * The mech's max stress value.
-     * Must be a minimum of 1.
-     * 
-     * See pg. 81.
-     */
-    private int maxStress;
-    /**
-     * The mech's current heat.
-     * Must be between 0 and this.maxHeatCapacity (inclusive).
-     */
-    private int currentHeat;
-    /**
-     * The mech's max heat capacity.
-     * Must be a minimum of 1.
-     */
-    private int maxHeatCapacity;
-
-    // evasion and speed
-    /**
-     * The mech's evasion value.
-     * Must be a minimum of 0.
-     */
-    private int evasion;
-    /**
-     * The mech's speed value.
-     * Must be a minimum of 0.
-     */
-    private int speed;
-
-    // e-defense and tech attack
-    /**
-     * The mech's e-defense value.
-     * Must be a minimum of 0.
-     */
-    private int eDefense;
-    /**
-     * The mech's tech attack value.
-     * Can be any int.
-     */
-    private int techAttack;
-
-    // sensors and repair capacity
-    /**
-     * The mech's sensors value.
-     * Must be a minimum of 0.
-     */
-    private int sensors;
-    /**
-     * The number of repairs this mech currently has.
-     * Must be between 0 and this.maxRepairCapacity (inclusive).
-     * 
-     * See pg. 82.
-     */
-    private int currentRepairs;
-    /**
-     * The mech's max repair capacity value.
-     * Must be a minimum of 0.
-     * 
-     * See pg. 82.
-     */
-    private int maxRepairCapacity;
-
-    // save target and system points
-    /**
-     * The mech's save target value.
-     * Must be a minimum of 0.
-     */
-    private int saveTarget;
-    /**
-     * The mech's system points value.
-     * Must be a minimum of 0.
-     * 
-     * See pg. 33.
-     */
-    private int systemPoints;
-
-    /**
-     * The mech's limited systems bonus value.
-     * Must be a minimum of 0.
-     */
-    private int limitedSystemsBonus;
+    private MechStatblock statblock;
 
     /**
      * The mech's origin frame's traits (i.e. {"Initiative",
@@ -211,7 +77,7 @@ public final class Mech implements Damageable {
      *     are "". Cannot be null.
      */
     private String[] traits;
-    
+
     /**
      * The mech's weapon mounts.
      * Can be any Mount[] that does not contain null. Cannot be null.
@@ -296,11 +162,11 @@ public final class Mech implements Damageable {
         setName(name);
         setFrame(frame);
         setOperatorNotes(operatorNotes);
-        setCurrentStructure(currentStructure);
-        setCurrentHP(currentHP);
-        setCurrentStress(currentStress);
+        this.statblock.setCurrentStructure(currentStructure);
+        this.statblock.setCurrentHP(currentHP);
+        this.statblock.setCurrentStress(currentStress);
         setCurrentHeat(currentHeat, false);
-        setCurrentRepairs(currentRepairs);
+        this.statblock.setCurrentRepairs(currentRepairs);
         setSystems(systems);
         setStatuses(statuses);
         setConditions(conditions);
@@ -321,26 +187,7 @@ public final class Mech implements Damageable {
         setName(mech.name);
         setFrame(mech.frame);
         setOperatorNotes(mech.operatorNotes);
-        setSize(mech.size);
-        setMaxStructure(mech.maxStructure);
-        setCurrentStructure(mech.currentStructure);
-        setMaxHP(mech.maxHP);
-        setCurrentHP(mech.currentHP);
-        setArmor(mech.armor);
-        setMaxStress(mech.maxStress);
-        setCurrentStress(mech.currentStress);
-        setMaxHeatCapacity(mech.maxHeatCapacity);
-        setCurrentHeat(mech.currentHeat, false);
-        setEvasion(mech.evasion);
-        setSpeed(mech.speed);
-        setEDefense(mech.eDefense);
-        setTechAttack(mech.techAttack);
-        setSensors(mech.sensors);
-        setMaxRepairCapacity(mech.maxRepairCapacity);
-        setCurrentRepairs(mech.currentRepairs);
-        setSaveTarget(mech.saveTarget);
-        setSystemPoints(mech.systemPoints);
-        setLimitedSystemsBonus(mech.limitedSystemsBonus);
+        setStatblock(mech.statblock);
         setTraits(mech.traits);
         setMounts(mech.mounts);
         setSystems(mech.systems);
@@ -360,65 +207,68 @@ public final class Mech implements Damageable {
         return operatorNotes;
     }
     // frame attributes
+    public MechStatblock getStatblock() {
+        return new MechStatblock(statblock);
+    }
     public Size getSize() {
-        return size;
+        return statblock.getSize();
     }
     public int getCurrentStructure() {
-        return currentStructure;
+        return statblock.getCurrentStructure();
     }
     public int getMaxStructure() {
-        return maxStructure;
+        return statblock.getMaxStructure();
     }
     public int getCurrentHP() {
-        return currentHP;
+        return statblock.getCurrentHP();
     }
     public int getMaxHP() {
-        return maxHP;
+        return statblock.getMaxHP();
     }
     public int getArmor() {
-        return armor;
+        return statblock.getArmor();
     }
     public int getCurrentStress() {
-        return currentStress;
+        return statblock.getCurrentStress();
     }
     public int getMaxStress() {
-        return maxStress;
+        return statblock.getMaxStress();
     }
     public int getCurrentHeat() {
-        return currentHeat;
+        return statblock.getCurrentHeat();
     }
     public int getMaxHeatCapacity() {
-        return maxHeatCapacity;
+        return statblock.getMaxHeatCapacity();
     }
     public int getEvasion() {
-        return evasion;
+        return statblock.getEvasion();
     }
     public int getSpeed() {
-        return speed;
+        return statblock.getSpeed();
     }
     public int getEDefense() {
-        return eDefense;
+        return statblock.getEDefense();
     }
     public int getTechAttack() {
-        return techAttack;
+        return statblock.getTechAttack();
     }
     public int getSensors() {
-        return sensors;
+        return statblock.getSensors();
     }
     public int getCurrentRepairs() {
-        return currentRepairs;
+        return statblock.getCurrentRepairs();
     }
     public int getMaxRepairCapacity() {
-        return maxRepairCapacity;
+        return statblock.getMaxRepairCapacity();
     }
     public int getSaveTarget() {
-        return saveTarget;
+        return statblock.getSaveTarget();
     }
     public int getSystemPoints() {
-        return systemPoints;
+        return statblock.getSystemPoints();
     }
     public int getLimitedSystemsBonus() {
-        return limitedSystemsBonus;
+        return statblock.getLimitedSystemsBonus();
     }
     public String[] getTraits() {
         return HelperMethods.copyOf(traits);
@@ -460,124 +310,9 @@ public final class Mech implements Damageable {
         this.operatorNotes = operatorNotes;
     }
     // frame attributes
-    /**
-     * Sets this.size to the provided value.
-     * @param size a Size which cannot be null.
-     * @throws IllegalArgumentException if size is null.
-     */
-    private void setSize(Size size) {
-        HelperMethods.checkObject("New size", size);
-        this.size = size;
-    }
-    /**
-     * Sets this.currentStructure to the provided value.
-     * @param currentStructure an int which cannot be < 0 or >
-     *     this.maxStructure.
-     * @throws IllegalArgumentException if currentStructure is < 0 or >
-     *     this.maxStructure.
-     */
-    public void setCurrentStructure(int currentStructure) {
-        if (currentStructure < 0) {
-            throw new IllegalArgumentException("New currentStructure value: "
-                + currentStructure + " is < 0");
-        }
-        if (this.maxStructure < currentStructure) {
-            throw new IllegalArgumentException("currentStructure value"
-                + " provided: " + currentStructure + " is > maxStructure value:"
-                + " " + this.maxStructure);
-        }
-        this.currentStructure = currentStructure;
-    }
-    /**
-     * Sets this.maxStructure to the provided value.
-     * @param maxStructure an int which cannot be < 1. Will print a warning if
-     *     maxStructure is < this.currentStructure.
-     * @throws IllegalArgumentException if maxStructure is < 1.
-     */
-    private void setMaxStructure(int maxStructure) {
-        if (maxStructure < 1) {
-            throw new IllegalArgumentException("New maxStructure value: "
-                + maxStructure + " is < 1");
-        }
-        if (maxStructure < this.currentStructure) {
-            HelperMethods.warn("maxStructure value provided: " + maxStructure
-                + " is < currentStructure value: " + this.currentStructure);
-        }
-        this.maxStructure = maxStructure;
-    }
-    /**
-     * Sets this.currentHP to the provided value.
-     * @param currentHP an int which cannot be < 0 or > this.maxHP.
-     * @throws IllegalArgumentException if currentHP is < 0 or > this.maxHP.
-     */
-    public void setCurrentHP(int currentHP) {
-        if (currentHP < 0) {
-            throw new IllegalArgumentException("New currentHP value: "
-                + currentHP + " is < 0");
-        }
-        if (this.maxHP < currentHP) {
-            throw new IllegalArgumentException("currentHP value provided: "
-                + currentHP + " is > maxHP value: " + this.maxHP);
-        }
-        this.currentHP = currentHP;
-    }
-    /**
-     * Sets this.maxHP to the provided value.
-     * @param maxHP an int which cannot be < 1. Will print a warning if maxHP is
-     *     < this.currentHP.
-     * @throws IllegalArgumentException if maxHP is < 1.
-     */
-    private void setMaxHP(int maxHP) {
-        if (maxHP < 1) {
-            throw new IllegalArgumentException("New maxHP value: " + maxHP
-                + " is < 1");
-        }
-        if (maxHP < this.currentHP) {
-            HelperMethods.warn("maxHP value provided: " + maxHP + " is <"
-                + " currentHP value: " + this.currentHP);
-        }
-        this.maxHP = maxHP;
-    }
-    private void setArmor(int armor) {
-        if (armor < 0) {
-            throw new IllegalArgumentException("New armor value: " + armor
-                + " is < 0");
-        }
-        this.armor = armor;
-    }
-    /**
-     * Sets this.currentStress to the provided value.
-     * @param currentStress an int which cannot be < 0 or > this.maxStress.
-     * @throws IllegalArgumentException if currentStress is < 0 or >
-     * this.maxStress.
-     */
-    public void setCurrentStress(int currentStress) {
-        if (currentStress < 0) {
-            throw new IllegalArgumentException("New currentStress value: "
-                + currentStress + " is < 0");
-        }
-        if (this.maxStress < currentStress) {
-            throw new IllegalArgumentException("currentStress value provided: "
-                + currentStress + " is > maxStress value: " + this.maxStress);
-        }
-        this.currentStress = currentStress;
-    }
-    /**
-     * Sets this.maxStress to the provided value.
-     * @param maxStress an int which cannot be < 1. Will print a warning if
-     *     maxStress is < this.currentStress.
-     * @throws IllegalArgumentException if maxStress is < 1.
-     */
-    private void setMaxStress(int maxStress) {
-        if (maxStress < 1) {
-            throw new IllegalArgumentException("New maxStress value: "
-                + maxStress + " is < 1");
-        }
-        if (maxStress < this.currentStress) {
-            HelperMethods.warn("maxStress value provided: " + maxStress + " is"
-                + " < currentStress value: " + this.currentStress);
-        }
-        this.maxStress = maxStress;
+    private void setStatblock(MechStatblock statblock) {
+        HelperMethods.checkObject("statblock", statblock);
+        this.statblock = statblock;
     }
     /**
      * Sets this.currentHeat to the provided value and adds or removes
@@ -589,18 +324,10 @@ public final class Mech implements Damageable {
      *     this.maxHeatCapacity.
      */
     private void setCurrentHeat(int currentHeat, boolean modifyStatuses) {
-        if (currentHeat < 0) {
-            throw new IllegalArgumentException("New currentHeat value: "
-                + currentHeat + " is < 0");
-        }
-        if (this.maxHeatCapacity < currentHeat) {
-            throw new IllegalArgumentException("currentHeat value provided: "
-                + currentHeat + " is > maxHeatCapacity value: "
-                + this.maxHeatCapacity);
-        }
-        this.currentHeat = currentHeat;
+        this.statblock.setCurrentHP(currentHeat);
         if (modifyStatuses) {
-            if (this.currentHeat * 2 >= this.maxHeatCapacity) {
+            if (this.statblock.getCurrentHeat() * 2
+                >= this.statblock.getMaxHeatCapacity()) {
                 // in danger zone
                 addStatus(new Status(
                     Database.getStatus("danger zone"),
@@ -622,113 +349,6 @@ public final class Mech implements Damageable {
      */
     public void setCurrentHeat(int currentHeat) {
         setCurrentHeat(currentHeat, true);
-    }
-    /**
-     * Sets this.maxHeatCapacity to the provided value.
-     * @param maxHeatCapacity an int which cannot be < 1. Will print a warning
-     *     if maxHeatCapacity is < this.currentHeat.
-     * @throws IllegalArgumentException if maxHeatCapacity is < 1.
-     */
-    private void setMaxHeatCapacity(int maxHeatCapacity) {
-        if (maxHeatCapacity < 1) {
-            throw new IllegalArgumentException("New maxHeatCapacity value: "
-                + maxHeatCapacity + " is < 1");
-        }
-        if (maxHeatCapacity < this.currentHeat) {
-            HelperMethods.warn("maxHeatCapacity value provided: "
-                + maxHeatCapacity + " is < currentHeat value: "
-                + this.currentHeat);
-        }
-        this.maxHeatCapacity = maxHeatCapacity;
-    }
-    private void setEvasion(int evasion) {
-        if (evasion < 0) {
-            throw new IllegalArgumentException("New evasion value: " + evasion
-                + " is < 0");
-        }
-        this.evasion = evasion;
-    }
-    private void setSpeed(int speed) {
-        if (speed < 0) {
-            throw new IllegalArgumentException("New speed value: " + speed
-                + " is < 0");
-        }
-        this.speed = speed;
-    }
-    private void setEDefense(int eDefense) {
-        if (eDefense < 0) {
-            throw new IllegalArgumentException("New e-defense value: "
-                + eDefense + " is < 0");
-        }
-        this.eDefense = eDefense;
-    }
-    private void setTechAttack(int techAttack) {
-        this.techAttack = techAttack;
-    }
-    private void setSensors(int sensors) {
-        if (sensors < 0) {
-            throw new IllegalArgumentException("New sensors value: " + sensors
-                + " is < 0");
-        }
-        this.sensors = sensors;
-    }
-    /**
-     * Sets this.currentRepairs to the provided value.
-     * @param currentRepairs an int which cannot be < 0 or >
-     *     this.maxRepairCapacity.
-     * @throws IllegalArgumentException if currentRepairs is < 0 or >
-     *     this.maxRepairCapacity.
-     */
-    public void setCurrentRepairs(int currentRepairs) {
-        if (currentRepairs < 0) {
-            throw new IllegalArgumentException("New currentRepairs value:"
-                + currentRepairs + " is < 0");
-        }
-        if (this.maxRepairCapacity < currentRepairs) {
-            throw new IllegalArgumentException("currentRepairs value provided: "
-                + currentRepairs + " is > maxRepairCapacity value: "
-                + this.maxRepairCapacity);
-        }
-        this.currentRepairs = currentRepairs;
-    }
-    /**
-     * Sets this.maxRepairCapacity to the provided value.
-     * @param maxRepairCapacity an int which cannot be < 0. Will print a warning
-     *     if maxRepairCapacity is < this.currentRepairs.
-     * @throws IllegalArgumentException if maxRepairCapacity is < 0.
-     */
-    private void setMaxRepairCapacity(int maxRepairCapacity) {
-        if (maxRepairCapacity < 0) {
-            throw new IllegalArgumentException("New maxRepairCapacity value: "
-                + maxRepairCapacity + " is < 0");
-        }
-        if (maxRepairCapacity < this.currentRepairs) {
-            HelperMethods.warn("maxRepairCapacity value provided: "
-                + maxRepairCapacity + " is < currentRepairs value: "
-                + this.currentRepairs);
-        }
-        this.maxRepairCapacity = maxRepairCapacity;
-    }
-    private void setSaveTarget(int saveTarget) {
-        if (saveTarget < 0) {
-            throw new IllegalArgumentException("New save target value: "
-                + saveTarget + " is < 0");
-        }
-        this.saveTarget = saveTarget;
-    }
-    private void setSystemPoints(int systemPoints) {
-        if (systemPoints < 0) {
-            throw new IllegalArgumentException("New system points value: "
-                + systemPoints + " is < 0");
-        }
-        this.systemPoints = systemPoints;
-    }
-    private void setLimitedSystemsBonus(int limitedSystemsBonus) {
-        if (limitedSystemsBonus < 0) {
-            throw new IllegalArgumentException("New limited systems bonus"
-                + " value: " + limitedSystemsBonus + " is < 0");
-        }
-        this.limitedSystemsBonus = limitedSystemsBonus;
     }
     /**
      * Sets this.traits to the provided value.
@@ -861,7 +481,7 @@ public final class Mech implements Damageable {
      * @return a String containing the requested output.
      */
     public String outputSize() {
-        return size.output();
+        return statblock.getSize().output();
     }
     /**
      * Adds the provided status to this.statuses.
@@ -1117,8 +737,8 @@ public final class Mech implements Damageable {
      *     provided int[]. Called when LancerCharacter.setMech(Mech) is called
      *     using a non-placeholder Mech as well as when Mech.setFrame(Frame) is
      *     called through calculateAttributes().
-     * @param an int containing the grit score of the Pilot associated with this
-     *     Mech through the parent LancerCharacter.
+     * @param grit an int containing the grit score of the Pilot associated with
+     *     this Mech through the parent LancerCharacter.
      * @param mechSkills an int[4] containing the mech skills of the Pilot
      *     associated with this Mech through the parent LancerCharacter.
      * @param coreBonuses a String[] containing the core bonuses of the Pilot
@@ -1134,42 +754,12 @@ public final class Mech implements Damageable {
         //     Auto-Stabilizing Hardpoints or Overpower Caliber)
         // TODO: update to account for the Engineer talent as well as the
         //     Improved Armament and Integrated Weapon core bonuses
-        FrameStatblock statblock;
-
         if (this.frame == null) {
             throw new IllegalArgumentException("calculateAttributes() was"
                 + " called while this.frame was set to null");
         }
-        statblock = this.frame.getStatblock();
-        setMaxStructure(statblock.getStructure());
-        setCurrentStructure(this.maxStructure);
-        setMaxStress(statblock.getStress());
-        setCurrentStress(this.maxStress);
-        
-        // Hull
-        setMaxHP(statblock.getHP() + (mechSkills[0] * 2));
-        setCurrentHP(this.maxHP);
-        setMaxRepairCapacity(statblock.getRepairCapacity()
-            + (mechSkills[0] / 2));
-        setCurrentRepairs(this.maxRepairCapacity);
-
-        // Agility
-        setEvasion(statblock.getEvasion() + mechSkills[1]);
-        setSpeed(statblock.getSpeed() + (mechSkills[1] / 2));
-
-        // Systems
-        setEDefense(statblock.getEDefense() + mechSkills[2]);
-        setTechAttack(statblock.getTechAttack() + mechSkills[2]);
-        // Add grit to system points - see pg. 37
-        setSystemPoints(statblock.getSystemPoints() + (mechSkills[2] / 2)
-            + grit);
-
-        // Engineering
-        // setMaxHeatCapacity() swapped with setCurrentHeat() because the
-        //     mutators may throw exceptions otherwise
-        setMaxHeatCapacity(statblock.getHeatCapacity() + mechSkills[3]);
-        setCurrentHeat(0, false);
-        setLimitedSystemsBonus(mechSkills[3] / 2);
+        this.statblock.calculateStats(this.frame.getStatblock(), grit,
+            mechSkills, coreBonuses, talents);
         
         // Order of these properties within the mech's weapon mounts is:
         // Prototype Weapon (from Engineer talent)
@@ -1216,10 +806,6 @@ public final class Mech implements Damageable {
             }
         }
 
-        setSize(statblock.getSize());
-        setArmor(statblock.getArmor());
-        setSensors(statblock.getSensors());
-        setSaveTarget(statblock.getSaveTarget());
         setTraits(this.frame.getTraits());
         setMounts(mounts);
     }
@@ -1271,9 +857,10 @@ public final class Mech implements Damageable {
         // damage is being rolled here
         remainingDamage = damage.roll();
         while (remainingDamage > 0) {
-            damageToTake = Math.min(remainingDamage, this.currentHP);
-            newCurrentHP = this.currentHP - damageToTake;
-            setCurrentHP(newCurrentHP);
+            damageToTake = Math.min(remainingDamage,
+                this.statblock.getCurrentHP());
+            newCurrentHP = this.statblock.getCurrentHP() - damageToTake;
+            this.statblock.setCurrentHP(newCurrentHP);
             // the damage has now been expended into the mech, so we can
             //     safely decrement remainingDamage
             remainingDamage -= damageToTake;
@@ -1283,7 +870,7 @@ public final class Mech implements Damageable {
             //     maxHP.
             if (newCurrentHP - remainingDamage < 0) {
                 // we're about to structure
-                if (this.currentStructure > 0) {
+                if (this.statblock.getCurrentStructure() > 0) {
                     receiveStructureDamage();
                 } else {
                     // Structure is 0 and the mech is taking structure
@@ -1321,9 +908,10 @@ public final class Mech implements Damageable {
         // heat is being rolled here
         remainingHeat = heat.roll();
         while (remainingHeat > 0) {
-            currHeat = this.maxHeatCapacity - this.currentHeat;
+            currHeat = this.statblock.getMaxHeatCapacity()
+                - this.statblock.getCurrentHeat();
             heatToTake = Math.min(remainingHeat, currHeat);
-            newCurrentHeat = this.currentHeat + heatToTake;
+            newCurrentHeat = this.statblock.getCurrentHeat() + heatToTake;
             setCurrentHeat(newCurrentHeat);
             // the heat has now been expended into the mech, so we can safely
             //     decrement remainingHeat
@@ -1332,9 +920,10 @@ public final class Mech implements Damageable {
             //     take is greater than the mech's max heat capacity, we will
             //     stress and go on to the next stress level with currentHeat
             //     reset to 0.
-            if (newCurrentHeat + remainingHeat > this.maxHeatCapacity) {
+            if (newCurrentHeat + remainingHeat
+                > this.statblock.getMaxHeatCapacity()) {
                 // we're about to stress
-                if (this.currentStress > 0) {
+                if (this.statblock.getCurrentStress() > 0) {
                     receiveStressDamage();
                 } else {
                     // Stress is 0 and the mech is taking stress damage,
@@ -1390,8 +979,8 @@ public final class Mech implements Damageable {
     public void receiveStructureDamage() {
         // See pgs. 80 and 107.
         // TODO: remember to add cascade checks - see pg. 107
-        setCurrentStructure(this.currentStructure - 1);
-        setCurrentHP(this.maxHP);
+        this.statblock.setCurrentStructure(this.statblock.getCurrentStructure() - 1);
+        this.statblock.setCurrentHP(this.statblock.getMaxHP());
     }
     /**
      * Deals (stressDamage) stress damage to this Mech.
@@ -1415,7 +1004,7 @@ public final class Mech implements Damageable {
     public void receiveStressDamage() {
         // See pgs. 81 and 107.
         // TODO: remember to add cascade checks - see pg. 107
-        setCurrentStress(this.currentStress - 1);
+        this.statblock.setCurrentStress(this.statblock.getCurrentStress() - 1);
         setCurrentHeat(0);
     }
     /**
@@ -1516,7 +1105,7 @@ public final class Mech implements Damageable {
             outputString += outputWeapons("mech build");
             outputString += "[ SYSTEMS ]\n";
             outputString += outputSystems("mech build",
-                this.limitedSystemsBonus);
+                this.statblock.getLimitedSystemsBonus());
         } else if (outputType.equals("full")) {
             throw new IllegalArgumentException("Called"
                 + " Mech.generateOutput(\"full\", int) instead of"
@@ -1575,32 +1164,38 @@ public final class Mech implements Damageable {
      */
     public String outputStats(String outputType) {
         String outputString = "";
+        int techAttack = this.statblock.getTechAttack();
+        int limitedSystemsBonus = this.statblock.getLimitedSystemsBonus();
 
         outputType = outputType.toLowerCase();
         if (outputType.equals("mech build")) {
             outputString += String.format(
                 "  STRUCTURE:%d HP:%d ARMOR:%d\n",
-                this.maxStructure, this.maxHP, this.armor
+                this.statblock.getMaxStructure(), this.statblock.getMaxHP(),
+                this.statblock.getArmor()
             );
             outputString += String.format(
                 "  STRESS:%d HEATCAP:%d REPAIR:%d\n",
-                this.maxStress, this.maxHeatCapacity, this.maxRepairCapacity
+                this.statblock.getMaxStress(),
+                this.statblock.getMaxHeatCapacity(),
+                this.statblock.getMaxRepairCapacity()
             );
-            if (this.techAttack > 0) {
-                outputString += "  TECH ATK:+" + this.techAttack;
+            if (techAttack > 0) {
+                outputString += "  TECH ATK:+" + techAttack;
             } else {
-                outputString += "  TECH ATK:" + this.techAttack;
+                outputString += "  TECH ATK:" + techAttack;
             }
-            if (this.limitedSystemsBonus > -1) {
-                outputString += " LIMITED:+" + this.limitedSystemsBonus;
+            if (limitedSystemsBonus > -1) {
+                outputString += " LIMITED:+" + limitedSystemsBonus;
             } else {
-                outputString += " LIMITED:" + this.limitedSystemsBonus;
+                outputString += " LIMITED:" + limitedSystemsBonus;
             }
             outputString += "\n";
             outputString += String.format(
                 "  SPD:%d EVA:%d EDEF:%d SENSE:%d SAVE:%d\n",
-                this.speed, this.evasion, this.eDefense, this.sensors,
-                this.saveTarget
+                this.statblock.getSpeed(), this.statblock.getEvasion(),
+                this.statblock.getEDefense(), this.statblock.getSensors(),
+                this.statblock.getSaveTarget()
             );
         } else if (outputType.equals("full")) {
             throw new IllegalArgumentException("Called"
@@ -1634,23 +1229,28 @@ public final class Mech implements Damageable {
             );
             outputString += String.format(
                 "  STRUCTURE:%d/%d HP:%d/%d ARMOR:%d\n",
-                this.currentStructure, this.maxStructure, this.currentHP,
-                this.maxHP, this.armor
+                this.statblock.getCurrentStructure(),
+                this.statblock.getMaxStructure(), this.statblock.getCurrentHP(),
+                this.statblock.getMaxHP(), this.statblock.getArmor()
             );
             outputString += String.format(
                 "  STRESS:%d/%d HEAT:%d/%d REPAIR:%d/%d\n",
-                this.currentStress, this.maxStress, this.currentHeat,
-                this.maxHeatCapacity, this.currentRepairs,
-                this.maxRepairCapacity
+                this.statblock.getCurrentStress(),
+                this.statblock.getMaxStress(), this.statblock.getCurrentHeat(),
+                this.statblock.getMaxHeatCapacity(),
+                this.statblock.getCurrentRepairs(),
+                this.statblock.getMaxRepairCapacity()
             );
             outputString += String.format(
                 "  ATK BONUS:%d TECH ATK:%d LTD BONUS:%d\n",
-                grit, this.techAttack, this.limitedSystemsBonus
+                grit, this.statblock.getTechAttack(),
+                this.statblock.getLimitedSystemsBonus()
             );
             outputString += String.format(
                 "  SPD:%d EVA:%d EDEF:%d SENS:%d SAVE:%d\n",
-                this.speed, this.evasion, this.eDefense, this.sensors,
-                this.saveTarget
+                this.statblock.getSpeed(), this.statblock.getEvasion(),
+                this.statblock.getEDefense(), this.statblock.getSensors(),
+                this.statblock.getSaveTarget()
             );
         } else {
             return outputStats(outputType);
