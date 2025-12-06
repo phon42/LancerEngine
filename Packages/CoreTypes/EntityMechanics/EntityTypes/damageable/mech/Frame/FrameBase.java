@@ -4,7 +4,7 @@ import MainBranch.HelperMethods;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Mount;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Frame.Verified.Frame;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Frame.Verified.frame.CoreSystem;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Frame.Verified.frame.coreSystem.ICoreSystemData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Frame.frameBase.FrameEnum;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Frame.frameBase.FrameStatblock;
 import Packages.CoreTypes.EntityMechanics.LicenseSystem.frameLicense.licenseContentBase.LicenseContent;
@@ -114,7 +114,7 @@ public class FrameBase extends LicenseContent {
      */
     private Mount[] mounts;
 
-    private CoreSystem coreSystem;
+    private ICoreSystemData coreSystem;
 
     // Optional properties
     /**
@@ -140,7 +140,7 @@ public class FrameBase extends LicenseContent {
     public FrameBase(String id, String name, Manufacturer manufacturer,
         String licenseID, String license, int licenseLevel, String description,
         String[] role, FrameStatblock statblock, String[] traits,
-        Mount[] mounts, CoreSystem coreSystem, FrameEnum frameEnum) {
+        Mount[] mounts, ICoreSystemData coreSystem, FrameEnum frameEnum) {
         // TODO: replace the manufacturer variable with a constant Manufacturer
         //     which will be verified later
         super(id, name, manufacturer, licenseID, license, licenseLevel,
@@ -160,7 +160,7 @@ public class FrameBase extends LicenseContent {
     public FrameBase(String id, String name, Manufacturer manufacturer,
         String licenseID, String license, int licenseLevel, String description,
         String[] role, FrameStatblock statblock, String[] traits,
-        Mount[] mounts, CoreSystem coreSystem) {
+        Mount[] mounts, ICoreSystemData coreSystem) {
         this(id, name, manufacturer, licenseID, license, licenseLevel,
             description, role, statblock, traits, mounts, coreSystem,
             null);
@@ -172,7 +172,7 @@ public class FrameBase extends LicenseContent {
     public FrameBase(String id, String name, String licenseID,
         String license, String description, String[] role,
         FrameStatblock statblock, String[] traits, Mount[] mounts,
-        CoreSystem coreSystem) {
+        ICoreSystemData coreSystem) {
         // TODO: replace the manufacturer variable with a constant Manufacturer
         //     which will be verified later
         super(id, name, licenseID, license, description);
@@ -201,8 +201,8 @@ public class FrameBase extends LicenseContent {
     public Mount[] getMounts() {
         return HelperMethods.copyOf(mounts);
     }
-    public CoreSystem getCoreSystem() {
-        return new CoreSystem(coreSystem);
+    public ICoreSystemData getCoreSystem() {
+        return coreSystem;
     }
     /**
      * Sets this.frameEnum to the provided value.
@@ -298,9 +298,8 @@ public class FrameBase extends LicenseContent {
         mounts = HelperMethods.copyOf(mounts);
         this.mounts = mounts;
     }
-    private void setCoreSystem(CoreSystem coreSystem) {
+    private void setCoreSystem(ICoreSystemData coreSystem) {
         HelperMethods.checkObject("New coreSystem", coreSystem);
-        coreSystem = new CoreSystem(coreSystem);
         this.coreSystem = coreSystem;
     }
 
