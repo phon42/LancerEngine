@@ -377,6 +377,20 @@ public final class HelperMethods {
         }
     }
     /**
+     * Checks a provided VueHTMLString to see if it represents the String "".
+     * @param propertyName a String which cannot be "". Cannot be null.
+     * @param input a VueHTMLString which cannot represent the String "". Can be
+     *     null.
+     * @throws IllegalArgumentException if propertyName is null, propertyName is
+     *     "", or input represents the String "".
+     */
+    public static void checkVueHTMLStringAlt(String propertyName,
+        VueHTMLString input) {
+        if (input != null) {
+            checkVueHTMLString(propertyName, input);
+        }
+    }
+    /**
      * An alternate check to perform on an object array compared to
      *     checkStringArray() that instead checks if the provided String[] is of
      *     length 0, contains null elements, or elements that are "". Null
