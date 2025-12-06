@@ -64,6 +64,13 @@ public class ActionBase extends ActionBaseBase {
      */
     private SynergyLocation[] synergyLocations;
 
+    /**
+     * A constructor using all possible properties.
+     * Required properties:                 PROVIDED
+     * Semi-required properties:            PROVIDED
+     * Conditionally required property:     PROVIDED
+     * Optional properties:                 PROVIDED
+     */
     protected ActionBase(
         // ActionBaseBase properties
         String name, String detailedDescription, TriState pilot, TriState mech,
@@ -87,6 +94,14 @@ public class ActionBase extends ActionBaseBase {
         // Helper property
         setType(calculateType());
     }
+    /**
+     * A constructor using all possible properties except the optional
+     *     properties.
+     * Required properties:                 PROVIDED
+     * Semi-required properties:            PROVIDED
+     * Conditionally required property:     PROVIDED
+     * Optional properties:             NOT PROVIDED
+     */
     protected ActionBase(
         // ActionBaseBase properties
         String name, String detailedDescription, TriState pilot, TriState mech,
@@ -100,6 +115,14 @@ public class ActionBase extends ActionBaseBase {
             trigger, null, null, activation,
             frequency, null);
     }
+    /**
+     * A constructor using all possible properties except the optional and
+     *     conditionally required properties.
+     * Required properties:                 PROVIDED
+     * Semi-required properties:            PROVIDED
+     * Conditionally required property: NOT PROVIDED
+     * Optional properties:             NOT PROVIDED
+     */
     protected ActionBase(
         // ActionBaseBase properties
         String name, String detailedDescription, TriState pilot, TriState mech,
@@ -111,6 +134,14 @@ public class ActionBase extends ActionBaseBase {
             null, null, null,
             activation, null, null);
     }
+    /**
+     * A constructor using all possible properties except the optional and semi-
+     *     required properties.
+     * Required properties:                 PROVIDED
+     * Semi-required properties:        NOT PROVIDED
+     * Conditionally required property:     PROVIDED
+     * Optional properties:             NOT PROVIDED
+     */
     protected ActionBase(
         // ActionBaseBase properties
         String name, String detailedDescription, String trigger,
@@ -124,6 +155,13 @@ public class ActionBase extends ActionBaseBase {
             null, activation, frequency,
             null);
     }
+    /**
+     * A constructor using only the required properties.
+     * Required properties:                 PROVIDED
+     * Semi-required properties:        NOT PROVIDED
+     * Conditionally required property: NOT PROVIDED
+     * Optional properties:             NOT PROVIDED
+     */
     protected ActionBase(
         // ActionBaseBase properties
         String name, String detailedDescription,
