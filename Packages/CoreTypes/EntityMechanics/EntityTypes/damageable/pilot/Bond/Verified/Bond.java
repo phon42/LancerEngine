@@ -21,18 +21,17 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Bond.bond
 public class Bond extends BondBase {
     // Required property
     /**
-     * The bond's id (i.e. "ktb-bond-harlequin").
-     * Can be any String except "". Cannot be null.
-     * Case-insensitive and stored in lowercase.
+     * The bond's id (i.e. a BondID representing "ktb-bond-harlequin").
+     * Can be any BondID. Cannot be null.
      */
-    private String id;
+    private BondID id;
 
     public Bond(
         // BondBase properties
         String name, String[] majorIdeals, String[] minorIdeals,
         BondQuestion[] questions, BondPower[] powers,
         // Required property
-        String id
+        BondID id
     ) {
         // BondBase properties
         super(name, majorIdeals, minorIdeals, questions, powers);
@@ -41,13 +40,12 @@ public class Bond extends BondBase {
     }
 
     // Required property
-    public String getID() {
+    public BondID getID() {
         return id;
     }
     // Required property
-    private void setID(String id) {
-        HelperMethods.checkString("id", id);
-        id = id.toLowerCase();
+    private void setID(BondID id) {
+        HelperMethods.checkObject("id", id);
         this.id = id;
     }
 }
