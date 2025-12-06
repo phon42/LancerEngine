@@ -1,10 +1,10 @@
-package Packages.CoreTypes;
+package Packages.CoreTypes.JSONTypeTree;
 
 import java.util.Set;
 import MainBranch.HelperMethods;
 import MainBranch.database.fileOperations.json.JSONArray;
 import MainBranch.database.fileOperations.json.JSONObject;
-import Packages.CoreTypes.jsonTypeTree.JSONType;
+import Packages.CoreTypes.JSONTypeTree.jsonTypeTree.JSONType;
 
 /**
  * A class which aims to store the type of a single JSON value.

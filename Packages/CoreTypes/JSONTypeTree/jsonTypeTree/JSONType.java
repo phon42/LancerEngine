@@ -1,4 +1,4 @@
-package Packages.CoreTypes.jsonTypeTree;
+package Packages.CoreTypes.JSONTypeTree.jsonTypeTree;
 
 import java.math.BigDecimal;
 import MainBranch.database.fileOperations.json.JSONArray;

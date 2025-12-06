@@ -1,11 +1,11 @@
 package Packages.CoreTypes.EntityMechanics;
 
 import MainBranch.HelperMethods;
-import Packages.CoreTypes.JSONTypeTree;
 import Packages.CoreTypes.TriState;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Equipment.Verified.equipment.systemBase.systemType.WeaponType;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.harm.harmType.DamageType;
-import Packages.CoreTypes.jsonTypeTree.JSONType;
+import Packages.CoreTypes.JSONTypeTree.JSONTypeTree;
+import Packages.CoreTypes.JSONTypeTree.jsonTypeTree.JSONType;
 
 /**
  * See https://github.com/massif-press/lancer-data/blob/master/README.md#bonuses.

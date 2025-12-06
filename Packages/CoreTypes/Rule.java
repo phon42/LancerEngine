@@ -1,6 +1,7 @@
 package Packages.CoreTypes;
 
 import MainBranch.HelperMethods;
+import Packages.CoreTypes.JSONTypeTree.JSONTypeTree;
 
 /**
  * Represents a single "rule" - a piece of reference data from the rules.json

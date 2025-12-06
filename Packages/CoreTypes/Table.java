@@ -4,7 +4,8 @@ import java.math.BigDecimal;
 import MainBranch.HelperMethods;
 import MainBranch.database.fileOperations.json.JSONArray;
 import MainBranch.database.fileOperations.json.JSONObject;
-import Packages.CoreTypes.jsonTypeTree.JSONType;
+import Packages.CoreTypes.JSONTypeTree.JSONTypeTree;
+import Packages.CoreTypes.JSONTypeTree.jsonTypeTree.JSONType;
 
 /**
  * Represents a single reference data table from an LCP. Contains information

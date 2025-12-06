@@ -10,7 +10,6 @@ import MainBranch.database.LCPCorrection;
 import MainBranch.database.fileOperations.json.JSONArray;
 import MainBranch.database.fileOperations.json.JSONObject;
 import Packages.CoreTypes.Callable;
-import Packages.CoreTypes.JSONTypeTree;
 import Packages.CoreTypes.Rule;
 import Packages.CoreTypes.Table;
 import Packages.CoreTypes.Term;
@@ -77,6 +76,7 @@ import Packages.CoreTypes.EntityMechanics.StateSystem.state.unverifiedStateData.
 import Packages.CoreTypes.EntityMechanics.SynergyLocationSystem.Unverified.UnverifiedSynergyLocation;
 import Packages.CoreTypes.EntityMechanics.SynergyLocationSystem.Verified.SynergyLocation;
 import Packages.CoreTypes.HTMLString.HTMLString;
+import Packages.CoreTypes.JSONTypeTree.JSONTypeTree;
 import Packages.CoreTypes.LCPInfo.LCPInfo;
 import Packages.CoreTypes.LCPInfo.lcpInfo.LCPDependency;
 import Packages.CoreTypes.VueHTMLString.VueHTMLString;
