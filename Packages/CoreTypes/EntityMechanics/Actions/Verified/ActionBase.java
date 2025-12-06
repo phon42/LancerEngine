@@ -62,7 +62,7 @@ public class ActionBase extends ActionBaseBase {
      * Can be any SynergyLocation[] that is not of length 0 and does not contain
      *     null elements. Can be null.
      */
-    private SynergyLocation[] synergyLocations;
+    protected SynergyLocation[] synergyLocations;
 
     /**
      * A constructor using all possible properties.
@@ -208,7 +208,7 @@ public class ActionBase extends ActionBaseBase {
         this.frequency = frequency;
     }
     // Optional property
-    private void setSynergyLocations(SynergyLocation[] synergyLocations) {
+    protected void setSynergyLocations(SynergyLocation[] synergyLocations) {
         HelperMethods.checkObjectArrayAlt("synergyLocations",
             synergyLocations);
         if (synergyLocations != null) {
@@ -217,6 +217,10 @@ public class ActionBase extends ActionBaseBase {
         this.synergyLocations = synergyLocations;
     }
 
+    /**
+     * If this object is a reaction, checks that this.frequency isn't null.
+     * Otherwise, checks that this.frequency is either "X/round" or "Unlimited".
+     */
     @Override
     protected void verifyProperties() {
         boolean isValidFreq1;
@@ -231,6 +235,7 @@ public class ActionBase extends ActionBaseBase {
             }
             // do nothing further about this.trigger because it cannot be ""
         } else {
+            // Check whether this.frequency is either "X/round" or "Unlimited"
             isValidFreq1 =
                 this.frequency.getType().getValue().equals("X/round");
             isValidFreq2 = this.frequency.getType().getValue()
