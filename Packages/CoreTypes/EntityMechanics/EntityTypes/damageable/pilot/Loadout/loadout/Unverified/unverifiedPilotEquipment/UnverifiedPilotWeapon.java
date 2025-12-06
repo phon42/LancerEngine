@@ -1,4 +1,4 @@
-package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Unverified.unverifiedPilotEquipment;
+package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Loadout.loadout.Unverified.unverifiedPilotEquipment;
 
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.UnverifiedData;
@@ -10,8 +10,8 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.Deployable.depl
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.Deployable.deployable.iDeployableDataBase.Verified.IDeployableData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Equipment.Verified.equipment.TagSystem.UnverifiedDataTag;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Equipment.Verified.equipment.TagSystem.unverifiedDataTag.DataTag;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Unverified.UnverifiedPilotEquipment;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Verified.pilotEquipment.PilotWeapon;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Loadout.loadout.Unverified.UnverifiedPilotEquipment;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Loadout.loadout.Verified.pilotEquipment.PilotWeapon;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.Harm;
 
 public class UnverifiedPilotWeapon extends UnverifiedPilotEquipment

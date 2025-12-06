@@ -1,14 +1,26 @@
-package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Unverified;
+package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Loadout.loadout.Verified;
 
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.VueHTMLString;
 import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.ISynergyData;
 import Packages.CoreTypes.EntityMechanics.Actions.Verified.actionBase.IActionData;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.Deployable.deployable.iDeployableDataBase.Unverified.UnverifiedIDeployableData;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Equipment.Verified.equipment.TagSystem.UnverifiedDataTag;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.Deployable.deployable.iDeployableDataBase.Verified.IDeployableData;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Equipment.Verified.equipment.TagSystem.unverifiedDataTag.DataTag;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Equipment.Verified.equipment.TagSystem.unverifiedDataTag.Tag;
 
-public class UnverifiedPilotEquipment {
+/**
+ * Represents a single piece of pilot equipment of any kind (be that armor,
+ *     weapon, or gear). Contains information about that pilot equipment's id,
+ *     name, type, data tags, and tags.
+ * 
+ * Cannot be instantiated.
+ * 
+ * Unused at present.
+ * 
+ * Safety: N/A because this class cannot be instantiated.
+ */
+public class PilotEquipment {
     // TODO: fill out
     // Required properties
     protected String id;
@@ -21,7 +33,8 @@ public class UnverifiedPilotEquipment {
      * Case-sensitive.
      */
     protected String description;
-    protected UnverifiedDataTag[] dataTags;
+    protected DataTag[] dataTags;
+    protected Tag[] tags;
     /**
      * The pilot armor's actions (i.e. an IActionData representing the
      *     "Activate Stealth Hardsuit" action).
@@ -37,18 +50,17 @@ public class UnverifiedPilotEquipment {
     protected Bonus[] bonuses;
     protected ISynergyData[] synergies;
     /**
-     * Can be any UnverifiedIDeployableData[] that is not of length 0 or contains null
+     * Can be any IDeployableData[] that is not of length 0 or contains null
      *     elements. Can be null.
      */
-    protected UnverifiedIDeployableData[] deployables;
+    protected IDeployableData[] deployables;
 
-    protected UnverifiedPilotEquipment(
+    protected PilotEquipment(
         // Required properties
         String id, String name, String type,
         // Optional properties
-        String description, UnverifiedDataTag[] dataTags, IActionData[] actions,
-        Bonus[] bonuses, ISynergyData[] synergies,
-        UnverifiedIDeployableData[] deployables
+        String description, DataTag[] dataTags, IActionData[] actions,
+        Bonus[] bonuses, ISynergyData[] synergies, IDeployableData[] deployables
     ) {
         // Required properties
         setID(id);
@@ -58,7 +70,7 @@ public class UnverifiedPilotEquipment {
         setDataTags(dataTags);
         setDescription(description);
     }
-    protected UnverifiedPilotEquipment(
+    protected PilotEquipment(
         // Required properties
         String id, String name, String type
     ) {
@@ -80,12 +92,19 @@ public class UnverifiedPilotEquipment {
     public String getDescription() {
         return description;
     }
-    public UnverifiedDataTag[] getDataTags() {
+    public DataTag[] getDataTags() {
         if (dataTags != null) {
             return HelperMethods.copyOf(dataTags);
         }
 
         return dataTags;
+    }
+    public Tag[] getTags() {
+        if (tags != null) {
+            return HelperMethods.copyOf(tags);
+        }
+
+        return tags;
     }
     public IActionData[] getActions() {
         if (actions != null) {
@@ -108,7 +127,7 @@ public class UnverifiedPilotEquipment {
 
         return synergies;
     }
-    public UnverifiedIDeployableData[] getDeployables() {
+    public IDeployableData[] getDeployables() {
         if (deployables != null) {
             HelperMethods.copyOf(deployables);
         }
@@ -135,12 +154,19 @@ public class UnverifiedPilotEquipment {
         }
         this.description = description;
     }
-    protected void setDataTags(UnverifiedDataTag[] dataTags) {
+    protected void setDataTags(DataTag[] dataTags) {
         HelperMethods.checkObjectArrayAlt("dataTags", dataTags);
         if (dataTags != null) {
             dataTags = HelperMethods.copyOf(dataTags);
         }
         this.dataTags = dataTags;
+        if (dataTags != null) {
+            setTags(DataTag.toTags(dataTags));
+        }
+    }
+    protected void setTags(Tag[] tags) {
+        HelperMethods.checkObjectArrayAlt("tags", tags);
+        this.tags = tags;
     }
     protected void setActions(IActionData[] actions) {
         HelperMethods.checkObjectArrayAlt("actions", actions);
@@ -163,7 +189,7 @@ public class UnverifiedPilotEquipment {
         }
         this.synergies = synergies;
     }
-    protected void setDeployables(UnverifiedIDeployableData[] deployables) {
+    protected void setDeployables(IDeployableData[] deployables) {
         HelperMethods.checkObjectArrayAlt("deployables",
             deployables);
         if (deployables != null) {
@@ -176,4 +202,3 @@ public class UnverifiedPilotEquipment {
         setName(new VueHTMLString(name));
     }
 }
-
