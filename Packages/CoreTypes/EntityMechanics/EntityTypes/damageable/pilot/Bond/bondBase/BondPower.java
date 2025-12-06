@@ -1,4 +1,4 @@
-package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Bond.Verified.bond;
+package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Bond.bondBase;
 
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.TriState;
