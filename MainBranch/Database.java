@@ -42,7 +42,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Loadout.l
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Loadout.loadout.Verified.pilotEquipment.PilotWeapon;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Reserve.reserve.ReserveData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Reserve.reserve.reserveData.ReserveType;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skill.SkillData;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.SkillTriggersList.skillTriggersList.skill.SkillData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.talent.TalentData;
 import Packages.CoreTypes.EntityMechanics.FrequencySystem.Verified.frequency.FrequencyType;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.harm.HarmType;

@@ -2,7 +2,7 @@ package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Backgrou
 
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Background.BackgroundBase;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skill.SkillData;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.SkillTriggersList.skillTriggersList.skill.SkillData;
 
 /**
  * From https://github.com/massif-press/lancer-data/blob/master/README.md#backgrounds-backgroundsjson.

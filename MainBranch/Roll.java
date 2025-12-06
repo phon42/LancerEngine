@@ -4,7 +4,7 @@ import java.util.Random;
 
 import MainBranch.roll.RollModifiers;
 import MainBranch.roll.mixedExpression.Expression;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.Skill;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.SkillTriggersList.skillTriggersList.Skill;
 
 /**
  * See pgs. 12 - 14 and 45 - 47.

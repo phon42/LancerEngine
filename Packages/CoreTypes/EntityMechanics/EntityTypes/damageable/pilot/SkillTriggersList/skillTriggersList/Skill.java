@@ -1,9 +1,9 @@
-package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList;
+package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.SkillTriggersList.skillTriggersList;
 
 import java.util.NoSuchElementException;
 import MainBranch.Database;
 import MainBranch.HelperMethods;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skill.SkillData;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.SkillTriggersList.skillTriggersList.skill.SkillData;
 
 /**
  * See pg. 24 - 27.
