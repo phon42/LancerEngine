@@ -1,5 +1,7 @@
 package MainBranch.database;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -27,6 +29,20 @@ public class FileOperations {
     // prevent user from instantiating this class
     private FileOperations() {}
 
+    public static Path toPath(File filePath) {
+        String pathString;
+
+        try {
+            pathString = filePath.getCanonicalPath();
+        } catch (IOException exception) {
+            throw new IllegalArgumentException("Attempting to call"
+                + " File.getCanonicalPath() on filePath: \""
+                + filePath.toString() + "\" caused an IOException to be"
+                + " thrown");
+        }
+
+        return toPath(pathString);
+    }
     public static Path toPath(String filePath) {
         Path path;
 
