@@ -1,4 +1,4 @@
-package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable;
+package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.Deployable.deployable;
 
 import MainBranch.Database;
 import MainBranch.HelperMethods;
@@ -9,7 +9,7 @@ import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.ISynergyData;
 import Packages.CoreTypes.EntityMechanics.Actions.Verified.actionBase.IActionData;
 import Packages.CoreTypes.EntityMechanics.ActivationType.Verified.ActivationType;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.iDeployableDataBase.DeployableStatblock;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.Deployable.deployable.iDeployableDataBase.DeployableStatblock;
 
 public class IDeployableDataBase {
     // Required properties
