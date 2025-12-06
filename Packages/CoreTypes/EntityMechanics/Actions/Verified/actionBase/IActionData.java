@@ -92,7 +92,7 @@ public class IActionData extends ActionBase {
      * Conditionally required property:     PROVIDED
      * Optional properties:                 PROVIDED
      */
-    protected IActionData(
+    public IActionData(
         // ActionBase properties
         String name, String detailedDescription, TriState pilot, TriState mech,
         String[] confirm, TriState hideActive, String trigger, Callable method,
@@ -124,7 +124,7 @@ public class IActionData extends ActionBase {
      * Conditionally required property:     PROVIDED
      * Optional properties:             NOT PROVIDED
      */
-    protected IActionData(
+    public IActionData(
         // ActionBase properties
         String name, String detailedDescription, TriState pilot, TriState mech,
         String[] confirm, TriState hideActive, String trigger,
@@ -145,7 +145,7 @@ public class IActionData extends ActionBase {
      * Conditionally required property: NOT PROVIDED
      * Optional properties:             NOT PROVIDED
      */
-    protected IActionData(
+    public IActionData(
         // ActionBase properties
         String name, String detailedDescription, TriState pilot, TriState mech,
         String[] confirm, TriState hideActive, ActivationType activation,
@@ -165,7 +165,7 @@ public class IActionData extends ActionBase {
      * Conditionally required property:     PROVIDED
      * Optional properties:             NOT PROVIDED
      */
-    protected IActionData(
+    public IActionData(
         // ActionBase properties
         String name, String detailedDescription, String trigger,
         ActivationType activation, Frequency frequency
@@ -183,7 +183,7 @@ public class IActionData extends ActionBase {
      * Conditionally required property: NOT PROVIDED
      * Optional properties:             NOT PROVIDED
      */
-    protected IActionData(
+    public IActionData(
         // ActionBase properties
         String name, String detailedDescription, ActivationType activation
     ) {
