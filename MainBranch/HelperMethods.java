@@ -252,11 +252,11 @@ public final class HelperMethods {
     }
     public static int parseInt(String input) throws IllegalArgumentException,
         IllegalStateException {
-        Number result;
-
-        result = parseNumber(input);
-
-        return result.intValue();
+        return parseNumber(input).intValue();
+    }
+    public static int parseInt(String input, int radix)
+        throws IllegalArgumentException, IllegalStateException {
+        return parseNumber(input, radix).intValue();
     }
     public static Number parseNumber(String input)
         throws IllegalArgumentException, IllegalStateException {
@@ -266,6 +266,16 @@ public final class HelperMethods {
         } catch (ParseException exception) {
             throw new IllegalStateException("Attempting to parse: \"" + input
                 + "\" threw a ParseException");
+        }
+    }
+    public static Number parseNumber(String input, int radix)
+        throws IllegalArgumentException, IllegalStateException {
+        checkObject("input", input);
+        try {
+            return Long.parseLong(input, radix);
+        } catch (NumberFormatException exception) {
+            throw new IllegalStateException("Attempting to parse: \"" + input
+                + "\" threw a NumberFormatException");
         }
     }
     /**
