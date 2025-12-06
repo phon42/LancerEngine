@@ -1,6 +1,7 @@
 package Packages.CoreTypes.VueHTMLString.vueHTMLString;
 
 public class VueReplaceableType {
+    protected VueReplaceableType() {}
     protected VueReplaceableType(VueReplaceableType vueReplaceableType) {}
 
     protected VueReplaceableType replace(String replacement) {
