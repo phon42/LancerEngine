@@ -3,7 +3,7 @@ package Packages.CoreTypes.EntityMechanics.Actions.Unverified;
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.Callable;
 import Packages.CoreTypes.EntityMechanics.Actions.ActionBaseBase;
-import Packages.CoreTypes.EntityMechanics.ActivationTypeSystem.Unverified.UnverifiedActivationType;
+import Packages.CoreTypes.EntityMechanics.ActivationType.Unverified.UnverifiedActivationType;
 import Packages.CoreTypes.EntityMechanics.FrequencySystem.Unverified.UnverifiedFrequency;
 import Packages.CoreTypes.EntityMechanics.SynergyLocationSystem.Unverified.UnverifiedSynergyLocation;
 import Packages.CoreTypes.TriState;

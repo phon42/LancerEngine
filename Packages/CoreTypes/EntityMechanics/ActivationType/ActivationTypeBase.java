@@ -1,4 +1,4 @@
-package Packages.CoreTypes.EntityMechanics.ActivationTypeSystem;
+package Packages.CoreTypes.EntityMechanics.ActivationType;
 
 import MainBranch.HelperMethods;
 

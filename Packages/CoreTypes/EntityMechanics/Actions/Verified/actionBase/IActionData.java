@@ -4,7 +4,7 @@ import MainBranch.HelperMethods;
 import Packages.CoreTypes.Callable;
 import Packages.CoreTypes.TriState;
 import Packages.CoreTypes.EntityMechanics.Actions.Verified.ActionBase;
-import Packages.CoreTypes.EntityMechanics.ActivationTypeSystem.Verified.ActivationType;
+import Packages.CoreTypes.EntityMechanics.ActivationType.Verified.ActivationType;
 import Packages.CoreTypes.EntityMechanics.FrequencySystem.Verified.Frequency;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.harm.Damage;
 import Packages.CoreTypes.EntityMechanics.SynergyLocationSystem.Verified.SynergyLocation;

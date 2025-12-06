@@ -1,9 +1,9 @@
-package Packages.CoreTypes.EntityMechanics.ActivationTypeSystem.Verified;
+package Packages.CoreTypes.EntityMechanics.ActivationType.Verified;
 
 import java.util.NoSuchElementException;
 import MainBranch.Database;
 import MainBranch.HelperMethods;
-import Packages.CoreTypes.EntityMechanics.ActivationTypeSystem.ActivationTypeBase;
+import Packages.CoreTypes.EntityMechanics.ActivationType.ActivationTypeBase;
 
 /**
  * Represents a verified activation type. Contains information about that

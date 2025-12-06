@@ -1,8 +1,8 @@
-package Packages.CoreTypes.EntityMechanics.ActivationTypeSystem.Unverified;
+package Packages.CoreTypes.EntityMechanics.ActivationType.Unverified;
 
 import Packages.CoreTypes.UnverifiedData;
-import Packages.CoreTypes.EntityMechanics.ActivationTypeSystem.ActivationTypeBase;
-import Packages.CoreTypes.EntityMechanics.ActivationTypeSystem.Verified.ActivationType;
+import Packages.CoreTypes.EntityMechanics.ActivationType.ActivationTypeBase;
+import Packages.CoreTypes.EntityMechanics.ActivationType.Verified.ActivationType;
 
 /**
  * Represents an unverified activation type. Contains information about that
