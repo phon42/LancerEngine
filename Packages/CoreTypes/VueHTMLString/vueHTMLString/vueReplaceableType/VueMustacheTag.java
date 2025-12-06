@@ -92,7 +92,8 @@ public class VueMustacheTag extends VueReplaceableType {
         HelperMethods.checkObject("input", input);
         if (input.indexOf("{") == -1) {
             throw new IllegalArgumentException("Unable to create a"
-                + " VueMustacheTag from the String: \"" + input + "\"");
+                + " VueMustacheTag from the String: \"" + input + "\" because"
+                + " it does not contain any curly braces (\"{\"/\"}\")");
         }
         numBraces = checkNesting(input);
         content = checkFormatting(input);
@@ -153,12 +154,23 @@ public class VueMustacheTag extends VueReplaceableType {
                 //     non-"{"/"}" characters)
                 // if we see "{", we advance to the next stage
                 // if we see "}", we throw an Exception
+                if (character.equals("{")) {
+                    mode++;
+                    continue;
+                }
+                if (character.equals("}")) {
+                    throw new IllegalArgumentException("input: \"" + input
+                        + "\" is an illegally formatted String");
+                }
             } else if (mode == 1) {
                 // the "ascending" portion (we should expect to only see "{"s)
                 // if we see anything other than "{", we advance to the next
                 //     stage
                 if (! character.equals("{")) {
                     mode++;
+                    // we essentially want to retry this same iteration
+                    i--;
+                    continue;
                 }
             } else if (mode == 2) {
                 // the "middle" portion (we should expect to only see
@@ -167,10 +179,11 @@ public class VueMustacheTag extends VueReplaceableType {
                 // if we see "{", we throw an Exception
                 // otherwise, we save the current character to the content
                 //     variable
-                if (! character.equals("}")) {
+                if (character.equals("}")) {
                     mode++;
+                    continue;
                 }
-                if (! character.equals("{")) {
+                if (character.equals("{")) {
                     throw new IllegalArgumentException("input: \"" + input
                         + "\" is an illegally formatted String");
                 }
@@ -183,8 +196,10 @@ public class VueMustacheTag extends VueReplaceableType {
                 if (character.equals("{")) {
                     throw new IllegalArgumentException("input: \"" + input
                         + "\" is an illegally formatted String");
-                } else if (! character.equals("}")) {
+                }
+                if (! character.equals("}")) {
                     mode++;
+                    continue;
                 }
             } else if (mode == 4) {
                 // the closing "flat" portion (we should expect to only see
