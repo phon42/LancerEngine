@@ -221,7 +221,6 @@ public class ActionBase extends ActionBaseBase {
      * If this object is a reaction, checks that this.frequency isn't null.
      * Otherwise, checks that this.frequency is either "X/round" or "Unlimited".
      */
-    @Override
     protected void verifyProperties() {
         boolean isValidFreq1;
         boolean isValidFreq2;

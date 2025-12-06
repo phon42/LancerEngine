@@ -48,7 +48,7 @@ public class UnverifiedActionBase extends ActionBaseBase {
      * Can be any UnverifiedSynergyLocation[] that is not of length 0 and does
      *     not contain null elements. Can be null.
      */
-    private UnverifiedSynergyLocation[] synergyLocations;
+    protected UnverifiedSynergyLocation[] synergyLocations;
 
     /**
      * A constructor using all possible properties.
@@ -183,7 +183,7 @@ public class UnverifiedActionBase extends ActionBaseBase {
         HelperMethods.checkObject("frequency", frequency);
         this.frequency = frequency;
     }
-    private void setSynergyLocations(
+    protected void setSynergyLocations(
         UnverifiedSynergyLocation[] synergyLocations) {
         HelperMethods.checkObjectArrayAlt("synergyLocations",
             synergyLocations);
@@ -191,5 +191,14 @@ public class UnverifiedActionBase extends ActionBaseBase {
             synergyLocations = HelperMethods.copyOf(synergyLocations);
         }
         this.synergyLocations = synergyLocations;
+    }
+
+    /**
+     * Calculates the correct value for the helper property ActionBaseBase.type.
+     * @return a String containing the correct value.
+     */
+    @Override
+    protected String calculateType() {
+        return "free";
     }
 }

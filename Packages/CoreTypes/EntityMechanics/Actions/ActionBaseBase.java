@@ -386,11 +386,6 @@ public class ActionBaseBase {
         }
     }
     /**
-     * Should be overridden in every direct child.
-     */
-    protected void verifyProperties() {
-    }
-    /**
      * Calculates the correct value for the helper property ActionBaseBase.type.
      * Should be overridden in every direct child.
      * @return a String containing the correct value.
