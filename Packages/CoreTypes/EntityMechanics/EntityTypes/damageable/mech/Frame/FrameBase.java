@@ -17,7 +17,7 @@ public class FrameBase extends LicenseContent {
      * Can be any String except "". Cannot be null.
      * Case-insensitive and stored in lowercase.
      */
-    // private String id;
+    // protected String id;
     // TODO: figure out a way to override the documentation from LicenseContent
     /**
      * The frame's name (i.e. "Everest").
@@ -25,7 +25,7 @@ public class FrameBase extends LicenseContent {
      * Use Frame.getName() to get the raw value and Frame.outputName() to obtain
      *     it properly formatted.
      */
-    // private String name;
+    // protected String name;
     // TODO: figure out a way to override the documentation from LicenseContent
     /**
      * The origin license for this frame (i.e. a License representing 'Everest,
@@ -73,7 +73,7 @@ public class FrameBase extends LicenseContent {
      * Can be any String except "". Cannot be null.
      * Case-sensitive.
      */
-    // private String description;
+    // protected String description;
     /**
      * The frame's role (i.e. "balanced"). Multiple items are stored as seperate
      *     elements (i.e "Controller/Support" would be stored as {"controller",
@@ -85,7 +85,7 @@ public class FrameBase extends LicenseContent {
      * 
      * See pg. 116.
      */
-    private String[] role;
+    protected String[] role;
     /**
      * Contains an array of allowed values for the elements of the role
      *     property. Case-insensitive and stored in lowercase.
@@ -95,14 +95,14 @@ public class FrameBase extends LicenseContent {
     };
 
     // frame attributes - size, structure, HP, etc. - see pgs. 33 - 34.
-    private FrameStatblock statblock;
+    protected FrameStatblock statblock;
 
     /**
      * The frame's traits (i.e. {"Initiative", "Replaceable Parts"}).
      * Can be any String[] that does not contain null elements or elements that
      *     are "". Cannot be null.
      */
-    private String[] traits;
+    protected String[] traits;
 
     /**
      * The frame's weapon mounts.
@@ -112,9 +112,9 @@ public class FrameBase extends LicenseContent {
      *     elements with their Mount.modification, Mount.coreBonus, or
      *     Mount.talent set to anything except ""/""/null. Cannot be null.
      */
-    private Mount[] mounts;
+    protected Mount[] mounts;
 
-    private ICoreSystemData coreSystem;
+    protected ICoreSystemData coreSystem;
 
     // Optional properties
     /**
@@ -122,17 +122,17 @@ public class FrameBase extends LicenseContent {
      * Used for identifying it in Database.getFrame(FrameEnum).
      * Can be null.
      */
-    private FrameEnum frameEnum;
+    protected FrameEnum frameEnum;
     /**
      * The frame, if any, that this is a variant of (i.e. "Black Witch").
      * Can be any String except "". Can be null.
      * Case-sensitive.
      */
-    private String variant;
+    protected String variant;
     /**
      * {}
      */
-    private boolean specialty;
+    protected boolean specialty;
 
     /**
      * Creates a new FrameBase using every possible property.
@@ -208,7 +208,7 @@ public class FrameBase extends LicenseContent {
      * Sets this.frameEnum to the provided value.
      * @param frameEnum a FrameEnum which can be any FrameEnum.
      */
-    private void setFrameEnum(FrameEnum frameEnum) {
+    protected void setFrameEnum(FrameEnum frameEnum) {
         this.frameEnum = frameEnum;
     }
     /**
@@ -220,7 +220,7 @@ public class FrameBase extends LicenseContent {
      *     or invalid values, as defined by Frame.allowedRoles, or has a length
      *     of 0.
      */
-    private void setRole(String[] role) {
+    protected void setRole(String[] role) {
         boolean isValidRole = false;
         String roleString;
 
@@ -247,7 +247,7 @@ public class FrameBase extends LicenseContent {
         role = HelperMethods.copyOf(role);
         this.role = role;
     }
-    private void setStats(FrameStatblock statblock) {
+    protected void setStats(FrameStatblock statblock) {
         HelperMethods.checkObject("New statblock", statblock);
         statblock = new FrameStatblock(statblock);
         this.statblock = statblock;
@@ -259,7 +259,7 @@ public class FrameBase extends LicenseContent {
      * @throws IllegalArgumentException if traits is null, contains null
      *     elements, or elements that are "".
      */
-    private void setTraits(String[] traits) {
+    protected void setTraits(String[] traits) {
         HelperMethods.checkStringArray("New traits", traits);
         traits = HelperMethods.copyOf(traits);
         this.traits = traits;
@@ -276,7 +276,7 @@ public class FrameBase extends LicenseContent {
      *     Mount.coreBonus, or Mount.talent set to something other than its
      *     construction value.
      */
-    private void setMounts(Mount[] mounts) {
+    protected void setMounts(Mount[] mounts) {
         HelperMethods.checkObjectArray("New mounts", mounts);
         for (Mount mount : mounts) {
             if (mount.getWeapon() != null) {
@@ -298,7 +298,7 @@ public class FrameBase extends LicenseContent {
         mounts = HelperMethods.copyOf(mounts);
         this.mounts = mounts;
     }
-    private void setCoreSystem(ICoreSystemData coreSystem) {
+    protected void setCoreSystem(ICoreSystemData coreSystem) {
         HelperMethods.checkObject("New coreSystem", coreSystem);
         this.coreSystem = coreSystem;
     }
