@@ -684,9 +684,9 @@ public class DataCaster {
         terse = getOptionalString(actionData, "terse");
         log = getOptionalString(actionData, "log");
 
-        return new Action(name, activation, detail, pilot, mech, confirm,
-            hideActive, frequency, trigger, null, synergyLocations,
-            init, id, ignoreUsed, heatCost, terse, log);
+        return new Action(name, detail, pilot, mech, confirm, hideActive,
+            trigger, null, init, activation, frequency,
+            synergyLocations, id, ignoreUsed, heatCost, terse, log);
     }
     private static void processBackgrounds(JSONObject[] backgroundsData) {
         UnverifiedBackground[] backgrounds =
