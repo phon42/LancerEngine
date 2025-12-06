@@ -11,6 +11,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Mount;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Equipment.Verified.equipment.systemBase.MechSystem;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Frame.Verified.Frame;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Frame.Verified.frame.CoreSystem;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Frame.Verified.frame.coreSystem.ICoreSystemData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Frame.frameBase.FrameEnum;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Frame.frameBase.FrameStatblock;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.mount.MountType;
@@ -487,6 +488,11 @@ public final class Mech implements Damageable {
         this.burn = burn;
     }
 
+    private void setCoreSystem(ICoreSystemData iCoreSystemData) {
+        HelperMethods.checkObject("iCoreSystemData",
+            iCoreSystemData);
+        setCoreSystem(new CoreSystem(iCoreSystemData));
+    }
     /**
      * A helper method which outputs the mech's size, formatted properly so that
      *     it is human-readable. Used in Mech.outputStats("full", int, int[]).
