@@ -6,4 +6,26 @@ public class BondID extends BondIDBase {
     public BondID(String id) {
         super(id);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj.getClass() != BondID.class) {
+            return false;
+        }
+
+        return equals((BondID) obj);
+    }
+    public boolean equals(BondID bondID) {
+        if (bondID == null) {
+            return false;
+        }
+        if (! bondID.getID().equals(this.id)) {
+            return false;
+        }
+
+        return true;
+    }
 }
