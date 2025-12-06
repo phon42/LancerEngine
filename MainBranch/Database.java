@@ -35,6 +35,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.mount.Moun
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Background.backgroundBase.Background;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Background.backgroundBase.UnverifiedBackground;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Bond.Verified.Bond;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Bond.Verified.bond.Verified.BondID;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.CoreBonus.coreBonusBase.Unverified.UnverifiedCoreBonus;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.CoreBonus.coreBonusBase.Verified.CoreBonus;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Loadout.loadout.Verified.pilotEquipment.PilotArmor;
@@ -114,6 +115,10 @@ public final class Database {
      * add documentation
      */
     private static Bond[] bonds;
+    /**
+     * add documentation
+     */
+    private static BondID[] bondIDs;
     /**
      * add documentation
      */
@@ -696,6 +701,8 @@ public final class Database {
         Database.actions = new Action[0];
         Database.activationTypes = new ActivationType[0];
         Database.backgrounds = new Background[0];
+        Database.bonds = new Bond[0];
+        Database.bondIDs = new BondID[0];
         Database.conditions = new StateData[0];
         Database.coreBonuses = new CoreBonus[0];
         Database.damageTypes = new DamageType[0];
@@ -803,6 +810,26 @@ public final class Database {
         }
         throw new NoSuchElementException("No background found for background"
             + " ID: " + backgroundID);
+    }
+    public static Bond getBond(BondID bondID) {
+        HelperMethods.checkObject("bondID", bondID);
+        for (Bond bond : Database.bonds) {
+            if (bondID.equals(bond.getID())) {
+                return bond;
+            }
+        }
+        throw new NoSuchElementException("No bond found for bond ID: "
+            + bondID);
+    }
+    public static BondID getBondID(String bondID) {
+        HelperMethods.checkObject("bondID", bondID);
+        for (BondID bondIDElement : Database.bondIDs) {
+            if (bondID.equals(bondIDElement.getID())) {
+                return bondIDElement;
+            }
+        }
+        throw new NoSuchElementException("No bond ID found for bond ID: "
+            + bondID);
     }
     public static StateData getCondition(String conditionName) {
         HelperMethods.checkObject("conditionName", conditionName);
@@ -1344,6 +1371,16 @@ public final class Database {
         checkOpen();
         HelperMethods.checkObject("bond", bond);
         Database.bonds = HelperMethods.append(Database.bonds, bond);
+    }
+    /**
+     * Adds the provided BondID to Database.bondIDs.
+     * @param bondID a BondID which cannot be null.
+     * @throws IllegalArgumentException if bondID is null.
+     */
+    public static void addBondID(BondID bondID) {
+        checkOpen();
+        HelperMethods.checkObject("bondID", bondID);
+        Database.bondIDs = HelperMethods.append(Database.bondIDs, bondID);
     }
     /**
      * Adds the provided StateData to Database.conditions.
