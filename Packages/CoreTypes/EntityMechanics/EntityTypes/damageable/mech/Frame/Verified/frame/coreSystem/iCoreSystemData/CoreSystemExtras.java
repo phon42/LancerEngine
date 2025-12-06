@@ -6,6 +6,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.Deployable.depl
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Equipment.Verified.equipment.TagSystem.unverifiedDataTag.DataTag;
 
 public class CoreSystemExtras {
+    // TODO: fill out
     // Optional properties
     private IDeployableData[] deployables;
     private CounterData[] counters;
@@ -16,6 +17,7 @@ public class CoreSystemExtras {
     public CoreSystemExtras(IDeployableData[] deployables,
         CounterData[] counters, String[] integrated, String[] specialEquipment,
         DataTag[] tags) {
+        HelperMethods.verifyConstructor();
         setDeployables(deployables);
         setCounters(counters);
         setIntegrated(integrated);
