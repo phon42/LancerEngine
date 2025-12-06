@@ -24,6 +24,7 @@ import Packages.CoreTypes.EntityMechanics.RangeTag;
 import Packages.CoreTypes.EntityMechanics.RangeType;
 import Packages.CoreTypes.EntityMechanics.ISynergyData;
 import Packages.CoreTypes.EntityMechanics.WeaponSize;
+import Packages.CoreTypes.EntityMechanics.Actions.Unverified.unverifiedActionBase.UnverifiedAction;
 import Packages.CoreTypes.EntityMechanics.Actions.Verified.actionBase.Action;
 import Packages.CoreTypes.EntityMechanics.Actions.Verified.actionBase.IActionData;
 import Packages.CoreTypes.EntityMechanics.ActivationType.Verified.ActivationType;
@@ -1568,6 +1569,33 @@ public final class HelperMethods {
         HelperMethods.checkObject("array", array);
         HelperMethods.checkObject("newElement", newElement);
         Term[] newArray = new Term[array.length + 1];
+
+        for (int i = 0; i < newArray.length; i++) {
+            if (i < array.length) {
+                newArray[i] = array[i];
+                continue;
+            }
+            newArray[i] = newElement;
+        }
+        
+        return newArray;
+    }
+    /**
+     * Appends the given UnverifiedAction element to the end of an existing
+     *     UnverifiedAction[].
+     * @param array an UnverifiedAction[] that cannot be null.
+     * @param newElement an UnverifiedAction that cannot be null to append to
+     *     the end of array.
+     * @return an UnverifiedAction[] consisting of array with newElement
+     *     appended to the end of it.
+     * @throws IllegalArgumentException if array or newElement is null.
+     */
+    public static UnverifiedAction[] append(UnverifiedAction[] array,
+        UnverifiedAction newElement) {
+        HelperMethods.checkObject("array", array);
+        HelperMethods.checkObject("newElement", newElement);
+        UnverifiedAction[] newArray =
+            new UnverifiedAction[array.length + 1];
 
         for (int i = 0; i < newArray.length; i++) {
             if (i < array.length) {
