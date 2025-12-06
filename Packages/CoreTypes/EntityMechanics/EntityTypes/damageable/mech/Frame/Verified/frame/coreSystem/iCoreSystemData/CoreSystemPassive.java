@@ -6,6 +6,7 @@ import Packages.CoreTypes.EntityMechanics.Actions.Verified.actionBase.IActionDat
 import Packages.CoreTypes.VueHTMLString.VueHTMLString;
 
 public class CoreSystemPassive {
+    // TODO: fill out
     // Optional properties
     /**
      * Can be any String except "". Can be null.
@@ -23,7 +24,7 @@ public class CoreSystemPassive {
 
     public CoreSystemPassive(String name, String effect, IActionData[] actions,
         IActionData[] bonuses, ISynergyData[] synergies) {
-        // Optional properties
+        HelperMethods.verifyConstructor();
         setName(name);
         setEffect(effect);
         setActions(actions);
