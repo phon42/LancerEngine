@@ -2,11 +2,15 @@ package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech;
 
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.Size;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frameBase.Frame;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frameBase.FrameStatblock;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Talent.Talent;
 
+/**
+ * See pgs. 33 - 34.
+ */
 public class MechStatblock {
-    // frame attributes - size, structure, HP, etc. - see pgs. 33 - 34.
+    // Size
     /**
      * The mech's size.
      * Can be any Size. Cannot be null.
@@ -26,7 +30,7 @@ public class MechStatblock {
      */
     private Size size;
 
-    // health and structure
+    // Health and structure
     /**
      * The mech's current structure value.
      * Must be between 0 and this.maxStructure (inclusive).
@@ -57,7 +61,7 @@ public class MechStatblock {
      */
     private int armor;
 
-    // heat and stress
+    // Heat and stress
     /**
      * The mech's current stress value.
      * Must be between 0 and this.maxStress (inclusive).
@@ -83,7 +87,7 @@ public class MechStatblock {
      */
     private int maxHeatCapacity;
 
-    // evasion and speed
+    // Evasion and speed
     /**
      * The mech's evasion value.
      * Must be a minimum of 0.
@@ -95,7 +99,7 @@ public class MechStatblock {
      */
     private int speed;
 
-    // e-defense and tech attack
+    // E-defense and tech attack
     /**
      * The mech's e-defense value.
      * Must be a minimum of 0.
@@ -107,7 +111,7 @@ public class MechStatblock {
      */
     private int techAttack;
 
-    // sensors and repair capacity
+    // Sensors and repair capacity
     /**
      * The mech's sensors value.
      * Must be a minimum of 0.
@@ -128,7 +132,7 @@ public class MechStatblock {
      */
     private int maxRepairCapacity;
 
-    // save target and system points
+    // Save target and system points
     /**
      * The mech's save target value.
      * Must be a minimum of 0.
@@ -142,38 +146,55 @@ public class MechStatblock {
      */
     private int systemPoints;
 
+    // Limited systems bonus
     /**
      * The mech's limited systems bonus value.
      * Must be a minimum of 0.
      */
     private int limitedSystemsBonus;
 
+    public MechStatblock(FrameStatblock frameStatblock) {
+        calculateStats(frameStatblock);
+    }
+    public MechStatblock(Frame frame) {
+        this(frame.getStatblock());
+    }
     public MechStatblock(MechStatblock mechStatblock) {
+        // Size
         setSize(mechStatblock.size);
+        // Health and structure
         setMaxStructure(mechStatblock.maxStructure);
         setCurrentStructure(mechStatblock.currentStructure);
         setMaxHP(mechStatblock.maxHP);
         setCurrentHP(mechStatblock.currentHP);
         setArmor(mechStatblock.armor);
+        // Heat and stress
         setMaxStress(mechStatblock.maxStress);
         setCurrentStress(mechStatblock.currentStress);
         setMaxHeatCapacity(mechStatblock.maxHeatCapacity);
         setCurrentHeat(mechStatblock.currentHeat);
+        // Evasion and speed
         setEvasion(mechStatblock.evasion);
         setSpeed(mechStatblock.speed);
+        // E-defense and tech attack
         setEDefense(mechStatblock.eDefense);
         setTechAttack(mechStatblock.techAttack);
+        // Sensors and repair capacity
         setSensors(mechStatblock.sensors);
         setMaxRepairCapacity(mechStatblock.maxRepairCapacity);
         setCurrentRepairs(mechStatblock.currentRepairs);
+        // Save target and system points
         setSaveTarget(mechStatblock.saveTarget);
         setSystemPoints(mechStatblock.systemPoints);
+        // Limited systems bonus
         setLimitedSystemsBonus(mechStatblock.limitedSystemsBonus);
     }
 
+    // Size
     public Size getSize() {
         return size;
     }
+    // Health and structure
     public int getCurrentStructure() {
         return currentStructure;
     }
@@ -189,6 +210,7 @@ public class MechStatblock {
     public int getArmor() {
         return armor;
     }
+    // Heat and stress
     public int getCurrentStress() {
         return currentStress;
     }
@@ -201,18 +223,21 @@ public class MechStatblock {
     public int getMaxHeatCapacity() {
         return maxHeatCapacity;
     }
+    // Evasion and speed
     public int getEvasion() {
         return evasion;
     }
     public int getSpeed() {
         return speed;
     }
+    // E-defense and tech attack
     public int getEDefense() {
         return eDefense;
     }
     public int getTechAttack() {
         return techAttack;
     }
+    // Sensors and repair capacity
     public int getSensors() {
         return sensors;
     }
@@ -222,16 +247,18 @@ public class MechStatblock {
     public int getMaxRepairCapacity() {
         return maxRepairCapacity;
     }
+    // Save target and system points
     public int getSaveTarget() {
         return saveTarget;
     }
     public int getSystemPoints() {
         return systemPoints;
     }
+    // Limited systems bonus
     public int getLimitedSystemsBonus() {
         return limitedSystemsBonus;
     }
-    // frame attributes
+    // Size
     /**
      * Sets this.size to the provided value.
      * @param size a Size which cannot be null.
@@ -241,6 +268,7 @@ public class MechStatblock {
         HelperMethods.checkObject("New size", size);
         this.size = size;
     }
+    // Health and structure
     /**
      * Sets this.currentStructure to the provided value.
      * @param currentStructure an int which cannot be < 0 or >
@@ -317,6 +345,7 @@ public class MechStatblock {
         }
         this.armor = armor;
     }
+    // Heat and stress
     /**
      * Sets this.currentStress to the provided value.
      * @param currentStress an int which cannot be < 0 or > this.maxStress.
@@ -387,6 +416,7 @@ public class MechStatblock {
         }
         this.maxHeatCapacity = maxHeatCapacity;
     }
+    // Evasion and speed
     public void setEvasion(int evasion) {
         if (evasion < 0) {
             throw new IllegalArgumentException("New evasion value: " + evasion
@@ -401,6 +431,7 @@ public class MechStatblock {
         }
         this.speed = speed;
     }
+    // E-defense and tech attack
     public void setEDefense(int eDefense) {
         if (eDefense < 0) {
             throw new IllegalArgumentException("New e-defense value: "
@@ -411,6 +442,7 @@ public class MechStatblock {
     public void setTechAttack(int techAttack) {
         this.techAttack = techAttack;
     }
+    // Sensors and repair capacity
     public void setSensors(int sensors) {
         if (sensors < 0) {
             throw new IllegalArgumentException("New sensors value: " + sensors
@@ -455,6 +487,7 @@ public class MechStatblock {
         }
         this.maxRepairCapacity = maxRepairCapacity;
     }
+    // Save target and system points
     public void setSaveTarget(int saveTarget) {
         if (saveTarget < 0) {
             throw new IllegalArgumentException("New save target value: "
@@ -469,6 +502,7 @@ public class MechStatblock {
         }
         this.systemPoints = systemPoints;
     }
+    // Limited systems bonus
     public void setLimitedSystemsBonus(int limitedSystemsBonus) {
         if (limitedSystemsBonus < 0) {
             throw new IllegalArgumentException("New limited systems bonus"
