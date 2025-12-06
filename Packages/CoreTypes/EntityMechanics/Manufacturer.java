@@ -170,12 +170,10 @@ public class Manufacturer {
     }
     private void setLight(ColorData light) {
         HelperMethods.checkObject("light", light);
-        light = new ColorData(light);
         this.light = light;
     }
     private void setDark(ColorData dark) {
         HelperMethods.checkObject("dark", dark);
-        dark = new ColorData(dark);
         this.dark = dark;
     }
     private void setQuote(VueHTMLString quote) {
@@ -209,7 +207,7 @@ public class Manufacturer {
         this.light = new ColorData(light);
     }
     private void setDark(String dark) {
-        this.dark = new ColorData(light);
+        this.dark = new ColorData(dark);
     }
     private void setQuote(String quote) {
         setQuote(new VueHTMLString(quote));
