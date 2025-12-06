@@ -8,10 +8,35 @@ import MainBranch.UserPreferences;
  * See java.awt.Color.
  */
 public class ColorData {
+    // Required properties
+    /**
+     * This color's red value.
+     * Must be between 0 and ColorData.maxValue (inclusive).
+     */
     private int red;
+    /**
+     * This color's green value.
+     * Must be between 0 and ColorData.maxValue (inclusive).
+     */
     private int green;
+    /**
+     * This color's blue value.
+     * Must be between 0 and ColorData.maxValue (inclusive).
+     */
     private int blue;
+    /**
+     * This color's alpha value (controls transparency).
+     * Must be between 0 and ColorData.maxValue (inclusive).
+     */
     private int alpha;
+
+    // Static properties
+    /**
+     * The resolution of ColorData objects' properties, stored as the maximum
+     *     value a ColorData object's property (i.e. red, green, or blue) can
+     *     have.
+     * Must be a minimum of 1.
+     */
     private static int maxValue;
     // TODO: one issue with this is that it doesn't know when the color is no
     //     longer in use so the object never gets garbage collected and the
@@ -34,14 +59,8 @@ public class ColorData {
         parseString(colorString);
         addColor(this);
     }
-    public ColorData(ColorData colorData) {
-        setRed(colorData.red);
-        setGreen(colorData.green);
-        setBlue(colorData.blue);
-        setAlpha(colorData.alpha);
-        addColor(this);
-    }
 
+    // Required properties
     public int getRed() {
         return red;
     }
@@ -54,6 +73,7 @@ public class ColorData {
     public int getAlpha() {
         return alpha;
     }
+    // Required properties
     private void setRed(int red) {
         setProperty("red", red);
     }
@@ -66,10 +86,12 @@ public class ColorData {
     private void setAlpha(int alpha) {
         setProperty("alpha", alpha);
     }
-
-    private static void calcMax() {
-        ColorData.maxValue = 255 * UserPreferences.getColorResolution();
+    // Static properties
+    private static void setMaxValue(int maxValue) {
+        maxValue = Math.max(maxValue, 1);
+        ColorData.maxValue = maxValue;
     }
+
     private void setProperty(String property, int value) {
         if (value < 0) {
             throw new IllegalArgumentException(property + " value: " + value
@@ -88,33 +110,50 @@ public class ColorData {
             this.alpha = value;
         }
     }
+    private static void calcMax() {
+        setMaxValue(255 * UserPreferences.getColorResolution());
+    }
     private static void addColor(ColorData newColor) {
         HelperMethods.checkObject("newColor", newColor);
         ColorData.colors.add(newColor);
     }
     private void parseString(String colorString) {
+        // Stores the original query
+        String original = colorString;
+        // Constants
+        final String rgb = "rgb(";
+        final String rgba = "rgba(";
+        // Helpful for determining which type to expect
         boolean containsHashtag;
         boolean containsRGB;
         boolean containsRGBA;
-        int total;
+        // Checks whether multiple types are present in the input
+        int total = 0;
+        // For hashtag-format parsing
         String dataSnippet = null;
         String newColorString = null;
         int colorProperty = -1;
+        // For rgb- (and rgba-) format parsing
+        String[] rgbStrings;
+        boolean containsHexFormat = false;
+        String[] rgbStringsNew;
+
 
         HelperMethods.checkObject("colorString", colorString);
+        colorString = colorString.toLowerCase();
         containsHashtag = colorString.indexOf("#") != -1;
-        containsRGB = colorString.indexOf("rgb(") != -1;
-        containsRGBA = colorString.indexOf("rgba") != -1;
+        containsRGB = colorString.indexOf(rgb) != -1;
+        containsRGBA = colorString.indexOf(rgba) != -1;
         if (containsHashtag == containsRGB && containsRGB == containsRGBA) {
             // neither of these cases is allowed
             throw new IllegalArgumentException("Cannot parse a color from: \""
-                + colorString + "\"");
+                + original + "\"");
         }
         total = (containsHashtag ? 1 : 0) + (containsRGB ? 1 : 0)
             + (containsRGBA ? 1 : 0);
         if (total > 1) {
             throw new IllegalArgumentException("Cannot parse a color from: \""
-                + colorString + "\"");
+                + original + "\"");
         }
         // at this point only one of containsHashtag, containsRGB, containsRGBA
         //     can be 1
@@ -123,12 +162,12 @@ public class ColorData {
             if (colorString.length() == 1) {
                 // colorString is "#"
                 throw new IllegalArgumentException("Cannot parse a color from:"
-                    + " \"" + colorString + "\"");
+                    + " \"" + original + "\"");
             }
             if (colorString.length() > 9) {
                 // longer than "#RRGGBBAA"
                 throw new IllegalArgumentException("Cannot parse a color from:"
-                    + " \"" + colorString + "\"");
+                    + " \"" + original + "\"");
             }
             if (colorString.length() == 2) {
                 // colorString is "#C" (translates to #C0C0C0ff)
@@ -192,13 +231,106 @@ public class ColorData {
                 colorProperty = Integer.parseInt(dataSnippet, 16);
                 setAlpha(colorProperty * UserPreferences.getColorResolution());
             }
+
+            return;
         } else if (containsRGB) {
             // parse "rgb(...)"
-            // TODO: implement
+            if (colorString.length() < 5) {
+                throw new IllegalArgumentException("colorString is too short at"
+                    + " length: " + colorString);
+            }
+            colorString = colorString.substring(colorString.indexOf(rgb) + 4);
+            colorString = colorString.substring(0,
+                colorString.lastIndexOf(")"));
         } else {
             // parse "rgba(...)"
-            // TODO: implement
+            if (colorString.length() < 6) {
+                throw new IllegalArgumentException("colorString is too short at"
+                    + " length: " + colorString);
+            }
+            colorString = colorString.substring(colorString.indexOf(rgba) + 5);
+            colorString = colorString.substring(0,
+                colorString.lastIndexOf(")"));
         }
+        rgbStrings = colorString.split(",");
+        for (String property : rgbStrings) {
+            if (HelperMethods.indexOf(property, "[a-f]") != -1) {
+                containsHexFormat = true;
+                break;
+            }
+        }
+        for (String property : rgbStrings) {
+            if (! property.equals("")) {
+                total++;
+            }
+        }
+        total = 0;
+        rgbStringsNew = new String[total];
+        for (int i = 0; i < rgbStrings.length; i++) {
+            rgbStringsNew[total] = rgbStrings[i];
+            if (! rgbStrings[i].equals("")) {
+                total++;
+            }
+        }
+        rgbStrings = rgbStringsNew;
+        if (rgbStrings.length == 0) {
+            throw new IllegalStateException("Unable to extract enough data for"
+                + " a color from: \"" + original + "\"");
+        } else if (rgbStrings.length == 1) {
+            colorProperty = parse(rgbStrings[0], containsHexFormat);
+            setRed(colorProperty);
+            setGreen(colorProperty);
+            setBlue(colorProperty);
+            if (containsRGBA) {
+                setAlpha(colorProperty);
+            }
+        } else if (rgbStrings.length == 2) {
+            colorProperty = parse(rgbStrings[0], containsHexFormat);
+            setRed(colorProperty);
+            setGreen(colorProperty);
+            setBlue(colorProperty);
+            colorProperty = parse(rgbStrings[1], containsHexFormat);
+            if (containsRGBA) {
+                setAlpha(colorProperty);
+            }
+        } else if (rgbStrings.length == 3) {
+            if (containsRGBA) {
+                throw new IllegalStateException("Unable to extract enough data"
+                    + " for a color of the format \"rgba(...)\" from: \""
+                    + original + "\"");
+            }
+            colorProperty = parse(rgbStrings[0], containsHexFormat);
+            setRed(colorProperty);
+            colorProperty = parse(rgbStrings[1], containsHexFormat);
+            setGreen(colorProperty);
+            colorProperty = parse(rgbStrings[2], containsHexFormat);
+            setBlue(colorProperty);
+        } else if (rgbStrings.length >= 4 && containsRGB && ! containsRGBA) {
+            throw new IllegalStateException("Color string: \"" + original + "\""
+                + " contains too much data to extract a color of the format"
+                + " \"rgb(...)\"");
+        } else if (rgbStrings.length == 4) {
+            colorProperty = parse(rgbStrings[0], containsHexFormat);
+            setRed(colorProperty);
+            colorProperty = parse(rgbStrings[1], containsHexFormat);
+            setGreen(colorProperty);
+            colorProperty = parse(rgbStrings[2], containsHexFormat);
+            setBlue(colorProperty);
+            colorProperty = parse(rgbStrings[3], containsHexFormat);
+            setAlpha(colorProperty);
+        } else {
+            throw new IllegalStateException("Color string: \"" + original + "\""
+                + " contains too much data to extract a color of the format"
+                + " \"rgba(...)\"");
+        }
+    }
+    private static int parse(String input, boolean useHex) {
+        HelperMethods.checkObject("input", input);
+        if (useHex) {
+            return HelperMethods.parseInt(input, 16);
+        }
+
+        return HelperMethods.parseInt(input);
     }
     public static void changeResolution(int oldResolution, int newResolution) {
         int oldMax = ColorData.maxValue;
