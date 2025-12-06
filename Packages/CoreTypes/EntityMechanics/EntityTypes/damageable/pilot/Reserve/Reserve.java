@@ -1,7 +1,7 @@
-package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot;
+package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Reserve;
 
 import MainBranch.HelperMethods;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.reserve.ReserveData;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Reserve.reserve.ReserveData;
 
 public class Reserve {
     private ReserveData data;

@@ -50,9 +50,9 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.CoreBonus
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Loadout.loadout.Unverified.unverifiedPilotEquipment.UnverifiedPilotArmor;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Loadout.loadout.Unverified.unverifiedPilotEquipment.UnverifiedPilotGear;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Loadout.loadout.Unverified.unverifiedPilotEquipment.UnverifiedPilotWeapon;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.reserve.ReserveData;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.reserve.UnverifiedReserveData;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.reserve.reserveData.ReserveType;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Reserve.reserve.ReserveData;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Reserve.reserve.UnverifiedReserveData;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Reserve.reserve.reserveData.ReserveType;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skill.SkillData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.skillTriggersList.skill.skillData.SkillFamily;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.talent.TalentData;

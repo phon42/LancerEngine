@@ -1,4 +1,4 @@
-package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.reserve.reserveData;
+package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Reserve.reserve.reserveData;
 
 import MainBranch.HelperMethods;
 
