@@ -9,6 +9,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.Damageable;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.MechStatblock;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Mount;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Equipment.Verified.equipment.systemBase.MechSystem;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frameBase.CoreSystem;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frameBase.Frame;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frameBase.FrameEnum;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frameBase.FrameStatblock;
@@ -63,10 +64,12 @@ public final class Mech implements Damageable {
      */
     private String operatorNotes;
 
-    // frame attributes - size, structure, HP, etc. - see pgs. 33 - 34.
+    // frame attributes
     /**
      * The current stats of this mech.
      * Can be any MechStatblock. Cannot be null.
+     * 
+     * See pgs. 33 - 34.
      */
     private MechStatblock statblock;
 
@@ -84,11 +87,13 @@ public final class Mech implements Damageable {
      */
     private Mount[] mounts;
 
-    // TODO: fill out core system section - see pg. 33
-    // core system
-    // core system description
-    // core system passive
-    // core system active
+    /**
+     * The mech's core system.
+     * Can be any CoreSystem. Cannot be null.
+     * 
+     * See pg. 33.
+     */
+    private CoreSystem coreSystem;
 
     /**
      * The mech's systems.
@@ -276,6 +281,9 @@ public final class Mech implements Damageable {
     public Mount[] getMounts() {
         return HelperMethods.copyOf(mounts);
     }
+    public CoreSystem getCoreSystem() {
+        return new CoreSystem(coreSystem);
+    }
     public MechSystem[] getSystems() {
         return HelperMethods.copyOf(systems);
     }
@@ -372,6 +380,10 @@ public final class Mech implements Damageable {
         HelperMethods.checkObjectArray("New mounts", mounts);
         mounts = HelperMethods.copyOf(mounts);
         this.mounts = mounts;
+    }
+    private void setCoreSystem(CoreSystem coreSystem) {
+        HelperMethods.checkObject("coreSystem", coreSystem);
+        this.coreSystem = coreSystem;
     }
     /**
      * Sets this.mounts[mountIndex] to the provided Mount. mount.mountType need
@@ -808,6 +820,7 @@ public final class Mech implements Damageable {
 
         setTraits(this.frame.getTraits());
         setMounts(mounts);
+        setCoreSystem(this.frame.getCoreSystem());
     }
     /**
      * Deals harm to this Mech.
