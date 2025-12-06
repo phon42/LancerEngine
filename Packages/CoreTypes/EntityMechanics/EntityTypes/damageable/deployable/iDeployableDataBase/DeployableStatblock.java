@@ -1,4 +1,4 @@
-package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.iDeployableDataBase.Verified.iDeployableData;
+package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.iDeployableDataBase;
 
 import java.util.Arrays;
 import MainBranch.HelperMethods;
