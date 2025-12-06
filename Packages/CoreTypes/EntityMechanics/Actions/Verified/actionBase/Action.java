@@ -29,7 +29,7 @@ import Packages.CoreTypes.TriState;
  */
 public class Action extends ActionBase {
     // TODO: add an LCP that adds all the actions not covered by the base LCP:
-    // private static final String[] baseActionNames = {"boost", "continue boost",
+    // protected static final String[] baseActionNames = {"boost", "continue boost",
     //     "grapple", "hide", "quick tech", "ram", "search", "skirmish", "barrage",
     //     "disengage", "full tech", "improvised attack", "stabilize",
     //     "activate (quick)", "activate (full)", "boot up", "mount", "dismount",
@@ -67,7 +67,7 @@ public class Action extends ActionBase {
      * Can be any String except "". Cannot be null.
      * Case-insensitive and stored in lowercase.
      */
-    private String id;
+    protected String id;
 
     // Semi-required (optional but has a specific default value other than null
     //     when not provided) properties
@@ -75,21 +75,21 @@ public class Action extends ActionBase {
      * Whether or not to ignore the 1 use/round limit on most actions.
      * Default value: false.
      */
-    private boolean ignoreUsed;
+    protected boolean ignoreUsed;
     /**
      * The default value for Action.ignoreUsed.
      */
-    private static final boolean ignoreUsedDefault = false;
+    protected static final boolean ignoreUsedDefault = false;
     /**
      * The heat cost associated with this action, if there is one.
      * Must be > -1.
      * Default value: 0.
      */
-    private int heatCost;
+    protected int heatCost;
     /**
      * The default value for Action.heatCost.
      */
-    private static final int heatCostDefault = 0;
+    protected static final int heatCostDefault = 0;
 
     // Optional properties
     /**
@@ -98,7 +98,7 @@ public class Action extends ActionBase {
      * Can be any String except "". Can be null.
      * Case-sensitive.
      */
-    private String terse;
+    protected String terse;
     // TODO: add example
     /**
      * An optional String that will be written to the LancerCharacter's combat
@@ -106,7 +106,7 @@ public class Action extends ActionBase {
      * Can be any String except "". Can be null.
      * Case-sensitive.
      */
-    private String log;
+    protected String log;
 
     /**
      * A constructor using all possible properties.
@@ -246,17 +246,17 @@ public class Action extends ActionBase {
         return log;
     }
     // Required property
-    private void setID(String id) {
+    protected void setID(String id) {
         HelperMethods.checkString("id", id);
         id = id.toLowerCase();
         this.id = id;
     }
     // Semi-required properties
-    private void setIgnoreUsed(boolean ignoreUsed) {
+    protected void setIgnoreUsed(boolean ignoreUsed) {
         this.ignoreUsed = ignoreUsed;
-        calculateFrequency();
+        setFrequency(calculateFrequency());
     }
-    private void setHeatCost(int heatCost) {
+    protected void setHeatCost(int heatCost) {
         if (heatCost < 0) {
             this.heatCost = Action.heatCostDefault;
             return;
@@ -264,7 +264,7 @@ public class Action extends ActionBase {
         this.heatCost = heatCost;
     }
     // Optional properties
-    private void setTerse(String terse) {
+    protected void setTerse(String terse) {
         if (terse == null) {
             this.terse = terse;
             return;
@@ -274,7 +274,7 @@ public class Action extends ActionBase {
         }
         this.terse = terse;
     }
-    private void setLog(String log) {
+    protected void setLog(String log) {
         if (log == null) {
             this.log = log;
             return;
@@ -283,6 +283,12 @@ public class Action extends ActionBase {
         this.log = log;
     }
 
+    /**
+     * If this object is a reaction, checks that this.frequency isn't null.
+     * Otherwise, checks that:
+     * - this.frequency is either "X/round" or "Unlimited".
+     * - this.frequency is the correct value based on this.ignoreUsed.
+     */
     @Override
     protected void verifyProperties() {
         boolean isValidFreq;
@@ -311,24 +317,26 @@ public class Action extends ActionBase {
             }
         }
     }
-    private void calculateFrequency() {
+    protected Frequency calculateFrequency() {
         FrequencyType frequencyType;
 
         if (this.ignoreUsed) {
             try {
                 frequencyType =
                     Database.getFrequencyType("Unlimited");
-                setFrequency(new Frequency(frequencyType));
+                return new Frequency(frequencyType);
             } catch (NoSuchElementException exception) {}
         } else {
             try {
                 frequencyType =
                     Database.getFrequencyType("X/round");
-                setFrequency(new Frequency(frequencyType, 1));
+                return new Frequency(frequencyType, 1);
             } catch (NoSuchElementException exception) {}
         }
+
+        return null;
     }
-    private void setIgnoreUsed(TriState ignoreUsed) {
+    protected void setIgnoreUsed(TriState ignoreUsed) {
         HelperMethods.checkObject("ignoreUsed", ignoreUsed);
         if (ignoreUsed == TriState.UNSET) {
             this.ignoreUsed = Action.ignoreUsedDefault;
