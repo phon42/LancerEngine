@@ -6,8 +6,8 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Bond.bond
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Bond.bondBase.BondQuestion;
 
 /**
- * Represents a single bond. Contains information about the bond's id, name,
- *     ideals, questions, and powers.
+ * Represents a single verified bond. Contains information about the bond's id,
+ *     name, ideals, questions, and powers.
  * 
  * Requires a bond id, name, an array of major ideals, an array of minor ideals,
  *     an array of questions, and an array of powers to be instantiated.

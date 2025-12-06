@@ -4,6 +4,19 @@ import MainBranch.HelperMethods;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Bond.bondBase.BondPower;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Bond.bondBase.BondQuestion;
 
+/**
+ * Represents a single bond, be it unverified or verified. Contains information
+ *     about the bond's name, ideals, questions, and powers.
+ * 
+ * Requires a bond name, an array of major ideals, an array of minor ideals, an
+ *     array of questions, and an array of powers to be instantiated.
+ * 
+ * Used in Bond and UnverifiedBond.
+ * 
+ * Safety: None of this class' properties have allowed values of null.
+ * 
+ * This class is immutable (in other words, no copies of it need to be created).
+ */
 public class BondBase {
     // Required properties
     /**
