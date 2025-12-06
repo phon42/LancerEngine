@@ -1,42 +1,20 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Frame.Verified.frame.coreSystem;
 
-import Packages.CoreTypes.EntityMechanics.Bonus;
-import Packages.CoreTypes.EntityMechanics.ISynergyData;
-import Packages.CoreTypes.EntityMechanics.Actions.Verified.actionBase.IActionData;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.Deployable.Deployable;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Frame.Verified.frame.coreSystem.iCoreSystemData.CoreSystemActive;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Frame.Verified.frame.coreSystem.iCoreSystemData.CoreSystemData;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Frame.Verified.frame.coreSystem.iCoreSystemData.CoreSystemExtras;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Frame.Verified.frame.coreSystem.iCoreSystemData.CoreSystemPassive;
 
 /**
  * See pg. 33.
  */
 public class ICoreSystemData {
-    // core system
-    // core system description
-    // core system passive
-    // core system active
+    // Required property
+    private CoreSystemData basicData;
 
-    // Required properties
-    private String name;
-    /**
-     * Can be any String. Cannot be null.
-     * Case-sensitive.
-     */
-    private String activeName;
-    /**
-     * Can be any String. Cannot be null.
-     * Case-sensitive.
-     */
-    private String activeEffect;
-    private String activation;
-
-    // Optional properties
-    private String use;
-    private String deactivation;
-    private String[] integrated;
-    private Deployable[] deployables;
-    private ISynergyData[] activeSynergies;
-    private IActionData[] activeActions;
-    private Bonus[] activeBonuses;
-    private String passiveName;
-    private String passiveEffect;
-    private IActionData[] passiveActions;
+    // Semi-required (optional but has a specific default value other than null
+    //     when not provided) properties
+    private CoreSystemActive active;
+    private CoreSystemPassive passive;
+    private CoreSystemExtras extraData;
 }
