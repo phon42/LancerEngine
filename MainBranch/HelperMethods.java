@@ -5,6 +5,9 @@ import java.net.URL;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import MainBranch.database.FileOperations;
 import MainBranch.database.LCPCorrection;
 import MainBranch.database.fileOperations.json.JSONArray;
@@ -444,6 +447,35 @@ public final class HelperMethods {
             throw new IllegalStateException("Cannot call this constructor"
                 + " while Database is closed");
         }
+    }
+    /**
+     * Returns the index within this String of the first occurrence that matches
+     *     the Pattern created by the provided regular expression. In other
+     *     words, performs the .indexOf() operation on a given String using
+     *     regular expressions.
+     * @param input a String containing the input String to be searched.
+     * Can be any String. Cannot be null.
+     * @param regex a String containing a regular expression specifying the
+     *     substring to search for.
+     * Can be any String. Cannot be null.
+     * @return an int containing the index of the first substring that matches
+     *     the provided pattern, or -1 if there is no such substring.
+     * @throws IllegalArgumentException if input or regex are null.
+     */
+    public static int indexOf(String input, String regex) {
+        Pattern pattern;
+        Matcher matcher;
+
+        HelperMethods.checkObject("input", input);
+        HelperMethods.checkObject("regex", regex);
+        input.indexOf(regex);
+        pattern = Pattern.compile(regex);
+        matcher = pattern.matcher(input);
+        if (! matcher.find()) {
+            return -1;
+        }
+
+        return matcher.start();
     }
     /**
      * Appends the given int element to the end of an existing int[].
