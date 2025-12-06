@@ -1,4 +1,4 @@
-package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot;
+package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.CoreBonus;
 
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.VueHTMLString;

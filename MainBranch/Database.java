@@ -35,8 +35,8 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.mount.Moun
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Bond;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Background.backgroundBase.Background;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Background.backgroundBase.UnverifiedBackground;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.coreBonusBase.Unverified.UnverifiedCoreBonus;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.coreBonusBase.Verified.CoreBonus;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.CoreBonus.coreBonusBase.Unverified.UnverifiedCoreBonus;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.CoreBonus.coreBonusBase.Verified.CoreBonus;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Verified.pilotEquipment.PilotArmor;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Verified.pilotEquipment.PilotGear;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Verified.pilotEquipment.PilotWeapon;

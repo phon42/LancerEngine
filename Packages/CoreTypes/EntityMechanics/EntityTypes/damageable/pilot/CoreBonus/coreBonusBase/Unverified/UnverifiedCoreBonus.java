@@ -1,4 +1,4 @@
-package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.coreBonusBase.Unverified;
+package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.CoreBonus.coreBonusBase.Unverified;
 
 import java.util.NoSuchElementException;
 
@@ -12,8 +12,8 @@ import Packages.CoreTypes.EntityMechanics.Actions.Verified.actionBase.IActionDat
 import Packages.CoreTypes.EntityMechanics.ISynergyData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.iDeployableDataBase.Unverified.UnverifiedIDeployableData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.iDeployableDataBase.Verified.IDeployableData;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.CoreBonusBase;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.coreBonusBase.Verified.CoreBonus;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.CoreBonus.CoreBonusBase;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.CoreBonus.coreBonusBase.Verified.CoreBonus;
 
 public class UnverifiedCoreBonus extends CoreBonusBase
     implements UnverifiedData<UnverifiedCoreBonus, CoreBonus> {

@@ -1,4 +1,4 @@
-package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.coreBonusBase.Verified;
+package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.CoreBonus.coreBonusBase.Verified;
 
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.Counter.counterBase.CounterData;
@@ -7,7 +7,7 @@ import Packages.CoreTypes.EntityMechanics.ISynergyData;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
 import Packages.CoreTypes.EntityMechanics.Actions.Verified.actionBase.IActionData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.iDeployableDataBase.Verified.IDeployableData;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.CoreBonusBase;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.CoreBonus.CoreBonusBase;
 
 public class CoreBonus extends CoreBonusBase {
     // Required property
