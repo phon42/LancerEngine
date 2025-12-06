@@ -74,13 +74,9 @@ public class UnverifiedCoreBonus extends CoreBonusBase
         UnverifiedIDeployableData[] deployables,
         UnverifiedCounterData[] counters
     ) {
-        // CoreBonusBase properties
-        super(id, name, effect, description, mountedEffect, integrated,
-            specialEquipment);
-        // Semi-required property
-        setSource(source);
-        // Optional properties
-        setDeployables(deployables);
+        this(id, name, effect, description, mountedEffect, integrated,
+            specialEquipment, null, actions, bonuses, synergies,
+            deployables, counters);
     }
     /**
      * Verbose constructor for non-GMS content.
@@ -153,7 +149,11 @@ public class UnverifiedCoreBonus extends CoreBonusBase
     @Override
     public CoreBonus verify() {
         Manufacturer source;
+        IActionData[] actions;
+        Bonus[] bonuses;
+        ISynergyData[] synergies;
         IDeployableData[] deployables = null;
+        CounterData[] counters;
 
         try {
             source = Database.getManufacturer(this.source);
@@ -163,12 +163,15 @@ public class UnverifiedCoreBonus extends CoreBonusBase
                 + " value of: \"" + this.source + "\"");
         }
         if (this.deployables != null) {
-            deployables = HelperMethods.verifyArray(this.deployables);
+            deployables = new IDeployableData[this.deployables.length];
+            for (int i = 0; i < this.deployables.length; i++) {
+                deployables[i] = this.deployables[i].verify();
+            }
         }
 
-        return new CoreBonus(this.id, this.name, this.mountedEffect,
-            effect.getRawValue(), description.getRawValue(), this.actions,
-            this.bonuses, this.synergies, this.counters,
-            this.integrated, this.specialEquipment, source, deployables);
+        return new CoreBonus(this.id, this.name, this.effect.getRawValue(),
+            this.description.getRawValue(), this.mountedEffect, this.integrated,
+            this.specialEquipment, source, actions, bonuses, synergies,
+            deployables, counters);
     }
 }
