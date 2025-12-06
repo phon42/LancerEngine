@@ -12,7 +12,7 @@ import Packages.CoreTypes.EntityMechanics.Actions.Verified.actionBase.IActionDat
 import Packages.CoreTypes.EntityMechanics.ISynergyData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.iDeployableDataBase.Unverified.UnverifiedIDeployableData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.iDeployableDataBase.Verified.IDeployableData;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.unverifiedCoreBonus.CoreBonus;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.coreBonusBase.Verified.CoreBonus;
 
 public class UnverifiedCoreBonus extends CoreBonusBase
     implements UnverifiedData<UnverifiedCoreBonus, CoreBonus> {

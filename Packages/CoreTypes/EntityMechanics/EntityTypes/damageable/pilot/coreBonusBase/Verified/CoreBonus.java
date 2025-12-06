@@ -1,4 +1,4 @@
-package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.unverifiedCoreBonus;
+package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.coreBonusBase.Verified;
 
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.Counter.counterBase.CounterData;
