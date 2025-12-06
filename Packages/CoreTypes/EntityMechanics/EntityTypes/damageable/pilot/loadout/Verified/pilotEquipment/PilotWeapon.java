@@ -5,7 +5,7 @@ import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.ISynergyData;
 import Packages.CoreTypes.EntityMechanics.RangeTag;
 import Packages.CoreTypes.EntityMechanics.Actions.Verified.actionBase.IActionData;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.iDeployableDataBase.IDeployableData;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.iDeployableDataBase.Verified.IDeployableData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Equipment.Verified.equipment.TagSystem.unverifiedDataTag.DataTag;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.loadout.Verified.PilotEquipment;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.Harm;
