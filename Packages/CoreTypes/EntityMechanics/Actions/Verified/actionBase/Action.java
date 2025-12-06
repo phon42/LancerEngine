@@ -253,8 +253,13 @@ public class Action extends ActionBase {
     }
     // Semi-required properties
     protected void setIgnoreUsed(boolean ignoreUsed) {
+        Frequency frequency;
+
         this.ignoreUsed = ignoreUsed;
-        setFrequency(calculateFrequency());
+        frequency = calculateFrequency();
+        if (frequency != null) {
+            setFrequency(frequency);
+        }
     }
     protected void setHeatCost(int heatCost) {
         if (heatCost < 0) {
@@ -324,12 +329,14 @@ public class Action extends ActionBase {
             try {
                 frequencyType =
                     Database.getFrequencyType("Unlimited");
+
                 return new Frequency(frequencyType);
             } catch (NoSuchElementException exception) {}
         } else {
             try {
                 frequencyType =
                     Database.getFrequencyType("X/round");
+
                 return new Frequency(frequencyType, 1);
             } catch (NoSuchElementException exception) {}
         }
