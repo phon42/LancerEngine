@@ -137,6 +137,19 @@ public class Counter extends CounterBase implements Iterable<Integer> {
     public void decrement(int amount) {
         setCurrent(current - amount);
     }
+    public void setToMin() {
+        setCurrent(min);
+    }
+    public void setToMax() {
+        setCurrent(max);
+    }
+    public void setToDefault() {
+        if (! hasDefault) {
+            throw new IllegalStateException("Called Counter.setToDefault()"
+                + " when this.hasDefault is false");
+        }
+        setCurrent(defaultValue);
+    }
     // Special accessors
     public boolean isMin() {
         return current == min;
