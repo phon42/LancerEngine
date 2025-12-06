@@ -15,9 +15,10 @@ import Packages.CoreTypes.EntityMechanics.RangeTag;
  * See also https://github.com/massif-press/lancer-data/blob/master/README.md#item-actions.
  */
 /**
- * Represents a single action granted by a core bonus, core power, frame trait,
- *     system, talent rank, or weapon. Contains information about the action's
- *     name, activation speed, and what it does, among other properties.
+ * Represents a single verified action granted by a core bonus, core power,
+ *     frame trait, system, talent rank, or weapon. Contains information about
+ *     the action's name, activation speed, and what it does, among other
+ *     properties.
  * 
  * Requires an action name, activation speed, and a detailed description to be
  *     instantiated.
@@ -35,14 +36,14 @@ public class IActionData extends ActionBase {
      *     actions that belong to a Deployable, for instance.
      * Default value: false.
      */
-    // private boolean pilot;
+    // protected boolean pilot;
     // TODO: find a way to override ActionBase's documentation
     /**
      * Whether this action can be used while in a mech. Not applicable for
      *     actions that belong to a Deployable, for instance.
      * Default value: true.
      */
-    // private boolean mech;
+    // protected boolean mech;
     /**
      * For actions attached to a limited system, the value of this.cost will be
      *     deducted from the number of limited charges remaining on that system
@@ -54,21 +55,21 @@ public class IActionData extends ActionBase {
      * Must be > -2.
      * Default value: -1.
      */
-    private int cost;
+    protected int cost;
     /**
      * The default value for IActionData.costDefault.
      */
-    private static final int costDefault = -1;
+    protected static final int costDefault = -1;
     /**
      * Whether this action is a tech attack. Can only be true if this.activation
      *     is a tech action of some kind.
      * Default value: false.
      */
-    private boolean techAttack;
+    protected boolean techAttack;
     /**
      * The default value for IActionData.techAttack.
      */
-    private static final boolean techAttackDefault = false;
+    protected static final boolean techAttackDefault = false;
 
     // Optional properties
     /**
@@ -76,78 +77,121 @@ public class IActionData extends ActionBase {
      * Can be any RangeTag[] that does not contain null elements. Can be null.
      * Elements can be any RangeTag.
      */
-    private RangeTag[] range;
+    protected RangeTag[] range;
     /**
      * The damages associated with this action, if there are any.
      * Can be any Damage[] that does not contain null elements. Can be null.
      * Elements can be any Damage.
      */
-    private Damage[] damage;
+    protected Damage[] damage;
 
-    public IActionData(
+    /**
+     * A constructor using all possible properties.
+     * Required properties:                 PROVIDED
+     * Semi-required properties:            PROVIDED
+     * Conditionally required property:     PROVIDED
+     * Optional properties:                 PROVIDED
+     */
+    protected IActionData(
         // ActionBase properties
-        String actionName, ActivationType activation,
-        String detailedDescription, TriState pilot, TriState mech,
-        String[] confirm, TriState hideActive, Frequency frequency,
-        String trigger, Callable method, SynergyLocation[] synergyLocations,
-        String requiredInitialConditions,
+        String name, String detailedDescription, TriState pilot, TriState mech,
+        String[] confirm, TriState hideActive, String trigger, Callable method,
+        String requiredInitialConditions, ActivationType activation,
+        Frequency frequency, SynergyLocation[] synergyLocations,
         // Semi-required properties
         int cost, TriState techAttack,
         // Optional properties
-        RangeTag[] rangeTags, Damage[] damage
+        RangeTag[] range, Damage[] damage
     ) {
-        super(actionName, activation, detailedDescription, pilot, mech, confirm,
-            hideActive, frequency, trigger, method, synergyLocations,
-            requiredInitialConditions);
+        // ActionBase properties
+        super(name, detailedDescription, pilot, mech, confirm, hideActive,
+            trigger, method, requiredInitialConditions, activation, frequency,
+            synergyLocations);
         // Semi-required properties
         setCost(cost);
         setTechAttack(techAttack);
         // Optional properties
-        setRange(rangeTags);
+        setRange(range);
         setDamage(damage);
         // Verify everything
         verifyProperties();
     }
-    public IActionData(String actionName, ActivationType activation,
-        String detailedDescription) {
-        this(actionName, activation, detailedDescription, TriState.UNSET,
-            TriState.UNSET, null, TriState.UNSET, null,
-            null, null, null,
-            null, -1, TriState.UNSET, null,
+    /**
+     * A constructor using all possible properties except the optional
+     *     properties.
+     * Required properties:                 PROVIDED
+     * Semi-required properties:            PROVIDED
+     * Conditionally required property:     PROVIDED
+     * Optional properties:             NOT PROVIDED
+     */
+    protected IActionData(
+        // ActionBase properties
+        String name, String detailedDescription, TriState pilot, TriState mech,
+        String[] confirm, TriState hideActive, String trigger,
+        ActivationType activation, Frequency frequency,
+        // Semi-required properties
+        int cost, TriState techAttack
+    ) {
+        this(name, detailedDescription, pilot, mech, confirm, hideActive,
+            trigger, null, null, activation,
+            frequency, null, cost, techAttack, null,
             null);
     }
-    // If passed an item name instead of an action name
-    public IActionData(
+    /**
+     * A constructor using all possible properties except the optional and
+     *     conditionally required properties.
+     * Required properties:                 PROVIDED
+     * Semi-required properties:            PROVIDED
+     * Conditionally required property: NOT PROVIDED
+     * Optional properties:             NOT PROVIDED
+     */
+    protected IActionData(
         // ActionBase properties
-        ActivationType activation, String detailedDescription, String itemName,
-        TriState pilot, TriState mech, String[] confirm, TriState hideActive,
-        Frequency frequency, String trigger, Callable method,
-        String requiredInitialConditions,
+        String name, String detailedDescription, TriState pilot, TriState mech,
+        String[] confirm, TriState hideActive, ActivationType activation,
         // Semi-required properties
-        int cost, TriState techAttack,
-        // Optional properties
-        SynergyLocation[] synergyLocations, RangeTag[] rangeTags,
-        Damage[] damage
+        int cost, TriState techAttack
     ) {
-        this(toActionName(itemName), activation, detailedDescription, pilot,
-            mech, confirm, hideActive, frequency, trigger, method,
-            synergyLocations, requiredInitialConditions, cost, techAttack,
-            rangeTags, damage);
+        this(name, detailedDescription, pilot, mech, confirm, hideActive,
+            null, null, null,
+            activation, null, null, cost,
+            techAttack, null, null);
     }
-    public IActionData(ActivationType activation, String detailedDescription,
-        String itemName) {
-        this(toActionName(itemName), activation, detailedDescription);
+    /**
+     * A constructor using all possible properties except the optional and semi-
+     *     required properties.
+     * Required properties:                 PROVIDED
+     * Semi-required properties:        NOT PROVIDED
+     * Conditionally required property:     PROVIDED
+     * Optional properties:             NOT PROVIDED
+     */
+    protected IActionData(
+        // ActionBase properties
+        String name, String detailedDescription, String trigger,
+        ActivationType activation, Frequency frequency
+    ) {
+        this(name, detailedDescription, TriState.UNSET, TriState.UNSET,
+            null, TriState.UNSET, null, null,
+            null, activation, null,
+            null, IActionData.costDefault, TriState.UNSET,
+            null, null);
     }
-    public IActionData(IActionData iActionData) {
-        super(iActionData);
-        // Semi-required properties
-        setCost(iActionData.cost);
-        setTechAttack(iActionData.techAttack);
-        // Optional properties
-        setRange(iActionData.range);
-        setDamage(iActionData.damage);
-        // Verify everything
-        verifyProperties();
+    /**
+     * A constructor using only the required properties.
+     * Required properties:                 PROVIDED
+     * Semi-required properties:        NOT PROVIDED
+     * Conditionally required property: NOT PROVIDED
+     * Optional properties:             NOT PROVIDED
+     */
+    protected IActionData(
+        // ActionBase properties
+        String name, String detailedDescription, ActivationType activation
+    ) {
+        this(name, detailedDescription, TriState.UNSET, TriState.UNSET,
+            null, TriState.UNSET, null, null,
+            null, activation, null,
+            null, IActionData.costDefault, TriState.UNSET,
+            null, null);
     }
 
     // Semi-required properties
@@ -173,25 +217,25 @@ public class IActionData extends ActionBase {
         return HelperMethods.copyOf(damage);
     }
     // Semi-required properties
-    private void setCost(int cost) {
+    protected void setCost(int cost) {
         if (cost < 0) {
             this.cost = IActionData.costDefault;
             return;
         }
         this.cost = cost;
     }
-    private void setTechAttack(boolean techAttack) {
+    protected void setTechAttack(boolean techAttack) {
         this.techAttack = techAttack;
     }
     // Optional properties
-    private void setRange(RangeTag[] range) {
+    protected void setRange(RangeTag[] range) {
         if (range != null) {
             HelperMethods.checkObjectArray("range", range);
             range = HelperMethods.copyOf(range);
         }
         this.range = range;
     }
-    private void setDamage(Damage[] damage) {
+    protected void setDamage(Damage[] damage) {
         if (damage != null) {
             HelperMethods.checkObjectArray("damage", damage);
             damage = HelperMethods.copyOf(damage);
@@ -204,13 +248,7 @@ public class IActionData extends ActionBase {
 
         return "Activate " + itemName;
     }
-    private static String toActionName(String itemName) {
-        HelperMethods.checkString("itemName", itemName);
-        itemName = itemName.toUpperCase();
-
-        return "Activate " + itemName;
-    }
-    private void setTechAttack(TriState techAttack) {
+    protected void setTechAttack(TriState techAttack) {
         boolean value;
         String activation;
 
