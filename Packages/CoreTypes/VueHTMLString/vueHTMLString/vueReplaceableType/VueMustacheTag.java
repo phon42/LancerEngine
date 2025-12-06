@@ -69,6 +69,14 @@ public class VueMustacheTag extends VueReplaceableType {
     }
 
     @Override
+    public String toString() {
+        final String leftBraces = "{".repeat(this.numBraces);
+        final String rightBraces = "}".repeat(this.numBraces);
+        final String content = value == null ? this.propertyName : this.value;
+
+        return leftBraces + content + rightBraces;
+    }
+    @Override
     public VueMustacheTag replace(String replacement) {
         VueMustacheTag copy = new VueMustacheTag(this);
 
@@ -78,25 +86,31 @@ public class VueMustacheTag extends VueReplaceableType {
         return copy;
     }
     private void processString(String input) {
+        int numBraces;
+        String content;
+
         HelperMethods.checkObject("input", input);
         if (input.indexOf("{") == -1) {
             throw new IllegalArgumentException("Unable to create a"
                 + " VueMustacheTag from the String: \"" + input + "\"");
         }
-        checkNesting(input);
-        checkFormatting(input);
+        numBraces = checkNesting(input);
+        content = checkFormatting(input);
+        setNumBraces(numBraces);
+        setPropertyName(content);
     }
-    private void checkNesting(String input) {
+    private int checkNesting(String input) {
         int nestingLevel = 0;
+        int maxNestingLevel = 0;
         String character;
 
         HelperMethods.checkObject("input", input);
         if (input.equals("")) {
-            return;
+            return 0;
         }
         if (input.indexOf("{") == input.indexOf("}")
             && input.indexOf("{") == -1) {
-            return;
+            return 0;
         }
         for (int i = 0; i < input.length(); i++) {
             character = input.substring(i, i + 1);
@@ -110,23 +124,27 @@ public class VueMustacheTag extends VueReplaceableType {
                     + " contains a section with a negative level of nesting"
                     + " (more '}' characters than '{' characters)");
             }
+            maxNestingLevel = Math.max(maxNestingLevel, nestingLevel);
         }
         if (nestingLevel > 0) {
             throw new IllegalArgumentException("input: \"" + input + "\""
                 + " contains an unclosed curly bracket ('{')");
         }
+
+        return maxNestingLevel;
     }
-    private void checkFormatting(String input) {
+    private String checkFormatting(String input) {
         int mode = 0;
         String character;
+        String content = "";
 
         HelperMethods.checkObject("input", input);
         if (input.equals("")) {
-            return;
+            return "";
         }
         if (input.indexOf("{") == input.indexOf("}")
             && input.indexOf("{") == -1) {
-            return;
+            return "";
         }
         for (int i = 0; i < input.length(); i++) {
             character = input.substring(i, i + 1);
@@ -143,17 +161,32 @@ public class VueMustacheTag extends VueReplaceableType {
                     mode++;
                 }
             } else if (mode == 2) {
+                // the "middle" portion (we should expect to only see
+                //     non-"{"/"}" characters)
+                // if we see "}", we advance to the next stage
+                // if we see "{", we throw an Exception
+                // otherwise, we save the current character to the content
+                //     variable
+                if (! character.equals("}")) {
+                    mode++;
+                }
+                if (! character.equals("{")) {
+                    throw new IllegalArgumentException("input: \"" + input
+                        + "\" is an illegally formatted String");
+                }
+                content += character;
+            } else if (mode == 3) {
                 // the "descending" portion (we should expect to only see "}"s)
-                // if we see any "{"s, we throw an Exception
                 // if we see any character that isn't "{" or "}", we advance to
                 //     the next stage
+                // if we see any "{"s, we throw an Exception
                 if (character.equals("{")) {
                     throw new IllegalArgumentException("input: \"" + input
                         + "\" is an illegally formatted String");
                 } else if (! character.equals("}")) {
                     mode++;
                 }
-            } else if (mode == 3) {
+            } else if (mode == 4) {
                 // the closing "flat" portion (we should expect to only see
                 //     non-"{"/"}" characters)
                 // if we see either "{" or "}", we throw an Exception
@@ -164,5 +197,7 @@ public class VueMustacheTag extends VueReplaceableType {
                 }
             }
         }
+
+        return content;
     }
 }
