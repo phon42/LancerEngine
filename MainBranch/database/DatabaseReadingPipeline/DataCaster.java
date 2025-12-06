@@ -89,7 +89,6 @@ public class DataCaster {
     // - then send the data
     // - then close DataCompiler
     // then flush the data afterwards
-
     /**
      * The info.json "name" property's value for this LCP, if there is one
      *     (should always be "LANCER Core" if it's set to anything).
@@ -131,7 +130,7 @@ public class DataCaster {
     // ----almost unimportant
     private static JSONObject[] backgroundsRaw;
     private static JSONObject[] bondsRaw;
-    // ----just for reference
+    // ----just for fun
     private static JSONObject rulesRaw;
     private static JSONObject[] termsRaw;
     private static JSONObject tablesRaw;
@@ -175,7 +174,7 @@ public class DataCaster {
     // ----almost unimportant
     private static UnverifiedBackground[] backgroundsProcessed;
     private static UnverifiedBond[] bondsProcessed;
-    // ----just for reference
+    // ----just for fun
     private static Rule[] rulesProcessed;
     private static Term[] termsProcessed;
     private static Table[] tablesProcessed;
@@ -233,7 +232,7 @@ public class DataCaster {
         // ----almost unimportant
         DataCaster.backgroundsRaw = (JSONObject[]) data[19];
         DataCaster.bondsRaw = (JSONObject[]) data[20];
-        // ----just for reference
+        // ----just for fun
         DataCaster.rulesRaw = (JSONObject) data[21];
         DataCaster.termsRaw = (JSONObject[]) data[22];
         DataCaster.tablesRaw = (JSONObject) data[23];
@@ -3276,7 +3275,7 @@ public class DataCaster {
             // ----almost unimportant
             DataCaster.backgroundsProcessed,
             DataCaster.bondsProcessed,
-            // ----just for reference
+            // ----just for fun
             DataCaster.rulesProcessed,
             DataCaster.termsProcessed,
             DataCaster.tablesProcessed
@@ -3323,7 +3322,7 @@ public class DataCaster {
         // ----almost unimportant
         DataCaster.backgroundsRaw = new JSONObject[0];
         DataCaster.bondsRaw = new JSONObject[0];
-        // ----just for reference
+        // ----just for fun
         DataCaster.rulesRaw = null;
         DataCaster.termsRaw = new JSONObject[0];
         DataCaster.tablesRaw = null;
@@ -3367,7 +3366,7 @@ public class DataCaster {
         // ----almost unimportant
         DataCaster.backgroundsProcessed = new UnverifiedBackground[0];
         DataCaster.bondsProcessed = new Bond[0];
-        // ----just for reference
+        // ----just for fun
         DataCaster.rulesProcessed = new Rule[0];
         DataCaster.termsProcessed = new Term[0];
         DataCaster.tablesProcessed = new Table[0];
