@@ -3,7 +3,7 @@ package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Frame.Ver
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Mount;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Frame.FrameBase;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Frame.Verified.frame.CoreSystem;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Frame.Verified.frame.coreSystem.ICoreSystemData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Frame.frameBase.FrameEnum;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Frame.frameBase.FrameStatblock;
 
@@ -39,7 +39,7 @@ public final class Frame extends FrameBase {
     public Frame(String id, String name, Manufacturer manufacturer,
         String licenseID, String license, int licenseLevel, String description,
         String[] role, FrameStatblock statblock, String[] traits,
-        Mount[] mounts, CoreSystem coreSystem, FrameEnum frameEnum) {
+        Mount[] mounts, ICoreSystemData coreSystem, FrameEnum frameEnum) {
         super(id, name, manufacturer, licenseID, license, licenseLevel,
             description, role, statblock, traits, mounts, coreSystem,
             frameEnum);
@@ -51,7 +51,7 @@ public final class Frame extends FrameBase {
     public Frame(String id, String name, Manufacturer manufacturer,
         String licenseID, String license, int licenseLevel, String description,
         String[] role, FrameStatblock statblock, String[] traits,
-        Mount[] mounts, CoreSystem coreSystem) {
+        Mount[] mounts, ICoreSystemData coreSystem) {
         super(id, name, manufacturer, licenseID, license, licenseLevel,
             description, role, statblock, traits, mounts, coreSystem);
     }
@@ -61,7 +61,7 @@ public final class Frame extends FrameBase {
     public Frame(String id, String name, String licenseID,
         String license, String description, String[] role,
         FrameStatblock statblock, String[] traits, Mount[] mounts,
-        CoreSystem coreSystem) {
+        ICoreSystemData coreSystem) {
         super(id, name, licenseID, license, description, role, statblock,
             traits, mounts, coreSystem);
     }
