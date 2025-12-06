@@ -121,7 +121,7 @@ public class CounterData extends CounterBase implements Iterable<Integer> {
 
     @Override
     public String toString() {
-        if (defaultValuePresent) {
+        if (hasDefault) {
             return toString(min, max, defaultValue);
         } else {
             return toString(min, max);
@@ -142,7 +142,7 @@ public class CounterData extends CounterBase implements Iterable<Integer> {
         );
     }
     public Counter toCounter() {
-        if (this.defaultValuePresent) {
+        if (this.hasDefault) {
             return new Counter(this.min, this.max, this.defaultValue);
         } else {
             return new Counter(this.min, this.max);
