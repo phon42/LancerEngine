@@ -61,7 +61,11 @@ public class CoreSystemActive {
         setEffect(effect);
         setActivation(activation);
         // Optional properties
-        // TODO: fill out
+        setDeactivation(deactivation);
+        // TODO: add duration mutator
+        setActions(actions);
+        setBonuses(bonuses);
+        setSynergies(synergies);
     }
     public CoreSystemActive(
         // Required properties
@@ -82,6 +86,30 @@ public class CoreSystemActive {
         return activation;
     }
     // Optional properties
+    public ActivationType getDeactivation() {
+        return deactivation;
+    }
+    public IActionData[] getActions() {
+        if (actions == null) {
+            return actions;
+        }
+
+        return HelperMethods.copyOf(actions);
+    }
+    public Bonus[] getBonuses() {
+        if (bonuses == null) {
+            return bonuses;
+        }
+
+        return HelperMethods.copyOf(bonuses);
+    }
+    public ISynergyData[] getSynergies() {
+        if (synergies == null) {
+            return synergies;
+        }
+
+        return HelperMethods.copyOf(synergies);
+    }
     // Required properties
     private void setName(String name) {
         HelperMethods.checkString("name", name);
@@ -96,6 +124,30 @@ public class CoreSystemActive {
         this.activation = activation;
     }
     // Optional properties
+    private void setDeactivation(ActivationType deactivation) {
+        this.deactivation = deactivation;
+    }
+    private void setActions(IActionData[] actions) {
+        HelperMethods.checkObjectArrayAlt("actions", actions);
+        if (actions != null) {
+            actions = HelperMethods.copyOf(actions);
+        }
+        this.actions = actions;
+    }
+    private void setBonuses(Bonus[] bonuses) {
+        HelperMethods.checkObjectArrayAlt("bonuses", bonuses);
+        if (bonuses != null) {
+            bonuses = HelperMethods.copyOf(bonuses);
+        }
+        this.bonuses = bonuses;
+    }
+    private void setSynergies(ISynergyData[] synergies) {
+        HelperMethods.checkObjectArrayAlt("synergies", synergies);
+        if (synergies != null) {
+            synergies = HelperMethods.copyOf(synergies);
+        }
+        this.synergies = synergies;
+    }
 
     private void setEffect(String effect) {
         HelperMethods.checkObject("effect", effect);
