@@ -5,8 +5,10 @@ import Packages.CoreTypes.EntityMechanics.ISynergyData;
 import Packages.CoreTypes.EntityMechanics.Actions.Verified.actionBase.IActionData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.Deployable.Deployable;
 
+/**
+ * See pg. 33.
+ */
 public class CoreSystem {
-    // TODO: fill out core system section - see pg. 33
     // core system
     // core system description
     // core system passive
