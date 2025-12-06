@@ -1,44 +1,32 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Frame.Verified.frame;
 
-import Packages.CoreTypes.EntityMechanics.Bonus;
-import Packages.CoreTypes.EntityMechanics.ISynergyData;
-import Packages.CoreTypes.EntityMechanics.Actions.Verified.actionBase.IActionData;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.Deployable.Deployable;
+import MainBranch.HelperMethods;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Frame.Verified.frame.coreSystem.ICoreSystemData;
 
 /**
  * See pg. 33.
  */
 public class CoreSystem {
-    // core system
-    // core system description
-    // core system passive
-    // core system active
-
-    // Required properties
-    private String name;
+    // Required property
     /**
-     * Can be any String. Cannot be null.
-     * Case-sensitive.
+     * Can be any ICoreSystemData. Cannot be null.
      */
-    private String activeName;
-    /**
-     * Can be any String. Cannot be null.
-     * Case-sensitive.
-     */
-    private String activeEffect;
-    private String activation;
+    private ICoreSystemData data;
 
-    // Optional properties
-    private String use;
-    private String deactivation;
-    private String[] integrated;
-    private Deployable[] deployables;
-    private ISynergyData[] activeSynergies;
-    private IActionData[] activeActions;
-    private Bonus[] activeBonuses;
-    private String passiveName;
-    private String passiveEffect;
-    private IActionData[] passiveActions;
+    public CoreSystem(ICoreSystemData iCoreSystemData) {
+        setData(iCoreSystemData);
+    }
+    public CoreSystem(CoreSystem coreSystem) {
+        setData(coreSystem.data);
+    }
 
-    public CoreSystem(CoreSystem coreSystem) {}
+    // Required property
+    public ICoreSystemData getData() {
+        return data;
+    }
+    // Required property
+    private void setData(ICoreSystemData data) {
+        HelperMethods.checkObject("data", data);
+        this.data = data;
+    }
 }
