@@ -25,4 +25,26 @@ public class BondIDBase {
         id = id.toLowerCase();
         this.id = id;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj.getClass() != BondIDBase.class) {
+            return false;
+        }
+
+        return equals((BondIDBase) obj);
+    }
+    public boolean equals(BondIDBase bondIDBase) {
+        if (bondIDBase == null) {
+            return false;
+        }
+        if (! bondIDBase.getID().equals(this.id)) {
+            return false;
+        }
+
+        return true;
+    }
 }
