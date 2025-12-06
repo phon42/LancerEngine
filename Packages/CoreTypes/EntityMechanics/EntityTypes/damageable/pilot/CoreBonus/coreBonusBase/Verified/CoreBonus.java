@@ -64,13 +64,9 @@ public class CoreBonus extends CoreBonusBase {
         IActionData[] actions, Bonus[] bonuses, ISynergyData[] synergies,
         IDeployableData[] deployables, CounterData[] counters
     ) {
-        // CoreBonusBase properties
-        super(id, name, effect, description, mountedEffect, integrated,
-            specialEquipment);
-        // Semi-required property
-        setSource(source);
-        // Optional properties
-        setDeployables(deployables);
+        this(id, name, effect, description, mountedEffect, integrated,
+            specialEquipment, null, actions, bonuses, synergies,
+            deployables, counters);
     }
     /**
      * Verbose constructor for non-GMS content.
