@@ -43,54 +43,19 @@ public final class Mech implements Damageable {
     // TODO: add some way for all possible actions from a Mech's MechSystems and
     //     Weapons to bubble up
     // TODO: add some way for a Mech to attack with its Weapons
+    // Required properties
     /**
      * The name of this mech (i.e. "Raijin") - NOT its frame name, the name
      *     given to this specific chassis.
      * Can be any String except "". Cannot be null.
      */
     private String name;
-    
-    // Frame properties being held here for convenience (as to not require
-    //     referencing Mech.frame to get them)
     /**
      * The frame that this mech is patterned after (i.e. Swallowtail) as a Frame
      *     object.
      * Can be any Frame. Cannot be null.
      */
     private Frame frame;
-    /**
-     * The mech's origin frame's manufacturer (i.e. a Manufacturer representing
-     *     GMS).
-     * Cannot be null.
-     */
-    private Manufacturer manufacturer;
-    /**
-     * The mech's origin frame's name (i.e. "everest").
-     * Case-insensitive and stored in lowercase. Can be any String except "".
-     *     Cannot be null.
-     * Use Mech.getFrameName() to get the raw value and
-     *     Mech.getFrame().outputName() to obtain it properly formatted.
-     */
-    private String frameName;
-    // ID and frameEnum from Frame were intentionally omitted here
-    /**
-     * The mech's origin frame's role (i.e. "balanced"). Multiple items are 
-     *     stored as seperate elements (i.e "Controller/Support" would be stored
-     *     as {"controller", "support"}).
-     * Must be of length 1 at minimum. Each element must be a valid role, as
-     *     defined by Frame.allowedRoles.
-     * Case-insensitive and stored in lowercase. Cannot be null.
-     * 
-     * See pg. 116.
-     */
-    private String[] role;
-    /**
-     * The description at the top of the mech's origin frame's page on COMP/CON
-     *     (i.e. "Most humans don’t...").
-     * Can be any String. Cannot be null.
-     */
-    private String frameDescription;
-
     /**
      * The operator notes attached to this mech.
      * Can be any String. Cannot be null.
@@ -355,10 +320,6 @@ public final class Mech implements Damageable {
         // max always comes before current
         setName(mech.name);
         setFrame(mech.frame);
-        setManufacturer(mech.manufacturer);
-        setFrameName(mech.frameName);
-        setRole(mech.role);
-        setFrameDescription(mech.frameDescription);
         setOperatorNotes(mech.operatorNotes);
         setSize(mech.size);
         setMaxStructure(mech.maxStructure);
@@ -393,18 +354,6 @@ public final class Mech implements Damageable {
     }
     public Frame getFrame() {
         return frame;
-    }
-    public Manufacturer getManufacturer() {
-        return manufacturer;
-    }
-    public String getFrameName() {
-        return frameName;
-    }
-    public String[] getRole() {
-        return HelperMethods.copyOf(role);
-    }
-    public String getFrameDescription() {
-        return frameDescription;
     }
     public String getOperatorNotes() {
         return operatorNotes;
@@ -500,60 +449,6 @@ public final class Mech implements Damageable {
         HelperMethods.checkObject("New frame", frame);
         this.frame = frame;
         calculateAttributes();
-    }
-    /**
-     * Sets this.manufacturer to the provided value.
-     * @param manufacturer a Manufacturer which cannot be null.
-     * @throws IllegalArgumentException if manufacturer is null.
-     */
-    private void setManufacturer(Manufacturer manufacturer) {
-        HelperMethods.checkObject("New manufacturer",
-            manufacturer);
-        manufacturer = new Manufacturer(manufacturer);
-        this.manufacturer = manufacturer;
-    }
-    private void setFrameName(String frameName) {
-        HelperMethods.checkString("New frame name", frameName);
-        frameName = frameName.toLowerCase();
-        this.frameName = frameName;
-    }
-    /**
-     * Sets this.role to the provided value.
-     * @param role a String[] which cannot be null, be of length 0, contain null
-     *     elements, or invalid elements, as defined by Frame.allowedRoles.
-     * @throws IllegalArgumentException if role is null, of length 0, contains
-     *     null elements, or invalid elements, as defined by Frame.allowedRoles.
-     */
-    private void setRole(String[] role) {
-        boolean isValidRole = false;
-        String roleString;
-
-        HelperMethods.checkStringArray("New role", role);
-        if (role.length == 0) {
-            throw new IllegalArgumentException("New role array has a length"
-                + " of 0");
-        }
-        for (int i = 0; i < role.length; i++) {
-            role[i] = role[i].toLowerCase();
-            roleString = role[i];
-            isValidRole = false;
-            for (String roleMatch : Frame.allowedRoles) {
-                if (roleString.equals(roleMatch)) {
-                    isValidRole = true;
-                }
-            }
-            if (! isValidRole) {
-                throw new IllegalArgumentException("New role array contains an"
-                    + " invalid element: \"" + roleString + "\"");
-            }
-        }
-        role = HelperMethods.copyOf(role);
-        this.role = role;
-    }
-    private void setFrameDescription(String frameDescription) {
-        HelperMethods.checkObject("New frame description",
-            frameDescription);
-        this.frameDescription = frameDescription;
     }
     public void setOperatorNotes(String operatorNotes) {
         if (operatorNotes == null) {
@@ -1317,10 +1212,6 @@ public final class Mech implements Damageable {
             }
         }
 
-        setManufacturer(this.frame.getManufacturer());
-        setFrameName(this.frame.getName());
-        setRole(this.frame.getRole());
-        setFrameDescription(this.frame.getDescription());
         setSize(statblock.getSize());
         setArmor(statblock.getArmor());
         setSensors(statblock.getSensors());
