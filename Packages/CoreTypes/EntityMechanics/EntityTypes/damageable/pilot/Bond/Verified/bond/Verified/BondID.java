@@ -18,6 +18,17 @@ public class BondID extends BondIDBase {
 
         return equals((BondID) obj);
     }
+    @Override
+    public boolean equals(BondIDBase bondIDBase) {
+        if (bondIDBase == null) {
+            return false;
+        }
+        if (bondIDBase.getClass() != BondID.class) {
+            return false;
+        }
+
+        return equals((BondID) bondIDBase);
+    }
     public boolean equals(BondID bondID) {
         if (bondID == null) {
             return false;
