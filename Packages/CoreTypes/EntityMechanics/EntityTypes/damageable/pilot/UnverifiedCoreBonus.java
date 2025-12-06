@@ -10,7 +10,7 @@ import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
 import Packages.CoreTypes.EntityMechanics.Actions.Verified.actionBase.IActionData;
 import Packages.CoreTypes.EntityMechanics.ISynergyData;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.iDeployableDataBase.UnverifiedIDeployableData;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.iDeployableDataBase.Unverified.UnverifiedIDeployableData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.iDeployableDataBase.Verified.IDeployableData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.unverifiedCoreBonus.CoreBonus;
 

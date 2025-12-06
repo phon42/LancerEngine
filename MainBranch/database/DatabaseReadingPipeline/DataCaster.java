@@ -28,7 +28,7 @@ import Packages.CoreTypes.EntityMechanics.WeaponSize;
 import Packages.CoreTypes.EntityMechanics.Actions.Verified.actionBase.Action;
 import Packages.CoreTypes.EntityMechanics.Actions.Verified.actionBase.IActionData;
 import Packages.CoreTypes.EntityMechanics.ActivationType.Verified.ActivationType;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.iDeployableDataBase.UnverifiedIDeployableData;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.iDeployableDataBase.Unverified.UnverifiedIDeployableData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.iDeployableDataBase.Verified.IDeployableData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.iDeployableDataBase.Verified.iDeployableData.DeployableStatblock;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Equipment.Verified.equipment.Modification;
