@@ -3,10 +3,10 @@ package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.reserve;
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.TriState;
 import Packages.CoreTypes.VueHTMLString;
+import Packages.CoreTypes.Counter.counterBase.CounterData;
 import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.iDeployableDataBase.IDeployableData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.reserve.reserveData.ReserveType;
-import Packages.CoreTypes.counterBase.CounterData;
 import Packages.CoreTypes.EntityMechanics.ISynergyData;
 import Packages.CoreTypes.EntityMechanics.Actions.Verified.actionBase.IActionData;
 

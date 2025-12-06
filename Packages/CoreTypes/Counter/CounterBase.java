@@ -1,4 +1,4 @@
-package Packages.CoreTypes;
+package Packages.CoreTypes.Counter;
 
 public class CounterBase {
     // Semi-required (optional but has a specific default value other than null

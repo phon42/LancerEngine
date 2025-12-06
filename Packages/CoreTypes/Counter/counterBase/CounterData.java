@@ -1,8 +1,8 @@
-package Packages.CoreTypes.counterBase;
+package Packages.CoreTypes.Counter.counterBase;
 
 import java.util.Iterator;
 import MainBranch.HelperMethods;
-import Packages.CoreTypes.CounterBase;
+import Packages.CoreTypes.Counter.CounterBase;
 
 public class CounterData extends CounterBase implements Iterable<Integer> {
     // Required properties

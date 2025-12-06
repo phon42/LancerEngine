@@ -4,13 +4,13 @@ import MainBranch.Database;
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.Size;
 import Packages.CoreTypes.TriState;
+import Packages.CoreTypes.Counter.counterBase.CounterData;
 import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.ISynergyData;
 import Packages.CoreTypes.EntityMechanics.Actions.Verified.actionBase.IActionData;
 import Packages.CoreTypes.EntityMechanics.ActivationTypeSystem.Verified.ActivationType;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.iDeployableDataBase.IDeployableData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.iDeployableDataBase.iDeployableData.DeployableStatblock;
-import Packages.CoreTypes.counterBase.CounterData;
 
 public class IDeployableDataBase {
     // Required properties

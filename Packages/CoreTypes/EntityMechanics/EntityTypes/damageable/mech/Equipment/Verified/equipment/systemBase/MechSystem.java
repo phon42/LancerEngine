@@ -2,11 +2,11 @@ package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Equipment
 
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.VueHTMLString;
+import Packages.CoreTypes.Counter.counterBase.CounterData;
 import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.iDeployableDataBase.IDeployableData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Equipment.Verified.equipment.SystemBase;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Equipment.Verified.equipment.TagSystem.unverifiedDataTag.DataTag;
-import Packages.CoreTypes.counterBase.CounterData;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
 import Packages.CoreTypes.EntityMechanics.Actions.Verified.actionBase.IActionData;
 import Packages.CoreTypes.EntityMechanics.ISynergyData;

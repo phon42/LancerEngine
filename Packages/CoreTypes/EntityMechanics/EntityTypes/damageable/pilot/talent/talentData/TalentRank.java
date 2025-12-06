@@ -2,10 +2,10 @@ package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.talent.t
 
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.TriState;
+import Packages.CoreTypes.Counter.counterBase.CounterData;
 import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.ISynergyData;
 import Packages.CoreTypes.EntityMechanics.Actions.Verified.actionBase.IActionData;
-import Packages.CoreTypes.counterBase.CounterData;
 
 public class TalentRank {
     // Required properties

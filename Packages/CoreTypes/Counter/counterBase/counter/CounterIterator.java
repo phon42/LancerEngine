@@ -1,9 +1,9 @@
-package Packages.CoreTypes.counterBase.counter;
+package Packages.CoreTypes.Counter.counterBase.counter;
 
 import java.util.Iterator;
 
 import MainBranch.HelperMethods;
-import Packages.CoreTypes.counterBase.Counter;
+import Packages.CoreTypes.Counter.counterBase.Counter;
 
 public class CounterIterator implements Iterator<Integer> {
     // Required property

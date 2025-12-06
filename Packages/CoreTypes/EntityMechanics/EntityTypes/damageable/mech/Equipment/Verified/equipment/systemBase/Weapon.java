@@ -4,6 +4,7 @@ import MainBranch.Database;
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.TriState;
 import Packages.CoreTypes.VueHTMLString;
+import Packages.CoreTypes.Counter.counterBase.CounterData;
 import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.ISynergyData;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
@@ -18,7 +19,6 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Equipment.
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Equipment.Verified.equipment.systemBase.weapon.IWeaponProfile;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.mount.MountType;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.Harm;
-import Packages.CoreTypes.counterBase.CounterData;
 
 /**
  * See pgs. 33 and 104.
