@@ -46,7 +46,6 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Backgroun
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Bond.Unverified.UnverifiedBond;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Bond.Verified.Bond;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Bond.Verified.bond.Unverified.UnverifiedBondID;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Bond.Verified.bond.Verified.BondID;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Bond.bondBase.BondPower;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Bond.bondBase.BondQuestion;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.CoreBonus.coreBonusBase.Unverified.UnverifiedCoreBonus;
@@ -60,6 +59,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.SkillTrig
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.SkillTriggersList.skillTriggersList.skill.skillData.SkillFamily;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Talent.talent.TalentData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Talent.talent.talentData.TalentRank;
+import Packages.CoreTypes.EntityMechanics.FrequencySystem.Unverified.UnverifiedFrequency;
 import Packages.CoreTypes.EntityMechanics.FrequencySystem.Verified.Frequency;
 import Packages.CoreTypes.EntityMechanics.FrequencySystem.Verified.frequency.FrequencyType;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.Harm;
@@ -148,7 +148,7 @@ public class DataCaster {
     private static UnverifiedCoreBonus[] coreBonusesProcessed;
     private static StateData[] conditionsProcessed;
     private static DamageType[] damageTypesProcessed;
-    private static FrequencyType[] frequencyTypesProcessed;
+    private static UnverifiedFrequencyType[] frequencyTypesProcessed;
     private static HarmType[] harmTypesProcessed;
     private static IActionData[] iActionDataProcessed;
     private static ITagData[] iTagDataProcessed;
@@ -174,7 +174,7 @@ public class DataCaster {
     private static Sitrep[] sitrepsProcessed;
     // ----almost unimportant
     private static UnverifiedBackground[] backgroundsProcessed;
-    private static Bond[] bondsProcessed;
+    private static UnverifiedBond[] bondsProcessed;
     // ----just for reference
     private static Rule[] rulesProcessed;
     private static Term[] termsProcessed;
@@ -740,7 +740,7 @@ public class DataCaster {
         }
     }
     private static void processBonds(JSONObject[] bondsData) {
-        Bond[] bonds = new Bond[bondsData.length];
+        UnverifiedBond[] bonds = new UnverifiedBond[bondsData.length];
 
         bondsData = performCorrections("bonds", bondsData);
         for (int i = 0; i < bondsData.length; i++) {
@@ -748,7 +748,7 @@ public class DataCaster {
         }
         DataCaster.bondsProcessed = bonds;
     }
-    private static UnverifiedBond toBond(JSONObject bondData) {
+    private static UnverifiedBond toUnverifiedBond(JSONObject bondData) {
         // Required properties
         String idString;
         UnverifiedBondID id;
@@ -804,7 +804,7 @@ public class DataCaster {
         return new UnverifiedBond(name, majorIdeals, minorIdeals, questions,
             powers, id);
     }
-    private static UnverifiedBondID toBondID(String bondIDString) {
+    private static UnverifiedBondID toUnverifiedBondID(String bondIDString) {
         // TODO: add some way to check if the bond ID is already in Database
         return new UnverifiedBondID(bondIDString);
     }
@@ -1321,13 +1321,13 @@ public class DataCaster {
             frequencyString);
         frequencyTypeRoot = FrequencyType.inputToRoot(frequencyString);
         try {
+            type = Database.getFrequencyTypeByRoot(frequencyTypeRoot);
             try {
                 value = HelperMethods.parseInt(frequencyString);
+                frequency = new Frequency(type, value);
             } catch (IllegalStateException exception) {
-                value = -1;
+                frequency = new Frequency(type);
             }
-            type = Database.getFrequencyTypeByRoot(frequencyTypeRoot);
-            frequency = new Frequency(type, value);
         } catch (NoSuchElementException exception) {
             try {
                 value = HelperMethods.parseInt(frequencyString);

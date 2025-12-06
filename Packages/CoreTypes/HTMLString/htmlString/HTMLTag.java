@@ -1,4 +1,4 @@
-package Packages.CoreTypes.htmlString;
+package Packages.CoreTypes.HTMLString.htmlString;
 
 import java.util.Stack;
 

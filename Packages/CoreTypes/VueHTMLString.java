@@ -2,7 +2,7 @@ package Packages.CoreTypes;
 
 import java.util.ArrayList;
 import MainBranch.HelperMethods;
-import Packages.CoreTypes.htmlString.HTMLTag;
+import Packages.CoreTypes.HTMLString.htmlString.HTMLTag;
 import Packages.CoreTypes.vueHTMLString.VueReplaceableType;
 
 /**
