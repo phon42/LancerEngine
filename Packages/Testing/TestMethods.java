@@ -8,11 +8,11 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Mount;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Equipment.Verified.equipment.systemBase.MechSystem;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frameBase.Frame;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frameBase.FrameEnum;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Talent;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Loadout.Loadout;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.SkillTriggersList.SkillTriggersList;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.SkillTriggersList.skillTriggersList.Skill;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.SkillTriggersList.skillTriggersList.skill.SkillData;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Talent.Talent;
 import Packages.Testing.testMethods.Test;
 
 /**

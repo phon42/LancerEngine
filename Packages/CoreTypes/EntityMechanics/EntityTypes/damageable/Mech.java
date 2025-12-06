@@ -12,7 +12,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frameBase.
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frameBase.FrameEnum;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frameBase.FrameStatblock;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.mount.MountType;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Talent;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Talent.Talent;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.Harm;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.harm.Damage;
 import Packages.CoreTypes.EntityMechanics.StateSystem.State;

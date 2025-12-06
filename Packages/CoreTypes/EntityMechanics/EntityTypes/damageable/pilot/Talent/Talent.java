@@ -1,7 +1,7 @@
-package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot;
+package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Talent;
 
 import MainBranch.HelperMethods;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.talent.TalentData;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Talent.talent.TalentData;
 
 /**
  * See pgs. 35 and 90 - 103.

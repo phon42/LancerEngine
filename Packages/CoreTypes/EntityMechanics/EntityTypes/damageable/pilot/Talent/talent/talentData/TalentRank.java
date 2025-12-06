@@ -1,4 +1,4 @@
-package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.talent.talentData;
+package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Talent.talent.talentData;
 
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.TriState;

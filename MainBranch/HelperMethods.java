@@ -48,7 +48,6 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Equipment.
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Equipment.Verified.equipment.systemBase.weapon.IWeaponProfile;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frameBase.Frame;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.mount.MountType;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Talent;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Background.backgroundBase.Background;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Background.backgroundBase.UnverifiedBackground;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Bond.Verified.Bond;
@@ -63,8 +62,9 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Reserve.r
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Reserve.reserve.reserveData.ReserveType;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.SkillTriggersList.skillTriggersList.Skill;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.SkillTriggersList.skillTriggersList.skill.SkillData;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.talent.TalentData;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.talent.talentData.TalentRank;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Talent.Talent;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Talent.talent.TalentData;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Talent.talent.talentData.TalentRank;
 import Packages.CoreTypes.EntityMechanics.FrequencySystem.Verified.frequency.FrequencyType;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.Harm;
 import Packages.CoreTypes.EntityMechanics.HarmSystem.harm.Damage;

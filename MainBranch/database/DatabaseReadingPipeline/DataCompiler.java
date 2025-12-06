@@ -22,7 +22,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Loadout.l
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Loadout.loadout.Verified.pilotEquipment.PilotWeapon;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Reserve.reserve.ReserveData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.SkillTriggersList.skillTriggersList.skill.SkillData;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.talent.TalentData;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Talent.talent.TalentData;
 import Packages.CoreTypes.EntityMechanics.LicenseSystem.FrameLicense;
 import Packages.CoreTypes.EntityMechanics.LicenseSystem.frameLicense.licenseContentBase.LicenseContent;
 import Packages.CoreTypes.EntityMechanics.NPCs.Verified.verifiedNPCBase.NPCFeature;
