@@ -61,7 +61,7 @@ public final class Mech implements Damageable {
      * Can be any String. Cannot be null.
      */
     private String operatorNotes;
-    
+
     // frame attributes - size, structure, HP, etc. - see pgs. 33 - 34.
     /**
      * The mech's size.
@@ -349,6 +349,7 @@ public final class Mech implements Damageable {
         setBurn(mech.burn);
     }
 
+    // Required properties
     public String getName() {
         return name;
     }
@@ -358,6 +359,7 @@ public final class Mech implements Damageable {
     public String getOperatorNotes() {
         return operatorNotes;
     }
+    // frame attributes
     public Size getSize() {
         return size;
     }
@@ -436,6 +438,7 @@ public final class Mech implements Damageable {
     public int getBurn() {
         return burn;
     }
+    // Required properties
     public void setName(String name) {
         HelperMethods.checkString("New name", name);
         this.name = name;
@@ -456,6 +459,7 @@ public final class Mech implements Damageable {
         }
         this.operatorNotes = operatorNotes;
     }
+    // frame attributes
     /**
      * Sets this.size to the provided value.
      * @param size a Size which cannot be null.
