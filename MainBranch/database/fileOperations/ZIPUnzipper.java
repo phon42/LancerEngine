@@ -148,19 +148,24 @@ public class ZIPUnzipper {
 
         return destDirPath;
     }
-    private static void createEntry(String destDirPath, ZipEntry zipEntry,
+    private static Path createEntry(Path destDirPath, ZipEntry zipEntry,
         ZipInputStream zipStream) throws FileSystemException {
+        Path filePath;
         File newFile;
         File parent;
+        Path parentPath;
 
         try {
-            newFile = createFile(destDirPath, zipEntry);
+            filePath = createFile(destDirPath, zipEntry);
         } catch (IOException exception) {
             throw new IllegalStateException("Attempting to create a new file"
                 + " under destination directory path: \"" + destDirPath + "\""
                 + " caused an IOException to be thrown");
         }
+        newFile = filePath.toFile();
         if (zipEntry.isDirectory()) {
+            FileOperations.createDirectory(filePath);
+            // backup operation
             if (! newFile.isDirectory() && ! newFile.mkdirs()) {
                 throw new FileSystemException("Failed to create directory: \""
                     + newFile + "\"");
@@ -168,6 +173,9 @@ public class ZIPUnzipper {
         } else {
             // fix for Windows-created archives
             parent = newFile.getParentFile();
+            parentPath = FileOperations.toPath(parent);
+            FileOperations.createDirectory(parentPath);
+            // backup operation
             if (! parent.isDirectory() && ! parent.mkdirs()) {
                 throw new FileSystemException("Failed to create directory: \""
                     + parent + "\"");
@@ -175,38 +183,42 @@ public class ZIPUnzipper {
 
             // write file content to new file
             try {
-                writeToFile(newFile, zipStream);
+                filePath = writeToFile(filePath, zipStream);
             } catch (IOException | IllegalArgumentException exception) {
                 throw new IllegalStateException("Attempt to write to the"
                     + " newly created file was unsuccessful");
             }
         }
-    }
-    private static File createFile(String destDirPath, ZipEntry zipEntry)
-        throws IOException {
-        File destinationDirectory;
-        File newFile;
-        String destFilePath;
 
-        destinationDirectory = new File(destDirPath);
-        newFile = new File(destinationDirectory, zipEntry.getName());
-        destFilePath = newFile.getCanonicalPath();
-        destDirPath = destinationDirectory.getCanonicalPath();
+        return filePath;
+    }
+    private static Path createFile(Path destDirPath, ZipEntry zipEntry)
+        throws IOException {
+        File newFile;
+        Path destFilePath;
+
+        newFile = new File(destDirPath.toFile(), zipEntry.getName());
+        destFilePath = newFile.toPath();
         if (! destFilePath.startsWith(destDirPath + File.separator)) {
+            // protecting against zip slip
             throw new IOException("Entry is outside of the target dir: \""
                 + zipEntry.getName() + "\"");
         }
 
-        return newFile;
+        return FileOperations.createFile(zipEntry.getName(), destDirPath,
+            false);
     }
-    private static void writeToFile(File file, ZipInputStream zipStream)
+    private static Path writeToFile(Path file, ZipInputStream zipStream)
         throws IOException {
+        File destFile;
         FileOutputStream stream;
         int length;
         byte[] buffer = new byte[1024];
 
+        destFile = file.toFile();
+        
         try {
-            stream = new FileOutputStream(file);
+            stream = new FileOutputStream(destFile);
         } catch (FileNotFoundException exception) {
             throw new IllegalArgumentException("Destination file to write to"
                 + " could not be found");
@@ -217,5 +229,7 @@ public class ZIPUnzipper {
             length = zipStream.read(buffer);
         }
         stream.close();
+
+        return file;
     }
 }
