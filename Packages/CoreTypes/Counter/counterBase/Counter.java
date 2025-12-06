@@ -144,4 +144,7 @@ public class Counter extends CounterBase implements Iterable<Integer> {
     public boolean isMax() {
         return current == max;
     }
+    public boolean isDefault() {
+        return defaultValuePresent && current == defaultValue;
+    }
 }
