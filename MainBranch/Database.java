@@ -765,7 +765,7 @@ public final class Database {
         HelperMethods.checkObject("actionName", actionName);
         for (Action action : Database.actions) {
             if (actionName.equals(action.getName())) {
-                return new Action(action);
+                return action;
             }
         }
         throw new NoSuchElementException("No action found for action name: "
@@ -905,9 +905,9 @@ public final class Database {
     public static IActionData getIActionData(String iActionDataName) {
         HelperMethods.checkObject("iActionDataName",
             iActionDataName);
-        for (IActionData iActionDataObject : Database.iActionData) {
-            if (iActionDataObject.getName().equals(iActionDataName)) {
-                return new IActionData(iActionDataObject);
+        for (IActionData iActionData : Database.iActionData) {
+            if (iActionData.getName().equals(iActionDataName)) {
+                return iActionData;
             }
         }
         throw new NoSuchElementException("No IActionData object found for"
@@ -1288,7 +1288,6 @@ public final class Database {
     public static void addAction(Action action) {
         checkOpen();
         HelperMethods.checkObject("action", action);
-        action = new Action(action);
         Database.actions = HelperMethods.append(Database.actions, action);
     }
     /**
@@ -1419,7 +1418,6 @@ public final class Database {
     public static void addIActionData(IActionData iActionData) {
         checkOpen();
         HelperMethods.checkObject("iActionData", iActionData);
-        iActionData = new IActionData(iActionData);
         Database.iActionData = HelperMethods.append(Database.iActionData,
             iActionData);
     }
