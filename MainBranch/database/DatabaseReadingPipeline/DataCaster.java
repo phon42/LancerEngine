@@ -43,7 +43,10 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Equipment.
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frameBase.Frame;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frameBase.UnverifiedFrame;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Background.backgroundBase.UnverifiedBackground;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Bond.Unverified.UnverifiedBond;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Bond.Verified.Bond;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Bond.Verified.bond.Unverified.UnverifiedBondID;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Bond.Verified.bond.Verified.BondID;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Bond.bondBase.BondPower;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Bond.bondBase.BondQuestion;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.CoreBonus.coreBonusBase.Unverified.UnverifiedCoreBonus;
@@ -745,9 +748,10 @@ public class DataCaster {
         }
         DataCaster.bondsProcessed = bonds;
     }
-    private static Bond toBond(JSONObject bondData) {
+    private static UnverifiedBond toBond(JSONObject bondData) {
         // Required properties
-        String id;
+        String idString;
+        UnverifiedBondID id;
         String name;
         //     majorIdeals
         JSONArray majorIdealsArray;
@@ -757,22 +761,15 @@ public class DataCaster {
         String[] minorIdeals;
         //     questions
         JSONArray questionsArray;
-        JSONObject questionsObject;
-        JSONArray questionsArray2;
-        String[] questionsStrings;
         BondQuestion[] questions;
         //     powers
         JSONArray powersArray;
-        JSONObject powersObject;
-        TriState powersMaster;
-        TriState powersVeteran;
-        String powersPrerequisite = null;
-        Frequency powersFrequency = null;
         BondPower[] powers;
 
         try {
             // Required properties
-            id = bondData.getString("id");
+            idString = bondData.getString("id");
+            id = toBondID(idString);
             name = bondData.getString("name");
             //     majorIdeals
             majorIdealsArray = bondData.getJSONArray("major_ideals");
@@ -790,44 +787,13 @@ public class DataCaster {
             questionsArray = bondData.getJSONArray("questions");
             questions = new BondQuestion[questionsArray.length()];
             for (int i = 0; i < questions.length; i++) {
-                questionsObject = questionsArray.getJSONObject(i);
-                questionsArray2 = questionsObject.getJSONArray("options");
-                questionsStrings = new String[questionsArray2.length()];
-                for (int j = 0; j < questionsStrings.length; j++) {
-                    questionsStrings[j] = questionsArray2.getString(j);
-                }
-                questions[i] = new BondQuestion(
-                    questionsObject.getString("question"),
-                    questionsStrings);
+                questions[i] = toBondQuestion(questionsArray.getJSONObject(i));
             }
             //     powers
             powersArray = bondData.getJSONArray("powers");
             powers = new BondPower[powersArray.length()];
             for (int i = 0; i < powers.length; i++) {
-                powersObject = powersArray.getJSONObject(i);
-                try {
-                    powersMaster = TriState.toTriState(
-                        powersObject.getBoolean("master"));
-                } catch (JSONException exception) {
-                    powersMaster = TriState.UNSET;
-                }
-                try {
-                    powersVeteran = TriState.toTriState(
-                        powersObject.getBoolean("veteran"));
-                } catch (JSONException exception) {
-                    powersVeteran = TriState.UNSET;
-                }
-                try {
-                    powersPrerequisite =
-                        powersObject.getString("prerequisite");
-                } catch (JSONException exception) {}
-                try {
-                    powersFrequency =
-                        new Frequency(powersObject.getString("frequency"));
-                } catch (JSONException exception) {}
-                powers[i] = new BondPower(powersObject.getString("name"),
-                    powersObject.getString("description"), powersMaster,
-                    powersVeteran, powersPrerequisite, powersFrequency);
+                powers[i] = toBondPower(powersArray.getJSONObject(i));
             }
         } catch (JSONException exception) {
             throw new IllegalStateException("bondData threw a JSONException"
@@ -835,7 +801,62 @@ public class DataCaster {
                 + " parsing, which is not allowed");
         }
 
-        return new Bond(id, name, majorIdeals, minorIdeals, questions, powers);
+        return new UnverifiedBond(name, majorIdeals, minorIdeals, questions,
+            powers, id);
+    }
+    private static UnverifiedBondID toBondID(String bondIDString) {
+        // TODO: add some way to check if the bond ID is already in Database
+        return new UnverifiedBondID(bondIDString);
+    }
+    private static BondPower toBondPower(JSONObject bondPowerData) {
+        String name;
+        String description;
+        TriState master;
+        TriState veteran;
+        String prerequisite;
+        String frequencyString;
+        Frequency frequency;
+
+        try {
+            name = bondPowerData.getString("name");
+            description = bondPowerData.getString("description");
+        } catch (JSONException exception) {
+            throw new IllegalStateException("bondPowerData threw a"
+                + " JSONException during the required properties section of the"
+                + " object parsing, which is not allowed");
+        }
+        master = getTriState(bondPowerData, "master");
+        veteran = getTriState(bondPowerData, "veteran");
+        try {
+            prerequisite = bondPowerData.getString("prerequisite");
+        } catch (JSONException exception) {}
+        try {
+            frequencyString = bondPowerData.getString("frequency");
+            frequency = toFrequency(frequencyString);
+        } catch (JSONException exception) {}
+
+        return new BondPower(name, description, master, veteran, prerequisite,
+            frequency);
+    }
+    private static BondQuestion toBondQuestion(JSONObject bondQuestionData) {
+        String question;
+        JSONArray optionsArray;
+        String[] options;
+
+        try {
+            question = bondQuestionData.getString("question");
+            optionsArray = bondQuestionData.getJSONArray("options");
+        } catch (JSONException exception) {
+            throw new IllegalStateException("bondQuestionData threw a"
+                + " JSONException during the required properties section of the"
+                + " object parsing, which is not allowed");
+        }
+        options = new String[optionsArray.length()];
+        for (int i = 0; i < options.length; i++) {
+            options[i] = optionsArray.getString(i);
+        }
+
+        return new BondQuestion(question, options);
     }
     private static Bonus toBonus(JSONObject bonusData) {
         // Required properties
