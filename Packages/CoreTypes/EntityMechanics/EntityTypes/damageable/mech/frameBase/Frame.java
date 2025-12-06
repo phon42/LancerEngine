@@ -1,6 +1,7 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frameBase;
 
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.FrameBase;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Mount;
 
 /**
@@ -28,14 +29,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Mount;
  * 
  * This class is immutable (in other words, no copies of it need to be created).
  */
-public final class Frame extends UnverifiedFrame {
-    // TODO: figure out a way to override the documentation from LicenseContent
-    /**
-     * The manufacturer of this frame (i.e. a Manufacturer that represents GMS).
-     * Can be any Manufacturer. Cannot be null.
-     */
-    // protected Manufacturer manufacturer;
-
+public final class Frame extends FrameBase {
     /**
      * Creates a new Frame using every possible property.
      */
