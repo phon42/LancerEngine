@@ -17,6 +17,18 @@ import Packages.CoreTypes.EntityMechanics.SynergyLocationSystem.Verified.Synergy
  * See pgs. 61 - 64, 68 - 76, and 107 for more information.
  * See also https://github.com/massif-press/lancer-data/blob/master/README.md#actions-actionsjson.
  */
+/**
+ * Represents a single unverified action; one of the actions available to every
+ *     pilot or mech. Contains information about the action's id, name,
+ *     activation speed, and what it does, among other properties.
+ * 
+ * Requires an action name, activation speed, detailed description, and id to be
+ *     instantiated.
+ * 
+ * Used in myriad other classes.
+ * 
+ * Safety: At least one of this class' properties has an allowed value of null.
+ */
 public class UnverifiedAction extends UnverifiedActionBase
     implements UnverifiedData<UnverifiedAction, Action> {
     // Required property
