@@ -158,7 +158,7 @@ public final class Mech implements Damageable {
         int currentStructure, int currentHP, int currentStress,
         int currentHeat, int currentRepairs, MechSystem[] systems,
         Status[] statuses, Condition[] conditions, int burn) {
-        this(); // added invisibly anyways
+        this();
         setName(name);
         setFrame(frame);
         setOperatorNotes(operatorNotes);
