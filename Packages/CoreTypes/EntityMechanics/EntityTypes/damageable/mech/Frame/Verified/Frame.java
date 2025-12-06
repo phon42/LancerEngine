@@ -3,6 +3,7 @@ package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Frame.Ver
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Mount;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Frame.FrameBase;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Frame.Verified.frame.CoreSystem;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Frame.frameBase.FrameEnum;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Frame.frameBase.FrameStatblock;
 

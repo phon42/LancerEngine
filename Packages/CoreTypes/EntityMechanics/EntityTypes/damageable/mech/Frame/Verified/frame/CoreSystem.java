@@ -1,4 +1,4 @@
-package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Frame.Verified;
+package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Frame.Verified.frame;
 
 import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.ISynergyData;
