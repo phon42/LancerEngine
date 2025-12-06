@@ -16,9 +16,9 @@ import Packages.CoreTypes.TriState;
  * See also https://github.com/massif-press/lancer-data/blob/master/README.md#actions-actionsjson.
  */
 /**
- * Represents a single action; one of the actions available to every pilot
- *     or mech. Contains information about the action's id, name, activation
- *     speed, and what it does, among other properties.
+ * Represents a single verified action; one of the actions available to every
+ *     pilot or mech. Contains information about the action's id, name,
+ *     activation speed, and what it does, among other properties.
  * 
  * Requires an action name, activation speed, detailed description, and id to be
  *     instantiated.
@@ -61,7 +61,7 @@ public class Action extends ActionBase {
     //     implement this
     // TODO: what speed are reactions?
     // TODO: uses the fight action instead for pilots, add this
-    // Required properties
+    // Required property
     /**
      * The ID of the action (i.e. "act_move").
      * Can be any String except "". Cannot be null.
@@ -108,23 +108,31 @@ public class Action extends ActionBase {
      */
     private String log;
 
+    /**
+     * A constructor using all possible properties.
+     * Required properties:                 PROVIDED
+     * Semi-required properties:            PROVIDED
+     * Conditionally required property:     PROVIDED
+     * Optional properties:                 PROVIDED
+     */
     public Action(
         // ActionBase properties
-        String name, ActivationType activation, String detailedDescription,
-        TriState pilot, TriState mech, String[] confirm, TriState hideActive,
-        Frequency frequency, String trigger, Callable method,
-        SynergyLocation[] synergyLocations, String requiredInitialConditions,
-        // Action required properties
+        String name, String detailedDescription, TriState pilot, TriState mech,
+        String[] confirm, TriState hideActive, String trigger, Callable method,
+        String requiredInitialConditions, ActivationType activation,
+        Frequency frequency, SynergyLocation[] synergyLocations,
+        // Required property
         String id,
-        // Action semi-required properties
+        // Semi-required properties
         TriState ignoreUsed, int heatCost,
-        // Action optional properties
+        // Optional properties
         String terse, String log
     ) {
-        super(name, activation, detailedDescription, pilot, mech, confirm,
-            hideActive, frequency, trigger, method, synergyLocations,
-            requiredInitialConditions);
-        // Required properties
+        // ActionBase properties
+        super(name, detailedDescription, pilot, mech, confirm, hideActive,
+            trigger, method, requiredInitialConditions, activation, frequency,
+            synergyLocations);
+        // Required property
         setID(id);
         // Semi-required properties
         setIgnoreUsed(ignoreUsed);
@@ -132,35 +140,94 @@ public class Action extends ActionBase {
         // Optional properties
         setTerse(terse);
         setLog(log);
-        // Verify everything
-        verifyProperties();
     }
-    public Action(String name, ActivationType activation,
-        String detailedDescription, String id) {
-        super(name, activation, detailedDescription);
-        // Required properties
-        setID(id);
+    /**
+     * A constructor using all possible properties except the optional
+     *     properties.
+     * Required properties:                 PROVIDED
+     * Semi-required properties:            PROVIDED
+     * Conditionally required property:     PROVIDED
+     * Optional properties:             NOT PROVIDED
+     */
+    public Action(
+        // ActionBase properties
+        String name, String detailedDescription, TriState pilot, TriState mech,
+        String[] confirm, TriState hideActive, String trigger,
+        ActivationType activation, Frequency frequency,
+        // Required property
+        String id,
         // Semi-required properties
-        setIgnoreUsed(TriState.UNSET);
-        setHeatCost(-1);
-        // Verify everything
-        verifyProperties();
+        TriState ignoreUsed, int heatCost
+    ) {
+        this(name, detailedDescription, pilot, mech, confirm, hideActive,
+            trigger, null, null, activation,
+            frequency, null, id, ignoreUsed, heatCost,
+            null, null);
     }
-    public Action(Action action) {
-        super(action);
-        // Required properties
-        setID(action.id);
+    /**
+     * A constructor using all possible properties except the optional and
+     *     conditionally required properties.
+     * Required properties:                 PROVIDED
+     * Semi-required properties:            PROVIDED
+     * Conditionally required property: NOT PROVIDED
+     * Optional properties:             NOT PROVIDED
+     */
+    public Action(
+        // ActionBase properties
+        String name, String detailedDescription, TriState pilot, TriState mech,
+        String[] confirm, TriState hideActive, ActivationType activation,
+        // Required property
+        String id,
         // Semi-required properties
-        setIgnoreUsed(TriState.toTriState(action.ignoreUsed));
-        setHeatCost(action.heatCost);
-        // Optional properties
-        setTerse(action.terse);
-        setLog(action.log);
-        // Verify everything
-        verifyProperties();
+        TriState ignoreUsed, int heatCost
+    ) {
+        this(name, detailedDescription, pilot, mech, confirm, hideActive,
+            null, null, null,
+            activation, null, null, id, ignoreUsed,
+            heatCost, null, null);
+    }
+    /**
+     * A constructor using all possible properties except the optional and semi-
+     *     required properties.
+     * Required properties:                 PROVIDED
+     * Semi-required properties:        NOT PROVIDED
+     * Conditionally required property:     PROVIDED
+     * Optional properties:             NOT PROVIDED
+     */
+    public Action(
+        // ActionBase properties
+        String name, String detailedDescription, String trigger,
+        ActivationType activation, Frequency frequency,
+        // Required property
+        String id
+    ) {
+        this(name, detailedDescription, TriState.UNSET, TriState.UNSET,
+            null, TriState.UNSET, trigger, null,
+            null, activation, frequency,
+            null, id, TriState.UNSET, Action.heatCostDefault,
+            null, null);
+    }
+    /**
+     * A constructor using only the required properties.
+     * Required properties:                 PROVIDED
+     * Semi-required properties:        NOT PROVIDED
+     * Conditionally required property: NOT PROVIDED
+     * Optional properties:             NOT PROVIDED
+     */
+    public Action(
+        // ActionBase properties
+        String name, String detailedDescription, ActivationType activation,
+        // Required property
+        String id
+    ) {
+        this(name, detailedDescription, TriState.UNSET, TriState.UNSET,
+            null, TriState.UNSET, null, null,
+            null, activation, null,
+            null, id, TriState.UNSET, Action.heatCostDefault,
+            null, null);
     }
 
-    // Required properties
+    // Required property
     public String getID() {
         return id;
     }
@@ -178,7 +245,7 @@ public class Action extends ActionBase {
     public String getLog() {
         return log;
     }
-    // Required properties
+    // Required property
     private void setID(String id) {
         HelperMethods.checkString("id", id);
         id = id.toLowerCase();
@@ -216,31 +283,6 @@ public class Action extends ActionBase {
         this.log = log;
     }
 
-    private void calculateFrequency() {
-        FrequencyType frequencyType;
-
-        if (this.ignoreUsed) {
-            try {
-                frequencyType =
-                    Database.getFrequencyType("Unlimited");
-                setFrequency(new Frequency(frequencyType));
-            } catch (NoSuchElementException exception) {}
-        } else {
-            try {
-                frequencyType =
-                    Database.getFrequencyType("X/round");
-                setFrequency(new Frequency(frequencyType, 1));
-            } catch (NoSuchElementException exception) {}
-        }
-    }
-    private void setIgnoreUsed(TriState ignoreUsed) {
-        HelperMethods.checkObject("ignoreUsed", ignoreUsed);
-        if (ignoreUsed == TriState.UNSET) {
-            this.ignoreUsed = Action.ignoreUsedDefault;
-            return;
-        }
-        setIgnoreUsed(ignoreUsed.toBoolean());
-    }
     @Override
     protected void verifyProperties() {
         boolean isValidFreq;
@@ -268,5 +310,30 @@ public class Action extends ActionBase {
                 }
             }
         }
+    }
+    private void calculateFrequency() {
+        FrequencyType frequencyType;
+
+        if (this.ignoreUsed) {
+            try {
+                frequencyType =
+                    Database.getFrequencyType("Unlimited");
+                setFrequency(new Frequency(frequencyType));
+            } catch (NoSuchElementException exception) {}
+        } else {
+            try {
+                frequencyType =
+                    Database.getFrequencyType("X/round");
+                setFrequency(new Frequency(frequencyType, 1));
+            } catch (NoSuchElementException exception) {}
+        }
+    }
+    private void setIgnoreUsed(TriState ignoreUsed) {
+        HelperMethods.checkObject("ignoreUsed", ignoreUsed);
+        if (ignoreUsed == TriState.UNSET) {
+            this.ignoreUsed = Action.ignoreUsedDefault;
+            return;
+        }
+        setIgnoreUsed(ignoreUsed.toBoolean());
     }
 }
