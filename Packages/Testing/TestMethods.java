@@ -6,7 +6,7 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.Mech;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.Pilot;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Mount;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Equipment.Verified.equipment.systemBase.MechSystem;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Frame.frameBase.Frame;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Frame.Verified.Frame;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Frame.frameBase.FrameEnum;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Loadout.Loadout;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.SkillTriggersList.SkillTriggersList;
