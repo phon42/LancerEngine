@@ -23,6 +23,9 @@ public class VueMustacheTag extends VueReplaceableType {
      */
     private String value;
 
+    public VueMustacheTag(String input) {
+        processString(input);
+    }
     public VueMustacheTag(String propertyName, int numBraces) {
         setPropertyName(propertyName);
         setNumBraces(numBraces);
@@ -73,5 +76,93 @@ public class VueMustacheTag extends VueReplaceableType {
         copy.setValue(replacement);
 
         return copy;
+    }
+    private void processString(String input) {
+        HelperMethods.checkObject("input", input);
+        if (input.indexOf("{") == -1) {
+            throw new IllegalArgumentException("Unable to create a"
+                + " VueMustacheTag from the String: \"" + input + "\"");
+        }
+        checkNesting(input);
+        checkFormatting(input);
+    }
+    private void checkNesting(String input) {
+        int nestingLevel = 0;
+        String character;
+
+        HelperMethods.checkObject("input", input);
+        if (input.equals("")) {
+            return;
+        }
+        if (input.indexOf("{") == input.indexOf("}")
+            && input.indexOf("{") == -1) {
+            return;
+        }
+        for (int i = 0; i < input.length(); i++) {
+            character = input.substring(i, i + 1);
+            if (character.equals("{")) {
+                nestingLevel++;
+            } else if (character.equals("}")) {
+                nestingLevel--;
+            }
+            if (nestingLevel < 0) {
+                throw new IllegalArgumentException("input: \"" + input + "\""
+                    + " contains a section with a negative level of nesting"
+                    + " (more '}' characters than '{' characters)");
+            }
+        }
+        if (nestingLevel > 0) {
+            throw new IllegalArgumentException("input: \"" + input + "\""
+                + " contains an unclosed curly bracket ('{')");
+        }
+    }
+    private void checkFormatting(String input) {
+        int mode = 0;
+        String character;
+
+        HelperMethods.checkObject("input", input);
+        if (input.equals("")) {
+            return;
+        }
+        if (input.indexOf("{") == input.indexOf("}")
+            && input.indexOf("{") == -1) {
+            return;
+        }
+        for (int i = 0; i < input.length(); i++) {
+            character = input.substring(i, i + 1);
+            if (mode == 0) {
+                // the opening "flat" portion (we should expect to only see
+                //     non-"{"/"}" characters)
+                // if we see "{", we advance to the next stage
+                // if we see "}", we throw an Exception
+            } else if (mode == 1) {
+                // the "ascending" portion (we should expect to only see "{"s)
+                // if we see anything other than "{", we advance to the next
+                //     stage
+                if (! character.equals("{")) {
+                    mode++;
+                }
+            } else if (mode == 2) {
+                // the "descending" portion (we should expect to only see "}"s)
+                // if we see any "{"s, we throw an Exception
+                // if we see any character that isn't "{" or "}", we advance to
+                //     the next stage
+                if (character.equals("{")) {
+                    throw new IllegalArgumentException("input: \"" + input
+                        + "\" is an illegally formatted String");
+                } else if (! character.equals("}")) {
+                    mode++;
+                }
+            } else if (mode == 3) {
+                // the closing "flat" portion (we should expect to only see
+                //     non-"{"/"}" characters)
+                // if we see either "{" or "}", we throw an Exception
+                if (character.equals("{")
+                    || character.equals("}")) {
+                    throw new IllegalArgumentException("input: \"" + input
+                        + "\" is an illegally formatted String");
+                }
+            }
+        }
     }
 }
