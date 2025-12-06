@@ -1,8 +1,8 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.SkillTriggersList.skillTriggersList.skill;
 
 import MainBranch.HelperMethods;
-import Packages.CoreTypes.VueHTMLString;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.SkillTriggersList.skillTriggersList.skill.skillData.SkillFamily;
+import Packages.CoreTypes.VueHTMLString.VueHTMLString;
 
 /**
  * See pg. 24 - 27.

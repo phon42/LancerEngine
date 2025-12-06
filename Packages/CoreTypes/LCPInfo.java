@@ -3,6 +3,7 @@ package Packages.CoreTypes;
 import java.net.URL;
 import MainBranch.HelperMethods;
 import MainBranch.database.FileOperations;
+import Packages.CoreTypes.VueHTMLString.VueHTMLString;
 import Packages.CoreTypes.lcpInfo.LCPDependency;
 import Packages.CoreTypes.lcpInfo.Version;
 

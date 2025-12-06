@@ -1,7 +1,7 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.CoreBonus;
 
 import MainBranch.HelperMethods;
-import Packages.CoreTypes.VueHTMLString;
+import Packages.CoreTypes.VueHTMLString.VueHTMLString;
 
 public class CoreBonusBase {
     // TODO: fill out

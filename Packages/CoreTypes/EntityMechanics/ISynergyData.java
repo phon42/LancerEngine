@@ -1,10 +1,10 @@
 package Packages.CoreTypes.EntityMechanics;
 
 import MainBranch.HelperMethods;
-import Packages.CoreTypes.VueHTMLString;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Equipment.Verified.equipment.systemBase.SystemType;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Equipment.Verified.equipment.systemBase.systemType.WeaponType;
 import Packages.CoreTypes.EntityMechanics.SynergyLocationSystem.Verified.SynergyLocation;
+import Packages.CoreTypes.VueHTMLString.VueHTMLString;
 
 public class ISynergyData {
     // TODO: fill out

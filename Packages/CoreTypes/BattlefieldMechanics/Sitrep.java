@@ -1,7 +1,7 @@
 package Packages.CoreTypes.BattlefieldMechanics;
 
 import MainBranch.HelperMethods;
-import Packages.CoreTypes.VueHTMLString;
+import Packages.CoreTypes.VueHTMLString.VueHTMLString;
 
 /**
  * Represents a single sitrep. Contains information about that sitrep's id,

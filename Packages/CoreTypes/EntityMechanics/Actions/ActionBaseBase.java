@@ -3,8 +3,8 @@ package Packages.CoreTypes.EntityMechanics.Actions;
 import java.util.HashMap;
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.Callable;
-import Packages.CoreTypes.VueHTMLString;
 import Packages.CoreTypes.TriState;
+import Packages.CoreTypes.VueHTMLString.VueHTMLString;
 
 /**
  * See pgs. 61 - 64, 68 - 76, and 107 for more information.

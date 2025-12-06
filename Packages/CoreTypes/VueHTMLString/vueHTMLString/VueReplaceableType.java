@@ -1,4 +1,4 @@
-package Packages.CoreTypes.vueHTMLString;
+package Packages.CoreTypes.VueHTMLString.vueHTMLString;
 
 public class VueReplaceableType {
     public VueReplaceableType replace(String replacement) {

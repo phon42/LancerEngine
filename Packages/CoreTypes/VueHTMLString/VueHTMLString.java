@@ -1,9 +1,9 @@
-package Packages.CoreTypes;
+package Packages.CoreTypes.VueHTMLString;
 
 import java.util.ArrayList;
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.HTMLString.htmlString.HTMLTag;
-import Packages.CoreTypes.vueHTMLString.VueReplaceableType;
+import Packages.CoreTypes.VueHTMLString.vueHTMLString.VueReplaceableType;
 
 /**
  * See https://vuejs.org/guide/essentials/template-syntax.

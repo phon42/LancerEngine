@@ -1,7 +1,7 @@
 package Packages.CoreTypes.BattlefieldMechanics;
 
 import MainBranch.HelperMethods;
-import Packages.CoreTypes.VueHTMLString;
+import Packages.CoreTypes.VueHTMLString.VueHTMLString;
 
 /**
  * Represents a specified preset environment for a battle to take place in, such

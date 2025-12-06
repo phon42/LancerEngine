@@ -5,7 +5,7 @@ import java.nio.file.Path;
 import MainBranch.HelperMethods;
 import MainBranch.database.FileOperations;
 import Packages.CoreTypes.ColorData;
-import Packages.CoreTypes.VueHTMLString;
+import Packages.CoreTypes.VueHTMLString.VueHTMLString;
 
 /**
  * Represents a single manufacturer. Contains information about the

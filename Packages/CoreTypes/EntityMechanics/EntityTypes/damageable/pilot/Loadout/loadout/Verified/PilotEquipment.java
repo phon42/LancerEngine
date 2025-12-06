@@ -1,13 +1,13 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Loadout.loadout.Verified;
 
 import MainBranch.HelperMethods;
-import Packages.CoreTypes.VueHTMLString;
 import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.ISynergyData;
 import Packages.CoreTypes.EntityMechanics.Actions.Verified.actionBase.IActionData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.Deployable.deployable.iDeployableDataBase.Verified.IDeployableData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Equipment.Verified.equipment.TagSystem.unverifiedDataTag.DataTag;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Equipment.Verified.equipment.TagSystem.unverifiedDataTag.Tag;
+import Packages.CoreTypes.VueHTMLString.VueHTMLString;
 
 /**
  * Represents a single piece of pilot equipment of any kind (be that armor,

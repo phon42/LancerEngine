@@ -5,8 +5,8 @@ import java.util.NoSuchElementException;
 import MainBranch.Database;
 import MainBranch.HelperMethods;
 import MainBranch.database.FileOperations;
-import Packages.CoreTypes.VueHTMLString;
 import Packages.CoreTypes.EntityMechanics.StateSystem.state.UnverifiedStateData;
+import Packages.CoreTypes.VueHTMLString.VueHTMLString;
 
 public class StateData extends UnverifiedStateData {
     // Optional property

@@ -16,7 +16,6 @@ import Packages.CoreTypes.Rule;
 import Packages.CoreTypes.Table;
 import Packages.CoreTypes.Term;
 import Packages.CoreTypes.UnverifiedData;
-import Packages.CoreTypes.VueHTMLString;
 import Packages.CoreTypes.BattlefieldMechanics.Environment;
 import Packages.CoreTypes.BattlefieldMechanics.Sitrep;
 import Packages.CoreTypes.Counter.counterBase.CounterData;
@@ -79,6 +78,7 @@ import Packages.CoreTypes.EntityMechanics.StateSystem.state.unverifiedStateData.
 import Packages.CoreTypes.EntityMechanics.SynergyLocationSystem.Unverified.UnverifiedSynergyLocation;
 import Packages.CoreTypes.EntityMechanics.SynergyLocationSystem.Verified.SynergyLocation;
 import Packages.CoreTypes.HTMLString.HTMLString;
+import Packages.CoreTypes.VueHTMLString.VueHTMLString;
 import Packages.CoreTypes.lcpInfo.LCPDependency;
 import Packages.EventSystem.event.EventListener;
 

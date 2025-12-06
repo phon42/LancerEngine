@@ -1,12 +1,12 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Loadout.loadout.Unverified;
 
 import MainBranch.HelperMethods;
-import Packages.CoreTypes.VueHTMLString;
 import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.ISynergyData;
 import Packages.CoreTypes.EntityMechanics.Actions.Verified.actionBase.IActionData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.Deployable.deployable.iDeployableDataBase.Unverified.UnverifiedIDeployableData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Equipment.Verified.equipment.TagSystem.UnverifiedDataTag;
+import Packages.CoreTypes.VueHTMLString.VueHTMLString;
 
 public class UnverifiedPilotEquipment {
     // TODO: fill out
