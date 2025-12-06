@@ -140,6 +140,8 @@ public class Action extends ActionBase {
         // Optional properties
         setTerse(terse);
         setLog(log);
+        // Verify everything
+        verifyProperties();
     }
     /**
      * A constructor using all possible properties except the optional
