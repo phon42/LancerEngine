@@ -149,6 +149,13 @@ public class ActionBaseBase {
         ActionBaseBase.typeMap.put("downtime", "downtime");
     }
 
+    /**
+     * A constructor using all possible properties.
+     * Required properties:                 PROVIDED
+     * Semi-required properties:            PROVIDED
+     * Conditionally required property:     PROVIDED
+     * Optional properties:                 PROVIDED
+     */
     protected ActionBaseBase(
         // Required properties
         String name, String detailedDescription,
@@ -173,6 +180,14 @@ public class ActionBaseBase {
         setMethod(method);
         setInit(requiredInitialConditions);
     }
+    /**
+     * A constructor using all possible properties except the optional
+     *     properties.
+     * Required properties:                 PROVIDED
+     * Semi-required properties:            PROVIDED
+     * Conditionally required property:     PROVIDED
+     * Optional properties:             NOT PROVIDED
+     */
     protected ActionBaseBase(
         // Required properties
         String name, String detailedDescription,
@@ -184,6 +199,14 @@ public class ActionBaseBase {
         this(name, detailedDescription, pilot, mech, confirm, hideActive,
             trigger, null, null);
     }
+    /**
+     * A constructor using all possible properties except the optional and
+     *     conditionally required properties.
+     * Required properties:                 PROVIDED
+     * Semi-required properties:            PROVIDED
+     * Conditionally required property: NOT PROVIDED
+     * Optional properties:             NOT PROVIDED
+     */
     protected ActionBaseBase(
         // Required properties
         String name, String detailedDescription,
@@ -193,6 +216,14 @@ public class ActionBaseBase {
         this(name, detailedDescription, pilot, mech, confirm, hideActive,
             null, null, null);
     }
+    /**
+     * A constructor using all possible properties except the optional and semi-
+     *     required properties.
+     * Required properties:                 PROVIDED
+     * Semi-required properties:        NOT PROVIDED
+     * Conditionally required property:     PROVIDED
+     * Optional properties:             NOT PROVIDED
+     */
     protected ActionBaseBase(
         // Required properties
         String name, String detailedDescription,
@@ -203,6 +234,13 @@ public class ActionBaseBase {
             null, TriState.UNSET, trigger, null,
             null);
     }
+    /**
+     * A constructor using only the required properties.
+     * Required properties:                 PROVIDED
+     * Semi-required properties:        NOT PROVIDED
+     * Conditionally required property: NOT PROVIDED
+     * Optional properties:             NOT PROVIDED
+     */
     protected ActionBaseBase(String name, String detailedDescription) {
         this(name, detailedDescription, TriState.UNSET, TriState.UNSET,
             null, TriState.UNSET, null, null,
