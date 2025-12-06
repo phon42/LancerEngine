@@ -39,6 +39,7 @@ public class CoreSystemActive {
      * Can be any ActivationType. Can be null.
      */
     private ActivationType deactivation;
+    // TODO: add duration mutator and accessor
     /**
      * Can only be one of the following:
      *     "round", "next round", "scene", "encounter", "mission"
@@ -56,13 +57,14 @@ public class CoreSystemActive {
         ActivationType deactivation, Duration duration, IActionData[] actions,
         Bonus[] bonuses, ISynergyData[] synergies
     ) {
+        HelperMethods.verifyConstructor();
         // Required properties
         setName(name);
         setEffect(effect);
         setActivation(activation);
         // Optional properties
         setDeactivation(deactivation);
-        // TODO: add duration mutator
+        // TODO: add duration mutator (and accessor I guess)
         setActions(actions);
         setBonuses(bonuses);
         setSynergies(synergies);
