@@ -1,5 +1,6 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.CoreBonus.coreBonusBase.Verified;
 
+import MainBranch.Database;
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.Counter.counterBase.CounterData;
 import Packages.CoreTypes.EntityMechanics.Bonus;
@@ -10,74 +11,100 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.iDep
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.CoreBonus.CoreBonusBase;
 
 public class CoreBonus extends CoreBonusBase {
-    // Required property
+    // Semi-required (optional but has a specific default value other than null
+    //     when not provided) property
     /**
      * The manufacturer of this core bonus (i.e. a Manufacturer representing
      *     GMS).
      * Can be any Manufacturer. Cannot be null.
+     * Default value: a Manufacturer representing GMS.
      */
     private Manufacturer source;
-    // Optional property
-    private IDeployableData[] deployables;
+    // sourceDefault removed because the relevant value only becomes accessible
+    //     at runtime
 
+    // Optional properties
+    private IActionData[] actions;
+    private Bonus[] bonuses;
+    private ISynergyData[] synergies;
+    private IDeployableData[] deployables;
+    private CounterData[] counters;
+
+    /**
+     * Verbose constructor for non-GMS content.
+     * Accepts all possible properties.
+     */
     public CoreBonus(
         // CoreBonusBase properties
         String id, String name, String effect, String description,
-        String mountedEffect, IActionData[] actions, Bonus[] bonuses,
-        ISynergyData[] synergies, CounterData[] counters, String[] integrated,
-        String[] specialEquipment,
-        // Required property
+        String mountedEffect, String[] integrated, String[] specialEquipment,
+        // Semi-required property
         Manufacturer source,
-        // Optional property
-        IDeployableData[] deployables
+        // Optional properties
+        IActionData[] actions, Bonus[] bonuses, ISynergyData[] synergies,
+        IDeployableData[] deployables, CounterData[] counters
     ) {
         // CoreBonusBase properties
-        super(id, name, effect, description, mountedEffect, actions, bonuses,
-            synergies, counters, integrated, specialEquipment);
-        // Required property
+        super(id, name, effect, description, mountedEffect, integrated,
+            specialEquipment);
+        // Semi-required property
         setSource(source);
-        // Optional property
+        // Optional properties
         setDeployables(deployables);
     }
+    /**
+     * Abbreviated constructor for GMS content.
+     * Accepts all other properties.
+     */
     public CoreBonus(
         // CoreBonusBase properties
         String id, String name, String effect, String description,
-        String mountedEffect, IActionData[] actions, Bonus[] bonuses,
-        ISynergyData[] synergies, CounterData[] counters, String[] integrated,
-        String[] specialEquipment,
-        // Required property
+        String mountedEffect, String[] integrated, String[] specialEquipment,
+        // Optional properties
+        IActionData[] actions, Bonus[] bonuses, ISynergyData[] synergies,
+        IDeployableData[] deployables, CounterData[] counters
+    ) {
+        // CoreBonusBase properties
+        super(id, name, effect, description, mountedEffect, integrated,
+            specialEquipment);
+        // Semi-required property
+        setSource(source);
+        // Optional properties
+        setDeployables(deployables);
+    }
+    /**
+     * Verbose constructor for non-GMS content.
+     * Accepts all required properties as well as the semi-required property
+     *     CoreBonus.source.
+     */
+    public CoreBonus(
+        // CoreBonusBase properties
+        String id, String name, String effect, String description,
+        // Semi-required property
         Manufacturer source
     ) {
-        this(id, name, effect, description, mountedEffect, actions, bonuses,
-            synergies, counters, integrated, specialEquipment, source,
-            null);
+        this(id, name, effect, description, null,
+            null, null, source, null,
+            null, null, null, null);
     }
+    /**
+     * Abbreviated constructor for GMS content.
+     * Accepts only CoreBonusBase's required properties.
+     */
     public CoreBonus(
         // CoreBonusBase properties
-        String id, String name, String effect, String description,
-        // Required property
-        Manufacturer source,
-        // Optional property
-        IDeployableData[] deployables
+        String id, String name, String effect, String description
     ) {
-        this(id, name, effect, description, null, null,
+        this(id, name, effect, description, null,
             null, null, null, null,
-            null, source, deployables);
-    }
-    public CoreBonus(
-        // CoreBonusBase properties
-        String id, String name, String effect, String description,
-        // Required property
-        Manufacturer source
-    ) {
-        this(id, name, effect, description, source, null);
+            null, null, null, null);
     }
 
-    // Required property
+    // Semi-required property
     public Manufacturer getSource() {
         return source;
     }
-    // Optional property
+    // Optional properties
     public IDeployableData[] getDeployables() {
         if (deployables == null) {
             return deployables;
@@ -85,12 +112,14 @@ public class CoreBonus extends CoreBonusBase {
 
         return HelperMethods.copyOf(deployables);
     }
-    // Required property
+    // Semi-required property
     private void setSource(Manufacturer source) {
-        HelperMethods.checkObject("source", source);
+        if (source == null) {
+            source = Database.getManufacturer("GMS");
+        }
         this.source = source;
     }
-    // Optional property
+    // Optional properties
     private void setDeployables(IDeployableData[] deployables) {
         HelperMethods.checkObjectArrayAlt("deployables",
             deployables);

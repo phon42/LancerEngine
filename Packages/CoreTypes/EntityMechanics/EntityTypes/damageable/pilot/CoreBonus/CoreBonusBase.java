@@ -2,10 +2,6 @@ package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.CoreBonu
 
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.VueHTMLString;
-import Packages.CoreTypes.Counter.counterBase.CounterData;
-import Packages.CoreTypes.EntityMechanics.Bonus;
-import Packages.CoreTypes.EntityMechanics.ISynergyData;
-import Packages.CoreTypes.EntityMechanics.Actions.Verified.actionBase.IActionData;
 
 public class CoreBonusBase {
     // TODO: fill out
@@ -22,10 +18,6 @@ public class CoreBonusBase {
 
     // Optional properties
     protected String mountedEffect;
-    protected IActionData[] actions;
-    protected Bonus[] bonuses;
-    protected ISynergyData[] synergies;
-    protected CounterData[] counters;
     protected String[] integrated;
     protected String[] specialEquipment;
 
@@ -33,9 +25,7 @@ public class CoreBonusBase {
         // Required properties
         String id, String name, String effect, String description,
         // Optional properties
-        String mountedEffect, IActionData[] actions, Bonus[] bonuses,
-        ISynergyData[] synergies, CounterData[] counters, String[] integrated,
-        String[] specialEquipment
+        String mountedEffect, String[] integrated, String[] specialEquipment
     ) {
         HelperMethods.verifyConstructor();
         // Required properties
@@ -45,9 +35,8 @@ public class CoreBonusBase {
         // Required properties
         String id, String name, String effect, String description
     ) {
-        this(id, name, effect, description, null, null,
-            null, null, null, null,
-            null);
+        this(id, name, effect, description, null,
+            null, null);
     }
 
     // Required properties

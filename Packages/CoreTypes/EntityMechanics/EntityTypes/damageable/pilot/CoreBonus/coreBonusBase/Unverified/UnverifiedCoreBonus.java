@@ -8,6 +8,7 @@ import Packages.CoreTypes.UnverifiedData;
 import Packages.CoreTypes.Counter.counterBase.CounterData;
 import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
+import Packages.CoreTypes.EntityMechanics.Actions.Unverified.unverifiedActionBase.UnverifiedIActionData;
 import Packages.CoreTypes.EntityMechanics.Actions.Verified.actionBase.IActionData;
 import Packages.CoreTypes.EntityMechanics.ISynergyData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.iDeployableDataBase.Unverified.UnverifiedIDeployableData;
@@ -17,69 +18,103 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.CoreBonus
 
 public class UnverifiedCoreBonus extends CoreBonusBase
     implements UnverifiedData<UnverifiedCoreBonus, CoreBonus> {
-    // Required property
+    // Semi-required (optional but has a specific default value other than null
+    //     when not provided) property
+    /**
+     * The manufacturer of this core bonus as a String (i.e. "GMS").
+     * Can be any String except "". Cannot be null.
+     * Case-insensitive and stored in uppercase.
+     * Default value: "GMS".
+     */
     private String source;
-    // Optional property
-    private UnverifiedIDeployableData[] deployables;
+    private static final String sourceDefault = "GMS";
 
+    // Optional properties
+    private UnverifiedIActionData[] actions;
+    private UnverifiedBonus[] bonuses;
+    private UnverifiedISynergyData[] synergies;
+    private UnverifiedIDeployableData[] deployables;
+    private UnverifiedCounterData[] counters;
+
+    /**
+     * Verbose constructor for non-GMS content.
+     * Accepts all possible properties.
+     */
     public UnverifiedCoreBonus(
         // CoreBonusBase properties
         String id, String name, String effect, String description,
-        String mountedEffect, IActionData[] actions, Bonus[] bonuses,
-        ISynergyData[] synergies, CounterData[] counters, String[] integrated,
-        String[] specialEquipment,
-        // Required property
+        String mountedEffect, String[] integrated, String[] specialEquipment,
+        // Semi-required property
         String source,
-        // Optional property
-        UnverifiedIDeployableData[] deployables
+        // Optional properties
+        UnverifiedIActionData[] actions, UnverifiedBonus[] bonuses,
+        UnverifiedISynergyData[] synergies,
+        UnverifiedIDeployableData[] deployables,
+        UnverifiedCounterData[] counters
     ) {
         // CoreBonusBase properties
-        super(id, name, effect, description, mountedEffect, actions, bonuses,
-            synergies, counters, integrated, specialEquipment);
-        // Required property
+        super(id, name, effect, description, mountedEffect, integrated,
+            specialEquipment);
+        // Semi-required property
         setSource(source);
-        // Optional property
+        // Optional properties
         setDeployables(deployables);
     }
+    /**
+     * Abbreviated constructor for GMS content.
+     * Accepts all other properties.
+     */
     public UnverifiedCoreBonus(
         // CoreBonusBase properties
         String id, String name, String effect, String description,
-        String mountedEffect, IActionData[] actions, Bonus[] bonuses,
-        ISynergyData[] synergies, CounterData[] counters, String[] integrated,
-        String[] specialEquipment,
-        // Required property
+        String mountedEffect, String[] integrated, String[] specialEquipment,
+        // Optional properties
+        UnverifiedIActionData[] actions, UnverifiedBonus[] bonuses,
+        UnverifiedISynergyData[] synergies,
+        UnverifiedIDeployableData[] deployables,
+        UnverifiedCounterData[] counters
+    ) {
+        // CoreBonusBase properties
+        super(id, name, effect, description, mountedEffect, integrated,
+            specialEquipment);
+        // Semi-required property
+        setSource(source);
+        // Optional properties
+        setDeployables(deployables);
+    }
+    /**
+     * Verbose constructor for non-GMS content.
+     * Accepts all required properties as well as the semi-required property
+     *     CoreBonus.source.
+     */
+    public UnverifiedCoreBonus(
+        // CoreBonusBase properties
+        String id, String name, String effect, String description,
+        // Semi-required property
         String source
     ) {
-        this(id, name, effect, description, mountedEffect, actions, bonuses,
-            synergies, counters, integrated, specialEquipment, source,
-            null);
+        this(id, name, effect, description, null,
+            null, null, source, null,
+            null, null, null, null);
     }
+    /**
+     * Abbreviated constructor for GMS content.
+     * Accepts only CoreBonusBase's required properties.
+     */
     public UnverifiedCoreBonus(
         // CoreBonusBase properties
-        String id, String name, String effect, String description,
-        // Required property
-        String source,
-        // Optional property
-        UnverifiedIDeployableData[] deployables
+        String id, String name, String effect, String description
     ) {
-        this(id, name, effect, description, null, null,
+        this(id, name, effect, description, null,
             null, null, null, null,
-            null, source, deployables);
-    }
-    public UnverifiedCoreBonus(
-        // CoreBonusBase properties
-        String id, String name, String effect, String description,
-        // Required property
-        String source
-    ) {
-        this(id, name, effect, description, source, null);
+            null, null, null, null);
     }
 
-    // Required property
+    // Semi-required property
     public String getSource() {
         return source;
     }
-    // Optional property
+    // Optional properties
     public UnverifiedIDeployableData[] getDeployables() {
         if (deployables == null) {
             return deployables;
@@ -87,12 +122,17 @@ public class UnverifiedCoreBonus extends CoreBonusBase
 
         return HelperMethods.copyOf(deployables);
     }
-    // Required property
+    // Semi-required property
     private void setSource(String source) {
-        HelperMethods.checkString("source", source);
+        if (source == null) {
+            source = UnverifiedCoreBonus.sourceDefault;
+        } else {
+            HelperMethods.checkString("source", source);
+            source = source.toUpperCase();
+        }
         this.source = source;
     }
-    // Optional property
+    // Optional properties
     private void setDeployables(UnverifiedIDeployableData[] deployables) {
         HelperMethods.checkObjectArrayAlt("deployables",
             deployables);
