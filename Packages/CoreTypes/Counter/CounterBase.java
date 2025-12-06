@@ -24,7 +24,7 @@ public class CounterBase {
      * Must be between this.min and this.max (inclusive).
      * Default value: this.min.
      * 
-     * Is only used when this.defaultValuePresent is true.
+     * Is only used when this.hasDefault is true.
      */
     protected int defaultValue;
 
@@ -32,7 +32,7 @@ public class CounterBase {
     /**
      * Whether this.defaultValue should be used.
      */
-    protected boolean defaultValuePresent;
+    protected boolean hasDefault;
 
     /**
      * CounterBase.min:              PROVIDED
@@ -48,7 +48,7 @@ public class CounterBase {
         // Optional property
         setDefaultValue(defaultValue);
         // Helper property
-        setDefaultValuePresent(true);
+        setHasDefault(true);
     }
     /**
      * CounterBase.min:              PROVIDED
@@ -63,7 +63,7 @@ public class CounterBase {
         // Optional property
         setDefaultValue(0);
         // Helper property
-        setDefaultValuePresent(false);
+        setHasDefault(false);
     }
     /**
      * CounterBase.min:              PROVIDED
@@ -78,7 +78,7 @@ public class CounterBase {
         // Optional property
         setDefaultValue(defaultValue);
         // Helper property
-        setDefaultValuePresent(true);
+        setHasDefault(true);
     }
     /**
      * CounterBase.min:              PROVIDED
@@ -92,7 +92,7 @@ public class CounterBase {
         // Optional property
         setDefaultValue(0);
         // Helper property
-        setDefaultValuePresent(false);
+        setHasDefault(false);
     }
     /**
      * CounterBase.min:          NOT PROVIDED
@@ -107,7 +107,7 @@ public class CounterBase {
         // Optional property
         setDefaultValue(defaultValue);
         // Helper property
-        setDefaultValuePresent(true);
+        setHasDefault(true);
     }
     /**
      * CounterBase.min:          NOT PROVIDED
@@ -121,7 +121,7 @@ public class CounterBase {
         // Optional property
         setDefaultValue(0);
         // Helper property
-        setDefaultValuePresent(false);
+        setHasDefault(false);
     }
     /**
      * CounterBase.min:          NOT PROVIDED
@@ -134,7 +134,7 @@ public class CounterBase {
         // Optional property
         setDefaultValue(defaultValue);
         // Helper property
-        setDefaultValuePresent(true);
+        setHasDefault(true);
     }
     /**
      * CounterBase.min:          NOT PROVIDED
@@ -148,13 +148,13 @@ public class CounterBase {
         // Optional property
         this.defaultValue = 0;
         // Helper property
-        setDefaultValuePresent(false);
+        setHasDefault(false);
     }
     protected CounterBase(CounterBase counterBase) {
         setMin(counterBase.min);
         setMax(counterBase.max);
         setDefaultValue(counterBase.defaultValue);
-        setDefaultValuePresent(counterBase.defaultValuePresent);
+        setHasDefault(counterBase.hasDefault);
     }
 
     // Semi-required properties
@@ -169,8 +169,8 @@ public class CounterBase {
         return defaultValue;
     }
     // Helper property
-    public boolean isDefaultValuePresent() {
-        return defaultValuePresent;
+    public boolean hasDefault() {
+        return hasDefault;
     }
     // Semi-required properties
     protected void setMin(int min) {
@@ -187,13 +187,13 @@ public class CounterBase {
         this.defaultValue = defaultValue;
     }
     // Helper property
-    protected void setDefaultValuePresent(boolean defaultValuePresent) {
-        this.defaultValuePresent = defaultValuePresent;
+    protected void setHasDefault(boolean hasDefault) {
+        this.hasDefault = hasDefault;
     }
 
     @Override
     public String toString() {
-        if (defaultValuePresent) {
+        if (hasDefault) {
             return toString(min, max, defaultValue);
         } else {
             return toString(min, max);

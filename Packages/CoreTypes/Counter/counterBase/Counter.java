@@ -83,7 +83,7 @@ public class Counter extends CounterBase implements Iterable<Integer> {
         setMin(counter.min);
         setMax(counter.max);
         setDefaultValue(counter.defaultValue);
-        setDefaultValuePresent(counter.defaultValuePresent);
+        setHasDefault(counter.hasDefault);
         setCurrent(counter.current);
     }
 
@@ -106,7 +106,7 @@ public class Counter extends CounterBase implements Iterable<Integer> {
 
     @Override
     public String toString() {
-        if (defaultValuePresent) {
+        if (hasDefault) {
             return toString(min, current, max, defaultValue);
         } else {
             return toString(min, current, max);
@@ -145,6 +145,6 @@ public class Counter extends CounterBase implements Iterable<Integer> {
         return current == max;
     }
     public boolean isDefault() {
-        return defaultValuePresent && current == defaultValue;
+        return hasDefault && current == defaultValue;
     }
 }
