@@ -9,7 +9,6 @@ import Packages.CoreTypes.EntityMechanics.Bonus;
 import Packages.CoreTypes.EntityMechanics.ISynergyData;
 import Packages.CoreTypes.EntityMechanics.Actions.Verified.actionBase.IActionData;
 import Packages.CoreTypes.EntityMechanics.ActivationType.Verified.ActivationType;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.iDeployableDataBase.Verified.IDeployableData;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.deployable.iDeployableDataBase.Verified.iDeployableData.DeployableStatblock;
 
 public class IDeployableDataBase {
@@ -196,10 +195,11 @@ public class IDeployableDataBase {
         String name, String type, String detail
     ) {
         this(name, type, detail, null,
-            IDeployableData.instancesDefault, IDeployableData.costDefault,
-            TriState.UNSET, TriState.UNSET, null, null,
+            IDeployableDataBase.instancesDefault,
+            IDeployableDataBase.costDefault, TriState.UNSET, TriState.UNSET,
             null, null, null, null,
-            null, null, null);
+            null, null, null, null,
+            null);
     }
     public IDeployableDataBase(Size size, int armor) {
         // default values from pg. 68
@@ -306,7 +306,7 @@ public class IDeployableDataBase {
     }
     protected void setInstances(int instances) {
         if (instances < 1) {
-            instances = IDeployableData.instancesDefault;
+            instances = IDeployableDataBase.instancesDefault;
         }
         this.instances = instances;
     }
