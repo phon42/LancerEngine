@@ -1,6 +1,8 @@
 package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Bond;
 
 import MainBranch.HelperMethods;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Bond.bondBase.BondPower;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Bond.bondBase.BondQuestion;
 
 public class BondBase {
     // Required properties
@@ -31,15 +33,31 @@ public class BondBase {
      * Elements are case-sensitive.
      */
     protected String[] minorIdeals;
+    /**
+     * This bond's question (i.e. a BondQuestion representing "What gives you"
+     *     " your powers?").
+     * Can be any BondQuestion[] that does not contain null elements. Cannot be
+     *     null.
+     */
+    protected BondQuestion[] questions;
+    /**
+     * This bond's powers (i.e. a BondPower representing "Masquerade").
+     * Can be any BondPower[] that does not contain null elements. Cannot be
+     *     null.
+     */
+    protected BondPower[] powers;
 
     protected BondBase(
         // Required properties
-        String name, String[] majorIdeals, String[] minorIdeals
+        String name, String[] majorIdeals, String[] minorIdeals,
+        BondQuestion[] questions, BondPower[] powers
     ) {
         // Required properties
         setName(name);
         setMajorIdeals(majorIdeals);
         setMinorIdeals(minorIdeals);
+        setQuestions(questions);
+        setPowers(powers);
     }
 
     // Required properties
@@ -51,6 +69,12 @@ public class BondBase {
     }
     public String[] getMinorIdeals() {
         return HelperMethods.copyOf(minorIdeals);
+    }
+    public BondQuestion[] getQuestions() {
+        return HelperMethods.copyOf(questions);
+    }
+    public BondPower[] getPowers() {
+        return HelperMethods.copyOf(powers);
     }
     // Required properties
     protected void setName(String name) {
@@ -68,5 +92,15 @@ public class BondBase {
             minorIdeals);
         majorIdeals = HelperMethods.copyOf(minorIdeals);
         this.minorIdeals = minorIdeals;
+    }
+    protected void setQuestions(BondQuestion[] questions) {
+        HelperMethods.checkObjectArray("questions", questions);
+        questions = HelperMethods.copyOf(questions);
+        this.questions = questions;
+    }
+    protected void setPowers(BondPower[] powers) {
+        HelperMethods.checkObjectArray("powers", powers);
+        powers = HelperMethods.copyOf(powers);
+        this.powers = powers;
     }
 }
