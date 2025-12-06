@@ -16,6 +16,7 @@ import Packages.CoreTypes.BattlefieldMechanics.Sitrep;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
 import Packages.CoreTypes.EntityMechanics.RangeType;
 import Packages.CoreTypes.EntityMechanics.WeaponSize;
+import Packages.CoreTypes.EntityMechanics.Actions.Unverified.unverifiedActionBase.UnverifiedAction;
 import Packages.CoreTypes.EntityMechanics.Actions.Verified.actionBase.Action;
 import Packages.CoreTypes.EntityMechanics.Actions.Verified.actionBase.IActionData;
 import Packages.CoreTypes.EntityMechanics.ActivationType.Verified.ActivationType;
@@ -79,6 +80,10 @@ public final class Database {
     private static LCPInfo[] lcpInfo;
 
     // Unverified data
+    /**
+     * add documentation
+     */
+    private static UnverifiedAction[] unverifiedActions;
     /**
      * add documentation
      */
@@ -651,18 +656,22 @@ public final class Database {
         Database.open = false;
     }
     private static void verifyData() {
-        for (UnverifiedBackground unverifiedBackground :
-            Database.unverifiedBackgrounds) {
+        for (UnverifiedAction unverifiedAction : Database.unverifiedActions) {
+            addAction(unverifiedAction.verify());
+        }
+        Database.unverifiedActions = new UnverifiedAction[0];
+        for (UnverifiedBackground unverifiedBackground
+            : Database.unverifiedBackgrounds) {
             addBackground(unverifiedBackground.verify());
         }
         Database.unverifiedBackgrounds = new UnverifiedBackground[0];
-        for (UnverifiedCoreBonus unverifiedCoreBonus :
-            Database.unverifiedCoreBonuses) {
+        for (UnverifiedCoreBonus unverifiedCoreBonus
+            : Database.unverifiedCoreBonuses) {
             addCoreBonus(unverifiedCoreBonus.verify());
         }
         Database.unverifiedCoreBonuses = new UnverifiedCoreBonus[0];
-        for (UnverifiedDataTag unverifiedDataTag :
-            Database.unverifiedDataTags) {
+        for (UnverifiedDataTag unverifiedDataTag : Database.unverifiedDataTags)
+        {
             // TODO: figure out a way to get these to their respective objects
             unverifiedDataTag.verify();
         }
@@ -679,6 +688,7 @@ public final class Database {
         Database.lcpCorrections = new LCPCorrection[0];
         Database.lcpInfo = new LCPInfo[0];
         // Unverified data
+        Database.unverifiedActions = new UnverifiedAction[0];
         Database.unverifiedBackgrounds = new UnverifiedBackground[0];
         Database.unverifiedCoreBonuses = new UnverifiedCoreBonus[0];
         Database.unverifiedDataTags = new UnverifiedDataTag[0];
@@ -1239,6 +1249,18 @@ public final class Database {
         Database.lcpInfo = HelperMethods.append(Database.lcpInfo, lcpInfo);
     }
     // Unverified data
+    /**
+     * Adds the provided UnverifiedAction to Database.unverifiedActions.
+     * @param unverifiedAction an UnverifiedAction which cannot be null.
+     * @throws IllegalArgumentException if unverifiedAction is null.
+     */
+    public static void addUnverifiedAction(UnverifiedAction unverifiedAction) {
+        checkOpen();
+        HelperMethods.checkObject("unverifiedAction",
+            unverifiedAction);
+        Database.unverifiedActions = HelperMethods.append(
+            Database.unverifiedActions, unverifiedAction);
+    }
     /**
      * Adds the provided UnverifiedBackground to Database.unverifiedBackgrounds.
      * @param unverifiedBackground an UnverifiedBackground which cannot be null.
