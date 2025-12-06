@@ -104,8 +104,8 @@ public class DataCaster {
      * Case-sensitive.
      */
     private static String lcpManifestName;
-    // all the data being held at the moment
-    // ----absolutely critical data:
+    // all the data being held at the moment:
+    // ----LCP file information data:
     private static JSONObject[] infoRaw;
     private static JSONObject[] lcpManifestsRaw;
     // ----some critical data types:
@@ -135,7 +135,7 @@ public class DataCaster {
     private static JSONObject rulesRaw;
     private static JSONObject[] termsRaw;
     private static JSONObject tablesRaw;
-    // ----absolutely critical data:
+    // ----LCP file information data:
     private static LCPInfo[] lcpInfoProcessed;
     // ----some critical data types:
     private static UnverifiedFrame[] framesProcessed;
@@ -187,35 +187,6 @@ public class DataCaster {
     // Prevent user from instantiating this class
     private DataCaster() {}
 
-    // use a class called JSON
-    // Check Iterable for documentation on JSONArray - supposedly you can use
-    //     get() - line 330
-    // length() - 633
-    // line 679 for JSONObject - use get() (also for String) and getBoolean(),
-    //     getInt(), etc
-    // Actions is an array of Actions
-    // Backgrounds is an array of Backgrounds
-    // bonds
-    // CB is an array of CB
-    // env
-    // frames is arr
-    // manufac
-    // mods
-    // npc features
-    // npc templates
-    // pilot gear - they're all together, mind
-    // reserves
-    // rules is one object with properties that could be int, an object, an
-    //     array, an array of objects
-    // sitreps
-    // skills
-    // statuses - all mixed together
-    // systems
-    // tables is one object with properties that are all arrays
-    // tags
-    // talents
-    // terms (glossary)
-    // weapons
     public static void receiveData(Object[] data) {
         // unpack the Object[], transforming each element from Object to a
         //     JSONObject[] or JSONObject, then putting it in its respective
@@ -236,7 +207,7 @@ public class DataCaster {
         // unpack the Object[], transforming each element from Object to a
         //     JSONObject[] or JSONObject, then putting it in its respective
         //     property (i.e. DataCaster.frameRaw).
-        // ----absolutely critical data:
+        // ----LCP file information data:
         DataCaster.infoRaw = (JSONObject[]) data[0];
         DataCaster.lcpManifestsRaw = (JSONObject[]) data[1];
         // ----some critical data types:
@@ -3265,7 +3236,7 @@ public class DataCaster {
     }
     private static Object[] packData() {
         Object[] data = new Object[] {
-            // ----absolutely critical data:
+            // ----LCP file information data:
             DataCaster.lcpInfoProcessed,
             // ----some critical data types:
             DataCaster.framesProcessed,
@@ -3326,7 +3297,7 @@ public class DataCaster {
     private static void flushData() {
         DataCaster.infoName = null;
         DataCaster.lcpManifestName = null;
-        // ----absolutely critical data:
+        // ----LCP file information data:
         DataCaster.infoRaw = new JSONObject[0];
         DataCaster.lcpManifestsRaw = new JSONObject[0];
         // ----some critical data types:
@@ -3356,7 +3327,7 @@ public class DataCaster {
         DataCaster.rulesRaw = null;
         DataCaster.termsRaw = new JSONObject[0];
         DataCaster.tablesRaw = null;
-        // ----absolutely critical data:
+        // ----LCP file information data:
         DataCaster.lcpInfoProcessed = new LCPInfo[0];
         // ----some critical data types:
         DataCaster.framesProcessed = new UnverifiedFrame[0];
