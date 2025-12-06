@@ -1,4 +1,4 @@
-package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frameBase;
+package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Frame.frameBase;
 
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.Size;

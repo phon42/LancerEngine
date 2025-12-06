@@ -40,8 +40,8 @@ import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Equipment.
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Equipment.Verified.equipment.systemBase.Weapon;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Equipment.Verified.equipment.systemBase.systemType.MechSystemType;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Equipment.Verified.equipment.systemBase.systemType.WeaponType;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frameBase.Frame;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frameBase.UnverifiedFrame;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Frame.frameBase.Frame;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Frame.frameBase.UnverifiedFrame;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Background.backgroundBase.UnverifiedBackground;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Bond.Unverified.UnverifiedBond;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Bond.Verified.Bond;

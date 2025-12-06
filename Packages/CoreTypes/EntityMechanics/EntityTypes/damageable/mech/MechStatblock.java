@@ -2,8 +2,8 @@ package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech;
 
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.Size;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frameBase.Frame;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frameBase.FrameStatblock;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Frame.frameBase.Frame;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Frame.frameBase.FrameStatblock;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.pilot.Talent.Talent;
 
 /**

@@ -1,8 +1,8 @@
-package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frameBase;
+package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Frame.frameBase;
 
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.FrameBase;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Mount;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Frame.FrameBase;
 
 /**
  * See pg. 32.

@@ -1,9 +1,9 @@
-package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.frameBase;
+package Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Frame.frameBase;
 
 import Packages.CoreTypes.UnverifiedData;
 import Packages.CoreTypes.EntityMechanics.Manufacturer;
-import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.FrameBase;
 import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Mount;
+import Packages.CoreTypes.EntityMechanics.EntityTypes.damageable.mech.Frame.FrameBase;
 
 public class UnverifiedFrame extends FrameBase
     implements UnverifiedData<UnverifiedFrame, Frame> {
