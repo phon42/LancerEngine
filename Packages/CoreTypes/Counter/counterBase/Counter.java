@@ -33,75 +33,140 @@ public class Counter extends CounterBase implements Iterable<Integer> {
     //     variable
 
     /**
-     * Counter.min:              PROVIDED
-     * Counter.max:              PROVIDED
-     * Counter.defaultValue:     PROVIDED
+     * CounterBase.min:              PROVIDED
+     * CounterBase.max:              PROVIDED
+     * CounterBase.defaultValue:     PROVIDED
+     * CounterBase.id:               PROVIDED
+     * CounterBase.name:             PROVIDED
      */
-    public Counter(int minimumValue, int maximumValue, int defaultValue) {
+    public Counter(
+        // CounterBase properties
+        int minimumValue, int maximumValue, int defaultValue, String id,
+        String name
+    ) {
+        // CounterBase properties
+        super(minimumValue, maximumValue, defaultValue, id, name);
+    }
+    /**
+     * CounterBase.min:              PROVIDED
+     * CounterBase.max:              PROVIDED
+     * CounterBase.defaultValue:     PROVIDED
+     * CounterBase.id:           NOT PROVIDED
+     * CounterBase.name:         NOT PROVIDED
+     */
+    public Counter(
+        // CounterBase properties
+        int minimumValue, int maximumValue, int defaultValue
+    ) {
+        // CounterBase properties
         super(minimumValue, maximumValue, defaultValue);
         // Semi-required property
         setCurrent();
     }
     /**
-     * Counter.min:              PROVIDED
-     * Counter.max:              PROVIDED
-     * Counter.defaultValue: NOT PROVIDED
+     * CounterBase.min:              PROVIDED
+     * CounterBase.max:              PROVIDED
+     * CounterBase.defaultValue: NOT PROVIDED
+     * CounterBase.id:           NOT PROVIDED
+     * CounterBase.name:         NOT PROVIDED
      */
-    public Counter(int minimumValue, int maximumValue) {
+    public Counter(
+        // CounterBase properties
+        int minimumValue, int maximumValue
+    ) {
+        // CounterBase properties
         super(minimumValue, maximumValue);
         // Semi-required property
         setCurrent();
     }
     /**
-     * Counter.min:              PROVIDED
-     * Counter.max:          NOT PROVIDED
-     * Counter.defaultValue:     PROVIDED
+     * CounterBase.min:              PROVIDED
+     * CounterBase.max:          NOT PROVIDED
+     * CounterBase.defaultValue:     PROVIDED
+     * CounterBase.id:           NOT PROVIDED
+     * CounterBase.name:         NOT PROVIDED
      */
-    public Counter(int minimumValue, Object maximumValue, int defaultValue) {
+    public Counter(
+        // CounterBase properties
+        int minimumValue, Object maximumValue, int defaultValue
+    ) {
+        // CounterBase properties
         super(minimumValue, null, defaultValue);
         // Semi-required property
         setCurrent();
     }
     /**
-     * Counter.min:              PROVIDED
-     * Counter.max:          NOT PROVIDED
-     * Counter.defaultValue: NOT PROVIDED
+     * CounterBase.min:              PROVIDED
+     * CounterBase.max:          NOT PROVIDED
+     * CounterBase.defaultValue: NOT PROVIDED
+     * CounterBase.id:           NOT PROVIDED
+     * CounterBase.name:         NOT PROVIDED
      */
-    public Counter(int minimumValue) {
+    public Counter(
+        // CounterBase properties
+        int minimumValue
+    ) {
+        // CounterBase properties
         super(minimumValue);
         // Semi-required property
         setCurrent();
     }
     /**
-     * Counter.min:          NOT PROVIDED
-     * Counter.max:              PROVIDED
-     * Counter.defaultValue:     PROVIDED
+     * CounterBase.min:          NOT PROVIDED
+     * CounterBase.max:              PROVIDED
+     * CounterBase.defaultValue:     PROVIDED
+     * CounterBase.id:           NOT PROVIDED
+     * CounterBase.name:         NOT PROVIDED
      */
-    public Counter(Object minimumValue, int maximumValue, int defaultValue) {
+    public Counter(
+        // CounterBase properties
+        Object minimumValue, int maximumValue, int defaultValue
+    ) {
+        // CounterBase properties
         super(null, maximumValue, defaultValue);
         // Semi-required property
         setCurrent();
     }
     /**
-     * Counter.min:          NOT PROVIDED
-     * Counter.max:              PROVIDED
-     * Counter.defaultValue: NOT PROVIDED
+     * CounterBase.min:          NOT PROVIDED
+     * CounterBase.max:              PROVIDED
+     * CounterBase.defaultValue: NOT PROVIDED
+     * CounterBase.id:           NOT PROVIDED
+     * CounterBase.name:         NOT PROVIDED
      */
-    public Counter(Object minimumValue, int maximumValue) {
+    public Counter(
+        // CounterBase properties
+        Object minimumValue, int maximumValue
+    ) {
+        // CounterBase properties
         super(null, maximumValue);
         // Semi-required property
         setCurrent();
     }
     /**
-     * Counter.min:          NOT PROVIDED
-     * Counter.max:          NOT PROVIDED
-     * Counter.defaultValue:     PROVIDED
+     * CounterBase.min:          NOT PROVIDED
+     * CounterBase.max:          NOT PROVIDED
+     * CounterBase.defaultValue:     PROVIDED
+     * CounterBase.id:           NOT PROVIDED
+     * CounterBase.name:         NOT PROVIDED
      */
-    public Counter(Object minimumValue, Object maximumValue, int defaultValue) {
+    public Counter(
+        // CounterBase properties
+        Object minimumValue, Object maximumValue, int defaultValue
+    ) {
+        // CounterBase properties
         super(null, null, defaultValue);
         // Semi-required property
         setCurrent();
     }
+    /**
+     * CounterBase.min:          NOT PROVIDED
+     * CounterBase.max:          NOT PROVIDED
+     * CounterBase.defaultValue: NOT PROVIDED
+     * Counter.current:          NOT PROVIDED
+     * CounterBase.id:           NOT PROVIDED
+     * CounterBase.name:         NOT PROVIDED
+     */
     public Counter() {
         // CounterBase properties
         super();
