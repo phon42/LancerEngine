@@ -1,16 +1,36 @@
 package Packages.CoreTypes.Counter.counterBase;
 
 import java.util.Iterator;
-
 import Packages.CoreTypes.Counter.CounterBase;
 import Packages.CoreTypes.Counter.counterBase.counter.CounterIterator;
 
+/**
+ * Represents a counter. Contains information about that counter's current
+ *     value, maximum and minimum bounds, as well as an optional default value,
+ *     id, and name.
+ * 
+ * Requires nothing to be instantiated.
+ * 
+ * Used in CoreSystem.
+ * 
+ * Safety: At least one of this class' properties has an allowed value of null.
+ * 
+ * This class is mutable; it is necessary to create copies of objects of this
+ *     class to prevent them from being modified through other references to the
+ *     same object.
+ */
 public class Counter extends CounterBase implements Iterable<Integer> {
-    // Required property
+    // Semi-required (optional but has a specific default value other than null
+    //     when not provided) property
     /**
      * The current value of this counter.
+     * Can be any int between this.min and this.max (inclusive).
+     * 
+     * Default value: this.min.
      */
-    private int current;
+    protected int current;
+    // currentDefault purposefully removed because the relevant value is a
+    //     variable
 
     /**
      * Counter.min:              PROVIDED
@@ -19,7 +39,8 @@ public class Counter extends CounterBase implements Iterable<Integer> {
      */
     public Counter(int minimumValue, int maximumValue, int defaultValue) {
         super(minimumValue, maximumValue, defaultValue);
-        setCurrent(this.min);
+        // Semi-required property
+        setCurrent();
     }
     /**
      * Counter.min:              PROVIDED
@@ -28,7 +49,8 @@ public class Counter extends CounterBase implements Iterable<Integer> {
      */
     public Counter(int minimumValue, int maximumValue) {
         super(minimumValue, maximumValue);
-        setCurrent(this.min);
+        // Semi-required property
+        setCurrent();
     }
     /**
      * Counter.min:              PROVIDED
@@ -37,7 +59,8 @@ public class Counter extends CounterBase implements Iterable<Integer> {
      */
     public Counter(int minimumValue, Object maximumValue, int defaultValue) {
         super(minimumValue, null, defaultValue);
-        setCurrent(this.min);
+        // Semi-required property
+        setCurrent();
     }
     /**
      * Counter.min:              PROVIDED
@@ -46,7 +69,8 @@ public class Counter extends CounterBase implements Iterable<Integer> {
      */
     public Counter(int minimumValue) {
         super(minimumValue);
-        setCurrent(this.min);
+        // Semi-required property
+        setCurrent();
     }
     /**
      * Counter.min:          NOT PROVIDED
@@ -55,7 +79,8 @@ public class Counter extends CounterBase implements Iterable<Integer> {
      */
     public Counter(Object minimumValue, int maximumValue, int defaultValue) {
         super(null, maximumValue, defaultValue);
-        setCurrent(this.min);
+        // Semi-required property
+        setCurrent();
     }
     /**
      * Counter.min:          NOT PROVIDED
@@ -64,7 +89,8 @@ public class Counter extends CounterBase implements Iterable<Integer> {
      */
     public Counter(Object minimumValue, int maximumValue) {
         super(null, maximumValue);
-        setCurrent(this.min);
+        // Semi-required property
+        setCurrent();
     }
     /**
      * Counter.min:          NOT PROVIDED
@@ -73,26 +99,28 @@ public class Counter extends CounterBase implements Iterable<Integer> {
      */
     public Counter(Object minimumValue, Object maximumValue, int defaultValue) {
         super(null, null, defaultValue);
-        setCurrent(this.min);
+        // Semi-required property
+        setCurrent();
     }
     public Counter() {
+        // CounterBase properties
         super();
-        setCurrent(this.min);
+        // Semi-required property
+        setCurrent();
     }
     public Counter(Counter counter) {
-        setMin(counter.min);
-        setMax(counter.max);
-        setDefaultValue(counter.defaultValue);
-        setHasDefault(counter.hasDefault);
+        // CounterBase properties
+        super(counter);
+        // Semi-required property
         setCurrent(counter.current);
     }
 
-    // Required property
+    // Semi-required property
     public int getCurrent() {
         return current;
     }
-    // Required property
-    private void setCurrent(int current) {
+    // Semi-required property
+    protected void setCurrent(int current) {
         if (current < this.min) {
             throw new IllegalArgumentException("current: " + current + " is <"
                 + " this.min: " + this.min);
@@ -121,8 +149,12 @@ public class Counter extends CounterBase implements Iterable<Integer> {
         return String.format("Curr: %d\n(Min: %d - Max: %d - Def: %d)",
             current, min, max, defaultValue);
     }
+    @Override
     public Iterator<Integer> iterator() {
         return new CounterIterator(this);
+    }
+    protected void setCurrent() {
+        setCurrent(min);
     }
     // Special mutators
     public void increment() {
