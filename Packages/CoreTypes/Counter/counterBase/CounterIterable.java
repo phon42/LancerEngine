@@ -38,7 +38,7 @@ public class CounterIterable implements Iterable<Integer> {
     {
         HelperMethods.checkObject("counter", counter);
         if (iterateIncreasing) {
-            setCounterIterator(counter.iteratorIncreasing());
+            setCounterIterator(counter.iterator());
         } else {
             setCounterIterator(counter.iteratorDecreasing());
         }
@@ -47,7 +47,7 @@ public class CounterIterable implements Iterable<Integer> {
         boolean iterateIncreasing) {
         HelperMethods.checkObject("counterData", counterData);
         if (iterateIncreasing) {
-            setCounterIterator(counterData.iteratorIncreasing());
+            setCounterIterator(counterData.iterator());
         } else {
             setCounterIterator(counterData.iteratorDecreasing());
         }

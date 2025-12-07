@@ -687,9 +687,6 @@ public class Counter extends CounterBase implements Iterable<Integer> {
     }
     @Override
     public Iterator<Integer> iterator() {
-        return iteratorIncreasing();
-    }
-    protected Iterator<Integer> iteratorIncreasing() {
         return new CounterIterator(this, true);
     }
     protected Iterator<Integer> iteratorDecreasing() {
@@ -697,9 +694,6 @@ public class Counter extends CounterBase implements Iterable<Integer> {
     }
     protected void setCurrent() {
         setCurrent(min);
-    }
-    public Iterable<Integer> iterableIncreasing() {
-        return new CounterIterable(this, true);
     }
     public Iterable<Integer> iterableDecreasing() {
         return new CounterIterable(this, false);

@@ -159,16 +159,10 @@ public class CounterData extends CounterBase implements Iterable<Integer> {
     }
     @Override
     public Iterator<Integer> iterator() {
-        return iteratorIncreasing();
-    }
-    protected Iterator<Integer> iteratorIncreasing() {
-        return toCounter().iteratorIncreasing();
+        return toCounter().iterator();
     }
     protected Iterator<Integer> iteratorDecreasing() {
         return toCounter().iteratorDecreasing();
-    }
-    public Iterable<Integer> iterableIncreasing() {
-        return new CounterIterable(this, true);
     }
     public Iterable<Integer> iterableDecreasing() {
         return new CounterIterable(this, false);
