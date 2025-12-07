@@ -162,11 +162,22 @@ public class CounterData extends CounterBase implements Iterable<Integer> {
         return toCounter().iterator();
     }
     public Counter toCounter() {
+        return toCounter(true);
+    }
+    public Counter toCounter(boolean includeIdentifiers) {
         if (this.hasDefault) {
-            return new Counter(this.min, this.max, this.defaultValue, this.id,
-                this.name);
+            if (includeIdentifiers) {
+                return new Counter(this.min, this.max, this.defaultValue,
+                    this.id, this.name);
+            } else {
+                return new Counter(this.min, this.max, this.defaultValue);
+            }
         } else {
-            return new Counter(this.min, this.max, this.id, this.name);
+            if (includeIdentifiers) {
+                return new Counter(this.min, this.max, this.id, this.name);
+            } else {
+                return new Counter(this.min, this.max);
+            }
         }
     }
     public static Counter[] toCounter(CounterData[] input) {
