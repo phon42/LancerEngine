@@ -698,6 +698,12 @@ public class Counter extends CounterBase implements Iterable<Integer> {
     protected void setCurrent() {
         setCurrent(min);
     }
+    public Iterable<Integer> iterableIncreasing() {
+        return new CounterIterable(this, true);
+    }
+    public Iterable<Integer> iterableDecreasing() {
+        return new CounterIterable(this, false);
+    }
     // Special accessors
     public boolean isMin() {
         return current == min;
