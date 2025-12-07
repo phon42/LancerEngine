@@ -48,13 +48,23 @@ public class CounterIterator implements Iterator<Integer> {
 
     @Override
     public boolean hasNext() {
-        return ! counter.isMax();
+        if (iterateIncreasing) {
+            return ! counter.isMax();
+        } else {
+            return ! counter.isMin();
+        }
     }
     @Override
     public Integer next() {
-        counter.increment();
+        Integer curr = counter.getCurrent();
 
-        return counter.getCurrent();
+        if (iterateIncreasing) {
+            counter.increment();
+        } else {
+            counter.decrement();
+        }
+
+        return curr;
     }
     private void setCounter(CounterData counterData) {
         Counter counter;
