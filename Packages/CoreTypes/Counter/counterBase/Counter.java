@@ -144,6 +144,7 @@ public class Counter extends CounterBase implements Iterable<Integer> {
      * CounterBase.min:              PROVIDED
      * CounterBase.max:          NOT PROVIDED
      * CounterBase.defaultValue:     PROVIDED
+     * Counter.current:          NOT PROVIDED
      * CounterBase.id:           NOT PROVIDED
      * CounterBase.name:         NOT PROVIDED
      */
@@ -166,7 +167,8 @@ public class Counter extends CounterBase implements Iterable<Integer> {
      */
     public Counter(
         // CounterBase properties
-        int minimumValue, String id, String name
+        int minimumValue, Object maximumValue, Object defaultValue, String id,
+        String name
     ) {
         // CounterBase properties
         super(minimumValue, id, name);
