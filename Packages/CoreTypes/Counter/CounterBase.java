@@ -38,8 +38,10 @@ public class CounterBase {
      * CounterBase.max:              PROVIDED
      * CounterBase.defaultValue:     PROVIDED
      */
-    protected CounterBase(int minimumValue, int maximumValue, int defaultValue)
-    {
+    protected CounterBase(
+        // Semi-required properties
+        int minimumValue, int maximumValue, int defaultValue
+    ) {
         this();
         // Semi-required properties
         setMin(minimumValue);
@@ -53,7 +55,10 @@ public class CounterBase {
      * CounterBase.max:              PROVIDED
      * CounterBase.defaultValue: NOT PROVIDED
      */
-    protected CounterBase(int minimumValue, int maximumValue) {
+    protected CounterBase(
+        // Semi-required properties
+        int minimumValue, int maximumValue
+    ) {
         this();
         // Semi-required properties
         setMin(minimumValue);
@@ -67,8 +72,10 @@ public class CounterBase {
      * CounterBase.max:          NOT PROVIDED
      * CounterBase.defaultValue:     PROVIDED
      */
-    protected CounterBase(int minimumValue, Object maximumValue,
-        int defaultValue) {
+    protected CounterBase(
+        // Semi-required properties
+        int minimumValue, Object maximumValue, int defaultValue
+    ) {
         this();
         // Semi-required properties
         setMin(minimumValue);
@@ -81,7 +88,10 @@ public class CounterBase {
      * CounterBase.max:          NOT PROVIDED
      * CounterBase.defaultValue: NOT PROVIDED
      */
-    protected CounterBase(int minimumValue) {
+    protected CounterBase(
+        // Semi-required properties
+        int minimumValue
+    ) {
         this();
         // Semi-required properties
         setMin(minimumValue);
@@ -94,8 +104,10 @@ public class CounterBase {
      * CounterBase.max:              PROVIDED
      * CounterBase.defaultValue:     PROVIDED
      */
-    protected CounterBase(Object minimumValue, int maximumValue,
-        int defaultValue) {
+    protected CounterBase(
+        // Semi-required properties
+        Object minimumValue, int maximumValue, int defaultValue
+    ) {
         this();
         // Semi-required properties
         setMax(maximumValue);
@@ -108,7 +120,10 @@ public class CounterBase {
      * CounterBase.max:              PROVIDED
      * CounterBase.defaultValue: NOT PROVIDED
      */
-    protected CounterBase(Object minimumValue, int maximumValue) {
+    protected CounterBase(
+        // Semi-required properties
+        Object minimumValue, int maximumValue
+    ) {
         this();
         // Semi-required properties
         setMax(maximumValue);
@@ -121,8 +136,10 @@ public class CounterBase {
      * CounterBase.max:          NOT PROVIDED
      * CounterBase.defaultValue:     PROVIDED
      */
-    protected CounterBase(Object minimumValue, Object maximumValue,
-        int defaultValue) {
+    protected CounterBase(
+        // Semi-required properties
+        Object minimumValue, Object maximumValue, int defaultValue
+    ) {
         this();
         // Semi-required properties
         setDefaultValue(defaultValue);
