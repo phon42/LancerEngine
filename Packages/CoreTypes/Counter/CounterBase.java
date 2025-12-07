@@ -1,5 +1,19 @@
 package Packages.CoreTypes.Counter;
 
+/**
+ * Represents a counter of any type. Contains information about that counter's
+ *     maximum and minimum bounds, as well as an optional default value.
+ * 
+ * Requires nothing to be instantiated.
+ * 
+ * Used in and extended by Counter and CounterData.
+ * 
+ * Safety: None of this class' properties have allowed values of null.
+ * 
+ * This class is immutable (in other words, no copies of it need to be created).
+ *     However, it includes a copy constructor because at least one of its
+ *     children is not.
+ */
 public class CounterBase {
     // Semi-required (optional but has a specific default value other than null
     //     when not provided) properties
@@ -25,7 +39,8 @@ public class CounterBase {
      * Is only used when this.hasDefault is true.
      */
     protected int defaultValue;
-    // defaultValueDefault purposefully removed, the relevant value is variable
+    // defaultValueDefault purposefully removed because the relevant value is a
+    //     variable
 
     // Helper property
     /**
@@ -222,7 +237,7 @@ public class CounterBase {
         setMax(CounterBase.maxDefault);
     }
     protected void setDefaultValue() {
-        setDefaultValue(this.min);
+        setDefaultValue(min);
     }
     protected int bound(int min, int input, int max) {
         if (max < min) {
