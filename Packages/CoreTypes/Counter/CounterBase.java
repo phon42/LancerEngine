@@ -17,8 +17,6 @@ public class CounterBase {
      */
     protected int max;
     protected static final int maxDefault = Integer.MAX_VALUE;
-
-    // Optional property
     /**
      * The default value of this counter (i.e. 6).
      * Must be between this.min and this.max (inclusive).
@@ -27,6 +25,7 @@ public class CounterBase {
      * Is only used when this.hasDefault is true.
      */
     protected int defaultValue;
+    // defaultValueDefault purposefully removed, the relevant value is variable
 
     // Helper property
     /**
@@ -45,7 +44,6 @@ public class CounterBase {
         // Semi-required properties
         setMin(minimumValue);
         setMax(maximumValue);
-        // Optional property
         setDefaultValue(defaultValue);
         // Helper property
         setHasDefault(true);
@@ -60,8 +58,7 @@ public class CounterBase {
         // Semi-required properties
         setMin(minimumValue);
         setMax(maximumValue);
-        // Optional property
-        setDefaultValue(this.min);
+        setDefaultValue();
         // Helper property
         setHasDefault(false);
     }
@@ -75,7 +72,6 @@ public class CounterBase {
         this();
         // Semi-required properties
         setMin(minimumValue);
-        // Optional property
         setDefaultValue(defaultValue);
         // Helper property
         setHasDefault(true);
@@ -89,8 +85,7 @@ public class CounterBase {
         this();
         // Semi-required properties
         setMin(minimumValue);
-        // Optional property
-        setDefaultValue(this.min);
+        setDefaultValue();
         // Helper property
         setHasDefault(false);
     }
@@ -104,7 +99,6 @@ public class CounterBase {
         this();
         // Semi-required properties
         setMax(maximumValue);
-        // Optional property
         setDefaultValue(defaultValue);
         // Helper property
         setHasDefault(true);
@@ -118,8 +112,7 @@ public class CounterBase {
         this();
         // Semi-required properties
         setMax(maximumValue);
-        // Optional property
-        setDefaultValue(this.min);
+        setDefaultValue();
         // Helper property
         setHasDefault(false);
     }
@@ -131,7 +124,7 @@ public class CounterBase {
     protected CounterBase(Object minimumValue, Object maximumValue,
         int defaultValue) {
         this();
-        // Optional property
+        // Semi-required properties
         setDefaultValue(defaultValue);
         // Helper property
         setHasDefault(true);
@@ -143,17 +136,18 @@ public class CounterBase {
      */
     protected CounterBase() {
         // Semi-required properties
-        this.min = CounterBase.minDefault;
-        this.max = CounterBase.maxDefault;
-        // Optional property
-        this.defaultValue = this.min;
+        setMin();
+        setMax();
+        setDefaultValue();
         // Helper property
         setHasDefault(false);
     }
     protected CounterBase(CounterBase counterBase) {
+        // Semi-required properties
         setMin(counterBase.min);
         setMax(counterBase.max);
         setDefaultValue(counterBase.defaultValue);
+        // Helper property
         setHasDefault(counterBase.hasDefault);
     }
 
@@ -164,7 +158,6 @@ public class CounterBase {
     public int getMax() {
         return max;
     }
-    // Optional property
     public int getDefaultValue() {
         return defaultValue;
     }
@@ -181,7 +174,6 @@ public class CounterBase {
         max = bound(this.min, max, CounterBase.maxDefault);
         this.max = max;
     }
-    // Optional property
     protected void setDefaultValue(int defaultValue) {
         defaultValue = bound(this.min, defaultValue, this.max);
         this.defaultValue = defaultValue;
@@ -205,6 +197,15 @@ public class CounterBase {
     protected String toString(int min, int max, int defaultValue) {
         return String.format("(Min: %d - Max: %d - Def: %d)", min, max,
             defaultValue);
+    }
+    protected void setMin() {
+        setMin(CounterBase.minDefault);
+    }
+    protected void setMax() {
+        setMax(CounterBase.maxDefault);
+    }
+    protected void setDefaultValue() {
+        setDefaultValue(this.min);
     }
     protected int bound(int min, int input, int max) {
         if (max < min) {
