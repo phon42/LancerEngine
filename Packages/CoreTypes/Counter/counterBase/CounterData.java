@@ -22,8 +22,6 @@ public class CounterData extends CounterBase implements Iterable<Integer> {
     // protected String name;
 
     /**
-     * CounterBase.id:               PROVIDED
-     * CounterBase.name:             PROVIDED
      * CounterBase.min:              PROVIDED
      * CounterBase.max:              PROVIDED
      * CounterBase.defaultValue:     PROVIDED
@@ -37,8 +35,6 @@ public class CounterData extends CounterBase implements Iterable<Integer> {
         super(minimumValue, maximumValue, defaultValue, id, name);
     }
     /**
-     * CounterBase.id:               PROVIDED
-     * CounterBase.name:             PROVIDED
      * CounterBase.min:              PROVIDED
      * CounterBase.max:              PROVIDED
      * CounterBase.defaultValue: NOT PROVIDED
@@ -51,8 +47,6 @@ public class CounterData extends CounterBase implements Iterable<Integer> {
         super(minimumValue, maximumValue, id, name);
     }
     /**
-     * CounterBase.id:               PROVIDED
-     * CounterBase.name:             PROVIDED
      * CounterBase.min:              PROVIDED
      * CounterBase.max:          NOT PROVIDED
      * CounterBase.defaultValue:     PROVIDED
@@ -66,8 +60,6 @@ public class CounterData extends CounterBase implements Iterable<Integer> {
         super(minimumValue, null, defaultValue, id, name);
     }
     /**
-     * CounterBase.id:               PROVIDED
-     * CounterBase.name:             PROVIDED
      * CounterBase.min:              PROVIDED
      * CounterBase.max:          NOT PROVIDED
      * CounterBase.defaultValue: NOT PROVIDED
@@ -80,8 +72,6 @@ public class CounterData extends CounterBase implements Iterable<Integer> {
         super(minimumValue, id, name);
     }
     /**
-     * CounterBase.id:               PROVIDED
-     * CounterBase.name:             PROVIDED
      * CounterBase.min:          NOT PROVIDED
      * CounterBase.max:              PROVIDED
      * CounterBase.defaultValue:     PROVIDED
@@ -95,8 +85,6 @@ public class CounterData extends CounterBase implements Iterable<Integer> {
         super(null, maximumValue, defaultValue, id, name);
     }
     /**
-     * CounterBase.id:               PROVIDED
-     * CounterBase.name:             PROVIDED
      * CounterBase.min:          NOT PROVIDED
      * CounterBase.max:              PROVIDED
      * CounterBase.defaultValue: NOT PROVIDED
@@ -109,8 +97,6 @@ public class CounterData extends CounterBase implements Iterable<Integer> {
         super(null, maximumValue, id, name);
     }
     /**
-     * CounterBase.id:               PROVIDED
-     * CounterBase.name:             PROVIDED
      * CounterBase.min:          NOT PROVIDED
      * CounterBase.max:          NOT PROVIDED
      * CounterBase.defaultValue:     PROVIDED
@@ -124,8 +110,6 @@ public class CounterData extends CounterBase implements Iterable<Integer> {
         super(null, null, defaultValue, id, name);
     }
     /**
-     * CounterBase.id:               PROVIDED
-     * CounterBase.name:             PROVIDED
      * CounterBase.min:          NOT PROVIDED
      * CounterBase.max:          NOT PROVIDED
      * CounterBase.defaultValue: NOT PROVIDED
