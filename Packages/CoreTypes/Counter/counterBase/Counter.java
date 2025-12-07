@@ -57,6 +57,25 @@ public class Counter extends CounterBase implements Iterable<Integer> {
      * CounterBase.min:              PROVIDED
      * CounterBase.max:              PROVIDED
      * CounterBase.defaultValue:     PROVIDED
+     * Counter.current:              PROVIDED
+     * CounterBase.id:           NOT PROVIDED
+     * CounterBase.name:         NOT PROVIDED
+     */
+    public Counter(
+        // CounterBase properties
+        int minimumValue, int maximumValue, int defaultValue,
+        // Semi-required property
+        int current
+    ) {
+        // CounterBase properties
+        super(minimumValue, maximumValue, defaultValue);
+        // Semi-required property
+        setCurrent(current);
+    }
+    /**
+     * CounterBase.min:              PROVIDED
+     * CounterBase.max:              PROVIDED
+     * CounterBase.defaultValue:     PROVIDED
      * Counter.current:          NOT PROVIDED
      * CounterBase.id:               PROVIDED
      * CounterBase.name:             PROVIDED
@@ -92,6 +111,46 @@ public class Counter extends CounterBase implements Iterable<Integer> {
      * CounterBase.min:              PROVIDED
      * CounterBase.max:              PROVIDED
      * CounterBase.defaultValue: NOT PROVIDED
+     * Counter.current:              PROVIDED
+     * CounterBase.id:               PROVIDED
+     * CounterBase.name:             PROVIDED
+     */
+    public Counter(
+        // CounterBase properties (part 1)
+        int minimumValue, int maximumValue, Object defaultValue,
+        // Semi-required property
+        int current,
+        // CounterBase properties (part 2)
+        String id, String name
+    ) {
+        // CounterBase properties
+        super(minimumValue, maximumValue, id, name);
+        // Semi-required property
+        setCurrent(current);
+    }
+    /**
+     * CounterBase.min:              PROVIDED
+     * CounterBase.max:              PROVIDED
+     * CounterBase.defaultValue: NOT PROVIDED
+     * Counter.current:              PROVIDED
+     * CounterBase.id:           NOT PROVIDED
+     * CounterBase.name:         NOT PROVIDED
+     */
+    public Counter(
+        // CounterBase properties
+        int minimumValue, int maximumValue, Object defaultValue,
+        // Semi-required property
+        int current
+    ) {
+        // CounterBase properties
+        super(minimumValue, maximumValue);
+        // Semi-required property
+        setCurrent(current);
+    }
+    /**
+     * CounterBase.min:              PROVIDED
+     * CounterBase.max:              PROVIDED
+     * CounterBase.defaultValue: NOT PROVIDED
      * Counter.current:          NOT PROVIDED
      * CounterBase.id:               PROVIDED
      * CounterBase.name:             PROVIDED
@@ -121,6 +180,46 @@ public class Counter extends CounterBase implements Iterable<Integer> {
         super(minimumValue, maximumValue);
         // Semi-required property
         setCurrent();
+    }
+    /**
+     * CounterBase.min:              PROVIDED
+     * CounterBase.max:          NOT PROVIDED
+     * CounterBase.defaultValue:     PROVIDED
+     * Counter.current:              PROVIDED
+     * CounterBase.id:               PROVIDED
+     * CounterBase.name:             PROVIDED
+     */
+    public Counter(
+        // CounterBase properties (part 1)
+        int minimumValue, Object maximumValue, int defaultValue,
+        // Semi-required property
+        int current,
+        // CounterBase properties (part 2)
+        String id, String name
+    ) {
+        // CounterBase properties
+        super(minimumValue, null, defaultValue, id, name);
+        // Semi-required property
+        setCurrent(current);
+    }
+    /**
+     * CounterBase.min:              PROVIDED
+     * CounterBase.max:          NOT PROVIDED
+     * CounterBase.defaultValue:     PROVIDED
+     * Counter.current:              PROVIDED
+     * CounterBase.id:           NOT PROVIDED
+     * CounterBase.name:         NOT PROVIDED
+     */
+    public Counter(
+        // CounterBase properties
+        int minimumValue, Object maximumValue, int defaultValue,
+        // Semi-required property
+        int current
+    ) {
+        // CounterBase properties
+        super(minimumValue, null, defaultValue);
+        // Semi-required property
+        setCurrent(current);
     }
     /**
      * CounterBase.min:              PROVIDED
@@ -161,6 +260,46 @@ public class Counter extends CounterBase implements Iterable<Integer> {
      * CounterBase.min:              PROVIDED
      * CounterBase.max:          NOT PROVIDED
      * CounterBase.defaultValue: NOT PROVIDED
+     * Counter.current:              PROVIDED
+     * CounterBase.id:               PROVIDED
+     * CounterBase.name:             PROVIDED
+     */
+    public Counter(
+        // CounterBase properties (part 1)
+        int minimumValue, Object maximumValue, Object defaultValue,
+        // Semi-required property
+        int current,
+        // CounterBase properties (part 2)
+        String id, String name
+    ) {
+        // CounterBase properties
+        super(minimumValue, id, name);
+        // Semi-required property
+        setCurrent(current);
+    }
+    /**
+     * CounterBase.min:              PROVIDED
+     * CounterBase.max:          NOT PROVIDED
+     * CounterBase.defaultValue: NOT PROVIDED
+     * Counter.current:              PROVIDED
+     * CounterBase.id:           NOT PROVIDED
+     * CounterBase.name:         NOT PROVIDED
+     */
+    public Counter(
+        // CounterBase properties
+        int minimumValue, Object maximumValue, Object defaultValue,
+        // Semi-required property
+        int current
+    ) {
+        // CounterBase properties
+        super(minimumValue);
+        // Semi-required property
+        setCurrent(current);
+    }
+    /**
+     * CounterBase.min:              PROVIDED
+     * CounterBase.max:          NOT PROVIDED
+     * CounterBase.defaultValue: NOT PROVIDED
      * Counter.current:          NOT PROVIDED
      * CounterBase.id:               PROVIDED
      * CounterBase.name:             PROVIDED
@@ -191,6 +330,46 @@ public class Counter extends CounterBase implements Iterable<Integer> {
         super(minimumValue);
         // Semi-required property
         setCurrent();
+    }
+    /**
+     * CounterBase.min:          NOT PROVIDED
+     * CounterBase.max:              PROVIDED
+     * CounterBase.defaultValue:     PROVIDED
+     * Counter.current:              PROVIDED
+     * CounterBase.id:               PROVIDED
+     * CounterBase.name:             PROVIDED
+     */
+    public Counter(
+        // CounterBase properties (part 1)
+        Object minimumValue, int maximumValue, int defaultValue,
+        // Semi-required property
+        int current,
+        // CounterBase properties (part 2)
+        String id, String name
+    ) {
+        // CounterBase properties
+        super(null, maximumValue, defaultValue, id, name);
+        // Semi-required property
+        setCurrent(current);
+    }
+    /**
+     * CounterBase.min:          NOT PROVIDED
+     * CounterBase.max:              PROVIDED
+     * CounterBase.defaultValue:     PROVIDED
+     * Counter.current:              PROVIDED
+     * CounterBase.id:           NOT PROVIDED
+     * CounterBase.name:         NOT PROVIDED
+     */
+    public Counter(
+        // CounterBase properties
+        Object minimumValue, int maximumValue, int defaultValue,
+        // Semi-required property
+        int current
+    ) {
+        // CounterBase properties
+        super(null, maximumValue, defaultValue);
+        // Semi-required property
+        setCurrent(current);
     }
     /**
      * CounterBase.min:          NOT PROVIDED
@@ -231,6 +410,46 @@ public class Counter extends CounterBase implements Iterable<Integer> {
      * CounterBase.min:          NOT PROVIDED
      * CounterBase.max:              PROVIDED
      * CounterBase.defaultValue: NOT PROVIDED
+     * Counter.current:              PROVIDED
+     * CounterBase.id:               PROVIDED
+     * CounterBase.name:             PROVIDED
+     */
+    public Counter(
+        // CounterBase properties (part 1)
+        Object minimumValue, int maximumValue, Object defaultValue,
+        // Semi-required property
+        int current,
+        // CounterBase properties (part 2)
+        String id, String name
+    ) {
+        // CounterBase properties
+        super(null, maximumValue, id, name);
+        // Semi-required property
+        setCurrent(current);
+    }
+    /**
+     * CounterBase.min:          NOT PROVIDED
+     * CounterBase.max:              PROVIDED
+     * CounterBase.defaultValue: NOT PROVIDED
+     * Counter.current:              PROVIDED
+     * CounterBase.id:           NOT PROVIDED
+     * CounterBase.name:         NOT PROVIDED
+     */
+    public Counter(
+        // CounterBase properties
+        Object minimumValue, int maximumValue, Object defaultValue,
+        // Semi-required property
+        int current
+    ) {
+        // CounterBase properties
+        super(null, maximumValue);
+        // Semi-required property
+        setCurrent(current);
+    }
+    /**
+     * CounterBase.min:          NOT PROVIDED
+     * CounterBase.max:              PROVIDED
+     * CounterBase.defaultValue: NOT PROVIDED
      * Counter.current:          NOT PROVIDED
      * CounterBase.id:               PROVIDED
      * CounterBase.name:             PROVIDED
@@ -260,6 +479,46 @@ public class Counter extends CounterBase implements Iterable<Integer> {
         super(null, maximumValue);
         // Semi-required property
         setCurrent();
+    }
+    /**
+     * CounterBase.min:          NOT PROVIDED
+     * CounterBase.max:          NOT PROVIDED
+     * CounterBase.defaultValue:     PROVIDED
+     * Counter.current:              PROVIDED
+     * CounterBase.id:               PROVIDED
+     * CounterBase.name:             PROVIDED
+     */
+    public Counter(
+        // CounterBase properties (part 1)
+        Object minimumValue, Object maximumValue, int defaultValue,
+        // Semi-required property
+        int current,
+        // CounterBase properties (part 2)
+        String id, String name
+    ) {
+        // CounterBase properties
+        super(null, null, defaultValue, id, name);
+        // Semi-required property
+        setCurrent(current);
+    }
+    /**
+     * CounterBase.min:          NOT PROVIDED
+     * CounterBase.max:          NOT PROVIDED
+     * CounterBase.defaultValue:     PROVIDED
+     * Counter.current:              PROVIDED
+     * CounterBase.id:           NOT PROVIDED
+     * CounterBase.name:         NOT PROVIDED
+     */
+    public Counter(
+        // CounterBase properties
+        Object minimumValue, Object maximumValue, int defaultValue,
+        // Semi-required property
+        int current
+    ) {
+        // CounterBase properties
+        super(null, null, defaultValue);
+        // Semi-required property
+        setCurrent(current);
     }
     /**
      * CounterBase.min:          NOT PROVIDED
@@ -295,6 +554,44 @@ public class Counter extends CounterBase implements Iterable<Integer> {
         super(null, null, defaultValue);
         // Semi-required property
         setCurrent();
+    }
+    /**
+     * CounterBase.min:          NOT PROVIDED
+     * CounterBase.max:          NOT PROVIDED
+     * CounterBase.defaultValue: NOT PROVIDED
+     * Counter.current:              PROVIDED
+     * CounterBase.id:               PROVIDED
+     * CounterBase.name:             PROVIDED
+     */
+    public Counter(
+        // Semi-required property
+        int current,
+        // CounterBase properties
+        String id, String name
+    ) {
+        // CounterBase properties
+        super(id, name);
+        // Semi-required property
+        setCurrent(current);
+    }
+    /**
+     * CounterBase.min:          NOT PROVIDED
+     * CounterBase.max:          NOT PROVIDED
+     * CounterBase.defaultValue: NOT PROVIDED
+     * Counter.current:              PROVIDED
+     * CounterBase.id:           NOT PROVIDED
+     * CounterBase.name:         NOT PROVIDED
+     */
+    public Counter(
+        // CounterBase properties
+        Object minimumValue, Object maximumValue, Object defaultValue,
+        // Semi-required property
+        int current
+    ) {
+        // CounterBase properties
+        super();
+        // Semi-required property
+        setCurrent(current);
     }
     /**
      * CounterBase.min:          NOT PROVIDED
