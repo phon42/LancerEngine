@@ -141,6 +141,10 @@ public class CounterData extends CounterBase implements Iterable<Integer> {
             this.id, this.name, min, max, defaultValue
         );
     }
+    @Override
+    public Iterator<Integer> iterator() {
+        return toCounter().iterator();
+    }
     public Counter toCounter() {
         if (this.hasDefault) {
             return new Counter(this.min, this.max, this.defaultValue);
@@ -158,8 +162,5 @@ public class CounterData extends CounterBase implements Iterable<Integer> {
         }
 
         return result;
-    }
-    public Iterator<Integer> iterator() {
-        return toCounter().iterator();
     }
 }
