@@ -688,14 +688,13 @@ public class Counter extends CounterBase implements Iterable<Integer> {
     }
     @Override
     public Iterator<Integer> iterator() {
-        return iteratorUp();
+        return iteratorIncreasing();
     }
-    public Iterator<Integer> iteratorUp() {
-        return new CounterIterator(this);
+    public Iterator<Integer> iteratorIncreasing() {
+        return new CounterIterator(this, true);
     }
-    public Iterator<Integer> iteratorDown() {
-        // TODO: fill out
-        return new CounterIterator(this);
+    public Iterator<Integer> iteratorDecreasing() {
+        return new CounterIterator(this, false);
     }
     protected void setCurrent() {
         setCurrent(min);
