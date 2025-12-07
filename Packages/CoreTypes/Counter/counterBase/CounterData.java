@@ -6,167 +6,147 @@ import Packages.CoreTypes.Counter.CounterBase;
 
 public class CounterData extends CounterBase implements Iterable<Integer> {
     // Required properties
+    // TODO: figure out a way to override the documentation from CounterBase
     /**
      * The id of this counter (i.e. "ctr_brawler").
      * Can be any String except "". Cannot be null.
      * Case-insensitive and stored in lowercase.
      */
-    private String id;
+    // protected String id;
+    // TODO: figure out a way to override the documentation from CounterBase
     /**
      * The name of this counter (i.e. "Brawler Die").
      * Can be any String except "". Cannot be null.
      * Case-sensitive.
      */
-    private String name;
+    // protected String name;
 
     /**
-     * CounterData.min:              PROVIDED
-     * CounterData.max:              PROVIDED
-     * CounterData.defaultValue:     PROVIDED
+     * CounterBase.min:              PROVIDED
+     * CounterBase.max:              PROVIDED
+     * CounterBase.defaultValue:     PROVIDED
+     * CounterBase.id:               PROVIDED
+     * CounterBase.name:             PROVIDED
      */
     public CounterData(
-        // Required properties
-        String id, String name,
         // CounterBase properties
-        int minimumValue, int maximumValue, int defaultValue
+        String id, String name, int minimumValue, int maximumValue,
+        int defaultValue
     ) {
         // CounterBase properties
-        super(minimumValue, maximumValue, defaultValue);
-        // Required properties
-        setID(id);
-        setName(name);
+        super(minimumValue, maximumValue, defaultValue, id, name);
     }
     /**
-     * CounterData.min:              PROVIDED
-     * CounterData.max:              PROVIDED
-     * CounterData.defaultValue: NOT PROVIDED
+     * CounterBase.id:               PROVIDED
+     * CounterBase.name:             PROVIDED
+     * CounterBase.min:              PROVIDED
+     * CounterBase.max:              PROVIDED
+     * CounterBase.defaultValue: NOT PROVIDED
      */
     public CounterData(
-        // Required properties
-        String id, String name,
         // CounterBase properties
-        int minimumValue, int maximumValue
+        String id, String name, int minimumValue, int maximumValue
     ) {
         // CounterBase properties
-        super(minimumValue, maximumValue);
-        // Required properties
-        setID(id);
-        setName(name);
+        super(minimumValue, maximumValue, id, name);
     }
     /**
-     * CounterData.min:              PROVIDED
-     * CounterData.max:          NOT PROVIDED
-     * CounterData.defaultValue:     PROVIDED
+     * CounterBase.id:               PROVIDED
+     * CounterBase.name:             PROVIDED
+     * CounterBase.min:              PROVIDED
+     * CounterBase.max:          NOT PROVIDED
+     * CounterBase.defaultValue:     PROVIDED
      */
     public CounterData(
-        // Required properties
-        String id, String name,
         // CounterBase properties
-        int minimumValue, Object maximumValue, int defaultValue
+        String id, String name, int minimumValue, Object maximumValue,
+        int defaultValue
     ) {
         // CounterBase properties
-        super(minimumValue, null, defaultValue);
-        // Required properties
-        setID(id);
-        setName(name);
+        super(minimumValue, null, defaultValue, id, name);
     }
     /**
-     * CounterData.min:              PROVIDED
-     * CounterData.max:          NOT PROVIDED
-     * CounterData.defaultValue: NOT PROVIDED
+     * CounterBase.id:               PROVIDED
+     * CounterBase.name:             PROVIDED
+     * CounterBase.min:              PROVIDED
+     * CounterBase.max:          NOT PROVIDED
+     * CounterBase.defaultValue: NOT PROVIDED
      */
     public CounterData(
-        // Required properties
-        String id, String name,
         // CounterBase properties
-        int minimumValue
+        String id, String name, int minimumValue
     ) {
         // CounterBase properties
-        super(minimumValue);
-        // Required properties
-        setID(id);
-        setName(name);
+        super(minimumValue, id, name);
     }
     /**
-     * CounterData.min:          NOT PROVIDED
-     * CounterData.max:              PROVIDED
-     * CounterData.defaultValue:     PROVIDED
+     * CounterBase.id:               PROVIDED
+     * CounterBase.name:             PROVIDED
+     * CounterBase.min:          NOT PROVIDED
+     * CounterBase.max:              PROVIDED
+     * CounterBase.defaultValue:     PROVIDED
      */
     public CounterData(
-        // Required properties
-        String id, String name,
         // CounterBase properties
-        Object minimumValue, int maximumValue, int defaultValue
+        String id, String name, Object minimumValue, int maximumValue,
+        int defaultValue
     ) {
         // CounterBase properties
-        super(null, maximumValue, defaultValue);
-        // Required properties
-        setID(id);
-        setName(name);
+        super(null, maximumValue, defaultValue, id, name);
     }
     /**
-     * CounterData.min:          NOT PROVIDED
-     * CounterData.max:              PROVIDED
-     * CounterData.defaultValue: NOT PROVIDED
+     * CounterBase.id:               PROVIDED
+     * CounterBase.name:             PROVIDED
+     * CounterBase.min:          NOT PROVIDED
+     * CounterBase.max:              PROVIDED
+     * CounterBase.defaultValue: NOT PROVIDED
      */
     public CounterData(
-        // Required properties
-        String id, String name,
         // CounterBase properties
-        Object minimumValue, int maximumValue
+        String id, String name, Object minimumValue, int maximumValue
     ) {
         // CounterBase properties
-        super(null, maximumValue);
-        // Required properties
-        setID(id);
-        setName(name);
+        super(null, maximumValue, id, name);
     }
     /**
-     * CounterData.min:          NOT PROVIDED
-     * CounterData.max:          NOT PROVIDED
-     * CounterData.defaultValue:     PROVIDED
+     * CounterBase.id:               PROVIDED
+     * CounterBase.name:             PROVIDED
+     * CounterBase.min:          NOT PROVIDED
+     * CounterBase.max:          NOT PROVIDED
+     * CounterBase.defaultValue:     PROVIDED
      */
     public CounterData(
-        // Required properties
-        String id, String name,
         // CounterBase properties
-        Object minimumValue, Object maximumValue, int defaultValue
+        String id, String name, Object minimumValue, Object maximumValue,
+        int defaultValue
     ) {
         // CounterBase properties
-        super(null, null, defaultValue);
-        // Required properties
-        setID(id);
-        setName(name);
+        super(null, null, defaultValue, id, name);
     }
     /**
-     * CounterData.min:          NOT PROVIDED
-     * CounterData.max:          NOT PROVIDED
-     * CounterData.defaultValue: NOT PROVIDED
+     * CounterBase.id:               PROVIDED
+     * CounterBase.name:             PROVIDED
+     * CounterBase.min:          NOT PROVIDED
+     * CounterBase.max:          NOT PROVIDED
+     * CounterBase.defaultValue: NOT PROVIDED
      */
     public CounterData(
-        // Required properties
+        // CounterBase properties
         String id, String name
     ) {
-        super();
-        // Required properties
-        setID(id);
-        setName(name);
+        // CounterBase properties
+        super(id, name);
     }
 
     // Required properties
-    public String getID() {
-        return id;
-    }
-    public String getName() {
-        return name;
-    }
-    // Required properties
-    private void setID(String id) {
+    @Override
+    protected void setID(String id) {
         HelperMethods.checkString("id", id);
         id = id.toLowerCase();
         this.id = id;
     }
-    private void setName(String name) {
+    @Override
+    protected void setName(String name) {
         HelperMethods.checkString("name", name);
         this.name = name;
     }
