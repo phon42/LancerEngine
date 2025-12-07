@@ -679,11 +679,29 @@ public class Counter extends CounterBase implements Iterable<Integer> {
             current, min, max, defaultValue);
     }
     @Override
+    public boolean hasID() {
+        return super.hasID();
+    }
+    @Override
+    public boolean hasName() {
+        return super.hasName();
+    }
+    @Override
     public Iterator<Integer> iterator() {
         return new CounterIterator(this);
     }
     protected void setCurrent() {
         setCurrent(min);
+    }
+    // Special accessors
+    public boolean isMin() {
+        return current == min;
+    }
+    public boolean isMax() {
+        return current == max;
+    }
+    public boolean isDefault() {
+        return hasDefault && current == defaultValue;
     }
     // Special mutators
     public void increment() {
@@ -710,23 +728,5 @@ public class Counter extends CounterBase implements Iterable<Integer> {
                 + " when this.hasDefault is false");
         }
         setCurrent(defaultValue);
-    }
-    // Special accessors
-    public boolean isMin() {
-        return current == min;
-    }
-    public boolean isMax() {
-        return current == max;
-    }
-    public boolean isDefault() {
-        return hasDefault && current == defaultValue;
-    }
-    @Override
-    public boolean hasID() {
-        return super.hasID();
-    }
-    @Override
-    public boolean hasName() {
-        return super.hasName();
     }
 }
