@@ -456,6 +456,12 @@ public class CounterBase {
     protected void setDefaultValue() {
         setDefaultValue(min);
     }
+    protected boolean hasID() {
+        return id != null;
+    }
+    protected boolean hasName() {
+        return name != null;
+    }
     protected int bound(int min, int input, int max) {
         if (max < min) {
             throw new IllegalArgumentException("min: " + min + " is < max: "

@@ -708,4 +708,12 @@ public class Counter extends CounterBase implements Iterable<Integer> {
     public boolean isDefault() {
         return hasDefault && current == defaultValue;
     }
+    @Override
+    public boolean hasID() {
+        return super.hasID();
+    }
+    @Override
+    public boolean hasName() {
+        return super.hasName();
+    }
 }
