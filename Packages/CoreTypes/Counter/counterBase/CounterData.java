@@ -179,9 +179,10 @@ public class CounterData extends CounterBase implements Iterable<Integer> {
     }
     public Counter toCounter() {
         if (this.hasDefault) {
-            return new Counter(this.min, this.max, this.defaultValue);
+            return new Counter(this.min, this.max, this.defaultValue, this.id,
+                this.name);
         } else {
-            return new Counter(this.min, this.max);
+            return new Counter(this.min, this.max, this.id, this.name);
         }
     }
     public static Counter[] toCounter(CounterData[] input) {
