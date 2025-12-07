@@ -658,8 +658,21 @@ public class Counter extends CounterBase implements Iterable<Integer> {
     }
     @Override
     protected String toString(int min, int current, int max) {
-        return String.format("Curr: %d\n(Min: %d - Max: %d)", current,
-            min, max);
+        String outputString = "Curr: %d\n(Min: %d - Max: %d)";
+        String name = "Name: \"%s\"\n";
+        String id = "ID: \"%s\"\n";
+
+        outputString = String.format(outputString, current, min, max);
+        if (hasName()) {
+            name = String.format(name, this.name);
+            outputString = name + outputString;
+        }
+        if (hasID()) {
+            id = String.format(id, this.id);
+            outputString = id + outputString;
+        }
+
+        return outputString;
     }
     protected String toString(int min, int current, int max, int defaultValue) {
         return String.format("Curr: %d\n(Min: %d - Max: %d - Def: %d)",
