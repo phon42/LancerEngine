@@ -97,10 +97,8 @@ public class Counter extends CounterBase implements Iterable<Integer> {
      * CounterBase.name:             PROVIDED
      */
     public Counter(
-        // Semi-required properties
-        int minimumValue, int maximumValue,
-        // Optional properties
-        String id, String name
+        // CounterBase properties
+        int minimumValue, int maximumValue, String id, String name
     ) {
         // CounterBase properties
         super(minimumValue, maximumValue, id, name);
@@ -133,10 +131,9 @@ public class Counter extends CounterBase implements Iterable<Integer> {
      * CounterBase.name:             PROVIDED
      */
     public Counter(
-        // Semi-required properties
-        int minimumValue, Object maximumValue, int defaultValue,
-        // Optional properties
-        String id, String name
+        // CounterBase properties
+        int minimumValue, Object maximumValue, int defaultValue, String id,
+        String name
     ) {
         // CounterBase properties
         super(minimumValue, null, defaultValue, id, name);
@@ -168,10 +165,8 @@ public class Counter extends CounterBase implements Iterable<Integer> {
      * CounterBase.name:             PROVIDED
      */
     public Counter(
-        // Semi-required properties
-        int minimumValue,
-        // Optional properties
-        String id, String name
+        // CounterBase properties
+        int minimumValue, String id, String name
     ) {
         // CounterBase properties
         super(minimumValue, id, name);
@@ -204,10 +199,9 @@ public class Counter extends CounterBase implements Iterable<Integer> {
      * CounterBase.name:             PROVIDED
      */
     public Counter(
-        // Semi-required properties
-        Object minimumValue, int maximumValue, int defaultValue,
-        // Optional properties
-        String id, String name
+        // CounterBase properties
+        Object minimumValue, int maximumValue, int defaultValue, String id,
+        String name
     ) {
         // CounterBase properties
         super(null, maximumValue, defaultValue, id, name);
@@ -240,10 +234,8 @@ public class Counter extends CounterBase implements Iterable<Integer> {
      * CounterBase.name:             PROVIDED
      */
     public Counter(
-        // Semi-required properties
-        Object minimumValue, int maximumValue,
-        // Optional properties
-        String id, String name
+        // CounterBase properties
+        Object minimumValue, int maximumValue, String id, String name
     ) {
         // CounterBase properties
         super(null, maximumValue, id, name);
@@ -276,10 +268,9 @@ public class Counter extends CounterBase implements Iterable<Integer> {
      * CounterBase.name:             PROVIDED
      */
     public Counter(
-        // Semi-required properties
-        Object minimumValue, Object maximumValue, int defaultValue,
-        // Optional properties
-        String id, String name
+        // CounterBase properties
+        Object minimumValue, Object maximumValue, int defaultValue, String id,
+        String name
     ) {
         // CounterBase properties
         super(null, null, defaultValue, id, name);
@@ -312,9 +303,10 @@ public class Counter extends CounterBase implements Iterable<Integer> {
      * CounterBase.name:             PROVIDED
      */
     public Counter(
-        // Optional properties
+        // CounterBase properties
         String id, String name
     ) {
+        // CounterBase properties
         super(id, name);
         // Semi-required property
         setCurrent();
