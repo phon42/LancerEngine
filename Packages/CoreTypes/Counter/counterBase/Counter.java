@@ -689,10 +689,10 @@ public class Counter extends CounterBase implements Iterable<Integer> {
     public Iterator<Integer> iterator() {
         return iteratorIncreasing();
     }
-    public Iterator<Integer> iteratorIncreasing() {
+    protected Iterator<Integer> iteratorIncreasing() {
         return new CounterIterator(this, true);
     }
-    public Iterator<Integer> iteratorDecreasing() {
+    protected Iterator<Integer> iteratorDecreasing() {
         return new CounterIterator(this, false);
     }
     protected void setCurrent() {
