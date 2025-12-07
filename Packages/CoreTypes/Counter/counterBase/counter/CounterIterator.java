@@ -4,6 +4,7 @@ import java.util.Iterator;
 
 import MainBranch.HelperMethods;
 import Packages.CoreTypes.Counter.counterBase.Counter;
+import Packages.CoreTypes.Counter.counterBase.CounterData;
 
 public class CounterIterator implements Iterator<Integer> {
     // Required property
@@ -11,11 +12,21 @@ public class CounterIterator implements Iterator<Integer> {
     private boolean iterateIncreasing;
 
     public CounterIterator(Counter counter, boolean iterateIncreasing) {
+        this(iterateIncreasing);
         setCounter(counter);
-        setIterateIncreasing(iterateIncreasing);
     }
     public CounterIterator(Counter counter) {
         this(counter, true);
+    }
+    public CounterIterator(CounterData counterData, boolean iterateIncreasing) {
+        this(iterateIncreasing);
+        setCounter(counterData);
+    }
+    public CounterIterator(CounterData counterData) {
+        this(counterData, true);
+    }
+    private CounterIterator(boolean iterateIncreasing) {
+        setIterateIncreasing(iterateIncreasing);
     }
 
     // Required property
@@ -35,12 +46,24 @@ public class CounterIterator implements Iterator<Integer> {
         this.iterateIncreasing = iterateIncreasing;
     }
 
+    @Override
     public boolean hasNext() {
         return ! counter.isMax();
     }
+    @Override
     public Integer next() {
         counter.increment();
 
         return counter.getCurrent();
+    }
+    private void setCounter(CounterData counterData) {
+        Counter counter;
+
+        HelperMethods.checkObject("counterData", counterData);
+        counter = counterData.toCounter();
+        if (! iterateIncreasing) {
+            counter.setToMax();
+        }
+        setCounter(counter);
     }
 }
