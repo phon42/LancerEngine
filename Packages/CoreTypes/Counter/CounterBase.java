@@ -61,7 +61,7 @@ public class CounterBase {
         setMin(minimumValue);
         setMax(maximumValue);
         // Optional property
-        setDefaultValue(0);
+        setDefaultValue(this.min);
         // Helper property
         setHasDefault(false);
     }
@@ -90,7 +90,7 @@ public class CounterBase {
         // Semi-required properties
         setMin(minimumValue);
         // Optional property
-        setDefaultValue(0);
+        setDefaultValue(this.min);
         // Helper property
         setHasDefault(false);
     }
@@ -119,7 +119,7 @@ public class CounterBase {
         // Semi-required properties
         setMax(maximumValue);
         // Optional property
-        setDefaultValue(0);
+        setDefaultValue(this.min);
         // Helper property
         setHasDefault(false);
     }
@@ -146,7 +146,7 @@ public class CounterBase {
         this.min = CounterBase.minDefault;
         this.max = CounterBase.maxDefault;
         // Optional property
-        this.defaultValue = 0;
+        this.defaultValue = this.min;
         // Helper property
         setHasDefault(false);
     }
