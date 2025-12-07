@@ -688,6 +688,13 @@ public class Counter extends CounterBase implements Iterable<Integer> {
     }
     @Override
     public Iterator<Integer> iterator() {
+        return iteratorUp();
+    }
+    public Iterator<Integer> iteratorUp() {
+        return new CounterIterator(this);
+    }
+    public Iterator<Integer> iteratorDown() {
+        // TODO: fill out
         return new CounterIterator(this);
     }
     protected void setCurrent() {
@@ -704,29 +711,39 @@ public class Counter extends CounterBase implements Iterable<Integer> {
         return hasDefault && current == defaultValue;
     }
     // Special mutators
-    public void increment() {
-        increment(1);
+    public int increment() {
+        return increment(1);
     }
-    public void increment(int amount) {
+    public int increment(int amount) {
         setCurrent(current + amount);
+
+        return this.current;
     }
-    public void decrement() {
-        decrement(1);
+    public int decrement() {
+        return decrement(1);
     }
-    public void decrement(int amount) {
+    public int decrement(int amount) {
         setCurrent(current - amount);
+
+        return this.current;
     }
-    public void setToMin() {
+    public int setToMin() {
         setCurrent(min);
+
+        return this.current;
     }
-    public void setToMax() {
+    public int setToMax() {
         setCurrent(max);
+
+        return this.current;
     }
-    public void setToDefault() {
+    public int setToDefault() {
         if (! hasDefault) {
             throw new IllegalStateException("Called Counter.setToDefault()"
                 + " when this.hasDefault is false");
         }
         setCurrent(defaultValue);
+
+        return this.current;
     }
 }
