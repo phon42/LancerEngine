@@ -22,11 +22,11 @@ public class CounterData extends CounterBase implements Iterable<Integer> {
     // protected String name;
 
     /**
+     * CounterBase.id:               PROVIDED
+     * CounterBase.name:             PROVIDED
      * CounterBase.min:              PROVIDED
      * CounterBase.max:              PROVIDED
      * CounterBase.defaultValue:     PROVIDED
-     * CounterBase.id:               PROVIDED
-     * CounterBase.name:             PROVIDED
      */
     public CounterData(
         // CounterBase properties
