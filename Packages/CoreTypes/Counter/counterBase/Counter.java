@@ -2,7 +2,6 @@ package Packages.CoreTypes.Counter.counterBase;
 
 import java.util.Iterator;
 import Packages.CoreTypes.Counter.CounterBase;
-import Packages.CoreTypes.Counter.counterBase.counter.CounterIterator;
 
 /**
  * Represents a counter. Contains information about that counter's current
