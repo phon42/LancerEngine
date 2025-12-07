@@ -95,6 +95,11 @@ public class CounterData extends CounterBase implements Iterable<Integer> {
         setID(id);
         setName(name);
     }
+    /**
+     * CounterData.min:          NOT PROVIDED
+     * CounterData.max:          NOT PROVIDED
+     * CounterData.defaultValue: NOT PROVIDED
+     */
     public CounterData(String id, String name) {
         super();
         setID(id);
