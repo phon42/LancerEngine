@@ -24,9 +24,15 @@ public class CounterData extends CounterBase implements Iterable<Integer> {
      * CounterData.max:              PROVIDED
      * CounterData.defaultValue:     PROVIDED
      */
-    public CounterData(String id, String name, int minimumValue,
-        int maximumValue, int defaultValue) {
+    public CounterData(
+        // Required properties
+        String id, String name,
+        // CounterBase properties
+        int minimumValue, int maximumValue, int defaultValue
+    ) {
+        // CounterBase properties
         super(minimumValue, maximumValue, defaultValue);
+        // Required properties
         setID(id);
         setName(name);
     }
@@ -35,9 +41,15 @@ public class CounterData extends CounterBase implements Iterable<Integer> {
      * CounterData.max:              PROVIDED
      * CounterData.defaultValue: NOT PROVIDED
      */
-    public CounterData(String id, String name, int minimumValue,
-        int maximumValue) {
+    public CounterData(
+        // Required properties
+        String id, String name,
+        // CounterBase properties
+        int minimumValue, int maximumValue
+    ) {
+        // CounterBase properties
         super(minimumValue, maximumValue);
+        // Required properties
         setID(id);
         setName(name);
     }
@@ -46,9 +58,15 @@ public class CounterData extends CounterBase implements Iterable<Integer> {
      * CounterData.max:          NOT PROVIDED
      * CounterData.defaultValue:     PROVIDED
      */
-    public CounterData(String id, String name, int minimumValue,
-        Object maximumValue, int defaultValue) {
+    public CounterData(
+        // Required properties
+        String id, String name,
+        // CounterBase properties
+        int minimumValue, Object maximumValue, int defaultValue
+    ) {
+        // CounterBase properties
         super(minimumValue, null, defaultValue);
+        // Required properties
         setID(id);
         setName(name);
     }
@@ -57,8 +75,15 @@ public class CounterData extends CounterBase implements Iterable<Integer> {
      * CounterData.max:          NOT PROVIDED
      * CounterData.defaultValue: NOT PROVIDED
      */
-    public CounterData(String id, String name, int minimumValue) {
+    public CounterData(
+        // Required properties
+        String id, String name,
+        // CounterBase properties
+        int minimumValue
+    ) {
+        // CounterBase properties
         super(minimumValue);
+        // Required properties
         setID(id);
         setName(name);
     }
@@ -67,9 +92,15 @@ public class CounterData extends CounterBase implements Iterable<Integer> {
      * CounterData.max:              PROVIDED
      * CounterData.defaultValue:     PROVIDED
      */
-    public CounterData(String id, String name, Object minimumValue,
-        int maximumValue, int defaultValue) {
+    public CounterData(
+        // Required properties
+        String id, String name,
+        // CounterBase properties
+        Object minimumValue, int maximumValue, int defaultValue
+    ) {
+        // CounterBase properties
         super(null, maximumValue, defaultValue);
+        // Required properties
         setID(id);
         setName(name);
     }
@@ -78,9 +109,15 @@ public class CounterData extends CounterBase implements Iterable<Integer> {
      * CounterData.max:              PROVIDED
      * CounterData.defaultValue: NOT PROVIDED
      */
-    public CounterData(String id, String name, Object minimumValue,
-        int maximumValue) {
+    public CounterData(
+        // Required properties
+        String id, String name,
+        // CounterBase properties
+        Object minimumValue, int maximumValue
+    ) {
+        // CounterBase properties
         super(null, maximumValue);
+        // Required properties
         setID(id);
         setName(name);
     }
@@ -89,9 +126,15 @@ public class CounterData extends CounterBase implements Iterable<Integer> {
      * CounterData.max:          NOT PROVIDED
      * CounterData.defaultValue:     PROVIDED
      */
-    public CounterData(String id, String name, Object minimumValue,
-        Object maximumValue, int defaultValue) {
+    public CounterData(
+        // Required properties
+        String id, String name,
+        // CounterBase properties
+        Object minimumValue, Object maximumValue, int defaultValue
+    ) {
+        // CounterBase properties
         super(null, null, defaultValue);
+        // Required properties
         setID(id);
         setName(name);
     }
@@ -100,8 +143,12 @@ public class CounterData extends CounterBase implements Iterable<Integer> {
      * CounterData.max:          NOT PROVIDED
      * CounterData.defaultValue: NOT PROVIDED
      */
-    public CounterData(String id, String name) {
+    public CounterData(
+        // Required properties
+        String id, String name
+    ) {
         super();
+        // Required properties
         setID(id);
         setName(name);
     }
