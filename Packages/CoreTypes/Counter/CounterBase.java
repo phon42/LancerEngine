@@ -370,6 +370,7 @@ public class CounterBase {
         setHasDefault(false);
     }
     protected CounterBase(CounterBase counterBase) {
+        this();
         // Semi-required properties
         setMin(counterBase.min);
         setMax(counterBase.max);
