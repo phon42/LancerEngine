@@ -1,8 +1,8 @@
 package Packages.CoreTypes;
 
 public enum TriState {
-    TRUE(1),
     FALSE(0),
+    TRUE(1),
     UNSET(-1);
 
     private int value;
@@ -12,17 +12,13 @@ public enum TriState {
     }
 
     public boolean toBoolean() {
-        if (this.value > -1) {
+        if (this.value != -1) {
             return this.value == 1;
         }
         throw new IllegalStateException("Cannot convert TriState.UNSET to a"
             + " boolean");
     }
     public static TriState toTriState(boolean booleanValue) {
-        if (booleanValue) {
-            return TriState.TRUE;
-        }
-
-        return TriState.FALSE;
+        return booleanValue ? TriState.TRUE : TriState.FALSE;
     }
 }
