@@ -34,7 +34,7 @@ public final class Size {
         if (value != 1) {
             if (value % 2 != 0) {
                 throw new IllegalArgumentException("Size value: " + value
-                    + " is not 0 but (value % 2) is not 0");
+                    + " is odd (value % 2 != 0)");
             }
         }
         this.value = value;
