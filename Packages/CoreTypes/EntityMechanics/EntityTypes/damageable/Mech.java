@@ -323,6 +323,15 @@ public final class Mech implements Damageable {
         HelperMethods.checkObject("statblock", statblock);
         this.statblock = statblock;
     }
+    public void setCurrentStructure(int currentStructure) {
+        this.statblock.setCurrentStructure(currentStructure);
+    }
+    public void setCurrentHP(int currentHP) {
+        this.statblock.setCurrentHP(currentHP);
+    }
+    public void setCurrentStress(int currentStress) {
+        this.statblock.setCurrentStress(currentStress);
+    }
     /**
      * Sets this.currentHeat to the provided value and adds or removes
      *     "danger zone" from this.statuses to match.
@@ -358,6 +367,9 @@ public final class Mech implements Damageable {
      */
     public void setCurrentHeat(int currentHeat) {
         setCurrentHeat(currentHeat, true);
+    }
+    public void setCurrentRepairs(int currentRepairs) {
+        this.statblock.setCurrentRepairs(currentRepairs);
     }
     /**
      * Sets this.traits to the provided value.

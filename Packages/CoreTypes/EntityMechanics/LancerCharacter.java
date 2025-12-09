@@ -208,12 +208,6 @@ public final class LancerCharacter {
         mechProperties.put("name", this.mech.getName());
         mechProperties.put("frame", this.mech.getFrame());
 
-        mechProperties.put("manufacturer", this.mech.getManufacturer());
-        mechProperties.put("frameName", this.mech.getFrameName());
-        mechProperties.put("role", this.mech.getRole());
-        mechProperties.put("frameDescription",
-            this.mech.getFrameDescription());
-
         mechProperties.put("operatorNotes", this.mech.getOperatorNotes());
 
         mechProperties.put("size", this.mech.getSize());
